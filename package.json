@@ -35,10 +35,9 @@
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-typescript": "^4.0.0",
     "phantomjs-prebuilt": "^2.1.16",
-    "typescript": "^3.3.1"
+    "typescript": "^3.1.6"
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "es6-promise": "^4.2.5",
     "json2typescript": "^1.0.6",
     "jsonld": "^1.5.1",

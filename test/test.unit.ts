@@ -1,10 +1,20 @@
 import { Test } from "../src/test";
+import { AjaxError, AjaxResponse } from "rxjs/ajax";
 
 describe('Unit tests', () => {
 
-    it("should succeed", () => {
+    it("should succeed indeed", () => {
         const test = new Test();
-        expect(test.hello("dude")).toEqual("Hello, dude");
+        test.hello("dude").subscribe(
+            (value: AjaxResponse) => {
+                console.log(value);
+                expect(true).toBe(false);
+            },
+            (error: AjaxError) => {
+                console.error(error);
+                expect(true).toBe(false);
+            }
+        );
     });
 
 });
