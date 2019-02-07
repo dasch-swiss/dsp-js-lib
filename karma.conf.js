@@ -30,6 +30,21 @@ module.exports = function (config) {
             reports: {
                 "text": "",
                 "html": "coverage"
+            },
+            compilerOptions: {
+                "declaration": true,
+                "emitDecoratorMetadata": true,
+                "experimentalDecorators": true,
+                "lib": [
+                    "es6",
+                    "dom"
+                ],
+                "module": "commonjs",
+                "removeComments": false,
+                "target": "es5",
+                "sourceMap": true,
+                "strictNullChecks": true,
+                "noImplicitAny": true
             }
         },
         browserConsoleLogOptions: {
