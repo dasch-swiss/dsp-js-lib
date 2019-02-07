@@ -1,0 +1,38 @@
+{
+  "users": [
+    {
+      "familyName": "Admin-alt",
+      "givenName": "Administrator-alt",
+      "email": "root-alt@example.com",
+      "permissions": {
+        "groupsPerProject": {},
+        "administrativePermissionsPerProject": {}
+      },
+      "groups": [],
+      "id": "http://rdfh.ch/users/91e19f1e01",
+      "status": true,
+      "token": null,
+      "sessionId": null,
+      "projects": [],
+      "lang": "de",
+      "password": null
+    },
+    {
+      "familyName": "User",
+      "givenName": "User02",
+      "email": "user02.user@example.com",
+      "permissions": {
+        "groupsPerProject": {},
+        "administrativePermissionsPerProject": {}
+      },
+      "groups": [],
+      "id": "http://rdfh.ch/users/97cec4000f",
+      "status": true,
+      "token": null,
+      "sessionId": null,
+      "projects": [],
+      "lang": "de",
+      "password": null
+    }
+  ]
+}

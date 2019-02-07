@@ -1,14 +1,11 @@
-import axios from "axios";
+import { ajax, AjaxResponse } from "rxjs/ajax";
+import { Observable } from "rxjs";
 
 export class Test {
 
-    hello(name: string): string {
+    hello(name: string): Observable<AjaxResponse> {
 
-        /*axios.get("https://api-test.app/")
-            .then(data => console.log("DATA" + data))
-            .catch(error => console.error("ERROR" + error));*/
-
-        return "Hello, " + name;
+        return ajax.get("https://rotblau.app/users/");
 
     }
 

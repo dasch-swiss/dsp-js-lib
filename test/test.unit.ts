@@ -7,14 +7,15 @@ describe('Unit tests', () => {
         const test = new Test();
         test.hello("dude").subscribe(
             (value: AjaxResponse) => {
-                console.log(value);
+                console.log("here1");
                 expect(true).toBe(false);
             },
             (error: AjaxError) => {
-                console.error(error);
+                console.error("here2");
                 expect(true).toBe(false);
             }
         );
+        console.log("here");
     });
 
 });
