@@ -34,6 +34,7 @@ module.exports = function (config) {
             compilerOptions: {
                 "declaration": true,
                 "emitDecoratorMetadata": true,
+                "esModuleInterop": true,
                 "experimentalDecorators": true,
                 "lib": [
                     "es6",
@@ -41,6 +42,7 @@ module.exports = function (config) {
                 ],
                 "module": "commonjs",
                 "removeComments": false,
+                "resolveJsonModule": true,
                 "target": "es5",
                 "sourceMap": true,
                 "strictNullChecks": true,
