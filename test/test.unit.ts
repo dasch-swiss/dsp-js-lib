@@ -5,10 +5,38 @@ import get from "../test/data/api/admin/users/get.json";
 
 import { Users } from "../src/model/api/admin/users";
 import { UserList } from "../src/model/classes/admin/user-list";
+import { AjaxResponse } from "rxjs/ajax";
 
 describe('Test API /admin/users/ endpoints', () => {
 
-    it("should succeed indeed", () => {
+    let value: AjaxResponse;
+    let error: any;
+
+    beforeEach((done) => {
+
+        const user = new Users();
+
+        user.httpGet("").subscribe(
+            (_value: any) => {
+                value = _value;
+                done();
+            },
+            (_error: any) => {
+                error = _error;
+                done();
+            }
+        );
+
+    });
+
+    it("should check the endpoint class", () => {
+
+        expect(value).toBeUndefined();
+        expect(error).toBeDefined();
+
+    });
+
+    it("should check the function", () => {
 
         const users = new Users();
 

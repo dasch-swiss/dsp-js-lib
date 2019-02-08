@@ -17,7 +17,7 @@ export class Users extends Endpoint{
             map((result: any) => result),
             catchError(this.handlePrimaryRequestError)
         );
-        
+
     }
 
 }

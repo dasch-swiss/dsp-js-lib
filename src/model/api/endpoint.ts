@@ -25,7 +25,7 @@ export class Endpoint {
      */
     httpGet(path: string, params?: any): Observable<any> {
 
-        return ajax.get(path, { observe: 'response', params: params }).pipe(
+        return ajax.get(path).pipe(
             map((response: AjaxResponse): AjaxResponse => {
                 /*
                 const result = new ApiServiceResult();
