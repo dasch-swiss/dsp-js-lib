@@ -1,6 +1,8 @@
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { catchError, map } from "rxjs/operators";
+
 import { Endpoint } from "../endpoint";
+import { User } from "../../classes/admin/user";
 
 export class Users extends Endpoint{
 
@@ -9,15 +11,13 @@ export class Users extends Endpoint{
      *
      * @returns Observable<User[]>
      */
-    getAllUsers(): Observable<any[]> {
+    getAllUsers(): Observable<any> {
 
-        return this.httpGet("");
-
-
-        /*return this.httpGet('/admin/users').pipe(
-            map((result: ApiServiceResult) => result.getBody(UsersResponse).users),
-            catchError(this.handleJsonError)
-        );*/
+        return this.httpGet('/admin/users').pipe(
+            map((result: any) => result),
+            catchError(this.handlePrimaryRequestError)
+        );
+        
     }
 
 }

@@ -3,7 +3,18 @@ import { Observable, throwError } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { AjaxError } from "rxjs/internal/observable/dom/AjaxObservable";
 
+import { JsonConvert, ValueCheckingMode } from "json2typescript";
+
 export class Endpoint {
+
+    public jsonConvert: JsonConvert = new JsonConvert();
+
+    /**
+     * Constructor.
+     */
+    constructor() {
+        this.jsonConvert.valueCheckingMode = ValueCheckingMode.ALLOW_NULL;
+    }
 
     /**
      * Performs a general GET request.

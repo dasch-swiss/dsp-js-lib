@@ -1,21 +1,33 @@
-import { Test } from "../src/test";
-import { AjaxError, AjaxResponse } from "rxjs/ajax";
+import { Observable, of } from "rxjs";
+import { map } from "rxjs/operators";
 
-describe('Unit tests', () => {
+import get from "../test/data/api/admin/users/get.json";
+
+import { Users } from "../src/model/api/admin/users";
+import { UserList } from "../src/model/classes/admin/user-list";
+
+describe('Test API /admin/users/ endpoints', () => {
 
     it("should succeed indeed", () => {
-        const test = new Test();
-        test.hello("dude").subscribe(
-            (value: AjaxResponse) => {
-                console.log("here1");
-                expect(true).toBe(false);
-            },
-            (error: AjaxError) => {
-                console.error("here2");
-                expect(true).toBe(false);
+
+        const users = new Users();
+
+        spyOn(users, "getAllUsers").and.callFake(
+            (): Observable<UserList> => {
+                return of(get).pipe(
+                    map((v: any) => {
+                        return users.jsonConvert.deserialize(v, UserList)
+                    })
+                );
             }
         );
-        console.log("here");
+
+        users.getAllUsers().subscribe(
+            (userList: UserList) => {
+                expect(userList.users.length).toBeGreaterThan(0);
+            }
+        );
+
     });
 
 });
