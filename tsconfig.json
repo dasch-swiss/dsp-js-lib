@@ -22,9 +22,9 @@
     "**/*.spec.ts"
   ],
   "files": [
-    "index.ts",
+    "index.ts"
   ],
   "include": [
-    "src/**/*.ts"
+    "src/*.ts"
   ]
 }

@@ -1,0 +1,1 @@
+export { KnoraApiConnection } from "./src/knora-api-connection";

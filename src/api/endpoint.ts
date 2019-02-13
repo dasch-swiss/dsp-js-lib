@@ -12,7 +12,7 @@ export class Endpoint {
     /**
      * Constructor.
      */
-    constructor() {
+    constructor(protected readonly baseUrl: string) {
         this.jsonConvert.valueCheckingMode = ValueCheckingMode.ALLOW_NULL;
     }
 
@@ -27,15 +27,7 @@ export class Endpoint {
 
         return ajax.get(path).pipe(
             map((response: AjaxResponse): AjaxResponse => {
-                /*
-                const result = new ApiServiceResult();
-                result.status = response.status;
-                result.statusText = response.statusText;
-                result.url = path;
-                result.body = response.body;*/
-
-                return response;
-
+                return JSON.parse(response.response);
             }),
             catchError((error: AjaxError) => {
                 return this.handlePrimaryRequestError(error);
@@ -50,7 +42,11 @@ export class Endpoint {
      * @param error
      * @returns
      */
-    protected handlePrimaryRequestError(error: AjaxError): Observable<AjaxError> {
+    protected handlePrimaryRequestError(error: any): Observable<AjaxError> {
+
+        console.log(error);
+        console.log(error);
+
         /*
         // console.error(error);
         const serviceError = new ApiServiceError();

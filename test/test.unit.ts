@@ -3,25 +3,29 @@ import { map } from "rxjs/operators";
 
 import get from "../test/data/api/admin/users/get.json";
 
-import { Users } from "../src/model/api/admin/users";
-import { UserList } from "../src/model/classes/admin/user-list";
-import { AjaxResponse } from "rxjs/ajax";
+import { UsersEndpoint } from "../src/api/admin/users-endpoint";
+import { UserList } from "../src/classes/admin/user-list";
+import { AjaxError, AjaxResponse } from "rxjs/ajax";
+import { AdminEndpoints } from "../src/api/admin-endpoints";
+import { KnoraApiConnection } from "../src/knora-api-connection";
 
 describe('Test API /admin/users/ endpoints', () => {
+
+    const knoraApiConnection = new KnoraApiConnection("http://0.0.0.0:3333");
 
     let value: AjaxResponse;
     let error: any;
 
     beforeEach((done) => {
 
-        const user = new Users();
-
-        user.httpGet("").subscribe(
+        knoraApiConnection.adminEndpoint.usersEndpoint.getAllUsers().subscribe(
             (_value: any) => {
+                console.log(_value);
                 value = _value;
                 done();
             },
             (_error: any) => {
+                console.log(_error);
                 error = _error;
                 done();
             }
@@ -38,19 +42,18 @@ describe('Test API /admin/users/ endpoints', () => {
 
     it("should check the function", () => {
 
-        const users = new Users();
 
-        spyOn(users, "getAllUsers").and.callFake(
-            (): Observable<UserList> => {
+        spyOn(knoraApiConnection.adminEndpoint.usersEndpoint, "getAllUsers").and.callFake(
+            (): Observable<UserList | AjaxError> => {
                 return of(get).pipe(
                     map((v: any) => {
-                        return users.jsonConvert.deserialize(v, UserList)
+                        return knoraApiConnection.adminEndpoint.usersEndpoint.jsonConvert.deserializeObject(v, UserList)
                     })
                 );
             }
         );
 
-        users.getAllUsers().subscribe(
+        knoraApiConnection.adminEndpoint.usersEndpoint.getAllUsers().subscribe(
             (userList: UserList) => {
                 expect(userList.users.length).toBeGreaterThan(0);
             }

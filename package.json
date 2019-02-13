@@ -27,7 +27,6 @@
   "homepage": "https://github.com/dhlab-basel/knora-api-js-lib#readme",
   "devDependencies": {
     "@types/jasmine": "^3.3.8",
-    "@types/jsonld": "github:types/jsonld",
     "jasmine": "^3.3.1",
     "karma": "^4.0.0",
     "karma-jasmine": "^2.0.1",
@@ -39,7 +38,7 @@
   },
   "dependencies": {
     "es6-promise": "^4.2.5",
-    "json2typescript": "^1.0.6",
+    "json2typescript": "^1.1.1",
     "jsonld": "^1.5.1",
     "rxjs": "^6.4.0"
   }
