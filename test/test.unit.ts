@@ -3,10 +3,8 @@ import { map } from "rxjs/operators";
 
 import get from "../test/data/api/admin/users/get.json";
 
-import { UsersEndpoint } from "../src/api/admin/users-endpoint";
 import { UserList } from "../src/classes/admin/user-list";
 import { AjaxError, AjaxResponse } from "rxjs/ajax";
-import { AdminEndpoints } from "../src/api/admin-endpoints";
 import { KnoraApiConnection } from "../src/knora-api-connection";
 
 describe('Test API /admin/users/ endpoints', () => {
@@ -18,7 +16,7 @@ describe('Test API /admin/users/ endpoints', () => {
 
     beforeEach((done) => {
 
-        knoraApiConnection.adminEndpoint.usersEndpoint.getAllUsers().subscribe(
+        knoraApiConnection.admin.users.getAll().subscribe(
             (_value: any) => {
                 console.log(_value);
                 value = _value;
@@ -43,17 +41,17 @@ describe('Test API /admin/users/ endpoints', () => {
     it("should check the function", () => {
 
 
-        spyOn(knoraApiConnection.adminEndpoint.usersEndpoint, "getAllUsers").and.callFake(
+        spyOn(knoraApiConnection.admin.users, "getAll").and.callFake(
             (): Observable<UserList | AjaxError> => {
                 return of(get).pipe(
                     map((v: any) => {
-                        return knoraApiConnection.adminEndpoint.usersEndpoint.jsonConvert.deserializeObject(v, UserList)
+                        return knoraApiConnection.admin.users.jsonConvert.deserializeObject(v, UserList)
                     })
                 );
             }
         );
 
-        knoraApiConnection.adminEndpoint.usersEndpoint.getAllUsers().subscribe(
+        knoraApiConnection.admin.users.getAll().subscribe(
             (userList: UserList) => {
                 expect(userList.users.length).toBeGreaterThan(0);
             }

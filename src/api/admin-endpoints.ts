@@ -5,13 +5,13 @@ import { UsersEndpoint } from "./admin/users-endpoint";
 
 export class AdminEndpoints {
 
-    private _usersEndpoint: UsersEndpoint;
+    private _users: UsersEndpoint;
 
-    get usersEndpoint(): UsersEndpoint {
-        if (this._usersEndpoint instanceof UsersEndpoint === false) {
-            this._usersEndpoint = new UsersEndpoint(this.baseUrl);
+    get users(): UsersEndpoint {
+        if (this._users instanceof UsersEndpoint === false) {
+            this._users = new UsersEndpoint(this.baseUrl);
         }
-        return this._usersEndpoint;
+        return this._users;
     }
 
 

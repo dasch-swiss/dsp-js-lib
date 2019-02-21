@@ -13,7 +13,7 @@ export class Endpoint {
      * Constructor.
      */
     constructor(protected readonly baseUrl: string) {
-        this.jsonConvert.valueCheckingMode = ValueCheckingMode.ALLOW_NULL;
+        this.jsonConvert.valueCheckingMode = ValueCheckingMode.DISALLOW_NULL;
     }
 
     /**
@@ -26,10 +26,19 @@ export class Endpoint {
     httpGet(path: string, params?: any): Observable<any> {
 
         return ajax.get(path).pipe(
-            map((response: AjaxResponse): AjaxResponse => {
-                return JSON.parse(response.response);
+            map((response: AjaxResponse): any => {
+
+                console.log(response);
+
+                if (response.status >= 400) {
+                    throwError(response);
+                }
+
+                return response.response;
+
             }),
             catchError((error: AjaxError) => {
+                console.log(error);
                 return this.handlePrimaryRequestError(error);
             })
         );
@@ -43,9 +52,6 @@ export class Endpoint {
      * @returns
      */
     protected handlePrimaryRequestError(error: any): Observable<AjaxError> {
-
-        console.log(error);
-        console.log(error);
 
         /*
         // console.error(error);

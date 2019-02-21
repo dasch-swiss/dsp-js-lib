@@ -13,10 +13,10 @@ export class UsersEndpoint extends Endpoint {
      *
      * @returns Observable<User[]>
      */
-    getAllUsers(): Observable<UserList | AjaxError> {
+    getAll(): Observable<UserList | AjaxError> {
 
         return this.httpGet(this.baseUrl + "/admin/users").pipe(
-            map((result: any) => this.jsonConvert.deserializeObject<UserList>(result, UserList)),
+            map((result: UserList) => this.jsonConvert.deserializeObject<UserList>(result, UserList)),
             catchError(this.handlePrimaryRequestError)
         );
 

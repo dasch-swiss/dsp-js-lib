@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "karma start karma.conf.js",
-    "build": "npm run test && tsc",
-    "dist": "npm run build && npm pack"
+    "build": "tsc",
+    "dist": "npm run test && npm run build && npm pack"
   },
   "repository": {
     "type": "git",

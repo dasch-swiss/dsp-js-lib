@@ -11,13 +11,13 @@ export class User implements IUser {
     @JsonProperty("email", String)
     public email: string = "";
 
-    @JsonProperty("username", String, true)
+    @JsonProperty("username", String)
     public username: string = "";
 
-    @JsonProperty("password", String)
+    @JsonProperty("password", String, true)
     public password: string = "";
 
-    @JsonProperty("token", String)
+    //@JsonProperty("token", String)
     public token: string = "";
 
     @JsonProperty("givenName", String)
@@ -38,7 +38,7 @@ export class User implements IUser {
     @JsonProperty("projects", [Any])
     public projects: any[] = [];
 
-    @JsonProperty("sessionId", String)
+    //@JsonProperty("sessionId", String)
     public sessionId: string = "";
 
     @JsonProperty("permissions", Any)
