@@ -1,12 +1,22 @@
 {
-  "name": "api2js",
+  "name": "@knora/api",
   "version": "0.0.1",
   "description": "JavaScript library that handles API requests to Knora",
   "main": "index.js",
+  "files": [
+    "src/**/*.d.ts",
+    "src/**/*.map",
+    "src/**/*.js",
+    "index.d.ts",
+    "index.js.map",
+    "index.js"
+  ],
   "scripts": {
     "test": "karma start karma.conf.js",
     "build": "tsc",
-    "dist": "npm run test && npm run build && npm pack"
+    "dist": "npm run test && npm run build && npm pack",
+    "yalc-dist": "npm run build && yalc publish --push",
+    "publish": "npm run dist && npm publish"
   },
   "repository": {
     "type": "git",
@@ -38,7 +48,7 @@
   },
   "dependencies": {
     "es6-promise": "^4.2.5",
-    "json2typescript": "^1.1.1",
+    "json2typescript": "^1.2.0",
     "jsonld": "^1.5.1",
     "rxjs": "^6.4.0"
   }

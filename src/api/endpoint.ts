@@ -28,6 +28,8 @@ export class Endpoint {
         return ajax.get(path).pipe(
             map((response: AjaxResponse): any => {
 
+                console.log("lol");
+
                 console.log(response);
 
                 if (response.status >= 400) {
@@ -38,11 +40,16 @@ export class Endpoint {
 
             }),
             catchError((error: AjaxError) => {
+                console.log("doh!");
                 console.log(error);
                 return this.handlePrimaryRequestError(error);
             })
         );
 
+    }
+
+    httpPost(path: string, params?: any): Observable<any> {
+        return ajax.post(path);
     }
 
     /**

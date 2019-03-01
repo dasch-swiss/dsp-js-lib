@@ -1,6 +1,3 @@
-/**
- *
- */
 import { AdminEndpoints } from "./api/admin-endpoints";
 
 export class KnoraApiConnection {
