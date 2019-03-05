@@ -8,6 +8,14 @@ import { Endpoint } from "../endpoint";
 
 export class UsersEndpoint extends Endpoint {
 
+    // <editor-fold desc="">
+    // </editor-fold>
+
+    // <editor-fold desc="">
+    // </editor-fold>
+
+    // <editor-fold desc="">
+
     /**
      * Returns a list of all users.
      *
@@ -15,11 +23,17 @@ export class UsersEndpoint extends Endpoint {
      */
     getAll(): Observable<UserList | AjaxError> {
 
-        return this.httpGet(this.baseUrl + "/admin/users").pipe(
-            map((result: UserList) => this.jsonConvert.deserializeObject<UserList>(result, UserList)),
-            catchError(this.handlePrimaryRequestError)
+        return this.httpGet("").pipe(
+            map((result: UserList) => {
+                return this.jsonConvert.deserializeObject<UserList>(result, UserList)
+            }),
+            catchError(
+                this.handlePrimaryRequestError
+            )
         );
 
     }
+
+    // </editor-fold>
 
 }

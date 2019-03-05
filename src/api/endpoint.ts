@@ -4,15 +4,20 @@ import { catchError, map } from "rxjs/operators";
 import { AjaxError } from "rxjs/internal/observable/dom/AjaxObservable";
 
 import { JsonConvert, ValueCheckingMode } from "json2typescript";
+import { KnoraApiConfig } from "../knora-api-config";
 
 export class Endpoint {
+
+    protected readonly URL: any = {
+        ADMIN_USERS_GET: "/admin/users"
+    };
 
     public jsonConvert: JsonConvert = new JsonConvert();
 
     /**
      * Constructor.
      */
-    constructor(protected readonly baseUrl: string) {
+    constructor(protected readonly knoraApiConfig: KnoraApiConfig, protected readonly path: string) {
         this.jsonConvert.valueCheckingMode = ValueCheckingMode.DISALLOW_NULL;
     }
 
@@ -25,7 +30,7 @@ export class Endpoint {
      */
     httpGet(path: string, params?: any): Observable<any> {
 
-        return ajax.get(path).pipe(
+        return ajax.get(this.knoraApiConfig.apiUrl + this.path + path).pipe(
             map((response: AjaxResponse): any => {
 
                 console.log("lol");

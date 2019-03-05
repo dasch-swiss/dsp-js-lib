@@ -1,6 +1,6 @@
 import { Endpoint } from "../endpoint";
 
-export class AuthenticationEndpoints extends Endpoint {
+export class AuthenticationEndpoint extends Endpoint {
 
 
     login() {

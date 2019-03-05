@@ -9,7 +9,7 @@ import { KnoraApiConnection } from "../src/knora-api-connection";
 
 describe('Test API /admin/users/ endpoints', () => {
 
-    const knoraApiConnection = new KnoraApiConnection("http://0.0.0.0:3333");
+    const knoraApiConnection = new KnoraApiConnection("http://0.0.0.0", 3333);
 
     let value: AjaxResponse;
     let error: any;

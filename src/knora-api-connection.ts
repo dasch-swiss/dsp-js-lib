@@ -1,18 +1,54 @@
-import { AdminEndpoints } from "./api/admin-endpoints";
+import { AdminEndpoint } from "./api/admin-endpoint";
+import { KnoraApiConfig } from "./knora-api-config";
 
+/**
+ * Offers methods for JavaScript developers to interact with the Knora API.
+ */
 export class KnoraApiConnection {
 
-    private _admin: AdminEndpoints;
+    ///////////////
+    // CONSTANTS //
+    ///////////////
 
-    get admin(): AdminEndpoints {
-        if (this._admin instanceof AdminEndpoints === false) {
-            this._admin = new AdminEndpoints(this.baseUrl);
-        }
-        return this._admin;
+    // <editor-fold desc="">
+    // </editor-fold>
+
+    ////////////////
+    // PROPERTIES //
+    ////////////////
+
+    // <editor-fold desc="">
+
+    public readonly admin: AdminEndpoint;
+
+    // </editor-fold>
+
+    /////////////////
+    // CONSTRUCTOR //
+    /////////////////
+
+    // <editor-fold desc="">
+
+    /**
+     * Constructor.
+     * Sets up all endpoints for the Knora API.
+     * @param knoraApiConfig
+     */
+    constructor(knoraApiConfig: KnoraApiConfig) {
+
+        // Instantiate the endpoints
+        this.admin = new AdminEndpoint(knoraApiConfig, "/admin");
+        // todo more
+
     }
 
-    constructor(public readonly baseUrl: string) {
+    // </editor-fold>
 
-    }
+    /////////////
+    // METHODS //
+    /////////////
+
+    // <editor-fold desc="">
+    // </editor-fold>
 
 }
