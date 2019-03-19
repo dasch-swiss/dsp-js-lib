@@ -8,11 +8,30 @@ import { Endpoint } from "../endpoint";
 
 export class UsersEndpoint extends Endpoint {
 
-    // <editor-fold desc="">
-    // </editor-fold>
+    ///////////////
+    // CONSTANTS //
+    ///////////////
 
     // <editor-fold desc="">
     // </editor-fold>
+
+    ////////////////
+    // PROPERTIES //
+    ////////////////
+
+    // <editor-fold desc="">
+    // </editor-fold>
+
+    /////////////////
+    // CONSTRUCTOR //
+    /////////////////
+
+    // <editor-fold desc="">
+    // </editor-fold>
+
+    /////////////
+    // METHODS //
+    /////////////
 
     // <editor-fold desc="">
 

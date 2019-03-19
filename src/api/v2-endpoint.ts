@@ -52,17 +52,4 @@ export class V2Endpoint extends Endpoint {
     // <editor-fold desc="">
     // </editor-fold>
 
-
-    // <editor-fold desc="Properties">
-
-    // </editor-fold>
-
-    // <editor-fold desc="Constructors">
-
-
-    // </editor-fold>
-
-    // <editor-fold desc="Methods">
-    // </editor-fold>
-
 }
