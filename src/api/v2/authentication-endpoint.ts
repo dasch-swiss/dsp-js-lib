@@ -1,6 +1,6 @@
 import { Endpoint } from "../endpoint";
 import { Observable } from "rxjs";
-import { UserList } from "../../classes/admin";
+import { UserList } from "../../models/admin";
 import { AjaxError } from "rxjs/ajax";
 import { catchError, map } from "rxjs/operators";
 

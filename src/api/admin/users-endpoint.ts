@@ -1,12 +1,13 @@
 import { Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 
-import { User } from "../../classes/admin/user";
-import { UserList } from "../../classes/admin/user-list";
+import { User } from "../../models/admin/user";
+import { UserList } from "../../models/admin/user-list";
 import { AjaxError } from "rxjs/ajax";
 import { Endpoint } from "../endpoint";
+import { IUsersEndpoint, IUsersEndpointUrl } from "../../interfaces/api/admin/i-users-endpoint";
 
-export class UsersEndpoint extends Endpoint {
+export class UsersEndpoint extends Endpoint implements IUsersEndpoint  {
 
     ///////////////
     // CONSTANTS //
@@ -42,7 +43,12 @@ export class UsersEndpoint extends Endpoint {
      */
     getAll(): Observable<UserList | AjaxError> {
 
-        return this.httpGet("").pipe(
+        const url = IUsersEndpointUrl.get(arguments.callee.name);
+        console.log(url);
+
+        if (!url) return this.handlePrimaryRequestError(undefined);
+
+        return this.httpGet(url).pipe(
             map((result: UserList) => {
                 return this.jsonConvert.deserializeObject<UserList>(result, UserList)
             }),

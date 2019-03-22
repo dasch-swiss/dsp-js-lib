@@ -1,6 +1,6 @@
 import { Any, JsonObject, JsonProperty } from "json2typescript";
 
-import { IUser } from "../../interfaces/admin/i-user";
+import { IUser } from "../../interfaces/models/admin/i-user";
 
 @JsonObject("User")
 export class User implements IUser {

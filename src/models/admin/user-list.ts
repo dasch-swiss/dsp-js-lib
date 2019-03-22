@@ -1,6 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 
-import { IUserList } from "../../interfaces/admin/i-user-list";
+import { IUserList } from "../../interfaces/models/admin/i-user-list";
 import { User } from "./user";
 
 @JsonObject("UserList")
