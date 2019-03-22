@@ -3,7 +3,7 @@ import { map } from "rxjs/operators";
 
 import get from "../test/data/api/admin/users/get.json";
 
-import { UserList } from "../src/classes/admin/user-list";
+import { UserList } from "../src/models/admin/user-list";
 import { AjaxError, AjaxResponse } from "rxjs/ajax";
 import { KnoraApiConnection } from "../src/knora-api-connection";
 
