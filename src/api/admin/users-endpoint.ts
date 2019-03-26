@@ -43,12 +43,7 @@ export class UsersEndpoint extends Endpoint implements IUsersEndpoint  {
      */
     getAll(): Observable<UserList | AjaxError> {
 
-        const url = IUsersEndpointUrl.get(arguments.callee.name);
-        console.log(url);
-
-        if (!url) return this.handlePrimaryRequestError(undefined);
-
-        return this.httpGet(url).pipe(
+        return this.httpGet("").pipe(
             map((result: UserList) => {
                 return this.jsonConvert.deserializeObject<UserList>(result, UserList)
             }),
