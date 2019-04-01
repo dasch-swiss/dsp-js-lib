@@ -1,6 +1,6 @@
-import { AdminEndpoint } from "./api/admin-endpoint";
+import { AdminEndpoint } from "./api/admin/admin-endpoint";
 import { KnoraApiConfig } from "./knora-api-config";
-import { V2Endpoint } from "./api/v2-endpoint";
+import { V2Endpoint } from "./api/v2/v2-endpoint";
 
 /**
  * Offers methods for JavaScript developers to interact with the Knora API.

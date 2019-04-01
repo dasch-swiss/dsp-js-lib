@@ -1,6 +1,6 @@
-import { UsersEndpoint } from "./admin/users-endpoint";
-import { KnoraApiConfig } from "../knora-api-config";
-import { Endpoint } from "./endpoint";
+import { UsersEndpoint } from "./users/users-endpoint";
+import { KnoraApiConfig } from "../../knora-api-config";
+import { Endpoint } from "../endpoint";
 
 export class AdminEndpoint extends Endpoint {
 

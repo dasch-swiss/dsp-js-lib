@@ -1,11 +1,11 @@
 import { Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 
-import { User } from "../../models/admin/user";
-import { UserList } from "../../models/admin/user-list";
+import { User } from "../../../models/admin/user";
+import { UserList } from "../../../models/admin/user-list";
 import { AjaxError } from "rxjs/ajax";
-import { Endpoint } from "../endpoint";
-import { IUsersEndpoint, IUsersEndpointUrl } from "../../interfaces/api/admin/i-users-endpoint";
+import { Endpoint } from "../../endpoint";
+import { IUsersEndpoint, IUsersEndpointUrl } from "../../../interfaces/api/admin/i-users-endpoint";
 
 export class UsersEndpoint extends Endpoint implements IUsersEndpoint  {
 
@@ -44,7 +44,7 @@ export class UsersEndpoint extends Endpoint implements IUsersEndpoint  {
     getAll(): Observable<UserList | AjaxError> {
 
         return this.httpGet("").pipe(
-            map((result: UserList) => {
+            map((result: any) => {
                 return this.jsonConvert.deserializeObject<UserList>(result, UserList)
             }),
             catchError(

@@ -1,8 +1,8 @@
-import { Endpoint } from "../endpoint";
 import { Observable } from "rxjs";
-import { UserList } from "../../models/admin";
 import { AjaxError } from "rxjs/ajax";
 import { catchError, map } from "rxjs/operators";
+
+import { Endpoint } from "../../endpoint";
 
 export class AuthenticationEndpoint extends Endpoint {
 
@@ -35,18 +35,30 @@ export class AuthenticationEndpoint extends Endpoint {
 
     /**
      * Logs in a user.
-     *
-     * @returns Observable<User[]>
      */
-    login(): Observable<UserList | AjaxError> {
-        throw new Error("Not implemented");
+    login(username: string, password: string): Observable<string | AjaxError> {
+        return this.httpPost("", {
+            username: username,
+            password: password
+        }).pipe(
+            map((result: any): string => {
+                const token: string | undefined = result["token"];
+                if (token) {
+                    this.sessionToken = token;
+                    return token;
+                } else {
+                    throw Error("Invalid JSON returned, no token available");
+                }
+            }),
+            catchError(this.handlePrimaryRequestError)
+        );
     }
 
     /**
      * Logs out the user and destroys the session server- and client-side.
      */
     logout() {
-        throw new Error("Not implemented");
+        this.sessionToken = "";
     }
 
     // </editor-fold>

@@ -1,6 +1,6 @@
-import { KnoraApiConfig } from "../knora-api-config";
-import { Endpoint } from "./endpoint";
-import { AuthenticationEndpoint } from "./v2/authentication-endpoint";
+import { KnoraApiConfig } from "../../knora-api-config";
+import { Endpoint } from "../endpoint";
+import { AuthenticationEndpoint } from "./authentication/authentication-endpoint";
 
 export class V2Endpoint extends Endpoint {
 
