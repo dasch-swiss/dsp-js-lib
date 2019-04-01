@@ -37,6 +37,7 @@ export class AuthenticationEndpoint extends Endpoint {
      * Logs in a user.
      */
     login(username: string, password: string): Observable<string | AjaxError> {
+
         return this.httpPost("", {
             username: username,
             password: password
@@ -44,7 +45,7 @@ export class AuthenticationEndpoint extends Endpoint {
             map((result: any): string => {
                 const token: string | undefined = result["token"];
                 if (token) {
-                    this.sessionToken = token;
+                    this.jsonWebToken = token;
                     return token;
                 } else {
                     throw Error("Invalid JSON returned, no token available");
@@ -52,13 +53,15 @@ export class AuthenticationEndpoint extends Endpoint {
             }),
             catchError(this.handlePrimaryRequestError)
         );
+
     }
 
     /**
      * Logs out the user and destroys the session server- and client-side.
      */
-    logout() {
-        this.sessionToken = "";
+    logout(): Observable<any | AjaxError> {
+        this.jsonWebToken = "";
+        return this.httpDelete("");
     }
 
     // </editor-fold>

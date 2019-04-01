@@ -4,9 +4,9 @@ import { catchError, map } from "rxjs/operators";
 import { AjaxError } from "rxjs/internal/observable/dom/AjaxObservable";
 
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
+import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 
 import { KnoraApiConfig } from "../knora-api-config";
-import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 
 export class Endpoint {
 
@@ -41,7 +41,16 @@ export class Endpoint {
     /**
      * The session token
      */
-    protected static sessionToken: string = "";
+    set jsonWebToken(value: string) {
+        this.knoraApiConfig.jsonWebToken = value;
+    }
+
+    /**
+     * The session token
+     */
+    get jsonWebToken(): string {
+        return this.knoraApiConfig.jsonWebToken;
+    }
 
     // </editor-fold>
 
@@ -73,7 +82,7 @@ export class Endpoint {
     protected httpGet(path: string): Observable<any> {
 
         return ajax.get(this.knoraApiConfig.apiUrl + this.path + path, {
-            "Authorization": "Bearer " + Endpoint.sessionToken,
+            "Authorization": "Bearer " + this.jsonWebToken,
             "Content-Type": "application/json"
         }).pipe(
             map((response: AjaxResponse): any => {
@@ -95,7 +104,7 @@ export class Endpoint {
     protected httpPost(path: string, body?: any): Observable<any> {
 
         return ajax.post(this.knoraApiConfig.apiUrl + this.path + path, body, {
-            "Authorization": "Bearer " + Endpoint.sessionToken,
+            "Authorization": "Bearer " + this.jsonWebToken,
             "Content-Type": "application/json"
         }).pipe(
             map((response: AjaxResponse): any => {
@@ -117,7 +126,7 @@ export class Endpoint {
     protected httpPut(path: string, body?: any): Observable<any> {
 
         return ajax.put(this.knoraApiConfig.apiUrl + this.path + path, body, {
-            "Authorization": "Bearer " + this.sessionToken,
+            "Authorization": "Bearer " + this.jsonWebToken,
             "Content-Type": "application/json"
         }).pipe(
             map((response: AjaxResponse): any => {
@@ -139,7 +148,7 @@ export class Endpoint {
     protected httpPatch(path: string, body?: any): Observable<any> {
 
         return ajax.patch(this.knoraApiConfig.apiUrl + this.path + path, body, {
-            "Authorization": "Bearer " + this.sessionToken,
+            "Authorization": "Bearer " + this.jsonWebToken,
             "Content-Type": "application/json"
         }).pipe(
             map((response: AjaxResponse): any => {
@@ -160,7 +169,7 @@ export class Endpoint {
     protected httpDelete(path: string): Observable<any> {
 
         return ajax.delete(this.knoraApiConfig.apiUrl + this.path + path, {
-            "Authorization": "Bearer " + this.sessionToken,
+            "Authorization": "Bearer " + this.jsonWebToken,
             "Content-Type": "application/json"
         }).pipe(
             map((response: AjaxResponse): any => {

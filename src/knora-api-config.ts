@@ -41,11 +41,13 @@ export class KnoraApiConfig {
      * @param apiHost the API base URL
      * @param apiPort the port of the Knora API
      * @param apiPath the base path following
+     * @param jsonWebToken token to identify the user
      */
     constructor(public apiProtocol: "http" | "https",
                 public apiHost: string,
                 public apiPort: number = KnoraApiConfig.DEFAULT_PORT,
-                public apiPath: string = KnoraApiConfig.DEFAULT_PATH) {
+                public apiPath: string = KnoraApiConfig.DEFAULT_PATH,
+                public jsonWebToken: string = "") {
     }
 
     // </editor-fold>
