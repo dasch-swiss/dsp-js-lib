@@ -44,6 +44,7 @@
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-typescript": "^4.0.0",
     "phantomjs-prebuilt": "^2.1.16",
+    "tslint": "^5.15.0",
     "typescript": "^3.3.3333"
   },
   "dependencies": {
