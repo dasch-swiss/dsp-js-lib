@@ -1,0 +1,101 @@
+import { AjaxError, AjaxResponse } from "rxjs/ajax";
+
+import { JsonConvert } from "json2typescript";
+
+import { DataError } from "./data-error";
+import { ApiResponse } from "./api-response";
+import { ApiResponseError } from "./api-response-error";
+
+export class ApiResponseData<T> extends ApiResponse {
+
+    ///////////////
+    // CONSTANTS //
+    ///////////////
+
+    // <editor-fold desc="">
+    // </editor-fold>
+
+    ////////////////
+    // PROPERTIES //
+    ////////////////
+
+    // <editor-fold desc="">
+
+    /**
+     * Original HTTP method
+     */
+    method: string = "";
+
+    /**
+     * Request URL
+     */
+    url: string = "";
+
+    /**
+     * Status number
+     */
+    status: number = 0;
+
+    /**
+     * The returned data from the body
+     */
+    body: T;
+
+    /**
+     * Detailed AjaxResponse, if applicable
+     */
+    response: AjaxResponse;
+
+    // </editor-fold>
+
+    /////////////////
+    // CONSTRUCTOR //
+    /////////////////
+
+    // <editor-fold desc="">
+
+    /**
+     * Constructor.
+     */
+    private constructor() {
+        super();
+    }
+
+    // </editor-fold>
+
+    /////////////
+    // METHODS //
+    /////////////
+
+    // <editor-fold desc="">
+
+    /**
+     * Create an instance from an AjaxResponse.
+     * If the return type in the body shall be checked, this method requires the arguments dataType and jsonConvert
+     * @throws DataError
+     */
+    static fromAjaxResponse<T>(ajaxResponse: AjaxResponse,
+                               dataType?: { new(): T },
+                               jsonConvert?: JsonConvert): ApiResponseData<T> {
+
+        const responseData = new ApiResponseData<T>();
+
+        responseData.response = ajaxResponse;
+        if (ajaxResponse.request && ajaxResponse.request.method) responseData.method = ajaxResponse.request.method;
+        if (ajaxResponse.request && ajaxResponse.request.url) responseData.url = ajaxResponse.request.url;
+        if (ajaxResponse.xhr) responseData.status = ajaxResponse.xhr.status;
+
+        try {
+            responseData.body = dataType && jsonConvert ? jsonConvert.deserializeObject(ajaxResponse.response, dataType) : ajaxResponse.response;
+        } catch (error) {
+            const responseError = ApiResponseError.fromErrorString(error, responseData);
+            throw new DataError(error, responseError);
+        }
+
+        return responseData;
+
+    }
+
+    // </editor-fold>
+
+}

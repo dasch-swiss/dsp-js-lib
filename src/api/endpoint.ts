@@ -7,6 +7,9 @@ import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 
 import { KnoraApiConfig } from "../knora-api-config";
+import { DataError } from "../models/data-error";
+import { ApiResponseError } from "../models/api-response-error";
+import { ApiResponseData } from "../models/api-response-data";
 
 export class Endpoint {
 
@@ -79,19 +82,12 @@ export class Endpoint {
      *
      * @param path the relative URL for the request
      */
-    protected httpGet(path: string): Observable<any> {
+    protected httpGet(path: string): Observable<AjaxResponse> {
 
         return ajax.get(this.knoraApiConfig.apiUrl + this.path + path, {
             "Authorization": "Bearer " + this.jsonWebToken,
             "Content-Type": "application/json"
-        }).pipe(
-            map((response: AjaxResponse): any => {
-                return response.response;
-            }),
-            catchError((error: AjaxError) => {
-                return this.handlePrimaryRequestError(error);
-            })
-        );
+        });
 
     }
 
@@ -101,19 +97,12 @@ export class Endpoint {
      * @param path the relative URL for the request
      * @param body the body of the request
      */
-    protected httpPost(path: string, body?: any): Observable<any> {
+    protected httpPost(path: string, body?: any): Observable<AjaxResponse> {
 
         return ajax.post(this.knoraApiConfig.apiUrl + this.path + path, body, {
             "Authorization": "Bearer " + this.jsonWebToken,
             "Content-Type": "application/json"
-        }).pipe(
-            map((response: AjaxResponse): any => {
-                return response.response;
-            }),
-            catchError((error: AjaxError) => {
-                return this.handlePrimaryRequestError(error);
-            })
-        );
+        });
 
     }
 
@@ -123,19 +112,12 @@ export class Endpoint {
      * @param path the relative URL for the request
      * @param body the body of the request
      */
-    protected httpPut(path: string, body?: any): Observable<any> {
+    protected httpPut(path: string, body?: any): Observable<AjaxResponse> {
 
         return ajax.put(this.knoraApiConfig.apiUrl + this.path + path, body, {
             "Authorization": "Bearer " + this.jsonWebToken,
             "Content-Type": "application/json"
-        }).pipe(
-            map((response: AjaxResponse): any => {
-                return response.response;
-            }),
-            catchError((error: AjaxError) => {
-                return this.handlePrimaryRequestError(error);
-            })
-        );
+        });
 
     }
 
@@ -145,19 +127,12 @@ export class Endpoint {
      * @param path the relative URL for the request
      * @param body the body of the request
      */
-    protected httpPatch(path: string, body?: any): Observable<any> {
+    protected httpPatch(path: string, body?: any): Observable<AjaxResponse> {
 
         return ajax.patch(this.knoraApiConfig.apiUrl + this.path + path, body, {
             "Authorization": "Bearer " + this.jsonWebToken,
             "Content-Type": "application/json"
-        }).pipe(
-            map((response: AjaxResponse): any => {
-                return response.response;
-            }),
-            catchError((error: AjaxError) => {
-                return this.handlePrimaryRequestError(error);
-            })
-        );
+        });
 
     }
 
@@ -166,41 +141,43 @@ export class Endpoint {
      *
      * @param path the relative URL for the request
      */
-    protected httpDelete(path: string): Observable<any> {
+    protected httpDelete(path: string): Observable<AjaxResponse> {
 
         return ajax.delete(this.knoraApiConfig.apiUrl + this.path + path, {
             "Authorization": "Bearer " + this.jsonWebToken,
             "Content-Type": "application/json"
-        }).pipe(
-            map((response: AjaxResponse): any => {
-                return response.response;
-            }),
-            catchError((error: AjaxError) => {
-                return this.handlePrimaryRequestError(error);
-            })
-        );
+        });
 
     }
 
     /**
-     * handle request error in case of server error
-     *
-     * @param error
-     * @returns
+     * Handles parsing errors.
+     * @param error the error class provided by us
      */
-    protected handlePrimaryRequestError(error: any): Observable<AjaxError> {
+    protected handleError(error: AjaxError | DataError): Observable<ApiResponseError> {
 
-        console.error(error);
+        let responseError: ApiResponseError;
 
-        /*
-        // console.error(error);
-        const serviceError = new ApiServiceError();
-        serviceError.status = error.status;
-        serviceError.statusText = error.statusText;
-        serviceError.errorInfo = error.message;
-        serviceError.url = error.url;
-        return throwError(serviceError);*/
-        return throwError(error);
+        // Check the type of error and save it to the responseError
+        if (error instanceof DataError) {
+
+            responseError = error.response;
+
+            if (this.knoraApiConfig.logErrors) {
+                console.error("Parse Error in Knora API request: " + responseError.error);
+            }
+
+        } else {
+
+            responseError = ApiResponseError.fromAjaxError(error);
+
+            if (this.knoraApiConfig.logErrors) {
+                console.error("Ajax Error in Knora API request: " + responseError.method + " " + responseError.url);
+            }
+
+        }
+
+        return throwError(responseError);
 
     }
 

@@ -42,12 +42,14 @@ export class KnoraApiConfig {
      * @param apiPort the port of the Knora API
      * @param apiPath the base path following
      * @param jsonWebToken token to identify the user
+     * @param logErrors determines whether errors should be logged to the console
      */
     constructor(public apiProtocol: "http" | "https",
                 public apiHost: string,
                 public apiPort: number = KnoraApiConfig.DEFAULT_PORT,
                 public apiPath: string = KnoraApiConfig.DEFAULT_PATH,
-                public jsonWebToken: string = "") {
+                public jsonWebToken: string = "",
+                public logErrors: boolean = false) {
     }
 
     // </editor-fold>

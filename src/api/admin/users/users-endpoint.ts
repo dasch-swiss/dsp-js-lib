@@ -3,9 +3,12 @@ import { catchError, map } from "rxjs/operators";
 
 import { User } from "../../../models/admin/user";
 import { UserList } from "../../../models/admin/user-list";
-import { AjaxError } from "rxjs/ajax";
+import { AjaxError, AjaxResponse } from "rxjs/ajax";
 import { Endpoint } from "../../endpoint";
 import { IUsersEndpoint, IUsersEndpointUrl } from "../../../interfaces/api/admin/i-users-endpoint";
+import { ApiResponse } from "../../../models/api-response";
+import { ApiResponseData } from "../../../models/api-response-data";
+import { ApiResponseError } from "../../../models/api-response-error";
 
 export class UsersEndpoint extends Endpoint implements IUsersEndpoint  {
 
@@ -41,15 +44,11 @@ export class UsersEndpoint extends Endpoint implements IUsersEndpoint  {
      *
      * @returns Observable<User[]>
      */
-    getAll(): Observable<UserList | AjaxError> {
+    getAll(): Observable<ApiResponseData<UserList> | ApiResponseError> {
 
         return this.httpGet("").pipe(
-            map((result: any) => {
-                return this.jsonConvert.deserializeObject<UserList>(result, UserList)
-            }),
-            catchError(
-                this.handlePrimaryRequestError
-            )
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserList, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
 
     }

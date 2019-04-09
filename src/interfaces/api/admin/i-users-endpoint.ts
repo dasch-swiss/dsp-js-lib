@@ -7,5 +7,5 @@ export const IUsersEndpointUrl: Map<string, string> = new Map([
 ]);
 
 export interface IUsersEndpoint {
-    getAll(): Observable<UserList | AjaxError>;
+    //getAll(): Observable<UserList | AjaxError>;
 }
