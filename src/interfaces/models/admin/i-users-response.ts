@@ -1,5 +1,5 @@
 import { IUser } from "./i-user";
 
-export interface IUserList {
+export interface IUsersResponse {
     users: IUser[];
 }

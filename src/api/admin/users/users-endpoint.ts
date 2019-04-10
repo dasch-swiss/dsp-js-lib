@@ -3,7 +3,8 @@ import { catchError, map } from "rxjs/operators";
 
 import { IUsersEndpoint } from "../../../interfaces/api/admin/i-users-endpoint";
 import { User } from "../../../models/admin/user";
-import { UserList } from "../../../models/admin/user-list";
+import { UserResponse } from "../../../models/admin/user-response";
+import { UsersResponse } from "../../../models/admin/users-response";
 import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { Endpoint } from "../../endpoint";
@@ -39,16 +40,102 @@ export class UsersEndpoint extends Endpoint implements IUsersEndpoint {
 
     /**
      * Returns a list of all users.
-     *
-     * @returns Observable<User[]>
      */
-    getAll(): Observable<ApiResponseData<UserList> | ApiResponseError> {
+    getUsers(): Observable<ApiResponseData<UsersResponse> | ApiResponseError> {
 
         return this.httpGet("").pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserList, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UsersResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
+    }
+
+    /**
+     * Gets a user by a property.
+     */
+    getUser(property: "iri" | "email" | "username",
+            value: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+
+        return this.httpGet("/" + property + "/" + value).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+
+    }
+
+    /**
+     * Gets a user by its IRI.
+     */
+    getUserByIri(iri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+        return this.getUser("iri", iri);
+    }
+
+    /**
+     * Gets a user by its e-mail.
+     */
+    getUserByEmail(email: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+        return this.getUser("email", email);
+    }
+
+    /**
+     * Gets a user by its username.
+     */
+    getUserByUsername(username: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+        return this.getUser("username", username);
+    }
+
+    /**
+     * Creates a user.
+     */
+    createUser(user: User): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+
+        return this.httpPost("", user).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+
+    }
+
+    /**
+     * Updates a user.
+     */
+    updateUser(user: User): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+
+        return this.httpPut("", user).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+
+    }
+
+    /**
+     * Updates only the password of a user.
+     */
+    updateUserPassword(user: User,
+                       oldPassword: string,
+                       newPassword: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+
+        return this.httpPut("/iri/" + encodeURI(user.id) + "/Password", {
+            requesterPassword: oldPassword,
+            newPassword: newPassword
+        }).pipe(
+            map(ajaxResponse => {
+                // Make sure the user instance is updated
+                const responseData = ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert);
+                responseData.body.user.password = newPassword;
+                return responseData;
+            }),
+            catchError(error => this.handleError(error))
+        );
+
+    }
+
+    /**
+     * Deletes a user.
+     */
+    deleteUser(user: User): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+        user.status = false;
+        return this.updateUser(user);
     }
 
     // </editor-fold>

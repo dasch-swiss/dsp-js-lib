@@ -27,7 +27,9 @@
             ]
         }],
         "no-console": false,
+        "no-trailing-whitespace": false,
         "curly": [true, "ignore-same-line"],
+        "object-literal-sort-keys": false,
         "quotemark": [true, "double"],
         "trailing-comma": false
     },

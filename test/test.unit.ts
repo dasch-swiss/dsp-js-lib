@@ -6,7 +6,7 @@ import get from "../test/data/api/admin/users/get.json";
 import { AjaxError, AjaxResponse } from "rxjs/ajax";
 import { KnoraApiConfig, KnoraApiConnection } from "../src";
 import { ApiResponseData } from "../src/models/api-response-data";
-import { UserList } from "../src/models/admin/user-list";
+import { UsersResponse } from "../src/models/admin/users-response";
 import { ApiResponseError } from "../src/models/api-response-error";
 
 describe('Test API /admin/users/ endpoints', () => {
@@ -45,7 +45,7 @@ describe('Test API /admin/users/ endpoints', () => {
 
 
         spyOn(knoraApiConnection.admin.users, "getAll").and.callFake(
-            (): Observable<ApiResponseData<UserList> | ApiResponseError> => {
+            (): Observable<ApiResponseData<UsersResponse> | ApiResponseError> => {
                 return of(get).pipe(
                     map((v: any) => {
                     })
@@ -54,7 +54,7 @@ describe('Test API /admin/users/ endpoints', () => {
         );
 
         knoraApiConnection.admin.users.getAll().subscribe(
-            (responseData: ApiResponseData<UserList>) => {
+            (responseData: ApiResponseData<UsersResponse>) => {
                 console.log(responseData.body.users.length);
                 expect(responseData.body.users.length).toBeGreaterThan(0);
             }

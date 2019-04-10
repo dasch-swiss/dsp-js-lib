@@ -70,12 +70,12 @@ export class ApiResponseData<T> extends ApiResponse {
 
     /**
      * Create an instance from an AjaxResponse.
-     * If the return type in the body shall be checked, this method requires the arguments dataType and jsonConvert
+     * If the return type in the body shall be checked, this method requires the arguments dataType and jsonConvert.
      * @throws DataError
      */
     static fromAjaxResponse<T>(ajaxResponse: AjaxResponse,
-                                      dataType?: { new(): T },
-                                      jsonConvert?: JsonConvert): ApiResponseData<T> {
+                               dataType?: { new(): T },
+                               jsonConvert?: JsonConvert): ApiResponseData<T> {
 
         const responseData = new ApiResponseData<T>();
 
@@ -84,13 +84,15 @@ export class ApiResponseData<T> extends ApiResponse {
         if (ajaxResponse.request && ajaxResponse.request.url) responseData.url = ajaxResponse.request.url;
         if (ajaxResponse.xhr) responseData.status = ajaxResponse.xhr.status;
 
-        try {
-            responseData.body = dataType && jsonConvert ?
-                jsonConvert.deserializeObject(ajaxResponse.response, dataType) :
-                ajaxResponse.response;
-        } catch (error) {
-            const responseError = ApiResponseError.fromErrorString(error, responseData);
-            throw new DataError(error, responseError);
+        // Apply json2typescript if required
+        responseData.body = ajaxResponse.response;
+        if (dataType && jsonConvert) {
+            try {
+                responseData.body = jsonConvert.deserializeObject(ajaxResponse.response, dataType);
+            } catch (error) {
+                const responseError = ApiResponseError.fromErrorString(error, responseData);
+                throw new DataError(error, responseError);
+            }
         }
 
         return responseData;
