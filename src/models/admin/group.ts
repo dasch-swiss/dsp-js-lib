@@ -6,22 +6,22 @@ import { Project } from "./project";
 @JsonObject("Group")
 export class Group implements IGroup {
 
-    @JsonProperty('id', String)
-    public id: string = "";
+    @JsonProperty("id", String)
+    id: string = "";
 
-    @JsonProperty('name', String)
-    public name: string = "";
+    @JsonProperty("name", String)
+    name: string = "";
 
-    @JsonProperty('description', String)
-    public description: string = "";
+    @JsonProperty("description", String)
+    description: string = "";
 
-    @JsonProperty('project', Project)
-    public project: Project | null = null;
+    @JsonProperty("project", Project)
+    project: Project | null = null;
 
-    @JsonProperty('status', Boolean)
-    public status: boolean = false;
+    @JsonProperty("status", Boolean)
+    status: boolean = false;
 
-    @JsonProperty('selfjoin', Boolean)
-    public selfJoin: boolean = false;
+    @JsonProperty("selfjoin", Boolean)
+    selfJoin: boolean = false;
 
 }

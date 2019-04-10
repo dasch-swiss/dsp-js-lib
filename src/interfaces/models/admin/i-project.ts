@@ -4,7 +4,7 @@ export interface IProject {
     shortCode: string;
     longName: string;
     description: string[];
-    keywords: string[],
+    keywords: string[];
     logo: string;
     institution: string;
     ontologies: string[];

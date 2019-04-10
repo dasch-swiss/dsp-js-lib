@@ -1,16 +1,14 @@
 import { Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 
+import { IUsersEndpoint } from "../../../interfaces/api/admin/i-users-endpoint";
 import { User } from "../../../models/admin/user";
 import { UserList } from "../../../models/admin/user-list";
-import { AjaxError, AjaxResponse } from "rxjs/ajax";
-import { Endpoint } from "../../endpoint";
-import { IUsersEndpoint, IUsersEndpointUrl } from "../../../interfaces/api/admin/i-users-endpoint";
-import { ApiResponse } from "../../../models/api-response";
 import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
+import { Endpoint } from "../../endpoint";
 
-export class UsersEndpoint extends Endpoint implements IUsersEndpoint  {
+export class UsersEndpoint extends Endpoint implements IUsersEndpoint {
 
     ///////////////
     // CONSTANTS //

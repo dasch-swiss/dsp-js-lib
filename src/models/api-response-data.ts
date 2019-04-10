@@ -1,10 +1,9 @@
-import { AjaxError, AjaxResponse } from "rxjs/ajax";
-
 import { JsonConvert } from "json2typescript";
+import { AjaxResponse } from "rxjs/ajax";
 
-import { DataError } from "./data-error";
 import { ApiResponse } from "./api-response";
 import { ApiResponseError } from "./api-response-error";
+import { DataError } from "./data-error";
 
 export class ApiResponseData<T> extends ApiResponse {
 
@@ -75,8 +74,8 @@ export class ApiResponseData<T> extends ApiResponse {
      * @throws DataError
      */
     static fromAjaxResponse<T>(ajaxResponse: AjaxResponse,
-                               dataType?: { new(): T },
-                               jsonConvert?: JsonConvert): ApiResponseData<T> {
+                                      dataType?: { new(): T },
+                                      jsonConvert?: JsonConvert): ApiResponseData<T> {
 
         const responseData = new ApiResponseData<T>();
 
@@ -86,7 +85,9 @@ export class ApiResponseData<T> extends ApiResponse {
         if (ajaxResponse.xhr) responseData.status = ajaxResponse.xhr.status;
 
         try {
-            responseData.body = dataType && jsonConvert ? jsonConvert.deserializeObject(ajaxResponse.response, dataType) : ajaxResponse.response;
+            responseData.body = dataType && jsonConvert ?
+                jsonConvert.deserializeObject(ajaxResponse.response, dataType) :
+                ajaxResponse.response;
         } catch (error) {
             const responseError = ApiResponseError.fromErrorString(error, responseData);
             throw new DataError(error, responseError);

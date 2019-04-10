@@ -1,20 +1,23 @@
-import { Observable, of } from "rxjs";
+import { config, Observable, of } from "rxjs";
 import { map } from "rxjs/operators";
 
 import get from "../test/data/api/admin/users/get.json";
 
-import { UserList } from "../src/models/admin/user-list";
 import { AjaxError, AjaxResponse } from "rxjs/ajax";
-import { KnoraApiConnection } from "../src/knora-api-connection";
+import { KnoraApiConfig, KnoraApiConnection } from "../src";
+import { ApiResponseData } from "../src/models/api-response-data";
+import { UserList } from "../src/models/admin/user-list";
+import { ApiResponseError } from "../src/models/api-response-error";
 
 describe('Test API /admin/users/ endpoints', () => {
 
-    const knoraApiConnection = new KnoraApiConnection("http://0.0.0.0", 3333);
+    const config = new KnoraApiConfig("http", "localhost", 3333);
+    const knoraApiConnection = new KnoraApiConnection(config);
 
     let value: AjaxResponse;
     let error: any;
 
-    beforeEach((done) => {
+   /* beforeEach((done) => {
 
         knoraApiConnection.admin.users.getAll().subscribe(
             (_value: any) => {
@@ -36,24 +39,24 @@ describe('Test API /admin/users/ endpoints', () => {
         expect(value).toBeUndefined();
         expect(error).toBeDefined();
 
-    });
+    });*/
 
     it("should check the function", () => {
 
 
         spyOn(knoraApiConnection.admin.users, "getAll").and.callFake(
-            (): Observable<UserList | AjaxError> => {
+            (): Observable<ApiResponseData<UserList> | ApiResponseError> => {
                 return of(get).pipe(
                     map((v: any) => {
-                        return knoraApiConnection.admin.users.jsonConvert.deserializeObject(v, UserList)
                     })
                 );
             }
         );
 
         knoraApiConnection.admin.users.getAll().subscribe(
-            (userList: UserList) => {
-                expect(userList.users.length).toBeGreaterThan(0);
+            (responseData: ApiResponseData<UserList>) => {
+                console.log(responseData.body.users.length);
+                expect(responseData.body.users.length).toBeGreaterThan(0);
             }
         );
 

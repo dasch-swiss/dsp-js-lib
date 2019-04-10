@@ -17,7 +17,7 @@ export class V2Endpoint extends Endpoint {
 
     // <editor-fold desc="">
 
-    public readonly auth: AuthenticationEndpoint;
+    readonly auth: AuthenticationEndpoint;
 
     // </editor-fold>
 

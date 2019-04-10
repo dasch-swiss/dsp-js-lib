@@ -1,6 +1,6 @@
 import { AdminEndpoint } from "./api/admin/admin-endpoint";
-import { KnoraApiConfig } from "./knora-api-config";
 import { V2Endpoint } from "./api/v2/v2-endpoint";
+import { KnoraApiConfig } from "./knora-api-config";
 
 /**
  * Offers methods for JavaScript developers to interact with the Knora API.
@@ -23,12 +23,12 @@ export class KnoraApiConnection {
     /**
      * Holds all endpoints of the admin route
      */
-    public readonly admin: AdminEndpoint;
+    readonly admin: AdminEndpoint;
 
     /**
      * Holds all endpoints of the v2 route
      */
-    public readonly v2: V2Endpoint;
+    readonly v2: V2Endpoint;
 
     // </editor-fold>
 

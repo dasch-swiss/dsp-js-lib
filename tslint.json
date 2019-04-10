@@ -6,7 +6,30 @@
     "jsRules": {},
     "rules": {
         "allow-parens": [true, "ban-single-arg-parens"],
-        "quotemark": [true, "double"]
+        "member-access": [true, "no-public"],
+        "member-ordering": [true, {
+            "order": [
+                "public-static-field",
+                "protected-static-field",
+                "private-static-field",
+                "public-instance-field",
+                "protected-instance-field",
+                "private-instance-field",
+                "public-constructor",
+                "protected-constructor",
+                "private-constructor",
+                "public-static-method",
+                "protected-static-method",
+                "private-static-method",
+                "public-instance-method",
+                "protected-instance-method",
+                "private-instance-method"
+            ]
+        }],
+        "no-console": false,
+        "curly": [true, "ignore-same-line"],
+        "quotemark": [true, "double"],
+        "trailing-comma": false
     },
     "rulesDirectory": []
 }

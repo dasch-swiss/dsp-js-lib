@@ -1,6 +1,6 @@
-import { UsersEndpoint } from "./users/users-endpoint";
 import { KnoraApiConfig } from "../../knora-api-config";
 import { Endpoint } from "../endpoint";
+import { UsersEndpoint } from "./users/users-endpoint";
 
 export class AdminEndpoint extends Endpoint {
 
@@ -17,7 +17,7 @@ export class AdminEndpoint extends Endpoint {
 
     // <editor-fold desc="">
 
-    public readonly users: UsersEndpoint;
+    readonly users: UsersEndpoint;
 
     // </editor-fold>
 

@@ -3,7 +3,7 @@ export interface IUser {
     email: string;
     username: string;
     password: string;
-    token: string
+    token: string;
     givenName: string;
     familyName: string;
     status: boolean;

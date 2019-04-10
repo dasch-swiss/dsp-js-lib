@@ -3,39 +3,39 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { IProject } from "../../interfaces/models/admin/i-project";
 
 @JsonObject("Project")
-export class Project implements IProject{
+export class Project implements IProject {
 
-    @JsonProperty('id', String)
+    @JsonProperty("id", String)
     id: string = "";
 
-    @JsonProperty('shortname', String)
+    @JsonProperty("shortname", String)
     shortName: string = "";
 
-    @JsonProperty('shortcode', String)
+    @JsonProperty("shortcode", String)
     shortCode: string = "";
 
-    @JsonProperty('longname', String)
+    @JsonProperty("longname", String)
     longName: string = "";
 
-    @JsonProperty('description', [String])
+    @JsonProperty("description", [String])
     description: string[] = [];
 
-    @JsonProperty('keywords', [String])
+    @JsonProperty("keywords", [String])
     keywords: string[] = [];
 
-    @JsonProperty('logo', String)
+    @JsonProperty("logo", String)
     logo: string = "";
 
-    @JsonProperty('institution', String)
+    @JsonProperty("institution", String)
     institution: string = "";
 
-    @JsonProperty('ontologies', [String])
+    @JsonProperty("ontologies", [String])
     ontologies: string[] = [];
 
-    @JsonProperty('status', Boolean)
+    @JsonProperty("status", Boolean)
     status: boolean = false;
 
-    @JsonProperty('selfjoin', Boolean)
+    @JsonProperty("selfjoin", Boolean)
     selfJoin: boolean = false;
-    
+
 }

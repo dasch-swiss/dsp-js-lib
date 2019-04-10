@@ -1,13 +1,12 @@
 import { Observable } from "rxjs";
-import { AjaxError, AjaxResponse } from "rxjs/ajax";
+import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map } from "rxjs/operators";
-
-import { Endpoint } from "../../endpoint";
 import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
-import { UserList } from "../../..";
 import { LoginResponse } from "../../../models/v2/login-response";
 import { LogoutResponse } from "../../../models/v2/logout-response";
+
+import { Endpoint } from "../../endpoint";
 
 export class AuthenticationEndpoint extends Endpoint {
 
@@ -44,8 +43,8 @@ export class AuthenticationEndpoint extends Endpoint {
     login(username: string, password: string): Observable<ApiResponseData<LoginResponse> | ApiResponseError> {
 
         return this.httpPost("", {
-            username: username,
-            password: password
+            password,
+            username
         }).pipe(
             map((ajaxResponse: AjaxResponse) => {
                 // Make sure the web token is stored.
