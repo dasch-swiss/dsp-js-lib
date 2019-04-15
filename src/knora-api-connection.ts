@@ -12,6 +12,10 @@ export class KnoraApiConnection {
     ///////////////
 
     // <editor-fold desc="">
+
+    static readonly PATH_ADMIN = "/admin";
+    static readonly PATH_V2 = "/v2";
+
     // </editor-fold>
 
     ////////////////
@@ -46,8 +50,8 @@ export class KnoraApiConnection {
     constructor(knoraApiConfig: KnoraApiConfig) {
 
         // Instantiate the endpoints
-        this.admin = new AdminEndpoint(knoraApiConfig, "/admin");
-        this.v2 = new V2Endpoint(knoraApiConfig, "/v2");
+        this.admin = new AdminEndpoint(knoraApiConfig, KnoraApiConnection.PATH_ADMIN);
+        this.v2 = new V2Endpoint(knoraApiConfig, KnoraApiConnection.PATH_V2);
         // todo more
 
     }

@@ -15,11 +15,6 @@ export class Endpoint {
     ///////////////
 
     // <editor-fold desc="">
-
-    protected static readonly URL: any = {
-        ADMIN_USERS_GET: "/admin/users"
-    };
-
     // </editor-fold>
 
     ////////////////
@@ -79,7 +74,9 @@ export class Endpoint {
      *
      * @param path the relative URL for the request
      */
-    protected httpGet(path: string): Observable<AjaxResponse> {
+    protected httpGet(path?: string): Observable<AjaxResponse> {
+
+        if (path === undefined) path = "";
 
         return ajax.get(this.knoraApiConfig.apiUrl + this.path + path, {
             "Authorization": "Bearer " + this.jsonWebToken,
@@ -94,7 +91,9 @@ export class Endpoint {
      * @param path the relative URL for the request
      * @param body the body of the request
      */
-    protected httpPost(path: string, body?: any): Observable<AjaxResponse> {
+    protected httpPost(path?: string, body?: any): Observable<AjaxResponse> {
+
+        if (path === undefined) path = "";
 
         return ajax.post(this.knoraApiConfig.apiUrl + this.path + path, body, {
             "Authorization": "Bearer " + this.jsonWebToken,
@@ -109,7 +108,9 @@ export class Endpoint {
      * @param path the relative URL for the request
      * @param body the body of the request
      */
-    protected httpPut(path: string, body?: any): Observable<AjaxResponse> {
+    protected httpPut(path?: string, body?: any): Observable<AjaxResponse> {
+
+        if (path === undefined) path = "";
 
         return ajax.put(this.knoraApiConfig.apiUrl + this.path + path, body, {
             "Authorization": "Bearer " + this.jsonWebToken,
@@ -124,7 +125,9 @@ export class Endpoint {
      * @param path the relative URL for the request
      * @param body the body of the request
      */
-    protected httpPatch(path: string, body?: any): Observable<AjaxResponse> {
+    protected httpPatch(path?: string, body?: any): Observable<AjaxResponse> {
+
+        if (path === undefined) path = "";
 
         return ajax.patch(this.knoraApiConfig.apiUrl + this.path + path, body, {
             "Authorization": "Bearer " + this.jsonWebToken,
@@ -138,7 +141,9 @@ export class Endpoint {
      *
      * @param path the relative URL for the request
      */
-    protected httpDelete(path: string): Observable<AjaxResponse> {
+    protected httpDelete(path?: string): Observable<AjaxResponse> {
+
+        if (path === undefined) path = "";
 
         return ajax.delete(this.knoraApiConfig.apiUrl + this.path + path, {
             "Authorization": "Bearer " + this.jsonWebToken,

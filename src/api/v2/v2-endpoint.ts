@@ -2,6 +2,9 @@ import { KnoraApiConfig } from "../../knora-api-config";
 import { Endpoint } from "../endpoint";
 import { AuthenticationEndpoint } from "./authentication/authentication-endpoint";
 
+/**
+ * Defines the V2 endpoint of the Knora API.
+ */
 export class V2Endpoint extends Endpoint {
 
     ///////////////
@@ -9,6 +12,9 @@ export class V2Endpoint extends Endpoint {
     ///////////////
 
     // <editor-fold desc="">
+
+    static readonly PATH_AUTHENTICATION = "/authentication";
+
     // </editor-fold>
 
     ////////////////
@@ -38,7 +44,7 @@ export class V2Endpoint extends Endpoint {
         super(knoraApiConfig, path);
 
         // Instantiate the endpoints
-        this.auth = new AuthenticationEndpoint(knoraApiConfig, path + "/authentication");
+        this.auth = new AuthenticationEndpoint(knoraApiConfig, path + V2Endpoint.PATH_AUTHENTICATION);
         // todo more
 
     }

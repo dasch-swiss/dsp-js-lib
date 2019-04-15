@@ -14,8 +14,8 @@
   "scripts": {
     "test": "karma start karma.conf.js",
     "build": "tsc",
-    "dist": "npm run test && npm run build && npm pack",
-    "yalc-dist": "npm run build && yalc publish --push",
+    "dist-local": "npm run build && yalc publish --push",
+    "dist-prod": "npm run test && npm run build && npm pack",
     "publish": "npm run dist && npm publish"
   },
   "repository": {

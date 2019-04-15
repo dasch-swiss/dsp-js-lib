@@ -1,7 +1,6 @@
 import { Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 
-import { IUsersEndpoint } from "../../../interfaces/api/admin/i-users-endpoint";
 import { User } from "../../../models/admin/user";
 import { UserResponse } from "../../../models/admin/user-response";
 import { UsersResponse } from "../../../models/admin/users-response";
@@ -9,7 +8,10 @@ import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { Endpoint } from "../../endpoint";
 
-export class UsersEndpoint extends Endpoint implements IUsersEndpoint {
+/**
+ * Defines the user endpoint of the Knora API.
+ */
+export class UsersEndpoint extends Endpoint {
 
     ///////////////
     // CONSTANTS //
@@ -36,7 +38,7 @@ export class UsersEndpoint extends Endpoint implements IUsersEndpoint {
     // METHODS //
     /////////////
 
-    // <editor-fold desc="">
+    // <editor-fold desc="GET">
 
     /**
      * Returns a list of all users.
@@ -84,6 +86,10 @@ export class UsersEndpoint extends Endpoint implements IUsersEndpoint {
         return this.getUser("username", username);
     }
 
+    // </editor-fold>
+
+    // <editor-fold desc="POST">
+
     /**
      * Creates a user.
      */
@@ -96,12 +102,30 @@ export class UsersEndpoint extends Endpoint implements IUsersEndpoint {
 
     }
 
+    // </editor-fold>
+
+    // <editor-fold desc="PUT">
+
     /**
      * Updates a user.
      */
     updateUser(user: User): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
 
         return this.httpPut("", user).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+
+    }
+
+    /**
+     * Updates a user.
+     */
+    updateUserStatus(user: User): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+
+        return this.httpPut("/iri/" + encodeURI(user.id) + "/Status", {
+            status: user.status
+        }).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
@@ -130,12 +154,17 @@ export class UsersEndpoint extends Endpoint implements IUsersEndpoint {
 
     }
 
+    // </editor-fold>
+
+    // <editor-fold desc="DELETE">
+
     /**
      * Deletes a user.
+     * This method does not actually delete a user, but sets the status to false.
      */
     deleteUser(user: User): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
         user.status = false;
-        return this.updateUser(user);
+        return this.updateUserStatus(user);
     }
 
     // </editor-fold>

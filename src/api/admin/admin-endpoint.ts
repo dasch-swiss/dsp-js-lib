@@ -2,6 +2,9 @@ import { KnoraApiConfig } from "../../knora-api-config";
 import { Endpoint } from "../endpoint";
 import { UsersEndpoint } from "./users/users-endpoint";
 
+/**
+ * Defines the admin endpoint of the Knora API.
+ */
 export class AdminEndpoint extends Endpoint {
 
     ///////////////
@@ -9,6 +12,9 @@ export class AdminEndpoint extends Endpoint {
     ///////////////
 
     // <editor-fold desc="">
+
+    static readonly PATH_USERS = "/users";
+
     // </editor-fold>
 
     ////////////////
@@ -38,7 +44,7 @@ export class AdminEndpoint extends Endpoint {
         super(knoraApiConfig, path);
 
         // Instantiate the endpoints
-        this.users = new UsersEndpoint(knoraApiConfig, path + "/users");
+        this.users = new UsersEndpoint(knoraApiConfig, path + AdminEndpoint.PATH_USERS);
         // todo more
 
     }

@@ -8,6 +8,9 @@ import { LoginResponse } from "../../../models/v2/login-response";
 import { LogoutResponse } from "../../../models/v2/logout-response";
 import { Endpoint } from "../../endpoint";
 
+/**
+ * Defines the authentication endpoint of the Knora API.
+ */
 export class AuthenticationEndpoint extends Endpoint {
 
     ///////////////
@@ -51,7 +54,7 @@ export class AuthenticationEndpoint extends Endpoint {
                 const responseData = ApiResponseData.fromAjaxResponse(ajaxResponse, LoginResponse, this.jsonConvert);
                 this.jsonWebToken = responseData.body.token;
                 return responseData;
-            } ),
+            }),
             catchError(error => this.handleError(error))
         );
 
@@ -68,7 +71,7 @@ export class AuthenticationEndpoint extends Endpoint {
                 const responseData = ApiResponseData.fromAjaxResponse(ajaxResponse, LogoutResponse, this.jsonConvert);
                 this.jsonWebToken = "";
                 return responseData;
-            } ),
+            }),
             catchError(error => this.handleError(error))
         );
 
