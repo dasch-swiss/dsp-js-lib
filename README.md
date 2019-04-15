@@ -1,4 +1,4 @@
-[![npm](https://img.shields.io/npm/v/@knora/api.svg)](https://www.npmjs.com/package/json2typescript) 
+[![npm](https://img.shields.io/npm/v/@knora/api.svg)](https://www.npmjs.com/package/@knora/api) 
 ![](https://img.shields.io/npm/dt/@knora/api.svg?style=flat)
 ![](https://img.shields.io/bundlephobia/minzip/@knora/api.svg?style=flat)
 ![](https://img.shields.io/npm/l/@knora/api.svg?style=flat)
