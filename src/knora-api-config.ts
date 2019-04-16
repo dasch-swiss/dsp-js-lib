@@ -9,8 +9,11 @@ export class KnoraApiConfig {
 
     // <editor-fold desc="">
 
-    private static readonly DEFAULT_PORT = 80;
-    private static readonly DEFAULT_PATH = "";
+    static readonly PROTOCOL_HTTP = "http";
+    static readonly PROTOCOL_HTTPS = "https";
+
+    static readonly DEFAULT_PORT_HTTP = 80;
+    static readonly DEFAULT_PORT_HTTPS = 443;
 
     // </editor-fold>
 
@@ -24,7 +27,11 @@ export class KnoraApiConfig {
      * The full API URL
      */
     get apiUrl(): string {
-        return this.apiProtocol + "://" + this.apiHost + ":" + this.apiPort + this.apiPath;
+        return (
+            ( this.apiProtocol + "://" + this.apiHost ) +
+            ( this.apiPort !== null ? ":" + this.apiPort : "" ) +
+            this.apiPath
+        );
     }
 
     // </editor-fold>
@@ -46,10 +53,18 @@ export class KnoraApiConfig {
      */
     constructor(public apiProtocol: "http" | "https",
                 public apiHost: string,
-                public apiPort: number = KnoraApiConfig.DEFAULT_PORT,
-                public apiPath: string = KnoraApiConfig.DEFAULT_PATH,
+                public apiPort: number | null = null,
+                public apiPath: string = "",
                 public jsonWebToken: string = "",
                 public logErrors: boolean = false) {
+
+        // Remove port in case it's the default one
+        if (apiProtocol === KnoraApiConfig.PROTOCOL_HTTP && apiPort === KnoraApiConfig.DEFAULT_PORT_HTTP) {
+            this.apiPort = null;
+        } else if (apiProtocol === KnoraApiConfig.PROTOCOL_HTTPS && apiPort === KnoraApiConfig.DEFAULT_PORT_HTTPS) {
+            this.apiPort = null;
+        }
+
     }
 
     // </editor-fold>
