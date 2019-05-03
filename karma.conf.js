@@ -9,8 +9,7 @@ module.exports = function (config) {
         frameworks: ["jasmine", "karma-typescript"],
         files: [
             "test/**/*.ts",
-            "src/**/*.ts",
-            "node_modules/es6-promise/dist/es6-promise.auto.js"
+            "src/**/*.ts"
         ],
         exclude: [
             "./**/*.d.ts"
