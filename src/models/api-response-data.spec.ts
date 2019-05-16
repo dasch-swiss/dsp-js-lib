@@ -3,6 +3,9 @@ import { ApiResponseData } from "./api-response-data";
 
 describe("Test class ApiResponseData", () => {
 
+    // Setup json convert instance
+    const jsonConvert = new JsonConvert(OperationMode.ENABLE, ValueCheckingMode.DISALLOW_NULL, false);
+
     describe("Test method fromAjaxResponse()", () => {
 
         // Setup a test class for responses
@@ -11,9 +14,6 @@ describe("Test class ApiResponseData", () => {
             @JsonProperty("id", Number) id: number = 0;
             @JsonProperty("name", String) name: string = "";
         }
-
-        // Setup json convert instance
-        const jsonConvert = new JsonConvert(OperationMode.ENABLE, ValueCheckingMode.DISALLOW_NULL, false);
 
         // Set up interface for data
         interface IAjaxResponse {
