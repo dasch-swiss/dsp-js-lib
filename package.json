@@ -37,9 +37,12 @@
   "homepage": "https://github.com/dhlab-basel/knora-api-js-lib#readme",
   "devDependencies": {
     "@types/jasmine": "^3.3.9",
+    "@types/jasmine-ajax": "^3.1.40",
     "jasmine": "^3.3.1",
+    "jasmine-ajax": "^4.0.0",
     "karma": "^4.0.1",
     "karma-jasmine": "^2.0.1",
+    "karma-jasmine-ajax": "^0.1.13",
     "karma-mocha-reporter": "^2.2.5",
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-typescript": "^4.0.0",
@@ -48,6 +51,7 @@
     "typescript": "^3.3.3333"
   },
   "dependencies": {
+    "@types/node": "^12.0.10",
     "json2typescript": "^1.2.0",
     "rxjs": "^6.4.0"
   }

@@ -4,9 +4,10 @@ module.exports = function (config) {
             "karma-jasmine",
             "karma-mocha-reporter",
             "karma-phantomjs-launcher",
-            "karma-typescript"
+            "karma-typescript",
+            "karma-jasmine-ajax"
         ],
-        frameworks: ["jasmine", "karma-typescript"],
+        frameworks: ["jasmine-ajax", "jasmine", "karma-typescript"],
         files: [
             "test/**/*.ts",
             "src/**/*.ts"
