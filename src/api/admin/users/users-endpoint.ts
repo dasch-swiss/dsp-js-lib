@@ -45,7 +45,7 @@ export class UsersEndpoint extends Endpoint {
      */
     getUsers(): Observable<ApiResponseData<UsersResponse> | ApiResponseError> {
 
-        return this.httpGet("").pipe(
+        return this.httpGet().pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UsersResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );

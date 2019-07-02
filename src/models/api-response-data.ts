@@ -21,21 +21,6 @@ export class ApiResponseData<T> extends ApiResponse {
     // <editor-fold desc="">
 
     /**
-     * Original HTTP method
-     */
-    method: string = "";
-
-    /**
-     * Request URL
-     */
-    url: string = "";
-
-    /**
-     * Status number
-     */
-    status: number = 0;
-
-    /**
      * The returned data from the body
      */
     body: T;
