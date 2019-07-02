@@ -1,0 +1,54 @@
+{
+  "name": "@knora/api",
+  "version": "0.0.1",
+  "description": "JavaScript library that handles API requests to Knora",
+  "main": "index.js",
+  "files": [
+    "src/**/*.d.ts",
+    "src/**/*.map",
+    "src/**/*.js",
+    "index.d.ts",
+    "index.js.map",
+    "index.js"
+  ],
+  "scripts": {
+    "test": "karma start karma.conf.js",
+    "build": "tsc",
+    "dist-local": "npm run build && yalc publish --push",
+    "dist-prod": "npm run test && npm run build && npm pack",
+    "publish": "npm run dist && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://andreas-aeschlimann@github.com/dhlab-basel/knora-api-js-lib.git"
+  },
+  "keywords": [
+    "typescript",
+    "javascript",
+    "knora",
+    "api",
+    "converter"
+  ],
+  "author": "Data & Service Center for the Humanities DaSCH, University of Basel",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/dhlab-basel/knora-api-js-lib/issues"
+  },
+  "homepage": "https://github.com/dhlab-basel/knora-api-js-lib#readme",
+  "devDependencies": {
+    "@types/jasmine": "^3.3.9",
+    "jasmine": "^3.3.1",
+    "karma": "^4.0.1",
+    "karma-jasmine": "^2.0.1",
+    "karma-mocha-reporter": "^2.2.5",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-typescript": "^4.0.0",
+    "phantomjs-prebuilt": "^2.1.16",
+    "tslint": "^5.15.0",
+    "typescript": "^3.3.3333"
+  },
+  "dependencies": {
+    "json2typescript": "^1.2.0",
+    "rxjs": "^6.4.0"
+  }
+}
