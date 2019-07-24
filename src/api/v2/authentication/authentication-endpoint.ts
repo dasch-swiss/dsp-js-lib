@@ -4,8 +4,8 @@ import { catchError, map } from "rxjs/operators";
 
 import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
-import { LoginResponse } from "../../../models/v2/login-response";
-import { LogoutResponse } from "../../../models/v2/logout-response";
+import { LoginResponse } from "../../../models/v2/authentication/login-response";
+import { LogoutResponse } from "../../../models/v2/authentication/logout-response";
 import { Endpoint } from "../../endpoint";
 
 /**

@@ -1,6 +1,7 @@
 import { KnoraApiConfig } from "../../knora-api-config";
 import { Endpoint } from "../endpoint";
 import { AuthenticationEndpoint } from "./authentication/authentication-endpoint";
+import {OntologiesEndpoint} from "./ontology/ontologies-endpoint";
 
 /**
  * Defines the V2 endpoint of the Knora API.
@@ -14,6 +15,8 @@ export class V2Endpoint extends Endpoint {
     // <editor-fold desc="">
 
     static readonly PATH_AUTHENTICATION = "/authentication";
+
+    static readonly PATH_ONTOLOGY = "/ontologies";
 
     // </editor-fold>
 
@@ -33,6 +36,8 @@ export class V2Endpoint extends Endpoint {
 
     // <editor-fold desc="">
 
+    readonly onto: OntologiesEndpoint;
+
     /**
      * Constructor.
      * Sets up all endpoints for this endpoint.
@@ -45,7 +50,7 @@ export class V2Endpoint extends Endpoint {
 
         // Instantiate the endpoints
         this.auth = new AuthenticationEndpoint(knoraApiConfig, path + V2Endpoint.PATH_AUTHENTICATION);
-        // todo more
+        this.onto = new OntologiesEndpoint(knoraApiConfig, path + V2Endpoint.PATH_ONTOLOGY);
 
     }
 

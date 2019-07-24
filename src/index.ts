@@ -9,8 +9,8 @@ export { Project } from "./models/admin/project";
 export { User } from "./models/admin/user";
 export { UserResponse } from "./models/admin/user-response";
 
-export { LoginResponse } from "./models/v2/login-response";
-export { LogoutResponse } from "./models/v2/logout-response";
+export { LoginResponse } from "./models/v2/authentication/login-response";
+export { LogoutResponse } from "./models/v2/authentication/logout-response";
 
 export { ApiResponse } from "./models/api-response";
 export { ApiResponseData } from "./models/api-response-data";
