@@ -17,10 +17,10 @@ export class OntologiesEndpoint extends Endpoint {
     getOntology(ontologyIri: string): Observable<OntologyV2 | ApiResponseError> {
         return this.httpGet('/allentities/' + encodeURIComponent(ontologyIri)).pipe(
                 mergeMap((ajaxResponse: AjaxResponse) => {
-                    console.log(JSON.stringify(ajaxResponse.response));
+                    // console.log(JSON.stringify(ajaxResponse.response));
                     return jsonld.compact(ajaxResponse.response, {});
                 }), map((jsonldobj: object) => {
-                    console.log(JSON.stringify(jsonldobj));
+                    // console.log(JSON.stringify(jsonldobj));
                     const responseData = this.convertOntology(jsonldobj);
 
                     return responseData;
