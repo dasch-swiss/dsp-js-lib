@@ -1,5 +1,6 @@
 module.exports = function (config) {
     config.set({
+        logLevel: config.LOG_DEBUG,
         plugins: [
             "karma-jasmine",
             "karma-mocha-reporter",
@@ -42,8 +43,8 @@ module.exports = function (config) {
                 ],
                 "module": "commonjs",
                 "removeComments": false,
-                "resolveJsonModule": true,
                 "target": "es5",
+                "resolveJsonModule": true,
                 "sourceMap": true,
                 "strictNullChecks": true,
                 "noImplicitAny": true
