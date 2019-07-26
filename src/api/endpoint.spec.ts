@@ -3,7 +3,7 @@ import {Endpoint} from './endpoint';
 import {MockAjaxCall} from '../../test/mockajaxcall';
 import {AjaxResponse} from 'rxjs/ajax';
 
-describe('Endpoint', () => {
+describe('Test class Endpoint', () => {
 
     beforeEach(() => {
         jasmine.Ajax.install();
@@ -33,6 +33,32 @@ describe('Endpoint', () => {
         request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: 'test'})));
 
         expect(request.url).toBe('http://localhost:3333/test');
+
+        expect(request.method).toEqual('GET');
+
+        expect(request.requestHeaders).toEqual({});
+
+    });
+
+    it('should perform a GET request providing a path segment', done => {
+
+        const config = new KnoraApiConfig('http', 'localhost', 3333);
+
+        const endpoint = new Endpoint(config, '/test');
+
+        endpoint['httpGet']('/mypath').subscribe(
+                (response: AjaxResponse) => {
+                    expect(response.status).toEqual(200);
+                    expect(response.response).toEqual({test: 'test'});
+
+                    done();
+                });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: 'test'})));
+
+        expect(request.url).toBe('http://localhost:3333/test/mypath');
 
         expect(request.method).toEqual('GET');
 
@@ -96,6 +122,34 @@ describe('Endpoint', () => {
 
     });
 
+    it('should perform a POST request providing a path segment', done => {
+
+        const config = new KnoraApiConfig('http', 'localhost', 3333);
+
+        const endpoint = new Endpoint(config, '/test');
+
+        endpoint['httpPost']('/mypath', { mydata: 'data' }).subscribe(
+                (response: AjaxResponse) => {
+                    expect(response.status).toEqual(200);
+                    expect(response.response).toEqual({test: 'test'});
+
+                    done();
+                });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: 'test'})));
+
+        expect(request.url).toBe('http://localhost:3333/test/mypath');
+
+        expect(request.method).toEqual('POST');
+
+        expect(request.requestHeaders).toEqual({ 'Content-Type': 'application/json' });
+
+        expect(request.data()).toEqual({ mydata: 'data' });
+
+    });
+
     it('should perform a POST request with authentication', done => {
 
         const config = new KnoraApiConfig('http', 'localhost', 3333);
@@ -119,6 +173,92 @@ describe('Endpoint', () => {
         expect(request.url).toBe('http://localhost:3333/test');
 
         expect(request.method).toEqual('POST');
+
+        expect(request.requestHeaders).toEqual({ Authorization: 'Bearer testtoken', 'Content-Type': 'application/json' });
+
+        expect(request.data()).toEqual({ mydata: 'data' });
+
+    });
+
+    it('should perform a PUT request', done => {
+
+        const config = new KnoraApiConfig('http', 'localhost', 3333);
+
+        const endpoint = new Endpoint(config, '/test');
+
+        endpoint['httpPut']('', { mydata: 'data' }).subscribe(
+                (response: AjaxResponse) => {
+                    expect(response.status).toEqual(200);
+                    expect(response.response).toEqual({test: 'test'});
+
+                    done();
+                });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: 'test'})));
+
+        expect(request.url).toBe('http://localhost:3333/test');
+
+        expect(request.method).toEqual('PUT');
+
+        expect(request.requestHeaders).toEqual({ 'Content-Type': 'application/json' });
+
+        expect(request.data()).toEqual({ mydata: 'data' });
+
+    });
+
+    it('should perform a PUT request providing a path segment', done => {
+
+        const config = new KnoraApiConfig('http', 'localhost', 3333);
+
+        const endpoint = new Endpoint(config, '/test');
+
+        endpoint['httpPut']('/mypath', { mydata: 'data' }).subscribe(
+                (response: AjaxResponse) => {
+                    expect(response.status).toEqual(200);
+                    expect(response.response).toEqual({test: 'test'});
+
+                    done();
+                });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: 'test'})));
+
+        expect(request.url).toBe('http://localhost:3333/test/mypath');
+
+        expect(request.method).toEqual('PUT');
+
+        expect(request.requestHeaders).toEqual({ 'Content-Type': 'application/json' });
+
+        expect(request.data()).toEqual({ mydata: 'data' });
+
+    });
+
+    it('should perform a PUT request with authentication', done => {
+
+        const config = new KnoraApiConfig('http', 'localhost', 3333);
+
+        const endpoint = new Endpoint(config, '/test');
+
+        endpoint.jsonWebToken = 'testtoken';
+
+        endpoint['httpPut']('/mypath', { mydata: 'data' }).subscribe(
+                (response: AjaxResponse) => {
+                    expect(response.status).toEqual(200);
+                    expect(response.response).toEqual({test: 'test'});
+
+                    done();
+                });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: 'test'})));
+
+        expect(request.url).toBe('http://localhost:3333/test/mypath');
+
+        expect(request.method).toEqual('PUT');
 
         expect(request.requestHeaders).toEqual({ Authorization: 'Bearer testtoken', 'Content-Type': 'application/json' });
 
