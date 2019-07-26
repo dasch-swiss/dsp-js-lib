@@ -14,7 +14,7 @@ describe('Endpoint', () => {
     });
 
 
-    it('should perform a get request', done => {
+    it('should perform a GET request', done => {
 
         const config = new KnoraApiConfig('http', 'localhost', 3333);
 
@@ -40,7 +40,7 @@ describe('Endpoint', () => {
 
     });
 
-    it('should perform a get request with authentication', done => {
+    it('should perform a GET request with authentication', done => {
 
         const config = new KnoraApiConfig('http', 'localhost', 3333);
 
@@ -65,6 +65,64 @@ describe('Endpoint', () => {
         expect(request.method).toEqual('GET');
 
         expect(request.requestHeaders).toEqual({Authorization: 'Bearer testtoken'});
+
+    });
+
+    it('should perform a POST request', done => {
+
+        const config = new KnoraApiConfig('http', 'localhost', 3333);
+
+        const endpoint = new Endpoint(config, '/test');
+
+        endpoint['httpPost']('', { mydata: 'data' }).subscribe(
+                (response: AjaxResponse) => {
+                    expect(response.status).toEqual(200);
+                    expect(response.response).toEqual({test: 'test'});
+
+                    done();
+                });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: 'test'})));
+
+        expect(request.url).toBe('http://localhost:3333/test');
+
+        expect(request.method).toEqual('POST');
+
+        expect(request.requestHeaders).toEqual({ 'Content-Type': 'application/json' });
+
+        expect(request.data()).toEqual({ mydata: 'data' });
+
+    });
+
+    it('should perform a POST request with authentication', done => {
+
+        const config = new KnoraApiConfig('http', 'localhost', 3333);
+
+        const endpoint = new Endpoint(config, '/test');
+
+        endpoint.jsonWebToken = 'testtoken';
+
+        endpoint['httpPost']('', { mydata: 'data' }).subscribe(
+                (response: AjaxResponse) => {
+                    expect(response.status).toEqual(200);
+                    expect(response.response).toEqual({test: 'test'});
+
+                    done();
+                });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: 'test'})));
+
+        expect(request.url).toBe('http://localhost:3333/test');
+
+        expect(request.method).toEqual('POST');
+
+        expect(request.requestHeaders).toEqual({ Authorization: 'Bearer testtoken', 'Content-Type': 'application/json' });
+
+        expect(request.data()).toEqual({ mydata: 'data' });
 
     });
 
