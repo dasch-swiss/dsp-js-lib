@@ -134,7 +134,7 @@ export class Endpoint {
 
         if (path === undefined) path = '';
 
-        return ajax.delete(this.knoraApiConfig.apiUrl + this.path + path, this.constructHeader(true));
+        return ajax.delete(this.knoraApiConfig.apiUrl + this.path + path, this.constructHeader(false));
 
     }
 

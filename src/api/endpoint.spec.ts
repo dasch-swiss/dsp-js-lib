@@ -266,4 +266,84 @@ describe('Test class Endpoint', () => {
 
     });
 
+    it('should perform a DELETE request', done => {
+
+        const config = new KnoraApiConfig('http', 'localhost', 3333);
+
+        const endpoint = new Endpoint(config, '/test');
+
+        endpoint['httpDelete']().subscribe(
+                (response: AjaxResponse) => {
+                    expect(response.status).toEqual(200);
+                    expect(response.response).toEqual({test: 'test'});
+
+                    done();
+                });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: 'test'})));
+
+        expect(request.url).toBe('http://localhost:3333/test');
+
+        expect(request.method).toEqual('DELETE');
+
+        expect(request.requestHeaders).toEqual({});
+
+    });
+
+    it('should perform a DELETE request providing a path segment', done => {
+
+        const config = new KnoraApiConfig('http', 'localhost', 3333);
+
+        const endpoint = new Endpoint(config, '/test');
+
+        endpoint['httpDelete']('/mypath').subscribe(
+                (response: AjaxResponse) => {
+                    expect(response.status).toEqual(200);
+                    expect(response.response).toEqual({test: 'test'});
+
+                    done();
+                });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: 'test'})));
+
+        expect(request.url).toBe('http://localhost:3333/test/mypath');
+
+        expect(request.method).toEqual('DELETE');
+
+        expect(request.requestHeaders).toEqual({});
+
+    });
+
+    it('should perform a DELETE request with authentication', done => {
+
+        const config = new KnoraApiConfig('http', 'localhost', 3333);
+
+        const endpoint = new Endpoint(config, '/test');
+
+        endpoint.jsonWebToken = 'testtoken';
+
+        endpoint['httpDelete']().subscribe(
+                (response: AjaxResponse) => {
+                    expect(response.status).toEqual(200);
+                    expect(response.response).toEqual({test: 'test'});
+
+                    done();
+                });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: 'test'})));
+
+        expect(request.url).toBe('http://localhost:3333/test');
+
+        expect(request.method).toEqual('DELETE');
+
+        expect(request.requestHeaders).toEqual({ Authorization: 'Bearer testtoken' });
+
+    });
+
 });
