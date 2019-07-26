@@ -49,6 +49,7 @@ describe('Test class AuthenticationEndpoint', () => {
                 () => {},
                 (err: ApiResponseError) => {
                     expect(err.status).toEqual(401);
+                    expect(knoraApiConnection.v2.jsonWebToken).toEqual('');
                     done();
                 }
         );
