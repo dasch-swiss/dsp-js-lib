@@ -1,4 +1,4 @@
-import {BehaviorSubject, Observable} from 'rxjs';
+import {AsyncSubject, Observable} from 'rxjs';
 
 /**
  * Generic cache class.
@@ -11,7 +11,7 @@ export abstract class GenericCache<T> {
     /**
      * Cache object: key -> value.
      */
-    private cache: {[key: string]: BehaviorSubject<T|null> } = {};
+    private cache: {[key: string]: AsyncSubject<T> } = {};
 
     // TODO: check size of cache, delete oldest entries
 
@@ -21,23 +21,24 @@ export abstract class GenericCache<T> {
      *
      * @param key the id of the information to be returned.
      */
-    getItem(key: string): BehaviorSubject<T|null> {
+    getItem(key: string): AsyncSubject<T> {
 
-        // If the key already exists, return the associated BehaviorSubject.
+        // If the key already exists, return the associated AsyncSubject.
         if (this.cache[key] !== undefined) {
             return this.cache[key];
         }
 
-        // Create new entry for BehaviorSubject
-        this.cache[key] = new BehaviorSubject(null);
+        // Create new entry for AsyncSubject
+        this.cache[key] = new AsyncSubject();
 
-        // Request information from Knora and update the BehaviorSubject
+        // Request information from Knora and update the AsyncSubject
         // once the information is available
         this.requestItemFromKnora(key).subscribe((response: T) => {
             this.cache[key].next(response);
+            this.cache[key].complete();
         });
 
-        // return the BehaviorSubject (will be updated once the information is available)
+        // return the AsyncSubject (will be updated once the information is available)
         return this.cache[key];
 
     }
@@ -47,7 +48,7 @@ export abstract class GenericCache<T> {
      *
      * @param key the id of the information to be returned.
      */
-    reloadItem(key: string): BehaviorSubject<T|null> {
+    reloadItem(key: string): AsyncSubject<T> {
         delete this.cache[key];
         return this.getItem(key);
     }
