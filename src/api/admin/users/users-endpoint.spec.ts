@@ -3,6 +3,7 @@ import {KnoraApiConnection} from '../../../knora-api-connection';
 import {UsersResponse} from '../../../models/admin/users-response';
 import {ApiResponseData} from '../../../models/api-response-data';
 import {MockAjaxCall} from '../../../../test/mockajaxcall';
+import {UserResponse} from '../../..';
 
 describe('UsersEndpoint', () => {
 
@@ -37,6 +38,31 @@ describe('UsersEndpoint', () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(users)));
 
             expect(request.url).toBe('http://localhost:3333/admin/users');
+
+            expect(request.method).toEqual('GET');
+
+        });
+
+    });
+
+    describe('Method getUser', () => {
+
+        it('should return a user by its iri', done => {
+
+            knoraApiConnection.admin.users.getUser('iri', 'http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe(
+                    (response: ApiResponseData<UserResponse>) => {
+                        expect(response.body.user.familyName).toEqual('User01');
+
+                        done();
+                    });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const user = require('../../../../test/data/api/admin/user/get.json');
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({user: user})));
+
+            expect(request.url).toBe('http://localhost:3333/admin/users/iri/http%3A%2F%2Frdfh.ch%2Fusers%2F9XBCrDV3SRa7kS1WwynB4Q');
 
             expect(request.method).toEqual('GET');
 

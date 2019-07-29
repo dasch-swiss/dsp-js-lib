@@ -62,7 +62,7 @@ export class UsersEndpoint extends Endpoint {
 
         if (property === "iri") userId = encodeURIComponent(userId);
 
-        return this.httpGet("/" + property + "/" + value).pipe(
+        return this.httpGet("/" + property + "/" + userId).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
