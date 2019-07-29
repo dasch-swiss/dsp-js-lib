@@ -68,6 +68,50 @@ describe('UsersEndpoint', () => {
 
         });
 
+        it('should return a user by its email', done => {
+
+            knoraApiConnection.admin.users.getUser('email', 'anything.user01@example.org').subscribe(
+                    (response: ApiResponseData<UserResponse>) => {
+                        expect(response.body.user.familyName).toEqual('User01');
+
+                        done();
+                    });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const user = require('../../../../test/data/api/admin/user/get.json');
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({user: user})));
+
+            expect(request.url).toBe('http://localhost:3333/admin/users/email/anything.user01@example.org');
+
+            expect(request.method).toEqual('GET');
+
+        });
+
+        it('should return a user by its username', done => {
+
+            knoraApiConnection.admin.users.getUser('username', 'anything.user01').subscribe(
+                    (response: ApiResponseData<UserResponse>) => {
+                        expect(response.body.user.familyName).toEqual('User01');
+
+                        done();
+                    });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const user = require('../../../../test/data/api/admin/user/get.json');
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({user: user})));
+
+            expect(request.url).toBe('http://localhost:3333/admin/users/username/anything.user01');
+
+            expect(request.method).toEqual('GET');
+
+        });
+
     });
+
+
 
 });
