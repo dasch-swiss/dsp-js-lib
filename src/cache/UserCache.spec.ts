@@ -11,14 +11,15 @@ describe('UserCache', () => {
 
     describe('Method getItem', () => {
 
-        it('should get a user from the cache', () => {
+        let getUserSpy: jasmine.Spy;
+        let userCache: UserCache;
+
+        beforeEach(() => {
 
             const user = require('../../test/data/api/admin/user/get.json');
 
-            const getUserSpy: jasmine.Spy = spyOn(knoraApiConnection.admin.users, 'getUser').and.callFake(
+            getUserSpy = spyOn(knoraApiConnection.admin.users, 'getUser').and.callFake(
                     (prop: string, userId: string) => {
-
-                        // console.log(prop, userId);
 
                         const userResp = new UserResponse();
                         userResp.user = user;
@@ -27,22 +28,52 @@ describe('UserCache', () => {
                     }
             );
 
-            const users = new UserCache(knoraApiConnection);
+            userCache = new UserCache(knoraApiConnection);
 
-            users.getItem('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse | null) => {
+        });
+
+        it('should get a user from the cache', done  => {
+
+            userCache.getItem('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse | null) => {
+
+                if (res !== null) {
+                    expect(res.user.id).toEqual('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q');
+
+                    expect(getUserSpy).toHaveBeenCalledTimes(1);
+                    done();
+                }
+            });
+        });
+
+        it('should get the same user from the cache several times', ()  => {
+
+            userCache.getItem('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse | null) => {
                 expect(getUserSpy).toHaveBeenCalledTimes(1);
             });
 
-            users.getItem('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse | null) => {
+            userCache.getItem('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse | null) => {
                 expect(getUserSpy).toHaveBeenCalledTimes(1);
             });
 
-            users.getItem('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse | null) => {
+            userCache.getItem('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse | null) => {
                 expect(getUserSpy).toHaveBeenCalledTimes(1);
             });
 
             expect(getUserSpy).toHaveBeenCalledTimes(1);
             expect(getUserSpy).toHaveBeenCalledWith('iri', 'http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q');
+
+        });
+
+        it ('should get a user from the cache and refresh the entry', done => {
+
+            userCache.getItem('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse | null) => {
+                expect(getUserSpy).toHaveBeenCalledTimes(1);
+
+                userCache.reloadItem('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res2: UserResponse | null) => {
+                    expect(getUserSpy).toHaveBeenCalledTimes(2);
+                    done();
+                });
+            });
 
         });
 

@@ -20,9 +20,9 @@ export abstract class GenericCache<T> {
 
     }
 
-    reloadItem(key: string): Observable<T> {
+    reloadItem(key: string): BehaviorSubject<T|null> {
         delete this.cache[key];
-        return this.requestItemFromKnora(key);
+        return this.getItem(key);
     }
 
     protected abstract requestItemFromKnora(key: string): Observable<T>;
