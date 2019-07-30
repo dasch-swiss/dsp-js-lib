@@ -37,6 +37,8 @@ describe('UserCache', () => {
             userCache.getItem('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse) => {
                 expect(res.user.id).toEqual('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q');
                 expect(getUserSpy).toHaveBeenCalledTimes(1);
+
+                expect(userCache['cache']['http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q']).not.toBeUndefined();
                 done();
 
             });
