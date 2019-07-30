@@ -49,7 +49,7 @@ export abstract class GenericCache<T> {
      * @param key the id of the information to be returned.
      */
     reloadItem(key: string): AsyncSubject<T> {
-        delete this.cache[key];
+        if (this.cache[key] !== undefined) delete this.cache[key];
         return this.getItem(key);
     }
 
