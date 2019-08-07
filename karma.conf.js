@@ -1,6 +1,6 @@
 module.exports = function (config) {
     config.set({
-        logLevel: config.LOG_DEBUG,
+        logLevel: config.LOG_ERROR,
         plugins: [
             "karma-jasmine",
             "karma-mocha-reporter",
