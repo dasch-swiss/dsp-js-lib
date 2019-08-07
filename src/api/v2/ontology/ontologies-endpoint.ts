@@ -29,11 +29,12 @@ export class OntologiesEndpoint extends Endpoint {
         );
     }
 
-    private convertOntology(ontologyJsonld: any): OntologyV2 {
+    private convertOntology(ontologyJsonld: object): OntologyV2 {
 
         const onto = new OntologyV2('iri');
 
-        const entities = ontologyJsonld['@graph'] as object[];
+        // TODO: use json2Typescript
+        const entities = (ontologyJsonld as {[index: string]: object[]})['@graph'];
 
         const resclasses = (entities).filter((entity: any) => {
             return entity.hasOwnProperty("http://api.knora.org/ontology/knora-api/v2#isResourceClass") &&
