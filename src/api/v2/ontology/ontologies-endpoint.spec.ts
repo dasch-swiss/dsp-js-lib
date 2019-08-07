@@ -32,11 +32,32 @@ describe('OntologiesEndpoint', () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const users = require('../../../../test/data/api/v2/ontologies/knora-api-ontology.json');
+            const onto = require('../../../../test/data/api/v2/ontologies/knora-api-ontology.json');
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(users)));
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(onto)));
 
             expect(request.url).toBe('http://localhost:3333/v2/ontologies/allentities/http%3A%2F%2Fapi.knora.org%2Fontology%2Fknora-api%2Fv2');
+
+            expect(request.method).toEqual('GET');
+
+        });
+
+        it("should return a project ontology", done => {
+
+            knoraApiConnection.v2.onto.getOntology("http://api.dasch.swiss/ontology/0807/mls/v2").subscribe(
+                (response: OntologyV2) => {
+                    expect(response.id).toEqual("iri");
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const onto = require('../../../../test/data/api/v2/ontologies/mls-ontology.json');
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(onto)));
+
+            expect(request.url).toBe('http://localhost:3333/v2/ontologies/allentities/http%3A%2F%2Fapi.dasch.swiss%2Fontology%2F0807%2Fmls%2Fv2');
 
             expect(request.method).toEqual('GET');
 

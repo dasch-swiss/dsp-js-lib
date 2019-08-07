@@ -29,7 +29,24 @@ export class OntologiesEndpoint extends Endpoint {
         );
     }
 
-    private convertOntology(ontologyJsonld: object): OntologyV2 {
-        return new OntologyV2('iri');
+    private convertOntology(ontologyJsonld: any): OntologyV2 {
+
+        const onto = new OntologyV2('iri');
+
+        const entities = ontologyJsonld['@graph'] as object[];
+
+        const resclasses = (entities).filter((entity: any) => {
+            return entity.hasOwnProperty("http://api.knora.org/ontology/knora-api/v2#isResourceClass") &&
+                entity["http://api.knora.org/ontology/knora-api/v2#isResourceClass"] === true;
+        });
+
+        const properties = (entities).filter((entity: any) => {
+            return entity.hasOwnProperty("http://api.knora.org/ontology/knora-api/v2#isResourceProperty") &&
+                entity["http://api.knora.org/ontology/knora-api/v2#isResourceProperty"] === true;
+        });
+
+        console.log(properties);
+
+        return onto;
     }
 }
