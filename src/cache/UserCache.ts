@@ -18,4 +18,8 @@ export class UserCache extends GenericCache<UserResponse> {
         );
     }
 
+    protected getDependenciesOfItem(item: UserResponse): string[] {
+        return [];
+    }
+
 }

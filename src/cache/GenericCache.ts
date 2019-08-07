@@ -1,4 +1,4 @@
-import {AsyncSubject, Observable} from 'rxjs';
+import {AsyncSubject, forkJoin, Observable} from 'rxjs';
 
 /**
  * Generic cache class.
@@ -11,7 +11,7 @@ export abstract class GenericCache<T> {
     /**
      * Cache object: key -> value.
      */
-    private cache: {[key: string]: AsyncSubject<T> } = {};
+    private cache: { [key: string]: AsyncSubject<T> } = {};
 
     // TODO: check size of cache, delete oldest entries
 
@@ -19,7 +19,8 @@ export abstract class GenericCache<T> {
      * Gets a specific item from the cache.
      * If not cached yet, the information will be fetched from Knora.
      *
-     * @param key the id of the information to be returned.
+     * @param key the id of the item to be returned.
+     * @return the item.
      */
     getItem(key: string): AsyncSubject<T> {
 
@@ -34,8 +35,29 @@ export abstract class GenericCache<T> {
         // Request information from Knora and update the AsyncSubject
         // once the information is available
         this.requestItemFromKnora(key).subscribe((response: T) => {
-            this.cache[key].next(response);
-            this.cache[key].complete();
+
+            // collect keys of items this item depends on
+            const depKeys = this.getDependenciesOfItem(response);
+
+            const dependencies: Array<AsyncSubject<T>> = [];
+
+            // request each dependency from the cache
+            // push each dependency to the dependencies array
+            depKeys.forEach((depKey: string) => {
+                const depItem: AsyncSubject<T> = this.getItem(depKey);
+                dependencies.push(depItem);
+            });
+
+            // forkJoin completes once all dependencies have been resolved
+            forkJoin(dependencies).subscribe({
+                complete: () => {
+                    // all dependencies have been resolved
+                    // complete the current item
+                    this.cache[key].next(response);
+                    this.cache[key].complete();
+                }
+            });
+
         });
 
         // return the AsyncSubject (will be updated once the information is available)
@@ -47,6 +69,7 @@ export abstract class GenericCache<T> {
      * Deletes an existing entry in the cache and requests information from Knora.
      *
      * @param key the id of the information to be returned.
+     * @return the item.
      */
     reloadItem(key: string): AsyncSubject<T> {
         if (this.cache[key] !== undefined) delete this.cache[key];
@@ -57,7 +80,16 @@ export abstract class GenericCache<T> {
      * Fetches information from Knora.
      *
      * @param key the id of the information to be returned.
+     * @return the item received from Knora.
      */
     protected abstract requestItemFromKnora(key: string): Observable<T>;
+
+    /**
+     * Given an item, determines its dependencies on other items.
+     *
+     * @param item the item whose dependencies have to be determined.
+     * @return keys of the items the current item relies on.
+     */
+    protected abstract getDependenciesOfItem(item: T): string[];
 
 }
