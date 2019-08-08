@@ -13,6 +13,9 @@ export abstract class GenericCache<T> {
      */
     private cache: { [key: string]: AsyncSubject<T> } = {};
 
+    // Keep track of dependencies
+    private dependencies: Set<string> = new Set([]);
+
     // TODO: check size of cache, delete oldest entries
 
     /**
@@ -37,7 +40,21 @@ export abstract class GenericCache<T> {
         this.requestItemFromKnora(key).subscribe((response: T) => {
 
             // collect keys of items this item depends on
-            const depKeys = this.getDependenciesOfItem(response);
+            let depKeys = this.getDependenciesOfItem(response);
+
+            /*console.log('key ', key);
+            console.log('dependencies ', depKeys.toString());
+            console.log('requested Keys: ', this.dependencies.toString());*/
+
+            // ignore keys that were already requested and self-dependencies
+            depKeys = depKeys.filter((depKey: string) => {
+                return !this.dependencies.has(depKey) && depKey !== key;
+            });
+
+            this.dependencies = new Set(Array.from(this.dependencies).concat(depKeys));
+
+            /*console.log('dependencies to resolve ', depKeys.toString());
+            console.log("=======");*/
 
             const dependencies: Array<AsyncSubject<T>> = [];
 
