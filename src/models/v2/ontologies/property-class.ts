@@ -1,6 +1,9 @@
 
 export class PropertyClass {
+    label?: string;
+    comment?: string;
     subPropertyOf: string[];
+    guiElement: string;
 }
 
 // tslint:disable-next-line:max-classes-per-file

@@ -31,6 +31,7 @@ class SubClassOfConverter implements JsonCustomConvert<string[]> {
     deserialize(items: any[]): string[] {
         const tmp: string[] = [];
 
+        // ToDo: if items is a single item, not an array
         for (const item of items) {
             if (item.hasOwnProperty("@id") && (typeof item["@id"] === "string" || item["@id"] instanceof String)) {
                  tmp.push(item["@id"]);
@@ -39,7 +40,6 @@ class SubClassOfConverter implements JsonCustomConvert<string[]> {
         return tmp;
     }
 }
-
 
 @JsonConverter
 class PropertiesListConverter implements JsonCustomConvert<HasProperty[]> {
@@ -93,10 +93,21 @@ class PropertiesListConverter implements JsonCustomConvert<HasProperty[]> {
                         console.error("Missing property name!"); // ToDo: better error message
                     }
                 }
-                tmp.push({
-                    propertyIndex: propertyIndex,
-                    cardinality: cardinality
-                });
+
+                let guiOrder: number = -1;
+                if (item.hasOwnProperty("http://api.knora.org/ontology/salsah-gui/v2#guiOrder")) {
+                    guiOrder = item["http://api.knora.org/ontology/salsah-gui/v2#guiOrder"];
+                    tmp.push({
+                        propertyIndex: propertyIndex,
+                        cardinality: cardinality,
+                        guiOrder: guiOrder
+                    });
+                } else {
+                    tmp.push({
+                        propertyIndex: propertyIndex,
+                        cardinality: cardinality
+                    });
+                }
             }
         }
         return tmp;
