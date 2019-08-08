@@ -13,9 +13,6 @@ export abstract class GenericCache<T> {
      */
     private cache: { [key: string]: AsyncSubject<T> } = {};
 
-    // Keep track of dependencies
-    private dependencies: Set<string> = new Set([]);
-
     // TODO: check size of cache, delete oldest entries
 
     /**
@@ -23,9 +20,10 @@ export abstract class GenericCache<T> {
      * If not cached yet, the information will be fetched from Knora.
      *
      * @param key the id of the item to be returned.
+     * @param requestedDeps dependencies already taken care of
      * @return the item.
      */
-    getItem(key: string): AsyncSubject<T> {
+    getItem(key: string, requestedDeps: string[] = []): AsyncSubject<T> {
 
         // If the key already exists, return the associated AsyncSubject.
         if (this.cache[key] !== undefined) {
@@ -42,31 +40,29 @@ export abstract class GenericCache<T> {
             // collect keys of items this item depends on
             let depKeys = this.getDependenciesOfItem(response);
 
-            /*console.log('key ', key);
-            console.log('dependencies ', depKeys.toString());
-            console.log('requested Keys: ', this.dependencies.toString());*/
+            /*console.log(key, ' requested: ', requested);*/
 
-            // ignore keys that were already requested and self-dependencies
+            // ignore dependencies already taken care of and self-dependencies
             depKeys = depKeys.filter((depKey: string) => {
-                return !this.dependencies.has(depKey) && depKey !== key;
+                return requestedDeps.indexOf(depKey) === -1 && depKey !== key;
             });
 
-            this.dependencies = new Set(Array.from(this.dependencies).concat(depKeys));
-
-            /*console.log('dependencies to resolve ', depKeys.toString());
-            console.log("=======");*/
+            /*console.log(key, ' deps: ', depKeys);
+            console.log(key, ' ', requested.concat(depKeys));*/
 
             const dependencies: Array<AsyncSubject<T>> = [];
 
             // request each dependency from the cache
             // push each dependency to the dependencies array
             depKeys.forEach((depKey: string) => {
-                const depItem: AsyncSubject<T> = this.getItem(depKey);
+                // pass new dependencies along
+                const depItem: AsyncSubject<T> = this.getItem(depKey, requestedDeps.concat(depKeys));
                 dependencies.push(depItem);
             });
 
             // forkJoin completes once all dependencies have been resolved
             forkJoin(dependencies).subscribe({
+                /*next: (val: T[]) => { console.log(val); },*/
                 complete: () => {
                     // all dependencies have been resolved
                     // complete the current item
