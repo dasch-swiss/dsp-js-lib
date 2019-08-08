@@ -1,8 +1,10 @@
+import {OperationMode} from "json2typescript";
 import {Observable} from 'rxjs';
 import {AjaxResponse} from 'rxjs/ajax';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {ApiResponseData, ApiResponseError, LoginResponse} from '../../..';
 import {OntologyV2} from '../../../models/v2/ontologies/ontology-v2';
+import {ResourceClass} from "../../../models/v2/ontologies/resource-class";
 import {Endpoint} from '../../endpoint';
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
@@ -35,10 +37,13 @@ export class OntologiesEndpoint extends Endpoint {
 
         // TODO: use json2Typescript
         const entities = (ontologyJsonld as {[index: string]: object[]})['@graph'];
-
+        this.jsonConvert.operationMode = OperationMode.LOGGING;
         const resclasses = (entities).filter((entity: any) => {
             return entity.hasOwnProperty("http://api.knora.org/ontology/knora-api/v2#isResourceClass") &&
                 entity["http://api.knora.org/ontology/knora-api/v2#isResourceClass"] === true;
+        }).map(resclass => {
+            const r = this.jsonConvert.deserializeObject(resclass, ResourceClass);
+            return r;
         });
 
         const properties = (entities).filter((entity: any) => {
@@ -46,7 +51,7 @@ export class OntologiesEndpoint extends Endpoint {
                 entity["http://api.knora.org/ontology/knora-api/v2#isResourceProperty"] === true;
         });
 
-        console.log(properties);
+        console.log(JSON.stringify(resclasses[0]));
 
         return onto;
     }
