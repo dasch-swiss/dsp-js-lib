@@ -47,25 +47,28 @@ export abstract class GenericCache<T> {
                 return requestedDeps.indexOf(depKey) === -1 && depKey !== key;
             });
 
-            /*console.log(key, ' deps: ', depKeys);
-            console.log(key, ' ', requested.concat(depKeys));*/
+            // console.log(key, ' deps: ', depKeys);
+            // console.log(key, ' ', requestedDeps.concat(depKeys));
 
             const dependencies: Array<AsyncSubject<T>> = [];
+
+            const requestedDepsUpToDate = requestedDeps.concat(depKeys).concat([key]);
 
             // request each dependency from the cache
             // push each dependency to the dependencies array
             depKeys.forEach((depKey: string) => {
                 // pass new dependencies along
-                const depItem: AsyncSubject<T> = this.getItem(depKey, requestedDeps.concat(depKeys));
+                const depItem: AsyncSubject<T> = this.getItem(depKey, requestedDepsUpToDate);
                 dependencies.push(depItem);
             });
 
             // forkJoin completes once all dependencies have been resolved
             forkJoin(dependencies).subscribe({
-                /*next: (val: T[]) => { console.log(val); },*/
+                /*next: (val: T[]) => { console.log(key, 'next ', val); },*/
                 complete: () => {
                     // all dependencies have been resolved
                     // complete the current item
+                    // console.log(key, 'complete');
                     this.cache[key].next(response);
                     this.cache[key].complete();
                 }
