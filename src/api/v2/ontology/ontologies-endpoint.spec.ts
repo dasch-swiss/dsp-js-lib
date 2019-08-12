@@ -25,7 +25,7 @@ describe('OntologiesEndpoint', () => {
 
             knoraApiConnection.v2.onto.getOntology("http://api.knora.org/ontology/knora-api/v2").subscribe(
                 (response: OntologyV2) => {
-                    expect(response.id).toEqual("iri");
+                    expect(response.id).toEqual("http://api.knora.org/ontology/knora-api/v2");
 
                     done();
                 });
@@ -46,7 +46,7 @@ describe('OntologiesEndpoint', () => {
 
             knoraApiConnection.v2.onto.getOntology("http://api.dasch.swiss/ontology/0807/mls/v2").subscribe(
                 (response: OntologyV2) => {
-                    expect(response.id).toEqual("iri");
+                    expect(response.id).toEqual("http://api.dasch.swiss/ontology/0807/mls/v2");
 
                     done();
                 });

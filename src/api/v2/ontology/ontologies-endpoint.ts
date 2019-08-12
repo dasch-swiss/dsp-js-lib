@@ -25,7 +25,7 @@ export class OntologiesEndpoint extends Endpoint {
                     return jsonld.compact(ajaxResponse.response, {});
                 }), map((jsonldobj: object) => {
                     // console.log(JSON.stringify(jsonldobj));
-                    const responseData = this.convertOntology(jsonldobj);
+                    const responseData = this.convertOntology(jsonldobj, ontologyIri);
 
                     return responseData;
                 }),
@@ -33,23 +33,30 @@ export class OntologiesEndpoint extends Endpoint {
         );
     }
 
-    private convertOntology(ontologyJsonld: object): OntologyV2 {
+    private convertOntology(ontologyJsonld: object, ontologyIri: string): OntologyV2 {
 
-        const onto = new OntologyV2('iri');
+        const onto = new OntologyV2(ontologyIri);
 
         const entities = (ontologyJsonld as {[index: string]: object[]})['@graph'];
 
-        // this.jsonConvert.operationMode = OperationMode.LOGGING;
-        const resclasses = (entities).filter((entity: any) => {
+        this.jsonConvert.operationMode = OperationMode.ENABLE;
+
+        // index of resource classes
+        // TODO: assign directly in forEach
+        const resClasses: {[key: string]: ResourceClass} = {};
+
+        entities.filter((entity: any) => {
             return entity.hasOwnProperty(Constants.IsResourceClass) &&
                 entity[Constants.IsResourceClass] === true;
         }).map(resclassJsonld => {
-            // console.log(resclassJsonld);
-            // console.log("++++++++");
-            const resclass: ResourceClass = this.jsonConvert.deserializeObject(resclassJsonld, ResourceClass);
-            return resclass;
+            return this.jsonConvert.deserializeObject(resclassJsonld, ResourceClass);
+        }).forEach((resClass: ResourceClass) => {
+            resClasses[resClass.id] = resClass;
         });
 
+        onto.resourceClasses = resClasses;
+
+        // console.log(onto);
 
         const properties = (entities).filter((entity: any) => {
             return entity.hasOwnProperty(Constants.IsResourceProperty) &&
