@@ -42,8 +42,8 @@ class GuiElementConverter  implements JsonCustomConvert<string> {
     }
 }
 
-@JsonObject("PropertyClass")
-export class PropertyClass {
+@JsonObject("ValuePropertyClass")
+export class ValuePropertyClass {
     @JsonProperty("@id", String)
     id: string = "";
 
@@ -59,13 +59,3 @@ export class PropertyClass {
     @JsonProperty(Constants.GuiElement, GuiElementConverter, true)
     guiElement?: string = undefined;
 }
-
-// tslint:disable-next-line:max-classes-per-file
-/*export class SystemPropertyClass extends PropertyClass {
-
-}*/
-
-// tslint:disable-next-line:max-classes-per-file
-/*export class ProjectPropertyClass extends PropertyClass {
-
-}*/

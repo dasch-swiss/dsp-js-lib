@@ -7,7 +7,7 @@ import {OntologyV2} from '../../../models/v2/ontologies/ontology-v2';
 import {ResourceClass} from "../../../models/v2/ontologies/resource-class";
 import {Endpoint} from '../../endpoint';
 import {Constants} from '../../../models/v2/Constants';
-import {PropertyClass} from '../../../models/v2/ontologies/property-class';
+import {ValuePropertyClass} from '../../../models/v2/ontologies/value-property-class';
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require('jsonld/dist/jsonld.js');
@@ -54,12 +54,12 @@ export class OntologiesEndpoint extends Endpoint {
             onto.resourceClasses[resClass.id] = resClass;
         });
 
-        const properties = (entities).filter((entity: any) => {
+        entities.filter((entity: any) => {
             return entity.hasOwnProperty(Constants.IsResourceProperty) &&
                 entity[Constants.IsResourceProperty] === true;
         }).map((propertyJsonld: any) => {
-            return this.jsonConvert.deserializeObject(propertyJsonld, PropertyClass);
-        }).forEach((prop: PropertyClass) => {
+            return this.jsonConvert.deserializeObject(propertyJsonld, ValuePropertyClass);
+        }).forEach((prop: ValuePropertyClass) => {
             onto.properties[prop.id] = prop;
         });
 

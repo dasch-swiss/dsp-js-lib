@@ -1,5 +1,5 @@
 import {JsonConverter, JsonCustomConvert, JsonObject, JsonProperty} from "json2typescript";
-import {PropertyClass} from "./property-class";
+import {ValuePropertyClass} from "./value-property-class";
 import {Constants} from '../Constants';
 
 export enum Cardinality {
