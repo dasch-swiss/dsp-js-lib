@@ -7,6 +7,7 @@ import {OntologyV2} from '../../../models/v2/ontologies/ontology-v2';
 import {ResourceClass} from "../../../models/v2/ontologies/resource-class";
 import {Endpoint} from '../../endpoint';
 import {Constants} from '../../../models/v2/Constants';
+import {PropertyClass} from '../../../models/v2/ontologies/property-class';
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require('jsonld/dist/jsonld.js');
@@ -39,7 +40,7 @@ export class OntologiesEndpoint extends Endpoint {
 
         const entities = (ontologyJsonld as {[index: string]: object[]})['@graph'];
 
-        this.jsonConvert.operationMode = OperationMode.ENABLE;
+        this.jsonConvert.operationMode = OperationMode.LOGGING;
 
         // index of resource classes
         // TODO: assign directly in forEach
@@ -61,9 +62,15 @@ export class OntologiesEndpoint extends Endpoint {
         const properties = (entities).filter((entity: any) => {
             return entity.hasOwnProperty(Constants.IsResourceProperty) &&
                 entity[Constants.IsResourceProperty] === true;
+        }).map((propertyJsonld: any) => {
+            // console.log(propertyJsonld)
+            // console.log(propertyJsonld[Constants.Label]);
+
+            return this.jsonConvert.deserializeObject(propertyJsonld, PropertyClass);
+
         });
 
-        // console.log(JSON.stringify(resclasses[0]));
+        // console.log(JSON.stringify(properties));
 
         return onto;
     }

@@ -19,6 +19,6 @@ export class Constants {
     static SubClassOf = Constants.Rdfs + Constants.Delimiter + "subClassOf";
     static Comment = Constants.Rdfs + Constants.Delimiter + "comment";
     static Label = Constants.Rdfs + Constants.Delimiter + "label";
-
+    static SubPropertyOf = Constants.Rdfs + Constants.Delimiter + "subPropertyOf";
 
 }
