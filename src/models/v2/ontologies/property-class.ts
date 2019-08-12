@@ -53,8 +53,6 @@ class GuiElementConverter  implements JsonCustomConvert<string> {
     }
 }
 
-
-
 @JsonObject("PropertyClass")
 export class PropertyClass {
     @JsonProperty("@id", String)

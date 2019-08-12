@@ -30,7 +30,10 @@ export class OntologiesEndpoint extends Endpoint {
 
                     return responseData;
                 }),
-                catchError(error => this.handleError(error))
+                catchError(error => {
+                    console.error(error);
+                    return this.handleError(error);
+                })
         );
     }
 
@@ -42,26 +45,14 @@ export class OntologiesEndpoint extends Endpoint {
 
         // this.jsonConvert.operationMode = OperationMode.LOGGING;
 
-        // index of resource classes
-        // TODO: assign directly in forEach
-        const resClasses: {[key: string]: ResourceClass} = {};
-
         entities.filter((entity: any) => {
             return entity.hasOwnProperty(Constants.IsResourceClass) &&
                 entity[Constants.IsResourceClass] === true;
         }).map(resclassJsonld => {
             return this.jsonConvert.deserializeObject(resclassJsonld, ResourceClass);
         }).forEach((resClass: ResourceClass) => {
-            resClasses[resClass.id] = resClass;
+            onto.resourceClasses[resClass.id] = resClass;
         });
-
-        onto.resourceClasses = resClasses;
-
-        // console.log(onto);
-
-        // index of property classes
-        // TODO: assign directly in forEach
-        const props: {[key: string]: PropertyClass} = {};
 
         const properties = (entities).filter((entity: any) => {
             return entity.hasOwnProperty(Constants.IsResourceProperty) &&
@@ -69,10 +60,9 @@ export class OntologiesEndpoint extends Endpoint {
         }).map((propertyJsonld: any) => {
             return this.jsonConvert.deserializeObject(propertyJsonld, PropertyClass);
         }).forEach((prop: PropertyClass) => {
-            props[prop.id] = prop;
+            onto.properties[prop.id] = prop;
         });
 
-        onto.properties = props;
 
         // console.log(JSON.stringify(onto.properties));
 
