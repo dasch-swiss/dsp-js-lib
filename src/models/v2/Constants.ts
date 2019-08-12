@@ -7,6 +7,8 @@ export class Constants {
 
     static SalsahGui = "http://api.knora.org/ontology/salsah-gui/v2";
     static GuiOrder = Constants.SalsahGui + Constants.Delimiter + "guiOrder";
+    static GuiElement = Constants.SalsahGui + Constants.Delimiter + "guiElement";
+
 
     static Owl = "http://www.w3.org/2002/07/owl";
     static Restriction = Constants.Owl + Constants.Delimiter + "Restriction";

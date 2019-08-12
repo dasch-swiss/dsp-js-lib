@@ -74,7 +74,7 @@ export class OntologiesEndpoint extends Endpoint {
 
         onto.properties = props;
 
-        // console.log(JSON.stringify(onto));
+        // console.log(JSON.stringify(onto.properties));
 
         return onto;
     }

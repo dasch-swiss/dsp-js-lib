@@ -27,6 +27,34 @@ class SubPropertyOfConverter implements JsonCustomConvert<string[]> {
     }
 }
 
+@JsonConverter
+class GuiElementConverter  implements JsonCustomConvert<string> {
+    serialize(description: string): any {
+        const res: Array<{ value: string, language: string }> = [];
+        /*
+        for (const key in description) {
+            if (description.hasOwnProperty(key)) {
+                res.push({language: key, value: description[key]});
+            }
+        }
+        */
+        return res;
+    }
+
+    deserialize(item: any): string {
+        let tmp = "";
+
+        // TODO: check if it could be an array, too.
+        if (item.hasOwnProperty('@id') && (typeof item['@id'] === 'string' || item['@id'] instanceof String)) {
+            tmp = item['@id'];
+        }
+
+        return tmp;
+    }
+}
+
+
+
 @JsonObject("PropertyClass")
 export class PropertyClass {
     @JsonProperty("@id", String)
@@ -41,7 +69,8 @@ export class PropertyClass {
     @JsonProperty(Constants.Label, String, true)
     label?: string = undefined;
 
-    guiElement: string;
+    @JsonProperty(Constants.GuiElement, GuiElementConverter, true)
+    guiElement?: string = undefined;
 }
 
 // tslint:disable-next-line:max-classes-per-file
