@@ -40,7 +40,7 @@ export class OntologiesEndpoint extends Endpoint {
 
         const entities = (ontologyJsonld as {[index: string]: object[]})['@graph'];
 
-        this.jsonConvert.operationMode = OperationMode.LOGGING;
+        // this.jsonConvert.operationMode = OperationMode.LOGGING;
 
         // index of resource classes
         // TODO: assign directly in forEach
@@ -59,18 +59,22 @@ export class OntologiesEndpoint extends Endpoint {
 
         // console.log(onto);
 
+        // index of property classes
+        // TODO: assign directly in forEach
+        const props: {[key: string]: PropertyClass} = {};
+
         const properties = (entities).filter((entity: any) => {
             return entity.hasOwnProperty(Constants.IsResourceProperty) &&
                 entity[Constants.IsResourceProperty] === true;
         }).map((propertyJsonld: any) => {
-            // console.log(propertyJsonld)
-            // console.log(propertyJsonld[Constants.Label]);
-
             return this.jsonConvert.deserializeObject(propertyJsonld, PropertyClass);
-
+        }).forEach((prop: PropertyClass) => {
+            props[prop.id] = prop;
         });
 
-        // console.log(JSON.stringify(properties));
+        onto.properties = props;
+
+        // console.log(JSON.stringify(onto));
 
         return onto;
     }

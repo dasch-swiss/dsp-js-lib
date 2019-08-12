@@ -124,10 +124,10 @@ export class ResourceClass {
     subClassOf: string[] = [];
 
     @JsonProperty(Constants.Comment, String, true)
-    comment?: string;
+    comment?: string = undefined;
 
     @JsonProperty(Constants.Label, String, true)
-    label?: string;
+    label?: string = undefined;
 
     @JsonProperty(Constants.SubClassOf, PropertiesListConverter)
     propertiesList: HasProperty[] = [];

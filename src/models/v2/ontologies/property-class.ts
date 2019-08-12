@@ -18,6 +18,7 @@ class SubPropertyOfConverter implements JsonCustomConvert<string[]> {
     deserialize(item: any): string[] {
         const tmp: string[] = [];
 
+        // TODO: check if it could be an array, too.
         if (item.hasOwnProperty('@id') && (typeof item['@id'] === 'string' || item['@id'] instanceof String)) {
             tmp.push(item['@id']);
         }
@@ -29,16 +30,16 @@ class SubPropertyOfConverter implements JsonCustomConvert<string[]> {
 @JsonObject("PropertyClass")
 export class PropertyClass {
     @JsonProperty("@id", String)
-    id: string = '';
+    id: string = "";
 
     @JsonProperty(Constants.SubPropertyOf, SubPropertyOfConverter, true)
     subPropertyOf: string[] = [];
 
     @JsonProperty(Constants.Comment, String, true)
-    comment?: string;
+    comment?: string = undefined;
 
     @JsonProperty(Constants.Label, String, true)
-    label?: string;
+    label?: string = undefined;
 
     guiElement: string;
 }
