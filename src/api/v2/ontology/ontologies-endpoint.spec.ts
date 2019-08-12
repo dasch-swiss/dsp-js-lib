@@ -42,7 +42,7 @@ describe('OntologiesEndpoint', () => {
 
         });
 
-        fit("should return a project ontology", done => {
+        it("should return a project ontology", done => {
 
             knoraApiConnection.v2.onto.getOntology("http://api.dasch.swiss/ontology/0807/mls/v2").subscribe(
                 (response: OntologyV2) => {

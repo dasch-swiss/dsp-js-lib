@@ -1,5 +1,6 @@
 import {JsonConverter, JsonCustomConvert, JsonObject, JsonProperty} from "json2typescript";
 import {PropertyClass} from "./property-class";
+import {Constants} from '../Constants';
 
 export enum Cardinality {
     "_1" = 0,
@@ -59,24 +60,24 @@ class PropertiesListConverter implements JsonCustomConvert<HasProperty[]> {
         const tmp: HasProperty[] = [];
 
         for (const item of items) {
-            if (item.hasOwnProperty("@type") && (item["@type"] === "http://www.w3.org/2002/07/owl#Restriction")) {
+            if (item.hasOwnProperty("@type") && (item["@type"] === Constants.Restriction)) {
                 let cardinality: Cardinality = Cardinality._0_n;
-                if (item.hasOwnProperty("http://www.w3.org/2002/07/owl#maxCardinality")) {
-                    if (item["http://www.w3.org/2002/07/owl#maxCardinality"] === 1) {
+                if (item.hasOwnProperty(Constants.MaxCardinality)) {
+                    if (item[Constants.MaxCardinality] === 1) {
                         cardinality = Cardinality._0_1;
                     } else {
                         console.error("Inconsistent cardinality!"); // ToDo: better error message
                     }
-                } else if (item.hasOwnProperty("http://www.w3.org/2002/07/owl#minCardinality")) {
-                    if (item["http://www.w3.org/2002/07/owl#minCardinality"] === 1) {
+                } else if (item.hasOwnProperty(Constants.MinCardinality)) {
+                    if (item[Constants.MinCardinality] === 1) {
                         cardinality = Cardinality._1_n;
-                    } else if (item["http://www.w3.org/2002/07/owl#minCardinality"] === 0) {
+                    } else if (item[Constants.MinCardinality] === 0) {
                         cardinality = Cardinality._0_n;
                     } else {
                         console.error("Inconsistent cardinality!"); // ToDo: better error message
                     }
-                } else if (item.hasOwnProperty("http://www.w3.org/2002/07/owl#cardinality")) {
-                    if (item["http://www.w3.org/2002/07/owl#cardinality"] === 1) {
+                } else if (item.hasOwnProperty(Constants.Cardinality)) {
+                    if (item[Constants.Cardinality] === 1) {
                         cardinality = Cardinality._1;
                     } else {
                         console.error("Inconsistent cardinality!"); // ToDo: better error message
@@ -84,8 +85,8 @@ class PropertiesListConverter implements JsonCustomConvert<HasProperty[]> {
                 }
 
                 let propertyIndex: string = "";
-                if (item.hasOwnProperty("http://www.w3.org/2002/07/owl#onProperty")) {
-                    const propstruct: any = item["http://www.w3.org/2002/07/owl#onProperty"];
+                if (item.hasOwnProperty(Constants.OnProperty)) {
+                    const propstruct: any = item[Constants.OnProperty];
                     if (propstruct.hasOwnProperty("@id") &&
                         (typeof propstruct["@id"] === "string" || propstruct["@id"] instanceof String)) {
                         propertyIndex = propstruct["@id"];
@@ -95,8 +96,8 @@ class PropertiesListConverter implements JsonCustomConvert<HasProperty[]> {
                 }
 
                 let guiOrder: number = -1;
-                if (item.hasOwnProperty("http://api.knora.org/ontology/salsah-gui/v2#guiOrder")) {
-                    guiOrder = item["http://api.knora.org/ontology/salsah-gui/v2#guiOrder"];
+                if (item.hasOwnProperty(Constants.GuiOrder)) {
+                    guiOrder = item[Constants.GuiOrder];
                     tmp.push({
                         propertyIndex: propertyIndex,
                         cardinality: cardinality,
@@ -119,15 +120,15 @@ export class ResourceClass {
     @JsonProperty("@id", String)
     id: string = "";
 
-    @JsonProperty("http://www.w3.org/2000/01/rdf-schema#subClassOf", SubClassOfConverter)
+    @JsonProperty(Constants.SubClassOf, SubClassOfConverter)
     subClassOf: string[] = [];
 
-    @JsonProperty("http://www.w3.org/2000/01/rdf-schema#comment", String)
-    comment?: string = "";
+    @JsonProperty(Constants.Comment, String, true)
+    comment?: string;
 
-    @JsonProperty("http://www.w3.org/2000/01/rdf-schema#label", String)
-    label?: string = "";
+    @JsonProperty(Constants.Label, String, true)
+    label?: string;
 
-    @JsonProperty("http://www.w3.org/2000/01/rdf-schema#subClassOf", PropertiesListConverter)
+    @JsonProperty(Constants.SubClassOf, PropertiesListConverter)
     propertiesList: HasProperty[] = [];
 }
