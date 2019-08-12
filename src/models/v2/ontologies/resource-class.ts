@@ -9,7 +9,7 @@ export enum Cardinality {
     "_1_n" = 3
 }
 
-export interface HasProperty {
+export interface IHasProperty {
     propertyIndex: string;
     cardinality: Cardinality;
     guiOrder?: number;
@@ -17,47 +17,35 @@ export interface HasProperty {
 
 @JsonConverter
 class SubClassOfConverter implements JsonCustomConvert<string[]> {
-    serialize(description: string[]): any {
-        const res: Array<{value: string, language: string}> = [];
-        /*
-        for (const key in description) {
-            if (description.hasOwnProperty(key)) {
-                res.push({language: key, value: description[key]});
-            }
-        }
-        */
-        return res;
+    serialize(subclasses: string[]): any {
     }
 
-    deserialize(items: any[]): string[] {
+    deserialize(item: any): string[] {
         const tmp: string[] = [];
 
-        // ToDo: if items is a single item, not an array
-        for (const item of items) {
-            if (item.hasOwnProperty("@id") && (typeof item["@id"] === "string" || item["@id"] instanceof String)) {
-                 tmp.push(item["@id"]);
+        const addItem = (ele: any) => {
+            if (ele.hasOwnProperty('@id') && (typeof ele['@id'] === 'string' || ele['@id'] instanceof String)) {
+                tmp.push(ele['@id']);
             }
+        };
+
+        if (Array.isArray(item)) {
+            item.forEach(it => addItem(it));
+        } else {
+            addItem(item);
         }
+
         return tmp;
     }
 }
 
 @JsonConverter
-class PropertiesListConverter implements JsonCustomConvert<HasProperty[]> {
-    serialize(hasProperties: HasProperty[]): any {
-        const res: any = {};
-        /*
-        for (const key in description) {
-            if (description.hasOwnProperty(key)) {
-                res.push({language: key, value: description[key]});
-            }
-        }
-        */
-        return res;
+class PropertiesListConverter implements JsonCustomConvert<IHasProperty[]> {
+    serialize(hasProperties: IHasProperty[]): any {
     }
 
-    deserialize(items: any[]): HasProperty[] {
-        const tmp: HasProperty[] = [];
+    deserialize(items: any[]): IHasProperty[] {
+        const tmp: IHasProperty[] = [];
 
         for (const item of items) {
             if (item.hasOwnProperty("@type") && (item["@type"] === Constants.Restriction)) {
@@ -130,5 +118,5 @@ export class ResourceClass {
     label?: string = undefined;
 
     @JsonProperty(Constants.SubClassOf, PropertiesListConverter)
-    propertiesList: HasProperty[] = [];
+    propertiesList: IHasProperty[] = [];
 }

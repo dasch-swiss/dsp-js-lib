@@ -3,24 +3,22 @@ import {Constants} from '../Constants';
 
 @JsonConverter
 class SubPropertyOfConverter implements JsonCustomConvert<string[]> {
-    serialize(description: string[]): any {
-        const res: Array<{ value: string, language: string }> = [];
-        /*
-        for (const key in description) {
-            if (description.hasOwnProperty(key)) {
-                res.push({language: key, value: description[key]});
-            }
-        }
-        */
-        return res;
+    serialize(subproperties: string[]): any {
     }
 
     deserialize(item: any): string[] {
         const tmp: string[] = [];
 
-        // TODO: check if it could be an array, too.
-        if (item.hasOwnProperty('@id') && (typeof item['@id'] === 'string' || item['@id'] instanceof String)) {
-            tmp.push(item['@id']);
+        const addItem = (ele: any) => {
+            if (ele.hasOwnProperty('@id') && (typeof ele['@id'] === 'string' || ele['@id'] instanceof String)) {
+                tmp.push(ele['@id']);
+            }
+        };
+
+        if (Array.isArray(item)) {
+            item.forEach(it => addItem(it));
+        } else {
+            addItem(item);
         }
 
         return tmp;
@@ -30,15 +28,6 @@ class SubPropertyOfConverter implements JsonCustomConvert<string[]> {
 @JsonConverter
 class GuiElementConverter  implements JsonCustomConvert<string> {
     serialize(description: string): any {
-        const res: Array<{ value: string, language: string }> = [];
-        /*
-        for (const key in description) {
-            if (description.hasOwnProperty(key)) {
-                res.push({language: key, value: description[key]});
-            }
-        }
-        */
-        return res;
     }
 
     deserialize(item: any): string {

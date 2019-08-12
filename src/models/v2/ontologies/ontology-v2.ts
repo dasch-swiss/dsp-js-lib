@@ -1,5 +1,5 @@
 import {PropertyClass} from "./property-class";
-import {HasProperty, ResourceClass} from "./resource-class";
+import {IHasProperty, ResourceClass} from "./resource-class";
 
 export class OntologyV2 {
     lastModificationDate: string;
