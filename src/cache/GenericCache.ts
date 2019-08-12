@@ -34,10 +34,11 @@ export abstract class GenericCache<T> {
         // Create an entry for a new AsyncSubject
         this.cache[key] = new AsyncSubject();
 
-        // Request information from Knora and update the AsyncSubject
+        // Requests information from Knora and updates the AsyncSubject
         // once the information is available
         this.requestItemFromKnora(key).subscribe((response: T) => {
 
+            // Updates and completes the AsyncSubject.
             this.cache[key].next(response);
             this.cache[key].complete();
 
