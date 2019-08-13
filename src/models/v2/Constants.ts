@@ -4,6 +4,8 @@ export class Constants {
     static Delimiter = "#";
     static IsResourceClass = Constants.KnoraApiV2 + Constants.Delimiter + "isResourceClass";
     static IsResourceProperty = Constants.KnoraApiV2 + Constants.Delimiter + "isResourceProperty";
+    static ObjectType = Constants.KnoraApiV2 + Constants.Delimiter + "objectType";
+    static SubjectType = Constants.KnoraApiV2 + Constants.Delimiter + "subjectType";
 
     static SalsahGui = "http://api.knora.org/ontology/salsah-gui/v2";
     static GuiOrder = Constants.SalsahGui + Constants.Delimiter + "guiOrder";

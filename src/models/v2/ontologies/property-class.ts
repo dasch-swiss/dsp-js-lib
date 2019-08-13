@@ -26,7 +26,7 @@ class SubPropertyOfConverter implements JsonCustomConvert<string[]> {
 }
 
 @JsonConverter
-class GuiElementConverter  implements JsonCustomConvert<string> {
+class IdConverter  implements JsonCustomConvert<string> {
     serialize(description: string): any {
     }
 
@@ -43,11 +43,15 @@ class GuiElementConverter  implements JsonCustomConvert<string> {
 }
 
 export abstract class PropertyClass {
-    id: string;
+    abstract id: string;
 
-    comment?: string;
+    abstract comment?: string;
 
-    label?: string;
+    abstract label?: string;
+
+    abstract subjectType?: string;
+
+    abstract objectType: string;
 }
 
 @JsonObject("ResourcePropertyClass")
@@ -64,8 +68,14 @@ export class ResourcePropertyClass extends PropertyClass {
     @JsonProperty(Constants.Label, String, true)
     label?: string = undefined;
 
-    @JsonProperty(Constants.GuiElement, GuiElementConverter, true)
+    @JsonProperty(Constants.GuiElement, IdConverter, true)
     guiElement?: string = undefined;
+
+    @JsonProperty(Constants.SubjectType, IdConverter, true)
+    subjectType?: string = undefined;
+
+    @JsonProperty(Constants.ObjectType, IdConverter, true)
+    objectType: string = "";
 }
 
 @JsonObject("SystemPropertyClass")
@@ -79,4 +89,10 @@ export class SystemPropertyClass extends PropertyClass {
 
     @JsonProperty(Constants.Label, String, true)
     label?: string = undefined;
+
+    @JsonProperty(Constants.SubjectType, IdConverter, true)
+    subjectType?: string = undefined;
+
+    @JsonProperty(Constants.ObjectType, IdConverter, true)
+    objectType: string = "";
 }
