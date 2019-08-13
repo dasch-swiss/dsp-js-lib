@@ -42,8 +42,16 @@ class GuiElementConverter  implements JsonCustomConvert<string> {
     }
 }
 
-@JsonObject("ValuePropertyClass")
-export class ValuePropertyClass {
+export abstract class PropertyClass {
+    id: string;
+
+    comment?: string;
+
+    label?: string;
+}
+
+@JsonObject("ResourcePropertyClass")
+export class ResourcePropertyClass extends PropertyClass {
     @JsonProperty("@id", String)
     id: string = "";
 
@@ -58,4 +66,17 @@ export class ValuePropertyClass {
 
     @JsonProperty(Constants.GuiElement, GuiElementConverter, true)
     guiElement?: string = undefined;
+}
+
+@JsonObject("SystemPropertyClass")
+export class SystemPropertyClass extends PropertyClass {
+
+    @JsonProperty("@id", String)
+    id: string = "";
+
+    @JsonProperty(Constants.Comment, String, true)
+    comment?: string = undefined;
+
+    @JsonProperty(Constants.Label, String, true)
+    label?: string = undefined;
 }

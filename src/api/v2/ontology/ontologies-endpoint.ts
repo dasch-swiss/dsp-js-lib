@@ -7,7 +7,7 @@ import {OntologyV2} from '../../../models/v2/ontologies/ontology-v2';
 import {ResourceClass} from "../../../models/v2/ontologies/resource-class";
 import {Endpoint} from '../../endpoint';
 import {Constants} from '../../../models/v2/Constants';
-import {ValuePropertyClass} from '../../../models/v2/ontologies/value-property-class';
+import {ResourcePropertyClass, SystemPropertyClass} from '../../../models/v2/ontologies/resource-property-class';
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require('jsonld/dist/jsonld.js');
@@ -58,8 +58,17 @@ export class OntologiesEndpoint extends Endpoint {
             return entity.hasOwnProperty(Constants.IsResourceProperty) &&
                 entity[Constants.IsResourceProperty] === true;
         }).map((propertyJsonld: any) => {
-            return this.jsonConvert.deserializeObject(propertyJsonld, ValuePropertyClass);
-        }).forEach((prop: ValuePropertyClass) => {
+            return this.jsonConvert.deserializeObject(propertyJsonld, ResourcePropertyClass);
+        }).forEach((prop: ResourcePropertyClass) => {
+            onto.properties[prop.id] = prop;
+        });
+
+        entities.filter((entity: any) => {
+            return (entity["@type"] === Constants.DataTypeProperty || entity["@type"] === Constants.DataTypeProperty)
+                    && !entity.hasOwnProperty(Constants.IsResourceProperty);
+        }).map((propertyJsonld: any) => {
+            return this.jsonConvert.deserializeObject(propertyJsonld, SystemPropertyClass);
+        }).forEach((prop: SystemPropertyClass) => {
             onto.properties[prop.id] = prop;
         });
 

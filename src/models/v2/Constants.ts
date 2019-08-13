@@ -16,6 +16,9 @@ export class Constants {
     static MinCardinality = Constants.Owl + Constants.Delimiter + "minCardinality";
     static Cardinality = Constants.Owl + Constants.Delimiter + "cardinality";
     static OnProperty = Constants.Owl + Constants.Delimiter + "onProperty";
+    static DataTypeProperty = Constants.Owl + Constants.Delimiter + "DatatypeProperty";
+    static ObjectProperty = Constants.Owl + Constants.Delimiter + "ObjectProperty";
+
 
     static Rdfs = "http://www.w3.org/2000/01/rdf-schema";
     static SubClassOf = Constants.Rdfs + Constants.Delimiter + "subClassOf";
