@@ -9,6 +9,8 @@ export { Project } from "./models/admin/project";
 export { User } from "./models/admin/user";
 export { UserResponse } from "./models/admin/user-response";
 
+export {UserCache} from "./cache/UserCache";
+
 export { LoginResponse } from "./models/v2/login-response";
 export { LogoutResponse } from "./models/v2/logout-response";
 
