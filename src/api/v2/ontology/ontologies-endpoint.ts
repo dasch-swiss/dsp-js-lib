@@ -4,7 +4,7 @@ import {AjaxResponse} from 'rxjs/ajax';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {ApiResponseData, ApiResponseError, LoginResponse} from '../../..';
 import {OntologyV2} from '../../../models/v2/ontologies/ontology-v2';
-import {ResourceClass, StandoffClass} from '../../../models/v2/ontologies/resource-class';
+import {ResourceClass, StandoffClass} from '../../../models/v2/ontologies/class-definition';
 import {Endpoint} from '../../endpoint';
 import {Constants} from '../../../models/v2/Constants';
 import {ResourcePropertyClass, SystemPropertyClass} from '../../../models/v2/ontologies/property-class';

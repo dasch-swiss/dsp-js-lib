@@ -4,7 +4,7 @@ import {KnoraApiConnection} from '../../../knora-api-connection';
 import {MockAjaxCall} from '../../../../test/mockajaxcall';
 import {UsersResponse} from "../../../models/admin/users-response";
 import {OntologyV2} from "../../../models/v2/ontologies/ontology-v2";
-import {ResourceClass} from '../../../models/v2/ontologies/resource-class';
+import {ResourceClass} from '../../../models/v2/ontologies/class-definition';
 import {SystemPropertyClass} from '../../../models/v2/ontologies/property-class';
 
 describe('OntologiesEndpoint', () => {
