@@ -4,6 +4,8 @@ import {KnoraApiConnection} from '../../../knora-api-connection';
 import {MockAjaxCall} from '../../../../test/mockajaxcall';
 import {UsersResponse} from "../../../models/admin/users-response";
 import {OntologyV2} from "../../../models/v2/ontologies/ontology-v2";
+import {ResourceClass} from '../../../models/v2/ontologies/resource-class';
+import {SystemPropertyClass} from '../../../models/v2/ontologies/property-class';
 
 describe('OntologiesEndpoint', () => {
 
@@ -26,6 +28,15 @@ describe('OntologiesEndpoint', () => {
             knoraApiConnection.v2.onto.getOntology("http://api.knora.org/ontology/knora-api/v2").subscribe(
                 (response: OntologyV2) => {
                     expect(response.id).toEqual("http://api.knora.org/ontology/knora-api/v2");
+
+                    expect(response.classes["http://api.knora.org/ontology/knora-api/v2#Annotation"] instanceof ResourceClass).toBeTruthy();
+                    expect(response.classes["http://api.knora.org/ontology/knora-api/v2#Annotation"].id).toEqual("http://api.knora.org/ontology/knora-api/v2#Annotation");
+                    expect(response.classes["http://api.knora.org/ontology/knora-api/v2#Annotation"].label).toEqual("Annotation");
+
+                    expect(response.properties["http://api.knora.org/ontology/knora-api/v2#arkUrl"] instanceof SystemPropertyClass).toBeTruthy();
+                    expect(response.properties["http://api.knora.org/ontology/knora-api/v2#arkUrl"].id).toEqual("http://api.knora.org/ontology/knora-api/v2#arkUrl");
+                    expect(response.properties["http://api.knora.org/ontology/knora-api/v2#arkUrl"].label).toEqual("ARK URL");
+
 
                     done();
                 });

@@ -51,7 +51,16 @@ export class OntologiesEndpoint extends Endpoint {
         }).map(resclassJsonld => {
             return this.jsonConvert.deserializeObject(resclassJsonld, ResourceClass);
         }).forEach((resClass: ResourceClass) => {
-            onto.resourceClasses[resClass.id] = resClass;
+            onto.classes[resClass.id] = resClass;
+        });
+
+        entities.filter((entity: any) => {
+            return  entity.hasOwnProperty(Constants.IsStandoffClass) &&
+                    entity[Constants.IsStandoffClass] === true;
+        }).map((standoffclassJsonld: any) => {
+            return this.jsonConvert.deserializeObject(standoffclassJsonld, StandoffClass);
+        }).forEach((standoffClass: StandoffClass) => {
+            onto.classes[standoffClass.id] = standoffClass;
         });
 
         entities.filter((entity: any) => {
@@ -70,15 +79,6 @@ export class OntologiesEndpoint extends Endpoint {
             return this.jsonConvert.deserializeObject(propertyJsonld, SystemPropertyClass);
         }).forEach((prop: SystemPropertyClass) => {
             onto.properties[prop.id] = prop;
-        });
-
-        const standoffClasses = entities.filter((entity: any) => {
-            return  entity.hasOwnProperty(Constants.IsStandoffClass) &&
-                    entity[Constants.IsStandoffClass] === true;
-        }).map((standoffclassJsonld: any) => {
-            return this.jsonConvert.deserializeObject(standoffclassJsonld, StandoffClass);
-        }).forEach((standoffClass: StandoffClass) => {
-            onto.standoffClasses[standoffClass.id] = standoffClass;
         });
 
         // console.log(JSON.stringify(onto.properties));

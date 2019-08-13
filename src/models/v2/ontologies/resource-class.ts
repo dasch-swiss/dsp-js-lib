@@ -102,8 +102,21 @@ class PropertiesListConverter implements JsonCustomConvert<IHasProperty[]> {
     }
 }
 
+export abstract class ClassDefinition {
+
+    abstract id: string;
+
+    abstract comment?: string;
+
+    abstract label?: string;
+
+    abstract subClassOf: string[];
+
+    abstract propertiesList: IHasProperty[];
+}
+
 @JsonObject("ResourceClass")
-export class ResourceClass {
+export class ResourceClass extends ClassDefinition {
     @JsonProperty("@id", String)
     id: string = "";
 
@@ -120,7 +133,8 @@ export class ResourceClass {
     propertiesList: IHasProperty[] = [];
 }
 
-export class StandoffClass {
+@JsonObject("StandoffClass")
+export class StandoffClass extends ClassDefinition {
 
     @JsonProperty("@id", String)
     id: string = "";
