@@ -4,7 +4,7 @@ import {AjaxResponse} from 'rxjs/ajax';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {ApiResponseData, ApiResponseError, LoginResponse} from '../../..';
 import {OntologyV2} from '../../../models/v2/ontologies/ontology-v2';
-import {ResourceClass} from "../../../models/v2/ontologies/resource-class";
+import {ResourceClass, StandoffClass} from '../../../models/v2/ontologies/resource-class';
 import {Endpoint} from '../../endpoint';
 import {Constants} from '../../../models/v2/Constants';
 import {ResourcePropertyClass, SystemPropertyClass} from '../../../models/v2/ontologies/property-class';
@@ -72,6 +72,14 @@ export class OntologiesEndpoint extends Endpoint {
             onto.properties[prop.id] = prop;
         });
 
+        const standoffClasses = entities.filter((entity: any) => {
+            return  entity.hasOwnProperty(Constants.IsStandoffClass) &&
+                    entity[Constants.IsStandoffClass] === true;
+        }).map((standoffclassJsonld: any) => {
+            return this.jsonConvert.deserializeObject(standoffclassJsonld, StandoffClass);
+        }).forEach((standoffClass: StandoffClass) => {
+            onto.standoffClasses[standoffClass.id] = standoffClass;
+        });
 
         // console.log(JSON.stringify(onto.properties));
 

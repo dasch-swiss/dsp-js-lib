@@ -3,6 +3,7 @@ export class Constants {
     static KnoraApiV2 = "http://api.knora.org/ontology/knora-api/v2";
     static Delimiter = "#";
     static IsResourceClass = Constants.KnoraApiV2 + Constants.Delimiter + "isResourceClass";
+    static IsStandoffClass = Constants.KnoraApiV2 + Constants.Delimiter + "isStandoffClass";
     static IsResourceProperty = Constants.KnoraApiV2 + Constants.Delimiter + "isResourceProperty";
     static ObjectType = Constants.KnoraApiV2 + Constants.Delimiter + "objectType";
     static SubjectType = Constants.KnoraApiV2 + Constants.Delimiter + "subjectType";

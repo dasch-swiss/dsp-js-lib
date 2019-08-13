@@ -119,3 +119,21 @@ export class ResourceClass {
     @JsonProperty(Constants.SubClassOf, PropertiesListConverter)
     propertiesList: IHasProperty[] = [];
 }
+
+export class StandoffClass {
+
+    @JsonProperty("@id", String)
+    id: string = "";
+
+    @JsonProperty(Constants.SubClassOf, SubClassOfConverter)
+    subClassOf: string[] = [];
+
+    @JsonProperty(Constants.Comment, String, true)
+    comment?: string = undefined;
+
+    @JsonProperty(Constants.Label, String, true)
+    label?: string = undefined;
+
+    @JsonProperty(Constants.SubClassOf, PropertiesListConverter)
+    propertiesList: IHasProperty[] = [];
+}
