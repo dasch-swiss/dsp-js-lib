@@ -1,4 +1,4 @@
-import {PropertyClass} from './resource-property-class';
+import {PropertyClass} from './property-class';
 import {IHasProperty, ResourceClass} from "./resource-class";
 
 export class OntologyV2 {
