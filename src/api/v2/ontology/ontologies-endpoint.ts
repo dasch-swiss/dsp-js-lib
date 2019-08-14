@@ -32,12 +32,15 @@ export class OntologiesEndpoint extends Endpoint {
 
         // Check if the given entity Iri belongs to knora-api or a project ontology.
         // Ignore external entity Iris.
-        if (entityIri.indexOf(Constants.KnoraApiV2) === 0 || entityIri.indexOf(projectEntityBase) === 0) {
+        if (entityIri.indexOf(Constants.KnoraApiV2) === 0) {
+            ontologyIri.push(Constants.KnoraApiV2);
+        } else if (entityIri.indexOf(projectEntityBase) === 0) {
 
             // split entity Iri on "#"
             const segments: string[] = entityIri.split(Constants.Delimiter);
 
             if (segments.length === 2) {
+                // First segment identifies the project ontology the entity belongs to.
                 ontologyIri.push(segments[0]);
             } else {
                 console.error(`Error: ${entityIri} is not a valid Knora entity IRI.`);
