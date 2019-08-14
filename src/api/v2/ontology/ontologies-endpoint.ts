@@ -4,7 +4,12 @@ import {AjaxResponse} from 'rxjs/ajax';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {ApiResponseData, ApiResponseError, LoginResponse} from '../../..';
 import {OntologyV2} from '../../../models/v2/ontologies/ontology-v2';
-import {ResourceClass, StandoffClass} from '../../../models/v2/ontologies/class-definition';
+import {
+    ClassDefinition,
+    IHasProperty,
+    ResourceClass,
+    StandoffClass
+} from '../../../models/v2/ontologies/class-definition';
 import {Endpoint} from '../../endpoint';
 import {Constants} from '../../../models/v2/Constants';
 import {ResourcePropertyClass, SystemPropertyClass} from '../../../models/v2/ontologies/property-class';
@@ -13,6 +18,26 @@ declare let require: any; // http://stackoverflow.com/questions/34730010/angular
 const jsonld = require('jsonld/dist/jsonld.js');
 
 export class OntologiesEndpoint extends Endpoint {
+
+    /**
+     * Given a Knora entity IRI, gets the ontology Iri.
+     *
+     * @param {string} entityIri an entity Iri.
+     * @return {string} the ontology IRI
+     */
+    static getOntologyIriFromEntityIri(entityIri: string) {
+
+        // TODO: this works only for Knora entity Iris
+        // TODO: ignore external entity Iris (foaf,dcterms etc.)
+
+        // split class Iri on "#"
+        const segments: string[] = entityIri.split(Constants.Delimiter);
+
+        if (segments.length !== 2) console.error(`Error: ${entityIri} is not a valid entity IRI.`);
+
+        return segments[0];
+
+    }
 
     getOntologies(ontologyIris: string[]) {
 
@@ -80,6 +105,37 @@ export class OntologiesEndpoint extends Endpoint {
         }).forEach((prop: SystemPropertyClass) => {
             onto.properties[prop.id] = prop;
         });
+
+        const referencedOntologies: Set<string> = new Set([]);
+
+        for (const index in onto.classes) {
+            if (onto.classes.hasOwnProperty(index)) {
+                onto.classes[index].propertiesList.forEach((prop: IHasProperty) => {
+                    referencedOntologies.add(OntologiesEndpoint.getOntologyIriFromEntityIri(prop.propertyIndex));
+                });
+                onto.classes[index].subClassOf.forEach((superClass: string) => {
+                    referencedOntologies.add(OntologiesEndpoint.getOntologyIriFromEntityIri(superClass));
+                });
+            }
+        }
+
+        for (const index in onto.properties) {
+            if (onto.properties.hasOwnProperty(index)) {
+                if (onto.properties[index].objectType !== undefined) {
+                    referencedOntologies.add(OntologiesEndpoint.getOntologyIriFromEntityIri(onto.properties[index].objectType as string));
+                }
+                if (onto.properties[index].subjectType !== undefined) {
+                    referencedOntologies.add(OntologiesEndpoint.getOntologyIriFromEntityIri(onto.properties[index].subjectType as string));
+                }
+                onto.properties[index].subPropertyOf.forEach((superProperty: string) => {
+                    referencedOntologies.add(OntologiesEndpoint.getOntologyIriFromEntityIri(superProperty));
+                });
+            }
+        }
+
+        referencedOntologies.delete(onto.id);
+
+        onto.dependsOnOntologies = referencedOntologies;
 
         // console.log(JSON.stringify(onto.properties));
 

@@ -6,5 +6,7 @@ export class OntologyV2 {
     properties: {[index: string]: PropertyClass} = {};
     classes: {[index: string]: ClassDefinition} = {};
 
+    dependsOnOntologies: Set<string>;
+
     constructor(readonly id: string) { }
 }

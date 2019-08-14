@@ -45,13 +45,15 @@ class IdConverter  implements JsonCustomConvert<string> {
 export abstract class PropertyClass {
     abstract id: string;
 
+    abstract subPropertyOf: string[];
+
     abstract comment?: string;
 
     abstract label?: string;
 
     abstract subjectType?: string;
 
-    abstract objectType: string;
+    abstract objectType?: string;
 }
 
 @JsonObject("ResourcePropertyClass")
@@ -75,7 +77,7 @@ export class ResourcePropertyClass extends PropertyClass {
     subjectType?: string = undefined;
 
     @JsonProperty(Constants.ObjectType, IdConverter, true)
-    objectType: string = "";
+    objectType?: string = undefined;
 }
 
 @JsonObject("SystemPropertyClass")
@@ -83,6 +85,9 @@ export class SystemPropertyClass extends PropertyClass {
 
     @JsonProperty("@id", String)
     id: string = "";
+
+    @JsonProperty(Constants.SubPropertyOf, SubPropertyOfConverter, true)
+    subPropertyOf: string[] = [];
 
     @JsonProperty(Constants.Comment, String, true)
     comment?: string = undefined;
@@ -94,5 +99,5 @@ export class SystemPropertyClass extends PropertyClass {
     subjectType?: string = undefined;
 
     @JsonProperty(Constants.ObjectType, IdConverter, true)
-    objectType: string = "";
+    objectType?: string = undefined;
 }
