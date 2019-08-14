@@ -29,7 +29,7 @@ export class OntologyCache extends GenericCache<OntologyV2> {
         );
 
     }
-    
+
     protected requestItemFromKnora(key: string): Observable<OntologyV2> {
         return this.knoraApiConnection.v2.onto.getOntology(key).pipe(
                 map((onto: OntologyV2) => onto)
