@@ -1,15 +1,9 @@
-import {OperationMode} from "json2typescript";
 import {Observable} from 'rxjs';
 import {AjaxResponse} from 'rxjs/ajax';
 import {catchError, map, mergeMap} from 'rxjs/operators';
-import {ApiResponseData, ApiResponseError, LoginResponse} from '../../..';
+import {ApiResponseError} from '../../..';
 import {OntologyV2} from '../../../models/v2/ontologies/ontology-v2';
-import {
-    ClassDefinition,
-    IHasProperty,
-    ResourceClass,
-    StandoffClass
-} from '../../../models/v2/ontologies/class-definition';
+import {IHasProperty, ResourceClass, StandoffClass} from '../../../models/v2/ontologies/class-definition';
 import {Endpoint} from '../../endpoint';
 import {Constants} from '../../../models/v2/Constants';
 import {ResourcePropertyClass, SystemPropertyClass} from '../../../models/v2/ontologies/property-class';
@@ -21,21 +15,36 @@ export class OntologiesEndpoint extends Endpoint {
 
     /**
      * Given a Knora entity IRI, gets the ontology Iri.
+     * External entity Iris are ignored.
      *
-     * @param {string} entityIri an entity Iri.
-     * @return {string} the ontology IRI
+     * @param entityIri an entity Iri.
+     * @return the ontology IRI as the only entry in an array, otherwise an empty array.
      */
-    static getOntologyIriFromEntityIri(entityIri: string) {
+    getOntologyIriFromEntityIri(entityIri: string): string[] {
 
-        // TODO: this works only for Knora entity Iris
-        // TODO: ignore external entity Iris (foaf,dcterms etc.)
+        const ontologyIri: string[] = [];
 
-        // split class Iri on "#"
-        const segments: string[] = entityIri.split(Constants.Delimiter);
+        let projectEntityBase = "http://" + this.knoraApiConfig.apiHost;
+        if (this.knoraApiConfig.apiPort !== null) {
+            projectEntityBase = projectEntityBase + ":" + this.knoraApiConfig.apiPort;
+        }
+        projectEntityBase = projectEntityBase + "/ontology/";
 
-        if (segments.length !== 2) console.error(`Error: ${entityIri} is not a valid entity IRI.`);
+        // Check if the given entity Iri belongs to knora-api or a project ontology.
+        // Ignore external entity Iris.
+        if (entityIri.indexOf(Constants.KnoraApiV2) === 0 || entityIri.indexOf(projectEntityBase) === 0) {
 
-        return segments[0];
+            // split entity Iri on "#"
+            const segments: string[] = entityIri.split(Constants.Delimiter);
+
+            if (segments.length === 2) {
+                ontologyIri.push(segments[0]);
+            } else {
+                console.error(`Error: ${entityIri} is not a valid Knora entity IRI.`);
+            }
+        }
+
+        return ontologyIri;
 
     }
 
@@ -66,13 +75,13 @@ export class OntologiesEndpoint extends Endpoint {
 
         const onto = new OntologyV2(ontologyIri);
 
-        const entities = (ontologyJsonld as {[index: string]: object[]})['@graph'];
+        const entities = (ontologyJsonld as { [index: string]: object[] })['@graph'];
 
         // this.jsonConvert.operationMode = OperationMode.LOGGING;
 
         entities.filter((entity: any) => {
             return entity.hasOwnProperty(Constants.IsResourceClass) &&
-                entity[Constants.IsResourceClass] === true;
+                    entity[Constants.IsResourceClass] === true;
         }).map(resclassJsonld => {
             return this.jsonConvert.deserializeObject(resclassJsonld, ResourceClass);
         }).forEach((resClass: ResourceClass) => {
@@ -80,7 +89,7 @@ export class OntologiesEndpoint extends Endpoint {
         });
 
         entities.filter((entity: any) => {
-            return  entity.hasOwnProperty(Constants.IsStandoffClass) &&
+            return entity.hasOwnProperty(Constants.IsStandoffClass) &&
                     entity[Constants.IsStandoffClass] === true;
         }).map((standoffclassJsonld: any) => {
             return this.jsonConvert.deserializeObject(standoffclassJsonld, StandoffClass);
@@ -90,7 +99,7 @@ export class OntologiesEndpoint extends Endpoint {
 
         entities.filter((entity: any) => {
             return entity.hasOwnProperty(Constants.IsResourceProperty) &&
-                entity[Constants.IsResourceProperty] === true;
+                    entity[Constants.IsResourceProperty] === true;
         }).map((propertyJsonld: any) => {
             return this.jsonConvert.deserializeObject(propertyJsonld, ResourcePropertyClass);
         }).forEach((prop: ResourcePropertyClass) => {
@@ -98,7 +107,7 @@ export class OntologiesEndpoint extends Endpoint {
         });
 
         entities.filter((entity: any) => {
-            return (entity["@type"] === Constants.DataTypeProperty || entity["@type"] === Constants.DataTypeProperty)
+            return (entity['@type'] === Constants.DataTypeProperty || entity['@type'] === Constants.DataTypeProperty)
                     && !entity.hasOwnProperty(Constants.IsResourceProperty);
         }).map((propertyJsonld: any) => {
             return this.jsonConvert.deserializeObject(propertyJsonld, SystemPropertyClass);
@@ -111,10 +120,12 @@ export class OntologiesEndpoint extends Endpoint {
         for (const index in onto.classes) {
             if (onto.classes.hasOwnProperty(index)) {
                 onto.classes[index].propertiesList.forEach((prop: IHasProperty) => {
-                    referencedOntologies.add(OntologiesEndpoint.getOntologyIriFromEntityIri(prop.propertyIndex));
+                    this.getOntologyIriFromEntityIri(prop.propertyIndex)
+                            .forEach(ontoIri => referencedOntologies.add(ontoIri));
                 });
                 onto.classes[index].subClassOf.forEach((superClass: string) => {
-                    referencedOntologies.add(OntologiesEndpoint.getOntologyIriFromEntityIri(superClass));
+                    this.getOntologyIriFromEntityIri(superClass)
+                            .forEach(ontoIri => referencedOntologies.add(ontoIri));
                 });
             }
         }
@@ -122,13 +133,16 @@ export class OntologiesEndpoint extends Endpoint {
         for (const index in onto.properties) {
             if (onto.properties.hasOwnProperty(index)) {
                 if (onto.properties[index].objectType !== undefined) {
-                    referencedOntologies.add(OntologiesEndpoint.getOntologyIriFromEntityIri(onto.properties[index].objectType as string));
+                    this.getOntologyIriFromEntityIri(onto.properties[index].objectType as string)
+                            .forEach(ontoIri => referencedOntologies.add(ontoIri));
                 }
                 if (onto.properties[index].subjectType !== undefined) {
-                    referencedOntologies.add(OntologiesEndpoint.getOntologyIriFromEntityIri(onto.properties[index].subjectType as string));
+                    this.getOntologyIriFromEntityIri(onto.properties[index].subjectType as string)
+                            .forEach(ontoIri => referencedOntologies.add(ontoIri));
                 }
                 onto.properties[index].subPropertyOf.forEach((superProperty: string) => {
-                    referencedOntologies.add(OntologiesEndpoint.getOntologyIriFromEntityIri(superProperty));
+                    this.getOntologyIriFromEntityIri(superProperty)
+                            .forEach(ontoIri => referencedOntologies.add(ontoIri));
                 });
             }
         }
@@ -136,6 +150,8 @@ export class OntologiesEndpoint extends Endpoint {
         referencedOntologies.delete(onto.id);
 
         onto.dependsOnOntologies = referencedOntologies;
+
+        // onto.dependsOnOntologies.forEach(exonto => console.log(exonto));
 
         // console.log(JSON.stringify(onto.properties));
 

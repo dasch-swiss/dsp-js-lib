@@ -9,7 +9,7 @@ import {SystemPropertyClass} from '../../../models/v2/ontologies/property-class'
 
 describe('OntologiesEndpoint', () => {
 
-    const config = new KnoraApiConfig('http', 'localhost', 3333);
+    const config = new KnoraApiConfig('http', 'api.dasch.swiss');
     const knoraApiConnection = new KnoraApiConnection(config);
 
     beforeEach(() => {
@@ -47,7 +47,7 @@ describe('OntologiesEndpoint', () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(onto)));
 
-            expect(request.url).toBe('http://localhost:3333/v2/ontologies/allentities/http%3A%2F%2Fapi.knora.org%2Fontology%2Fknora-api%2Fv2');
+            expect(request.url).toBe('http://api.dasch.swiss/v2/ontologies/allentities/http%3A%2F%2Fapi.knora.org%2Fontology%2Fknora-api%2Fv2');
 
             expect(request.method).toEqual('GET');
 
@@ -68,7 +68,7 @@ describe('OntologiesEndpoint', () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(onto)));
 
-            expect(request.url).toBe('http://localhost:3333/v2/ontologies/allentities/http%3A%2F%2Fapi.dasch.swiss%2Fontology%2F0807%2Fmls%2Fv2');
+            expect(request.url).toBe('http://api.dasch.swiss/v2/ontologies/allentities/http%3A%2F%2Fapi.dasch.swiss%2Fontology%2F0807%2Fmls%2Fv2');
 
             expect(request.method).toEqual('GET');
 
