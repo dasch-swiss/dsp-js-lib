@@ -1,7 +1,7 @@
 import {GenericCache} from './GenericCache';
 import {ApiResponseData, KnoraApiConnection, UserResponse} from '..';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {AsyncSubject, forkJoin, Observable} from 'rxjs';
+import {map, mergeMap} from 'rxjs/operators';
 import {OntologyV2} from '../models/v2/ontologies/ontology-v2';
 
 export class OntologyCache extends GenericCache<OntologyV2> {
@@ -18,6 +18,28 @@ export class OntologyCache extends GenericCache<OntologyV2> {
 
     protected getDependenciesOfItem(item: OntologyV2): string[] {
         return Array.from(item.dependsOnOntologies);
+    }
+
+    getOntology(ontologyIri: string): Observable<OntologyV2[]> {
+
+        return this.getItem(ontologyIri).pipe(
+                mergeMap((ontology: OntologyV2) => {
+
+                    const deps: Array<AsyncSubject<OntologyV2>> = [];
+                    ontology.dependsOnOntologies.forEach((depKey: string) => {
+                        deps.push(this.getItem(depKey));
+                    });
+
+                    return forkJoin(deps).pipe(
+                            map(ontos => {
+                                return [ontology].concat(ontos);
+                            })
+                    );
+                })
+        );
+
+
+
     }
 
 }

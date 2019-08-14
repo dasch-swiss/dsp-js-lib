@@ -23,7 +23,7 @@ export abstract class GenericCache<T> {
      * @param handledDependencies dependencies already taken care of.
      * @return the requested item.
      */
-    getItem(key: string, handledDependencies: string[] = []): AsyncSubject<T> {
+    protected getItem(key: string, handledDependencies: string[] = []): AsyncSubject<T> {
 
         // If the key already exists, return the associated AsyncSubject.
         if (this.cache[key] !== undefined) {
@@ -73,7 +73,7 @@ export abstract class GenericCache<T> {
      * @param key the id of the information to be returned.
      * @return the item.
      */
-    reloadItem(key: string): AsyncSubject<T> {
+    protected reloadItem(key: string): AsyncSubject<T> {
         if (this.cache[key] !== undefined) delete this.cache[key];
         return this.getItem(key);
     }
