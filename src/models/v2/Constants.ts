@@ -8,12 +8,15 @@ export class Constants {
     static ObjectType = Constants.KnoraApiV2 + Constants.Delimiter + "objectType";
     static SubjectType = Constants.KnoraApiV2 + Constants.Delimiter + "subjectType";
 
+    static KnoraAdminV2 = "http://api.knora.org/ontology/knora-admin/v2";
+
     static SalsahGui = "http://api.knora.org/ontology/salsah-gui/v2";
     static GuiOrder = Constants.SalsahGui + Constants.Delimiter + "guiOrder";
     static GuiElement = Constants.SalsahGui + Constants.Delimiter + "guiElement";
 
 
     static Owl = "http://www.w3.org/2002/07/owl";
+    static Class = Constants.Owl + Constants.Delimiter + "Class";
     static Restriction = Constants.Owl + Constants.Delimiter + "Restriction";
     static MaxCardinality = Constants.Owl + Constants.Delimiter + "maxCardinality";
     static MinCardinality = Constants.Owl + Constants.Delimiter + "minCardinality";

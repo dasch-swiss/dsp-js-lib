@@ -3,10 +3,11 @@ import {AjaxResponse} from 'rxjs/ajax';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {ApiResponseError} from '../../..';
 import {OntologyV2} from '../../../models/v2/ontologies/ontology-v2';
-import {IHasProperty, ResourceClass, StandoffClass} from '../../../models/v2/ontologies/class-definition';
+import {AdminClass, IHasProperty, ResourceClass, StandoffClass} from '../../../models/v2/ontologies/class-definition';
 import {Endpoint} from '../../endpoint';
 import {Constants} from '../../../models/v2/Constants';
 import {ResourcePropertyClass, SystemPropertyClass} from '../../../models/v2/ontologies/property-class';
+import {OperationMode} from 'json2typescript';
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require('jsonld/dist/jsonld.js');
@@ -90,6 +91,18 @@ export class OntologiesEndpoint extends Endpoint {
         }).forEach((resClass: ResourceClass) => {
             onto.classes[resClass.id] = resClass;
         });
+
+        if (ontologyIri === Constants.KnoraAdminV2) {
+            entities.filter((entity: any) => {
+                return entity["@type"] === Constants.Class
+                        && !entity.hasOwnProperty(Constants.IsResourceClass)
+                        && !entity.hasOwnProperty(Constants.IsStandoffClass);
+            }).map(adminclassJsonld => {
+                return this.jsonConvert.deserializeObject(adminclassJsonld, AdminClass);
+            }).forEach((adminClass: ResourceClass) => {
+                onto.classes[adminClass.id] = adminClass;
+            });
+        }
 
         entities.filter((entity: any) => {
             return entity.hasOwnProperty(Constants.IsStandoffClass) &&
