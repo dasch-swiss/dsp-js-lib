@@ -1,0 +1,79 @@
+{
+  "id": "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q",
+  "email": "anything.user01@example.org",
+  "username": "anything.user01",
+  "password": "",
+  "token": "",
+  "givenName": "Anything",
+  "familyName": "User01",
+  "status": true,
+  "lang": "de",
+  "groups": [
+    {
+      "description": "A group for thing searchers.",
+      "id": "http://rdfh.ch/groups/0001/thing-searcher",
+      "name": "Thing searcher",
+      "project": {
+        "description": [
+          {
+            "value": "Anything Project"
+          }
+        ],
+        "id": "http://rdfh.ch/projects/0001",
+        "keywords": [],
+        "logo": null,
+        "longname": "Anything Project",
+        "ontologies": [
+          "http://www.knora.org/ontology/0001/anything",
+          "http://www.knora.org/ontology/0001/something"
+        ],
+        "selfjoin": false,
+        "shortcode": "0001",
+        "shortname": "anything",
+        "status": true
+      },
+      "selfjoin": true,
+      "status": true
+    }
+  ],
+  "projects": [
+    {
+      "description": [
+        {
+          "value": "Anything Project"
+        }
+      ],
+      "id": "http://rdfh.ch/projects/0001",
+      "keywords": [],
+      "logo": null,
+      "longname": "Anything Project",
+      "ontologies": [
+        "http://www.knora.org/ontology/0001/anything",
+        "http://www.knora.org/ontology/0001/something"
+      ],
+      "selfjoin": false,
+      "shortcode": "0001",
+      "shortname": "anything",
+      "status": true
+    }
+  ],
+  "sessionId": "",
+  "permissions": {
+    "administrativePermissionsPerProject": {
+      "http://rdfh.ch/projects/0001": [
+        {
+          "additionalInformation": null,
+          "name": "ProjectResourceCreateAllPermission",
+          "permissionCode": null
+        }
+      ]
+    },
+    "groupsPerProject": {
+      "http://rdfh.ch/projects/0001": [
+        "http://rdfh.ch/groups/0001/thing-searcher",
+        "http://www.knora.org/ontology/knora-admin#ProjectMember"
+      ]
+    }
+  },
+  "systemAdmin": false
+}

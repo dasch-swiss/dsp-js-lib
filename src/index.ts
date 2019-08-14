@@ -12,6 +12,8 @@ export { UserResponse } from "./models/admin/user-response";
 export { LoginResponse } from "./models/v2/authentication/login-response";
 export { LogoutResponse } from "./models/v2/authentication/logout-response";
 
+export {UserCache} from "./cache/UserCache";
+
 export { ApiResponse } from "./models/api-response";
 export { ApiResponseData } from "./models/api-response-data";
 export { ApiResponseError } from "./models/api-response-error";

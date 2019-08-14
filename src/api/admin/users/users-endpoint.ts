@@ -58,7 +58,11 @@ export class UsersEndpoint extends Endpoint {
     getUser(property: "iri" | "email" | "username",
             value: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
 
-        return this.httpGet("/" + property + "/" + value).pipe(
+        let userId = value;
+
+        if (property === "iri") userId = encodeURIComponent(userId);
+
+        return this.httpGet("/" + property + "/" + userId).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
