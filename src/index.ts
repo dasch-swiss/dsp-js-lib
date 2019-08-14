@@ -13,6 +13,7 @@ export { LoginResponse } from "./models/v2/authentication/login-response";
 export { LogoutResponse } from "./models/v2/authentication/logout-response";
 
 export {UserCache} from "./cache/UserCache";
+export {OntologyCache} from "./cache/OntologyCache";
 
 export { ApiResponse } from "./models/api-response";
 export { ApiResponseData } from "./models/api-response-data";
