@@ -10,7 +10,7 @@ export class OntologyCache extends GenericCache<OntologyV2> {
         super();
     }
 
-    getOntology(ontologyIri: string): Observable<OntologyV2[]> {
+    getOntology(ontologyIri: string): Observable<Map<string, OntologyV2>> {
 
         return this.getItem(ontologyIri).pipe(
                 mergeMap((ontology: OntologyV2) => {
@@ -22,7 +22,15 @@ export class OntologyCache extends GenericCache<OntologyV2> {
 
                     return forkJoin(deps).pipe(
                             map(ontos => {
-                                return [ontology].concat(ontos);
+                                const ontoMap: Map<string, OntologyV2> = new Map();
+
+                                [ontology].concat(ontos).forEach(
+                                        (onto: OntologyV2) => {
+                                            ontoMap.set(onto.id, onto);
+                                        }
+                                );
+
+                                return ontoMap;
                             })
                     );
                 })
