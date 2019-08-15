@@ -28,10 +28,10 @@ module.exports = function (config) {
             coverageOptions: {
                 exclude: /test\/.*/
             },
-            reports: {
+            /*reports: {
                 "text": "",
-                "html": "coverage"
-            },
+                "html": ""
+            },*/
             compilerOptions: {
                 "declaration": true,
                 "emitDecoratorMetadata": true,

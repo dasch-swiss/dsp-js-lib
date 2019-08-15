@@ -63,6 +63,7 @@ export class OntologiesEndpoint extends Endpoint {
                 mergeMap((ajaxResponse: AjaxResponse) => {
                     // console.log(JSON.stringify(ajaxResponse.response));
                     // TODO: @rosenth Adapt context object
+                    // TODO: adapt getOntologyIriFromEntityIri
                     return jsonld.compact(ajaxResponse.response, {});
                 }), map((jsonldobj: object) => {
                     // console.log(JSON.stringify(jsonldobj));
