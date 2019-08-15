@@ -21,7 +21,7 @@ describe('OntologyCache', () => {
                     (ontoIri: string) => {
 
                         const ontoResp = new OntologyV2(ontoIri);
-                        ontoResp.dependsOnOntologies = new Set();
+                        ontoResp.dependsOnOntologies = new Set(['http://api.knora.org/ontology/knora-api/v2']);
 
                         return of(ontoResp);
                     }
@@ -33,10 +33,12 @@ describe('OntologyCache', () => {
 
         it('should get an ontology from the cache', done => {
 
-            ontoCache['getItem']('http://api.knora.org/ontology/knora-api/v2').subscribe((onto: OntologyV2) => {
+            ontoCache['getItem']('http://api.dasch.swiss/ontology/0807/mls/v2').subscribe((onto: OntologyV2) => {
 
-                expect(onto.id).toEqual('http://api.knora.org/ontology/knora-api/v2');
-                expect(getOntoSpy).toHaveBeenCalledTimes(1);
+                expect(onto.id).toEqual('http://api.dasch.swiss/ontology/0807/mls/v2');
+                expect(getOntoSpy).toHaveBeenCalledTimes(2);
+                expect(getOntoSpy).toHaveBeenCalledWith(  'http://api.dasch.swiss/ontology/0807/mls/v2');
+                expect(getOntoSpy).toHaveBeenCalledWith(  'http://api.knora.org/ontology/knora-api/v2');
 
                 expect(ontoCache['cache']['http://api.knora.org/ontology/knora-api/v2']).not.toBeUndefined();
                 done();
