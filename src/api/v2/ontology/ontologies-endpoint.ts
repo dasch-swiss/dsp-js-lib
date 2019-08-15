@@ -58,15 +58,15 @@ export class OntologiesEndpoint extends Endpoint {
 
     getOntology(ontologyIri: string): Observable<OntologyV2 | ApiResponseError> {
 
+        // TODO: Do not hard-code the UR and http call params, generate this from Knora
         return this.httpGet('/allentities/' + encodeURIComponent(ontologyIri)).pipe(
                 mergeMap((ajaxResponse: AjaxResponse) => {
                     // console.log(JSON.stringify(ajaxResponse.response));
+                    // TODO: @rosenth Adapt context object
                     return jsonld.compact(ajaxResponse.response, {});
                 }), map((jsonldobj: object) => {
                     // console.log(JSON.stringify(jsonldobj));
-                    const responseData = this.convertOntology(jsonldobj, ontologyIri);
-
-                    return responseData;
+                    return this.convertOntology(jsonldobj, ontologyIri);
                 }),
                 catchError(error => {
                     console.error(error);
@@ -75,14 +75,22 @@ export class OntologiesEndpoint extends Endpoint {
         );
     }
 
+    /**
+     * Converts an ontology serialized as JSON-LD to an instance of `OntologyV2`.
+     *
+     * @param ontologyJsonld ontology as JSON-LD already processed by the jsonld-processor.
+     * @param ontologyIri the Iri of the ontology.
+     */
     private convertOntology(ontologyJsonld: object, ontologyIri: string): OntologyV2 {
 
         const onto = new OntologyV2(ontologyIri);
 
+        // Access the collection of entities
         const entities = (ontologyJsonld as { [index: string]: object[] })['@graph'];
 
         // this.jsonConvert.operationMode = OperationMode.LOGGING;
 
+        // Convert resource classes
         entities.filter((entity: any) => {
             return entity.hasOwnProperty(Constants.IsResourceClass) &&
                     entity[Constants.IsResourceClass] === true;
@@ -92,6 +100,8 @@ export class OntologiesEndpoint extends Endpoint {
             onto.classes[resClass.id] = resClass;
         });
 
+        // TODO: check if this is really necessary
+        // Convert knora-admin classes
         if (ontologyIri === Constants.KnoraAdminV2) {
             entities.filter((entity: any) => {
                 return entity["@type"] === Constants.Class
@@ -104,6 +114,7 @@ export class OntologiesEndpoint extends Endpoint {
             });
         }
 
+        // Convert standoff classes
         entities.filter((entity: any) => {
             return entity.hasOwnProperty(Constants.IsStandoffClass) &&
                     entity[Constants.IsStandoffClass] === true;
@@ -113,6 +124,7 @@ export class OntologiesEndpoint extends Endpoint {
             onto.classes[standoffClass.id] = standoffClass;
         });
 
+        // Convert resource properties (properties pointing to Knora values)
         entities.filter((entity: any) => {
             return entity.hasOwnProperty(Constants.IsResourceProperty) &&
                     entity[Constants.IsResourceProperty] === true;
@@ -122,6 +134,7 @@ export class OntologiesEndpoint extends Endpoint {
             onto.properties[prop.id] = prop;
         });
 
+        // Convert system properties (properties not pointing to Knora values)
         entities.filter((entity: any) => {
             return (entity['@type'] === Constants.DataTypeProperty || entity['@type'] === Constants.DataTypeProperty)
                     && !entity.hasOwnProperty(Constants.IsResourceProperty);
@@ -131,8 +144,11 @@ export class OntologiesEndpoint extends Endpoint {
             onto.properties[prop.id] = prop;
         });
 
+        // Ontologies referenced by this ontology
         const referencedOntologies: Set<string> = new Set([]);
 
+        // Collect ontologies referenced by this ontology in resource classes:
+        // references to properties (cardinalities) and resource classes (super classes)
         for (const index in onto.classes) {
             if (onto.classes.hasOwnProperty(index)) {
                 onto.classes[index].propertiesList.forEach((prop: IHasProperty) => {
@@ -146,6 +162,8 @@ export class OntologiesEndpoint extends Endpoint {
             }
         }
 
+        // Collect ontologies referenced by this ontology in properties:
+        // references to other properties (super properties) and resource classes (subject and object types)
         for (const index in onto.properties) {
             if (onto.properties.hasOwnProperty(index)) {
                 if (onto.properties[index].objectType !== undefined) {
@@ -163,13 +181,10 @@ export class OntologiesEndpoint extends Endpoint {
             }
         }
 
+        // Remove this ontology from the collection
         referencedOntologies.delete(onto.id);
 
         onto.dependsOnOntologies = referencedOntologies;
-
-        // onto.dependsOnOntologies.forEach(exonto => console.log(exonto));
-
-        // console.log(JSON.stringify(onto.properties));
 
         return onto;
     }
