@@ -42,7 +42,7 @@ class IdConverter  implements JsonCustomConvert<string> {
     }
 }
 
-export abstract class PropertyClass {
+export abstract class PropertyDefinition {
     abstract id: string;
 
     abstract subPropertyOf: string[];
@@ -56,8 +56,8 @@ export abstract class PropertyClass {
     abstract objectType?: string;
 }
 
-@JsonObject("ResourcePropertyClass")
-export class ResourcePropertyClass extends PropertyClass {
+@JsonObject("ResourcePropertyDefinition")
+export class ResourcePropertyDefinition extends PropertyDefinition {
     @JsonProperty("@id", String)
     id: string = "";
 
@@ -80,8 +80,8 @@ export class ResourcePropertyClass extends PropertyClass {
     objectType?: string = undefined;
 }
 
-@JsonObject("SystemPropertyClass")
-export class SystemPropertyClass extends PropertyClass {
+@JsonObject("SystemPropertyDefinition")
+export class SystemPropertyDefinition extends PropertyDefinition {
 
     @JsonProperty("@id", String)
     id: string = "";

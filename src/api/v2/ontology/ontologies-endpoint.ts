@@ -6,7 +6,7 @@ import {OntologyV2} from '../../../models/v2/ontologies/ontology-v2';
 import {AdminClass, IHasProperty, ResourceClass, StandoffClass} from '../../../models/v2/ontologies/class-definition';
 import {Endpoint} from '../../endpoint';
 import {Constants} from '../../../models/v2/Constants';
-import {ResourcePropertyClass, SystemPropertyClass} from '../../../models/v2/ontologies/property-class';
+import {ResourcePropertyDefinition, SystemPropertyDefinition} from '../../../models/v2/ontologies/property-definition';
 import {OperationMode} from 'json2typescript';
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
@@ -130,18 +130,18 @@ export class OntologiesEndpoint extends Endpoint {
             return entity.hasOwnProperty(Constants.IsResourceProperty) &&
                     entity[Constants.IsResourceProperty] === true;
         }).map((propertyJsonld: any) => {
-            return this.jsonConvert.deserializeObject(propertyJsonld, ResourcePropertyClass);
-        }).forEach((prop: ResourcePropertyClass) => {
+            return this.jsonConvert.deserializeObject(propertyJsonld, ResourcePropertyDefinition);
+        }).forEach((prop: ResourcePropertyDefinition) => {
             onto.properties[prop.id] = prop;
         });
 
         // Convert system properties (properties not pointing to Knora values)
         entities.filter((entity: any) => {
-            return (entity['@type'] === Constants.DataTypeProperty || entity['@type'] === Constants.DataTypeProperty)
+            return (entity['@type'] === Constants.DataTypeProperty || entity['@type'] === Constants.ObjectProperty)
                     && !entity.hasOwnProperty(Constants.IsResourceProperty);
         }).map((propertyJsonld: any) => {
-            return this.jsonConvert.deserializeObject(propertyJsonld, SystemPropertyClass);
-        }).forEach((prop: SystemPropertyClass) => {
+            return this.jsonConvert.deserializeObject(propertyJsonld, SystemPropertyDefinition);
+        }).forEach((prop: SystemPropertyDefinition) => {
             onto.properties[prop.id] = prop;
         });
 
