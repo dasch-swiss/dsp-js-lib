@@ -5,7 +5,7 @@
   "main": "index.js",
   "files": [
     "src/**/*.d.ts",
-    "src/**/*.map",
+    "src/**/*.js.map",
     "src/**/*.js",
     "index.d.ts",
     "index.js.map",
@@ -13,10 +13,10 @@
   ],
   "scripts": {
     "test": "karma start karma.conf.js",
-    "build": "tsc",
-    "dist-local": "npm run build && yalc publish --push",
-    "dist-prod": "npm run test && npm run build && npm pack",
-    "publish": "npm run dist && npm publish"
+    "build": "tsc && copyfiles CHANGELOG.md LICENSE README.md package.json build/",
+    "yalc-publish": "npm run build && yalc publish build/ --push",
+    "npm-pack": "npm run test && npm run build && npm pack build/ && copyfiles *.tgz dist/ && rm *.tgz",
+    "npm-publish": "npm run npm-pack && npm publish"
   },
   "repository": {
     "type": "git",
@@ -39,13 +39,14 @@
     "@types/jasmine": "^3.3.9",
     "@types/jasmine-ajax": "^3.1.40",
     "@types/node": "^12.0.10",
+    "copyfiles": "^2.1.1",
     "jasmine": "^3.3.1",
     "jasmine-ajax": "^4.0.0",
     "karma": "^4.0.1",
+    "karma-chrome-launcher": "^3.0.0",
     "karma-jasmine": "^2.0.1",
     "karma-jasmine-ajax": "^0.1.13",
     "karma-mocha-reporter": "^2.2.5",
-    "karma-chrome-launcher": "^3.0.0",
     "karma-typescript": "^4.0.0",
     "phantomjs-prebuilt": "^2.1.16",
     "tslint": "^5.15.0",
