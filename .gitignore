@@ -1,5 +1,6 @@
 /.idea
 /coverage
+/html-report
 /node_modules
 /dist
 *.js

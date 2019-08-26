@@ -30,7 +30,7 @@ export class Endpoint {
             OperationMode.ENABLE,
             ValueCheckingMode.DISALLOW_NULL,
             false,
-            PropertyMatchingRule.CASE_STRICT
+            PropertyMatchingRule.CASE_STRICT,
     );
 
     /**
