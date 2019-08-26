@@ -1,4 +1,4 @@
-import {JsonConverter, JsonCustomConvert, JsonObject, JsonProperty} from "json2typescript";
+import {JsonConverter, JsonCustomConvert} from 'json2typescript';
 import {Constants} from '../Constants';
 
 export enum Cardinality {
@@ -15,7 +15,7 @@ export interface IHasProperty {
 }
 
 @JsonConverter
-class SubClassOfConverter implements JsonCustomConvert<string[]> {
+export class SubClassOfConverter implements JsonCustomConvert<string[]> {
     serialize(subclasses: string[]): any {
     }
 
@@ -39,7 +39,7 @@ class SubClassOfConverter implements JsonCustomConvert<string[]> {
 }
 
 @JsonConverter
-class PropertiesListConverter implements JsonCustomConvert<IHasProperty[]> {
+export class PropertiesListConverter implements JsonCustomConvert<IHasProperty[]> {
     serialize(hasProperties: IHasProperty[]): any {
     }
 
@@ -113,41 +113,4 @@ export abstract class ClassDefinition {
     abstract subClassOf: string[];
 
     abstract propertiesList: IHasProperty[];
-}
-
-@JsonObject("ResourceClassDefinition")
-export class ResourceClassDefinition extends ClassDefinition {
-    @JsonProperty("@id", String)
-    id: string = "";
-
-    @JsonProperty(Constants.SubClassOf, SubClassOfConverter)
-    subClassOf: string[] = [];
-
-    @JsonProperty(Constants.Comment, String, true)
-    comment?: string = undefined;
-
-    @JsonProperty(Constants.Label, String, true)
-    label?: string = undefined;
-
-    @JsonProperty(Constants.SubClassOf, PropertiesListConverter)
-    propertiesList: IHasProperty[] = [];
-}
-
-@JsonObject("StandoffClassDefinition")
-export class StandoffClassDefinition extends ClassDefinition {
-
-    @JsonProperty("@id", String)
-    id: string = "";
-
-    @JsonProperty(Constants.SubClassOf, SubClassOfConverter)
-    subClassOf: string[] = [];
-
-    @JsonProperty(Constants.Comment, String, true)
-    comment?: string = undefined;
-
-    @JsonProperty(Constants.Label, String, true)
-    label?: string = undefined;
-
-    @JsonProperty(Constants.SubClassOf, PropertiesListConverter)
-    propertiesList: IHasProperty[] = [];
 }

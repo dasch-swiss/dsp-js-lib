@@ -3,11 +3,13 @@ import {AjaxResponse} from 'rxjs/ajax';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {ApiResponseError} from '../../..';
 import {ReadOntology} from '../../../models/v2/ontologies/read-ontology';
-import {IHasProperty, ResourceClassDefinition, StandoffClassDefinition} from '../../../models/v2/ontologies/class-definition';
+import {IHasProperty} from '../../../models/v2/ontologies/class-definition';
 import {Endpoint} from '../../endpoint';
 import {Constants} from '../../../models/v2/Constants';
 import {ResourcePropertyDefinition} from '../../../models/v2/ontologies/resource-property-definition';
 import {SystemPropertyDefinition} from '../../../models/v2/ontologies/system-property-definition';
+import {ResourceClassDefinition} from '../../../models/v2/ontologies/resource-class-definition';
+import {StandoffClassDefinition} from '../../../models/v2/ontologies/standoff-class-definition';
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require('jsonld/dist/jsonld.js');
