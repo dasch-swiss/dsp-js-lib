@@ -1985,7 +1985,7 @@
       "@id" : "knora-api:hasLinkToValue"
     }
   } ],
-  "@id" : "http://0.0.0.0:3333/ontology/0001/anything/v2",
+  "@id" : "http://api.dasch.swiss/ontology/0001/anything/v2",
   "@type" : "owl:Ontology",
   "knora-api:attachedToProject" : {
     "@id" : "http://rdfh.ch/projects/0001"
@@ -1999,6 +1999,6 @@
     "salsah-gui" : "http://api.knora.org/ontology/salsah-gui/v2#",
     "rdfs" : "http://www.w3.org/2000/01/rdf-schema#",
     "xsd" : "http://www.w3.org/2001/XMLSchema#",
-    "anything" : "http://0.0.0.0:3333/ontology/0001/anything/v2#"
+    "anything" : "http://api.dasch.swiss/ontology/0001/anything/v2#"
   }
 }

@@ -11,7 +11,7 @@ const jsonld = require('jsonld/dist/jsonld.js');
 
 export class ResourcesEndpoint extends Endpoint {
 
-    getResource(resourceIri: string, ontologyCache?: OntologyCache): Observable<ReadResource | ApiResponseError> {
+    getResource(resourceIri: string, ontologyCache: OntologyCache): Observable<ReadResource | ApiResponseError> {
         // TODO: Do not hard-code the UR and http call params, generate this from Knora
         return this.httpGet('/resources/' + encodeURIComponent(resourceIri)).pipe(
                 mergeMap((ajaxResponse: AjaxResponse) => {
@@ -30,7 +30,7 @@ export class ResourcesEndpoint extends Endpoint {
         );
     }
 
-    private parseResourceSequence(resourcesJsonld: object, ontologyCache?: OntologyCache): ReadResource[] {
+    private parseResourceSequence(resourcesJsonld: object, ontologyCache: OntologyCache): ReadResource[] {
 
         if (resourcesJsonld.hasOwnProperty('@graph')) {
             // sequence of resources
@@ -46,10 +46,12 @@ export class ResourcesEndpoint extends Endpoint {
         }
     }
 
-    private parseResource(resourceJsonld: { [index: string]: string | object[] }, ontologyCache?: OntologyCache): ReadResource {
+    private parseResource(resourceJsonld: { [index: string]: string | object[] }, ontologyCache: OntologyCache): ReadResource {
 
         // determine resource class
         const resourceType = resourceJsonld['@type'] as string;
+
+        ontologyCache.getResourceClass(resourceType);
 
         console.log(resourceType);
 

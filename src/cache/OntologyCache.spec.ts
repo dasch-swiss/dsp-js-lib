@@ -7,7 +7,7 @@ import {ReadOntology} from '../models/v2/ontologies/read-ontology';
 
 describe('OntologyCache', () => {
 
-    const config = new KnoraApiConfig('http', 'localhost', 3333);
+    const config = new KnoraApiConfig('http', 'api.dasch.swiss', 3333);
     const knoraApiConnection = new KnoraApiConnection(config);
 
     describe('Method getItem', () => {

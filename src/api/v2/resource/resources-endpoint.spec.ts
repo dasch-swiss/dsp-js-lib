@@ -2,11 +2,14 @@ import {KnoraApiConfig} from '../../../knora-api-config';
 import {KnoraApiConnection} from '../../../knora-api-connection';
 import {MockAjaxCall} from '../../../../test/mockajaxcall';
 import {subscribeOn} from 'rxjs/operators';
+import {OntologyCache} from '../../..';
 
 describe('ResourcesEndpoint', () => {
 
     const config = new KnoraApiConfig('http', 'api.dasch.swiss');
     const knoraApiConnection = new KnoraApiConnection(config);
+
+    const ontoCache = new OntologyCache(knoraApiConnection);
 
     beforeEach(() => {
 
@@ -19,7 +22,7 @@ describe('ResourcesEndpoint', () => {
 
     it('should return a resource', done => {
 
-        knoraApiConnection.v2.res.getResource('http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw').subscribe(response => {
+        knoraApiConnection.v2.res.getResource('http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw', ontoCache).subscribe(response => {
             console.log(response);
 
             done();
