@@ -3,10 +3,9 @@ import {AjaxResponse} from 'rxjs/ajax';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {ApiResponseError} from '../../..';
 import {ReadOntology} from '../../../models/v2/ontologies/read-ontology';
-import {AdminClass, IHasProperty, ResourceClass, StandoffClass} from '../../../models/v2/ontologies/class-definition';
+import {IHasProperty, ResourceClassDefinition, StandoffClassDefinition} from '../../../models/v2/ontologies/class-definition';
 import {Endpoint} from '../../endpoint';
 import {Constants} from '../../../models/v2/Constants';
-import {OperationMode} from 'json2typescript';
 import {ResourcePropertyDefinition} from '../../../models/v2/ontologies/resource-property-definition';
 import {SystemPropertyDefinition} from '../../../models/v2/ontologies/system-property-definition';
 
@@ -97,32 +96,18 @@ export class OntologiesEndpoint extends Endpoint {
             return entity.hasOwnProperty(Constants.IsResourceClass) &&
                     entity[Constants.IsResourceClass] === true;
         }).map(resclassJsonld => {
-            return this.jsonConvert.deserializeObject(resclassJsonld, ResourceClass);
-        }).forEach((resClass: ResourceClass) => {
+            return this.jsonConvert.deserializeObject(resclassJsonld, ResourceClassDefinition);
+        }).forEach((resClass: ResourceClassDefinition) => {
             onto.classes[resClass.id] = resClass;
         });
-
-        // TODO: check if this is really necessary
-        // Convert knora-admin classes
-        if (ontologyIri === Constants.KnoraAdminV2) {
-            entities.filter((entity: any) => {
-                return entity["@type"] === Constants.Class
-                        && !entity.hasOwnProperty(Constants.IsResourceClass)
-                        && !entity.hasOwnProperty(Constants.IsStandoffClass);
-            }).map(adminclassJsonld => {
-                return this.jsonConvert.deserializeObject(adminclassJsonld, AdminClass);
-            }).forEach((adminClass: ResourceClass) => {
-                onto.classes[adminClass.id] = adminClass;
-            });
-        }
 
         // Convert standoff classes
         entities.filter((entity: any) => {
             return entity.hasOwnProperty(Constants.IsStandoffClass) &&
                     entity[Constants.IsStandoffClass] === true;
         }).map((standoffclassJsonld: any) => {
-            return this.jsonConvert.deserializeObject(standoffclassJsonld, StandoffClass);
-        }).forEach((standoffClass: StandoffClass) => {
+            return this.jsonConvert.deserializeObject(standoffclassJsonld, StandoffClassDefinition);
+        }).forEach((standoffClass: StandoffClassDefinition) => {
             onto.classes[standoffClass.id] = standoffClass;
         });
 

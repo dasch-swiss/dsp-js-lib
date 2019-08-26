@@ -4,7 +4,7 @@ import {KnoraApiConnection} from '../../../knora-api-connection';
 import {MockAjaxCall} from '../../../../test/mockajaxcall';
 import {UsersResponse} from "../../../models/admin/users-response";
 import {ReadOntology} from "../../../models/v2/ontologies/read-ontology";
-import {ResourceClass} from '../../../models/v2/ontologies/class-definition';
+import {ResourceClassDefinition} from '../../../models/v2/ontologies/class-definition';
 import {SystemPropertyDefinition} from '../../../models/v2/ontologies/system-property-definition';
 
 describe('OntologiesEndpoint', () => {
@@ -53,7 +53,7 @@ describe('OntologiesEndpoint', () => {
                 (response: ReadOntology) => {
                     expect(response.id).toEqual("http://api.knora.org/ontology/knora-api/v2");
 
-                    expect(response.classes["http://api.knora.org/ontology/knora-api/v2#Annotation"] instanceof ResourceClass).toBeTruthy();
+                    expect(response.classes["http://api.knora.org/ontology/knora-api/v2#Annotation"] instanceof ResourceClassDefinition).toBeTruthy();
                     expect(response.classes["http://api.knora.org/ontology/knora-api/v2#Annotation"].id).toEqual("http://api.knora.org/ontology/knora-api/v2#Annotation");
                     expect(response.classes["http://api.knora.org/ontology/knora-api/v2#Annotation"].label).toEqual("Annotation");
 

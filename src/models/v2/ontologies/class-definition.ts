@@ -115,8 +115,8 @@ export abstract class ClassDefinition {
     abstract propertiesList: IHasProperty[];
 }
 
-@JsonObject("ResourceClass")
-export class ResourceClass extends ClassDefinition {
+@JsonObject("ResourceClassDefinition")
+export class ResourceClassDefinition extends ClassDefinition {
     @JsonProperty("@id", String)
     id: string = "";
 
@@ -133,26 +133,8 @@ export class ResourceClass extends ClassDefinition {
     propertiesList: IHasProperty[] = [];
 }
 
-@JsonObject("AdminClass")
-export class AdminClass extends ClassDefinition {
-    @JsonProperty("@id", String)
-    id: string = "";
-
-    @JsonProperty(Constants.SubClassOf, SubClassOfConverter)
-    subClassOf: string[] = [];
-
-    @JsonProperty(Constants.Comment, String, true)
-    comment?: string = undefined;
-
-    @JsonProperty(Constants.Label, String, true)
-    label?: string = undefined;
-
-    @JsonProperty(Constants.SubClassOf, PropertiesListConverter)
-    propertiesList: IHasProperty[] = [];
-}
-
-@JsonObject("StandoffClass")
-export class StandoffClass extends ClassDefinition {
+@JsonObject("StandoffClassDefinition")
+export class StandoffClassDefinition extends ClassDefinition {
 
     @JsonProperty("@id", String)
     id: string = "";
