@@ -6,8 +6,9 @@ import {ReadOntology} from '../../../models/v2/ontologies/read-ontology';
 import {AdminClass, IHasProperty, ResourceClass, StandoffClass} from '../../../models/v2/ontologies/class-definition';
 import {Endpoint} from '../../endpoint';
 import {Constants} from '../../../models/v2/Constants';
-import {ResourcePropertyDefinition, SystemPropertyDefinition} from '../../../models/v2/ontologies/property-definition';
 import {OperationMode} from 'json2typescript';
+import {ResourcePropertyDefinition} from '../../../models/v2/ontologies/resource-property-definition';
+import {SystemPropertyDefinition} from '../../../models/v2/ontologies/system-property-definition';
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require('jsonld/dist/jsonld.js');

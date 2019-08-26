@@ -5,7 +5,7 @@ import {MockAjaxCall} from '../../../../test/mockajaxcall';
 import {UsersResponse} from "../../../models/admin/users-response";
 import {ReadOntology} from "../../../models/v2/ontologies/read-ontology";
 import {ResourceClass} from '../../../models/v2/ontologies/class-definition';
-import {SystemPropertyDefinition} from '../../../models/v2/ontologies/property-definition';
+import {SystemPropertyDefinition} from '../../../models/v2/ontologies/system-property-definition';
 
 describe('OntologiesEndpoint', () => {
 

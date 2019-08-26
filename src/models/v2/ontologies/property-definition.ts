@@ -1,8 +1,7 @@
-import {JsonConverter, JsonCustomConvert, JsonObject, JsonProperty} from 'json2typescript';
-import {Constants} from '../Constants';
+import {JsonConverter, JsonCustomConvert} from 'json2typescript';
 
 @JsonConverter
-class SubPropertyOfConverter implements JsonCustomConvert<string[]> {
+export class SubPropertyOfConverter implements JsonCustomConvert<string[]> {
     serialize(subproperties: string[]): any {
     }
 
@@ -26,7 +25,7 @@ class SubPropertyOfConverter implements JsonCustomConvert<string[]> {
 }
 
 @JsonConverter
-class IdConverter  implements JsonCustomConvert<string> {
+export class IdConverter  implements JsonCustomConvert<string> {
     serialize(description: string): any {
     }
 
@@ -54,50 +53,4 @@ export abstract class PropertyDefinition {
     abstract subjectType?: string;
 
     abstract objectType?: string;
-}
-
-@JsonObject("ResourcePropertyDefinition")
-export class ResourcePropertyDefinition extends PropertyDefinition {
-    @JsonProperty("@id", String)
-    id: string = "";
-
-    @JsonProperty(Constants.SubPropertyOf, SubPropertyOfConverter, true)
-    subPropertyOf: string[] = [];
-
-    @JsonProperty(Constants.Comment, String, true)
-    comment?: string = undefined;
-
-    @JsonProperty(Constants.Label, String, true)
-    label?: string = undefined;
-
-    @JsonProperty(Constants.GuiElement, IdConverter, true)
-    guiElement?: string = undefined;
-
-    @JsonProperty(Constants.SubjectType, IdConverter, true)
-    subjectType?: string = undefined;
-
-    @JsonProperty(Constants.ObjectType, IdConverter, true)
-    objectType?: string = undefined;
-}
-
-@JsonObject("SystemPropertyDefinition")
-export class SystemPropertyDefinition extends PropertyDefinition {
-
-    @JsonProperty("@id", String)
-    id: string = "";
-
-    @JsonProperty(Constants.SubPropertyOf, SubPropertyOfConverter, true)
-    subPropertyOf: string[] = [];
-
-    @JsonProperty(Constants.Comment, String, true)
-    comment?: string = undefined;
-
-    @JsonProperty(Constants.Label, String, true)
-    label?: string = undefined;
-
-    @JsonProperty(Constants.SubjectType, IdConverter, true)
-    subjectType?: string = undefined;
-
-    @JsonProperty(Constants.ObjectType, IdConverter, true)
-    objectType?: string = undefined;
 }
