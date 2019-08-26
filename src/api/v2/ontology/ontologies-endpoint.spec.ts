@@ -3,7 +3,7 @@ import {KnoraApiConfig} from '../../../knora-api-config';
 import {KnoraApiConnection} from '../../../knora-api-connection';
 import {MockAjaxCall} from '../../../../test/mockajaxcall';
 import {UsersResponse} from "../../../models/admin/users-response";
-import {OntologyV2} from "../../../models/v2/ontologies/ontology-v2";
+import {ReadOntology} from "../../../models/v2/ontologies/read-ontology";
 import {ResourceClass} from '../../../models/v2/ontologies/class-definition';
 import {SystemPropertyDefinition} from '../../../models/v2/ontologies/property-definition';
 
@@ -50,7 +50,7 @@ describe('OntologiesEndpoint', () => {
         it("should return an ontology", done => {
 
             knoraApiConnection.v2.onto.getOntology("http://api.knora.org/ontology/knora-api/v2").subscribe(
-                (response: OntologyV2) => {
+                (response: ReadOntology) => {
                     expect(response.id).toEqual("http://api.knora.org/ontology/knora-api/v2");
 
                     expect(response.classes["http://api.knora.org/ontology/knora-api/v2#Annotation"] instanceof ResourceClass).toBeTruthy();
@@ -80,7 +80,7 @@ describe('OntologiesEndpoint', () => {
         it("should return a project ontology", done => {
 
             knoraApiConnection.v2.onto.getOntology("http://api.dasch.swiss/ontology/0807/mls/v2").subscribe(
-                (response: OntologyV2) => {
+                (response: ReadOntology) => {
                     expect(response.id).toEqual("http://api.dasch.swiss/ontology/0807/mls/v2");
 
                     done();

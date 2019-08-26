@@ -1,7 +1,7 @@
 import {PropertyDefinition} from './property-definition';
 import {ClassDefinition, IHasProperty, ResourceClass, StandoffClass} from './class-definition';
 
-export class OntologyV2 {
+export class ReadOntology {
     lastModificationDate: string;
     properties: {[index: string]: PropertyDefinition} = {};
     classes: {[index: string]: ClassDefinition} = {};

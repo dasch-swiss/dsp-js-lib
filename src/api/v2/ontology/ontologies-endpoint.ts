@@ -2,7 +2,7 @@ import {Observable} from 'rxjs';
 import {AjaxResponse} from 'rxjs/ajax';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {ApiResponseError} from '../../..';
-import {OntologyV2} from '../../../models/v2/ontologies/ontology-v2';
+import {ReadOntology} from '../../../models/v2/ontologies/read-ontology';
 import {AdminClass, IHasProperty, ResourceClass, StandoffClass} from '../../../models/v2/ontologies/class-definition';
 import {Endpoint} from '../../endpoint';
 import {Constants} from '../../../models/v2/Constants';
@@ -56,7 +56,7 @@ export class OntologiesEndpoint extends Endpoint {
 
     }
 
-    getOntology(ontologyIri: string): Observable<OntologyV2 | ApiResponseError> {
+    getOntology(ontologyIri: string): Observable<ReadOntology | ApiResponseError> {
 
         // TODO: Do not hard-code the UR and http call params, generate this from Knora
         return this.httpGet('/allentities/' + encodeURIComponent(ontologyIri)).pipe(
@@ -82,9 +82,9 @@ export class OntologiesEndpoint extends Endpoint {
      * @param ontologyJsonld ontology as JSON-LD already processed by the jsonld-processor.
      * @param ontologyIri the Iri of the ontology.
      */
-    private convertOntology(ontologyJsonld: object, ontologyIri: string): OntologyV2 {
+    private convertOntology(ontologyJsonld: object, ontologyIri: string): ReadOntology {
 
-        const onto = new OntologyV2(ontologyIri);
+        const onto = new ReadOntology(ontologyIri);
 
         // Access the collection of entities
         const entities = (ontologyJsonld as { [index: string]: object[] })['@graph'];
