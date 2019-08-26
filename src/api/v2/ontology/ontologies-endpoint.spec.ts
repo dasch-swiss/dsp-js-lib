@@ -1,11 +1,10 @@
-import {ApiResponseData} from "../../..";
 import {KnoraApiConfig} from '../../../knora-api-config';
 import {KnoraApiConnection} from '../../../knora-api-connection';
 import {MockAjaxCall} from '../../../../test/mockajaxcall';
-import {UsersResponse} from "../../../models/admin/users-response";
-import {ReadOntology} from "../../../models/v2/ontologies/read-ontology";
+import {ReadOntology} from '../../../models/v2/ontologies/read-ontology';
 import {SystemPropertyDefinition} from '../../../models/v2/ontologies/system-property-definition';
 import {ResourceClassDefinition} from '../../../models/v2/ontologies/resource-class-definition';
+import {ResourcePropertyDefinition} from '../../../models/v2/ontologies/resource-property-definition';
 
 describe('OntologiesEndpoint', () => {
 
@@ -47,10 +46,11 @@ describe('OntologiesEndpoint', () => {
 
     describe("Method getOntology", () => {
 
-        it("should return an ontology", done => {
+        fit("should return an ontology", done => {
 
             knoraApiConnection.v2.onto.getOntology("http://api.knora.org/ontology/knora-api/v2").subscribe(
                 (response: ReadOntology) => {
+
                     expect(response.id).toEqual("http://api.knora.org/ontology/knora-api/v2");
 
                     expect(response.classes["http://api.knora.org/ontology/knora-api/v2#Annotation"] instanceof ResourceClassDefinition).toBeTruthy();
@@ -60,6 +60,12 @@ describe('OntologiesEndpoint', () => {
                     expect(response.properties["http://api.knora.org/ontology/knora-api/v2#arkUrl"] instanceof SystemPropertyDefinition).toBeTruthy();
                     expect(response.properties["http://api.knora.org/ontology/knora-api/v2#arkUrl"].id).toEqual("http://api.knora.org/ontology/knora-api/v2#arkUrl");
                     expect(response.properties["http://api.knora.org/ontology/knora-api/v2#arkUrl"].label).toEqual("ARK URL");
+
+                    expect(response.properties["http://api.knora.org/ontology/knora-api/v2#hasValue"] instanceof ResourcePropertyDefinition).toBeTruthy();
+                    expect(response.properties["http://api.knora.org/ontology/knora-api/v2#hasValue"].id).toEqual('http://api.knora.org/ontology/knora-api/v2#hasValue');
+                    expect(response.properties["http://api.knora.org/ontology/knora-api/v2#hasValue"].subPropertyOf).toEqual(['http://api.knora.org/ontology/knora-api/v2#resourceProperty']);
+                    expect(response.properties["http://api.knora.org/ontology/knora-api/v2#hasValue"].subjectType).toEqual('http://api.knora.org/ontology/knora-api/v2#Resource');
+                    expect(response.properties["http://api.knora.org/ontology/knora-api/v2#hasValue"].objectType).toEqual('http://api.knora.org/ontology/knora-api/v2#Value');
 
 
                     done();
