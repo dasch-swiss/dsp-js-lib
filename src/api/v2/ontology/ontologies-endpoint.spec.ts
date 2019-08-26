@@ -46,7 +46,7 @@ describe('OntologiesEndpoint', () => {
 
     describe("Method getOntology", () => {
 
-        fit("should return an ontology", done => {
+        it("should return an ontology", done => {
 
             knoraApiConnection.v2.onto.getOntology("http://api.knora.org/ontology/knora-api/v2").subscribe(
                 (response: ReadOntology) => {
