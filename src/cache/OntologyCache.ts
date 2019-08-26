@@ -3,6 +3,13 @@ import {ApiResponseData, KnoraApiConnection, UserResponse} from '..';
 import {AsyncSubject, forkJoin, Observable} from 'rxjs';
 import {map, mergeMap} from 'rxjs/operators';
 import {ReadOntology} from '../models/v2/ontologies/read-ontology';
+import {PropertyDefinition} from '../models/v2/ontologies/property-definition';
+import {ClassDefinition, IHasProperty} from '../models/v2/ontologies/class-definition';
+
+export interface IEntityDefinitions {
+    classes: {[index: string]: ClassDefinition};
+    properties: {[index: string]: PropertyDefinition};
+}
 
 export class OntologyCache extends GenericCache<ReadOntology> {
 
@@ -38,14 +45,52 @@ export class OntologyCache extends GenericCache<ReadOntology> {
 
     }
 
-    getResourceClass(resourceClassIri: string) {
+    getResourceClass(resourceClassIri: string): Observable<IEntityDefinitions> {
         const ontoIri = this.knoraApiConnection.v2.onto.getOntologyIriFromEntityIri(resourceClassIri);
 
         if (ontoIri.length !== 1) throw Error("Invalid resource class Iri " + resourceClassIri);
 
-        const onto: Observable<Map<string, ReadOntology>> = this.getOntology(ontoIri[0]);
+        const ontology: Observable<Map<string, ReadOntology>> = this.getOntology(ontoIri[0]);
+
+        return ontology.pipe(
+                map(ontosMap => {
+
+                    const requestedEntityDefs: IEntityDefinitions = {
+                        classes: {},
+                        properties: {}
+                    };
+
+                    const mainOnto = ontosMap.get(ontoIri[0]);
+
+                    if (mainOnto !== undefined) {
+                        requestedEntityDefs.classes[resourceClassIri]
+                                = mainOnto.classes[resourceClassIri];
+
+                        mainOnto.classes[resourceClassIri].propertiesList.forEach(
+                                (prop: IHasProperty) => {
+
+                                    const fromOntoIri = this.knoraApiConnection.v2.onto.getOntologyIriFromEntityIri(prop.propertyIndex);
+
+                                    // only handle Knora property definitions
+                                    if (fromOntoIri.length === 1) {
+
+                                        const fromOnto = ontosMap.get(fromOntoIri[0]);
+
+                                        if (fromOnto !== undefined) {
+                                            requestedEntityDefs.properties[prop.propertyIndex] = fromOnto.properties[prop.propertyIndex];
+                                        }
+
+                                    }
+
+                                }
+                        );
 
 
+                    }
+
+                    return requestedEntityDefs;
+                })
+        );
 
     }
 
