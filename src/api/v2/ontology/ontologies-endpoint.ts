@@ -60,7 +60,7 @@ export class OntologiesEndpoint extends Endpoint {
 
     getOntology(ontologyIri: string): Observable<ReadOntology | ApiResponseError> {
 
-        // TODO: Do not hard-code the UR and http call params, generate this from Knora
+        // TODO: Do not hard-code the URL and http call params, generate this from Knora
         return this.httpGet('/allentities/' + encodeURIComponent(ontologyIri)).pipe(
                 mergeMap((ajaxResponse: AjaxResponse) => {
                     // console.log(JSON.stringify(ajaxResponse.response));

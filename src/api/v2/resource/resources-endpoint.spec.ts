@@ -7,6 +7,12 @@ import {ReadResource} from '../../../models/v2/resources/read-resource';
 import {of} from 'rxjs';
 import {IEntityDefinitions} from '../../../cache/OntologyCache';
 import {ResourceClassDefinition} from '../../../models/v2/ontologies/resource-class-definition';
+import {PropertyDefinition} from '../../../models/v2/ontologies/property-definition';
+import {ResourcePropertyDefinition} from '../../../models/v2/ontologies/resource-property-definition';
+import {JsonConvert, OperationMode, ValueCheckingMode} from 'json2typescript';
+import {PropertyMatchingRule} from 'json2typescript/src/json2typescript/json-convert-enums';
+import {Constants} from '../../../models/v2/Constants';
+import {SystemPropertyDefinition} from '../../../models/v2/ontologies/system-property-definition';
 
 describe('ResourcesEndpoint', () => {
 
@@ -59,12 +65,63 @@ describe('ResourcesEndpoint', () => {
 
 });
 
-const anythingThing = new ResourceClassDefinition();
-anythingThing.label = 'Thing';
-
 const entityMock: IEntityDefinitions = {
     classes: {
-        "http://api.dasch.swiss/ontology/0001/anything/v2#Thing": anythingThing
+        "http://api.dasch.swiss/ontology/0001/anything/v2#Thing": new ResourceClassDefinition()
     },
-    properties: {}
+    properties: {
+
+    }
 };
+
+const jsonConvert: JsonConvert = new JsonConvert(
+        OperationMode.ENABLE,
+        ValueCheckingMode.DISALLOW_NULL,
+        false,
+        PropertyMatchingRule.CASE_STRICT,
+);
+
+const anythingOntology = require('../../../../test/data/api/v2/ontologies/anything-ontology-expanded.json');
+const knoraApiOntology = require('../../../../test/data/api/v2/ontologies/knora-api-ontology-expanded.json');
+
+const knoraApiEntities = (knoraApiOntology as { [index: string]: object[] })['@graph'];
+const anythingEntities = (anythingOntology as { [index: string]: object[] })['@graph'];
+
+const entities = knoraApiEntities.concat(anythingEntities);
+
+// this.jsonConvert.operationMode = OperationMode.LOGGING;
+
+// Convert resource classes
+entities.filter((entity: any) => {
+    return entity.hasOwnProperty(Constants.IsResourceClass) &&
+            entity[Constants.IsResourceClass] === true && entity['@id'] === "http://api.dasch.swiss/ontology/0001/anything/v2#Thing";
+}).map(resclassJsonld => {
+    return jsonConvert.deserializeObject(resclassJsonld, ResourceClassDefinition);
+}).forEach((resClass: ResourceClassDefinition) => {
+    entityMock.classes[resClass.id] = resClass;
+});
+
+// properties of anything Thing
+
+const props: string[]
+        = entityMock.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"].propertiesList.map(prop => prop.propertyIndex);
+
+// Convert resource properties (properties pointing to Knora values)
+entities.filter((entity: any) => {
+    return entity.hasOwnProperty(Constants.IsResourceProperty) &&
+            entity[Constants.IsResourceProperty] === true && props.indexOf(entity['@id']) !== -1;
+}).map((propertyJsonld: any) => {
+    return jsonConvert.deserializeObject(propertyJsonld, ResourcePropertyDefinition);
+}).forEach((prop: ResourcePropertyDefinition) => {
+    entityMock.properties[prop.id] = prop;
+});
+
+// Convert system properties (properties not pointing to Knora values)
+entities.filter((entity: any) => {
+    return (entity['@type'] === Constants.DataTypeProperty || entity['@type'] === Constants.ObjectProperty)
+            && !entity.hasOwnProperty(Constants.IsResourceProperty) && props.indexOf(entity['@id']) !== -1;
+}).map((propertyJsonld: any) => {
+    return jsonConvert.deserializeObject(propertyJsonld, SystemPropertyDefinition);
+}).forEach((prop: SystemPropertyDefinition) => {
+    entityMock.properties[prop.id] = prop;
+});

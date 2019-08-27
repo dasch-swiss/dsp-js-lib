@@ -12,7 +12,7 @@ const jsonld = require('jsonld/dist/jsonld.js');
 export class ResourcesEndpoint extends Endpoint {
 
     getResource(resourceIri: string, ontologyCache: OntologyCache): Observable<ReadResource[] | ApiResponseError> {
-        // TODO: Do not hard-code the UR and http call params, generate this from Knora
+        // TODO: Do not hard-code the URL and http call params, generate this from Knora
         return this.httpGet('/' + encodeURIComponent(resourceIri)).pipe(
                 mergeMap((ajaxResponse: AjaxResponse) => {
                     // console.log(JSON.stringify(ajaxResponse.response));
