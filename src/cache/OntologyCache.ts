@@ -7,8 +7,8 @@ import {PropertyDefinition} from '../models/v2/ontologies/property-definition';
 import {ClassDefinition, IHasProperty} from '../models/v2/ontologies/class-definition';
 
 export interface IEntityDefinitions {
-    classes: {[index: string]: ClassDefinition};
-    properties: {[index: string]: PropertyDefinition};
+    classes: { [index: string]: ClassDefinition };
+    properties: { [index: string]: PropertyDefinition };
 }
 
 export class OntologyCache extends GenericCache<ReadOntology> {
@@ -48,7 +48,7 @@ export class OntologyCache extends GenericCache<ReadOntology> {
     getResourceClass(resourceClassIri: string): Observable<IEntityDefinitions> {
         const ontoIri = this.knoraApiConnection.v2.onto.getOntologyIriFromEntityIri(resourceClassIri);
 
-        if (ontoIri.length !== 1) throw Error("Invalid resource class Iri " + resourceClassIri);
+        if (ontoIri.length !== 1) throw Error('Invalid resource class Iri ' + resourceClassIri);
 
         const ontology: Observable<Map<string, ReadOntology>> = this.getOntology(ontoIri[0]);
 
@@ -62,7 +62,8 @@ export class OntologyCache extends GenericCache<ReadOntology> {
 
                     const mainOnto = ontosMap.get(ontoIri[0]);
 
-                    if (mainOnto !== undefined) {
+                    if (mainOnto !== undefined && mainOnto.classes.hasOwnProperty(resourceClassIri)) {
+
                         requestedEntityDefs.classes[resourceClassIri]
                                 = mainOnto.classes[resourceClassIri];
 
