@@ -67,7 +67,7 @@ describe('ResourcesEndpoint', () => {
 
 const entityMock: IEntityDefinitions = {
     classes: {
-        "http://api.dasch.swiss/ontology/0001/anything/v2#Thing": new ResourceClassDefinition()
+
     },
     properties: {
 

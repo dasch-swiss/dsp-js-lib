@@ -5,6 +5,8 @@ import {catchError, map, mergeMap} from 'rxjs/operators';
 import {AjaxResponse} from 'rxjs/ajax';
 import {forkJoin, Observable} from 'rxjs';
 import {ReadOntology} from '../../../models/v2/ontologies/read-ontology';
+import {PropertyDefinition} from '../../../models/v2/ontologies/property-definition';
+import {ResourcePropertyDefinition} from '../../../models/v2/ontologies/resource-property-definition';
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require('jsonld/dist/jsonld.js');
@@ -57,10 +59,30 @@ export class ResourcesEndpoint extends Endpoint {
 
         return ontologyCache.getResourceClass(resourceType).pipe(map(
                 resClass => {
+
+                    const resourceProps: string[] = Object.keys(resourceJsonld)
+                            .filter((propIri: string) => {
+                        return resClass.properties[propIri] instanceof ResourcePropertyDefinition;
+                    });
+
+                    const values = resourceProps.map((propIri: string) => {
+                        return this.parseValue(propIri, resourceJsonld[propIri]);
+                    });
+
+                    // console.log(values);
+
                     return new ReadResource(resClass.classes[resourceType].label as string);
                 }
         ));
 
+    }
+
+    private parseValue(propIri: string, valueJsonld: any) {
+        const type = valueJsonld['@type'];
+
+
+
+        return type;
     }
 
 }
