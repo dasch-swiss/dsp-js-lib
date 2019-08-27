@@ -20,10 +20,10 @@ export abstract class GenericCache<T> {
      * If not cached yet, the information will be fetched from Knora.
      *
      * @param key the id of the item to be returned.
-     * @param handledDependencies dependencies already taken care of.
      * @return the requested item.
      */
-    getItem(key: string, handledDependencies: string[] = []): AsyncSubject<T> {
+    protected getItem(key: string): AsyncSubject<T> {
+        // console.log("getItem", key, this.cache[key]);
 
         // If the key already exists, return the associated AsyncSubject.
         if (this.cache[key] !== undefined) {
@@ -37,6 +37,7 @@ export abstract class GenericCache<T> {
         // Requests information from Knora and updates the AsyncSubject
         // once the information is available
         this.requestItemFromKnora(key).subscribe((response: T) => {
+            // console.log("fetching from Knora", key);
 
             // Updates and completes the AsyncSubject.
             this.cache[key].next(response);
@@ -45,19 +46,15 @@ export abstract class GenericCache<T> {
             // collect keys of items this item depends on
             let dependencyKeysToGet = this.getDependenciesOfItem(response);
 
-            // ignore dependencies already taken care of and self-dependencies
+            // ignore dependencies already taken care of
             dependencyKeysToGet = dependencyKeysToGet.filter((depKey: string) => {
-                return handledDependencies.indexOf(depKey) === -1 && depKey !== key;
+                return Object.keys(this.cache).indexOf(depKey) === -1;
             });
-
-            // Combine keys of dependencies already taken care of.
-            const combinedDependencies = handledDependencies.concat(dependencyKeysToGet).concat([key]);
 
             // Request each dependency from the cache
             // Dependencies will be fetched asynchronously.
             dependencyKeysToGet.forEach((depKey: string) => {
-                // Pass dependencies already taken care of along.
-                this.getItem(depKey, combinedDependencies);
+                this.getItem(depKey);
             });
 
         });
@@ -73,7 +70,7 @@ export abstract class GenericCache<T> {
      * @param key the id of the information to be returned.
      * @return the item.
      */
-    reloadItem(key: string): AsyncSubject<T> {
+    protected reloadItem(key: string): AsyncSubject<T> {
         if (this.cache[key] !== undefined) delete this.cache[key];
         return this.getItem(key);
     }

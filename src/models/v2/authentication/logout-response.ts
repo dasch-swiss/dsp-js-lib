@@ -1,5 +1,5 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-import { ILogoutResponse } from "../../interfaces/models/v2/i-logout-response";
+import { ILogoutResponse } from "../../../interfaces/models/v2/i-logout-response";
 
 @JsonObject("LogoutResponse")
 export class LogoutResponse implements ILogoutResponse {

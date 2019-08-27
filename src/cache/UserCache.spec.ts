@@ -34,7 +34,7 @@ describe('UserCache', () => {
 
         it('should get a user from the cache', done => {
 
-            userCache.getItem('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse) => {
+            userCache['getItem']('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse) => {
                 expect(res.user.id).toEqual('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q');
                 expect(getUserSpy).toHaveBeenCalledTimes(1);
 
@@ -46,11 +46,11 @@ describe('UserCache', () => {
 
         it('should get the user from the cache twice synchronously', done => {
 
-            userCache.getItem('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse) => {
+            userCache['getItem']('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse) => {
                 expect(res.user.id).toEqual('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q');
                 expect(getUserSpy).toHaveBeenCalledTimes(1);
 
-                userCache.getItem('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res2: UserResponse) => {
+                userCache['getItem']('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res2: UserResponse) => {
                     expect(res2.user.id).toEqual('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q');
                     expect(getUserSpy).toHaveBeenCalledTimes(1);
                     done();
@@ -60,15 +60,15 @@ describe('UserCache', () => {
 
         it('should get the same user from the cache several times asynchronously', () => {
 
-            userCache.getItem('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse) => {
+            userCache['getItem']('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse) => {
                 expect(getUserSpy).toHaveBeenCalledTimes(1);
             });
 
-            userCache.getItem('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse) => {
+            userCache['getItem']('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse) => {
                 expect(getUserSpy).toHaveBeenCalledTimes(1);
             });
 
-            userCache.getItem('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse) => {
+            userCache['getItem']('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse) => {
                 expect(getUserSpy).toHaveBeenCalledTimes(1);
             });
 
@@ -79,10 +79,10 @@ describe('UserCache', () => {
 
         it('should get a user from the cache and refresh the entry', done => {
 
-            userCache.getItem('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse) => {
+            userCache['getItem']('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse) => {
                 expect(getUserSpy).toHaveBeenCalledTimes(1);
 
-                userCache.reloadItem('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res2: UserResponse) => {
+                userCache['reloadItem']('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res2: UserResponse) => {
                     expect(getUserSpy).toHaveBeenCalledTimes(2);
                     done();
                 });
