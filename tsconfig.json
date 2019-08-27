@@ -14,9 +14,13 @@
     "resolveJsonModule": true,
     "sourceMap": true,
     "strictNullChecks": true,
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "outDir": "build"
   },
   "exclude": [
+    "build",
+    "coverage",
+    "dist",
     "node_modules",
     "test",
     "**/*.spec.ts"
