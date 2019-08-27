@@ -8,7 +8,7 @@ import {ReadOntology} from '../../../models/v2/ontologies/read-ontology';
 import {PropertyDefinition} from '../../../models/v2/ontologies/property-definition';
 import {ResourcePropertyDefinition} from '../../../models/v2/ontologies/resource-property-definition';
 import {Constants} from '../../../models/v2/Constants';
-import {BooleanValue} from '../../../models/v2/resources/boolean-value';
+import {ReadBooleanValue} from '../../../models/v2/resources/read-boolean-value';
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require('jsonld/dist/jsonld.js');
@@ -93,9 +93,8 @@ export class ResourcesEndpoint extends Endpoint {
 
         switch (type) {
 
-            case Constants.KnoraApiV2 + Constants.Delimiter + 'BooleanValue': {
-                const boolVal = this.jsonConvert.deserialize(valueJsonld, BooleanValue);
-                console.log(boolVal);
+            case Constants.BooleanValue: {
+                const boolVal = this.jsonConvert.deserialize(valueJsonld, ReadBooleanValue);
                 value = value.concat(of(boolVal));
                 break;
             }

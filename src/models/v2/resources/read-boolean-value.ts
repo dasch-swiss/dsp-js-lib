@@ -1,8 +1,8 @@
 import {JsonObject, JsonProperty} from 'json2typescript';
 import {Constants} from '../Constants';
 
-@JsonObject('BooleanValue')
-export class BooleanValue {
+@JsonObject('ReadBooleanValue')
+export class ReadBooleanValue {
 
     @JsonProperty('@id', String)
     id: string = '';

@@ -8,6 +8,7 @@ export class Constants {
     static ObjectType = Constants.KnoraApiV2 + Constants.Delimiter + "objectType";
     static SubjectType = Constants.KnoraApiV2 + Constants.Delimiter + "subjectType";
     static LastModificationDate = Constants.KnoraApiV2 + Constants.Delimiter + "lastModificationDate";
+    static BooleanValue = Constants.KnoraApiV2 + Constants.Delimiter + "BooleanValue";
 
     static KnoraAdminV2 = "http://api.knora.org/ontology/knora-admin/v2";
 
