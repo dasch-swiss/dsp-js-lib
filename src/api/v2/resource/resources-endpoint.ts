@@ -9,6 +9,7 @@ import {PropertyDefinition} from '../../../models/v2/ontologies/property-definit
 import {ResourcePropertyDefinition} from '../../../models/v2/ontologies/resource-property-definition';
 import {Constants} from '../../../models/v2/Constants';
 import {ReadBooleanValue} from '../../../models/v2/resources/read-boolean-value';
+import {ReadValue} from '../../../models/v2/resources/read-value';
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require('jsonld/dist/jsonld.js');
@@ -67,16 +68,23 @@ export class ResourcesEndpoint extends Endpoint {
                         return resClass.properties[propIri] instanceof ResourcePropertyDefinition;
                     });
 
-                    let values: any[] = [];
+                    const values: Array<Observable<ReadValue>> = [];
 
                     resourceProps.forEach((propIri: string) => {
-                        values = values.concat(this.parseValue(propIri, resourceJsonld[propIri]));
+
+                        if (Array.isArray(resourceJsonld[propIri])) {
+                            for (const value of resourceJsonld[propIri]) {
+                                values.push(this.parseValue(propIri, value));
+                            }
+                        } else {
+                            values.push(this.parseValue(propIri, resourceJsonld[propIri]));
+                        }
                     });
 
                     return forkJoin(values).pipe(map(
                             vals => {
+                                console.log(vals);
                                 const resource = new ReadResource(resClass.classes[resourceType].label as string);
-                                resource.properties = vals;
                                 return resource;
                             }
                     ));
@@ -86,27 +94,35 @@ export class ResourcesEndpoint extends Endpoint {
 
     }
 
-    private parseValue(propIri: string, valueJsonld: any): Array<Observable<any>> {
+    private parseValue(propIri: string, valueJsonld: any): Observable<ReadValue> {
+
+        if (Array.isArray(valueJsonld)) throw new Error("value is expected to be a single object");
+
         const type = valueJsonld['@type'];
 
-        let value: Array<Observable<any>> = [];
+        let value;
 
         switch (type) {
 
             case Constants.BooleanValue: {
-                const boolVal = this.jsonConvert.deserialize(valueJsonld, ReadBooleanValue);
-                value = value.concat(of(boolVal));
+
+                // console.log(valueJsonld)
+
+                const boolVal: ReadBooleanValue = this.jsonConvert.deserialize(valueJsonld, ReadBooleanValue) as ReadBooleanValue;
+                boolVal.property = propIri;
+                value = of(boolVal);
                 break;
             }
 
             default: {
-                value = value.concat(of(false));
-                break;
+                value = of(new ReadBooleanValue());
             }
+
 
         }
 
         return value;
+
     }
 
 }
