@@ -3,10 +3,12 @@ import {ApiResponseError, OntologyCache} from '../../..';
 import {ReadResource} from '../../../models/v2/resources/read-resource';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {AjaxResponse} from 'rxjs/ajax';
-import {forkJoin, Observable} from 'rxjs';
+import {forkJoin, Observable, of} from 'rxjs';
 import {ReadOntology} from '../../../models/v2/ontologies/read-ontology';
 import {PropertyDefinition} from '../../../models/v2/ontologies/property-definition';
 import {ResourcePropertyDefinition} from '../../../models/v2/ontologies/resource-property-definition';
+import {Constants} from '../../../models/v2/Constants';
+import {BooleanValue} from '../../../models/v2/resources/boolean-value';
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require('jsonld/dist/jsonld.js');
@@ -57,7 +59,7 @@ export class ResourcesEndpoint extends Endpoint {
         // determine resource class
         const resourceType = resourceJsonld['@type'] as string;
 
-        return ontologyCache.getResourceClass(resourceType).pipe(map(
+        return ontologyCache.getResourceClass(resourceType).pipe(mergeMap(
                 resClass => {
 
                     const resourceProps: string[] = Object.keys(resourceJsonld)
@@ -65,24 +67,47 @@ export class ResourcesEndpoint extends Endpoint {
                         return resClass.properties[propIri] instanceof ResourcePropertyDefinition;
                     });
 
-                    const values = resourceProps.map((propIri: string) => {
-                        return this.parseValue(propIri, resourceJsonld[propIri]);
+                    let values: any[] = [];
+
+                    resourceProps.forEach((propIri: string) => {
+                        values = values.concat(this.parseValue(propIri, resourceJsonld[propIri]));
                     });
 
-                    // console.log(values);
+                    return forkJoin(values).pipe(map(
+                            vals => {
+                                const resource = new ReadResource(resClass.classes[resourceType].label as string);
+                                resource.properties = vals;
+                                return resource;
+                            }
+                    ));
 
-                    return new ReadResource(resClass.classes[resourceType].label as string);
                 }
         ));
 
     }
 
-    private parseValue(propIri: string, valueJsonld: any) {
+    private parseValue(propIri: string, valueJsonld: any): Array<Observable<any>> {
         const type = valueJsonld['@type'];
 
+        let value: Array<Observable<any>> = [];
 
+        switch (type) {
 
-        return type;
+            case Constants.KnoraApiV2 + Constants.Delimiter + 'BooleanValue': {
+                const boolVal = this.jsonConvert.deserialize(valueJsonld, BooleanValue);
+                console.log(boolVal);
+                value = value.concat(of(boolVal));
+                break;
+            }
+
+            default: {
+                value = value.concat(of(false));
+                break;
+            }
+
+        }
+
+        return value;
     }
 
 }
