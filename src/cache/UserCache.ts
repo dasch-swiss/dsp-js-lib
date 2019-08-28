@@ -11,7 +11,7 @@ export class UserCache extends GenericCache<UserResponse> {
     }
 
     protected requestItemFromKnora(key: string): Observable<UserResponse> {
-        return this.knoraApiConnection.admin.users.getUser('iri', key).pipe(
+        return this.knoraApiConnection.admin.usersEndpoint.getUser('iri', key).pipe(
                 map((response: ApiResponseData<UserResponse>) => {
                     return response.body;
                 })

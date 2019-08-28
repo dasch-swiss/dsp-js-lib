@@ -23,7 +23,7 @@ describe('UsersEndpoint', () => {
 
         it('should return all users', done => {
 
-            knoraApiConnection.admin.users.getUsers().subscribe(
+            knoraApiConnection.admin.usersEndpoint.getUsers().subscribe(
                     (response: ApiResponseData<UsersResponse>) => {
                         expect(response.body.users.length).toEqual(18);
                         expect(response.body.users[0].familyName).toEqual('Admin-alt');
@@ -49,7 +49,7 @@ describe('UsersEndpoint', () => {
 
         it('should return a user by its iri', done => {
 
-            knoraApiConnection.admin.users.getUser('iri', 'http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe(
+            knoraApiConnection.admin.usersEndpoint.getUser('iri', 'http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe(
                     (response: ApiResponseData<UserResponse>) => {
                         expect(response.body.user.familyName).toEqual('User01');
 
@@ -70,7 +70,7 @@ describe('UsersEndpoint', () => {
 
         it('should return a user by its email', done => {
 
-            knoraApiConnection.admin.users.getUser('email', 'anything.user01@example.org').subscribe(
+            knoraApiConnection.admin.usersEndpoint.getUser('email', 'anything.user01@example.org').subscribe(
                     (response: ApiResponseData<UserResponse>) => {
                         expect(response.body.user.familyName).toEqual('User01');
 
@@ -91,7 +91,7 @@ describe('UsersEndpoint', () => {
 
         it('should return a user by its username', done => {
 
-            knoraApiConnection.admin.users.getUser('username', 'anything.user01').subscribe(
+            knoraApiConnection.admin.usersEndpoint.getUser('username', 'anything.user01').subscribe(
                     (response: ApiResponseData<UserResponse>) => {
                         expect(response.body.user.familyName).toEqual('User01');
 

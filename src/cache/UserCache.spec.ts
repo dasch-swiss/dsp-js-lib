@@ -18,7 +18,7 @@ describe('UserCache', () => {
 
             const user = require('../../test/data/api/admin/users/get-user-response.json');
 
-            getUserSpy = spyOn(knoraApiConnection.admin.users, 'getUser').and.callFake(
+            getUserSpy = spyOn(knoraApiConnection.admin.usersEndpoint, 'getUser').and.callFake(
                     (prop: string, userId: string) => {
 
                         return of({body: user});

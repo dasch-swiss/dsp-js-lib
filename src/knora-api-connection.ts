@@ -1,6 +1,6 @@
-import { AdminEndpoint } from "./api/admin/admin-endpoint";
 import { V2Endpoint } from "./api/v2/v2-endpoint";
 import { KnoraApiConfig } from "./knora-api-config";
+import {AdminApi} from './api/admin/admin-api-endpoint';
 
 /**
  * Offers methods for JavaScript developers to interact with the Knora API.
@@ -27,7 +27,7 @@ export class KnoraApiConnection {
     /**
      * Holds all endpoints of the admin route
      */
-    readonly admin: AdminEndpoint;
+    readonly admin: AdminApi;
 
     /**
      * Holds all endpoints of the v2 route
@@ -50,7 +50,7 @@ export class KnoraApiConnection {
     constructor(knoraApiConfig: KnoraApiConfig) {
 
         // Instantiate the endpoints
-        this.admin = new AdminEndpoint(knoraApiConfig, KnoraApiConnection.PATH_ADMIN);
+        this.admin = new AdminApi(knoraApiConfig, KnoraApiConnection.PATH_ADMIN);
         this.v2 = new V2Endpoint(knoraApiConfig, KnoraApiConnection.PATH_V2);
         // todo more
 
