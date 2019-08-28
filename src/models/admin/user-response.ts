@@ -1,12 +1,17 @@
-import { JsonObject, JsonProperty } from "json2typescript";
+import { Any, JsonObject, JsonProperty } from "json2typescript";
 
-import { IUserResponse } from "../../interfaces/models/admin/i-user-response";
-import { User } from "./user";
+import { ReadUser } from "./read-user";
 
+/**
+ * A response providing a single user.
+ */
 @JsonObject("UserResponse")
-export class UserResponse implements IUserResponse {
+export class UserResponse {
 
-    @JsonProperty("user", User)
-    user: User = new User();
+    /**
+     * The user returned in a UserResponse.
+     */
+    @JsonProperty("user", ReadUser)
+    user: ReadUser = new ReadUser();
 
 }

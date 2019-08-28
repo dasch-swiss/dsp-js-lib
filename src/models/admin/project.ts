@@ -1,41 +1,59 @@
-import { JsonObject, JsonProperty } from "json2typescript";
+import { Any, JsonObject, JsonProperty } from "json2typescript";
 
-import { IProject } from "../../interfaces/models/admin/i-project";
+import { StringLiteral } from "./string-literal";
 
+/**
+ * Represents a project that uses Knora.
+ */
 @JsonObject("Project")
-export class Project implements IProject {
+export class Project {
 
-    @JsonProperty("id", String)
-    id: string = "";
+    /**
+     * A description of the enclosing object.
+     */
+    @JsonProperty("description", [StringLiteral])
+    description: StringLiteral[] = [];
 
-    @JsonProperty("shortname", String)
-    shortName: string = "";
-
-    @JsonProperty("shortcode", String)
-    shortCode: string = "";
-
-    @JsonProperty("longname", String)
-    longName: string = "";
-
-    @JsonProperty("description", [String])
-    description: string[] = [];
-
+    /**
+     * Project keywords.
+     */
     @JsonProperty("keywords", [String])
     keywords: string[] = [];
 
-    @JsonProperty("logo", String)
-    logo: string = "";
+    /**
+     * The path to the projects's logo.
+     */
+    @JsonProperty("logo", String, true)
+    logo?: string = undefined;
 
-    @JsonProperty("institution", String)
-    institution: string = "";
+    /**
+     * The longname of a Knora project.
+     */
+    @JsonProperty("longname", String, true)
+    longname?: string = undefined;
 
-    @JsonProperty("ontologies", [String])
-    ontologies: string[] = [];
+    /**
+     * Exists and is true if users can add themselves to the project or group.
+     */
+    @JsonProperty("selfjoin", Boolean)
+    selfjoin: boolean = false;
 
+    /**
+     * The unique short code of a Knora project.
+     */
+    @JsonProperty("shortcode", String)
+    shortcode: string = "";
+
+    /**
+     * The unique shortname of a Knora project.
+     */
+    @JsonProperty("shortname", String)
+    shortname: string = "";
+
+    /**
+     * The status of the user / group / project. It is false if the entity has been deactivated (deleted).
+     */
     @JsonProperty("status", Boolean)
     status: boolean = false;
-
-    @JsonProperty("selfjoin", Boolean)
-    selfJoin: boolean = false;
 
 }

@@ -3,22 +3,28 @@ import { Any, JsonObject, JsonProperty } from "json2typescript";
 import { StringLiteral } from "./string-literal";
 
 /**
- * A group of Knora users.
+ * A request to create a group.
  */
-@JsonObject("Group")
-export class Group {
+@JsonObject("CreateGroupRequest")
+export class CreateGroupRequest {
 
     /**
      * A description of the enclosing object.
      */
-    @JsonProperty("description", String, true)
-    description?: string = undefined;
+    @JsonProperty("description", StringLiteral, true)
+    description?: StringLiteral = undefined;
 
     /**
      * The name of the enclosing object.
      */
     @JsonProperty("name", String)
     name: string = "";
+
+    /**
+     * The IRI of a project.
+     */
+    @JsonProperty("projectIri", String)
+    projectIri: string = "";
 
     /**
      * Exists and is true if users can add themselves to the project or group.
@@ -29,7 +35,7 @@ export class Group {
     /**
      * The status of the user / group / project. It is false if the entity has been deactivated (deleted).
      */
-    @JsonProperty("status", Boolean, true)
-    status?: boolean = undefined;
+    @JsonProperty("status", Boolean)
+    status: boolean = false;
 
 }

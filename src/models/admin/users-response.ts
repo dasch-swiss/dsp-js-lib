@@ -1,12 +1,17 @@
-import { JsonObject, JsonProperty } from "json2typescript";
+import { Any, JsonObject, JsonProperty } from "json2typescript";
 
-import { IUsersResponse } from "../../interfaces/models/admin/i-users-response";
-import { User } from "./user";
+import { ReadUser } from "./read-user";
 
+/**
+ * A response providing a collection of users.
+ */
 @JsonObject("UsersResponse")
-export class UsersResponse implements IUsersResponse {
+export class UsersResponse {
 
-    @JsonProperty("users", [User])
-    users: User[] = [];
+    /**
+     * The users returned in a UsersResponse.
+     */
+    @JsonProperty("users", [ReadUser])
+    users: ReadUser[] = [];
 
 }
