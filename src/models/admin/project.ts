@@ -9,12 +9,6 @@ import { StringLiteral } from "./string-literal";
 export class Project {
 
     /**
-     * A description of the enclosing object.
-     */
-    @JsonProperty("description", [StringLiteral])
-    description: StringLiteral[] = [];
-
-    /**
      * Project keywords.
      */
     @JsonProperty("keywords", [String])
@@ -31,6 +25,12 @@ export class Project {
      */
     @JsonProperty("longname", String, true)
     longname?: string = undefined;
+
+    /**
+     * A description of a project.
+     */
+    @JsonProperty("description", [StringLiteral])
+    description: StringLiteral[] = [];
 
     /**
      * Exists and is true if users can add themselves to the project or group.

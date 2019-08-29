@@ -1,6 +1,5 @@
 import { Any, JsonObject, JsonProperty } from "json2typescript";
 
-import { StringLiteral } from "./string-literal";
 
 /**
  * A group of Knora users.
@@ -9,7 +8,7 @@ import { StringLiteral } from "./string-literal";
 export class Group {
 
     /**
-     * A description of the enclosing object.
+     * A description of a user group
      */
     @JsonProperty("description", String, true)
     description?: string = undefined;

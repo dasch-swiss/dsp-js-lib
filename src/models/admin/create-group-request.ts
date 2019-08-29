@@ -1,18 +1,11 @@
 import { Any, JsonObject, JsonProperty } from "json2typescript";
 
-import { StringLiteral } from "./string-literal";
 
 /**
  * A request to create a group.
  */
 @JsonObject("CreateGroupRequest")
 export class CreateGroupRequest {
-
-    /**
-     * A description of the enclosing object.
-     */
-    @JsonProperty("description", StringLiteral, true)
-    description?: StringLiteral = undefined;
 
     /**
      * The name of the enclosing object.
