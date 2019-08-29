@@ -16,7 +16,7 @@ import {SystemPropertyDefinition} from '../../../models/v2/ontologies/system-pro
 
 describe('ResourcesEndpoint', () => {
 
-    const config = new KnoraApiConfig('http', 'api.dasch.swiss');
+    const config = new KnoraApiConfig('http', 'api.dasch.swiss', undefined, undefined, "", true);
     const knoraApiConnection = new KnoraApiConnection(config);
 
     const ontoCache = new OntologyCache(knoraApiConnection);
@@ -44,7 +44,7 @@ describe('ResourcesEndpoint', () => {
             // console.log(JSON.stringify(response));
 
             expect(response.length).toEqual(1);
-            expect(response[0].resClassLabel).toEqual('Thing');
+            expect(response[0].resourceClassLabel).toEqual('Thing');
 
             expect(getResourceClassSpy).toHaveBeenCalledTimes(1);
             expect(getResourceClassSpy).toHaveBeenCalledWith('http://api.dasch.swiss/ontology/0001/anything/v2#Thing');

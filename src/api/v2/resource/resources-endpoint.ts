@@ -84,7 +84,16 @@ export class ResourcesEndpoint extends Endpoint {
                     return forkJoin(values).pipe(map(
                             vals => {
                                 console.log(vals);
-                                const resource = new ReadResource(resClass.classes[resourceType].label as string);
+
+                                // all values are ready
+
+                                const resource = this.jsonConvert.deserialize(resourceJsonld, ReadResource) as ReadResource;
+
+                                // add information from ontology
+                                resource.resourceClassLabel = resClass.classes[resourceType].label;
+                                resource.resourceClassComment = resClass.classes[resourceType].comment;
+
+                                console.log(resource)
                                 return resource;
                             }
                     ));
