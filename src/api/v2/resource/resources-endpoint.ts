@@ -8,9 +8,11 @@ import {ReadOntology} from '../../../models/v2/ontologies/read-ontology';
 import {PropertyDefinition} from '../../../models/v2/ontologies/property-definition';
 import {ResourcePropertyDefinition} from '../../../models/v2/ontologies/resource-property-definition';
 import {Constants} from '../../../models/v2/Constants';
-import {ReadBooleanValue} from '../../../models/v2/resources/read-boolean-value';
-import {ReadValue} from '../../../models/v2/resources/read-value';
+import {ReadBooleanValue} from '../../../models/v2/resources/values/read-boolean-value';
+import {ReadValue} from '../../../models/v2/resources/values/read-value';
 import {IEntityDefinitions} from '../../../cache/OntologyCache';
+import {ReadColorValue} from '../../../models/v2/resources/values/read-color-value';
+import {ReadDateValue} from '../../../models/v2/resources/values/read-date-value';
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require('jsonld/dist/jsonld.js');
@@ -57,6 +59,8 @@ export class ResourcesEndpoint extends Endpoint {
     }
 
     private parseResource(resourceJsonld: { [index: string]: string | object[] }, ontologyCache: OntologyCache): Observable<ReadResource> {
+
+        if (Array.isArray(resourceJsonld)) throw new Error('resource is expected to be a single object');
 
         // determine resource class
         const resourceType = resourceJsonld['@type'] as string;
@@ -119,6 +123,21 @@ export class ResourcesEndpoint extends Endpoint {
 
                 const boolVal: ReadBooleanValue = this.jsonConvert.deserialize(valueJsonld, ReadBooleanValue) as ReadBooleanValue;
                 value = of(boolVal);
+                break;
+            }
+
+            case Constants.ColorValue: {
+
+                const colorVal: ReadColorValue = this.jsonConvert.deserialize(valueJsonld, ReadColorValue) as ReadColorValue;
+                value = of(colorVal);
+                break;
+            }
+
+            case Constants.DateValue: {
+
+                const dateVal: ReadDateValue = this.jsonConvert.deserialize(valueJsonld, ReadDateValue) as ReadDateValue;
+                dateVal['parseDate']();
+                value = of(dateVal);
                 break;
             }
 

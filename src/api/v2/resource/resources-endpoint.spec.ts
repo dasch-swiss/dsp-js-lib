@@ -41,7 +41,7 @@ describe('ResourcesEndpoint', () => {
     it('should return a resource', done => {
 
         knoraApiConnection.v2.res.getResource('http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw', ontoCache).subscribe((response: ReadResource[]) => {
-            console.log(response);
+            // console.log(response);
 
             expect(response.length).toEqual(1);
             expect(response[0].resourceClassLabel).toEqual('Thing');

@@ -8,13 +8,30 @@ export class Constants {
     static ObjectType = Constants.KnoraApiV2 + Constants.Delimiter + "objectType";
     static SubjectType = Constants.KnoraApiV2 + Constants.Delimiter + "subjectType";
     static LastModificationDate = Constants.KnoraApiV2 + Constants.Delimiter + "lastModificationDate";
+
     static BooleanValue = Constants.KnoraApiV2 + Constants.Delimiter + "BooleanValue";
+    static ColorValue = Constants.KnoraApiV2 + Constants.Delimiter + "ColorValue";
+    static DateValue = Constants.KnoraApiV2 + Constants.Delimiter + "DateValue";
+
+
     static AttachedToProject = Constants.KnoraApiV2 +  Constants.Delimiter  + "attachedToProject";
     static AttachedToUser = Constants.KnoraApiV2 +  Constants.Delimiter  + "attachedToUser";
     static ArkUrl = Constants.KnoraApiV2 +  Constants.Delimiter  + "arkUrl";
     static VersionArkUrl = Constants.KnoraApiV2 +  Constants.Delimiter  + "versionArkUrl";
 
-
+    static BooleanValueAsBoolean = Constants.KnoraApiV2 +  Constants.Delimiter  + "booleanValueAsBoolean";
+    static ColorValueAsColor = Constants.KnoraApiV2 +  Constants.Delimiter  + "colorValueAsColor";
+    static DateValueHasCalendar = Constants.KnoraApiV2 +  Constants.Delimiter  + "dateValueHasCalendar";
+    static DateValueHasEndDay = Constants.KnoraApiV2 +  Constants.Delimiter  + "dateValueHasEndDay";
+    static DateValueHasEndEra = Constants.KnoraApiV2 +  Constants.Delimiter  + "dateValueHasEndEra";
+    static DateValueHasEndMonth = Constants.KnoraApiV2 +  Constants.Delimiter  + "dateValueHasEndMonth";
+    static DateValueHasEndYear = Constants.KnoraApiV2 +  Constants.Delimiter  + "dateValueHasEndYear";
+    static DateValueHasStartDay = Constants.KnoraApiV2 +  Constants.Delimiter  + "dateValueHasStartDay";
+    static DateValueHasStartEra = Constants.KnoraApiV2 +  Constants.Delimiter  + "dateValueHasStartEra";
+    static DateValueHasStartMonth = Constants.KnoraApiV2 +  Constants.Delimiter  + "dateValueHasStartMonth";
+    static DateValueHasStartYear = Constants.KnoraApiV2 +  Constants.Delimiter  + "dateValueHasStartYear";
+    
+    
     static KnoraAdminV2 = "http://api.knora.org/ontology/knora-admin/v2";
 
     static SalsahGui = "http://api.knora.org/ontology/salsah-gui/v2";

@@ -1,7 +1,7 @@
 import {JsonObject, JsonProperty} from 'json2typescript';
 import {Constants} from '../Constants';
 import {IdConverter, UriConverter} from '../CustomConverters';
-import {ReadValue} from './read-value';
+import {ReadValue} from './values/read-value';
 
 @JsonObject('ReadResource')
 export class ReadResource {
