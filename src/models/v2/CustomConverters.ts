@@ -130,3 +130,20 @@ export class IdConverter implements JsonCustomConvert<string> {
         return tmp;
     }
 }
+
+@JsonConverter
+export class UriConverter implements JsonCustomConvert<string> {
+    serialize(description: string): any {
+    }
+
+    deserialize(item: any): string {
+        let tmp = '';
+
+        // TODO: check if it could be an array, too.
+        if (item.hasOwnProperty('@value') && (typeof item['@value'] === 'string' || item['@value'] instanceof String)) {
+            tmp = item['@value'];
+        }
+
+        return tmp;
+    }
+}
