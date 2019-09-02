@@ -7,5 +7,5 @@ import {DecimalConverter} from '../../CustomConverters';
 export class ReadDecimalValue extends ReadValue {
 
     @JsonProperty(Constants.DecimalValueAsDecimal, DecimalConverter)
-    int: number = 0;
+    decimal: number = 0;
 }
