@@ -17,6 +17,11 @@ import {ReadIntValue} from '../../../models/v2/resources/values/read-int-value';
 import {ReadDecimalValue} from '../../../models/v2/resources/values/read-decimal-value';
 import {ReadIntervalValue} from '../../../models/v2/resources/values/read-interval-value';
 import {ReadListValue} from '../../../models/v2/resources/values/read-list-value';
+import {
+    ReadTextValueAsHtml,
+    ReadTextValueAsString,
+    ReadTextValueAsXml
+} from '../../../models/v2/resources/values/read-text-value';
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require('jsonld/dist/jsonld.js');
@@ -170,6 +175,27 @@ export class ResourcesEndpoint extends Endpoint {
 
                 const listValue = this.jsonConvert.deserialize(valueJsonld, ReadListValue) as ReadListValue;
                 value = of(listValue);
+                break;
+            }
+
+            case Constants.TextValue: {
+
+                if (valueJsonld.hasOwnProperty(Constants.ValueAsString)) {
+                    const textValue =
+                            this.jsonConvert.deserialize(valueJsonld, ReadTextValueAsString) as ReadTextValueAsString;
+                    value = of(textValue);
+                } else if (valueJsonld.hasOwnProperty(Constants.TextValueAsXml)) {
+                    const textValue =
+                            this.jsonConvert.deserialize(valueJsonld, ReadTextValueAsXml) as ReadTextValueAsXml;
+                    value = of(textValue);
+                } else if (valueJsonld.hasOwnProperty(Constants.TextValueAsHtml)) {
+                    const textValue =
+                            this.jsonConvert.deserialize(valueJsonld, ReadTextValueAsHtml) as ReadTextValueAsHtml;
+                    value = of(textValue);
+                } else {
+                    throw new Error("Invalid Text value");
+                }
+
                 break;
             }
 

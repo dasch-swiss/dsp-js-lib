@@ -16,6 +16,7 @@ export class Constants {
     static DecimalValue = Constants.KnoraApiV2 + Constants.Delimiter + "DecimalValue";
     static IntervalValue = Constants.KnoraApiV2 + Constants.Delimiter + "IntervalValue";
     static ListValue = Constants.KnoraApiV2 + Constants.Delimiter + "ListValue";
+    static TextValue = Constants.KnoraApiV2 + Constants.Delimiter + "TextValue";
 
     static AttachedToProject = Constants.KnoraApiV2 +  Constants.Delimiter  + "attachedToProject";
     static AttachedToUser = Constants.KnoraApiV2 +  Constants.Delimiter  + "attachedToUser";
@@ -38,6 +39,10 @@ export class Constants {
     static IntervalValueHasStart = Constants.KnoraApiV2 +  Constants.Delimiter  + "intervalValueHasStart";
     static IntervalValueHasEnd = Constants.KnoraApiV2 +  Constants.Delimiter  + "intervalValueHasEnd";
     static ListValueAsListNode = Constants.KnoraApiV2 +  Constants.Delimiter  + "listValueAsListNode";
+    static ValueAsString = Constants.KnoraApiV2 +  Constants.Delimiter  + "valueAsString";
+    static TextValueAsXml = Constants.KnoraApiV2 +  Constants.Delimiter  + "textValueAsXml";
+    static TextValueHasMapping = Constants.KnoraApiV2 +  Constants.Delimiter  + "textValueHasMapping";
+    static TextValueAsHtml = Constants.KnoraApiV2 +  Constants.Delimiter  + "textValueAsHtml";
 
     
     static KnoraAdminV2 = "http://api.knora.org/ontology/knora-admin/v2";

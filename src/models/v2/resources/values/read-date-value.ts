@@ -16,6 +16,8 @@ export enum Precision {
  */
 export class Date {
 
+    // TODO: support instantiation of a JDNConvertibleCalendar subclass, e.g., GregorianCalendarDate
+
     private static separator = '-';
 
     readonly precision: Precision;
