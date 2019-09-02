@@ -13,6 +13,7 @@ import {ReadValue} from '../../../models/v2/resources/values/read-value';
 import {IEntityDefinitions} from '../../../cache/OntologyCache';
 import {ReadColorValue} from '../../../models/v2/resources/values/read-color-value';
 import {ReadDateValue} from '../../../models/v2/resources/values/read-date-value';
+import {ReadIntValue} from '../../../models/v2/resources/values/read-int-value';
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require('jsonld/dist/jsonld.js');
@@ -138,6 +139,13 @@ export class ResourcesEndpoint extends Endpoint {
                 const dateVal: ReadDateValue = this.jsonConvert.deserialize(valueJsonld, ReadDateValue) as ReadDateValue;
                 dateVal['parseDate']();
                 value = of(dateVal);
+                break;
+            }
+
+            case Constants.IntValue: {
+
+                const intValue = this.jsonConvert.deserialize(valueJsonld, ReadIntValue) as ReadIntValue;
+                value = of(intValue);
                 break;
             }
 

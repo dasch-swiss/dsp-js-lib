@@ -76,7 +76,7 @@ export class ReadDateValue extends ReadValue {
     @JsonProperty(Constants.DateValueHasEndDay, Number, true)
     private endDay?: number = undefined;
 
-    @JsonProperty(Constants.DateValueHasEndMonth, Number)
+    @JsonProperty(Constants.DateValueHasEndMonth, Number, true)
     private endMonth?: number = undefined;
 
     @JsonProperty(Constants.DateValueHasEndYear, Number)
@@ -88,7 +88,7 @@ export class ReadDateValue extends ReadValue {
     private parseDate() {
 
         if (this.startYear === this.endYear && this.startMonth === this.endMonth && this.startDay === this.endDay && this.startEra === this.endEra) {
-            // precise date
+            // single date
             this.date = new Date(this.calendar, this.startEra, this.startYear, this.startMonth, this.startDay);
         } else {
             // date period
