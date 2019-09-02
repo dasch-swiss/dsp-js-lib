@@ -1,49 +1,50 @@
-import {Endpoint} from '../../endpoint';
-import {ApiResponseError, OntologyCache} from '../../..';
-import {ReadResource} from '../../../models/v2/resources/read-resource';
-import {catchError, map, mergeMap} from 'rxjs/operators';
-import {AjaxResponse} from 'rxjs/ajax';
-import {forkJoin, Observable, of} from 'rxjs';
-import {ReadOntology} from '../../../models/v2/ontologies/read-ontology';
-import {PropertyDefinition} from '../../../models/v2/ontologies/property-definition';
-import {ResourcePropertyDefinition} from '../../../models/v2/ontologies/resource-property-definition';
-import {Constants} from '../../../models/v2/Constants';
-import {ReadBooleanValue} from '../../../models/v2/resources/values/read-boolean-value';
-import {ReadValue} from '../../../models/v2/resources/values/read-value';
-import {IEntityDefinitions} from '../../../cache/OntologyCache';
-import {ReadColorValue} from '../../../models/v2/resources/values/read-color-value';
-import {ReadDateValue} from '../../../models/v2/resources/values/read-date-value';
-import {ReadIntValue} from '../../../models/v2/resources/values/read-int-value';
-import {ReadDecimalValue} from '../../../models/v2/resources/values/read-decimal-value';
-import {ReadIntervalValue} from '../../../models/v2/resources/values/read-interval-value';
-import {ReadListValue} from '../../../models/v2/resources/values/read-list-value';
+import {ReadLinkValue} from "../../../models/v2/resources/values/read-link-value";
+import {Endpoint} from "../../endpoint";
+import {ApiResponseError, OntologyCache} from "../../..";
+import {ReadResource} from "../../../models/v2/resources/read-resource";
+import {catchError, map, mergeMap} from "rxjs/operators";
+import {AjaxResponse} from "rxjs/ajax";
+import {forkJoin, Observable, of} from "rxjs";
+import {ReadOntology} from "../../../models/v2/ontologies/read-ontology";
+import {PropertyDefinition} from "../../../models/v2/ontologies/property-definition";
+import {ResourcePropertyDefinition} from "../../../models/v2/ontologies/resource-property-definition";
+import {Constants} from "../../../models/v2/Constants";
+import {ReadBooleanValue} from "../../../models/v2/resources/values/read-boolean-value";
+import {ReadValue} from "../../../models/v2/resources/values/read-value";
+import {IEntityDefinitions} from "../../../cache/OntologyCache";
+import {ReadColorValue} from "../../../models/v2/resources/values/read-color-value";
+import {ReadDateValue} from "../../../models/v2/resources/values/read-date-value";
+import {ReadIntValue} from "../../../models/v2/resources/values/read-int-value";
+import {ReadDecimalValue} from "../../../models/v2/resources/values/read-decimal-value";
+import {ReadIntervalValue} from "../../../models/v2/resources/values/read-interval-value";
+import {ReadListValue} from "../../../models/v2/resources/values/read-list-value";
 import {
     ReadTextValueAsHtml,
     ReadTextValueAsString,
     ReadTextValueAsXml
-} from '../../../models/v2/resources/values/read-text-value';
+} from "../../../models/v2/resources/values/read-text-value";
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
-const jsonld = require('jsonld/dist/jsonld.js');
+const jsonld = require("jsonld/dist/jsonld.js");
 
 export class ResourcesEndpoint extends Endpoint {
 
     getResource(resourceIri: string, ontologyCache: OntologyCache): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
-        return this.httpGet('/' + encodeURIComponent(resourceIri)).pipe(
-                mergeMap((ajaxResponse: AjaxResponse) => {
-                    // console.log(JSON.stringify(ajaxResponse.response));
-                    // TODO: @rosenth Adapt context object
-                    // TODO: adapt getOntologyIriFromEntityIri
-                    return jsonld.compact(ajaxResponse.response, {});
-                }), mergeMap((jsonldobj: object) => {
-                    // console.log(JSON.stringify(jsonldobj));
-                    return this.parseResourceSequence(jsonldobj, ontologyCache);
-                }),
-                catchError(error => {
-                    console.error(error);
-                    return this.handleError(error);
-                })
+        return this.httpGet("/" + encodeURIComponent(resourceIri)).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // console.log(JSON.stringify(ajaxResponse.response));
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), mergeMap((jsonldobj: object) => {
+                // console.log(JSON.stringify(jsonldobj));
+                return this.parseResourceSequence(jsonldobj, ontologyCache);
+            }),
+            catchError(error => {
+                console.error(error);
+                return this.handleError(error);
+            })
         );
     }
 
@@ -51,10 +52,10 @@ export class ResourcesEndpoint extends Endpoint {
 
         let readResources: Array<Observable<ReadResource>>;
 
-        if (resourcesJsonld.hasOwnProperty('@graph')) {
+        if (resourcesJsonld.hasOwnProperty("@graph")) {
             // sequence of resources
-            readResources = (resourcesJsonld as { [index: string]: object[] })['graph']
-                    .map((res: { [index: string]: object[] | string }) => this.parseResource(res, ontologyCache));
+            readResources = (resourcesJsonld as { [index: string]: object[] })["graph"]
+                .map((res: { [index: string]: object[] | string }) => this.parseResource(res, ontologyCache));
         } else {
             //  one or no resource
             if (Object.keys(resourcesJsonld).length === 0) {
@@ -69,18 +70,30 @@ export class ResourcesEndpoint extends Endpoint {
 
     private parseResource(resourceJsonld: { [index: string]: string | object[] }, ontologyCache: OntologyCache): Observable<ReadResource> {
 
-        if (Array.isArray(resourceJsonld)) throw new Error('resource is expected to be a single object');
+        // console.log("parsing ", resourceJsonld["@id"]);
+
+        if (Array.isArray(resourceJsonld)) throw new Error("resource is expected to be a single object");
 
         // determine resource class
-        const resourceType = resourceJsonld['@type'] as string;
+        const resourceType = resourceJsonld["@type"] as string;
 
         return ontologyCache.getResourceClass(resourceType).pipe(mergeMap(
-                (entitiyDefs: IEntityDefinitions) => {
+            (entitiyDefs: IEntityDefinitions) => {
 
-                    const resourceProps: string[] = Object.keys(resourceJsonld)
-                            .filter((propIri: string) => {
-                                return entitiyDefs.properties[propIri] instanceof ResourcePropertyDefinition;
-                            });
+                const resourceProps: string[] = Object.keys(resourceJsonld)
+                    .filter((propIri: string) => {
+                        return entitiyDefs.properties[propIri] instanceof ResourcePropertyDefinition;
+                    });
+
+                // console.log("props ", resourceProps);
+
+                const resource = this.jsonConvert.deserialize(resourceJsonld, ReadResource) as ReadResource;
+
+                // add information from ontology
+                resource.resourceClassLabel = entitiyDefs.classes[resourceType].label;
+                resource.resourceClassComment = entitiyDefs.classes[resourceType].comment;
+
+                if (resourceProps.length > 0) {
 
                     const values: Array<Observable<ReadValue>> = [];
 
@@ -88,41 +101,40 @@ export class ResourcesEndpoint extends Endpoint {
 
                         if (Array.isArray(resourceJsonld[propIri])) {
                             for (const value of resourceJsonld[propIri]) {
-                                values.push(this.parseValue(propIri, value, entitiyDefs));
+                                values.push(this.parseValue(propIri, value, entitiyDefs, ontologyCache));
                             }
                         } else {
-                            values.push(this.parseValue(propIri, resourceJsonld[propIri], entitiyDefs));
+                            values.push(this.parseValue(propIri, resourceJsonld[propIri], entitiyDefs, ontologyCache));
                         }
                     });
 
                     return forkJoin(values).pipe(map(
-                            vals => {
-                                // vals.forEach(val => console.log(val));
+                        vals => {
+                            vals.forEach(val => console.log(val));
 
-                                const resource = this.jsonConvert.deserialize(resourceJsonld, ReadResource) as ReadResource;
+                            // assign values
+                            resource.properties = vals;
 
-                                // assign values
-                                resource.properties = vals;
-
-                                // add information from ontology
-                                resource.resourceClassLabel = entitiyDefs.classes[resourceType].label;
-                                resource.resourceClassComment = entitiyDefs.classes[resourceType].comment;
-
-                                // console.log(resource)
-                                return resource;
-                            }
+                            // console.log(resource)
+                            return resource;
+                        }
                     ));
-
+                } else {
+                    return of(resource);
                 }
+
+
+
+            }
         ));
 
     }
 
-    private parseValue(propIri: string, valueJsonld: any, entitiyDefs: IEntityDefinitions): Observable<ReadValue> {
+    private parseValue(propIri: string, valueJsonld: any, entitiyDefs: IEntityDefinitions, ontologyCache: OntologyCache): Observable<ReadValue> {
 
-        if (Array.isArray(valueJsonld)) throw new Error('value is expected to be a single object');
+        if (Array.isArray(valueJsonld)) throw new Error("value is expected to be a single object");
 
-        const type = valueJsonld['@type'];
+        const type = valueJsonld["@type"];
 
         let value: Observable<ReadValue>;
 
@@ -145,7 +157,7 @@ export class ResourcesEndpoint extends Endpoint {
             case Constants.DateValue: {
 
                 const dateVal: ReadDateValue = this.jsonConvert.deserialize(valueJsonld, ReadDateValue) as ReadDateValue;
-                dateVal['parseDate']();
+                dateVal["parseDate"]();
                 value = of(dateVal);
                 break;
             }
@@ -182,15 +194,15 @@ export class ResourcesEndpoint extends Endpoint {
 
                 if (valueJsonld.hasOwnProperty(Constants.ValueAsString)) {
                     const textValue =
-                            this.jsonConvert.deserialize(valueJsonld, ReadTextValueAsString) as ReadTextValueAsString;
+                        this.jsonConvert.deserialize(valueJsonld, ReadTextValueAsString) as ReadTextValueAsString;
                     value = of(textValue);
                 } else if (valueJsonld.hasOwnProperty(Constants.TextValueAsXml)) {
                     const textValue =
-                            this.jsonConvert.deserialize(valueJsonld, ReadTextValueAsXml) as ReadTextValueAsXml;
+                        this.jsonConvert.deserialize(valueJsonld, ReadTextValueAsXml) as ReadTextValueAsXml;
                     value = of(textValue);
                 } else if (valueJsonld.hasOwnProperty(Constants.TextValueAsHtml)) {
                     const textValue =
-                            this.jsonConvert.deserialize(valueJsonld, ReadTextValueAsHtml) as ReadTextValueAsHtml;
+                        this.jsonConvert.deserialize(valueJsonld, ReadTextValueAsHtml) as ReadTextValueAsHtml;
                     value = of(textValue);
                 } else {
                     throw new Error("Invalid Text value");
@@ -199,22 +211,41 @@ export class ResourcesEndpoint extends Endpoint {
                 break;
             }
 
-            default: {
-                console.error('Unknown value type: ', type);
-                value = of(this.jsonConvert.deserialize(valueJsonld, ReadValue) as ReadValue);
+            case Constants.LinkValue: {
+                const linkValue = this.jsonConvert.deserialize(valueJsonld, ReadLinkValue) as ReadLinkValue;
+
+                if (valueJsonld.hasOwnProperty(Constants.LinkValueHasTarget)) {
+                    const referredRes: Observable<ReadResource> = this.parseResource(valueJsonld[Constants.LinkValueHasTarget], ontologyCache);
+                    value = referredRes.pipe(
+                        map(
+                            refRes => {
+                                linkValue.referredResource = refRes;
+                                return linkValue;
+                            }
+                        )
+                    );
+                } else {
+                    value = of(linkValue);
+                }
+
+                break;
             }
 
+            default: {
+                console.error("Unknown value type: ", type);
+                value = of(this.jsonConvert.deserialize(valueJsonld, ReadValue) as ReadValue);
+            }
 
         }
 
         return value.pipe(map(
-                val => {
-                    val.property = propIri;
-                    val.propertyLabel = entitiyDefs.properties[propIri].label;
-                    val.propertyComment = entitiyDefs.properties[propIri].comment;
+            val => {
+                val.property = propIri;
+                val.propertyLabel = entitiyDefs.properties[propIri].label;
+                val.propertyComment = entitiyDefs.properties[propIri].comment;
 
-                    return val;
-                }
+                return val;
+            }
         ));
 
     }

@@ -1,4 +1,5 @@
 import {JsonObject, JsonProperty} from 'json2typescript';
+import {IdConverter} from "../../CustomConverters";
 import {ReadValue} from './read-value';
 import {Constants} from '../../Constants';
 
@@ -20,6 +21,9 @@ export class ReadTextValueAsXml extends ReadTextValue {
 
     @JsonProperty(Constants.TextValueAsXml, String)
     xml: string = "";
+
+    @JsonProperty(Constants.TextValueHasMapping, IdConverter)
+    mapping: string = "";
 
 }
 

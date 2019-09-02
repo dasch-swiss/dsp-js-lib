@@ -48,7 +48,7 @@ describe('ResourcesEndpoint', () => {
             expect(response.length).toEqual(1);
             expect(response[0].resourceClassLabel).toEqual('Thing');
 
-            expect(getResourceClassSpy).toHaveBeenCalledTimes(1);
+            expect(getResourceClassSpy).toHaveBeenCalledTimes(2);
             expect(getResourceClassSpy).toHaveBeenCalledWith('http://api.dasch.swiss/ontology/0001/anything/v2#Thing');
 
 
