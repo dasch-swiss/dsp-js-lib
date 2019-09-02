@@ -16,6 +16,7 @@ import {ReadDateValue} from '../../../models/v2/resources/values/read-date-value
 import {ReadIntValue} from '../../../models/v2/resources/values/read-int-value';
 import {ReadDecimalValue} from '../../../models/v2/resources/values/read-decimal-value';
 import {ReadIntervalValue} from '../../../models/v2/resources/values/read-interval-value';
+import {ReadListValue} from '../../../models/v2/resources/values/read-list-value';
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require('jsonld/dist/jsonld.js');
@@ -162,6 +163,13 @@ export class ResourcesEndpoint extends Endpoint {
 
                 const intervalValue = this.jsonConvert.deserialize(valueJsonld, ReadIntervalValue) as ReadIntervalValue;
                 value = of(intervalValue);
+                break;
+            }
+
+            case Constants.ListValue: {
+
+                const listValue = this.jsonConvert.deserialize(valueJsonld, ReadListValue) as ReadListValue;
+                value = of(listValue);
                 break;
             }
 
