@@ -13,6 +13,7 @@ export class Constants {
     static ColorValue = Constants.KnoraApiV2 + Constants.Delimiter + "ColorValue";
     static DateValue = Constants.KnoraApiV2 + Constants.Delimiter + "DateValue";
     static IntValue = Constants.KnoraApiV2 + Constants.Delimiter + "IntValue";
+    static DecimalValue = Constants.KnoraApiV2 + Constants.Delimiter + "DecimalValue";
 
     static AttachedToProject = Constants.KnoraApiV2 +  Constants.Delimiter  + "attachedToProject";
     static AttachedToUser = Constants.KnoraApiV2 +  Constants.Delimiter  + "attachedToUser";
@@ -31,7 +32,8 @@ export class Constants {
     static DateValueHasStartMonth = Constants.KnoraApiV2 +  Constants.Delimiter  + "dateValueHasStartMonth";
     static DateValueHasStartYear = Constants.KnoraApiV2 +  Constants.Delimiter  + "dateValueHasStartYear";
     static IntValueAsInt = Constants.KnoraApiV2 +  Constants.Delimiter  + "intValueAsInt";
-    
+    static DecimalValueAsDecimal = Constants.KnoraApiV2 +  Constants.Delimiter  + "decimalValueAsDecimal";
+
     
     static KnoraAdminV2 = "http://api.knora.org/ontology/knora-admin/v2";
 
