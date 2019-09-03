@@ -1,6 +1,6 @@
 import {GenericCache} from './GenericCache';
 import {ApiResponseData, KnoraApiConnection, UserResponse} from '..';
-import {AsyncSubject, forkJoin, Observable} from 'rxjs';
+import {AsyncSubject, forkJoin, Observable, of} from 'rxjs';
 import {map, mergeMap} from 'rxjs/operators';
 import {ReadOntology} from '../models/v2/ontologies/read-ontology';
 import {PropertyDefinition} from '../models/v2/ontologies/property-definition';
@@ -22,24 +22,40 @@ export class OntologyCache extends GenericCache<ReadOntology> {
         return this.getItem(ontologyIri).pipe(
                 mergeMap((ontology: ReadOntology) => {
 
-                    const deps: Array<AsyncSubject<ReadOntology>> = [];
-                    ontology.dependsOnOntologies.forEach((depKey: string) => {
-                        deps.push(this.getItem(depKey));
-                    });
+                    if (ontology.dependsOnOntologies.size > 0) {
 
-                    return forkJoin(deps).pipe(
-                            map(ontos => {
-                                const ontoMap: Map<string, ReadOntology> = new Map();
+                        const deps: Array<AsyncSubject<ReadOntology>> = [];
+                        ontology.dependsOnOntologies.forEach((depKey: string) => {
+                            deps.push(this.getItem(depKey));
+                        });
 
-                                [ontology].concat(ontos).forEach(
-                                        (onto: ReadOntology) => {
+                        return forkJoin(deps).pipe(
+                                map(ontos => {
+                                    const ontoMap: Map<string, ReadOntology> = new Map();
+
+                                    [ontology].concat(ontos).forEach(
+                                            (onto: ReadOntology) => {
+                                                ontoMap.set(onto.id, onto);
+                                            }
+                                    );
+
+
+                                    return ontoMap;
+                                })
+                        );
+
+                    } else {
+                        const ontoMap: Map<string, ReadOntology> = new Map();
+
+                        return of(ontology).pipe(
+                                map(
+                                        onto => {
                                             ontoMap.set(onto.id, onto);
+                                            return ontoMap;
                                         }
-                                );
-
-                                return ontoMap;
-                            })
-                    );
+                                )
+                        );
+                    }
                 })
         );
 

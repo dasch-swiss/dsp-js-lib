@@ -141,6 +141,8 @@ export class ResourcesEndpoint extends Endpoint {
 
         switch (type) {
 
+            // TODO: GeomValue. FileValues
+
             case Constants.BooleanValue: {
 
                 const boolVal: ReadBooleanValue = this.jsonConvert.deserialize(valueJsonld, ReadBooleanValue) as ReadBooleanValue;
@@ -201,6 +203,9 @@ export class ResourcesEndpoint extends Endpoint {
             case Constants.TextValue: {
 
                 if (valueJsonld.hasOwnProperty(Constants.ValueAsString)) {
+
+                    // TODO: query standoff, if any.
+
                     const textValue =
                         this.jsonConvert.deserialize(valueJsonld, ReadTextValueAsString) as ReadTextValueAsString;
                     value = of(textValue);
@@ -237,23 +242,23 @@ export class ResourcesEndpoint extends Endpoint {
                     );
                 };
 
-                const handleLinkedResourceIri = (linkedResourceIri: string, incoming: boolean) => {
+                const handleLinkedResourceIri = (linkedResourceIri: string, incoming: boolean): Observable<ReadLinkValue> => {
                     if (linkedResourceIri === undefined) throw new Error("Invalid resource Iri");
                     linkValue.linkedResourceIri = linkedResourceIri;
                     linkValue.incoming = incoming;
                     return of(linkValue);
                 };
 
-                // check if linked resource is nested
+                // check if linked resource is nested or if just its IRI is present
                 if (valueJsonld.hasOwnProperty(Constants.LinkValueHasTarget)) {
                     value = handleLinkedResource(valueJsonld[Constants.LinkValueHasTarget], false);
                 } else if (valueJsonld.hasOwnProperty(Constants.LinkValueHasTargetIri)) {
-                    // check for existence of @id
+                    // TODO: check for existence of @id
                     value = handleLinkedResourceIri(valueJsonld[Constants.LinkValueHasTargetIri]['@id'], false);
                 } else if (valueJsonld.hasOwnProperty(Constants.LinkValueHasSource)) {
                     value = handleLinkedResource(valueJsonld[Constants.LinkValueHasSource], true);
                 } else if (valueJsonld.hasOwnProperty(Constants.LinkValueHasSourceIri)) {
-                    // check for existence of @id
+                    // TODO: check for existence of @id
                     value = handleLinkedResourceIri(valueJsonld[Constants.LinkValueHasSourceIri]['@id'], true);
                 } else {
                     throw new Error("Invalid Link Value");
