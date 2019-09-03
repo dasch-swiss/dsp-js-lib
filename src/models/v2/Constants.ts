@@ -18,6 +18,7 @@ export class Constants {
     static ListValue = Constants.KnoraApiV2 + Constants.Delimiter + "ListValue";
     static TextValue = Constants.KnoraApiV2 + Constants.Delimiter + "TextValue";
     static LinkValue = Constants.KnoraApiV2 + Constants.Delimiter + "LinkValue";
+    static UriValue = Constants.KnoraApiV2 + Constants.Delimiter + "UriValue";
 
     static AttachedToProject = Constants.KnoraApiV2 +  Constants.Delimiter  + "attachedToProject";
     static AttachedToUser = Constants.KnoraApiV2 +  Constants.Delimiter  + "attachedToUser";
@@ -45,7 +46,8 @@ export class Constants {
     static TextValueHasMapping = Constants.KnoraApiV2 +  Constants.Delimiter  + "textValueHasMapping";
     static TextValueAsHtml = Constants.KnoraApiV2 +  Constants.Delimiter  + "textValueAsHtml";
     static LinkValueHasTarget = Constants.KnoraApiV2 +  Constants.Delimiter + "linkValueHasTarget";
-    
+    static UriValueAsUri = Constants.KnoraApiV2 +  Constants.Delimiter + "uriValueAsUri";
+
     static KnoraAdminV2 = "http://api.knora.org/ontology/knora-admin/v2";
 
     static SalsahGui = "http://api.knora.org/ontology/salsah-gui/v2";

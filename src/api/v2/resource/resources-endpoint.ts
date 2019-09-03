@@ -23,6 +23,7 @@ import {
     ReadTextValueAsString,
     ReadTextValueAsXml
 } from "../../../models/v2/resources/values/read-text-value";
+import {ReadUriValue} from '../../../models/v2/resources/values/read-uri-value';
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require("jsonld/dist/jsonld.js");
@@ -187,6 +188,13 @@ export class ResourcesEndpoint extends Endpoint {
 
                 const listValue = this.jsonConvert.deserialize(valueJsonld, ReadListValue) as ReadListValue;
                 value = of(listValue);
+                break;
+            }
+
+            case Constants.UriValue: {
+                const uriValue = this.jsonConvert.deserialize(valueJsonld, ReadUriValue) as ReadUriValue;
+                value = of(uriValue);
+
                 break;
             }
 
