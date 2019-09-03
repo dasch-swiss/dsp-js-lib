@@ -51,22 +51,18 @@ export class ResourcesEndpoint extends Endpoint {
 
     private parseResourceSequence(resourcesJsonld: object, ontologyCache: OntologyCache): Observable<ReadResource[]> {
 
-        let readResources: Array<Observable<ReadResource>>;
-
         if (resourcesJsonld.hasOwnProperty("@graph")) {
             // sequence of resources
-            readResources = (resourcesJsonld as { [index: string]: object[] })["graph"]
-                .map((res: { [index: string]: object[] | string }) => this.parseResource(res, ontologyCache));
+             return forkJoin((resourcesJsonld as { [index: string]: object[] })["graph"]
+                .map((res: { [index: string]: object[] | string }) => this.parseResource(res, ontologyCache)));
         } else {
             //  one or no resource
             if (Object.keys(resourcesJsonld).length === 0) {
-                readResources = [];
+                return of([]);
             } else {
-                readResources = [this.parseResource(resourcesJsonld as { [index: string]: object[] | string }, ontologyCache)];
+                return forkJoin([this.parseResource(resourcesJsonld as { [index: string]: object[] | string }, ontologyCache)]);
             }
         }
-
-        return forkJoin(readResources);
     }
 
     private parseResource(resourceJsonld: { [index: string]: string | object[] }, ontologyCache: OntologyCache): Observable<ReadResource> {
