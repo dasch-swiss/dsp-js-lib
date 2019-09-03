@@ -89,6 +89,9 @@ describe('OntologiesEndpoint', () => {
                 (response: ReadOntology) => {
                     expect(response.id).toEqual("http://api.dasch.swiss/ontology/0001/anything/v2");
 
+                    expect(response.dependsOnOntologies.size).toEqual(1);
+                    expect(response.dependsOnOntologies.has("http://api.dasch.swiss/ontology/0001/anything/v2"));
+
                     done();
                 });
 
