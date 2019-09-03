@@ -111,7 +111,7 @@ export class ResourcesEndpoint extends Endpoint {
 
                     return forkJoin(values).pipe(map(
                         vals => {
-                            vals.forEach(val => console.log(val));
+                            // vals.forEach(val => console.log(val));
 
                             // assign values
                             resource.properties = vals;
@@ -222,18 +222,41 @@ export class ResourcesEndpoint extends Endpoint {
             case Constants.LinkValue: {
                 const linkValue = this.jsonConvert.deserialize(valueJsonld, ReadLinkValue) as ReadLinkValue;
 
-                if (valueJsonld.hasOwnProperty(Constants.LinkValueHasTarget)) {
-                    const referredRes: Observable<ReadResource> = this.parseResource(valueJsonld[Constants.LinkValueHasTarget], ontologyCache);
-                    value = referredRes.pipe(
-                        map(
-                            refRes => {
-                                linkValue.referredResource = refRes;
-                                return linkValue;
-                            }
-                        )
+                const handleLinkedResource =
+                        (linkedResource: { [index: string]: string | object[] }, incoming: boolean): Observable<ReadLinkValue> => {
+                    const referredRes: Observable<ReadResource> = this.parseResource(linkedResource, ontologyCache);
+                    return referredRes.pipe(
+                            map(
+                                    refRes => {
+                                        linkValue.linkedResource = refRes;
+                                        linkValue.linkedResourceIri = refRes.id;
+                                        linkValue.incoming = incoming;
+                                        return linkValue;
+                                    }
+                            )
                     );
+                };
+
+                const handleLinkedResourceIri = (linkedResourceIri: string, incoming: boolean) => {
+                    if (linkedResourceIri === undefined) throw new Error("Invalid resource Iri");
+                    linkValue.linkedResourceIri = linkedResourceIri;
+                    linkValue.incoming = incoming;
+                    return of(linkValue);
+                };
+
+                // check if linked resource is nested
+                if (valueJsonld.hasOwnProperty(Constants.LinkValueHasTarget)) {
+                    value = handleLinkedResource(valueJsonld[Constants.LinkValueHasTarget], false);
+                } else if (valueJsonld.hasOwnProperty(Constants.LinkValueHasTargetIri)) {
+                    // check for existence of @id
+                    value = handleLinkedResourceIri(valueJsonld[Constants.LinkValueHasTargetIri]['@id'], false);
+                } else if (valueJsonld.hasOwnProperty(Constants.LinkValueHasSource)) {
+                    value = handleLinkedResource(valueJsonld[Constants.LinkValueHasSource], true);
+                } else if (valueJsonld.hasOwnProperty(Constants.LinkValueHasSourceIri)) {
+                    // check for existence of @id
+                    value = handleLinkedResourceIri(valueJsonld[Constants.LinkValueHasSourceIri]['@id'], true);
                 } else {
-                    value = of(linkValue);
+                    throw new Error("Invalid Link Value");
                 }
 
                 break;

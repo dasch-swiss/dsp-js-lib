@@ -46,6 +46,9 @@ export class Constants {
     static TextValueHasMapping = Constants.KnoraApiV2 +  Constants.Delimiter  + "textValueHasMapping";
     static TextValueAsHtml = Constants.KnoraApiV2 +  Constants.Delimiter  + "textValueAsHtml";
     static LinkValueHasTarget = Constants.KnoraApiV2 +  Constants.Delimiter + "linkValueHasTarget";
+    static LinkValueHasTargetIri = Constants.KnoraApiV2 +  Constants.Delimiter + "linkValueHasTargetIri";
+    static LinkValueHasSource = Constants.KnoraApiV2 +  Constants.Delimiter + "linkValueHasSource";
+    static LinkValueHasSourceIri = Constants.KnoraApiV2 +  Constants.Delimiter + "linkValueHasSourceIri";
     static UriValueAsUri = Constants.KnoraApiV2 +  Constants.Delimiter + "uriValueAsUri";
 
     static KnoraAdminV2 = "http://api.knora.org/ontology/knora-admin/v2";
