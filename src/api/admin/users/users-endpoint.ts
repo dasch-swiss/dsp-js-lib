@@ -1,176 +1,300 @@
 import { Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 
-import { User } from "../../../models/admin/user";
-import { UserResponse } from "../../../models/admin/user-response";
-import { UsersResponse } from "../../../models/admin/users-response";
 import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { Endpoint } from "../../endpoint";
 
+import { GroupsResponse } from "../../../models/admin/groups-response";
+import { ProjectsResponse } from "../../../models/admin/projects-response";
+import { StoredUser } from "../../../models/admin/stored-user";
+import { User } from "../../../models/admin/user";
+import { UserResponse } from "../../../models/admin/user-response";
+import { UsersResponse } from "../../../models/admin/users-response";
+
+
 /**
- * Defines the user endpoint of the Knora API.
+ * An endpoint for working with Knora users.
  */
 export class UsersEndpoint extends Endpoint {
-
-    ///////////////
-    // CONSTANTS //
-    ///////////////
-
-    // <editor-fold desc="">
-    // </editor-fold>
-
-    ////////////////
-    // PROPERTIES //
-    ////////////////
-
-    // <editor-fold desc="">
-    // </editor-fold>
-
-    /////////////////
-    // CONSTRUCTOR //
-    /////////////////
-
-    // <editor-fold desc="">
-    // </editor-fold>
-
-    /////////////
-    // METHODS //
-    /////////////
-
-    // <editor-fold desc="GET">
-
+    
     /**
      * Returns a list of all users.
      */
     getUsers(): Observable<ApiResponseData<UsersResponse> | ApiResponseError> {
-
-        return this.httpGet().pipe(
+    
+        return this.httpGet("").pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UsersResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-
+    
     }
-
+    
     /**
      * Gets a user by a property.
+     * 
+     * @param property The name of the property by which the user is identified.
+     * @param value The value of the property by which the user is identified.
      */
-    getUser(property: "iri" | "email" | "username",
-            value: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-
-        let userId = value;
-
-        if (property === "iri") userId = encodeURIComponent(userId);
-
-        return this.httpGet("/" + property + "/" + userId).pipe(
+    getUser(property: "iri" | "email" | "username", value: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+    
+        return this.httpGet("/" + encodeURIComponent(property) + "/" + encodeURIComponent(value)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-
+    
     }
-
+    
     /**
-     * Gets a user by its IRI.
+     * Gets a user by IRI.
+     * 
+     * @param iri The IRI of the user.
      */
     getUserByIri(iri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+    
         return this.getUser("iri", iri);
+    
     }
-
+    
     /**
-     * Gets a user by its e-mail.
+     * Gets a user by email address.
+     * 
+     * @param email The email address of the user.
      */
     getUserByEmail(email: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+    
         return this.getUser("email", email);
+    
     }
-
+    
     /**
-     * Gets a user by its username.
+     * Gets a user by username.
+     * 
+     * @param username The username of the user.
      */
     getUserByUsername(username: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+    
         return this.getUser("username", username);
+    
     }
-
-    // </editor-fold>
-
-    // <editor-fold desc="POST">
-
+    
+    /**
+     * Gets a user's group memberships.
+     * 
+     * @param iri The user's IRI.
+     */
+    getUserGroupMemberships(iri: string): Observable<ApiResponseData<GroupsResponse> | ApiResponseError> {
+    
+        return this.httpGet("/iri/" + encodeURIComponent(iri) + "/group-memberships").pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupsResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    
+    }
+    
+    /**
+     * Gets a user's project memberships.
+     * 
+     * @param iri The IRI of the user.
+     */
+    getUserProjectMemberships(iri: string): Observable<ApiResponseData<ProjectsResponse> | ApiResponseError> {
+    
+        return this.httpGet("/iri/" + encodeURIComponent(iri) + "/project-memberships").pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectsResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    
+    }
+    
+    /**
+     * Gets a user's project admin memberships.
+     * 
+     * @param iri The user's IRI.
+     */
+    getUserProjectAdminMemberships(iri: string): Observable<ApiResponseData<ProjectsResponse> | ApiResponseError> {
+    
+        return this.httpGet("/iri/" + encodeURIComponent(iri) + "/project-admin-memberships").pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectsResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    
+    }
+    
     /**
      * Creates a user.
+     * 
+     * @param user The user to be created.
      */
     createUser(user: User): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-
+    
         return this.httpPost("", user).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-
+    
     }
-
-    // </editor-fold>
-
-    // <editor-fold desc="PUT">
-
+    
     /**
-     * Updates a user.
+     * Updates an existing user's basic information.
+     * 
+     * @param user The user to be updated.
      */
-    updateUser(user: User): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-
-        return this.httpPut("", user).pipe(
+    updateUserBasicInformation(user: StoredUser): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+    
+        return this.httpPut("/iri/" + encodeURIComponent(user.id) + "/BasicUserInformation", user).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-
+    
     }
-
+    
     /**
-     * Updates a user.
+     * Updates a user's status.
+     * 
+     * @param iri The user's IRI.
+     * @param status The user's new status.
      */
-    updateUserStatus(user: User): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-
-        return this.httpPut("/iri/" + encodeURI(user.id) + "/Status", {
-            status: user.status
-        }).pipe(
+    updateUserStatus(iri: string, status: boolean): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+    
+        return this.httpPut("/iri/" + encodeURIComponent(iri) + "/Status", { status: status }).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-
+    
     }
-
+    
     /**
-     * Updates only the password of a user.
+     * Updates a user's password.
+     * 
+     * @param iri The IRI of the user to be updated.
+     * @param oldPassword The user's old password.
+     * @param newPassword The user's new password.
      */
-    updateUserPassword(user: User,
-                       oldPassword: string,
-                       newPassword: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-
-        return this.httpPut("/iri/" + encodeURI(user.id) + "/Password", {
-            requesterPassword: oldPassword,
-            newPassword: newPassword
-        }).pipe(
-            map(ajaxResponse => {
-                // Make sure the user instance is updated
-                const responseData = ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert);
-                responseData.body.user.password = newPassword;
-                return responseData;
-            }),
+    updateUserPassword(iri: string, oldPassword: string, newPassword: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+    
+        return this.httpPut("/iri/" + encodeURIComponent(iri) + "/Password", { requesterPassword: oldPassword, newPassword: newPassword }).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-
+    
     }
-
-    // </editor-fold>
-
-    // <editor-fold desc="DELETE">
-
+    
     /**
-     * Deletes a user.
-     * This method does not actually delete a user, but sets the status to false.
+     * Adds a user to a group.
+     * 
+     * @param userIri The IRI of the user.
+     * @param groupIri The IRI of the group.
      */
-    deleteUser(user: User): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-        user.status = false;
-        return this.updateUserStatus(user);
+    addUserToGroupMembership(userIri: string, groupIri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+    
+        return this.httpPost("/iri/" + encodeURIComponent(userIri) + "/group-memberships/" + encodeURIComponent(groupIri)).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    
     }
-
-    // </editor-fold>
-
+    
+    /**
+     * Removes a user from a project.
+     * 
+     * @param userIri The IRI of the user.
+     * @param groupIri The IRI of the group.
+     */
+    removeUserFromGroupMembership(userIri: string, groupIri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+    
+        return this.httpDelete("/iri/" + encodeURIComponent(userIri) + "/group-memberships/" + encodeURIComponent(groupIri)).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    
+    }
+    
+    /**
+     * Adds a user to a project.
+     * 
+     * @param userIri The user's IRI.
+     * @param projectIri The project's IRI.
+     */
+    addUserToProjectMembership(userIri: string, projectIri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+    
+        return this.httpPost("/iri/" + encodeURIComponent(userIri) + "/project-memberships/" + encodeURIComponent(projectIri)).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    
+    }
+    
+    /**
+     * Removes a user from a project.
+     * 
+     * @param userIri The user's IRI.
+     * @param projectIri The project's IRI.
+     */
+    removeUserFromProjectMembership(userIri: string, projectIri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+    
+        return this.httpDelete("/iri/" + encodeURIComponent(userIri) + "/project-memberships/" + encodeURIComponent(projectIri)).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    
+    }
+    
+    /**
+     * Makes a user a project administrator.
+     * 
+     * @param userIri The IRI of the user.
+     * @param projectIri The IRI of the project.
+     */
+    addUserToProjectAdminMembership(userIri: string, projectIri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+    
+        return this.httpPost("/iri/" + encodeURIComponent(userIri) + "/project-admin-memberships/" + encodeURIComponent(projectIri)).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    
+    }
+    
+    /**
+     * Removes a user's project administrator status.
+     * 
+     * @param userIri The IRI of the user.
+     * @param projectIri The IRI of the project.
+     */
+    removeUserFromProjectAdminMembership(userIri: string, projectIri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+    
+        return this.httpDelete("/iri/" + encodeURIComponent(userIri) + "/project-admin-memberships/" + encodeURIComponent(projectIri)).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    
+    }
+    
+    /**
+     * Updates a user's SystemAdmin membership.
+     * 
+     * @param user The user to be updated.
+     */
+    updateUserSystemAdminMembership(user: StoredUser): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+    
+        return this.httpPut("/iri/" + encodeURIComponent(user.id) + "/SystemAdmin", { systemAdmin: user.systemAdmin }).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    
+    }
+    
+    /**
+     * Deletes a user. This method does not actually delete a user, but sets the status to false.
+     * 
+     * @param iri The IRI of the user to be deleted.
+     */
+    deleteUser(iri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+    
+        return this.httpDelete("/iri/" + encodeURIComponent(iri)).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    
+    }
+    
 }
