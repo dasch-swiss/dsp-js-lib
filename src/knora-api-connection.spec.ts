@@ -1,7 +1,7 @@
-import { V2Endpoint } from "./api/v2/v2-endpoint";
-import { KnoraApiConfig } from "./knora-api-config";
-import { KnoraApiConnection } from "./knora-api-connection";
-import { AdminApi } from './api/admin/admin-api-endpoint';
+import {V2Endpoint} from './api/v2/v2-endpoint';
+import {KnoraApiConfig} from './knora-api-config';
+import {KnoraApiConnection} from './knora-api-connection';
+import {AdminEndpoint} from './api/admin/admin-endpoint';
 
 describe("Test class KnoraApiConnection", () => {
 
@@ -12,7 +12,7 @@ describe("Test class KnoraApiConnection", () => {
         const connection = new KnoraApiConnection(config);
 
         it("should create the AdminEndpoint", () => {
-            expect(connection.admin).toEqual(jasmine.any(AdminApi));
+            expect(connection.admin).toEqual(jasmine.any(AdminEndpoint));
         });
 
         it("should create the V2Endpoint", () => {

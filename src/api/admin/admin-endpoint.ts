@@ -10,7 +10,7 @@ import { PermissionsEndpoint } from "./permissions/permissions-endpoint";
 /**
  * A client API for administering Knora.
  */
-export class AdminApi extends Endpoint {
+export class AdminEndpoint extends Endpoint {
     
     /**
      * An endpoint for working with Knora users.

@@ -1,6 +1,6 @@
-import { V2Endpoint } from "./api/v2/v2-endpoint";
-import { KnoraApiConfig } from "./knora-api-config";
-import {AdminApi} from './api/admin/admin-api-endpoint';
+import {AdminEndpoint} from './api/admin/admin-endpoint';
+import {V2Endpoint} from './api/v2/v2-endpoint';
+import {KnoraApiConfig} from './knora-api-config';
 
 /**
  * Offers methods for JavaScript developers to interact with the Knora API.
@@ -13,8 +13,8 @@ export class KnoraApiConnection {
 
     // <editor-fold desc="">
 
-    static readonly PATH_ADMIN = "/admin";
-    static readonly PATH_V2 = "/v2";
+    static readonly PATH_ADMIN = '/admin';
+    static readonly PATH_V2 = '/v2';
 
     // </editor-fold>
 
@@ -27,7 +27,7 @@ export class KnoraApiConnection {
     /**
      * Holds all endpoints of the admin route
      */
-    readonly admin: AdminApi;
+    readonly admin: AdminEndpoint;
 
     /**
      * Holds all endpoints of the v2 route
@@ -50,7 +50,7 @@ export class KnoraApiConnection {
     constructor(knoraApiConfig: KnoraApiConfig) {
 
         // Instantiate the endpoints
-        this.admin = new AdminApi(knoraApiConfig, KnoraApiConnection.PATH_ADMIN);
+        this.admin = new AdminEndpoint(knoraApiConfig, KnoraApiConnection.PATH_ADMIN);
         this.v2 = new V2Endpoint(knoraApiConfig, KnoraApiConnection.PATH_V2);
         // todo more
 
