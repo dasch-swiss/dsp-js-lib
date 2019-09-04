@@ -1,41 +1,42 @@
 import { KnoraApiConfig } from "../../knora-api-config";
 import { Endpoint } from "../endpoint";
+
 import { UsersEndpoint } from "./users/users-endpoint";
+import { GroupsEndpoint } from "./groups/groups-endpoint";
+import { ProjectsEndpoint } from "./projects/projects-endpoint";
+import { PermissionsEndpoint } from "./permissions/permissions-endpoint";
+
 
 /**
- * Defines the admin endpoint of the Knora API.
+ * A client API for administering Knora.
  */
 export class AdminEndpoint extends Endpoint {
-
-    ///////////////
-    // CONSTANTS //
-    ///////////////
-
-    // <editor-fold desc="">
-
-    static readonly PATH_USERS = "/users";
-
-    // </editor-fold>
-
-    ////////////////
-    // PROPERTIES //
-    ////////////////
-
-    // <editor-fold desc="">
-
-    readonly users: UsersEndpoint;
-
-    // </editor-fold>
-
-    /////////////////
-    // CONSTRUCTOR //
-    /////////////////
-
-    // <editor-fold desc="">
+    
+    /**
+     * An endpoint for working with Knora users.
+     */
+    readonly usersEndpoint: UsersEndpoint;
+    
+    /**
+     * An endpoint for working with Knora groups.
+     */
+    readonly groupsEndpoint: GroupsEndpoint;
+    
+    /**
+     * An endpoint for working with Knora projects.
+     */
+    readonly projectsEndpoint: ProjectsEndpoint;
+    
+    /**
+     * An endpoint for working with Knora permissions.
+     */
+    readonly permissionsEndpoint: PermissionsEndpoint;
+    
 
     /**
      * Constructor.
      * Sets up all endpoints for this endpoint.
+     *
      * @param knoraApiConfig
      * @param path
      */
@@ -44,18 +45,10 @@ export class AdminEndpoint extends Endpoint {
         super(knoraApiConfig, path);
 
         // Instantiate the endpoints
-        this.users = new UsersEndpoint(knoraApiConfig, path + AdminEndpoint.PATH_USERS);
-        // todo more
-
+        
+        this.usersEndpoint = new UsersEndpoint(knoraApiConfig, path + "/users");
+        this.groupsEndpoint = new GroupsEndpoint(knoraApiConfig, path + "/groups");
+        this.projectsEndpoint = new ProjectsEndpoint(knoraApiConfig, path + "/projects");
+        this.permissionsEndpoint = new PermissionsEndpoint(knoraApiConfig, path + "/permissions");
     }
-
-    // </editor-fold>
-
-    /////////////
-    // METHODS //
-    /////////////
-
-    // <editor-fold desc="">
-    // </editor-fold>
-
 }

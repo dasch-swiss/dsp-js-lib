@@ -16,15 +16,12 @@ describe('UserCache', () => {
 
         beforeEach(() => {
 
-            const user = require('../../test/data/api/admin/user/get.json');
+            const user = require('../../test/data/api/admin/users/get-user-response.json');
 
-            getUserSpy = spyOn(knoraApiConnection.admin.users, 'getUser').and.callFake(
+            getUserSpy = spyOn(knoraApiConnection.admin.usersEndpoint, 'getUser').and.callFake(
                     (prop: string, userId: string) => {
 
-                        const userResp = new UserResponse();
-                        userResp.user = user;
-
-                        return of({body: userResp});
+                        return of({body: user});
                     }
             );
 
@@ -35,6 +32,7 @@ describe('UserCache', () => {
         it('should get a user from the cache', done => {
 
             userCache['getItem']('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q').subscribe((res: UserResponse) => {
+
                 expect(res.user.id).toEqual('http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q');
                 expect(getUserSpy).toHaveBeenCalledTimes(1);
 

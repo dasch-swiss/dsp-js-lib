@@ -1,50 +1,58 @@
 import { Any, JsonObject, JsonProperty } from "json2typescript";
 
-import { IUser } from "../../interfaces/models/admin/i-user";
 
+/**
+ * Represents a Knora user.
+ */
 @JsonObject("User")
-export class User implements IUser {
+export class User {
 
-    @JsonProperty("id", String)
-    id: string = "";
-
+    /**
+     * The email address and login name of a user.
+     */
     @JsonProperty("email", String)
     email: string = "";
 
-    @JsonProperty("username", String)
-    username: string = "";
-
-    @JsonProperty("password", String, true)
-    password: string = "";
-
-    // @JsonProperty("token", String)
-    token: string = "";
-
-    @JsonProperty("givenName", String)
-    givenName: string = "";
-
+    /**
+     * The user's family name.
+     */
     @JsonProperty("familyName", String)
     familyName: string = "";
 
-    @JsonProperty("status", Boolean)
-    status: boolean = false;
+    /**
+     * The user's given name.
+     */
+    @JsonProperty("givenName", String)
+    givenName: string = "";
 
+    /**
+     * The ISO 639-1 code of the user's preferred language.
+     */
     @JsonProperty("lang", String)
     lang: string = "";
 
-    @JsonProperty("groups", [Any])
-    groups: any[] = [];
+    /**
+     * An encrypted credential for access
+     */
+    @JsonProperty("password", String, true)
+    password?: string = undefined;
 
-    @JsonProperty("projects", [Any])
-    projects: any[] = [];
+    /**
+     * The status of the user / group / project. It is false if the entity has been deactivated (deleted).
+     */
+    @JsonProperty("status", Boolean)
+    status: boolean = false;
 
-    // @JsonProperty("sessionId", String)
-    sessionId: string = "";
-
-    @JsonProperty("permissions", Any)
-    permissions: any = null;
-
+    /**
+     * Exists and is true if the user is a member of the SystemAdmin group.
+     */
     @JsonProperty("systemAdmin", Boolean, true)
-    systemAdmin?: boolean = false;
+    systemAdmin?: boolean = undefined;
+
+    /**
+     * The username and login name of a user.
+     */
+    @JsonProperty("username", String)
+    username: string = "";
 
 }
