@@ -1,7 +1,6 @@
 import {KnoraApiConfig} from '../knora-api-config';
 import {KnoraApiConnection} from '../knora-api-connection';
-import {UserCache} from './UserCache';
-import {OntologyCache, UserResponse} from '..';
+import {OntologyCache} from '..';
 import {of} from 'rxjs';
 import {ReadOntology} from '../models/v2/ontologies/read-ontology';
 
@@ -33,14 +32,16 @@ describe('OntologyCache', () => {
 
         it('should get an ontology from the cache', done => {
 
-            ontoCache['getItem']('http://api.dasch.swiss/ontology/0807/mls/v2').subscribe((onto: ReadOntology) => {
+            ontoCache['getItem']('http://api.dasch.swiss/ontology/0001/anything/v2').subscribe((onto: ReadOntology) => {
 
-                expect(onto.id).toEqual('http://api.dasch.swiss/ontology/0807/mls/v2');
+                expect(onto.id).toEqual('http://api.dasch.swiss/ontology/0001/anything/v2');
+
                 expect(getOntoSpy).toHaveBeenCalledTimes(2);
-                expect(getOntoSpy).toHaveBeenCalledWith(  'http://api.dasch.swiss/ontology/0807/mls/v2');
-                expect(getOntoSpy).toHaveBeenCalledWith(  'http://api.knora.org/ontology/knora-api/v2');
+                expect(getOntoSpy).toHaveBeenCalledWith('http://api.dasch.swiss/ontology/0001/anything/v2');
+                expect(getOntoSpy).toHaveBeenCalledWith('http://api.knora.org/ontology/knora-api/v2'); // anything onto depends on knora-api
 
-                expect(ontoCache['cache']['http://api.knora.org/ontology/knora-api/v2']).not.toBeUndefined();
+                expect(ontoCache['cache']['http://api.dasch.swiss/ontology/0001/anything/v2']).not.toBeUndefined();
+                expect(ontoCache['cache']['http://api.knora.org/ontology/knora-api/v2']).not.toBeUndefined(); // anything onto depends on knora-api
                 done();
 
             });

@@ -1,5 +1,5 @@
 import {GenericCache} from './GenericCache';
-import {ApiResponseData, KnoraApiConnection, UserResponse} from '..';
+import {KnoraApiConnection} from '..';
 import {AsyncSubject, forkJoin, Observable, of} from 'rxjs';
 import {map, mergeMap} from 'rxjs/operators';
 import {ReadOntology} from '../models/v2/ontologies/read-ontology';

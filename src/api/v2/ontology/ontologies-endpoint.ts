@@ -54,35 +54,35 @@ export class OntologiesEndpoint extends Endpoint {
 
     }
 
-    getOntologies(ontologyIris: string[]) {
-
-    }
-
+    /**
+     * Request an ontology from Knora and converts it to a `ReadOntology`.
+     *
+     * @param ontologyIri the IRI of the ontology to be requested.
+     * @return the ontology or an error.
+     */
     getOntology(ontologyIri: string): Observable<ReadOntology | ApiResponseError> {
 
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
         return this.httpGet('/allentities/' + encodeURIComponent(ontologyIri)).pipe(
                 mergeMap((ajaxResponse: AjaxResponse) => {
-                    // console.log(JSON.stringify(ajaxResponse.response));
                     // TODO: @rosenth Adapt context object
                     // TODO: adapt getOntologyIriFromEntityIri
                     return jsonld.compact(ajaxResponse.response, {});
                 }), map((jsonldobj: object) => {
-                    // console.log(JSON.stringify(jsonldobj));
                     return this.convertOntology(jsonldobj, ontologyIri);
                 }),
                 catchError(error => {
-                    console.error(error);
                     return this.handleError(error);
                 })
         );
     }
 
     /**
-     * Converts an ontology serialized as JSON-LD to an instance of `OntologyV2`.
+     * Converts an ontology serialized as JSON-LD to an instance of `ReadOntology`.
      *
      * @param ontologyJsonld ontology as JSON-LD already processed by the jsonld-processor.
      * @param ontologyIri the Iri of the ontology.
+     * @return the ontology as a `ReadOntology`.
      */
     private convertOntology(ontologyJsonld: object, ontologyIri: string): ReadOntology {
 

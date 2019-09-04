@@ -12,7 +12,6 @@ describe('OntologiesEndpoint', () => {
     const knoraApiConnection = new KnoraApiConnection(config);
 
     beforeEach(() => {
-
         jasmine.Ajax.install();
     });
 
