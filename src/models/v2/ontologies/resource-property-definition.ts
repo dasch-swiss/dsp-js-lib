@@ -1,11 +1,11 @@
-import {JsonObject, JsonProperty} from 'json2typescript';
-import {Constants} from '../Constants';
-import {IdConverter, PropertyDefinition, SubPropertyOfConverter} from './property-definition';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { Constants } from "../Constants";
+import { IdConverter, PropertyDefinition, SubPropertyOfConverter } from "./property-definition";
 
-@JsonObject('ResourcePropertyDefinition')
+@JsonObject("ResourcePropertyDefinition")
 export class ResourcePropertyDefinition extends PropertyDefinition {
-    @JsonProperty('@id', String)
-    id: string = '';
+    @JsonProperty("@id", String)
+    id: string = "";
 
     @JsonProperty(Constants.SubPropertyOf, SubPropertyOfConverter, true)
     subPropertyOf: string[] = [];

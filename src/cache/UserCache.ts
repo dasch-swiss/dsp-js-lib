@@ -1,8 +1,8 @@
-import {GenericCache} from './GenericCache';
-import {KnoraApiConnection} from '../knora-api-connection';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {ApiResponseData, UserResponse} from '..';
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
+import { ApiResponseData, UserResponse } from "..";
+import { KnoraApiConnection } from "../knora-api-connection";
+import { GenericCache } from "./GenericCache";
 
 export class UserCache extends GenericCache<UserResponse> {
 
@@ -11,10 +11,10 @@ export class UserCache extends GenericCache<UserResponse> {
     }
 
     protected requestItemFromKnora(key: string): Observable<UserResponse> {
-        return this.knoraApiConnection.admin.usersEndpoint.getUser('iri', key).pipe(
-                map((response: ApiResponseData<UserResponse>) => {
-                    return response.body;
-                })
+        return this.knoraApiConnection.admin.usersEndpoint.getUser("iri", key).pipe(
+            map((response: ApiResponseData<UserResponse>) => {
+                return response.body;
+            })
         );
     }
 

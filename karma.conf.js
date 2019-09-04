@@ -1,4 +1,4 @@
-module.exports = function (config) {
+module.exports = function(config) {
     config.set({
         logLevel: config.LOG_ERROR,
         plugins: [
@@ -38,21 +38,21 @@ module.exports = function (config) {
                 "esModuleInterop": true,
                 "experimentalDecorators": true,
                 "lib": [
-                    "es6",
-                    "dom"
+                    "dom",
+                    "es6"
                 ],
                 "module": "commonjs",
+                "noImplicitAny": true,
                 "removeComments": false,
-                "target": "es5",
                 "resolveJsonModule": true,
                 "sourceMap": true,
                 "strictNullChecks": true,
-                "noImplicitAny": true
+                "target": "es5"
             }
         },
         browserConsoleLogOptions: {
+            level: "",
             terminal: true,
-            level: ""
         }
     })
 };

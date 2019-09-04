@@ -1,5 +1,4 @@
-import { Any, JsonObject, JsonProperty } from "json2typescript";
-
+import { JsonObject, JsonProperty } from "json2typescript";
 
 /**
  * A group of Knora users.

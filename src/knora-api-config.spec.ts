@@ -56,10 +56,10 @@ describe("Test class KnoraApiConfig", () => {
                     apiPath: "/api",
                     jsonWebToken: "GAGA",
                     logErrors: true
-                },
+                }
             ];
 
-            params.forEach(({ apiProtocol, apiHost, apiPort, apiPath, jsonWebToken, logErrors }) => {
+            params.forEach(({apiProtocol, apiHost, apiPort, apiPath, jsonWebToken, logErrors}) => {
 
                 const config = new KnoraApiConfig(apiProtocol, apiHost, apiPort, apiPath, jsonWebToken, logErrors);
 
@@ -105,36 +105,36 @@ describe("Test class KnoraApiConfig", () => {
 
             const data: IApiUrlData[] = [
                 {
-                    param: { apiProtocol: "http", apiHost: "localhost" },
+                    param: {apiProtocol: "http", apiHost: "localhost"},
                     result: "http://localhost"
                 },
                 {
-                    param: { apiProtocol: "http", apiHost: "localhost", apiPort: 80 },
+                    param: {apiProtocol: "http", apiHost: "localhost", apiPort: 80},
                     result: "http://localhost"
                 },
                 {
-                    param: { apiProtocol: "https", apiHost: "localhost" },
+                    param: {apiProtocol: "https", apiHost: "localhost"},
                     result: "https://localhost"
                 },
                 {
-                    param: { apiProtocol: "https", apiHost: "localhost", apiPort: 443 },
+                    param: {apiProtocol: "https", apiHost: "localhost", apiPort: 443},
                     result: "https://localhost"
                 },
                 {
-                    param: { apiProtocol: "https", apiHost: "domain.com", apiPort: 1234 },
+                    param: {apiProtocol: "https", apiHost: "domain.com", apiPort: 1234},
                     result: "https://domain.com:1234"
                 },
                 {
-                    param: { apiProtocol: "https", apiHost: "domain.com", apiPort: 1234, apiPath: "/api" },
+                    param: {apiProtocol: "https", apiHost: "domain.com", apiPort: 1234, apiPath: "/api"},
                     result: "https://domain.com:1234/api"
                 },
                 {
-                    param: { apiProtocol: "https", apiHost: "domain.com", apiPort: 1234, apiPath: "/api" },
+                    param: {apiProtocol: "https", apiHost: "domain.com", apiPort: 1234, apiPath: "/api"},
                     result: "https://domain.com:1234/api"
-                },
+                }
             ];
 
-            data.forEach(({ param, result }) => {
+            data.forEach(({param, result}) => {
                 const config = new KnoraApiConfig(param.apiProtocol, param.apiHost, param.apiPort, param.apiPath);
                 expect(config.apiUrl).toBe(result);
             });

@@ -1,18 +1,18 @@
-import {Observable} from 'rxjs';
-import {AjaxResponse} from 'rxjs/ajax';
-import {catchError, map, mergeMap} from 'rxjs/operators';
-import {ApiResponseError} from '../../..';
-import {ReadOntology} from '../../../models/v2/ontologies/read-ontology';
-import {IHasProperty} from '../../../models/v2/ontologies/class-definition';
-import {Endpoint} from '../../endpoint';
-import {Constants} from '../../../models/v2/Constants';
-import {ResourcePropertyDefinition} from '../../../models/v2/ontologies/resource-property-definition';
-import {SystemPropertyDefinition} from '../../../models/v2/ontologies/system-property-definition';
-import {ResourceClassDefinition} from '../../../models/v2/ontologies/resource-class-definition';
-import {StandoffClassDefinition} from '../../../models/v2/ontologies/standoff-class-definition';
+import { Observable } from "rxjs";
+import { AjaxResponse } from "rxjs/ajax";
+import { catchError, map, mergeMap } from "rxjs/operators";
+import { ApiResponseError } from "../../..";
+import { Constants } from "../../../models/v2/Constants";
+import { IHasProperty } from "../../../models/v2/ontologies/class-definition";
+import { ReadOntology } from "../../../models/v2/ontologies/read-ontology";
+import { ResourceClassDefinition } from "../../../models/v2/ontologies/resource-class-definition";
+import { ResourcePropertyDefinition } from "../../../models/v2/ontologies/resource-property-definition";
+import { StandoffClassDefinition } from "../../../models/v2/ontologies/standoff-class-definition";
+import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
+import { Endpoint } from "../../endpoint";
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
-const jsonld = require('jsonld/dist/jsonld.js');
+const jsonld = require("jsonld/dist/jsonld.js");
 
 export class OntologiesEndpoint extends Endpoint {
 
@@ -61,20 +61,20 @@ export class OntologiesEndpoint extends Endpoint {
     getOntology(ontologyIri: string): Observable<ReadOntology | ApiResponseError> {
 
         // TODO: Do not hard-code the UR and http call params, generate this from Knora
-        return this.httpGet('/allentities/' + encodeURIComponent(ontologyIri)).pipe(
-                mergeMap((ajaxResponse: AjaxResponse) => {
-                    // console.log(JSON.stringify(ajaxResponse.response));
-                    // TODO: @rosenth Adapt context object
-                    // TODO: adapt getOntologyIriFromEntityIri
-                    return jsonld.compact(ajaxResponse.response, {});
-                }), map((jsonldobj: object) => {
-                    // console.log(JSON.stringify(jsonldobj));
-                    return this.convertOntology(jsonldobj, ontologyIri);
-                }),
-                catchError(error => {
-                    console.error(error);
-                    return this.handleError(error);
-                })
+        return this.httpGet("/allentities/" + encodeURIComponent(ontologyIri)).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // console.log(JSON.stringify(ajaxResponse.response));
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                // console.log(JSON.stringify(jsonldobj));
+                return this.convertOntology(jsonldobj, ontologyIri);
+            }),
+            catchError(error => {
+                console.error(error);
+                return this.handleError(error);
+            })
         );
     }
 
@@ -89,14 +89,14 @@ export class OntologiesEndpoint extends Endpoint {
         const onto = new ReadOntology(ontologyIri);
 
         // Access the collection of entities
-        const entities = (ontologyJsonld as { [index: string]: object[] })['@graph'];
+        const entities = (ontologyJsonld as { [index: string]: object[] })["@graph"];
 
         // this.jsonConvert.operationMode = OperationMode.LOGGING;
 
         // Convert resource classes
         entities.filter((entity: any) => {
             return entity.hasOwnProperty(Constants.IsResourceClass) &&
-                    entity[Constants.IsResourceClass] === true;
+                entity[Constants.IsResourceClass] === true;
         }).map(resclassJsonld => {
             return this.jsonConvert.deserializeObject(resclassJsonld, ResourceClassDefinition);
         }).forEach((resClass: ResourceClassDefinition) => {
@@ -106,7 +106,7 @@ export class OntologiesEndpoint extends Endpoint {
         // Convert standoff classes
         entities.filter((entity: any) => {
             return entity.hasOwnProperty(Constants.IsStandoffClass) &&
-                    entity[Constants.IsStandoffClass] === true;
+                entity[Constants.IsStandoffClass] === true;
         }).map((standoffclassJsonld: any) => {
             return this.jsonConvert.deserializeObject(standoffclassJsonld, StandoffClassDefinition);
         }).forEach((standoffClass: StandoffClassDefinition) => {
@@ -116,7 +116,7 @@ export class OntologiesEndpoint extends Endpoint {
         // Convert resource properties (properties pointing to Knora values)
         entities.filter((entity: any) => {
             return entity.hasOwnProperty(Constants.IsResourceProperty) &&
-                    entity[Constants.IsResourceProperty] === true;
+                entity[Constants.IsResourceProperty] === true;
         }).map((propertyJsonld: any) => {
             return this.jsonConvert.deserializeObject(propertyJsonld, ResourcePropertyDefinition);
         }).forEach((prop: ResourcePropertyDefinition) => {
@@ -125,8 +125,8 @@ export class OntologiesEndpoint extends Endpoint {
 
         // Convert system properties (properties not pointing to Knora values)
         entities.filter((entity: any) => {
-            return (entity['@type'] === Constants.DataTypeProperty || entity['@type'] === Constants.ObjectProperty)
-                    && !entity.hasOwnProperty(Constants.IsResourceProperty);
+            return (entity["@type"] === Constants.DataTypeProperty || entity["@type"] === Constants.ObjectProperty)
+                && !entity.hasOwnProperty(Constants.IsResourceProperty);
         }).map((propertyJsonld: any) => {
             return this.jsonConvert.deserializeObject(propertyJsonld, SystemPropertyDefinition);
         }).forEach((prop: SystemPropertyDefinition) => {
@@ -142,11 +142,11 @@ export class OntologiesEndpoint extends Endpoint {
             if (onto.classes.hasOwnProperty(index)) {
                 onto.classes[index].propertiesList.forEach((prop: IHasProperty) => {
                     this.getOntologyIriFromEntityIri(prop.propertyIndex)
-                            .forEach(ontoIri => referencedOntologies.add(ontoIri));
+                        .forEach(ontoIri => referencedOntologies.add(ontoIri));
                 });
                 onto.classes[index].subClassOf.forEach((superClass: string) => {
                     this.getOntologyIriFromEntityIri(superClass)
-                            .forEach(ontoIri => referencedOntologies.add(ontoIri));
+                        .forEach(ontoIri => referencedOntologies.add(ontoIri));
                 });
             }
         }
@@ -157,15 +157,15 @@ export class OntologiesEndpoint extends Endpoint {
             if (onto.properties.hasOwnProperty(index)) {
                 if (onto.properties[index].objectType !== undefined) {
                     this.getOntologyIriFromEntityIri(onto.properties[index].objectType as string)
-                            .forEach(ontoIri => referencedOntologies.add(ontoIri));
+                        .forEach(ontoIri => referencedOntologies.add(ontoIri));
                 }
                 if (onto.properties[index].subjectType !== undefined) {
                     this.getOntologyIriFromEntityIri(onto.properties[index].subjectType as string)
-                            .forEach(ontoIri => referencedOntologies.add(ontoIri));
+                        .forEach(ontoIri => referencedOntologies.add(ontoIri));
                 }
                 onto.properties[index].subPropertyOf.forEach((superProperty: string) => {
                     this.getOntologyIriFromEntityIri(superProperty)
-                            .forEach(ontoIri => referencedOntologies.add(ontoIri));
+                        .forEach(ontoIri => referencedOntologies.add(ontoIri));
                 });
             }
         }

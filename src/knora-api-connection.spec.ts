@@ -1,7 +1,7 @@
-import {V2Endpoint} from './api/v2/v2-endpoint';
-import {KnoraApiConfig} from './knora-api-config';
-import {KnoraApiConnection} from './knora-api-connection';
-import {AdminEndpoint} from './api/admin/admin-endpoint';
+import { AdminEndpoint } from "./api/admin/admin-endpoint";
+import { V2Endpoint } from "./api/v2/v2-endpoint";
+import { KnoraApiConfig } from "./knora-api-config";
+import { KnoraApiConnection } from "./knora-api-connection";
 
 describe("Test class KnoraApiConnection", () => {
 

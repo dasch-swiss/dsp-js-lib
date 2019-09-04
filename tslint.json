@@ -32,7 +32,12 @@
         "object-literal-sort-keys": false,
         "object-literal-shorthand": false,
         "quotemark": [true, "double"],
-        "trailing-comma": false
+        "trailing-comma": false,
+        "max-line-length": false,
+        "variable-name": false,
+        "no-empty": false,
+        "no-namespace": false,
+        "no-string-literal": false
     },
     "rulesDirectory": []
 }
