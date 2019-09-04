@@ -1,9 +1,9 @@
-import {JsonObject, JsonProperty} from 'json2typescript';
-import {ReadValue} from './read-value';
-import {Constants} from '../../Constants';
-import {UriConverter} from '../../CustomConverters';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { Constants } from "../../Constants";
+import { UriConverter } from "../../CustomConverters";
+import { ReadValue } from "./read-value";
 
-@JsonObject('ReadUriValue')
+@JsonObject("ReadUriValue")
 export class ReadUriValue extends ReadValue {
 
     @JsonProperty(Constants.UriValueAsUri, UriConverter)

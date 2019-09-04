@@ -1,12 +1,12 @@
-import {JsonObject, JsonProperty} from 'json2typescript';
-import {IdConverter} from "../../CustomConverters";
-import {ReadValue} from './read-value';
-import {Constants} from '../../Constants';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { Constants } from "../../Constants";
+import { IdConverter } from "../../CustomConverters";
+import { ReadValue } from "./read-value";
 
 export abstract class ReadTextValue extends ReadValue {
 }
 
-@JsonObject('ReadTextValueAsString')
+@JsonObject("ReadTextValueAsString")
 export class ReadTextValueAsString extends ReadTextValue {
 
     // TODO: query standoff, if any.
@@ -16,7 +16,7 @@ export class ReadTextValueAsString extends ReadTextValue {
 
 }
 
-@JsonObject('ReadTextValueAsXml')
+@JsonObject("ReadTextValueAsXml")
 export class ReadTextValueAsXml extends ReadTextValue {
 
     @JsonProperty(Constants.TextValueAsXml, String)
@@ -27,7 +27,7 @@ export class ReadTextValueAsXml extends ReadTextValue {
 
 }
 
-@JsonObject('ReadTextValueAsHtml')
+@JsonObject("ReadTextValueAsHtml")
 export class ReadTextValueAsHtml extends ReadTextValue {
 
     @JsonProperty(Constants.TextValueAsHtml, String)

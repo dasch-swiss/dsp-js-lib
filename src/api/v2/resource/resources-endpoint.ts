@@ -1,29 +1,27 @@
-import {ReadLinkValue} from "../../../models/v2/resources/values/read-link-value";
-import {Endpoint} from "../../endpoint";
-import {ApiResponseError, OntologyCache} from "../../..";
-import {ReadResource} from "../../../models/v2/resources/read-resource";
-import {catchError, map, mergeMap} from "rxjs/operators";
-import {AjaxResponse} from "rxjs/ajax";
-import {forkJoin, Observable, of} from "rxjs";
-import {ReadOntology} from "../../../models/v2/ontologies/read-ontology";
-import {PropertyDefinition} from "../../../models/v2/ontologies/property-definition";
-import {ResourcePropertyDefinition} from "../../../models/v2/ontologies/resource-property-definition";
-import {Constants} from "../../../models/v2/Constants";
-import {ReadBooleanValue} from "../../../models/v2/resources/values/read-boolean-value";
-import {ReadValue} from "../../../models/v2/resources/values/read-value";
-import {IEntityDefinitions} from "../../../cache/OntologyCache";
-import {ReadColorValue} from "../../../models/v2/resources/values/read-color-value";
-import {ReadDateValue} from "../../../models/v2/resources/values/read-date-value";
-import {ReadIntValue} from "../../../models/v2/resources/values/read-int-value";
-import {ReadDecimalValue} from "../../../models/v2/resources/values/read-decimal-value";
-import {ReadIntervalValue} from "../../../models/v2/resources/values/read-interval-value";
-import {ReadListValue} from "../../../models/v2/resources/values/read-list-value";
+import { forkJoin, Observable, of } from "rxjs";
+import { AjaxResponse } from "rxjs/ajax";
+import { catchError, map, mergeMap } from "rxjs/operators";
+import { ApiResponseError, OntologyCache } from "../../..";
+import { IEntityDefinitions } from "../../../cache/OntologyCache";
+import { Constants } from "../../../models/v2/Constants";
+import { ResourcePropertyDefinition } from "../../../models/v2/ontologies/resource-property-definition";
+import { ReadResource } from "../../../models/v2/resources/read-resource";
+import { ReadBooleanValue } from "../../../models/v2/resources/values/read-boolean-value";
+import { ReadColorValue } from "../../../models/v2/resources/values/read-color-value";
+import { ReadDateValue } from "../../../models/v2/resources/values/read-date-value";
+import { ReadDecimalValue } from "../../../models/v2/resources/values/read-decimal-value";
+import { ReadIntValue } from "../../../models/v2/resources/values/read-int-value";
+import { ReadIntervalValue } from "../../../models/v2/resources/values/read-interval-value";
+import { ReadLinkValue } from "../../../models/v2/resources/values/read-link-value";
+import { ReadListValue } from "../../../models/v2/resources/values/read-list-value";
 import {
     ReadTextValueAsHtml,
     ReadTextValueAsString,
     ReadTextValueAsXml
 } from "../../../models/v2/resources/values/read-text-value";
-import {ReadUriValue} from '../../../models/v2/resources/values/read-uri-value';
+import { ReadUriValue } from "../../../models/v2/resources/values/read-uri-value";
+import { ReadValue } from "../../../models/v2/resources/values/read-value";
+import { Endpoint } from "../../endpoint";
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require("jsonld/dist/jsonld.js");
@@ -53,7 +51,7 @@ export class ResourcesEndpoint extends Endpoint {
 
         if (resourcesJsonld.hasOwnProperty("@graph")) {
             // sequence of resources
-             return forkJoin((resourcesJsonld as { [index: string]: object[] })["graph"]
+            return forkJoin((resourcesJsonld as { [index: string]: object[] })["graph"]
                 .map((res: { [index: string]: object[] | string }) => this.parseResource(res, ontologyCache)));
         } else {
             //  one or no resource
@@ -119,8 +117,6 @@ export class ResourcesEndpoint extends Endpoint {
                 } else {
                     return of(resource);
                 }
-
-
 
             }
         ));
@@ -224,19 +220,19 @@ export class ResourcesEndpoint extends Endpoint {
                 const linkValue = this.jsonConvert.deserialize(valueJsonld, ReadLinkValue) as ReadLinkValue;
 
                 const handleLinkedResource =
-                        (linkedResource: { [index: string]: string | object[] }, incoming: boolean): Observable<ReadLinkValue> => {
-                    const referredRes: Observable<ReadResource> = this.parseResource(linkedResource, ontologyCache);
-                    return referredRes.pipe(
+                    (linkedResource: { [index: string]: string | object[] }, incoming: boolean): Observable<ReadLinkValue> => {
+                        const referredRes: Observable<ReadResource> = this.parseResource(linkedResource, ontologyCache);
+                        return referredRes.pipe(
                             map(
-                                    refRes => {
-                                        linkValue.linkedResource = refRes;
-                                        linkValue.linkedResourceIri = refRes.id;
-                                        linkValue.incoming = incoming;
-                                        return linkValue;
-                                    }
+                                refRes => {
+                                    linkValue.linkedResource = refRes;
+                                    linkValue.linkedResourceIri = refRes.id;
+                                    linkValue.incoming = incoming;
+                                    return linkValue;
+                                }
                             )
-                    );
-                };
+                        );
+                    };
 
                 const handleLinkedResourceIri = (linkedResourceIri: string, incoming: boolean): Observable<ReadLinkValue> => {
                     if (linkedResourceIri === undefined) throw new Error("Invalid resource Iri");
@@ -250,12 +246,12 @@ export class ResourcesEndpoint extends Endpoint {
                     value = handleLinkedResource(valueJsonld[Constants.LinkValueHasTarget], false);
                 } else if (valueJsonld.hasOwnProperty(Constants.LinkValueHasTargetIri)) {
                     // TODO: check for existence of @id
-                    value = handleLinkedResourceIri(valueJsonld[Constants.LinkValueHasTargetIri]['@id'], false);
+                    value = handleLinkedResourceIri(valueJsonld[Constants.LinkValueHasTargetIri]["@id"], false);
                 } else if (valueJsonld.hasOwnProperty(Constants.LinkValueHasSource)) {
                     value = handleLinkedResource(valueJsonld[Constants.LinkValueHasSource], true);
                 } else if (valueJsonld.hasOwnProperty(Constants.LinkValueHasSourceIri)) {
                     // TODO: check for existence of @id
-                    value = handleLinkedResourceIri(valueJsonld[Constants.LinkValueHasSourceIri]['@id'], true);
+                    value = handleLinkedResourceIri(valueJsonld[Constants.LinkValueHasSourceIri]["@id"], true);
                 } else {
                     throw new Error("Invalid Link Value");
                 }

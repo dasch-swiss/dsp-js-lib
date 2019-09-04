@@ -1,16 +1,16 @@
-import {JsonObject, JsonProperty} from 'json2typescript';
-import {Constants} from '../Constants';
-import {IdConverter, UriConverter} from '../CustomConverters';
-import {ReadValue} from './values/read-value';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { Constants } from "../Constants";
+import { IdConverter, UriConverter } from "../CustomConverters";
+import { ReadValue } from "./values/read-value";
 
-@JsonObject('ReadResource')
+@JsonObject("ReadResource")
 export class ReadResource {
 
-    @JsonProperty('@id', String)
-    id: string = '';
+    @JsonProperty("@id", String)
+    id: string = "";
 
-    @JsonProperty('@type', String)
-    type: string = '';
+    @JsonProperty("@type", String)
+    type: string = "";
 
     @JsonProperty(Constants.Label, String, true)
     label?: string = undefined;

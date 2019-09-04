@@ -1,6 +1,6 @@
-import {JsonConverter, JsonCustomConvert} from 'json2typescript';
-import {Constants} from './Constants';
-import {Cardinality, IHasProperty} from './ontologies/class-definition';
+import { JsonConverter, JsonCustomConvert } from "json2typescript";
+import { Constants } from "./Constants";
+import { Cardinality, IHasProperty } from "./ontologies/class-definition";
 
 @JsonConverter
 export class SubClassOfConverter implements JsonCustomConvert<string[]> {
@@ -11,8 +11,8 @@ export class SubClassOfConverter implements JsonCustomConvert<string[]> {
         const tmp: string[] = [];
 
         const addItem = (ele: any) => {
-            if (ele.hasOwnProperty('@id') && (typeof ele['@id'] === 'string' || ele['@id'] instanceof String)) {
-                tmp.push(ele['@id']);
+            if (ele.hasOwnProperty("@id") && (typeof ele["@id"] === "string" || ele["@id"] instanceof String)) {
+                tmp.push(ele["@id"]);
             }
         };
 
@@ -35,13 +35,13 @@ export class PropertiesListConverter implements JsonCustomConvert<IHasProperty[]
         const tmp: IHasProperty[] = [];
 
         for (const item of items) {
-            if (item.hasOwnProperty('@type') && (item['@type'] === Constants.Restriction)) {
+            if (item.hasOwnProperty("@type") && (item["@type"] === Constants.Restriction)) {
                 let cardinality: Cardinality = Cardinality._0_n;
                 if (item.hasOwnProperty(Constants.MaxCardinality)) {
                     if (item[Constants.MaxCardinality] === 1) {
                         cardinality = Cardinality._0_1;
                     } else {
-                        console.error('Inconsistent cardinality!'); // ToDo: better error message
+                        console.error("Inconsistent cardinality!"); // ToDo: better error message
                     }
                 } else if (item.hasOwnProperty(Constants.MinCardinality)) {
                     if (item[Constants.MinCardinality] === 1) {
@@ -49,24 +49,24 @@ export class PropertiesListConverter implements JsonCustomConvert<IHasProperty[]
                     } else if (item[Constants.MinCardinality] === 0) {
                         cardinality = Cardinality._0_n;
                     } else {
-                        console.error('Inconsistent cardinality!'); // ToDo: better error message
+                        console.error("Inconsistent cardinality!"); // ToDo: better error message
                     }
                 } else if (item.hasOwnProperty(Constants.Cardinality)) {
                     if (item[Constants.Cardinality] === 1) {
                         cardinality = Cardinality._1;
                     } else {
-                        console.error('Inconsistent cardinality!'); // ToDo: better error message
+                        console.error("Inconsistent cardinality!"); // ToDo: better error message
                     }
                 }
 
-                let propertyIndex: string = '';
+                let propertyIndex: string = "";
                 if (item.hasOwnProperty(Constants.OnProperty)) {
                     const propstruct: any = item[Constants.OnProperty];
-                    if (propstruct.hasOwnProperty('@id') &&
-                            (typeof propstruct['@id'] === 'string' || propstruct['@id'] instanceof String)) {
-                        propertyIndex = propstruct['@id'];
+                    if (propstruct.hasOwnProperty("@id") &&
+                        (typeof propstruct["@id"] === "string" || propstruct["@id"] instanceof String)) {
+                        propertyIndex = propstruct["@id"];
                     } else {
-                        console.error('Missing property name!'); // ToDo: better error message
+                        console.error("Missing property name!"); // ToDo: better error message
                     }
                 }
 
@@ -99,8 +99,8 @@ export class SubPropertyOfConverter implements JsonCustomConvert<string[]> {
         const tmp: string[] = [];
 
         const addItem = (ele: any) => {
-            if (ele.hasOwnProperty('@id') && (typeof ele['@id'] === 'string' || ele['@id'] instanceof String)) {
-                tmp.push(ele['@id']);
+            if (ele.hasOwnProperty("@id") && (typeof ele["@id"] === "string" || ele["@id"] instanceof String)) {
+                tmp.push(ele["@id"]);
             }
         };
 
@@ -120,11 +120,11 @@ export class IdConverter implements JsonCustomConvert<string> {
     }
 
     deserialize(item: any): string {
-        let tmp = '';
+        let tmp = "";
 
         // TODO: check if it could be an array, too.
-        if (item.hasOwnProperty('@id') && (typeof item['@id'] === 'string' || item['@id'] instanceof String)) {
-            tmp = item['@id'];
+        if (item.hasOwnProperty("@id") && (typeof item["@id"] === "string" || item["@id"] instanceof String)) {
+            tmp = item["@id"];
         }
 
         return tmp;
@@ -137,11 +137,11 @@ export class UriConverter implements JsonCustomConvert<string> {
     }
 
     deserialize(item: any): string {
-        let tmp = '';
+        let tmp = "";
 
         // TODO: check if it could be an array, too.
-        if (item.hasOwnProperty('@value') && (typeof item['@value'] === 'string' || item['@value'] instanceof String)) {
-            tmp = item['@value'];
+        if (item.hasOwnProperty("@value") && (typeof item["@value"] === "string" || item["@value"] instanceof String)) {
+            tmp = item["@value"];
         }
 
         return tmp;
@@ -154,11 +154,11 @@ export class DecimalConverter implements JsonCustomConvert<string> {
     }
 
     deserialize(item: any): string {
-        let tmp = '';
+        let tmp = "";
 
         // TODO: check if it could be an array, too.
-        if (item.hasOwnProperty('@value') && (typeof item['@value'] === 'string' || item['@value'] instanceof String)) {
-            tmp = item['@value'];
+        if (item.hasOwnProperty("@value") && (typeof item["@value"] === "string" || item["@value"] instanceof String)) {
+            tmp = item["@value"];
         }
 
         return tmp;

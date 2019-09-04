@@ -1,6 +1,6 @@
-import {JsonObject, JsonProperty} from 'json2typescript';
-import {ReadValue} from './read-value';
-import {Constants} from '../../Constants';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { Constants } from "../../Constants";
+import { ReadValue } from "./read-value";
 
 /**
  * Precision for DateSalsah.
@@ -18,16 +18,16 @@ export class Date {
 
     // TODO: support instantiation of a JDNConvertibleCalendar subclass, e.g., GregorianCalendarDate
 
-    private static separator = '-';
+    private static separator = "-";
 
     readonly precision: Precision;
 
     constructor(
-            readonly calendar: string,
-            readonly era: string,
-            readonly year: number,
-            readonly month?: number,
-            readonly day?: number
+        readonly calendar: string,
+        readonly era: string,
+        readonly year: number,
+        readonly month?: number,
+        readonly day?: number
     ) {
         if (this.month === undefined) {
             // year precision
@@ -49,13 +49,14 @@ export class Date {
 export class Period {
 
     constructor(
-            readonly start: Date,
-            readonly end: Date
-    ) {}
+        readonly start: Date,
+        readonly end: Date
+    ) {
+    }
 
 }
 
-@JsonObject('ReadDateValue')
+@JsonObject("ReadDateValue")
 export class ReadDateValue extends ReadValue {
 
     date: Date | Period;
