@@ -36,15 +36,15 @@ export class Endpoint {
     /**
      * The session token
      */
-    set jsonWebToken(value: string) {
-        this.knoraApiConfig.jsonWebToken = value;
+    get jsonWebToken(): string {
+        return this.knoraApiConfig.jsonWebToken;
     }
 
     /**
      * The session token
      */
-    get jsonWebToken(): string {
-        return this.knoraApiConfig.jsonWebToken;
+    set jsonWebToken(value: string) {
+        this.knoraApiConfig.jsonWebToken = value;
     }
 
     // </editor-fold>
