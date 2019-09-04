@@ -29,7 +29,7 @@ describe("Test class AuthenticationEndpoint", () => {
 
         const request = jasmine.Ajax.requests.mostRecent();
 
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({ token: "testtoken"})));
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({token: "testtoken"})));
 
         expect(request.url).toEqual("http://localhost:3333/v2/authentication");
 
@@ -46,7 +46,8 @@ describe("Test class AuthenticationEndpoint", () => {
         const knoraApiConnection = new KnoraApiConnection(config);
 
         knoraApiConnection.v2.auth.login("user", "wrongpassword").subscribe(
-            () => {},
+            () => {
+            },
             (err: ApiResponseError) => {
                 expect(err.status).toEqual(401);
                 expect(knoraApiConnection.v2.jsonWebToken).toEqual("");
@@ -86,7 +87,7 @@ describe("Test class AuthenticationEndpoint", () => {
 
         const request = jasmine.Ajax.requests.mostRecent();
 
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({ message: "Logout OK", status: 0})));
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({message: "Logout OK", status: 0})));
 
         expect(request.url).toEqual("http://localhost:3333/v2/authentication");
 
