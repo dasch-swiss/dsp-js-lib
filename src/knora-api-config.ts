@@ -28,8 +28,8 @@ export class KnoraApiConfig {
      */
     get apiUrl(): string {
         return (
-            ( this.apiProtocol + "://" + this.apiHost ) +
-            ( this.apiPort !== null ? ":" + this.apiPort : "" ) +
+            (this.apiProtocol + "://" + this.apiHost) +
+            (this.apiPort !== null ? ":" + this.apiPort : "") +
             this.apiPath
         );
     }
@@ -53,7 +53,7 @@ export class KnoraApiConfig {
      */
     constructor(public apiProtocol: "http" | "https",
                 public apiHost: string,
-                public apiPort: number | null = null,
+                public apiPort: number | null = null,
                 public apiPath: string = "",
                 public jsonWebToken: string = "",
                 public logErrors: boolean = false) {

@@ -1,5 +1,5 @@
-import {JsonConverter, JsonCustomConvert} from 'json2typescript';
-import {Constants} from '../Constants';
+import { JsonConverter, JsonCustomConvert } from "json2typescript";
+import { Constants } from "../Constants";
 
 export enum Cardinality {
     "_1" = 0,
@@ -23,8 +23,8 @@ export class SubClassOfConverter implements JsonCustomConvert<string[]> {
         const tmp: string[] = [];
 
         const addItem = (ele: any) => {
-            if (ele.hasOwnProperty('@id') && (typeof ele['@id'] === 'string' || ele['@id'] instanceof String)) {
-                tmp.push(ele['@id']);
+            if (ele.hasOwnProperty("@id") && (typeof ele["@id"] === "string" || ele["@id"] instanceof String)) {
+                tmp.push(ele["@id"]);
             }
         };
 

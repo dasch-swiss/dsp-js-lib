@@ -1,4 +1,4 @@
-import {JsonConverter, JsonCustomConvert} from 'json2typescript';
+import { JsonConverter, JsonCustomConvert } from "json2typescript";
 
 @JsonConverter
 export class SubPropertyOfConverter implements JsonCustomConvert<string[]> {
@@ -9,8 +9,8 @@ export class SubPropertyOfConverter implements JsonCustomConvert<string[]> {
         const tmp: string[] = [];
 
         const addItem = (ele: any) => {
-            if (ele.hasOwnProperty('@id') && (typeof ele['@id'] === 'string' || ele['@id'] instanceof String)) {
-                tmp.push(ele['@id']);
+            if (ele.hasOwnProperty("@id") && (typeof ele["@id"] === "string" || ele["@id"] instanceof String)) {
+                tmp.push(ele["@id"]);
             }
         };
 
@@ -25,7 +25,7 @@ export class SubPropertyOfConverter implements JsonCustomConvert<string[]> {
 }
 
 @JsonConverter
-export class IdConverter  implements JsonCustomConvert<string> {
+export class IdConverter implements JsonCustomConvert<string> {
     serialize(description: string): any {
     }
 
@@ -33,8 +33,8 @@ export class IdConverter  implements JsonCustomConvert<string> {
         let tmp = "";
 
         // TODO: check if it could be an array, too.
-        if (item.hasOwnProperty('@id') && (typeof item['@id'] === 'string' || item['@id'] instanceof String)) {
-            tmp = item['@id'];
+        if (item.hasOwnProperty("@id") && (typeof item["@id"] === "string" || item["@id"] instanceof String)) {
+            tmp = item["@id"];
         }
 
         return tmp;

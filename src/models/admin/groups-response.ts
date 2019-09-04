@@ -1,4 +1,4 @@
-import { Any, JsonObject, JsonProperty } from "json2typescript";
+import { JsonObject, JsonProperty } from "json2typescript";
 
 import { ReadGroup } from "./read-group";
 

@@ -1,7 +1,7 @@
 import { KnoraApiConfig } from "../../knora-api-config";
 import { Endpoint } from "../endpoint";
 import { AuthenticationEndpoint } from "./authentication/authentication-endpoint";
-import {OntologiesEndpoint} from "./ontology/ontologies-endpoint";
+import { OntologiesEndpoint } from "./ontology/ontologies-endpoint";
 
 /**
  * Defines the V2 endpoint of the Knora API.

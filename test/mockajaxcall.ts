@@ -1,4 +1,4 @@
-export module MockAjaxCall {
+export namespace MockAjaxCall {
 
     /**
      * Mocks a successful response to an Ajax call.
@@ -27,6 +27,5 @@ export module MockAjaxCall {
         };
 
     };
-
 
 }
