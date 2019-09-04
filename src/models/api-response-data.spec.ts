@@ -33,29 +33,29 @@ describe("Test class ApiResponseData", () => {
         // Generate data
         const ajaxResponses: IAjaxResponse[] = [
             {
-                request: { method: "GET", url: "http://localhost" },
-                xhr: { status: 200 },
-                response: { id: 123, name: "Test" }
+                request: {method: "GET", url: "http://localhost"},
+                xhr: {status: 200},
+                response: {id: 123, name: "Test"}
             },
             {
-                request: { method: "GET", url: "http://knora.org" },
-                xhr: { status: 201 },
-                response: { id: 1337, name: "Gaga" }
+                request: {method: "GET", url: "http://knora.org"},
+                xhr: {status: 201},
+                response: {id: 1337, name: "Gaga"}
             },
             {
-                request: { method: "PUT", url: "htt://0.0.0.0" },
-                xhr: { status: 200 },
-                response: { id: 1893, name: "Hello" }
+                request: {method: "PUT", url: "htt://0.0.0.0"},
+                xhr: {status: 200},
+                response: {id: 1893, name: "Hello"}
             },
             {
-                request: { method: "GET", url: "https://dasch.swiss" },
-                xhr: { status: 200 },
-                response: { id: 0, name: "World" }
+                request: {method: "GET", url: "https://dasch.swiss"},
+                xhr: {status: 200},
+                response: {id: 0, name: "World"}
             },
             {
-                request: { method: "POST", url: "https://salsah.org" },
-                xhr: { status: 500 },
-                response: { id: 1, name: "Earth" }
+                request: {method: "POST", url: "https://salsah.org"},
+                xhr: {status: 500},
+                response: {id: 1, name: "Earth"}
             }
         ];
 

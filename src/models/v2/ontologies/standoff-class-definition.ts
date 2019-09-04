@@ -1,13 +1,13 @@
-import {JsonObject, JsonProperty} from 'json2typescript';
-import {Constants} from '../Constants';
-import {ClassDefinition, IHasProperty} from './class-definition';
-import {PropertiesListConverter, SubClassOfConverter} from '../CustomConverters';
+import { JsonObject, JsonProperty } from "json2typescript";
+import { Constants } from "../Constants";
+import { PropertiesListConverter, SubClassOfConverter } from "../CustomConverters";
+import { ClassDefinition, IHasProperty } from "./class-definition";
 
-@JsonObject('StandoffClassDefinition')
+@JsonObject("StandoffClassDefinition")
 export class StandoffClassDefinition extends ClassDefinition {
 
-    @JsonProperty('@id', String)
-    id: string = '';
+    @JsonProperty("@id", String)
+    id: string = "";
 
     @JsonProperty(Constants.SubClassOf, SubClassOfConverter)
     subClassOf: string[] = [];

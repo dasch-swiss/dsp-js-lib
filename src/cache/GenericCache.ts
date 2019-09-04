@@ -1,4 +1,4 @@
-import {AsyncSubject, Observable} from 'rxjs';
+import { AsyncSubject, Observable } from "rxjs";
 
 /**
  * Generic cache class.

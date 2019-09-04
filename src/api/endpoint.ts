@@ -1,12 +1,12 @@
-import {JsonConvert, OperationMode, ValueCheckingMode} from 'json2typescript';
-import {PropertyMatchingRule} from 'json2typescript/src/json2typescript/json-convert-enums';
-import {Observable, throwError} from 'rxjs';
-import {ajax, AjaxResponse} from 'rxjs/ajax';
-import {AjaxError} from 'rxjs/internal/observable/dom/AjaxObservable';
+import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
+import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+import { Observable, throwError } from "rxjs";
+import { ajax, AjaxResponse } from "rxjs/ajax";
+import { AjaxError } from "rxjs/internal/observable/dom/AjaxObservable";
 
-import {KnoraApiConfig} from '../knora-api-config';
-import {ApiResponseError} from '../models/api-response-error';
-import {DataError} from '../models/data-error';
+import { KnoraApiConfig } from "../knora-api-config";
+import { ApiResponseError } from "../models/api-response-error";
+import { DataError } from "../models/data-error";
 
 export class Endpoint {
 
@@ -27,24 +27,24 @@ export class Endpoint {
      * JsonConvert instance
      */
     jsonConvert: JsonConvert = new JsonConvert(
-            OperationMode.ENABLE,
-            ValueCheckingMode.DISALLOW_NULL,
-            false,
-            PropertyMatchingRule.CASE_STRICT,
+        OperationMode.ENABLE,
+        ValueCheckingMode.DISALLOW_NULL,
+        false,
+        PropertyMatchingRule.CASE_STRICT
     );
-
-    /**
-     * The session token
-     */
-    set jsonWebToken(value: string) {
-        this.knoraApiConfig.jsonWebToken = value;
-    }
 
     /**
      * The session token
      */
     get jsonWebToken(): string {
         return this.knoraApiConfig.jsonWebToken;
+    }
+
+    /**
+     * The session token
+     */
+    set jsonWebToken(value: string) {
+        this.knoraApiConfig.jsonWebToken = value;
     }
 
     // </editor-fold>
@@ -77,7 +77,7 @@ export class Endpoint {
      */
     protected httpGet(path?: string): Observable<AjaxResponse> {
 
-        if (path === undefined) path = '';
+        if (path === undefined) path = "";
 
         return ajax.get(this.knoraApiConfig.apiUrl + this.path + path, this.constructHeader(false));
 
@@ -91,7 +91,7 @@ export class Endpoint {
      */
     protected httpPost(path?: string, body?: any): Observable<AjaxResponse> {
 
-        if (path === undefined) path = '';
+        if (path === undefined) path = "";
 
         return ajax.post(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(true));
 
@@ -105,7 +105,7 @@ export class Endpoint {
      */
     protected httpPut(path?: string, body?: any): Observable<AjaxResponse> {
 
-        if (path === undefined) path = '';
+        if (path === undefined) path = "";
 
         return ajax.put(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(true));
 
@@ -119,7 +119,7 @@ export class Endpoint {
      */
     protected httpPatch(path?: string, body?: any): Observable<AjaxResponse> {
 
-        if (path === undefined) path = '';
+        if (path === undefined) path = "";
 
         return ajax.patch(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(true));
 
@@ -132,7 +132,7 @@ export class Endpoint {
      */
     protected httpDelete(path?: string): Observable<AjaxResponse> {
 
-        if (path === undefined) path = '';
+        if (path === undefined) path = "";
 
         return ajax.delete(this.knoraApiConfig.apiUrl + this.path + path, this.constructHeader(false));
 
@@ -152,7 +152,7 @@ export class Endpoint {
             responseError = error.response;
 
             if (this.knoraApiConfig.logErrors) {
-                console.error('Parse Error in Knora API request: ' + responseError.error);
+                console.error("Parse Error in Knora API request: " + responseError.error);
             }
 
         } else {
@@ -160,7 +160,7 @@ export class Endpoint {
             responseError = ApiResponseError.fromAjaxError(error);
 
             if (this.knoraApiConfig.logErrors) {
-                console.error('Ajax Error in Knora API request: ' + responseError.method + ' ' + responseError.url);
+                console.error("Ajax Error in Knora API request: " + responseError.method + " " + responseError.url);
             }
 
         }
@@ -177,14 +177,14 @@ export class Endpoint {
      */
     private constructHeader(setContentTypeJson: boolean = true): object {
 
-        const header: {[key: string]: string} = {};
+        const header: { [key: string]: string } = {};
 
         if (this.jsonWebToken !== "") {
-            header['Authorization'] = 'Bearer ' + this.jsonWebToken;
+            header["Authorization" as any] = "Bearer " + this.jsonWebToken;
         }
 
         if (setContentTypeJson) {
-            header['Content-Type'] = 'application/json';
+            header["Content-Type"] = "application/json";
         }
 
         return header;

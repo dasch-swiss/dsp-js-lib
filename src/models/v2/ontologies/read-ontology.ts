@@ -1,5 +1,5 @@
-import {PropertyDefinition} from './property-definition';
-import {ClassDefinition} from './class-definition';
+import { ClassDefinition } from "./class-definition";
+import { PropertyDefinition } from "./property-definition";
 
 export class ReadOntology {
     properties: {[index: string]: PropertyDefinition} = {};
