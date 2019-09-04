@@ -53,6 +53,8 @@ describe('OntologiesEndpoint', () => {
 
                     expect(response.id).toEqual("http://api.knora.org/ontology/knora-api/v2");
 
+                    expect(response.dependsOnOntologies.size).toEqual(0);
+
                     expect(response.classes["http://api.knora.org/ontology/knora-api/v2#Annotation"] instanceof ResourceClassDefinition).toBeTruthy();
                     expect(response.classes["http://api.knora.org/ontology/knora-api/v2#Annotation"].id).toEqual("http://api.knora.org/ontology/knora-api/v2#Annotation");
                     expect(response.classes["http://api.knora.org/ontology/knora-api/v2#Annotation"].label).toEqual("Annotation");
@@ -91,6 +93,13 @@ describe('OntologiesEndpoint', () => {
 
                     expect(response.dependsOnOntologies.size).toEqual(1);
                     expect(response.dependsOnOntologies.has("http://api.dasch.swiss/ontology/0001/anything/v2"));
+
+                    expect(response.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"] instanceof ResourceClassDefinition);
+                    expect(response.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"].id).toEqual("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
+                    expect(response.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"].label).toEqual("Thing");
+                    expect(response.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"].comment).toEqual("'The whole world is full of things, which means there's a real need for someone to go searching for them. And that's exactly what a thing-searcher does.' --Pippi Longstocking");
+
+                    expect(response.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"].propertiesList.length).toEqual(36);
 
                     done();
                 });
