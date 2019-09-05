@@ -9,6 +9,7 @@ import { ResourceClassDefinition } from "../../../models/v2/ontologies/resource-
 import { ResourcePropertyDefinition } from "../../../models/v2/ontologies/resource-property-definition";
 import { StandoffClassDefinition } from "../../../models/v2/ontologies/standoff-class-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
+import { OntologyConversionUtils } from "../../../models/v2/OntologyConversionUtil";
 import { Endpoint } from "../../endpoint";
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
@@ -89,46 +90,36 @@ export class OntologiesEndpoint extends Endpoint {
         const onto = this.jsonConvert.deserializeObject(ontologyJsonld, ReadOntology);
 
         // Access the collection of entities
-        const entities = (ontologyJsonld as { [index: string]: object[] })["@graph"];
+        const entities: object[] = (ontologyJsonld as { [index: string]: object[] })["@graph"];
+
+        if (!Array.isArray(entities)) throw new Error("An ontology is expected to have a member '@graph' containing an array of entities");
 
         // this.jsonConvert.operationMode = OperationMode.LOGGING;
 
         // Convert resource classes
-        entities.filter((entity: any) => {
-            return entity.hasOwnProperty(Constants.IsResourceClass) &&
-                entity[Constants.IsResourceClass] === true;
-        }).map(resclassJsonld => {
-            return this.jsonConvert.deserializeObject(resclassJsonld, ResourceClassDefinition);
+        entities.filter(OntologyConversionUtils.filterResourceClassDefinitions).map(resclassJsonld => {
+            return OntologyConversionUtils.convertEntity(resclassJsonld, ResourceClassDefinition, this.jsonConvert);
         }).forEach((resClass: ResourceClassDefinition) => {
             onto.classes[resClass.id] = resClass;
         });
 
         // Convert standoff classes
-        entities.filter((entity: any) => {
-            return entity.hasOwnProperty(Constants.IsStandoffClass) &&
-                entity[Constants.IsStandoffClass] === true;
-        }).map((standoffclassJsonld: any) => {
-            return this.jsonConvert.deserializeObject(standoffclassJsonld, StandoffClassDefinition);
+        entities.filter(OntologyConversionUtils.filterStandoffClassDefinitions).map(standoffclassJsonld => {
+            return OntologyConversionUtils.convertEntity(standoffclassJsonld, StandoffClassDefinition, this.jsonConvert);
         }).forEach((standoffClass: StandoffClassDefinition) => {
             onto.classes[standoffClass.id] = standoffClass;
         });
 
         // Convert resource properties (properties pointing to Knora values)
-        entities.filter((entity: any) => {
-            return entity.hasOwnProperty(Constants.IsResourceProperty) &&
-                entity[Constants.IsResourceProperty] === true;
-        }).map((propertyJsonld: any) => {
-            return this.jsonConvert.deserializeObject(propertyJsonld, ResourcePropertyDefinition);
+        entities.filter(OntologyConversionUtils.filterResourcePropertyDefinitions).map(propertyJsonld => {
+            return OntologyConversionUtils.convertEntity(propertyJsonld, ResourcePropertyDefinition, this.jsonConvert);
         }).forEach((prop: ResourcePropertyDefinition) => {
             onto.properties[prop.id] = prop;
         });
 
         // Convert system properties (properties not pointing to Knora values)
-        entities.filter((entity: any) => {
-            return (entity["@type"] === Constants.DataTypeProperty || entity["@type"] === Constants.ObjectProperty)
-                && !entity.hasOwnProperty(Constants.IsResourceProperty);
-        }).map((propertyJsonld: any) => {
-            return this.jsonConvert.deserializeObject(propertyJsonld, SystemPropertyDefinition);
+        entities.filter(OntologyConversionUtils.filterSystemPropertyDefintions).map(propertyJsonld => {
+            return OntologyConversionUtils.convertEntity(propertyJsonld, SystemPropertyDefinition, this.jsonConvert);
         }).forEach((prop: SystemPropertyDefinition) => {
             onto.properties[prop.id] = prop;
         });
