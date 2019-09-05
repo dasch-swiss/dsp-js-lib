@@ -2,7 +2,7 @@ import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { ApiResponseError } from "../../..";
-import { OntologyConversionUtils } from "../../../models/v2/ontologies/OntologyConversionUtil";
+import { OntologyConversionUtil } from "../../../models/v2/ontologies/OntologyConversionUtil";
 import { ReadOntology } from "../../../models/v2/ontologies/read-ontology";
 import { Endpoint } from "../../endpoint";
 
@@ -26,7 +26,7 @@ export class OntologiesEndpoint extends Endpoint {
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
-                return OntologyConversionUtils.convertOntology(jsonldobj, this.jsonConvert, this.knoraApiConfig);
+                return OntologyConversionUtil.convertOntology(jsonldobj, this.jsonConvert, this.knoraApiConfig);
             }),
             catchError(error => {
                 return this.handleError(error);

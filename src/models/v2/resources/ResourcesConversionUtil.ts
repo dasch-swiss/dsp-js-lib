@@ -18,25 +18,41 @@ import { ReadTextValueAsHtml, ReadTextValueAsString, ReadTextValueAsXml } from "
 import { ReadUriValue } from "./values/read-uri-value";
 import { ReadValue } from "./values/read-value";
 
-export namespace ResourcesConversionUtils {
+export namespace ResourcesConversionUtil {
 
-    export const parseResourceSequence = (resourcesJsonld: object, ontologyCache: OntologyCache, jsonConvert: JsonConvert): Observable<ReadResource[]> => {
+    /**
+     * Given a JSON-LD representing zero, one more resources, converts it to an array of ReadResource.
+     *
+     * JSON-LD is expected to have expanded prefixes (processed by jsonld processor).
+     *
+     * @param resourcesJsonld a JSON-LD object  with expanded prefixes representing zero, one or more resources.
+     * @param ontologyCache instance of OntologyCache to be used.
+     * @param jsonConvert instance of JsonConvert to be used.
+     */
+    export const createReadResourceSequence = (resourcesJsonld: object, ontologyCache: OntologyCache, jsonConvert: JsonConvert): Observable<ReadResource[]> => {
 
         if (resourcesJsonld.hasOwnProperty("@graph")) {
             // sequence of resources
             return forkJoin((resourcesJsonld as { [index: string]: object[] })["@graph"]
-                .map((res: { [index: string]: object[] | string }) => parseResource(res, ontologyCache, jsonConvert)));
+                .map((res: { [index: string]: object[] | string }) => createReadResource(res, ontologyCache, jsonConvert)));
         } else {
             //  one or no resource
             if (Object.keys(resourcesJsonld).length === 0) {
                 return of([]);
             } else {
-                return forkJoin([parseResource(resourcesJsonld as { [index: string]: object[] | string }, ontologyCache, jsonConvert)]);
+                return forkJoin([createReadResource(resourcesJsonld as { [index: string]: object[] | string }, ontologyCache, jsonConvert)]);
             }
         }
     };
 
-    const parseResource = (resourceJsonld: { [index: string]: string | object[] }, ontologyCache: OntologyCache, jsonConvert: JsonConvert): Observable<ReadResource> => {
+    /**
+     * Creates a single ReadResource.
+     *
+     * @param resourceJsonld a JSON-LD object representing a single resource.
+     * @param ontologyCache instance of OntologyCache to be used.
+     * @param jsonConvert instance of JsonConvert to be used.
+     */
+    const createReadResource = (resourceJsonld: { [index: string]: string | object[] }, ontologyCache: OntologyCache, jsonConvert: JsonConvert): Observable<ReadResource> => {
 
         // console.log("parsing ", resourceJsonld["@id"]);
 
@@ -69,10 +85,10 @@ export namespace ResourcesConversionUtils {
 
                         if (Array.isArray(resourceJsonld[propIri])) {
                             for (const value of resourceJsonld[propIri]) {
-                                values.push(parseValue(propIri, value, entitiyDefs, ontologyCache, jsonConvert));
+                                values.push(createValueValue(propIri, value, entitiyDefs, ontologyCache, jsonConvert));
                             }
                         } else {
-                            values.push(parseValue(propIri, resourceJsonld[propIri], entitiyDefs, ontologyCache, jsonConvert));
+                            values.push(createValueValue(propIri, resourceJsonld[propIri], entitiyDefs, ontologyCache, jsonConvert));
                         }
                     });
 
@@ -96,7 +112,16 @@ export namespace ResourcesConversionUtils {
 
     };
 
-    const parseValue = (propIri: string, valueJsonld: any, entitiyDefs: IResourceClassAndPropertyDefinitions, ontologyCache: OntologyCache, jsonConvert: JsonConvert): Observable<ReadValue> => {
+    /**
+     * Creates a single ReadValue.
+     *
+     * @param propIri Iri of the property pointing to the value.
+     * @param valueJsonld JSON-LD object representing a single value.
+     * @param entitiyDefs entity definitions for the given value type.
+     * @param ontologyCache instance of OntologyCache to be used.
+     * @param jsonConvert instance of JsonConvert to be used.
+     */
+    const createValueValue = (propIri: string, valueJsonld: any, entitiyDefs: IResourceClassAndPropertyDefinitions, ontologyCache: OntologyCache, jsonConvert: JsonConvert): Observable<ReadValue> => {
 
         if (Array.isArray(valueJsonld)) throw new Error("value is expected to be a single object");
 
@@ -194,7 +219,7 @@ export namespace ResourcesConversionUtils {
 
                 const handleLinkedResource =
                     (linkedResource: { [index: string]: string | object[] }, incoming: boolean): Observable<ReadLinkValue> => {
-                        const referredRes: Observable<ReadResource> = parseResource(linkedResource, ontologyCache, jsonConvert);
+                        const referredRes: Observable<ReadResource> = createReadResource(linkedResource, ontologyCache, jsonConvert);
                         return referredRes.pipe(
                             map(
                                 refRes => {

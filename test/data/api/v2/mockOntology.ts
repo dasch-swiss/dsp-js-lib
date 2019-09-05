@@ -6,7 +6,7 @@ import { ResourceClassDefinition } from "../../../../src/models/v2/ontologies/re
 import { ResourcePropertyDefinition } from "../../../../src/models/v2/ontologies/resource-property-definition";
 import { StandoffClassDefinition } from "../../../../src/models/v2/ontologies/standoff-class-definition";
 import { SystemPropertyDefinition } from "../../../../src/models/v2/ontologies/system-property-definition";
-import { OntologyConversionUtils } from "../../../../src/models/v2/ontologies/OntologyConversionUtil";
+import { OntologyConversionUtil } from "../../../../src/models/v2/ontologies/OntologyConversionUtil";
 import anythingOntologyExpanded from "../v2/ontologies/anything-ontology-expanded.json";
 import knoraApiOntologyExpanded from "../v2/ontologies/knora-api-ontology-expanded.json";
 
@@ -36,29 +36,29 @@ export namespace MockOntology {
         const entities: object[] = (ontologyJsonld as { [index: string]: object[] })["@graph"];
 
         // Convert resource classes
-        entities.filter(OntologyConversionUtils.filterResourceClassDefinitions).map(resclassJsonld => {
-            return OntologyConversionUtils.convertEntity(resclassJsonld, ResourceClassDefinition, jsonConvert);
+        entities.filter(OntologyConversionUtil.filterResourceClassDefinitions).map(resclassJsonld => {
+            return OntologyConversionUtil.convertEntity(resclassJsonld, ResourceClassDefinition, jsonConvert);
         }).forEach((resClass: ResourceClassDefinition) => {
             onto.classes[resClass.id] = resClass;
         });
 
         // Convert standoff classes
-        entities.filter(OntologyConversionUtils.filterStandoffClassDefinitions).map(standoffclassJsonld => {
-            return OntologyConversionUtils.convertEntity(standoffclassJsonld, StandoffClassDefinition, jsonConvert);
+        entities.filter(OntologyConversionUtil.filterStandoffClassDefinitions).map(standoffclassJsonld => {
+            return OntologyConversionUtil.convertEntity(standoffclassJsonld, StandoffClassDefinition, jsonConvert);
         }).forEach((standoffClass: StandoffClassDefinition) => {
             onto.classes[standoffClass.id] = standoffClass;
         });
 
         // Convert resource properties (properties pointing to Knora values)
-        entities.filter(OntologyConversionUtils.filterResourcePropertyDefinitions).map(propertyJsonld => {
-            return OntologyConversionUtils.convertEntity(propertyJsonld, ResourcePropertyDefinition, jsonConvert);
+        entities.filter(OntologyConversionUtil.filterResourcePropertyDefinitions).map(propertyJsonld => {
+            return OntologyConversionUtil.convertEntity(propertyJsonld, ResourcePropertyDefinition, jsonConvert);
         }).forEach((prop: ResourcePropertyDefinition) => {
             onto.properties[prop.id] = prop;
         });
 
         // Convert system properties (properties not pointing to Knora values)
-        entities.filter(OntologyConversionUtils.filterSystemPropertyDefintions).map(propertyJsonld => {
-            return OntologyConversionUtils.convertEntity(propertyJsonld, SystemPropertyDefinition, jsonConvert);
+        entities.filter(OntologyConversionUtil.filterSystemPropertyDefintions).map(propertyJsonld => {
+            return OntologyConversionUtil.convertEntity(propertyJsonld, SystemPropertyDefinition, jsonConvert);
         }).forEach((prop: SystemPropertyDefinition) => {
             onto.properties[prop.id] = prop;
         });
@@ -91,8 +91,8 @@ export namespace MockOntology {
         const entities = knoraApiEntities.concat(anythingEntities);
 
         // Convert resource classes
-        entities.filter(OntologyConversionUtils.filterResourceClassDefinitions)
-            .map(resclassJsonld => OntologyConversionUtils.convertEntity(resclassJsonld, ResourceClassDefinition, jsonConvert))
+        entities.filter(OntologyConversionUtil.filterResourceClassDefinitions)
+            .map(resclassJsonld => OntologyConversionUtil.convertEntity(resclassJsonld, ResourceClassDefinition, jsonConvert))
             .filter(resclassDef => resclassDef.id === resClassIri)
             .forEach((resClass: ResourceClassDefinition) => {
                 entityMock.classes[resClass.id] = resClass;
@@ -103,18 +103,18 @@ export namespace MockOntology {
             = entityMock.classes[resClassIri].propertiesList.map(prop => prop.propertyIndex);
 
         // Convert resource properties (properties pointing to Knora values)
-        entities.filter(OntologyConversionUtils.filterResourcePropertyDefinitions)
+        entities.filter(OntologyConversionUtil.filterResourcePropertyDefinitions)
             .map((propertyJsonld: any) => {
-                return OntologyConversionUtils.convertEntity(propertyJsonld, ResourcePropertyDefinition, jsonConvert);
+                return OntologyConversionUtil.convertEntity(propertyJsonld, ResourcePropertyDefinition, jsonConvert);
             }).filter(propertyDef => props.indexOf(propertyDef.id) !== -1)
             .forEach((prop: ResourcePropertyDefinition) => {
                 entityMock.properties[prop.id] = prop;
             });
 
         // Convert system properties (properties not pointing to Knora values)
-        entities.filter(OntologyConversionUtils.filterSystemPropertyDefintions)
+        entities.filter(OntologyConversionUtil.filterSystemPropertyDefintions)
             .map((propertyJsonld: any) => {
-                return OntologyConversionUtils.convertEntity(propertyJsonld, SystemPropertyDefinition, jsonConvert);
+                return OntologyConversionUtil.convertEntity(propertyJsonld, SystemPropertyDefinition, jsonConvert);
             }).filter(propertyDef => props.indexOf(propertyDef.id) !== -1)
             .forEach((prop: SystemPropertyDefinition) => {
                 entityMock.properties[prop.id] = prop;

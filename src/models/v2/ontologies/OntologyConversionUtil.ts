@@ -8,7 +8,7 @@ import { ResourcePropertyDefinition } from "./resource-property-definition";
 import { StandoffClassDefinition } from "./standoff-class-definition";
 import { SystemPropertyDefinition } from "./system-property-definition";
 
-export namespace OntologyConversionUtils {
+export namespace OntologyConversionUtil {
 
     /**
      * Given a Knora entity IRI, gets the ontology Iri.

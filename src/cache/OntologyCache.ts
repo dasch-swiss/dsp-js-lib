@@ -2,7 +2,7 @@ import { AsyncSubject, forkJoin, Observable, of } from "rxjs";
 import { map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig, KnoraApiConnection } from "..";
 import { ClassDefinition, IHasProperty } from "../models/v2/ontologies/class-definition";
-import { OntologyConversionUtils } from "../models/v2/ontologies/OntologyConversionUtil";
+import { OntologyConversionUtil } from "../models/v2/ontologies/OntologyConversionUtil";
 import { PropertyDefinition } from "../models/v2/ontologies/property-definition";
 import { ReadOntology } from "../models/v2/ontologies/read-ontology";
 import { GenericCache } from "./GenericCache";
@@ -79,7 +79,7 @@ export class OntologyCache extends GenericCache<ReadOntology> {
      * @param resourceClassIri
      */
     getResourceClassDefinition(resourceClassIri: string): Observable<IResourceClassAndPropertyDefinitions> {
-        const ontoIri = OntologyConversionUtils.getOntologyIriFromEntityIri(resourceClassIri, this.knoraApiConfig);
+        const ontoIri = OntologyConversionUtil.getOntologyIriFromEntityIri(resourceClassIri, this.knoraApiConfig);
 
         if (ontoIri.length !== 1) throw Error("Invalid resource class Iri " + resourceClassIri);
 
@@ -105,7 +105,7 @@ export class OntologyCache extends GenericCache<ReadOntology> {
                     mainOnto.classes[resourceClassIri].propertiesList.forEach(
                         (prop: IHasProperty) => {
 
-                            const fromOntoIri = OntologyConversionUtils.getOntologyIriFromEntityIri(prop.propertyIndex, this.knoraApiConfig);
+                            const fromOntoIri = OntologyConversionUtil.getOntologyIriFromEntityIri(prop.propertyIndex, this.knoraApiConfig);
 
                             // only handle Knora property definitions
                             if (fromOntoIri.length === 1) {
