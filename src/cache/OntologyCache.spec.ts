@@ -166,6 +166,7 @@ describe("OntologyCache", () => {
                     const propKeys = Object.keys(resClassDef.properties);
                     propKeys.forEach(key => {
                         console.log(resClassDef.properties[key].id);
+                        console.log(resClassDef.properties[key]);
                     });*/
 
                 }
