@@ -27,7 +27,7 @@ describe("ResourcesEndpoint", () => {
 
         getResourceClassSpy = spyOn(ontoCache, "getResourceClassDefinition").and.callFake(
             (resClassIri: string) => {
-                return of(createEntityMock(resClassIri));
+                return of(mockIResourceClassAndPropertyDefinitions(resClassIri));
             }
         );
     });
@@ -69,7 +69,7 @@ describe("ResourcesEndpoint", () => {
 
 });
 
-const createEntityMock = (resClassIri: string): IResourceClassAndPropertyDefinitions => {
+const mockIResourceClassAndPropertyDefinitions = (resClassIri: string): IResourceClassAndPropertyDefinitions => {
 
     const entityMock: IResourceClassAndPropertyDefinitions = {
         classes: {},
