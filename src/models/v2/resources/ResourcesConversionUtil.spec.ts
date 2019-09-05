@@ -7,7 +7,7 @@ import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ResourcesConversionUtil } from "./ResourcesConversionUtil";
 
-describe("OntologyConversionUtil", () => {
+describe("ResourcesConversionUtil", () => {
 
     const config = new KnoraApiConfig("http", "api.dasch.swiss", undefined, undefined, "", true);
     const knoraApiConnection = new KnoraApiConnection(config);
@@ -50,6 +50,21 @@ describe("OntologyConversionUtil", () => {
 
                     expect(getResourceClassDefinitionSpy).toHaveBeenCalledTimes(2);
                     expect(getResourceClassDefinitionSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
+
+                    done();
+                }
+            );
+
+        });
+
+        it("parse JSON-LD representing an emtpy resource", done => {
+
+            const emptyResource = {};
+
+            ResourcesConversionUtil.createReadResourceSequence(emptyResource, ontoCache, jsonConvert).subscribe(
+                resSeq => {
+                    expect(resSeq.length).toEqual(0);
+                    expect(getResourceClassDefinitionSpy).toHaveBeenCalledTimes(0);
 
                     done();
                 }
