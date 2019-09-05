@@ -1,7 +1,7 @@
 import { JsonConvert } from "json2typescript";
 import { forkJoin, Observable, of } from "rxjs";
 import { map, mergeMap } from "rxjs/operators";
-import { OntologyCache } from "../../../index";
+import { OntologyCache } from "../../../";
 import { IResourceClassAndPropertyDefinitions } from "../../../cache/OntologyCache";
 import { Constants } from "../Constants";
 import { ResourcePropertyDefinition } from "../ontologies/resource-property-definition";
