@@ -6,7 +6,11 @@ import { PropertyDefinition } from "../models/v2/ontologies/property-definition"
 import { ReadOntology } from "../models/v2/ontologies/read-ontology";
 import { GenericCache } from "./GenericCache";
 
-export interface IEntityDefinitions {
+/**
+ * Contains resource class definitions
+ * and property definitions the resource classes have cardinalities for.
+ */
+export interface IResourceClassAndPropertyDefinitions {
     classes: { [index: string]: ClassDefinition };
     properties: { [index: string]: PropertyDefinition };
 }
@@ -31,16 +35,18 @@ export class OntologyCache extends GenericCache<ReadOntology> {
             mergeMap((ontology: ReadOntology) => {
 
                 if (ontology.dependsOnOntologies.size > 0) {
-
+                    // get dependencies
                     const deps: Array<AsyncSubject<ReadOntology>> = [];
                     ontology.dependsOnOntologies.forEach((depKey: string) => {
                         deps.push(this.getItem(depKey));
                     });
 
+                    // return when all dependencies have been resolved
                     return forkJoin(deps).pipe(
                         map(ontos => {
                             const ontoMap: Map<string, ReadOntology> = new Map();
 
+                            // combine ontology and dependencies
                             [ontology].concat(ontos).forEach(
                                 (onto: ReadOntology) => {
                                     ontoMap.set(onto.id, onto);
@@ -52,19 +58,26 @@ export class OntologyCache extends GenericCache<ReadOntology> {
                     );
 
                 } else {
+                    // no dependencies
                     const ontoMap: Map<string, ReadOntology> = new Map();
 
                     ontoMap.set(ontology.id, ontology);
 
                     return of(ontoMap);
-
                 }
             })
         );
-
     }
 
-    getResourceClass(resourceClassIri: string): Observable<IEntityDefinitions> {
+    /**
+     * Gets a resource class definition including the property definitions
+     * the resource class has cardinalities for.
+     *
+     * This method does not return third party ontology entities, e.g., rdfs.
+     *
+     * @param resourceClassIri
+     */
+    getResourceClassDefinition(resourceClassIri: string): Observable<IResourceClassAndPropertyDefinitions> {
         const ontoIri = this.knoraApiConnection.v2.onto.getOntologyIriFromEntityIri(resourceClassIri);
 
         if (ontoIri.length !== 1) throw Error("Invalid resource class Iri " + resourceClassIri);
@@ -74,14 +87,16 @@ export class OntologyCache extends GenericCache<ReadOntology> {
         return ontology.pipe(
             map(ontosMap => {
 
-                const requestedEntityDefs: IEntityDefinitions = {
+                const requestedEntityDefs: IResourceClassAndPropertyDefinitions = {
                     classes: {},
                     properties: {}
                 };
 
                 const mainOnto = ontosMap.get(ontoIri[0]);
 
-                if (mainOnto !== undefined && mainOnto.classes.hasOwnProperty(resourceClassIri)) {
+                if (mainOnto === undefined) throw new Error("Expected ontology not found");
+
+                if (mainOnto.classes.hasOwnProperty(resourceClassIri)) {
 
                     requestedEntityDefs.classes[resourceClassIri]
                         = mainOnto.classes[resourceClassIri];
@@ -96,9 +111,9 @@ export class OntologyCache extends GenericCache<ReadOntology> {
 
                                 const fromOnto = ontosMap.get(fromOntoIri[0]);
 
-                                if (fromOnto !== undefined) {
-                                    requestedEntityDefs.properties[prop.propertyIndex] = fromOnto.properties[prop.propertyIndex];
-                                }
+                                if (fromOnto === undefined) throw new Error("Expected ontology not found");
+
+                                requestedEntityDefs.properties[prop.propertyIndex] = fromOnto.properties[prop.propertyIndex];
 
                             }
 

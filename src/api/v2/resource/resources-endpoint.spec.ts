@@ -3,7 +3,7 @@ import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-c
 import { of } from "rxjs";
 import { OntologyCache } from "../../..";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
-import { IEntityDefinitions } from "../../../cache/OntologyCache";
+import { IResourceClassAndPropertyDefinitions } from "../../../cache/OntologyCache";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ResourceClassDefinition } from "../../../models/v2/ontologies/resource-class-definition";
@@ -25,7 +25,7 @@ describe("ResourcesEndpoint", () => {
 
         jasmine.Ajax.install();
 
-        getResourceClassSpy = spyOn(ontoCache, "getResourceClass").and.callFake(
+        getResourceClassSpy = spyOn(ontoCache, "getResourceClassDefinition").and.callFake(
             (resClassIri: string) => {
                 return of(createEntityMock(resClassIri));
             }
@@ -68,9 +68,9 @@ describe("ResourcesEndpoint", () => {
 
 });
 
-const createEntityMock = (resClassIri: string): IEntityDefinitions => {
+const createEntityMock = (resClassIri: string): IResourceClassAndPropertyDefinitions => {
 
-    const entityMock: IEntityDefinitions = {
+    const entityMock: IResourceClassAndPropertyDefinitions = {
         classes: {},
         properties: {}
     };

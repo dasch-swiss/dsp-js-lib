@@ -2,7 +2,7 @@ import { forkJoin, Observable, of } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { ApiResponseError, OntologyCache } from "../../..";
-import { IEntityDefinitions } from "../../../cache/OntologyCache";
+import { IResourceClassAndPropertyDefinitions } from "../../../cache/OntologyCache";
 import { Constants } from "../../../models/v2/Constants";
 import { ResourcePropertyDefinition } from "../../../models/v2/ontologies/resource-property-definition";
 import { ReadResource } from "../../../models/v2/resources/read-resource";
@@ -72,8 +72,8 @@ export class ResourcesEndpoint extends Endpoint {
         // determine resource class
         const resourceType = resourceJsonld["@type"] as string;
 
-        return ontologyCache.getResourceClass(resourceType).pipe(mergeMap(
-            (entitiyDefs: IEntityDefinitions) => {
+        return ontologyCache.getResourceClassDefinition(resourceType).pipe(mergeMap(
+            (entitiyDefs: IResourceClassAndPropertyDefinitions) => {
 
                 const resourceProps: string[] = Object.keys(resourceJsonld)
                     .filter((propIri: string) => {
@@ -123,7 +123,7 @@ export class ResourcesEndpoint extends Endpoint {
 
     }
 
-    private parseValue(propIri: string, valueJsonld: any, entitiyDefs: IEntityDefinitions, ontologyCache: OntologyCache): Observable<ReadValue> {
+    private parseValue(propIri: string, valueJsonld: any, entitiyDefs: IResourceClassAndPropertyDefinitions, ontologyCache: OntologyCache): Observable<ReadValue> {
 
         if (Array.isArray(valueJsonld)) throw new Error("value is expected to be a single object");
 
