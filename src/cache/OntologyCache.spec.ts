@@ -55,6 +55,63 @@ describe("OntologyCache", () => {
 
     });
 
+    describe("Method getOntology", () => {
+
+        let getOntoSpy: jasmine.Spy;
+        let ontoCache: OntologyCache;
+
+        beforeEach(() => {
+
+            getOntoSpy = spyOn(knoraApiConnection.v2.onto, "getOntology").and.callFake(
+                (ontoIri: string) => {
+
+                    const onto = mockOntology(ontoIri);
+
+                    return of(onto);
+                }
+            );
+
+            ontoCache = new OntologyCache(knoraApiConnection);
+
+        });
+
+        it("should get an ontology with direct dependencies from the cache", done => {
+
+            ontoCache.getOntology("http://api.dasch.swiss/ontology/0001/anything/v2").subscribe(ontos => {
+
+                expect(ontos.size).toEqual(2);
+                expect(ontos.has("http://api.dasch.swiss/ontology/0001/anything/v2")).toBeTruthy();
+                expect(ontos.has("http://api.knora.org/ontology/knora-api/v2")).toBeTruthy();
+
+                expect(ontos.get("http://api.dasch.swiss/ontology/0001/anything/v2") instanceof ReadOntology).toBeTruthy();
+                expect(ontos.get("http://api.knora.org/ontology/knora-api/v2") instanceof ReadOntology).toBeTruthy();
+
+                done();
+
+            });
+
+
+        });
+
+        it("should get an ontology withoutdependencies from the cache", done => {
+
+            ontoCache.getOntology("http://api.knora.org/ontology/knora-api/v2").subscribe(ontos => {
+
+                expect(ontos.size).toEqual(1);
+                expect(ontos.has("http://api.knora.org/ontology/knora-api/v2")).toBeTruthy();
+                
+                expect(ontos.get("http://api.knora.org/ontology/knora-api/v2") instanceof ReadOntology).toBeTruthy();
+
+                done();
+
+            });
+
+
+        });
+
+
+    });
+
 });
 
 const mockOntology = (ontoIri: string): ReadOntology => {
