@@ -20,8 +20,10 @@ export class OntologyCache extends GenericCache<ReadOntology> {
     /**
      * Gets an ontology from the cache including its direct dependencies.
      *
+     * The ontology Iris are the keys of the resulting Map.
+     *
      * @param ontologyIri the Iri of the ontology.
-     * @returns a Map containing the requested ontology and its direct dependencies.
+     * @returns the requested ontology and its direct dependencies.
      */
     getOntology(ontologyIri: string): Observable<Map<string, ReadOntology>> {
 
@@ -52,14 +54,10 @@ export class OntologyCache extends GenericCache<ReadOntology> {
                 } else {
                     const ontoMap: Map<string, ReadOntology> = new Map();
 
-                    return of(ontology).pipe(
-                        map(
-                            onto => {
-                                ontoMap.set(onto.id, onto);
-                                return ontoMap;
-                            }
-                        )
-                    );
+                    ontoMap.set(ontology.id, ontology);
+
+                    return of(ontoMap);
+
                 }
             })
         );

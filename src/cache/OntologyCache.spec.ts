@@ -16,7 +16,7 @@ describe("OntologyCache", () => {
     const config = new KnoraApiConfig("http", "api.dasch.swiss", 3333, "", "", true);
     const knoraApiConnection = new KnoraApiConnection(config);
 
-    describe("Method getItem", () => {
+    describe("Method getItem()", () => {
 
         let getOntoSpy: jasmine.Spy;
         let ontoCache: OntologyCache;
@@ -55,7 +55,7 @@ describe("OntologyCache", () => {
 
     });
 
-    describe("Method getOntology", () => {
+    describe("Method getOntology()", () => {
 
         let getOntoSpy: jasmine.Spy;
         let ontoCache: OntologyCache;
@@ -86,29 +86,33 @@ describe("OntologyCache", () => {
                 expect(ontos.get("http://api.dasch.swiss/ontology/0001/anything/v2") instanceof ReadOntology).toBeTruthy();
                 expect(ontos.get("http://api.knora.org/ontology/knora-api/v2") instanceof ReadOntology).toBeTruthy();
 
+                expect(getOntoSpy).toHaveBeenCalledTimes(2);
+                expect(getOntoSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2");
+                expect(getOntoSpy).toHaveBeenCalledWith("http://api.knora.org/ontology/knora-api/v2"); // anything onto depends on knora-api
+
                 done();
 
             });
 
-
         });
 
-        it("should get an ontology withoutdependencies from the cache", done => {
+        it("should get an ontology without dependencies from the cache", done => {
 
             ontoCache.getOntology("http://api.knora.org/ontology/knora-api/v2").subscribe(ontos => {
 
                 expect(ontos.size).toEqual(1);
                 expect(ontos.has("http://api.knora.org/ontology/knora-api/v2")).toBeTruthy();
-                
+
                 expect(ontos.get("http://api.knora.org/ontology/knora-api/v2") instanceof ReadOntology).toBeTruthy();
+
+                expect(getOntoSpy).toHaveBeenCalledTimes(1);
+                expect(getOntoSpy).toHaveBeenCalledWith("http://api.knora.org/ontology/knora-api/v2");
 
                 done();
 
             });
 
-
         });
-
 
     });
 
@@ -168,7 +172,7 @@ const mockOntology = (ontoIri: string): ReadOntology => {
     const referencedOntologies: Set<string> = new Set([]);
 
     if (ontoIri === "http://api.dasch.swiss/ontology/0001/anything/v2") {
-        referencedOntologies.add("http://api.knora.org/ontology/knora-api/v2")
+        referencedOntologies.add("http://api.knora.org/ontology/knora-api/v2");
     }
 
     onto.dependsOnOntologies = referencedOntologies;
