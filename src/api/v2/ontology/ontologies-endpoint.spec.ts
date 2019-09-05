@@ -5,7 +5,6 @@ import { ReadOntology } from "../../../models/v2/ontologies/read-ontology";
 import { ResourceClassDefinition } from "../../../models/v2/ontologies/resource-class-definition";
 import { ResourcePropertyDefinition } from "../../../models/v2/ontologies/resource-property-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
-import { OntologyConversionUtils } from "../../../models/v2/ontologies/OntologyConversionUtil";
 
 describe("OntologiesEndpoint", () => {
 
@@ -18,30 +17,6 @@ describe("OntologiesEndpoint", () => {
 
     afterEach(() => {
         jasmine.Ajax.uninstall();
-    });
-
-    describe("Method getOntologyIriFromEntityIri", () => {
-        it("should get the ontology IRI from a knora-api entity", () => {
-            const ontologyIri = OntologyConversionUtils.getOntologyIriFromEntityIri("http://api.knora.org/ontology/knora-api/v2#Resource", config);
-
-            expect(ontologyIri[0]).toEqual("http://api.knora.org/ontology/knora-api/v2");
-
-        });
-
-        it("should get the ontology IRI from a project entity", () => {
-            const ontologyIri = OntologyConversionUtils.getOntologyIriFromEntityIri("http://api.dasch.swiss/ontology/0807/mls/v2#Article", config);
-
-            expect(ontologyIri[0]).toEqual("http://api.dasch.swiss/ontology/0807/mls/v2");
-
-        });
-
-        it("should ignore an external entity", () => {
-            const ontologyIri = OntologyConversionUtils.getOntologyIriFromEntityIri("http://www.w3.org/2000/01/rdf-schema#label", config);
-
-            expect(ontologyIri.length).toEqual(0);
-
-        });
-
     });
 
     describe("Method getOntology", () => {
