@@ -1,7 +1,17 @@
+import { of } from "rxjs";
+import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { OntologyConversionUtil } from "./OntologyConversionUtil";
 
 describe("OntologyConversionUtil", () => {
+
+    beforeEach(() => {
+        jasmine.Ajax.install();
+    });
+
+    afterEach(() => {
+        jasmine.Ajax.uninstall();
+    });
 
     describe("Method getOntologyIriFromEntityIri", () => {
 

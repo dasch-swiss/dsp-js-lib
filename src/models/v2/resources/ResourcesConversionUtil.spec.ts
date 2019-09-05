@@ -24,13 +24,20 @@ describe("ResourcesConversionUtil", () => {
     );
 
     beforeEach(() => {
+        jasmine.Ajax.install();
 
         getResourceClassDefinitionSpy = spyOn(ontoCache, "getResourceClassDefinition").and.callFake(
             (resClassIri: string) => {
-                return of(MockOntology.mockIResourceClassAndPropertyDefinitions(resClassIri));
+                const mock = MockOntology.mockIResourceClassAndPropertyDefinitions(resClassIri);
+                return of(mock);
             }
         );
     });
+
+    afterEach(() => {
+        jasmine.Ajax.uninstall();
+    });
+
 
     describe("Method parseResourceSequence()", () => {
 
@@ -65,6 +72,26 @@ describe("ResourcesConversionUtil", () => {
                 resSeq => {
                     expect(resSeq.length).toEqual(0);
                     expect(getResourceClassDefinitionSpy).toHaveBeenCalledTimes(0);
+
+                    done();
+                }
+            );
+
+        });
+
+        it("parse JSON-LD representing several resources", done => {
+
+            const resource = require("../../../../test/data/api/v2/resources/things-expanded.json");
+
+            ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, jsonConvert).subscribe(
+                resSeq => {
+                    expect(resSeq.length).toEqual(16);
+
+                    expect(getResourceClassDefinitionSpy).toHaveBeenCalledTimes(16);
+                    expect(getResourceClassDefinitionSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
+                    expect(getResourceClassDefinitionSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#BlueThing");
+                    expect(getResourceClassDefinitionSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#ThingPicture");
+                    expect(getResourceClassDefinitionSpy).toHaveBeenCalledWith("http://api.knora.org/ontology/knora-api/v2#ForbiddenResource");
 
                     done();
                 }
