@@ -32,7 +32,7 @@ describe("OntologyCache", () => {
                 }
             );
 
-            ontoCache = new OntologyCache(knoraApiConnection);
+            ontoCache = new OntologyCache(knoraApiConnection, config);
 
         });
 
@@ -86,7 +86,7 @@ describe("OntologyCache", () => {
                 }
             );
 
-            ontoCache = new OntologyCache(knoraApiConnection);
+            ontoCache = new OntologyCache(knoraApiConnection, config);
 
         });
 
@@ -147,7 +147,7 @@ describe("OntologyCache", () => {
                 }
             );
 
-            ontoCache = new OntologyCache(knoraApiConnection);
+            ontoCache = new OntologyCache(knoraApiConnection, config);
 
         });
 

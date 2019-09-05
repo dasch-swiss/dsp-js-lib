@@ -1,9 +1,10 @@
 import { AsyncSubject, forkJoin, Observable, of } from "rxjs";
 import { map, mergeMap } from "rxjs/operators";
-import { KnoraApiConnection } from "..";
+import { KnoraApiConfig, KnoraApiConnection } from "..";
 import { ClassDefinition, IHasProperty } from "../models/v2/ontologies/class-definition";
 import { PropertyDefinition } from "../models/v2/ontologies/property-definition";
 import { ReadOntology } from "../models/v2/ontologies/read-ontology";
+import { OntologyConversionUtils } from "../models/v2/OntologyConversionUtil";
 import { GenericCache } from "./GenericCache";
 
 /**
@@ -17,7 +18,7 @@ export interface IResourceClassAndPropertyDefinitions {
 
 export class OntologyCache extends GenericCache<ReadOntology> {
 
-    constructor(private knoraApiConnection: KnoraApiConnection) {
+    constructor(private knoraApiConnection: KnoraApiConnection, private knoraApiConfig: KnoraApiConfig) {
         super();
     }
 
@@ -78,7 +79,7 @@ export class OntologyCache extends GenericCache<ReadOntology> {
      * @param resourceClassIri
      */
     getResourceClassDefinition(resourceClassIri: string): Observable<IResourceClassAndPropertyDefinitions> {
-        const ontoIri = this.knoraApiConnection.v2.onto.getOntologyIriFromEntityIri(resourceClassIri);
+        const ontoIri = OntologyConversionUtils.getOntologyIriFromEntityIri(resourceClassIri, this.knoraApiConfig);
 
         if (ontoIri.length !== 1) throw Error("Invalid resource class Iri " + resourceClassIri);
 
@@ -104,7 +105,7 @@ export class OntologyCache extends GenericCache<ReadOntology> {
                     mainOnto.classes[resourceClassIri].propertiesList.forEach(
                         (prop: IHasProperty) => {
 
-                            const fromOntoIri = this.knoraApiConnection.v2.onto.getOntologyIriFromEntityIri(prop.propertyIndex);
+                            const fromOntoIri = OntologyConversionUtils.getOntologyIriFromEntityIri(prop.propertyIndex, this.knoraApiConfig);
 
                             // only handle Knora property definitions
                             if (fromOntoIri.length === 1) {

@@ -17,7 +17,7 @@ describe("ResourcesEndpoint", () => {
     const config = new KnoraApiConfig("http", "api.dasch.swiss", undefined, undefined, "", true);
     const knoraApiConnection = new KnoraApiConnection(config);
 
-    const ontoCache = new OntologyCache(knoraApiConnection);
+    const ontoCache = new OntologyCache(knoraApiConnection, config);
 
     let getResourceClassSpy: jasmine.Spy;
 

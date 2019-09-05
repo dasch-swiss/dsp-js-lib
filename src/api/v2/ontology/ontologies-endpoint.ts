@@ -18,44 +18,6 @@ const jsonld = require("jsonld/dist/jsonld.js");
 export class OntologiesEndpoint extends Endpoint {
 
     /**
-     * Given a Knora entity IRI, gets the ontology Iri.
-     * External entity Iris are ignored.
-     *
-     * @param entityIri an entity Iri.
-     * @return the ontology IRI as the only entry in an array, otherwise an empty array.
-     */
-    getOntologyIriFromEntityIri(entityIri: string): string[] {
-
-        const ontologyIri: string[] = [];
-
-        let projectEntityBase = "http://" + this.knoraApiConfig.apiHost;
-        if (this.knoraApiConfig.apiPort !== null) {
-            projectEntityBase = projectEntityBase + ":" + this.knoraApiConfig.apiPort;
-        }
-        projectEntityBase = projectEntityBase + "/ontology/";
-
-        // Check if the given entity Iri belongs to knora-api or a project ontology.
-        // Ignore external entity Iris.
-        if (entityIri.indexOf(Constants.KnoraApiV2) === 0) {
-            ontologyIri.push(Constants.KnoraApiV2);
-        } else if (entityIri.indexOf(projectEntityBase) === 0) {
-
-            // split entity Iri on "#"
-            const segments: string[] = entityIri.split(Constants.Delimiter);
-
-            if (segments.length === 2) {
-                // First segment identifies the project ontology the entity belongs to.
-                ontologyIri.push(segments[0]);
-            } else {
-                console.error(`Error: ${entityIri} is not a valid Knora entity IRI.`);
-            }
-        }
-
-        return ontologyIri;
-
-    }
-
-    /**
      * Request an ontology from Knora and converts it to a `ReadOntology`.
      *
      * @param ontologyIri the IRI of the ontology to be requested.
@@ -132,11 +94,11 @@ export class OntologiesEndpoint extends Endpoint {
         for (const index in onto.classes) {
             if (onto.classes.hasOwnProperty(index)) {
                 onto.classes[index].propertiesList.forEach((prop: IHasProperty) => {
-                    this.getOntologyIriFromEntityIri(prop.propertyIndex)
+                    OntologyConversionUtils.getOntologyIriFromEntityIri(prop.propertyIndex, this.knoraApiConfig)
                         .forEach(ontoIri => referencedOntologies.add(ontoIri));
                 });
                 onto.classes[index].subClassOf.forEach((superClass: string) => {
-                    this.getOntologyIriFromEntityIri(superClass)
+                    OntologyConversionUtils.getOntologyIriFromEntityIri(superClass, this.knoraApiConfig)
                         .forEach(ontoIri => referencedOntologies.add(ontoIri));
                 });
             }
@@ -147,15 +109,15 @@ export class OntologiesEndpoint extends Endpoint {
         for (const index in onto.properties) {
             if (onto.properties.hasOwnProperty(index)) {
                 if (onto.properties[index].objectType !== undefined) {
-                    this.getOntologyIriFromEntityIri(onto.properties[index].objectType as string)
+                    OntologyConversionUtils.getOntologyIriFromEntityIri(onto.properties[index].objectType as string, this.knoraApiConfig)
                         .forEach(ontoIri => referencedOntologies.add(ontoIri));
                 }
                 if (onto.properties[index].subjectType !== undefined) {
-                    this.getOntologyIriFromEntityIri(onto.properties[index].subjectType as string)
+                    OntologyConversionUtils.getOntologyIriFromEntityIri(onto.properties[index].subjectType as string, this.knoraApiConfig)
                         .forEach(ontoIri => referencedOntologies.add(ontoIri));
                 }
                 onto.properties[index].subPropertyOf.forEach((superProperty: string) => {
-                    this.getOntologyIriFromEntityIri(superProperty)
+                    OntologyConversionUtils.getOntologyIriFromEntityIri(superProperty, this.knoraApiConfig)
                         .forEach(ontoIri => referencedOntologies.add(ontoIri));
                 });
             }
