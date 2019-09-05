@@ -53,6 +53,21 @@ describe("OntologyCache", () => {
             });
         });
 
+        it("should get an ontology from the cache", done => {
+
+            ontoCache["getItem"]("http://api.knora.org/ontology/knora-api/v2").subscribe((onto: ReadOntology) => {
+
+                expect(onto.id).toEqual("http://api.knora.org/ontology/knora-api/v2");
+
+                expect(getOntoSpy).toHaveBeenCalledTimes(1);
+                expect(getOntoSpy).toHaveBeenCalledWith("http://api.knora.org/ontology/knora-api/v2");
+
+                expect(ontoCache["cache"]["http://api.knora.org/ontology/knora-api/v2"]).not.toBeUndefined(); 
+                done();
+
+            });
+        });
+
     });
 
     describe("Method getOntology()", () => {
