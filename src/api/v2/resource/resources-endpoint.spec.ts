@@ -33,18 +33,12 @@ describe("ResourcesEndpoint", () => {
     it("should return a resource", done => {
 
         knoraApiConnection.v2.res.getResource("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", ontoCache).subscribe((response: ReadResource) => {
-            /*response[0].properties.forEach(
-                    prop => console.log(prop)
-            );*/
 
-            // console.log(response)
-
+            expect(response.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw");
             expect(response.resourceClassLabel).toEqual("Thing");
 
             expect(getResourceClassSpy).toHaveBeenCalledTimes(2);
             expect(getResourceClassSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
-
-            // console.log(response[0].properties);
 
             done();
         });

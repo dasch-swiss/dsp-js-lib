@@ -1,12 +1,12 @@
 import { JsonConvert } from "json2typescript";
-import { KnoraApiConfig } from "../../knora-api-config";
-import { Constants } from "./Constants";
-import { IHasProperty } from "./ontologies/class-definition";
-import { ReadOntology } from "./ontologies/read-ontology";
-import { ResourceClassDefinition } from "./ontologies/resource-class-definition";
-import { ResourcePropertyDefinition } from "./ontologies/resource-property-definition";
-import { StandoffClassDefinition } from "./ontologies/standoff-class-definition";
-import { SystemPropertyDefinition } from "./ontologies/system-property-definition";
+import { KnoraApiConfig } from "../../../knora-api-config";
+import { Constants } from "../Constants";
+import { IHasProperty } from "./class-definition";
+import { ReadOntology } from "./read-ontology";
+import { ResourceClassDefinition } from "./resource-class-definition";
+import { ResourcePropertyDefinition } from "./resource-property-definition";
+import { StandoffClassDefinition } from "./standoff-class-definition";
+import { SystemPropertyDefinition } from "./system-property-definition";
 
 export namespace OntologyConversionUtils {
 

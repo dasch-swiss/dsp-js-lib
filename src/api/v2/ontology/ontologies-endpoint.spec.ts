@@ -5,7 +5,7 @@ import { ReadOntology } from "../../../models/v2/ontologies/read-ontology";
 import { ResourceClassDefinition } from "../../../models/v2/ontologies/resource-class-definition";
 import { ResourcePropertyDefinition } from "../../../models/v2/ontologies/resource-property-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
-import { OntologyConversionUtils } from "../../../models/v2/OntologyConversionUtil";
+import { OntologyConversionUtils } from "../../../models/v2/ontologies/OntologyConversionUtil";
 
 describe("OntologiesEndpoint", () => {
 

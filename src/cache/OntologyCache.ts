@@ -4,7 +4,7 @@ import { KnoraApiConfig, KnoraApiConnection } from "..";
 import { ClassDefinition, IHasProperty } from "../models/v2/ontologies/class-definition";
 import { PropertyDefinition } from "../models/v2/ontologies/property-definition";
 import { ReadOntology } from "../models/v2/ontologies/read-ontology";
-import { OntologyConversionUtils } from "../models/v2/OntologyConversionUtil";
+import { OntologyConversionUtils } from "../models/v2/ontologies/OntologyConversionUtil";
 import { GenericCache } from "./GenericCache";
 
 /**

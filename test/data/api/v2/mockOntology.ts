@@ -6,7 +6,7 @@ import { ResourceClassDefinition } from "../../../../src/models/v2/ontologies/re
 import { ResourcePropertyDefinition } from "../../../../src/models/v2/ontologies/resource-property-definition";
 import { StandoffClassDefinition } from "../../../../src/models/v2/ontologies/standoff-class-definition";
 import { SystemPropertyDefinition } from "../../../../src/models/v2/ontologies/system-property-definition";
-import { OntologyConversionUtils } from "../../../../src/models/v2/OntologyConversionUtil";
+import { OntologyConversionUtils } from "../../../../src/models/v2/ontologies/OntologyConversionUtil";
 import anythingOntologyExpanded from "../v2/ontologies/anything-ontology-expanded.json";
 import knoraApiOntologyExpanded from "../v2/ontologies/knora-api-ontology-expanded.json";
 

@@ -1,22 +1,22 @@
 import { JsonConvert } from "json2typescript";
 import { forkJoin, Observable, of } from "rxjs";
 import { map, mergeMap } from "rxjs/operators";
-import { OntologyCache } from "../..";
-import { IResourceClassAndPropertyDefinitions } from "../../cache/OntologyCache";
-import { Constants } from "./Constants";
-import { ResourcePropertyDefinition } from "./ontologies/resource-property-definition";
-import { ReadResource } from "./resources/read-resource";
-import { ReadBooleanValue } from "./resources/values/read-boolean-value";
-import { ReadColorValue } from "./resources/values/read-color-value";
-import { ReadDateValue } from "./resources/values/read-date-value";
-import { ReadDecimalValue } from "./resources/values/read-decimal-value";
-import { ReadIntValue } from "./resources/values/read-int-value";
-import { ReadIntervalValue } from "./resources/values/read-interval-value";
-import { ReadLinkValue } from "./resources/values/read-link-value";
-import { ReadListValue } from "./resources/values/read-list-value";
-import { ReadTextValueAsHtml, ReadTextValueAsString, ReadTextValueAsXml } from "./resources/values/read-text-value";
-import { ReadUriValue } from "./resources/values/read-uri-value";
-import { ReadValue } from "./resources/values/read-value";
+import { OntologyCache } from "../../../index";
+import { IResourceClassAndPropertyDefinitions } from "../../../cache/OntologyCache";
+import { Constants } from "../Constants";
+import { ResourcePropertyDefinition } from "../ontologies/resource-property-definition";
+import { ReadResource } from "./read-resource";
+import { ReadBooleanValue } from "./values/read-boolean-value";
+import { ReadColorValue } from "./values/read-color-value";
+import { ReadDateValue } from "./values/read-date-value";
+import { ReadDecimalValue } from "./values/read-decimal-value";
+import { ReadIntValue } from "./values/read-int-value";
+import { ReadIntervalValue } from "./values/read-interval-value";
+import { ReadLinkValue } from "./values/read-link-value";
+import { ReadListValue } from "./values/read-list-value";
+import { ReadTextValueAsHtml, ReadTextValueAsString, ReadTextValueAsXml } from "./values/read-text-value";
+import { ReadUriValue } from "./values/read-uri-value";
+import { ReadValue } from "./values/read-value";
 
 export namespace ResourcesConversionUtils {
 
