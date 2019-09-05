@@ -1,6 +1,7 @@
 import { JsonConvert } from "json2typescript";
 import { KnoraApiConfig } from "../../knora-api-config";
 import { Constants } from "./Constants";
+import { IHasProperty } from "./ontologies/class-definition";
 import { ReadOntology } from "./ontologies/read-ontology";
 import { ResourceClassDefinition } from "./ontologies/resource-class-definition";
 import { ResourcePropertyDefinition } from "./ontologies/resource-property-definition";
@@ -48,35 +49,57 @@ export namespace OntologyConversionUtils {
 
     };
 
-    // Given a collection of definitions, filters out resource class definitions
+    /**
+     * Determines resource class definitions when passed to filter() applied to an array of entity definitions.
+     *
+     * @param entity the entity definition to be analyzed.
+     */
     export const filterResourceClassDefinitions = (entity: { [index: string]: any }): boolean => {
         return entity.hasOwnProperty(Constants.IsResourceClass) &&
             entity[Constants.IsResourceClass] === true;
     };
 
-    // Given a collection of definitions, filters out standoff class definitions
+    /**
+     * Determines standoff class definitions when passed to filter() applied to an array of entity definitions.
+     *
+     * @param entity the entity definition to be analyzed.
+     */
     export const filterStandoffClassDefinitions = (entity: { [index: string]: any }): boolean => {
         return entity.hasOwnProperty(Constants.IsStandoffClass) &&
             entity[Constants.IsStandoffClass] === true;
     };
 
-    // Given a collection of definitions, filters out resource property definitions
+    /**
+     * Determines resource property definitions when passed to filter() applied to an array of entity definitions.
+     *
+     * @param entity the entity definition to be analyzed.
+     */
     export const filterResourcePropertyDefinitions = (entity: { [index: string]: any }): boolean => {
         return entity.hasOwnProperty(Constants.IsResourceProperty) &&
             entity[Constants.IsResourceProperty] === true;
     };
 
-    // Given a collection of definitions, filters out system property definitions
+    /**
+     * Determines system property definitions when passed to filter() applied to an array of entity definitions.
+     *
+     * @param entity the entity definition to be analyzed.
+     */
     export const filterSystemPropertyDefintions = (entity: { [index: string]: any }) => {
         return (entity["@type"] === Constants.DataTypeProperty || entity["@type"] === Constants.ObjectProperty)
             && !entity.hasOwnProperty(Constants.IsResourceProperty);
     };
 
-    // Converts an entity to the given type
+    /**
+     * Converts an entity defintion to the specified type.
+     *
+     * @param entity the entity definition to be converted.
+     * @param dataType the target type of the conversion.
+     * @param jsonConvert the converter to be used.
+     */
     export const convertEntity = <T>(entity: object, dataType: { new(): T }, jsonConvert: JsonConvert): T => {
         return jsonConvert.deserializeObject(entity, dataType);
     };
-    
+
     /**
      * Given an array of entities, converts and adds them to the given ontology.
      *
@@ -113,6 +136,58 @@ export namespace OntologyConversionUtils {
         }).forEach((prop: SystemPropertyDefinition) => {
             ontology.properties[prop.id] = prop;
         });
+    };
+
+    /**
+     * Given an ontology, analyzes its direct dependencies and adds them to the given ontology.
+     *
+     * @param ontology the ontology whose direct dependencies should be analyzed.
+     * @param knoraApiConfig the Knora API config to be used.
+     */
+    export const analyzeDirectDependencies = (ontology: ReadOntology, knoraApiConfig: KnoraApiConfig) => {
+
+        // Ontologies referenced by this ontology
+        const referencedOntologies: Set<string> = new Set([]);
+
+        // Collect ontologies referenced by this ontology in resource classes:
+        // references to properties (cardinalities) and resource classes (super classes)
+        for (const index in ontology.classes) {
+            if (ontology.classes.hasOwnProperty(index)) {
+                ontology.classes[index].propertiesList.forEach((prop: IHasProperty) => {
+                    getOntologyIriFromEntityIri(prop.propertyIndex, knoraApiConfig)
+                        .forEach(ontoIri => referencedOntologies.add(ontoIri));
+                });
+                ontology.classes[index].subClassOf.forEach((superClass: string) => {
+                    getOntologyIriFromEntityIri(superClass, knoraApiConfig)
+                        .forEach(ontoIri => referencedOntologies.add(ontoIri));
+                });
+            }
+        }
+
+        // Collect ontologies referenced by this ontology in properties:
+        // references to other properties (super properties) and resource classes (subject and object types)
+        for (const index in ontology.properties) {
+            if (ontology.properties.hasOwnProperty(index)) {
+                if (ontology.properties[index].objectType !== undefined) {
+                    getOntologyIriFromEntityIri(ontology.properties[index].objectType as string, knoraApiConfig)
+                        .forEach(ontoIri => referencedOntologies.add(ontoIri));
+                }
+                if (ontology.properties[index].subjectType !== undefined) {
+                    getOntologyIriFromEntityIri(ontology.properties[index].subjectType as string, knoraApiConfig)
+                        .forEach(ontoIri => referencedOntologies.add(ontoIri));
+                }
+                ontology.properties[index].subPropertyOf.forEach((superProperty: string) => {
+                    getOntologyIriFromEntityIri(superProperty, knoraApiConfig)
+                        .forEach(ontoIri => referencedOntologies.add(ontoIri));
+                });
+            }
+        }
+
+        // Remove this ontology from the collection
+        referencedOntologies.delete(ontology.id);
+
+        ontology.dependsOnOntologies = referencedOntologies;
+
     };
 
 }

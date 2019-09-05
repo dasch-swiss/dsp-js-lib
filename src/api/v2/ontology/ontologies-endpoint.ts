@@ -60,47 +60,7 @@ export class OntologiesEndpoint extends Endpoint {
 
         OntologyConversionUtils.convertAndAddEntityDefinitions(onto, entities, this.jsonConvert);
 
-        // Ontologies referenced by this ontology
-        const referencedOntologies: Set<string> = new Set([]);
-
-        // Collect ontologies referenced by this ontology in resource classes:
-        // references to properties (cardinalities) and resource classes (super classes)
-        for (const index in onto.classes) {
-            if (onto.classes.hasOwnProperty(index)) {
-                onto.classes[index].propertiesList.forEach((prop: IHasProperty) => {
-                    OntologyConversionUtils.getOntologyIriFromEntityIri(prop.propertyIndex, this.knoraApiConfig)
-                        .forEach(ontoIri => referencedOntologies.add(ontoIri));
-                });
-                onto.classes[index].subClassOf.forEach((superClass: string) => {
-                    OntologyConversionUtils.getOntologyIriFromEntityIri(superClass, this.knoraApiConfig)
-                        .forEach(ontoIri => referencedOntologies.add(ontoIri));
-                });
-            }
-        }
-
-        // Collect ontologies referenced by this ontology in properties:
-        // references to other properties (super properties) and resource classes (subject and object types)
-        for (const index in onto.properties) {
-            if (onto.properties.hasOwnProperty(index)) {
-                if (onto.properties[index].objectType !== undefined) {
-                    OntologyConversionUtils.getOntologyIriFromEntityIri(onto.properties[index].objectType as string, this.knoraApiConfig)
-                        .forEach(ontoIri => referencedOntologies.add(ontoIri));
-                }
-                if (onto.properties[index].subjectType !== undefined) {
-                    OntologyConversionUtils.getOntologyIriFromEntityIri(onto.properties[index].subjectType as string, this.knoraApiConfig)
-                        .forEach(ontoIri => referencedOntologies.add(ontoIri));
-                }
-                onto.properties[index].subPropertyOf.forEach((superProperty: string) => {
-                    OntologyConversionUtils.getOntologyIriFromEntityIri(superProperty, this.knoraApiConfig)
-                        .forEach(ontoIri => referencedOntologies.add(ontoIri));
-                });
-            }
-        }
-
-        // Remove this ontology from the collection
-        referencedOntologies.delete(onto.id);
-
-        onto.dependsOnOntologies = referencedOntologies;
+        OntologyConversionUtils.analyzeDirectDependencies(onto, this.knoraApiConfig);
 
         return onto;
     }
