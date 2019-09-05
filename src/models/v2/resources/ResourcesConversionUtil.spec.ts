@@ -38,7 +38,6 @@ describe("ResourcesConversionUtil", () => {
         jasmine.Ajax.uninstall();
     });
 
-
     describe("Method parseResourceSequence()", () => {
 
         it("parse JSON-LD representing a single resource", done => {
