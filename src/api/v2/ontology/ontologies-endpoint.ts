@@ -32,7 +32,7 @@ export class OntologiesEndpoint extends Endpoint {
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
-                return this.convertOntology(jsonldobj, ontologyIri);
+                return OntologyConversionUtils.convertOntology(jsonldobj, this.jsonConvert, this.knoraApiConfig);
             }),
             catchError(error => {
                 return this.handleError(error);
@@ -40,28 +40,4 @@ export class OntologiesEndpoint extends Endpoint {
         );
     }
 
-    /**
-     * Converts an ontology serialized as JSON-LD to an instance of `ReadOntology`.
-     *
-     * @param ontologyJsonld ontology as JSON-LD already processed by the jsonld-processor.
-     * @param ontologyIri the Iri of the ontology.
-     * @return the ontology as a `ReadOntology`.
-     */
-    private convertOntology(ontologyJsonld: object, ontologyIri: string): ReadOntology {
-
-        const onto: ReadOntology = this.jsonConvert.deserializeObject(ontologyJsonld, ReadOntology);
-
-        // Access the collection of entities
-        const entities: object[] = (ontologyJsonld as { [index: string]: object[] })["@graph"];
-
-        if (!Array.isArray(entities)) throw new Error("An ontology is expected to have a member '@graph' containing an array of entities");
-
-        // this.jsonConvert.operationMode = OperationMode.LOGGING;
-
-        OntologyConversionUtils.convertAndAddEntityDefinitions(onto, entities, this.jsonConvert);
-
-        OntologyConversionUtils.analyzeDirectDependencies(onto, this.knoraApiConfig);
-
-        return onto;
-    }
 }

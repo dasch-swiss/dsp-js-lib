@@ -107,7 +107,7 @@ export namespace OntologyConversionUtils {
      * @param entities the entities to be converted and added.
      * @param jsonConvert instance of JsonConvert to be used.
      */
-    export const convertAndAddEntityDefinitions = (ontology: ReadOntology, entities: object[], jsonConvert: JsonConvert) => {
+    const convertAndAddEntityDefinitions = (ontology: ReadOntology, entities: object[], jsonConvert: JsonConvert) => {
 
         // Convert resource classes
         entities.filter(filterResourceClassDefinitions).map(resclassJsonld => {
@@ -144,7 +144,7 @@ export namespace OntologyConversionUtils {
      * @param ontology the ontology whose direct dependencies should be analyzed.
      * @param knoraApiConfig the Knora API config to be used.
      */
-    export const analyzeDirectDependencies = (ontology: ReadOntology, knoraApiConfig: KnoraApiConfig) => {
+    const analyzeDirectDependencies = (ontology: ReadOntology, knoraApiConfig: KnoraApiConfig) => {
 
         // Ontologies referenced by this ontology
         const referencedOntologies: Set<string> = new Set([]);
@@ -187,6 +187,31 @@ export namespace OntologyConversionUtils {
         referencedOntologies.delete(ontology.id);
 
         ontology.dependsOnOntologies = referencedOntologies;
+
+    };
+
+    /**
+     * Converts an ontology serialized as JSON-LD to an instance of `ReadOntology`.
+     *
+     * @param ontologyJsonld ontology as JSON-LD already processed by the jsonld-processor.
+     * @param jsonConvert
+     * @param knoraApiConfig
+     * @return the ontology as a `ReadOntology`.
+     */
+    export const convertOntology = (ontologyJsonld: object, jsonConvert: JsonConvert, knoraApiConfig: KnoraApiConfig): ReadOntology => {
+
+        const ontology: ReadOntology = jsonConvert.deserializeObject(ontologyJsonld, ReadOntology);
+
+        // Access the collection of entities
+        const entities: object[] = (ontologyJsonld as { [index: string]: object[] })["@graph"];
+
+        if (!Array.isArray(entities)) throw new Error("An ontology is expected to have a member '@graph' containing an array of entities");
+
+        convertAndAddEntityDefinitions(ontology, entities, jsonConvert);
+
+        analyzeDirectDependencies(ontology, knoraApiConfig);
+
+        return ontology;
 
     };
 
