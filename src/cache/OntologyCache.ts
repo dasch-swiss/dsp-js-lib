@@ -17,6 +17,12 @@ export class OntologyCache extends GenericCache<ReadOntology> {
         super();
     }
 
+    /**
+     * Gets an ontology from the cache including its direct dependencies.
+     *
+     * @param ontologyIri the Iri of the ontology.
+     * @returns a Map containing the requested ontology and its direct dependencies.
+     */
     getOntology(ontologyIri: string): Observable<Map<string, ReadOntology>> {
 
         return this.getItem(ontologyIri).pipe(
