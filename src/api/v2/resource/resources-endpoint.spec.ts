@@ -6,10 +6,10 @@ import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { IEntityDefinitions } from "../../../cache/OntologyCache";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
-import { Constants } from "../../../models/v2/Constants";
 import { ResourceClassDefinition } from "../../../models/v2/ontologies/resource-class-definition";
 import { ResourcePropertyDefinition } from "../../../models/v2/ontologies/resource-property-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
+import { OntologyConversionUtils } from "../../../models/v2/OntologyConversionUtil";
 import { ReadResource } from "../../../models/v2/resources/read-resource";
 
 describe("ResourcesEndpoint", () => {
@@ -27,7 +27,7 @@ describe("ResourcesEndpoint", () => {
 
         getResourceClassSpy = spyOn(ontoCache, "getResourceClass").and.callFake(
             (resClassIri: string) => {
-                return of(entityMock);
+                return of(createEntityMock(resClassIri));
             }
         );
     });
@@ -49,6 +49,8 @@ describe("ResourcesEndpoint", () => {
             expect(getResourceClassSpy).toHaveBeenCalledTimes(2);
             expect(getResourceClassSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
 
+            // console.log(response[0].properties);
+
             done();
         });
 
@@ -66,59 +68,60 @@ describe("ResourcesEndpoint", () => {
 
 });
 
-const entityMock: IEntityDefinitions = {
-    classes: {},
-    properties: {}
+const createEntityMock = (resClassIri: string): IEntityDefinitions => {
+
+    const entityMock: IEntityDefinitions = {
+        classes: {},
+        properties: {}
+    };
+
+    const jsonConvert: JsonConvert = new JsonConvert(
+        OperationMode.ENABLE,
+        ValueCheckingMode.DISALLOW_NULL,
+        false,
+        PropertyMatchingRule.CASE_STRICT
+    );
+
+    const anythingOntology = require("../../../../test/data/api/v2/ontologies/anything-ontology-expanded.json");
+    const knoraApiOntology = require("../../../../test/data/api/v2/ontologies/knora-api-ontology-expanded.json");
+
+    const knoraApiEntities = (knoraApiOntology as { [index: string]: object[] })["@graph"];
+    const anythingEntities = (anythingOntology as { [index: string]: object[] })["@graph"];
+
+    const entities = knoraApiEntities.concat(anythingEntities);
+
+    // this.jsonConvert.operationMode = OperationMode.LOGGING;
+
+    // Convert resource classes
+    entities.filter(OntologyConversionUtils.filterResourceClassDefinitions)
+        .map(resclassJsonld => OntologyConversionUtils.convertEntity(resclassJsonld, ResourceClassDefinition, jsonConvert))
+        .filter(resclassDef => resclassDef.id === resClassIri)
+        .forEach((resClass: ResourceClassDefinition) => {
+            entityMock.classes[resClass.id] = resClass;
+        });
+
+    // properties of anything Thing
+    const props: string[]
+        = entityMock.classes[resClassIri].propertiesList.map(prop => prop.propertyIndex);
+
+    // Convert resource properties (properties pointing to Knora values)
+    entities.filter(OntologyConversionUtils.filterResourcePropertyDefinitions)
+        .map((propertyJsonld: any) => {
+            return OntologyConversionUtils.convertEntity(propertyJsonld, ResourcePropertyDefinition, jsonConvert);
+        }).filter(propertyDef => props.indexOf(propertyDef.id) !== -1)
+        .forEach((prop: ResourcePropertyDefinition) => {
+            entityMock.properties[prop.id] = prop;
+        });
+
+    // Convert system properties (properties not pointing to Knora values)
+    entities.filter(OntologyConversionUtils.filterSystemPropertyDefintions)
+        .map((propertyJsonld: any) => {
+            return OntologyConversionUtils.convertEntity(propertyJsonld, SystemPropertyDefinition, jsonConvert);
+        }).filter(propertyDef => props.indexOf(propertyDef.id) !== -1)
+        .forEach((prop: SystemPropertyDefinition) => {
+            entityMock.properties[prop.id] = prop;
+        });
+
+    return entityMock;
+
 };
-
-const jsonConvert: JsonConvert = new JsonConvert(
-    OperationMode.ENABLE,
-    ValueCheckingMode.DISALLOW_NULL,
-    false,
-    PropertyMatchingRule.CASE_STRICT
-);
-
-const anythingOntology = require("../../../../test/data/api/v2/ontologies/anything-ontology-expanded.json");
-const knoraApiOntology = require("../../../../test/data/api/v2/ontologies/knora-api-ontology-expanded.json");
-
-const knoraApiEntities = (knoraApiOntology as { [index: string]: object[] })["@graph"];
-const anythingEntities = (anythingOntology as { [index: string]: object[] })["@graph"];
-
-const entities = knoraApiEntities.concat(anythingEntities);
-
-// this.jsonConvert.operationMode = OperationMode.LOGGING;
-
-// Convert resource classes
-entities.filter((entity: any) => {
-    return entity.hasOwnProperty(Constants.IsResourceClass) &&
-        entity[Constants.IsResourceClass] === true && entity["@id"] === "http://api.dasch.swiss/ontology/0001/anything/v2#Thing";
-}).map(resclassJsonld => {
-    return jsonConvert.deserializeObject(resclassJsonld, ResourceClassDefinition);
-}).forEach((resClass: ResourceClassDefinition) => {
-    entityMock.classes[resClass.id] = resClass;
-});
-
-// properties of anything Thing
-
-const props: string[]
-    = entityMock.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"].propertiesList.map(prop => prop.propertyIndex);
-
-// Convert resource properties (properties pointing to Knora values)
-entities.filter((entity: any) => {
-    return entity.hasOwnProperty(Constants.IsResourceProperty) &&
-        entity[Constants.IsResourceProperty] === true && props.indexOf(entity["@id"]) !== -1;
-}).map((propertyJsonld: any) => {
-    return jsonConvert.deserializeObject(propertyJsonld, ResourcePropertyDefinition);
-}).forEach((prop: ResourcePropertyDefinition) => {
-    entityMock.properties[prop.id] = prop;
-});
-
-// Convert system properties (properties not pointing to Knora values)
-entities.filter((entity: any) => {
-    return (entity["@type"] === Constants.DataTypeProperty || entity["@type"] === Constants.ObjectProperty)
-        && !entity.hasOwnProperty(Constants.IsResourceProperty) && props.indexOf(entity["@id"]) !== -1;
-}).map((propertyJsonld: any) => {
-    return jsonConvert.deserializeObject(propertyJsonld, SystemPropertyDefinition);
-}).forEach((prop: SystemPropertyDefinition) => {
-    entityMock.properties[prop.id] = prop;
-});
