@@ -2,13 +2,7 @@ import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { ApiResponseError } from "../../..";
-import { Constants } from "../../../models/v2/Constants";
-import { IHasProperty } from "../../../models/v2/ontologies/class-definition";
 import { ReadOntology } from "../../../models/v2/ontologies/read-ontology";
-import { ResourceClassDefinition } from "../../../models/v2/ontologies/resource-class-definition";
-import { ResourcePropertyDefinition } from "../../../models/v2/ontologies/resource-property-definition";
-import { StandoffClassDefinition } from "../../../models/v2/ontologies/standoff-class-definition";
-import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
 import { OntologyConversionUtils } from "../../../models/v2/OntologyConversionUtil";
 import { Endpoint } from "../../endpoint";
 
