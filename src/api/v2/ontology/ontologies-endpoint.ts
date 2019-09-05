@@ -49,7 +49,7 @@ export class OntologiesEndpoint extends Endpoint {
      */
     private convertOntology(ontologyJsonld: object, ontologyIri: string): ReadOntology {
 
-        const onto = this.jsonConvert.deserializeObject(ontologyJsonld, ReadOntology);
+        const onto: ReadOntology = this.jsonConvert.deserializeObject(ontologyJsonld, ReadOntology);
 
         // Access the collection of entities
         const entities: object[] = (ontologyJsonld as { [index: string]: object[] })["@graph"];
@@ -58,33 +58,7 @@ export class OntologiesEndpoint extends Endpoint {
 
         // this.jsonConvert.operationMode = OperationMode.LOGGING;
 
-        // Convert resource classes
-        entities.filter(OntologyConversionUtils.filterResourceClassDefinitions).map(resclassJsonld => {
-            return OntologyConversionUtils.convertEntity(resclassJsonld, ResourceClassDefinition, this.jsonConvert);
-        }).forEach((resClass: ResourceClassDefinition) => {
-            onto.classes[resClass.id] = resClass;
-        });
-
-        // Convert standoff classes
-        entities.filter(OntologyConversionUtils.filterStandoffClassDefinitions).map(standoffclassJsonld => {
-            return OntologyConversionUtils.convertEntity(standoffclassJsonld, StandoffClassDefinition, this.jsonConvert);
-        }).forEach((standoffClass: StandoffClassDefinition) => {
-            onto.classes[standoffClass.id] = standoffClass;
-        });
-
-        // Convert resource properties (properties pointing to Knora values)
-        entities.filter(OntologyConversionUtils.filterResourcePropertyDefinitions).map(propertyJsonld => {
-            return OntologyConversionUtils.convertEntity(propertyJsonld, ResourcePropertyDefinition, this.jsonConvert);
-        }).forEach((prop: ResourcePropertyDefinition) => {
-            onto.properties[prop.id] = prop;
-        });
-
-        // Convert system properties (properties not pointing to Knora values)
-        entities.filter(OntologyConversionUtils.filterSystemPropertyDefintions).map(propertyJsonld => {
-            return OntologyConversionUtils.convertEntity(propertyJsonld, SystemPropertyDefinition, this.jsonConvert);
-        }).forEach((prop: SystemPropertyDefinition) => {
-            onto.properties[prop.id] = prop;
-        });
+        OntologyConversionUtils.convertAndAddEntityDefinitions(onto, entities, this.jsonConvert);
 
         // Ontologies referenced by this ontology
         const referencedOntologies: Set<string> = new Set([]);

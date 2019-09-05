@@ -1,6 +1,11 @@
 import { JsonConvert } from "json2typescript";
 import { KnoraApiConfig } from "../../knora-api-config";
 import { Constants } from "./Constants";
+import { ReadOntology } from "./ontologies/read-ontology";
+import { ResourceClassDefinition } from "./ontologies/resource-class-definition";
+import { ResourcePropertyDefinition } from "./ontologies/resource-property-definition";
+import { StandoffClassDefinition } from "./ontologies/standoff-class-definition";
+import { SystemPropertyDefinition } from "./ontologies/system-property-definition";
 
 export namespace OntologyConversionUtils {
 
@@ -70,6 +75,44 @@ export namespace OntologyConversionUtils {
     // Converts an entity to the given type
     export const convertEntity = <T>(entity: object, dataType: { new(): T }, jsonConvert: JsonConvert): T => {
         return jsonConvert.deserializeObject(entity, dataType);
+    };
+    
+    /**
+     * Given an array of entities, converts and adds them to the given ontology.
+     *
+     * @param ontology the ontology to which the definitions should be added.
+     * @param entities the entities to be converted and added.
+     * @param jsonConvert instance of JsonConvert to be used.
+     */
+    export const convertAndAddEntityDefinitions = (ontology: ReadOntology, entities: object[], jsonConvert: JsonConvert) => {
+
+        // Convert resource classes
+        entities.filter(filterResourceClassDefinitions).map(resclassJsonld => {
+            return convertEntity(resclassJsonld, ResourceClassDefinition, jsonConvert);
+        }).forEach((resClass: ResourceClassDefinition) => {
+            ontology.classes[resClass.id] = resClass;
+        });
+
+        // Convert standoff classes
+        entities.filter(filterStandoffClassDefinitions).map(standoffclassJsonld => {
+            return convertEntity(standoffclassJsonld, StandoffClassDefinition, jsonConvert);
+        }).forEach((standoffClass: StandoffClassDefinition) => {
+            ontology.classes[standoffClass.id] = standoffClass;
+        });
+
+        // Convert resource properties (properties pointing to Knora values)
+        entities.filter(filterResourcePropertyDefinitions).map(propertyJsonld => {
+            return convertEntity(propertyJsonld, ResourcePropertyDefinition, jsonConvert);
+        }).forEach((prop: ResourcePropertyDefinition) => {
+            ontology.properties[prop.id] = prop;
+        });
+
+        // Convert system properties (properties not pointing to Knora values)
+        entities.filter(filterSystemPropertyDefintions).map(propertyJsonld => {
+            return convertEntity(propertyJsonld, SystemPropertyDefinition, jsonConvert);
+        }).forEach((prop: SystemPropertyDefinition) => {
+            ontology.properties[prop.id] = prop;
+        });
     };
 
 }
