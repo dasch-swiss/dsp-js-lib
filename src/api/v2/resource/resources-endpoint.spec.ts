@@ -38,13 +38,14 @@ describe("ResourcesEndpoint", () => {
 
     it("should return a resource", done => {
 
-        knoraApiConnection.v2.res.getResource("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", ontoCache).subscribe((response: ReadResource[]) => {
+        knoraApiConnection.v2.res.getResource("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", ontoCache).subscribe((response: ReadResource) => {
             /*response[0].properties.forEach(
                     prop => console.log(prop)
             );*/
 
-            expect(response.length).toEqual(1);
-            expect(response[0].resourceClassLabel).toEqual("Thing");
+            // console.log(response)
+
+            expect(response.resourceClassLabel).toEqual("Thing");
 
             expect(getResourceClassSpy).toHaveBeenCalledTimes(2);
             expect(getResourceClassSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
@@ -56,9 +57,9 @@ describe("ResourcesEndpoint", () => {
 
         const request = jasmine.Ajax.requests.mostRecent();
 
-        const onto = require("../../../../test/data/api/v2/resources/testding.json");
+        const resource = require("../../../../test/data/api/v2/resources/testding.json");
 
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(onto)));
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
         expect(request.url).toBe("http://api.dasch.swiss/v2/resources/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw");
 

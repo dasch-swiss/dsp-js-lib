@@ -18,7 +18,7 @@ import { ReadTextValueAsHtml, ReadTextValueAsString, ReadTextValueAsXml } from "
 import { ReadUriValue } from "./resources/values/read-uri-value";
 import { ReadValue } from "./resources/values/read-value";
 
-export namespace ResourceConversionUtils {
+export namespace ResourcesConversionUtils {
 
     export const parseResourceSequence = (resourcesJsonld: object, ontologyCache: OntologyCache, jsonConvert: JsonConvert): Observable<ReadResource[]> => {
 
