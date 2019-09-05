@@ -12,14 +12,14 @@ import knoraApiOntologyExpanded from "../v2/ontologies/knora-api-ontology-expand
 
 export namespace MockOntology {
 
-    export const mockReadOntology = (ontoIri: string): ReadOntology => {
+    const jsonConvert: JsonConvert = new JsonConvert(
+        OperationMode.ENABLE,
+        ValueCheckingMode.DISALLOW_NULL,
+        false,
+        PropertyMatchingRule.CASE_STRICT
+    );
 
-        const jsonConvert: JsonConvert = new JsonConvert(
-            OperationMode.ENABLE,
-            ValueCheckingMode.DISALLOW_NULL,
-            false,
-            PropertyMatchingRule.CASE_STRICT
-        );
+    export const mockReadOntology = (ontoIri: string): ReadOntology => {
 
         let ontologyJsonld: any;
 
@@ -82,13 +82,6 @@ export namespace MockOntology {
             properties: {}
         };
 
-        const jsonConvert: JsonConvert = new JsonConvert(
-            OperationMode.ENABLE,
-            ValueCheckingMode.DISALLOW_NULL,
-            false,
-            PropertyMatchingRule.CASE_STRICT
-        );
-
         const anythingOntology: any = anythingOntologyExpanded;
         const knoraApiOntology: any = knoraApiOntologyExpanded;
 
@@ -96,8 +89,6 @@ export namespace MockOntology {
         const anythingEntities = (anythingOntology as { [index: string]: object[] })["@graph"];
 
         const entities = knoraApiEntities.concat(anythingEntities);
-
-        // this.jsonConvert.operationMode = OperationMode.LOGGING;
 
         // Convert resource classes
         entities.filter(OntologyConversionUtils.filterResourceClassDefinitions)
