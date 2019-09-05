@@ -19,7 +19,8 @@ describe("OntologyCache", () => {
             getOntoSpy = spyOn(knoraApiConnection.v2.onto, "getOntology").and.callFake(
                 (ontoIri: string) => {
 
-                    const ontoResp = new ReadOntology(ontoIri);
+                    const ontoResp = new ReadOntology();
+                    ontoResp.id = ontoIri;
                     ontoResp.dependsOnOntologies = new Set(["http://api.knora.org/ontology/knora-api/v2"]);
 
                     return of(ontoResp);

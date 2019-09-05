@@ -86,7 +86,7 @@ export class OntologiesEndpoint extends Endpoint {
      */
     private convertOntology(ontologyJsonld: object, ontologyIri: string): ReadOntology {
 
-        const onto = new ReadOntology(ontologyIri, (ontologyJsonld as { [index: string]: string | undefined })[Constants.LastModificationDate]);
+        const onto = this.jsonConvert.deserializeObject(ontologyJsonld, ReadOntology);
 
         // Access the collection of entities
         const entities = (ontologyJsonld as { [index: string]: object[] })["@graph"];
