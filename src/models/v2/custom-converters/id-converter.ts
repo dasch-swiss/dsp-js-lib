@@ -9,7 +9,8 @@ export class IdConverter implements JsonCustomConvert<string> {
     deserialize(item: any): string {
         let id = "";
 
-        // TODO: check if it could be an array, too.
+        if (Array.isArray(item)) throw new Error("Expected a single element");
+        
         if (item.hasOwnProperty("@id") && CustomConverterUtils.isString(item["@id"])) {
             id = item["@id"];
         }
