@@ -8,22 +8,22 @@ export class SubClassOfConverter implements JsonCustomConvert<string[]> {
     serialize(subclasses: string[]): any {
     }
 
-    deserialize(item: any): string[] {
-        const tmp: string[] = [];
+    deserialize(items: any): string[] {
+        const subclassOf: string[] = [];
 
         const addItem = (ele: any) => {
             if (ele.hasOwnProperty("@id") && CustomConverterUtils.isString(ele["@id"])) {
-                tmp.push(ele["@id"]);
+                subclassOf.push(ele["@id"]);
             }
         };
 
-        if (Array.isArray(item)) {
-            item.forEach(it => addItem(it));
+        if (Array.isArray(items)) {
+            items.forEach(it => addItem(it));
         } else {
-            addItem(item);
+            addItem(items);
         }
 
-        return tmp;
+        return subclassOf;
     }
 }
 
@@ -42,7 +42,7 @@ export class PropertiesListConverter implements JsonCustomConvert<IHasProperty[]
                     if (item[Constants.MaxCardinality] === 1) {
                         cardinality = Cardinality._0_1;
                     } else {
-                        console.error("Inconsistent cardinality!"); // ToDo: better error message
+                        throw new Error("Inconsistent value for max cardinality: " + item[Constants.MaxCardinality]);
                     }
                 } else if (item.hasOwnProperty(Constants.MinCardinality)) {
                     if (item[Constants.MinCardinality] === 1) {
@@ -50,13 +50,13 @@ export class PropertiesListConverter implements JsonCustomConvert<IHasProperty[]
                     } else if (item[Constants.MinCardinality] === 0) {
                         cardinality = Cardinality._0_n;
                     } else {
-                        console.error("Inconsistent cardinality!"); // ToDo: better error message
+                        throw new Error("Inconsistent value for min cardinality " + item[Constants.MinCardinality]);
                     }
                 } else if (item.hasOwnProperty(Constants.Cardinality)) {
                     if (item[Constants.Cardinality] === 1) {
                         cardinality = Cardinality._1;
                     } else {
-                        console.error("Inconsistent cardinality!"); // ToDo: better error message
+                        throw new Error("Inconsistent value for cardinality " + item[Constants.Cardinality]);
                     }
                 }
 
@@ -67,7 +67,7 @@ export class PropertiesListConverter implements JsonCustomConvert<IHasProperty[]
                         CustomConverterUtils.isString(propstruct["@id"])) {
                         propertyIndex = propstruct["@id"];
                     } else {
-                        console.error("Missing property name!"); // ToDo: better error message
+                        throw new Error("Missing property name in cardinality");
                     }
                 }
 
