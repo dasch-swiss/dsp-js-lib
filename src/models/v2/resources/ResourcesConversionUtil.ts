@@ -8,7 +8,7 @@ import { ResourcePropertyDefinition } from "../ontologies/resource-property-defi
 import { ReadResource } from "./read-resource";
 import { ReadBooleanValue } from "./values/read-boolean-value";
 import { ReadColorValue } from "./values/read-color-value";
-import { ReadDateValue } from "./values/read-date-value";
+import { ParseReadDateValue, ReadDateValue } from "./values/read-date-value";
 import { ReadDecimalValue } from "./values/read-decimal-value";
 import { ReadStillImageFileValue } from "./values/read-file-value";
 import { ReadGeomValue } from "./values/read-geom-value";
@@ -237,11 +237,10 @@ export namespace ResourcesConversionUtil {
             }
 
             case Constants.DateValue: {
-                const dateVal = handleSimpleValue(valueJsonld, ReadDateValue, jsonConvert) as Observable<ReadDateValue>;
+                const dateVal = handleSimpleValue(valueJsonld, ParseReadDateValue, jsonConvert) as Observable<ParseReadDateValue>;
                 value = dateVal.pipe(map(
                     date => {
-                        date["parseDate"]();
-                        return date;
+                        return new ReadDateValue(date);
                     }
                 ));
                 break;

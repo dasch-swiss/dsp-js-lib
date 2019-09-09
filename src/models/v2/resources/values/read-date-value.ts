@@ -2,6 +2,37 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../Constants";
 import { ReadValue } from "./read-value";
 
+@JsonObject("ReadDateValue")
+export class ParseReadDateValue extends ReadValue {
+
+    @JsonProperty(Constants.DateValueHasCalendar, String)
+    calendar: string = "";
+
+    @JsonProperty(Constants.DateValueHasStartDay, Number, true)
+    startDay?: number = undefined;
+
+    @JsonProperty(Constants.DateValueHasStartMonth, Number, true)
+    startMonth?: number = undefined;
+
+    @JsonProperty(Constants.DateValueHasStartYear, Number)
+    startYear: number = 0;
+
+    @JsonProperty(Constants.DateValueHasStartEra, String)
+    startEra: string = "";
+
+    @JsonProperty(Constants.DateValueHasEndDay, Number, true)
+    endDay?: number = undefined;
+
+    @JsonProperty(Constants.DateValueHasEndMonth, Number, true)
+    endMonth?: number = undefined;
+
+    @JsonProperty(Constants.DateValueHasEndYear, Number)
+    endYear: number = 0;
+
+    @JsonProperty(Constants.DateValueHasEndEra, String)
+    endEra: string = "";
+}
+
 /**
  * Precision for DateSalsah.
  */
@@ -56,46 +87,30 @@ export class KnoraPeriod {
 
 }
 
-@JsonObject("ReadDateValue")
 export class ReadDateValue extends ReadValue {
 
     date: KnoraDate | KnoraPeriod;
 
-    @JsonProperty(Constants.DateValueHasCalendar, String)
-    private calendar: string = "";
+    constructor(date: ParseReadDateValue) {
 
-    @JsonProperty(Constants.DateValueHasStartDay, Number, true)
-    private startDay?: number = undefined;
+        super(
+            date.id,
+            date.type,
+            date.attachedToUser,
+            date.arkUrl,
+            date.versionArkUrl,
+            date.propertyLabel,
+            date.propertyComment,
+            date.property
+        );
 
-    @JsonProperty(Constants.DateValueHasStartMonth, Number, true)
-    private startMonth?: number = undefined;
-
-    @JsonProperty(Constants.DateValueHasStartYear, Number)
-    private startYear: number = 0;
-
-    @JsonProperty(Constants.DateValueHasStartEra, String)
-    private startEra: string = "";
-
-    @JsonProperty(Constants.DateValueHasEndDay, Number, true)
-    private endDay?: number = undefined;
-
-    @JsonProperty(Constants.DateValueHasEndMonth, Number, true)
-    private endMonth?: number = undefined;
-
-    @JsonProperty(Constants.DateValueHasEndYear, Number)
-    private endYear: number = 0;
-
-    @JsonProperty(Constants.DateValueHasEndEra, String)
-    private endEra: string = "";
-
-    private parseDate(): void {
-
-        if (this.startYear === this.endYear && this.startMonth === this.endMonth && this.startDay === this.endDay && this.startEra === this.endEra) {
+        if (date.startYear === date.endYear && date.startMonth === date.endMonth && date.startDay === date.endDay && date.startEra === date.endEra) {
             // single date
-            this.date = new KnoraDate(this.calendar, this.startEra, this.startYear, this.startMonth, this.startDay);
+            this.date = new KnoraDate(date.calendar, date.startEra, date.startYear, date.startMonth, date.startDay);
         } else {
             // date period
-            this.date = new KnoraPeriod(new KnoraDate(this.calendar, this.startEra, this.startYear, this.startMonth, this.startDay), new KnoraDate(this.calendar, this.endEra, this.endYear, this.endMonth, this.endDay));
+            this.date = new KnoraPeriod(new KnoraDate(date.calendar, date.startEra, date.startYear, date.startMonth, date.startDay), new KnoraDate(date.calendar, date.endEra, date.endYear, date.endMonth, date.endDay));
         }
     }
+
 }

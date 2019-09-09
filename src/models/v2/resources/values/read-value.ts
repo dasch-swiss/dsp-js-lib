@@ -25,4 +25,23 @@ export class ReadValue {
 
     property: string;
 
+    constructor(id?: string,
+                type?: string,
+                attachedToUser?: string,
+                arkUrl?: string,
+                versionArkUrl?: string,
+                propertyLabel?: string,
+                propertyComment?: string,
+                property?: string) {
+
+        if (id !== undefined) this.id = id;
+        if (type !== undefined) this.type = type;
+        if (attachedToUser !== undefined) this.attachedToUser = attachedToUser;
+        if (arkUrl !== undefined) this.arkUrl = arkUrl;
+        if (versionArkUrl !== undefined) this.versionArkUrl = versionArkUrl;
+        if (propertyLabel !== undefined) this.propertyLabel = propertyLabel;
+        if (propertyComment !== undefined) this.propertyComment = propertyLabel;
+        if (property !== undefined) this.property = property;
+
+    }
 }
