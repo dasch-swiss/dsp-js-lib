@@ -1,6 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
-import { ClassDefinition, IHasProperty, PropertiesListConverter, SubClassOfConverter } from "./class-definition";
+import { PropertiesListConverter, SubClassOfConverter } from "../CustomConverters";
+import { ClassDefinition, IHasProperty } from "./class-definition";
 
 @JsonObject("StandoffClassDefinition")
 export class StandoffClassDefinition extends ClassDefinition {
