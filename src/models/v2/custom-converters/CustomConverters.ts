@@ -104,22 +104,22 @@ export class SubPropertyOfConverter implements JsonCustomConvert<string[]> {
     serialize(subproperties: string[]): any {
     }
 
-    deserialize(item: any): string[] {
-        const tmp: string[] = [];
+    deserialize(items: any): string[] {
+        const subPropOf: string[] = [];
 
         const addItem = (ele: any) => {
             if (ele.hasOwnProperty("@id") && CustomConverterUtils.isString(ele["@id"])) {
-                tmp.push(ele["@id"]);
+                subPropOf.push(ele["@id"]);
             }
         };
 
-        if (Array.isArray(item)) {
-            item.forEach(it => addItem(it));
+        if (Array.isArray(items)) {
+            items.forEach(item => addItem(item));
         } else {
-            addItem(item);
+            addItem(items);
         }
 
-        return tmp;
+        return subPropOf;
     }
 }
 
@@ -129,14 +129,14 @@ export class IdConverter implements JsonCustomConvert<string> {
     }
 
     deserialize(item: any): string {
-        let tmp = "";
+        let id = "";
 
         // TODO: check if it could be an array, too.
         if (item.hasOwnProperty("@id") && CustomConverterUtils.isString(item["@id"])) {
-            tmp = item["@id"];
+            id = item["@id"];
         }
 
-        return tmp;
+        return id;
     }
 }
 
@@ -146,14 +146,14 @@ export class UriConverter implements JsonCustomConvert<string> {
     }
 
     deserialize(item: any): string {
-        let tmp = "";
+        let uri = "";
 
         // TODO: check if it could be an array, too.
         if (item.hasOwnProperty("@value") && CustomConverterUtils.isString(item["@value"])) {
-            tmp = item["@value"];
+            uri = item["@value"];
         }
 
-        return tmp;
+        return uri;
     }
 }
 
@@ -163,13 +163,13 @@ export class DecimalConverter implements JsonCustomConvert<string> {
     }
 
     deserialize(item: any): string {
-        let tmp = "";
+        let decimal = "";
 
         // TODO: check if it could be an array, too.
         if (item.hasOwnProperty("@value") && CustomConverterUtils.isString(item["@value"])) {
-            tmp = item["@value"];
+            decimal = item["@value"];
         }
 
-        return tmp;
+        return decimal;
     }
 }
