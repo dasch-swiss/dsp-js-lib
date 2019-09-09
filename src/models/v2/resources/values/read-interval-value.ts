@@ -1,6 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../Constants";
-import { DecimalConverter } from "../../CustomConverters";
+import { DecimalConverter } from "../../custom-converters/CustomConverters";
 import { ReadValue } from "./read-value";
 
 @JsonObject("ReadDecimalValue")

@@ -1,6 +1,6 @@
 import { JsonConverter, JsonCustomConvert } from "json2typescript";
-import { Constants } from "./Constants";
-import { Cardinality, IHasProperty } from "./ontologies/class-definition";
+import { Constants } from "../Constants";
+import { Cardinality, IHasProperty } from "../ontologies/class-definition";
 
 @JsonConverter
 export class SubClassOfConverter implements JsonCustomConvert<string[]> {
