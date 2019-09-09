@@ -88,7 +88,7 @@ export class ReadDateValue extends ReadValue {
     @JsonProperty(Constants.DateValueHasEndEra, String)
     private endEra: string = "";
 
-    private parseDate() {
+    private parseDate(): void {
 
         if (this.startYear === this.endYear && this.startMonth === this.endMonth && this.startDay === this.endDay && this.startEra === this.endEra) {
             // single date

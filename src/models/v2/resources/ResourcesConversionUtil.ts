@@ -14,7 +14,12 @@ import { ReadIntValue } from "./values/read-int-value";
 import { ReadIntervalValue } from "./values/read-interval-value";
 import { ReadLinkValue } from "./values/read-link-value";
 import { ReadListValue } from "./values/read-list-value";
-import { ReadTextValueAsHtml, ReadTextValueAsString, ReadTextValueAsXml } from "./values/read-text-value";
+import {
+    ReadTextValue,
+    ReadTextValueAsHtml,
+    ReadTextValueAsString,
+    ReadTextValueAsXml
+} from "./values/read-text-value";
 import { ReadUriValue } from "./values/read-uri-value";
 import { ReadValue } from "./values/read-value";
 
@@ -113,6 +118,93 @@ export namespace ResourcesConversionUtil {
     };
 
     /**
+     * Converts a simple value serialized as JSON-LD to a `ReadValue`.
+     *
+     * @param valueJsonld value as JSON-LD to be converted.
+     * @param dataType the specific value type to convert to.
+     * @param jsonConvert the converter to be used.
+     */
+    const handleSimpleValue = (valueJsonld: object, dataType: { new(): ReadValue }, jsonConvert: JsonConvert): Observable<ReadValue> => {
+        return of(jsonConvert.deserialize(valueJsonld, dataType) as ReadValue);
+    };
+
+    /**
+     * Converts a text value serialized as JSON-LD to a `ReadTextValue`.
+     *
+     * @param valueJsonld text value as JSON-LD to be converted.
+     * @param jsonConvert jsonConvert the converter to be used.
+     */
+    const handleTextValue = (valueJsonld: object, jsonConvert: JsonConvert): Observable<ReadTextValue> => {
+
+        if (valueJsonld.hasOwnProperty(Constants.ValueAsString)) {
+            // TODO: query standoff, if any.
+            const textValue =
+                jsonConvert.deserialize(valueJsonld, ReadTextValueAsString) as ReadTextValueAsString;
+            return of(textValue);
+        } else if (valueJsonld.hasOwnProperty(Constants.TextValueAsXml)) {
+            const textValue =
+                jsonConvert.deserialize(valueJsonld, ReadTextValueAsXml) as ReadTextValueAsXml;
+            return of(textValue);
+        } else if (valueJsonld.hasOwnProperty(Constants.TextValueAsHtml)) {
+            const textValue =
+                jsonConvert.deserialize(valueJsonld, ReadTextValueAsHtml) as ReadTextValueAsHtml;
+            return of(textValue);
+        } else {
+            throw new Error("Invalid Text value");
+        }
+    };
+
+    /**
+     * Converts a link value serialized as JSON-LD to a `ReadTextValue`.
+     *
+     * @param valueJsonld link value as JSON-LD to be converted.
+     * @param ontologyCache instance of `OntologyCache` to be used.
+     * @param jsonConvert jsonConvert the converter to be used.
+     */
+    const handleLinkValue = (valueJsonld: any, ontologyCache: OntologyCache, jsonConvert: JsonConvert): Observable<ReadLinkValue> => {
+
+        const linkValue = jsonConvert.deserialize(valueJsonld, ReadLinkValue) as ReadLinkValue;
+
+        const handleLinkedResource =
+            (linkedResource: { [index: string]: string | object[] }, incoming: boolean): Observable<ReadLinkValue> => {
+                const referredRes: Observable<ReadResource> = createReadResource(linkedResource, ontologyCache, jsonConvert);
+                return referredRes.pipe(
+                    map(
+                        refRes => {
+                            linkValue.linkedResource = refRes;
+                            linkValue.linkedResourceIri = refRes.id;
+                            linkValue.incoming = incoming;
+                            return linkValue;
+                        }
+                    )
+                );
+            };
+
+        const handleLinkedResourceIri = (linkedResourceIri: string, incoming: boolean): Observable<ReadLinkValue> => {
+            if (linkedResourceIri === undefined) throw new Error("Invalid resource Iri");
+            linkValue.linkedResourceIri = linkedResourceIri;
+            linkValue.incoming = incoming;
+            return of(linkValue);
+        };
+
+        // check if linked resource is nested or if just its IRI is present
+        if (valueJsonld.hasOwnProperty(Constants.LinkValueHasTarget)) {
+            return handleLinkedResource(valueJsonld[Constants.LinkValueHasTarget], false);
+        } else if (valueJsonld.hasOwnProperty(Constants.LinkValueHasTargetIri)) {
+            // TODO: check for existence of @id
+            return handleLinkedResourceIri(valueJsonld[Constants.LinkValueHasTargetIri]["@id"], false);
+        } else if (valueJsonld.hasOwnProperty(Constants.LinkValueHasSource)) {
+            return handleLinkedResource(valueJsonld[Constants.LinkValueHasSource], true);
+        } else if (valueJsonld.hasOwnProperty(Constants.LinkValueHasSourceIri)) {
+            // TODO: check for existence of @id
+            return handleLinkedResourceIri(valueJsonld[Constants.LinkValueHasSourceIri]["@id"], true);
+        } else {
+            throw new Error("Invalid Link Value");
+        }
+
+    };
+
+    /**
      * Creates a single ReadValue.
      *
      * @param propIri Iri of the property pointing to the value.
@@ -130,130 +222,61 @@ export namespace ResourcesConversionUtil {
         let value: Observable<ReadValue>;
 
         switch (type) {
-
-            // TODO: GeomValue. FileValues
+            // TODO: GeomValue, FileValues
 
             case Constants.BooleanValue: {
-
-                const boolVal: ReadBooleanValue = jsonConvert.deserialize(valueJsonld, ReadBooleanValue) as ReadBooleanValue;
-                value = of(boolVal);
+                value = handleSimpleValue(valueJsonld, ReadBooleanValue, jsonConvert);
                 break;
             }
 
             case Constants.ColorValue: {
-
-                const colorVal: ReadColorValue = jsonConvert.deserialize(valueJsonld, ReadColorValue) as ReadColorValue;
-                value = of(colorVal);
+                value = handleSimpleValue(valueJsonld, ReadColorValue, jsonConvert);
                 break;
             }
 
             case Constants.DateValue: {
-
-                const dateVal: ReadDateValue = jsonConvert.deserialize(valueJsonld, ReadDateValue) as ReadDateValue;
-                dateVal["parseDate"]();
-                value = of(dateVal);
+                const dateVal = handleSimpleValue(valueJsonld, ReadDateValue, jsonConvert) as Observable<ReadDateValue>;
+                value = dateVal.pipe(map(
+                    date => {
+                        date["parseDate"]();
+                        return date;
+                    }
+                ));
                 break;
             }
 
             case Constants.IntValue: {
-
-                const intValue = jsonConvert.deserialize(valueJsonld, ReadIntValue) as ReadIntValue;
-                value = of(intValue);
+                value = handleSimpleValue(valueJsonld, ReadIntValue, jsonConvert);
                 break;
             }
 
             case Constants.DecimalValue: {
-
-                const decValue = jsonConvert.deserialize(valueJsonld, ReadDecimalValue) as ReadDecimalValue;
-                value = of(decValue);
+                value = handleSimpleValue(valueJsonld, ReadDecimalValue, jsonConvert);
                 break;
             }
 
             case Constants.IntervalValue: {
-
-                const intervalValue = jsonConvert.deserialize(valueJsonld, ReadIntervalValue) as ReadIntervalValue;
-                value = of(intervalValue);
+                value = handleSimpleValue(valueJsonld, ReadIntervalValue, jsonConvert);
                 break;
             }
 
             case Constants.ListValue: {
-
-                const listValue = jsonConvert.deserialize(valueJsonld, ReadListValue) as ReadListValue;
-                value = of(listValue);
+                value = handleSimpleValue(valueJsonld, ReadListValue, jsonConvert);
                 break;
             }
 
             case Constants.UriValue: {
-                const uriValue = jsonConvert.deserialize(valueJsonld, ReadUriValue) as ReadUriValue;
-                value = of(uriValue);
-
+                value = handleSimpleValue(valueJsonld, ReadUriValue, jsonConvert);
                 break;
             }
 
             case Constants.TextValue: {
-
-                if (valueJsonld.hasOwnProperty(Constants.ValueAsString)) {
-
-                    // TODO: query standoff, if any.
-
-                    const textValue =
-                        jsonConvert.deserialize(valueJsonld, ReadTextValueAsString) as ReadTextValueAsString;
-                    value = of(textValue);
-                } else if (valueJsonld.hasOwnProperty(Constants.TextValueAsXml)) {
-                    const textValue =
-                        jsonConvert.deserialize(valueJsonld, ReadTextValueAsXml) as ReadTextValueAsXml;
-                    value = of(textValue);
-                } else if (valueJsonld.hasOwnProperty(Constants.TextValueAsHtml)) {
-                    const textValue =
-                        jsonConvert.deserialize(valueJsonld, ReadTextValueAsHtml) as ReadTextValueAsHtml;
-                    value = of(textValue);
-                } else {
-                    throw new Error("Invalid Text value");
-                }
-
+                value = handleTextValue(valueJsonld, jsonConvert);
                 break;
             }
 
             case Constants.LinkValue: {
-                const linkValue = jsonConvert.deserialize(valueJsonld, ReadLinkValue) as ReadLinkValue;
-
-                const handleLinkedResource =
-                    (linkedResource: { [index: string]: string | object[] }, incoming: boolean): Observable<ReadLinkValue> => {
-                        const referredRes: Observable<ReadResource> = createReadResource(linkedResource, ontologyCache, jsonConvert);
-                        return referredRes.pipe(
-                            map(
-                                refRes => {
-                                    linkValue.linkedResource = refRes;
-                                    linkValue.linkedResourceIri = refRes.id;
-                                    linkValue.incoming = incoming;
-                                    return linkValue;
-                                }
-                            )
-                        );
-                    };
-
-                const handleLinkedResourceIri = (linkedResourceIri: string, incoming: boolean): Observable<ReadLinkValue> => {
-                    if (linkedResourceIri === undefined) throw new Error("Invalid resource Iri");
-                    linkValue.linkedResourceIri = linkedResourceIri;
-                    linkValue.incoming = incoming;
-                    return of(linkValue);
-                };
-
-                // check if linked resource is nested or if just its IRI is present
-                if (valueJsonld.hasOwnProperty(Constants.LinkValueHasTarget)) {
-                    value = handleLinkedResource(valueJsonld[Constants.LinkValueHasTarget], false);
-                } else if (valueJsonld.hasOwnProperty(Constants.LinkValueHasTargetIri)) {
-                    // TODO: check for existence of @id
-                    value = handleLinkedResourceIri(valueJsonld[Constants.LinkValueHasTargetIri]["@id"], false);
-                } else if (valueJsonld.hasOwnProperty(Constants.LinkValueHasSource)) {
-                    value = handleLinkedResource(valueJsonld[Constants.LinkValueHasSource], true);
-                } else if (valueJsonld.hasOwnProperty(Constants.LinkValueHasSourceIri)) {
-                    // TODO: check for existence of @id
-                    value = handleLinkedResourceIri(valueJsonld[Constants.LinkValueHasSourceIri]["@id"], true);
-                } else {
-                    throw new Error("Invalid Link Value");
-                }
-
+                value = handleLinkValue(valueJsonld, ontologyCache, jsonConvert);
                 break;
             }
 

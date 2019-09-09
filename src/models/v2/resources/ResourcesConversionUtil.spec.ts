@@ -46,6 +46,9 @@ describe("ResourcesConversionUtil", () => {
 
             ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, jsonConvert).subscribe(
                 resSeq => {
+
+                    // console.log(resSeq[0].properties);
+
                     expect(resSeq.length).toEqual(1);
 
                     expect(resSeq[0].id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw");

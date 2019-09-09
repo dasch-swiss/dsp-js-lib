@@ -84,7 +84,7 @@ export namespace OntologyConversionUtil {
      *
      * @param entity the entity definition to be analyzed.
      */
-    export const filterSystemPropertyDefintions = (entity: { [index: string]: any }) => {
+    export const filterSystemPropertyDefintions = (entity: { [index: string]: any }): boolean => {
         return (entity["@type"] === Constants.DataTypeProperty || entity["@type"] === Constants.ObjectProperty)
             && !entity.hasOwnProperty(Constants.IsResourceProperty);
     };
@@ -107,7 +107,7 @@ export namespace OntologyConversionUtil {
      * @param entities the entities to be converted and added.
      * @param jsonConvert instance of JsonConvert to be used.
      */
-    const convertAndAddEntityDefinitions = (ontology: ReadOntology, entities: object[], jsonConvert: JsonConvert) => {
+    const convertAndAddEntityDefinitions = (ontology: ReadOntology, entities: object[], jsonConvert: JsonConvert): void => {
 
         // Convert resource classes
         entities.filter(filterResourceClassDefinitions).map(resclassJsonld => {
@@ -144,7 +144,7 @@ export namespace OntologyConversionUtil {
      * @param ontology the ontology whose direct dependencies should be analyzed.
      * @param knoraApiConfig the Knora API config to be used.
      */
-    const analyzeDirectDependencies = (ontology: ReadOntology, knoraApiConfig: KnoraApiConfig) => {
+    const analyzeDirectDependencies = (ontology: ReadOntology, knoraApiConfig: KnoraApiConfig): void => {
 
         // Ontologies referenced by this ontology
         const referencedOntologies: Set<string> = new Set([]);
