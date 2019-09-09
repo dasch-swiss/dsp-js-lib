@@ -4,31 +4,7 @@ import { Cardinality, IHasProperty } from "../ontologies/class-definition";
 import { CustomConverterUtils } from "./utils";
 
 @JsonConverter
-export class SubClassOfConverter implements JsonCustomConvert<string[]> {
-    serialize(subclasses: string[]): any {
-    }
-
-    deserialize(items: any): string[] {
-        const subclassOf: string[] = [];
-
-        const addItem = (ele: any) => {
-            if (ele.hasOwnProperty("@id") && CustomConverterUtils.isString(ele["@id"])) {
-                subclassOf.push(ele["@id"]);
-            }
-        };
-
-        if (Array.isArray(items)) {
-            items.forEach(item => addItem(item));
-        } else {
-            addItem(items);
-        }
-
-        return subclassOf;
-    }
-}
-
-@JsonConverter
-export class HasCardinallityForPropertyConverter implements JsonCustomConvert<IHasProperty[]> {
+export class HasCardinalityForPropertyConverter implements JsonCustomConvert<IHasProperty[]> {
     serialize(hasProperties: IHasProperty[]): any {
     }
 
@@ -96,80 +72,5 @@ export class HasCardinallityForPropertyConverter implements JsonCustomConvert<IH
         }
 
         return hasCardForProp;
-    }
-}
-
-@JsonConverter
-export class SubPropertyOfConverter implements JsonCustomConvert<string[]> {
-    serialize(subproperties: string[]): any {
-    }
-
-    deserialize(items: any): string[] {
-        const subPropOf: string[] = [];
-
-        const addItem = (ele: any) => {
-            if (ele.hasOwnProperty("@id") && CustomConverterUtils.isString(ele["@id"])) {
-                subPropOf.push(ele["@id"]);
-            }
-        };
-
-        if (Array.isArray(items)) {
-            items.forEach(item => addItem(item));
-        } else {
-            addItem(items);
-        }
-
-        return subPropOf;
-    }
-}
-
-@JsonConverter
-export class IdConverter implements JsonCustomConvert<string> {
-    serialize(description: string): any {
-    }
-
-    deserialize(item: any): string {
-        let id = "";
-
-        // TODO: check if it could be an array, too.
-        if (item.hasOwnProperty("@id") && CustomConverterUtils.isString(item["@id"])) {
-            id = item["@id"];
-        }
-
-        return id;
-    }
-}
-
-@JsonConverter
-export class UriConverter implements JsonCustomConvert<string> {
-    serialize(description: string): any {
-    }
-
-    deserialize(item: any): string {
-        let uri = "";
-
-        // TODO: check if it could be an array, too.
-        if (item.hasOwnProperty("@value") && CustomConverterUtils.isString(item["@value"])) {
-            uri = item["@value"];
-        }
-
-        return uri;
-    }
-}
-
-@JsonConverter
-export class DecimalConverter implements JsonCustomConvert<string> {
-    serialize(description: string): any {
-    }
-
-    deserialize(item: any): string {
-        let decimal = "";
-
-        // TODO: check if it could be an array, too.
-        if (item.hasOwnProperty("@value") && CustomConverterUtils.isString(item["@value"])) {
-            decimal = item["@value"];
-        }
-
-        return decimal;
     }
 }

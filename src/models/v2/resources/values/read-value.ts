@@ -1,6 +1,7 @@
 import { JsonProperty } from "json2typescript";
 import { Constants } from "../../Constants";
-import { IdConverter, UriConverter } from "../../custom-converters/CustomConverters";
+import { IdConverter } from "../../custom-converters/id-converter";
+import { UriConverter } from "../../custom-converters/uri-converter";
 
 export class ReadValue {
 

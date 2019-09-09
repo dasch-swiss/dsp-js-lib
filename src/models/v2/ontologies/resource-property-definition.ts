@@ -1,6 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
-import { IdConverter, SubPropertyOfConverter } from "../custom-converters/CustomConverters";
+import { IdConverter } from "../custom-converters/id-converter";
+import { SubPropertyOfConverter } from "../custom-converters/subproperty-of-converter";
 import { PropertyDefinition } from "./property-definition";
 
 @JsonObject("ResourcePropertyDefinition")
