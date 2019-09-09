@@ -1,6 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
-import { IdConverter, PropertyDefinition, SubPropertyOfConverter } from "./property-definition";
+import { IdConverter, SubPropertyOfConverter } from "../CustomConverters";
+import { PropertyDefinition } from "./property-definition";
 
 @JsonObject("SystemPropertyDefinition")
 export class SystemPropertyDefinition extends PropertyDefinition {

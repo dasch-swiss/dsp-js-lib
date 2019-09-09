@@ -7,6 +7,59 @@ export class Constants {
     static IsResourceProperty = Constants.KnoraApiV2 + Constants.Delimiter + "isResourceProperty";
     static ObjectType = Constants.KnoraApiV2 + Constants.Delimiter + "objectType";
     static SubjectType = Constants.KnoraApiV2 + Constants.Delimiter + "subjectType";
+    static LastModificationDate = Constants.KnoraApiV2 + Constants.Delimiter + "lastModificationDate";
+
+    static BooleanValue = Constants.KnoraApiV2 + Constants.Delimiter + "BooleanValue";
+    static ColorValue = Constants.KnoraApiV2 + Constants.Delimiter + "ColorValue";
+    static DateValue = Constants.KnoraApiV2 + Constants.Delimiter + "DateValue";
+    static IntValue = Constants.KnoraApiV2 + Constants.Delimiter + "IntValue";
+    static DecimalValue = Constants.KnoraApiV2 + Constants.Delimiter + "DecimalValue";
+    static IntervalValue = Constants.KnoraApiV2 + Constants.Delimiter + "IntervalValue";
+    static ListValue = Constants.KnoraApiV2 + Constants.Delimiter + "ListValue";
+    static TextValue = Constants.KnoraApiV2 + Constants.Delimiter + "TextValue";
+    static LinkValue = Constants.KnoraApiV2 + Constants.Delimiter + "LinkValue";
+    static UriValue = Constants.KnoraApiV2 + Constants.Delimiter + "UriValue";
+    static GeomValue = Constants.KnoraApiV2 + Constants.Delimiter + "GeomValue";
+    static StillImageFileValue = Constants.KnoraApiV2 + Constants.Delimiter + "StillImageFileValue";
+
+    static AttachedToProject = Constants.KnoraApiV2 + Constants.Delimiter + "attachedToProject";
+    static AttachedToUser = Constants.KnoraApiV2 + Constants.Delimiter + "attachedToUser";
+    static ArkUrl = Constants.KnoraApiV2 + Constants.Delimiter + "arkUrl";
+    static VersionArkUrl = Constants.KnoraApiV2 + Constants.Delimiter + "versionArkUrl";
+
+    static BooleanValueAsBoolean = Constants.KnoraApiV2 + Constants.Delimiter + "booleanValueAsBoolean";
+    static ColorValueAsColor = Constants.KnoraApiV2 + Constants.Delimiter + "colorValueAsColor";
+    static DateValueHasCalendar = Constants.KnoraApiV2 + Constants.Delimiter + "dateValueHasCalendar";
+    static DateValueHasEndDay = Constants.KnoraApiV2 + Constants.Delimiter + "dateValueHasEndDay";
+    static DateValueHasEndEra = Constants.KnoraApiV2 + Constants.Delimiter + "dateValueHasEndEra";
+    static DateValueHasEndMonth = Constants.KnoraApiV2 + Constants.Delimiter + "dateValueHasEndMonth";
+    static DateValueHasEndYear = Constants.KnoraApiV2 + Constants.Delimiter + "dateValueHasEndYear";
+    static DateValueHasStartDay = Constants.KnoraApiV2 + Constants.Delimiter + "dateValueHasStartDay";
+    static DateValueHasStartEra = Constants.KnoraApiV2 + Constants.Delimiter + "dateValueHasStartEra";
+    static DateValueHasStartMonth = Constants.KnoraApiV2 + Constants.Delimiter + "dateValueHasStartMonth";
+    static DateValueHasStartYear = Constants.KnoraApiV2 + Constants.Delimiter + "dateValueHasStartYear";
+    static IntValueAsInt = Constants.KnoraApiV2 + Constants.Delimiter + "intValueAsInt";
+    static DecimalValueAsDecimal = Constants.KnoraApiV2 + Constants.Delimiter + "decimalValueAsDecimal";
+    static IntervalValueHasStart = Constants.KnoraApiV2 + Constants.Delimiter + "intervalValueHasStart";
+    static IntervalValueHasEnd = Constants.KnoraApiV2 + Constants.Delimiter + "intervalValueHasEnd";
+    static ListValueAsListNode = Constants.KnoraApiV2 + Constants.Delimiter + "listValueAsListNode";
+    static ValueAsString = Constants.KnoraApiV2 + Constants.Delimiter + "valueAsString";
+    static TextValueAsXml = Constants.KnoraApiV2 + Constants.Delimiter + "textValueAsXml";
+    static TextValueHasMapping = Constants.KnoraApiV2 + Constants.Delimiter + "textValueHasMapping";
+    static TextValueAsHtml = Constants.KnoraApiV2 + Constants.Delimiter + "textValueAsHtml";
+    static LinkValueHasTarget = Constants.KnoraApiV2 + Constants.Delimiter + "linkValueHasTarget";
+    static LinkValueHasTargetIri = Constants.KnoraApiV2 + Constants.Delimiter + "linkValueHasTargetIri";
+    static LinkValueHasSource = Constants.KnoraApiV2 + Constants.Delimiter + "linkValueHasSource";
+    static LinkValueHasSourceIri = Constants.KnoraApiV2 + Constants.Delimiter + "linkValueHasSourceIri";
+    static UriValueAsUri = Constants.KnoraApiV2 + Constants.Delimiter + "uriValueAsUri";
+    static GeometryValueAsGeometry = Constants.KnoraApiV2 + Constants.Delimiter + "geometryValueAsGeometry";
+    static StillImageFileValueHasDimX = Constants.KnoraApiV2 + Constants.Delimiter + "stillImageFileValueHasDimX";
+    static StillImageFileValueHasDimY = Constants.KnoraApiV2 + Constants.Delimiter + "stillImageFileValueHasDimY";
+    static StillImageFileValueHasIIIFBaseUrl = Constants.KnoraApiV2 + Constants.Delimiter + "stillImageFileValueHasIIIFBaseUrl";
+    static FileValueHasFilename = Constants.KnoraApiV2 + Constants.Delimiter + "fileValueHasFilename";
+    static FileValueAsUrl = Constants.KnoraApiV2 + Constants.Delimiter + "fileValueAsUrl";
+
+
 
     static KnoraAdminV2 = "http://api.knora.org/ontology/knora-admin/v2";
 

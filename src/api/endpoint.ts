@@ -146,6 +146,10 @@ export class Endpoint {
 
         let responseError: ApiResponseError;
 
+        if (this.knoraApiConfig.logErrors) {
+            console.error(error);
+        }
+
         // Check the type of error and save it to the responseError
         if (error instanceof DataError) {
 

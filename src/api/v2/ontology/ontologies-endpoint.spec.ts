@@ -12,36 +12,11 @@ describe("OntologiesEndpoint", () => {
     const knoraApiConnection = new KnoraApiConnection(config);
 
     beforeEach(() => {
-
         jasmine.Ajax.install();
     });
 
     afterEach(() => {
         jasmine.Ajax.uninstall();
-    });
-
-    describe("Method getOntologyIriFromEntityIri", () => {
-        it("should get the ontology IRI from a knora-api entity", () => {
-            const ontologyIri = knoraApiConnection.v2.onto.getOntologyIriFromEntityIri("http://api.knora.org/ontology/knora-api/v2#Resource");
-
-            expect(ontologyIri[0]).toEqual("http://api.knora.org/ontology/knora-api/v2");
-
-        });
-
-        it("should get the ontology IRI from a project entity", () => {
-            const ontologyIri = knoraApiConnection.v2.onto.getOntologyIriFromEntityIri("http://api.dasch.swiss/ontology/0807/mls/v2#Article");
-
-            expect(ontologyIri[0]).toEqual("http://api.dasch.swiss/ontology/0807/mls/v2");
-
-        });
-
-        it("should ignore an external entity", () => {
-            const ontologyIri = knoraApiConnection.v2.onto.getOntologyIriFromEntityIri("http://www.w3.org/2000/01/rdf-schema#label");
-
-            expect(ontologyIri.length).toEqual(0);
-
-        });
-
     });
 
     describe("Method getOntology", () => {
@@ -52,6 +27,8 @@ describe("OntologiesEndpoint", () => {
                 (response: ReadOntology) => {
 
                     expect(response.id).toEqual("http://api.knora.org/ontology/knora-api/v2");
+
+                    expect(response.dependsOnOntologies.size).toEqual(0);
 
                     expect(response.classes["http://api.knora.org/ontology/knora-api/v2#Annotation"] instanceof ResourceClassDefinition).toBeTruthy();
                     expect(response.classes["http://api.knora.org/ontology/knora-api/v2#Annotation"].id).toEqual("http://api.knora.org/ontology/knora-api/v2#Annotation");
@@ -84,20 +61,30 @@ describe("OntologiesEndpoint", () => {
 
         it("should return a project ontology", done => {
 
-            knoraApiConnection.v2.onto.getOntology("http://api.dasch.swiss/ontology/0807/mls/v2").subscribe(
+            knoraApiConnection.v2.onto.getOntology("http://api.dasch.swiss/ontology/0001/anything/v2").subscribe(
                 (response: ReadOntology) => {
-                    expect(response.id).toEqual("http://api.dasch.swiss/ontology/0807/mls/v2");
+                    expect(response.id).toEqual("http://api.dasch.swiss/ontology/0001/anything/v2");
+
+                    expect(response.dependsOnOntologies.size).toEqual(1);
+                    expect(response.dependsOnOntologies.has("http://api.dasch.swiss/ontology/0001/anything/v2"));
+
+                    expect(response.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"] instanceof ResourceClassDefinition);
+                    expect(response.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"].id).toEqual("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
+                    expect(response.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"].label).toEqual("Thing");
+                    expect(response.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"].comment).toEqual("'The whole world is full of things, which means there's a real need for someone to go searching for them. And that's exactly what a thing-searcher does.' --Pippi Longstocking");
+
+                    expect(response.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"].propertiesList.length).toEqual(36);
 
                     done();
                 });
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const onto = require("../../../../test/data/api/v2/ontologies/mls-ontology.json");
+            const onto = require("../../../../test/data/api/v2/ontologies/anything-ontology.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(onto)));
 
-            expect(request.url).toBe("http://api.dasch.swiss/v2/ontologies/allentities/http%3A%2F%2Fapi.dasch.swiss%2Fontology%2F0807%2Fmls%2Fv2");
+            expect(request.url).toBe("http://api.dasch.swiss/v2/ontologies/allentities/http%3A%2F%2Fapi.dasch.swiss%2Fontology%2F0001%2Fanything%2Fv2");
 
             expect(request.method).toEqual("GET");
 
