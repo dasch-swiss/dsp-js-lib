@@ -14,7 +14,7 @@ export enum Precision {
 /**
  * Represents a Salsah date object with a precision information.
  */
-export class Date {
+export class KnoraDate {
 
     // TODO: support instantiation of a JDNConvertibleCalendar subclass, e.g., GregorianCalendarDate
 
@@ -46,11 +46,11 @@ export class Date {
 /**
  * Represents a period (with start date and end date).
  */
-export class Period {
+export class KnoraPeriod {
 
     constructor(
-        readonly start: Date,
-        readonly end: Date
+        readonly start: KnoraDate,
+        readonly end: KnoraDate
     ) {
     }
 
@@ -59,7 +59,7 @@ export class Period {
 @JsonObject("ReadDateValue")
 export class ReadDateValue extends ReadValue {
 
-    date: Date | Period;
+    date: KnoraDate | KnoraPeriod;
 
     @JsonProperty(Constants.DateValueHasCalendar, String)
     private calendar: string = "";
@@ -92,10 +92,10 @@ export class ReadDateValue extends ReadValue {
 
         if (this.startYear === this.endYear && this.startMonth === this.endMonth && this.startDay === this.endDay && this.startEra === this.endEra) {
             // single date
-            this.date = new Date(this.calendar, this.startEra, this.startYear, this.startMonth, this.startDay);
+            this.date = new KnoraDate(this.calendar, this.startEra, this.startYear, this.startMonth, this.startDay);
         } else {
             // date period
-            this.date = new Period(new Date(this.calendar, this.startEra, this.startYear, this.startMonth, this.startDay), new Date(this.calendar, this.endEra, this.endYear, this.endMonth, this.endDay));
+            this.date = new KnoraPeriod(new KnoraDate(this.calendar, this.startEra, this.startYear, this.startMonth, this.startDay), new KnoraDate(this.calendar, this.endEra, this.endYear, this.endMonth, this.endDay));
         }
     }
 }
