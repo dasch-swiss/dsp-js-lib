@@ -1,6 +1,7 @@
 import { JsonConverter, JsonCustomConvert } from "json2typescript";
 import { Constants } from "../Constants";
 import { Cardinality, IHasProperty } from "../ontologies/class-definition";
+import { CustomConverterUtils } from "./utils";
 
 @JsonConverter
 export class SubClassOfConverter implements JsonCustomConvert<string[]> {
@@ -11,7 +12,7 @@ export class SubClassOfConverter implements JsonCustomConvert<string[]> {
         const tmp: string[] = [];
 
         const addItem = (ele: any) => {
-            if (ele.hasOwnProperty("@id") && (typeof ele["@id"] === "string" || ele["@id"] instanceof String)) {
+            if (ele.hasOwnProperty("@id") && CustomConverterUtils.isString(ele["@id"])) {
                 tmp.push(ele["@id"]);
             }
         };
@@ -63,7 +64,7 @@ export class PropertiesListConverter implements JsonCustomConvert<IHasProperty[]
                 if (item.hasOwnProperty(Constants.OnProperty)) {
                     const propstruct: any = item[Constants.OnProperty];
                     if (propstruct.hasOwnProperty("@id") &&
-                        (typeof propstruct["@id"] === "string" || propstruct["@id"] instanceof String)) {
+                        CustomConverterUtils.isString(propstruct["@id"])) {
                         propertyIndex = propstruct["@id"];
                     } else {
                         console.error("Missing property name!"); // ToDo: better error message
@@ -99,7 +100,7 @@ export class SubPropertyOfConverter implements JsonCustomConvert<string[]> {
         const tmp: string[] = [];
 
         const addItem = (ele: any) => {
-            if (ele.hasOwnProperty("@id") && (typeof ele["@id"] === "string" || ele["@id"] instanceof String)) {
+            if (ele.hasOwnProperty("@id") && CustomConverterUtils.isString(ele["@id"])) {
                 tmp.push(ele["@id"]);
             }
         };
@@ -123,7 +124,7 @@ export class IdConverter implements JsonCustomConvert<string> {
         let tmp = "";
 
         // TODO: check if it could be an array, too.
-        if (item.hasOwnProperty("@id") && (typeof item["@id"] === "string" || item["@id"] instanceof String)) {
+        if (item.hasOwnProperty("@id") && CustomConverterUtils.isString(item["@id"])) {
             tmp = item["@id"];
         }
 
@@ -140,7 +141,7 @@ export class UriConverter implements JsonCustomConvert<string> {
         let tmp = "";
 
         // TODO: check if it could be an array, too.
-        if (item.hasOwnProperty("@value") && (typeof item["@value"] === "string" || item["@value"] instanceof String)) {
+        if (item.hasOwnProperty("@value") && CustomConverterUtils.isString(item["@value"])) {
             tmp = item["@value"];
         }
 
@@ -157,7 +158,7 @@ export class DecimalConverter implements JsonCustomConvert<string> {
         let tmp = "";
 
         // TODO: check if it could be an array, too.
-        if (item.hasOwnProperty("@value") && (typeof item["@value"] === "string" || item["@value"] instanceof String)) {
+        if (item.hasOwnProperty("@value") && CustomConverterUtils.isString(item["@value"])) {
             tmp = item["@value"];
         }
 
