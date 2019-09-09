@@ -18,7 +18,7 @@ export class SubClassOfConverter implements JsonCustomConvert<string[]> {
         };
 
         if (Array.isArray(items)) {
-            items.forEach(it => addItem(it));
+            items.forEach(item => addItem(item));
         } else {
             addItem(items);
         }
@@ -28,41 +28,41 @@ export class SubClassOfConverter implements JsonCustomConvert<string[]> {
 }
 
 @JsonConverter
-export class PropertiesListConverter implements JsonCustomConvert<IHasProperty[]> {
+export class HasCardinallityForPropertyConverter implements JsonCustomConvert<IHasProperty[]> {
     serialize(hasProperties: IHasProperty[]): any {
     }
 
-    deserialize(items: any[]): IHasProperty[] {
-        const tmp: IHasProperty[] = [];
+    deserialize(items: any): IHasProperty[] {
+        const hasCardForProp: IHasProperty[] = [];
 
-        for (const item of items) {
-            if (item.hasOwnProperty("@type") && (item["@type"] === Constants.Restriction)) {
+        const addItem = (ele: any) => {
+            if (ele.hasOwnProperty("@type") && (ele["@type"] === Constants.Restriction)) {
                 let cardinality: Cardinality = Cardinality._0_n;
-                if (item.hasOwnProperty(Constants.MaxCardinality)) {
-                    if (item[Constants.MaxCardinality] === 1) {
+                if (ele.hasOwnProperty(Constants.MaxCardinality)) {
+                    if (ele[Constants.MaxCardinality] === 1) {
                         cardinality = Cardinality._0_1;
                     } else {
-                        throw new Error("Inconsistent value for max cardinality: " + item[Constants.MaxCardinality]);
+                        throw new Error("Inconsistent value for max cardinality: " + ele[Constants.MaxCardinality]);
                     }
-                } else if (item.hasOwnProperty(Constants.MinCardinality)) {
-                    if (item[Constants.MinCardinality] === 1) {
+                } else if (ele.hasOwnProperty(Constants.MinCardinality)) {
+                    if (ele[Constants.MinCardinality] === 1) {
                         cardinality = Cardinality._1_n;
-                    } else if (item[Constants.MinCardinality] === 0) {
+                    } else if (ele[Constants.MinCardinality] === 0) {
                         cardinality = Cardinality._0_n;
                     } else {
-                        throw new Error("Inconsistent value for min cardinality " + item[Constants.MinCardinality]);
+                        throw new Error("Inconsistent value for min cardinality " + ele[Constants.MinCardinality]);
                     }
-                } else if (item.hasOwnProperty(Constants.Cardinality)) {
-                    if (item[Constants.Cardinality] === 1) {
+                } else if (ele.hasOwnProperty(Constants.Cardinality)) {
+                    if (ele[Constants.Cardinality] === 1) {
                         cardinality = Cardinality._1;
                     } else {
-                        throw new Error("Inconsistent value for cardinality " + item[Constants.Cardinality]);
+                        throw new Error("Inconsistent value for cardinality " + ele[Constants.Cardinality]);
                     }
                 }
 
                 let propertyIndex: string = "";
-                if (item.hasOwnProperty(Constants.OnProperty)) {
-                    const propstruct: any = item[Constants.OnProperty];
+                if (ele.hasOwnProperty(Constants.OnProperty)) {
+                    const propstruct: any = ele[Constants.OnProperty];
                     if (propstruct.hasOwnProperty("@id") &&
                         CustomConverterUtils.isString(propstruct["@id"])) {
                         propertyIndex = propstruct["@id"];
@@ -72,22 +72,30 @@ export class PropertiesListConverter implements JsonCustomConvert<IHasProperty[]
                 }
 
                 let guiOrder: number = -1;
-                if (item.hasOwnProperty(Constants.GuiOrder)) {
-                    guiOrder = item[Constants.GuiOrder];
-                    tmp.push({
+                if (ele.hasOwnProperty(Constants.GuiOrder)) {
+                    guiOrder = ele[Constants.GuiOrder];
+                    hasCardForProp.push({
                         propertyIndex: propertyIndex,
                         cardinality: cardinality,
                         guiOrder: guiOrder
                     });
                 } else {
-                    tmp.push({
+                    hasCardForProp.push({
                         propertyIndex: propertyIndex,
                         cardinality: cardinality
                     });
                 }
             }
+
+        };
+
+        if (Array.isArray(items)) {
+            items.forEach(item => addItem(item));
+        } else {
+            addItem(items);
         }
-        return tmp;
+
+        return hasCardForProp;
     }
 }
 

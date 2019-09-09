@@ -1,6 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
-import { PropertiesListConverter, SubClassOfConverter } from "../custom-converters/CustomConverters";
+import { HasCardinallityForPropertyConverter, SubClassOfConverter } from "../custom-converters/CustomConverters";
 import { ClassDefinition, IHasProperty } from "./class-definition";
 
 @JsonObject("StandoffClassDefinition")
@@ -18,6 +18,6 @@ export class StandoffClassDefinition extends ClassDefinition {
     @JsonProperty(Constants.Label, String, true)
     label?: string = undefined;
 
-    @JsonProperty(Constants.SubClassOf, PropertiesListConverter)
+    @JsonProperty(Constants.SubClassOf, HasCardinallityForPropertyConverter)
     propertiesList: IHasProperty[] = [];
 }
