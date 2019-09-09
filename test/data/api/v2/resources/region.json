@@ -1,0 +1,100 @@
+{
+  "@id" : "http://rdfh.ch/0803/2b60e9f3ac06",
+  "@type" : "knora-api:Region",
+  "knora-api:arkUrl" : {
+    "@type" : "xsd:anyURI",
+    "@value" : "http://0.0.0.0:3336/ark:/72163/1/0803/2b60e9f3ac06d"
+  },
+  "knora-api:attachedToProject" : {
+    "@id" : "http://rdfh.ch/projects/0803"
+  },
+  "knora-api:attachedToUser" : {
+    "@id" : "http://rdfh.ch/users/b83acc5f05"
+  },
+  "knora-api:creationDate" : {
+    "@type" : "xsd:dateTimeStamp",
+    "@value" : "2016-03-02T15:05:54Z"
+  },
+  "knora-api:hasColor" : {
+    "@id" : "http://rdfh.ch/0803/2b60e9f3ac06/values/cd34a70c0127",
+    "@type" : "knora-api:ColorValue",
+    "knora-api:arkUrl" : {
+      "@type" : "xsd:anyURI",
+      "@value" : "http://0.0.0.0:3336/ark:/72163/1/0803/2b60e9f3ac06d/0000000000cd34a70c012wn"
+    },
+    "knora-api:attachedToUser" : {
+      "@id" : "http://rdfh.ch/users/b83acc5f05"
+    },
+    "knora-api:colorValueAsColor" : "#ff3333",
+    "knora-api:hasPermissions" : "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:UnknownUser,knora-admin:KnownUser",
+    "knora-api:userHasPermission" : "V",
+    "knora-api:valueCreationDate" : {
+      "@type" : "xsd:dateTimeStamp",
+      "@value" : "2016-03-02T15:05:54Z"
+    },
+    "knora-api:valueHasUUID" : "0000000000cd34a70c012w",
+    "knora-api:versionArkUrl" : {
+      "@type" : "xsd:anyURI",
+      "@value" : "http://0.0.0.0:3336/ark:/72163/1/0803/2b60e9f3ac06d/0000000000cd34a70c012wn.20160302T150554Z"
+    }
+  },
+  "knora-api:hasComment" : {
+    "@id" : "http://rdfh.ch/0803/2b60e9f3ac06/values/47e1009a0027",
+    "@type" : "knora-api:TextValue",
+    "knora-api:arkUrl" : {
+      "@type" : "xsd:anyURI",
+      "@value" : "http://0.0.0.0:3336/ark:/72163/1/0803/2b60e9f3ac06d/000000000047e1009a002wj"
+    },
+    "knora-api:attachedToUser" : {
+      "@id" : "http://rdfh.ch/users/b83acc5f05"
+    },
+    "knora-api:hasPermissions" : "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:UnknownUser,knora-admin:KnownUser",
+    "knora-api:userHasPermission" : "V",
+    "knora-api:valueAsString" : "Derselbe Holzschnitt wird auf Seite c5r der lateinischen Ausgabe des Narrenschiffs verwendet.",
+    "knora-api:valueCreationDate" : {
+      "@type" : "xsd:dateTimeStamp",
+      "@value" : "2016-03-02T15:05:54Z"
+    },
+    "knora-api:valueHasUUID" : "000000000047e1009a002w",
+    "knora-api:versionArkUrl" : {
+      "@type" : "xsd:anyURI",
+      "@value" : "http://0.0.0.0:3336/ark:/72163/1/0803/2b60e9f3ac06d/000000000047e1009a002wj.20160302T150554Z"
+    }
+  },
+  "knora-api:hasGeometry" : {
+    "@id" : "http://rdfh.ch/0803/2b60e9f3ac06/values/0a0b54d30027",
+    "@type" : "knora-api:GeomValue",
+    "knora-api:arkUrl" : {
+      "@type" : "xsd:anyURI",
+      "@value" : "http://0.0.0.0:3336/ark:/72163/1/0803/2b60e9f3ac06d/00000000000a0b54d3002wa"
+    },
+    "knora-api:attachedToUser" : {
+      "@id" : "http://rdfh.ch/users/b83acc5f05"
+    },
+    "knora-api:geometryValueAsGeometry" : "{\"status\":\"active\",\"lineColor\":\"#ff3333\",\"lineWidth\":2,\"points\":[{\"x\":0.12459016393442623,\"y\":0.2175925925925926},{\"x\":0.6491803278688525,\"y\":0.7337962962962963}],\"type\":\"rectangle\"}",
+    "knora-api:hasPermissions" : "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:UnknownUser,knora-admin:KnownUser",
+    "knora-api:userHasPermission" : "V",
+    "knora-api:valueCreationDate" : {
+      "@type" : "xsd:dateTimeStamp",
+      "@value" : "2016-03-02T15:05:54Z"
+    },
+    "knora-api:valueHasUUID" : "00000000000a0b54d3002w",
+    "knora-api:versionArkUrl" : {
+      "@type" : "xsd:anyURI",
+      "@value" : "http://0.0.0.0:3336/ark:/72163/1/0803/2b60e9f3ac06d/00000000000a0b54d3002wa.20160302T150554Z"
+    }
+  },
+  "knora-api:hasPermissions" : "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:KnownUser,knora-admin:UnknownUser",
+  "knora-api:userHasPermission" : "V",
+  "knora-api:versionArkUrl" : {
+    "@type" : "xsd:anyURI",
+    "@value" : "http://0.0.0.0:3336/ark:/72163/1/0803/2b60e9f3ac06d.20160302T150554Z"
+  },
+  "rdfs:label" : "Derselbe Holzschnitt wird auf Seite c5r der lateinischen Ausgabe des Narrenschiffs verwendet.",
+  "@context" : {
+    "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs" : "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd" : "http://www.w3.org/2001/XMLSchema#",
+    "knora-api" : "http://api.knora.org/ontology/knora-api/v2#"
+  }
+}

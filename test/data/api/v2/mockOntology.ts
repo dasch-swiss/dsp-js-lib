@@ -1,13 +1,14 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { IResourceClassAndPropertyDefinitions } from "../../../../src/cache/OntologyCache";
+import { OntologyConversionUtil } from "../../../../src/models/v2/ontologies/OntologyConversionUtil";
 import { ReadOntology } from "../../../../src/models/v2/ontologies/read-ontology";
 import { ResourceClassDefinition } from "../../../../src/models/v2/ontologies/resource-class-definition";
 import { ResourcePropertyDefinition } from "../../../../src/models/v2/ontologies/resource-property-definition";
 import { StandoffClassDefinition } from "../../../../src/models/v2/ontologies/standoff-class-definition";
 import { SystemPropertyDefinition } from "../../../../src/models/v2/ontologies/system-property-definition";
-import { OntologyConversionUtil } from "../../../../src/models/v2/ontologies/OntologyConversionUtil";
 import anythingOntologyExpanded from "../v2/ontologies/anything-ontology-expanded.json";
+import incunabulaOntologyExpanded from "../v2/ontologies/incunabula-ontology-expanded.json";
 import knoraApiOntologyExpanded from "../v2/ontologies/knora-api-ontology-expanded.json";
 
 export namespace MockOntology {
@@ -84,11 +85,14 @@ export namespace MockOntology {
 
         const anythingOntology: any = anythingOntologyExpanded;
         const knoraApiOntology: any = knoraApiOntologyExpanded;
+        const incunabulaOntology: any = incunabulaOntologyExpanded;
+
 
         const knoraApiEntities = (knoraApiOntology as { [index: string]: object[] })["@graph"];
         const anythingEntities = (anythingOntology as { [index: string]: object[] })["@graph"];
+        const incunabulaEntities = (incunabulaOntology as { [index: string]: object[] })["@graph"];
 
-        const entities = knoraApiEntities.concat(anythingEntities);
+        const entities = knoraApiEntities.concat(anythingEntities).concat(incunabulaEntities);
 
         // Convert resource classes
         entities.filter(OntologyConversionUtil.filterResourceClassDefinitions)

@@ -66,7 +66,41 @@ describe("ResourcesConversionUtil", () => {
 
         });
 
-        it("parse JSON-LD representing an emtpy resource", done => {
+        it("parse JSON-LD representing a single page resource", done => {
+
+            const resource = require("../../../../test/data/api/v2/resources/page-expanded.json");
+
+            ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, jsonConvert).subscribe(
+                resSeq => {
+
+                    console.log(resSeq);
+
+                    expect(resSeq.length).toEqual(1);
+
+                    done();
+                }
+            );
+
+        });
+
+        it("parse JSON-LD representing a single region resource", done => {
+
+            const resource = require("../../../../test/data/api/v2/resources/region-expanded.json");
+
+            ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, jsonConvert).subscribe(
+                resSeq => {
+
+                    console.log(resSeq);
+
+                    expect(resSeq.length).toEqual(1);
+
+                    done();
+                }
+            );
+
+        });
+
+        it("parse JSON-LD representing an empty resource", done => {
 
             const emptyResource = {};
 

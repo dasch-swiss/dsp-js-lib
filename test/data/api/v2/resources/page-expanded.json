@@ -1,0 +1,197 @@
+{
+  "@id": "http://rdfh.ch/0803/cdad05f5c003",
+  "@type": "http://0.0.0.0:3333/ontology/0803/incunabula/v2#page",
+  "http://0.0.0.0:3333/ontology/0803/incunabula/v2#description": {
+    "@id": "http://rdfh.ch/0803/cdad05f5c003/values/5bd73ce72f26",
+    "@type": "http://api.knora.org/ontology/knora-api/v2#TextValue",
+    "http://api.knora.org/ontology/knora-api/v2#arkUrl": {
+      "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "@value": "http://0.0.0.0:3336/ark:/72163/1/0803/cdad05f5c003H/00000000005bd73ce72f2wn"
+    },
+    "http://api.knora.org/ontology/knora-api/v2#attachedToUser": {
+      "@id": "http://rdfh.ch/users/b83acc5f05"
+    },
+    "http://api.knora.org/ontology/knora-api/v2#hasPermissions": "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:UnknownUser,knora-admin:KnownUser",
+    "http://api.knora.org/ontology/knora-api/v2#userHasPermission": "V",
+    "http://api.knora.org/ontology/knora-api/v2#valueAsString": "Beginn Kapitel 10.\nHolzschnitt zu Kap. 10: Vom rechten Verhalten gegenüber dem Nächsten.\nEin Narr verprügelt einen Mann auf der Strasse. Eine Zuschauergruppe versucht den Narren zu besänftigen.\n",
+    "http://api.knora.org/ontology/knora-api/v2#valueCreationDate": {
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+      "@value": "2016-03-02T15:05:47Z"
+    },
+    "http://api.knora.org/ontology/knora-api/v2#valueHasUUID": "00000000005bd73ce72f2w",
+    "http://api.knora.org/ontology/knora-api/v2#versionArkUrl": {
+      "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "@value": "http://0.0.0.0:3336/ark:/72163/1/0803/cdad05f5c003H/00000000005bd73ce72f2wn.20160302T150547Z"
+    }
+  },
+  "http://0.0.0.0:3333/ontology/0803/incunabula/v2#origname": {
+    "@id": "http://rdfh.ch/0803/cdad05f5c003/values/3ddf9a8a000f",
+    "@type": "http://api.knora.org/ontology/knora-api/v2#TextValue",
+    "http://api.knora.org/ontology/knora-api/v2#arkUrl": {
+      "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "@value": "http://0.0.0.0:3336/ark:/72163/1/0803/cdad05f5c003H/00000000003ddf9a8a000QL"
+    },
+    "http://api.knora.org/ontology/knora-api/v2#attachedToUser": {
+      "@id": "http://rdfh.ch/users/91e19f1e01"
+    },
+    "http://api.knora.org/ontology/knora-api/v2#hasPermissions": "CR knora-admin:Creator|V knora-admin:UnknownUser,knora-admin:KnownUser,knora-admin:ProjectMember",
+    "http://api.knora.org/ontology/knora-api/v2#userHasPermission": "V",
+    "http://api.knora.org/ontology/knora-api/v2#valueAsString": "IBB_1_002758921_0043.tif",
+    "http://api.knora.org/ontology/knora-api/v2#valueCreationDate": {
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+      "@value": "2016-03-02T15:05:47Z"
+    },
+    "http://api.knora.org/ontology/knora-api/v2#valueHasUUID": "00000000003ddf9a8a000Q",
+    "http://api.knora.org/ontology/knora-api/v2#versionArkUrl": {
+      "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "@value": "http://0.0.0.0:3336/ark:/72163/1/0803/cdad05f5c003H/00000000003ddf9a8a000QL.20160302T150547Z"
+    }
+  },
+  "http://0.0.0.0:3333/ontology/0803/incunabula/v2#pagenum": {
+    "@id": "http://rdfh.ch/0803/cdad05f5c003/values/f461a1deff0e",
+    "@type": "http://api.knora.org/ontology/knora-api/v2#TextValue",
+    "http://api.knora.org/ontology/knora-api/v2#arkUrl": {
+      "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "@value": "http://0.0.0.0:3336/ark:/72163/1/0803/cdad05f5c003H/0000000000f461a1deff0QF"
+    },
+    "http://api.knora.org/ontology/knora-api/v2#attachedToUser": {
+      "@id": "http://rdfh.ch/users/91e19f1e01"
+    },
+    "http://api.knora.org/ontology/knora-api/v2#hasPermissions": "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:UnknownUser,knora-admin:KnownUser",
+    "http://api.knora.org/ontology/knora-api/v2#userHasPermission": "V",
+    "http://api.knora.org/ontology/knora-api/v2#valueAsString": "c5r",
+    "http://api.knora.org/ontology/knora-api/v2#valueCreationDate": {
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+      "@value": "2016-03-02T15:05:47Z"
+    },
+    "http://api.knora.org/ontology/knora-api/v2#valueHasUUID": "0000000000f461a1deff0Q",
+    "http://api.knora.org/ontology/knora-api/v2#versionArkUrl": {
+      "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "@value": "http://0.0.0.0:3336/ark:/72163/1/0803/cdad05f5c003H/0000000000f461a1deff0QF.20160302T150547Z"
+    }
+  },
+  "http://0.0.0.0:3333/ontology/0803/incunabula/v2#partOfValue": {
+    "@id": "http://rdfh.ch/0803/cdad05f5c003/values/b5483047-69fc-45ff-90e9-32e77bd49582",
+    "@type": "http://api.knora.org/ontology/knora-api/v2#LinkValue",
+    "http://api.knora.org/ontology/knora-api/v2#arkUrl": {
+      "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "@value": "http://0.0.0.0:3336/ark:/72163/1/0803/cdad05f5c003H/tUgwR2n8Rf=Q6TLne9SVgg7"
+    },
+    "http://api.knora.org/ontology/knora-api/v2#attachedToUser": {
+      "@id": "http://rdfh.ch/users/91e19f1e01"
+    },
+    "http://api.knora.org/ontology/knora-api/v2#hasPermissions": "CR knora-admin:Creator|V knora-admin:UnknownUser,knora-admin:KnownUser,knora-admin:ProjectMember",
+    "http://api.knora.org/ontology/knora-api/v2#linkValueHasTarget": {
+      "@id": "http://rdfh.ch/0803/b6b5ff1eb703",
+      "@type": "http://0.0.0.0:3333/ontology/0803/incunabula/v2#book",
+      "http://api.knora.org/ontology/knora-api/v2#arkUrl": {
+        "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+        "@value": "http://0.0.0.0:3336/ark:/72163/1/0803/b6b5ff1eb703T"
+      },
+      "http://api.knora.org/ontology/knora-api/v2#attachedToProject": {
+        "@id": "http://rdfh.ch/projects/0803"
+      },
+      "http://api.knora.org/ontology/knora-api/v2#attachedToUser": {
+        "@id": "http://rdfh.ch/users/91e19f1e01"
+      },
+      "http://api.knora.org/ontology/knora-api/v2#creationDate": {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+        "@value": "2016-03-02T15:05:47Z"
+      },
+      "http://api.knora.org/ontology/knora-api/v2#hasPermissions": "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:KnownUser|RV knora-admin:UnknownUser",
+      "http://api.knora.org/ontology/knora-api/v2#userHasPermission": "RV",
+      "http://api.knora.org/ontology/knora-api/v2#versionArkUrl": {
+        "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+        "@value": "http://0.0.0.0:3336/ark:/72163/1/0803/b6b5ff1eb703T.20160302T150547Z"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label": "[Das] Narrenschiff (lat.)"
+    },
+    "http://api.knora.org/ontology/knora-api/v2#userHasPermission": "V",
+    "http://api.knora.org/ontology/knora-api/v2#valueCreationDate": {
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+      "@value": "2016-03-02T15:05:47Z"
+    },
+    "http://api.knora.org/ontology/knora-api/v2#valueHasUUID": "tUgwR2n8Rf-Q6TLne9SVgg",
+    "http://api.knora.org/ontology/knora-api/v2#versionArkUrl": {
+      "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "@value": "http://0.0.0.0:3336/ark:/72163/1/0803/cdad05f5c003H/tUgwR2n8Rf=Q6TLne9SVgg7.20160302T150547Z"
+    }
+  },
+  "http://0.0.0.0:3333/ontology/0803/incunabula/v2#seqnum": {
+    "@id": "http://rdfh.ch/0803/cdad05f5c003/values/7ab54751000f",
+    "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
+    "http://api.knora.org/ontology/knora-api/v2#arkUrl": {
+      "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "@value": "http://0.0.0.0:3336/ark:/72163/1/0803/cdad05f5c003H/00000000007ab54751000Ql"
+    },
+    "http://api.knora.org/ontology/knora-api/v2#attachedToUser": {
+      "@id": "http://rdfh.ch/users/91e19f1e01"
+    },
+    "http://api.knora.org/ontology/knora-api/v2#hasPermissions": "CR knora-admin:Creator|V knora-admin:UnknownUser,knora-admin:KnownUser,knora-admin:ProjectMember",
+    "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 43,
+    "http://api.knora.org/ontology/knora-api/v2#userHasPermission": "V",
+    "http://api.knora.org/ontology/knora-api/v2#valueCreationDate": {
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+      "@value": "2016-03-02T15:05:47Z"
+    },
+    "http://api.knora.org/ontology/knora-api/v2#valueHasUUID": "00000000007ab54751000Q",
+    "http://api.knora.org/ontology/knora-api/v2#versionArkUrl": {
+      "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "@value": "http://0.0.0.0:3336/ark:/72163/1/0803/cdad05f5c003H/00000000007ab54751000Ql.20160302T150547Z"
+    }
+  },
+  "http://api.knora.org/ontology/knora-api/v2#arkUrl": {
+    "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+    "@value": "http://0.0.0.0:3336/ark:/72163/1/0803/cdad05f5c003H"
+  },
+  "http://api.knora.org/ontology/knora-api/v2#attachedToProject": {
+    "@id": "http://rdfh.ch/projects/0803"
+  },
+  "http://api.knora.org/ontology/knora-api/v2#attachedToUser": {
+    "@id": "http://rdfh.ch/users/91e19f1e01"
+  },
+  "http://api.knora.org/ontology/knora-api/v2#creationDate": {
+    "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+    "@value": "2016-03-02T15:05:47Z"
+  },
+  "http://api.knora.org/ontology/knora-api/v2#hasPermissions": "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:KnownUser|RV knora-admin:UnknownUser",
+  "http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue": {
+    "@id": "http://rdfh.ch/0803/cdad05f5c003/values/ce1e88405207",
+    "@type": "http://api.knora.org/ontology/knora-api/v2#StillImageFileValue",
+    "http://api.knora.org/ontology/knora-api/v2#arkUrl": {
+      "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "@value": "http://0.0.0.0:3336/ark:/72163/1/0803/cdad05f5c003H/0000000000ce1e8840520w4"
+    },
+    "http://api.knora.org/ontology/knora-api/v2#attachedToUser": {
+      "@id": "http://rdfh.ch/users/91e19f1e01"
+    },
+    "http://api.knora.org/ontology/knora-api/v2#fileValueAsUrl": {
+      "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "@value": "http://0.0.0.0:1024/0803/incunabula_0000004201.jp2/full/3674,5209/0/default.jpg"
+    },
+    "http://api.knora.org/ontology/knora-api/v2#fileValueHasFilename": "incunabula_0000004201.jp2",
+    "http://api.knora.org/ontology/knora-api/v2#hasPermissions": "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:KnownUser|RV knora-admin:UnknownUser",
+    "http://api.knora.org/ontology/knora-api/v2#stillImageFileValueHasDimX": 3674,
+    "http://api.knora.org/ontology/knora-api/v2#stillImageFileValueHasDimY": 5209,
+    "http://api.knora.org/ontology/knora-api/v2#stillImageFileValueHasIIIFBaseUrl": {
+      "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "@value": "http://0.0.0.0:1024/0803"
+    },
+    "http://api.knora.org/ontology/knora-api/v2#userHasPermission": "RV",
+    "http://api.knora.org/ontology/knora-api/v2#valueCreationDate": {
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+      "@value": "2012-11-21T16:51:00Z"
+    },
+    "http://api.knora.org/ontology/knora-api/v2#valueHasUUID": "0000000000ce1e8840520w",
+    "http://api.knora.org/ontology/knora-api/v2#versionArkUrl": {
+      "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "@value": "http://0.0.0.0:3336/ark:/72163/1/0803/cdad05f5c003H/0000000000ce1e8840520w4.20121121T165100Z"
+    }
+  },
+  "http://api.knora.org/ontology/knora-api/v2#userHasPermission": "RV",
+  "http://api.knora.org/ontology/knora-api/v2#versionArkUrl": {
+    "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+    "@value": "http://0.0.0.0:3336/ark:/72163/1/0803/cdad05f5c003H.20160302T150547Z"
+  },
+  "http://www.w3.org/2000/01/rdf-schema#label": "c5r"
+}
