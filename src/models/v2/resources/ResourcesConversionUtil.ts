@@ -10,6 +10,7 @@ import { ReadBooleanValue } from "./values/read-boolean-value";
 import { ReadColorValue } from "./values/read-color-value";
 import { ReadDateValue } from "./values/read-date-value";
 import { ReadDecimalValue } from "./values/read-decimal-value";
+import { ReadStillImageFileValue } from "./values/read-file-value";
 import { ReadGeomValue } from "./values/read-geom-value";
 import { ReadIntValue } from "./values/read-int-value";
 import { ReadIntervalValue } from "./values/read-interval-value";
@@ -289,6 +290,11 @@ export namespace ResourcesConversionUtil {
                         return geom;
                     }
                 ));
+                break;
+            }
+
+            case Constants.StillImageFileValue: {
+                value = handleSimpleValue(valueJsonld, ReadStillImageFileValue, jsonConvert);
                 break;
             }
 
