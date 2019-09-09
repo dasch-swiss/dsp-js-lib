@@ -10,6 +10,7 @@ import { ReadBooleanValue } from "./values/read-boolean-value";
 import { ReadColorValue } from "./values/read-color-value";
 import { ReadDateValue } from "./values/read-date-value";
 import { ReadDecimalValue } from "./values/read-decimal-value";
+import { ReadGeomValue } from "./values/read-geom-value";
 import { ReadIntValue } from "./values/read-int-value";
 import { ReadIntervalValue } from "./values/read-interval-value";
 import { ReadLinkValue } from "./values/read-link-value";
@@ -222,7 +223,7 @@ export namespace ResourcesConversionUtil {
         let value: Observable<ReadValue>;
 
         switch (type) {
-            // TODO: GeomValue, FileValues
+            // TODO: FileValues
 
             case Constants.BooleanValue: {
                 value = handleSimpleValue(valueJsonld, ReadBooleanValue, jsonConvert);
@@ -277,6 +278,17 @@ export namespace ResourcesConversionUtil {
 
             case Constants.LinkValue: {
                 value = handleLinkValue(valueJsonld, ontologyCache, jsonConvert);
+                break;
+            }
+
+            case Constants.GeomValue: {
+                const geomValue = handleSimpleValue(valueJsonld, ReadGeomValue, jsonConvert) as Observable<ReadGeomValue>;
+                value = geomValue.pipe(map(
+                    geom => {
+                        geom["parseGeometry"]();
+                        return geom;
+                    }
+                ));
                 break;
             }
 

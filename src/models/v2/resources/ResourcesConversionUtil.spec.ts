@@ -73,7 +73,7 @@ describe("ResourcesConversionUtil", () => {
             ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, jsonConvert).subscribe(
                 resSeq => {
 
-                    console.log(resSeq);
+                    // console.log(resSeq);
 
                     expect(resSeq.length).toEqual(1);
 
@@ -90,7 +90,7 @@ describe("ResourcesConversionUtil", () => {
             ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, jsonConvert).subscribe(
                 resSeq => {
 
-                    console.log(resSeq);
+                    // console.log(resSeq[0].properties);
 
                     expect(resSeq.length).toEqual(1);
 
