@@ -1,7 +1,7 @@
 {
   "@id": "http://rdfh.ch/0803/cdad05f5c003",
-  "@type": "http://0.0.0.0:3333/ontology/0803/incunabula/v2#page",
-  "http://0.0.0.0:3333/ontology/0803/incunabula/v2#description": {
+  "@type": "http://api.dasch.swiss/ontology/0803/incunabula/v2#page",
+  "http://api.dasch.swiss/ontology/0803/incunabula/v2#description": {
     "@id": "http://rdfh.ch/0803/cdad05f5c003/values/5bd73ce72f26",
     "@type": "http://api.knora.org/ontology/knora-api/v2#TextValue",
     "http://api.knora.org/ontology/knora-api/v2#arkUrl": {
@@ -24,7 +24,7 @@
       "@value": "http://0.0.0.0:3336/ark:/72163/1/0803/cdad05f5c003H/00000000005bd73ce72f2wn.20160302T150547Z"
     }
   },
-  "http://0.0.0.0:3333/ontology/0803/incunabula/v2#origname": {
+  "http://api.dasch.swiss/ontology/0803/incunabula/v2#origname": {
     "@id": "http://rdfh.ch/0803/cdad05f5c003/values/3ddf9a8a000f",
     "@type": "http://api.knora.org/ontology/knora-api/v2#TextValue",
     "http://api.knora.org/ontology/knora-api/v2#arkUrl": {
@@ -47,7 +47,7 @@
       "@value": "http://0.0.0.0:3336/ark:/72163/1/0803/cdad05f5c003H/00000000003ddf9a8a000QL.20160302T150547Z"
     }
   },
-  "http://0.0.0.0:3333/ontology/0803/incunabula/v2#pagenum": {
+  "http://api.dasch.swiss/ontology/0803/incunabula/v2#pagenum": {
     "@id": "http://rdfh.ch/0803/cdad05f5c003/values/f461a1deff0e",
     "@type": "http://api.knora.org/ontology/knora-api/v2#TextValue",
     "http://api.knora.org/ontology/knora-api/v2#arkUrl": {
@@ -70,7 +70,7 @@
       "@value": "http://0.0.0.0:3336/ark:/72163/1/0803/cdad05f5c003H/0000000000f461a1deff0QF.20160302T150547Z"
     }
   },
-  "http://0.0.0.0:3333/ontology/0803/incunabula/v2#partOfValue": {
+  "http://api.dasch.swiss/ontology/0803/incunabula/v2#partOfValue": {
     "@id": "http://rdfh.ch/0803/cdad05f5c003/values/b5483047-69fc-45ff-90e9-32e77bd49582",
     "@type": "http://api.knora.org/ontology/knora-api/v2#LinkValue",
     "http://api.knora.org/ontology/knora-api/v2#arkUrl": {
@@ -83,7 +83,7 @@
     "http://api.knora.org/ontology/knora-api/v2#hasPermissions": "CR knora-admin:Creator|V knora-admin:UnknownUser,knora-admin:KnownUser,knora-admin:ProjectMember",
     "http://api.knora.org/ontology/knora-api/v2#linkValueHasTarget": {
       "@id": "http://rdfh.ch/0803/b6b5ff1eb703",
-      "@type": "http://0.0.0.0:3333/ontology/0803/incunabula/v2#book",
+      "@type": "http://api.dasch.swiss/ontology/0803/incunabula/v2#book",
       "http://api.knora.org/ontology/knora-api/v2#arkUrl": {
         "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
         "@value": "http://0.0.0.0:3336/ark:/72163/1/0803/b6b5ff1eb703T"
@@ -117,7 +117,7 @@
       "@value": "http://0.0.0.0:3336/ark:/72163/1/0803/cdad05f5c003H/tUgwR2n8Rf=Q6TLne9SVgg7.20160302T150547Z"
     }
   },
-  "http://0.0.0.0:3333/ontology/0803/incunabula/v2#seqnum": {
+  "http://api.dasch.swiss/ontology/0803/incunabula/v2#seqnum": {
     "@id": "http://rdfh.ch/0803/cdad05f5c003/values/7ab54751000f",
     "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
     "http://api.knora.org/ontology/knora-api/v2#arkUrl": {
