@@ -11,19 +11,23 @@ const expandJsonLD = (path) => {
         files.forEach(
             (jsondldFilename, index) => {
 
+                if (jsondldFilename.endsWith(".json") && jsondldFilename.indexOf("expanded") === -1) {
 
-                const jsonldFile = fs.readFileSync(path + jsondldFilename, 'utf8', 'r+');
+                    // console.log(jsondldFilename + " " + jsondldFilename.indexOf("expanded"))
 
-                const expandedPromise = jsonld.compact(JSON.parse(jsonldFile), {});
-                expandedPromise.then(
-                    expanded => {
-                        // write fo file with "expanded" suffix
-                        fs.writeFileSync( path + jsondldFilename.substring(0, jsondldFilename.length-5) + "-expanded.json", JSON.stringify(expanded), "utf8");
-                    },
-                    err => {
-                        console.log("JSONLD failed " + jsondldFilename + " \n" + err);
-                    }
-                );
+                    const jsonldFile = fs.readFileSync(path + jsondldFilename, 'utf8', 'r+');
+
+                    const expandedPromise = jsonld.compact(JSON.parse(jsonldFile), {});
+                    expandedPromise.then(
+                        expanded => {
+                            // write fo file with "expanded" suffix
+                            // fs.writeFileSync(path + jsondldFilename.substring(0, jsondldFilename.length - 5) + "-expanded.json", JSON.stringify(expanded), "utf8");
+                        },
+                        err => {
+                            console.log("JSONLD failed " + jsondldFilename + " \n" + err);
+                        }
+                    );
+                }
             }
         );
 
