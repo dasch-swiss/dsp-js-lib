@@ -21,7 +21,7 @@ const expandJsonLD = (path) => {
                     expandedPromise.then(
                         expanded => {
                             // write fo file with "expanded" suffix
-                            // fs.writeFileSync(path + jsondldFilename.substring(0, jsondldFilename.length - 5) + "-expanded.json", JSON.stringify(expanded), "utf8");
+                            fs.writeFileSync(path + jsondldFilename.substring(0, jsondldFilename.length - 5) + "-expanded.json", JSON.stringify(expanded), "utf8");
                         },
                         err => {
                             console.log("JSONLD failed " + jsondldFilename + " \n" + err);
@@ -35,6 +35,7 @@ const expandJsonLD = (path) => {
 };
 
 const ontologiesPath = "test/data/api/v2/ontologies/";
-// const resourcesPath = "test/data/api/v2/resources/";
+const resourcesPath = "test/data/api/v2/resources/";
 
 expandJsonLD(ontologiesPath);
+expandJsonLD(resourcesPath);
