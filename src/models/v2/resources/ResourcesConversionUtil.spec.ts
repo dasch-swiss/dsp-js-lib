@@ -48,8 +48,6 @@ describe("ResourcesConversionUtil", () => {
             ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, jsonConvert).subscribe(
                 resSeq => {
 
-                    // console.log(JSON.stringify(resSeq[0].properties));
-
                     expect(resSeq.length).toEqual(1);
 
                     expect(resSeq[0].id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw");
@@ -67,6 +65,10 @@ describe("ResourcesConversionUtil", () => {
 
                     expect(getResourceClassDefinitionSpy).toHaveBeenCalledTimes(2);
                     expect(getResourceClassDefinitionSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
+
+                    expect(resSeq[0].outgoingReferences.length).toEqual(1);
+                    expect(resSeq[0].outgoingReferences[0].id).toEqual("http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ");
+
 
                     done();
                 }

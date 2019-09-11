@@ -102,6 +102,21 @@ export namespace ResourcesConversionUtil {
                     return forkJoin(values).pipe(map(
                         (vals: ReadValue[]) => {
 
+                            // get link values
+                            const linkVals: ReadLinkValue[] = vals.filter((val: ReadValue) => {
+                                return val instanceof ReadLinkValue;
+                            }) as ReadLinkValue[];
+
+                            // incoming references with embedded resource
+                            const incomingRefs: ReadLinkValue[] = linkVals.filter((linkVal: ReadLinkValue) => {
+                                return linkVal.incoming && linkVal.linkedResource !== undefined;
+                            });
+
+                            // outgoing references with embedded resource
+                            const outgoingRefs = linkVals.filter((linkVal: ReadLinkValue) => {
+                                return !linkVal.incoming && linkVal.linkedResource !== undefined;
+                            });
+
                             // create a map structure property Iri -> values
                             const propMap: {[index: string]: ReadValue[]} = {};
 
@@ -115,6 +130,10 @@ export namespace ResourcesConversionUtil {
 
                             // assign values
                             resource.properties = propMap;
+
+                            resource.incomingReferences = incomingRefs.map((linkVal: ReadLinkValue) => linkVal.linkedResource as ReadResource);
+
+                            resource.outgoingReferences = outgoingRefs.map((linkVal: ReadLinkValue) => linkVal.linkedResource as ReadResource);
 
                             return resource;
                         }
