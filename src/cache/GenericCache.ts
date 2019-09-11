@@ -37,7 +37,7 @@ export abstract class GenericCache<T> {
 
         // Requests information from Knora and updates the AsyncSubject
         // once the information is available
-        this.requestItemsFromKnora(key, isDependency).subscribe((items: T[]) => {
+        this.requestItemFromKnora(key, isDependency).subscribe((items: T[]) => {
             // console.log("fetching from Knora", key);
 
             items.forEach(
@@ -83,10 +83,10 @@ export abstract class GenericCache<T> {
      * Fetches information from Knora.
      *
      * @param key the id of the information to be returned.
-     * @param isDependency
-     * @return the item received from Knora.
+     * @param isDependency true if the requested key is a dependency of another item.
+     * @return the items received from Knora.
      */
-    protected abstract requestItemsFromKnora(key: string, isDependency: boolean): Observable<T[]>;
+    protected abstract requestItemFromKnora(key: string, isDependency: boolean): Observable<T[]>;
 
     /**
      * Given an item, determines its dependencies on other items.
