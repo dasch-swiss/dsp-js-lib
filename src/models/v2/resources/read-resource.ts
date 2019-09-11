@@ -31,6 +31,6 @@ export class ReadResource {
 
     resourceClassComment?: string;
 
-    properties: ReadValue[] = [];
+    properties: {[index: string]: ReadValue[]} = {};
 
 }

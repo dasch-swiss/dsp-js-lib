@@ -100,13 +100,22 @@ export namespace ResourcesConversionUtil {
                     });
 
                     return forkJoin(values).pipe(map(
-                        vals => {
-                            // vals.forEach(val => console.log(val));
+                        (vals: ReadValue[]) => {
+
+                            // create a map structure property Iri -> values
+                            const propMap: {[index: string]: ReadValue[]} = {};
+
+                            vals.forEach((val: ReadValue) => {
+                                if (!propMap.hasOwnProperty(val.property)) {
+                                    propMap[val.property] = [val];
+                                } else {
+                                    propMap[val.property].push(val);
+                                }
+                            });
 
                             // assign values
-                            resource.properties = vals;
-
-                            // console.log(resource)
+                            resource.properties = propMap;
+                            
                             return resource;
                         }
                     ));
