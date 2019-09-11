@@ -115,7 +115,7 @@ export namespace ResourcesConversionUtil {
 
                             // assign values
                             resource.properties = propMap;
-                            
+
                             return resource;
                         }
                     ));

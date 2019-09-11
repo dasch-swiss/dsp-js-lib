@@ -6,6 +6,7 @@ import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ResourcesConversionUtil } from "./ResourcesConversionUtil";
+import { ReadUriValue } from "./values/read-uri-value";
 
 describe("ResourcesConversionUtil", () => {
 
@@ -55,7 +56,14 @@ describe("ResourcesConversionUtil", () => {
                     expect(resSeq[0].type).toEqual("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
                     expect(resSeq[0].resourceClassLabel).toEqual("Thing");
 
-                    // expect(resSeq[0].properties.length).toEqual(12);
+                    expect(resSeq[0].getNumberOfProperties()).toEqual(12);
+                    expect(resSeq[0].getNumberOfValues("http://api.dasch.swiss/ontology/0001/anything/v2#hasUri")).toEqual(1);
+
+                    const uriVals = resSeq[0].getValues("http://api.dasch.swiss/ontology/0001/anything/v2#hasUri");
+                    expect(uriVals.length).toEqual(1);
+                    expect(uriVals[0] instanceof ReadUriValue).toBeTruthy();
+                    expect((uriVals[0] as ReadUriValue).uri).toEqual("http://www.google.ch");
+
 
                     expect(getResourceClassDefinitionSpy).toHaveBeenCalledTimes(2);
                     expect(getResourceClassDefinitionSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
