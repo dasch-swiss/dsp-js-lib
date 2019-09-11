@@ -40,6 +40,8 @@ export abstract class GenericCache<T> {
         this.requestItemFromKnora(key, isDependency).subscribe((items: T[]) => {
             // console.log("fetching from Knora", key);
 
+            if (items.length === 0) throw Error("No item returned for " + key);
+
             items.forEach(
                 (item: T) => {
                     // Updates and completes the AsyncSubject.
