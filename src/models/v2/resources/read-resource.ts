@@ -31,6 +31,30 @@ export class ReadResource {
 
     resourceClassComment?: string;
 
-    properties: ReadValue[] = [];
+    properties: {[index: string]: ReadValue[]} = {};
+
+    incomingReferences: ReadResource[] = [];
+
+    outgoingReferences: ReadResource[] = [];
+
+    getNumberOfProperties(): number {
+        return Object.keys(this.properties).length;
+    }
+
+    getNumberOfValues(property: string): number {
+        if (this.properties.hasOwnProperty(property)) {
+            return this.properties[property].length;
+        } else {
+            return 0;
+        }
+    }
+
+    getValues(property: string): ReadValue[] {
+        if (this.properties.hasOwnProperty(property)) {
+            return this.properties[property];
+        } else {
+            return [];
+        }
+    }
 
 }
