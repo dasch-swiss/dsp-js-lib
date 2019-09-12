@@ -66,7 +66,7 @@ describe("OntologiesEndpoint", () => {
                     expect(response.id).toEqual("http://api.dasch.swiss/ontology/0001/anything/v2");
 
                     expect(response.dependsOnOntologies.size).toEqual(1);
-                    expect(response.dependsOnOntologies.has("http://api.dasch.swiss/ontology/0001/anything/v2"));
+                    expect(response.dependsOnOntologies.has("http://api.knora.org/ontology/knora-api/v2")).toBeTruthy();
 
                     expect(response.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"] instanceof ResourceClassDefinition);
                     expect(response.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"].id).toEqual("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
@@ -85,6 +85,31 @@ describe("OntologiesEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(onto)));
 
             expect(request.url).toBe("http://api.dasch.swiss/v2/ontologies/allentities/http%3A%2F%2Fapi.dasch.swiss%2Fontology%2F0001%2Fanything%2Fv2");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should return a very simple project ontology", done => {
+
+            knoraApiConnection.v2.onto.getOntology("http://api.dasch.swiss/ontology/0001/minimal/v2").subscribe(
+                (response: ReadOntology) => {
+
+                    expect(response.id).toEqual("http://api.dasch.swiss/ontology/0001/minimal/v2");
+
+                    expect(response.dependsOnOntologies.size).toEqual(1);
+                    expect(response.dependsOnOntologies.has("http://api.knora.org/ontology/knora-api/v2")).toBeTruthy();
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const onto = require("../../../../test/data/api/v2/ontologies/minimal-ontology.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(onto)));
+
+            expect(request.url).toBe("http://api.dasch.swiss/v2/ontologies/allentities/http%3A%2F%2Fapi.dasch.swiss%2Fontology%2F0001%2Fminimal%2Fv2");
 
             expect(request.method).toEqual("GET");
 
