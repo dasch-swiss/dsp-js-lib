@@ -1,6 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../Constants";
-import { UriConverter } from "../../CustomConverters";
+import { UriConverter } from "../../custom-converters/uri-converter";
 import { ReadValue } from "./read-value";
 
 @JsonObject("ReadUriValue")
