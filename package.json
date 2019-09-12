@@ -12,7 +12,7 @@
     "index.js"
   ],
   "scripts": {
-    "expand": "node expand-jsonld-test-data-files.js",
+    "expand-jsonld-test-data": "node expand-jsonld-test-data-files.js",
     "test": "karma start karma.conf.js",
     "build": "tsc && mkdir -p build/ && cp CHANGELOG.md build/ && cp LICENSE build/ && cp README.md build/ && cp package.json build/",
     "yalc-publish": "npm run build && yalc publish build/ --push",
