@@ -1,6 +1,5 @@
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { ListNode } from "../models/v2/lists/list-node";
 import { GenericCache } from "./GenericCache";
@@ -40,7 +39,17 @@ export class ListNodeCache extends GenericCache<ListNode> {
 
             return (list as Observable<ListNode>).pipe(
                 map(
-                    rootNode => collectNodes(rootNode)
+                    rootNode => {
+                        const nodes: ListNode[] = collectNodes(rootNode);
+
+                        return nodes.map(
+                            node => {
+                                node.children = [];
+                                return node;
+                            }
+                        );
+
+                    }
                 )
             );
 
