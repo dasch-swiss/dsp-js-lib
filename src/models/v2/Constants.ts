@@ -59,8 +59,6 @@ export class Constants {
     static FileValueHasFilename = Constants.KnoraApiV2 + Constants.Delimiter + "fileValueHasFilename";
     static FileValueAsUrl = Constants.KnoraApiV2 + Constants.Delimiter + "fileValueAsUrl";
 
-
-
     static KnoraAdminV2 = "http://api.knora.org/ontology/knora-admin/v2";
 
     static SalsahGui = "http://api.knora.org/ontology/salsah-gui/v2";
@@ -83,4 +81,7 @@ export class Constants {
     static Label = Constants.Rdfs + Constants.Delimiter + "label";
     static SubPropertyOf = Constants.Rdfs + Constants.Delimiter + "subPropertyOf";
 
+    static Xsd = "http://www.w3.org/2001/XMLSchema";
+    static XsdAnyUri = Constants.Xsd + Constants.Delimiter + "anyURI";
+    static XsdDecimal = Constants.Xsd + Constants.Delimiter + "decimal";
 }
