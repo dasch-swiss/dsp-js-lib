@@ -3,6 +3,7 @@ import { AsyncSubject, Observable } from "rxjs";
 /**
  * Generic cache class.
  * Fetches information of a specific type from Knora once and caches it.
+ * Fetches also dependencies of a requested element (non-blocking).
  *
  * Works also with multiple async requests for the same key, also if not cached yet.
  */
@@ -20,18 +21,20 @@ export abstract class GenericCache<T> {
      * If not cached yet, the information will be fetched from Knora.
      *
      * @param key the id of the item to be returned.
-     * @param isDependency true if the item to be returned is a dependency of another item.
+     * @param isDependency true if the item to be returned
+     *        is a dependency of another item (recursive call to this method).
      * @return the requested item.
      */
     protected getItem(key: string, isDependency = false): AsyncSubject<T> {
         // console.log("getItem", key, this.cache[key]);
 
-        // If the key already exists, return the associated AsyncSubject.
+        // If the key already exists,
+        // return the associated AsyncSubject.
         if (this.cache[key] !== undefined) {
             return this.cache[key];
         }
 
-        // Item does not exist yet in cache.
+        // Item for `key` does not exist yet in cache.
         // Create an entry for a new AsyncSubject
         this.cache[key] = new AsyncSubject();
 
@@ -44,17 +47,20 @@ export abstract class GenericCache<T> {
 
             if (key !== this.getKeyOfItem(items[0])) throw Error("First item of items returned from Knora is expected to be " + key);
 
-            // Updates and completes the AsyncSubject for key.
+            // Updates and completes the AsyncSubject for `key`.
             this.cache[key].next(items[0]);
             this.cache[key].complete();
 
+            // Write all available items to the cache (only for non existing keys)
+            // Analyze dependencies of available items.
             items.forEach(
                 (item: T) => {
-                    // Writes additional items to the cache
+                    // Get key of item
                     const itemKey = this.getKeyOfItem(item);
 
                     // Only write an additional item to the cache
                     // if there is not entry for it yet
+                    // item for `key` has already been handled
                     if (this.cache[itemKey] === undefined) {
                         this.cache[itemKey] = new AsyncSubject();
                         this.cache[itemKey].next(item);
@@ -76,7 +82,7 @@ export abstract class GenericCache<T> {
             );
         });
 
-        // return the AsyncSubject (will be updated once the information is available)
+        // return the AsyncSubject for `key` (will be updated once the information is available)
         return this.cache[key];
 
     }

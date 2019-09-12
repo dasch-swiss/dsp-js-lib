@@ -8,7 +8,7 @@ import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-p
 
 describe("OntologiesEndpoint", () => {
 
-    const config = new KnoraApiConfig("http", "api.dasch.swiss");
+    const config = new KnoraApiConfig("http", "api.dasch.swiss", undefined, undefined, undefined, true);
     const knoraApiConnection = new KnoraApiConnection(config);
 
     beforeEach(() => {
