@@ -5,14 +5,13 @@ import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { ListNode } from "../models/v2/lists/list-node";
 import { ListNodeCache } from "./ListNodeCache";
-import { OntologyCache } from "./OntologyCache";
 
-describe("OntologyCache", () => {
+describe("ListNodeCache", () => {
 
     const config = new KnoraApiConfig("http", "api.dasch.swiss", undefined, "", "", true);
     const knoraApiConnection = new KnoraApiConnection(config);
 
-    let getListNodeSpy: jasmine.Spy;
+    let getNodeSpy: jasmine.Spy;
     let getListSpy: jasmine.Spy;
     let listNodeCache: ListNodeCache;
 
@@ -25,18 +24,17 @@ describe("OntologyCache", () => {
 
     const nodeJson = require("../../test/data/api/v2/lists/listnode-expanded.json");
 
-    const nodeResp = jsonConvert.deserialize(nodeJson, ListNode) as ListNode;
-
     const listJson = require("../../test/data/api/v2/lists/treelist-expanded.json");
 
-    const listResp = jsonConvert.deserialize(listJson, ListNode) as ListNode;
-
     beforeEach(() => {
-
         jasmine.Ajax.install();
 
-        getListNodeSpy = spyOn(knoraApiConnection.v2.list, "getNode").and.callFake(
+        getNodeSpy = spyOn(knoraApiConnection.v2.list, "getNode").and.callFake(
             (nodeIri: string) => {
+
+                const nodeResp = jsonConvert.deserialize(nodeJson, ListNode) as ListNode;
+
+                // console.log("getNodeSpy", nodeResp)
 
                 return of(nodeResp);
 
@@ -45,6 +43,10 @@ describe("OntologyCache", () => {
 
         getListSpy = spyOn(knoraApiConnection.v2.list, "getList").and.callFake(
             (nodeIri: string) => {
+
+                const listResp = jsonConvert.deserialize(listJson, ListNode) as ListNode;
+
+                // console.log("getListSpy ", listResp, " ", listJson)
 
                 return of(listResp);
 
@@ -67,8 +69,8 @@ describe("OntologyCache", () => {
 
                 expect(node.id).toEqual("http://rdfh.ch/lists/0001/treeList01");
 
-                expect(getListNodeSpy).toHaveBeenCalledTimes(1);
-                expect(getListNodeSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList01");
+                expect(getNodeSpy).toHaveBeenCalledTimes(1);
+                expect(getNodeSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList01");
 
                 expect(getListSpy).toHaveBeenCalledTimes(1);
                 expect(getListSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList");
@@ -77,6 +79,11 @@ describe("OntologyCache", () => {
                 expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList01"]["hasCompleted"]).toBeTruthy();
 
                 expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList"]).not.toBeUndefined(); // root node Iri is dependency of each list node
+
+                // console.log(Object.keys(listNodeCache["cache"]));
+
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList02"]).not.toBeUndefined();
+
 
                 done();
 
@@ -93,8 +100,8 @@ describe("OntologyCache", () => {
 
                 expect(node.id).toEqual("http://rdfh.ch/lists/0001/treeList01");
 
-                expect(getListNodeSpy).toHaveBeenCalledTimes(1);
-                expect(getListNodeSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList01");
+                expect(getNodeSpy).toHaveBeenCalledTimes(1);
+                expect(getNodeSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList01");
 
                 expect(getListSpy).toHaveBeenCalledTimes(1);
                 expect(getListSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList");
@@ -103,6 +110,10 @@ describe("OntologyCache", () => {
                 expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList01"]["hasCompleted"]).toBeTruthy();
 
                 expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList"]).not.toBeUndefined(); // root node Iri is dependency of each list node
+
+                // console.log(Object.keys(listNodeCache["cache"]));
+
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList02"]).not.toBeUndefined();
 
                 done();
 
