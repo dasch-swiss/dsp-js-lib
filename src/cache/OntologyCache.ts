@@ -135,6 +135,10 @@ export class OntologyCache extends GenericCache<ReadOntology> {
         );
     }
 
+    protected getKeyOfItem(item: ReadOntology): string {
+        return item.id;
+    }
+
     protected getDependenciesOfItem(item: ReadOntology): string[] {
         return Array.from(item.dependsOnOntologies);
     }

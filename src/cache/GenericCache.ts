@@ -40,27 +40,38 @@ export abstract class GenericCache<T> {
         this.requestItemFromKnora(key, isDependency).subscribe((items: T[]) => {
             // console.log("fetching from Knora", key);
 
-            if (items.length === 0) throw Error("No item returned for " + key);
+            if (items.length === 0) throw Error("No items returned from Knora for " + key);
+
+            if (key !== this.getKeyOfItem(items[0])) throw Error("First item of items returned from Knora is expected to be " + key);
+
+            // Updates and completes the AsyncSubject for key.
+            this.cache[key].next(items[0]);
+            this.cache[key].complete();
 
             items.forEach(
                 (item: T) => {
-                    // Updates and completes the AsyncSubject.
-                    this.cache[key].next(item);
-                    this.cache[key].complete();
+                    // Writes additional items to the cache
+                    const itemKey = this.getKeyOfItem(item);
 
-                    // collect keys of items this item depends on
-                    let dependencyKeysToGet = this.getDependenciesOfItem(item);
+                    // Only write an additional item to the cache
+                    // if there is not entry for it yet
+                    if (this.cache[itemKey] === undefined) {
+                        this.cache[itemKey] = new AsyncSubject();
+                        this.cache[itemKey].next(item);
+                        this.cache[itemKey].complete();
+                    }
 
-                    // ignore dependencies already taken care of
-                    dependencyKeysToGet = dependencyKeysToGet.filter((depKey: string) => {
-                        return Object.keys(this.cache).indexOf(depKey) === -1;
-                    });
-
-                    // Request each dependency from the cache
-                    // Dependencies will be fetched asynchronously.
-                    dependencyKeysToGet.forEach((depKey: string) => {
-                        this.getItem(depKey, true);
-                    });
+                    // get items this item depends on
+                    this.getDependenciesOfItem(item)
+                        .filter((depKey: string) => {
+                            // ignore dependencies already taken care of
+                            return Object.keys(this.cache).indexOf(depKey) === -1;
+                        })
+                        .forEach((depKey: string) => {
+                            // Request each dependency from the cache
+                            // Dependencies will be fetched asynchronously.
+                            this.getItem(depKey, true);
+                        });
                 }
             );
         });
@@ -89,6 +100,13 @@ export abstract class GenericCache<T> {
      * @return the items received from Knora.
      */
     protected abstract requestItemFromKnora(key: string, isDependency: boolean): Observable<T[]>;
+
+    /**
+     * Given an item, determines its key.
+     *
+     * @param item The item whose key has to be determined.
+     */
+    protected abstract getKeyOfItem(item: T): string;
 
     /**
      * Given an item, determines its dependencies on other items.
