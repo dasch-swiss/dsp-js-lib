@@ -26,7 +26,7 @@ export class SubListNodeConverter implements JsonCustomConvert<ListNode[]> {
 
     deserialize(subnodes: any): ListNode[] {
 
-        let children;
+        let children: object[];
 
         if (Array.isArray(subnodes)) {
             children = subnodes;
