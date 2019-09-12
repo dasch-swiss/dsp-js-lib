@@ -11,40 +11,40 @@ describe("UserCache", () => {
     const config = new KnoraApiConfig("http", "localhost", 3333);
     const knoraApiConnection = new KnoraApiConnection(config);
 
-    describe("Method getItem", () => {
+    let getUserSpy: jasmine.Spy;
+    let userCache: UserCache;
 
-        let getUserSpy: jasmine.Spy;
-        let userCache: UserCache;
+    const jsonConvert: JsonConvert = new JsonConvert(
+        OperationMode.ENABLE,
+        ValueCheckingMode.DISALLOW_NULL,
+        false,
+        PropertyMatchingRule.CASE_STRICT
+    );
 
-        const jsonConvert: JsonConvert = new JsonConvert(
-            OperationMode.ENABLE,
-            ValueCheckingMode.DISALLOW_NULL,
-            false,
-            PropertyMatchingRule.CASE_STRICT
+    const user = require("../../test/data/api/admin/users/get-user-response.json");
+
+    const userResp = jsonConvert.deserialize(user, UserResponse) as UserResponse;
+
+    beforeEach(() => {
+
+        jasmine.Ajax.install();
+
+        getUserSpy = spyOn(knoraApiConnection.admin.usersEndpoint, "getUser").and.callFake(
+            (prop: string, userId: string) => {
+
+                return of({body: userResp});
+            }
         );
 
-        const user = require("../../test/data/api/admin/users/get-user-response.json");
+        userCache = new UserCache(knoraApiConnection);
 
-        const userResp = jsonConvert.deserialize(user, UserResponse) as UserResponse;
+    });
 
-        beforeEach(() => {
+    afterEach(() => {
+        jasmine.Ajax.uninstall();
+    });
 
-            jasmine.Ajax.install();
-
-            getUserSpy = spyOn(knoraApiConnection.admin.usersEndpoint, "getUser").and.callFake(
-                (prop: string, userId: string) => {
-
-                    return of({body: userResp});
-                }
-            );
-
-            userCache = new UserCache(knoraApiConnection);
-
-        });
-
-        afterEach(() => {
-            jasmine.Ajax.uninstall();
-        });
+    describe("Method getItem", () => {
 
         it("should get a user from the cache", done => {
 

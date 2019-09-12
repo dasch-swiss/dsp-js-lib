@@ -11,31 +11,31 @@ describe("OntologyCache", () => {
     const config = new KnoraApiConfig("http", "api.dasch.swiss", undefined, "", "", true);
     const knoraApiConnection = new KnoraApiConnection(config);
 
+    let getOntoSpy: jasmine.Spy;
+    let ontoCache: OntologyCache;
+
+    beforeEach(() => {
+
+        jasmine.Ajax.install();
+
+        getOntoSpy = spyOn(knoraApiConnection.v2.onto, "getOntology").and.callFake(
+            (ontoIri: string) => {
+
+                const onto = MockOntology.mockReadOntology(ontoIri);
+
+                return of(onto);
+            }
+        );
+
+        ontoCache = new OntologyCache(knoraApiConnection, config);
+
+    });
+
+    afterEach(() => {
+        jasmine.Ajax.uninstall();
+    });
+
     describe("Method getItem()", () => {
-
-        let getOntoSpy: jasmine.Spy;
-        let ontoCache: OntologyCache;
-
-        beforeEach(() => {
-
-            jasmine.Ajax.install();
-
-            getOntoSpy = spyOn(knoraApiConnection.v2.onto, "getOntology").and.callFake(
-                (ontoIri: string) => {
-
-                    const onto = MockOntology.mockReadOntology(ontoIri);
-
-                    return of(onto);
-                }
-            );
-
-            ontoCache = new OntologyCache(knoraApiConnection, config);
-
-        });
-
-        afterEach(() => {
-            jasmine.Ajax.uninstall();
-        });
 
         it("should get an ontology from the cache", done => {
 
@@ -72,24 +72,6 @@ describe("OntologyCache", () => {
     });
 
     describe("Method getOntology()", () => {
-
-        let getOntoSpy: jasmine.Spy;
-        let ontoCache: OntologyCache;
-
-        beforeEach(() => {
-
-            getOntoSpy = spyOn(knoraApiConnection.v2.onto, "getOntology").and.callFake(
-                (ontoIri: string) => {
-
-                    const onto = MockOntology.mockReadOntology(ontoIri);
-
-                    return of(onto);
-                }
-            );
-
-            ontoCache = new OntologyCache(knoraApiConnection, config);
-
-        });
 
         it("should get an ontology with direct dependencies from the cache", done => {
 
@@ -133,24 +115,6 @@ describe("OntologyCache", () => {
     });
 
     describe("Method getResourceClass()", () => {
-
-        let getOntoSpy: jasmine.Spy;
-        let ontoCache: OntologyCache;
-
-        beforeEach(() => {
-
-            getOntoSpy = spyOn(knoraApiConnection.v2.onto, "getOntology").and.callFake(
-                (ontoIri: string) => {
-
-                    const onto = MockOntology.mockReadOntology(ontoIri);
-
-                    return of(onto);
-                }
-            );
-
-            ontoCache = new OntologyCache(knoraApiConnection, config);
-
-        });
 
         it("should get the definition of a resource class and its properties", done => {
 

@@ -59,24 +59,56 @@ describe("OntologyCache", () => {
         jasmine.Ajax.uninstall();
     });
 
-    it("should get a list node from the cache", done => {
+    describe("Method getItem()", () => {
 
-        listNodeCache["getItem"]("http://rdfh.ch/lists/0001/treeList01").subscribe((node: ListNode) => {
+        it("should get a list node from the cache", done => {
 
-            expect(node.id).toEqual("http://rdfh.ch/lists/0001/treeList01");
+            listNodeCache["getItem"]("http://rdfh.ch/lists/0001/treeList01").subscribe((node: ListNode) => {
 
-            expect(getListNodeSpy).toHaveBeenCalledTimes(1);
-            expect(getListNodeSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList01");
+                expect(node.id).toEqual("http://rdfh.ch/lists/0001/treeList01");
 
-            expect(getListSpy).toHaveBeenCalledTimes(1);
-            expect(getListSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList");
+                expect(getListNodeSpy).toHaveBeenCalledTimes(1);
+                expect(getListNodeSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList01");
 
-            expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList01"]).not.toBeUndefined();
-            expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList"]).not.toBeUndefined(); // root node Iri is dependency of each list node
+                expect(getListSpy).toHaveBeenCalledTimes(1);
+                expect(getListSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList");
 
-            done();
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList01"]).not.toBeUndefined();
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList01"]["hasCompleted"]).toBeTruthy();
 
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList"]).not.toBeUndefined(); // root node Iri is dependency of each list node
+
+                done();
+
+            });
         });
+
+    });
+
+    describe("Method getNode()", () => {
+
+        it("should get a list node from the cache", done => {
+
+            listNodeCache.getNode("http://rdfh.ch/lists/0001/treeList01").subscribe((node: ListNode) => {
+
+                expect(node.id).toEqual("http://rdfh.ch/lists/0001/treeList01");
+
+                expect(getListNodeSpy).toHaveBeenCalledTimes(1);
+                expect(getListNodeSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList01");
+
+                expect(getListSpy).toHaveBeenCalledTimes(1);
+                expect(getListSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList");
+
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList01"]).not.toBeUndefined();
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList01"]["hasCompleted"]).toBeTruthy();
+
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList"]).not.toBeUndefined(); // root node Iri is dependency of each list node
+
+                done();
+
+            });
+        });
+
     });
 
 });
