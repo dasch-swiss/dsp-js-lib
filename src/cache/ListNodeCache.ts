@@ -3,12 +3,11 @@ import { map } from "rxjs/operators";
 import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { ListNode } from "../models/v2/lists/list-node";
-import { ReadOntology } from "../models/v2/ontologies/read-ontology";
 import { GenericCache } from "./GenericCache";
 
 export class ListNodeCache extends GenericCache<ListNode> {
 
-    constructor(private knoraApiConnection: KnoraApiConnection, private knoraApiConfig: KnoraApiConfig) {
+    constructor(private knoraApiConnection: KnoraApiConnection) {
         super();
     }
 
