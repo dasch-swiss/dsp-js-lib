@@ -1,5 +1,7 @@
+import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
+import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { of } from "rxjs";
-import { UserResponse } from "..";
+import { ApiResponseError, UserResponse } from "..";
 import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { UserCache } from "./UserCache";
@@ -14,14 +16,23 @@ describe("UserCache", () => {
         let getUserSpy: jasmine.Spy;
         let userCache: UserCache;
 
-        beforeEach(() => {
+        const jsonConvert: JsonConvert = new JsonConvert(
+            OperationMode.ENABLE,
+            ValueCheckingMode.DISALLOW_NULL,
+            false,
+            PropertyMatchingRule.CASE_STRICT
+        );
 
-            const user = require("../../test/data/api/admin/users/get-user-response.json");
+        const user = require("../../test/data/api/admin/users/get-user-response.json");
+
+        const userResp = jsonConvert.deserialize(user, UserResponse) as UserResponse;
+
+        beforeEach(() => {
 
             getUserSpy = spyOn(knoraApiConnection.admin.usersEndpoint, "getUser").and.callFake(
                 (prop: string, userId: string) => {
 
-                    return of({body: user});
+                    return of({body: userResp});
                 }
             );
 

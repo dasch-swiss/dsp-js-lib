@@ -1,4 +1,5 @@
 import { AsyncSubject, Observable } from "rxjs";
+import { take } from "rxjs/operators";
 
 /**
  * Generic cache class.
@@ -40,7 +41,10 @@ export abstract class GenericCache<T> {
 
         // Requests information from Knora and updates the AsyncSubject
         // once the information is available
-        this.requestItemFromKnora(key, isDependency).subscribe((items: T[]) => {
+        //
+        // take(1) ensures that the subscription is terminated
+        // when the first value was emitted.
+        this.requestItemFromKnora(key, isDependency).pipe(take(1)).subscribe((items: T[]) => {
             // console.log("fetching from Knora", key);
 
             if (items.length === 0) throw Error("No items returned from Knora for " + key);
