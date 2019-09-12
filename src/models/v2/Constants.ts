@@ -21,6 +21,10 @@ export class Constants {
     static UriValue = Constants.KnoraApiV2 + Constants.Delimiter + "UriValue";
     static GeomValue = Constants.KnoraApiV2 + Constants.Delimiter + "GeomValue";
     static StillImageFileValue = Constants.KnoraApiV2 + Constants.Delimiter + "StillImageFileValue";
+    static IsRootNode = Constants.KnoraApiV2 + Constants.Delimiter + "isRootNode";
+    static HasRootNode = Constants.KnoraApiV2 + Constants.Delimiter + "hasRootNode";
+    static HasSubListNode = Constants.KnoraApiV2 + Constants.Delimiter + "hasSubListNode";
+
 
     static AttachedToProject = Constants.KnoraApiV2 + Constants.Delimiter + "attachedToProject";
     static AttachedToUser = Constants.KnoraApiV2 + Constants.Delimiter + "attachedToUser";
