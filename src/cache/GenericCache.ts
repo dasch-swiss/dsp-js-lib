@@ -1,4 +1,5 @@
 import { AsyncSubject, Observable } from "rxjs";
+import { take } from "rxjs/operators";
 
 /**
  * Generic cache class.
@@ -36,28 +37,32 @@ export abstract class GenericCache<T> {
 
         // Requests information from Knora and updates the AsyncSubject
         // once the information is available
-        this.requestItemFromKnora(key).subscribe((response: T) => {
-            // console.log("fetching from Knora", key);
+        //
+        // take(1) ensures that the subscription is terminated
+        // when the first value was emitted.
+        this.requestItemFromKnora(key).pipe(take(1)).subscribe(
+            (response: T) => {
+                // console.log("fetching from Knora", key);
 
-            // Updates and completes the AsyncSubject.
-            this.cache[key].next(response);
-            this.cache[key].complete();
+                // Updates and completes the AsyncSubject.
+                this.cache[key].next(response);
+                this.cache[key].complete();
 
-            // collect keys of items this item depends on
-            let dependencyKeysToGet = this.getDependenciesOfItem(response);
+                // collect keys of items this item depends on
+                let dependencyKeysToGet = this.getDependenciesOfItem(response);
 
-            // ignore dependencies already taken care of
-            dependencyKeysToGet = dependencyKeysToGet.filter((depKey: string) => {
-                return Object.keys(this.cache).indexOf(depKey) === -1;
+                // ignore dependencies already taken care of
+                dependencyKeysToGet = dependencyKeysToGet.filter((depKey: string) => {
+                    return Object.keys(this.cache).indexOf(depKey) === -1;
+                });
+
+                // Request each dependency from the cache
+                // Dependencies will be fetched asynchronously.
+                dependencyKeysToGet.forEach((depKey: string) => {
+                    this.getItem(depKey);
+                });
+
             });
-
-            // Request each dependency from the cache
-            // Dependencies will be fetched asynchronously.
-            dependencyKeysToGet.forEach((depKey: string) => {
-                this.getItem(depKey);
-            });
-
-        });
 
         // return the AsyncSubject (will be updated once the information is available)
         return this.cache[key];
