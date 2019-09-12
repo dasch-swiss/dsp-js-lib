@@ -18,6 +18,8 @@ describe("OntologyCache", () => {
 
         beforeEach(() => {
 
+            jasmine.Ajax.install();
+
             getOntoSpy = spyOn(knoraApiConnection.v2.onto, "getOntology").and.callFake(
                 (ontoIri: string) => {
 
@@ -29,6 +31,10 @@ describe("OntologyCache", () => {
 
             ontoCache = new OntologyCache(knoraApiConnection, config);
 
+        });
+
+        afterEach(() => {
+            jasmine.Ajax.uninstall();
         });
 
         it("should get an ontology from the cache", done => {

@@ -29,6 +29,8 @@ describe("UserCache", () => {
 
         beforeEach(() => {
 
+            jasmine.Ajax.install();
+
             getUserSpy = spyOn(knoraApiConnection.admin.usersEndpoint, "getUser").and.callFake(
                 (prop: string, userId: string) => {
 
@@ -38,6 +40,10 @@ describe("UserCache", () => {
 
             userCache = new UserCache(knoraApiConnection);
 
+        });
+
+        afterEach(() => {
+            jasmine.Ajax.uninstall();
         });
 
         it("should get a user from the cache", done => {
