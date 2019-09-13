@@ -25,6 +25,22 @@ module.exports = function(config) {
         singleRun: true,
         colors: true,
         karmaTypescriptConfig: {
+            bundlerOptions: {
+                acornOptions: {
+                    ecmaVersion: 2017
+                },
+                transforms: [
+                    require("karma-typescript-es6-transform")({
+                        presets: [
+                            ["env", {
+                                targets: {
+                                    browsers: ["last 2 Chrome versions"]
+                                }
+                            }]
+                        ]
+                    })
+                ]
+            },
             coverageOptions: {
                 exclude: /test\/.*/
             },
