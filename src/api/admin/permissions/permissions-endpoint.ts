@@ -1,5 +1,6 @@
 import { Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
+import { KnoraApiConfig } from "../../../knora-api-config";
 
 import { AdministrativePermissionResponse } from "../../../models/admin/administrative-permission-response";
 
@@ -22,7 +23,7 @@ export class PermissionsEndpoint extends Endpoint {
     getAdministrativePermission(projectIri: string, groupIri: string, permissionType: string): Observable<ApiResponseData<AdministrativePermissionResponse> | ApiResponseError> {
 
         return this.httpGet("/" + encodeURIComponent(projectIri) + "/" + encodeURIComponent(groupIri) + "?permissionType=" + encodeURIComponent(permissionType)).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, AdministrativePermissionResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, AdministrativePermissionResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 

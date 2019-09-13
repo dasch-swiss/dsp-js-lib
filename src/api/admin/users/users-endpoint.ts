@@ -1,5 +1,6 @@
 import { Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
+import { KnoraApiConfig } from "../../../knora-api-config";
 
 import { GroupsResponse } from "../../../models/admin/groups-response";
 import { ProjectsResponse } from "../../../models/admin/projects-response";
@@ -23,7 +24,7 @@ export class UsersEndpoint extends Endpoint {
     getUsers(): Observable<ApiResponseData<UsersResponse> | ApiResponseError> {
 
         return this.httpGet("").pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UsersResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UsersResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -38,7 +39,7 @@ export class UsersEndpoint extends Endpoint {
     getUser(property: "iri" | "email" | "username", value: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
 
         return this.httpGet("/" + encodeURIComponent(property) + "/" + encodeURIComponent(value)).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -85,7 +86,7 @@ export class UsersEndpoint extends Endpoint {
     getUserGroupMemberships(iri: string): Observable<ApiResponseData<GroupsResponse> | ApiResponseError> {
 
         return this.httpGet("/iri/" + encodeURIComponent(iri) + "/group-memberships").pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupsResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupsResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -99,7 +100,7 @@ export class UsersEndpoint extends Endpoint {
     getUserProjectMemberships(iri: string): Observable<ApiResponseData<ProjectsResponse> | ApiResponseError> {
 
         return this.httpGet("/iri/" + encodeURIComponent(iri) + "/project-memberships").pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectsResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectsResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -113,7 +114,7 @@ export class UsersEndpoint extends Endpoint {
     getUserProjectAdminMemberships(iri: string): Observable<ApiResponseData<ProjectsResponse> | ApiResponseError> {
 
         return this.httpGet("/iri/" + encodeURIComponent(iri) + "/project-admin-memberships").pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectsResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectsResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -127,7 +128,7 @@ export class UsersEndpoint extends Endpoint {
     createUser(user: User): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
 
         return this.httpPost("", user).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -141,7 +142,7 @@ export class UsersEndpoint extends Endpoint {
     updateUserBasicInformation(user: StoredUser): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
 
         return this.httpPut("/iri/" + encodeURIComponent(user.id) + "/BasicUserInformation", user).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -156,7 +157,7 @@ export class UsersEndpoint extends Endpoint {
     updateUserStatus(iri: string, status: boolean): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
 
         return this.httpPut("/iri/" + encodeURIComponent(iri) + "/Status", {status: status}).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -175,7 +176,7 @@ export class UsersEndpoint extends Endpoint {
             requesterPassword: oldPassword,
             newPassword: newPassword
         }).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -190,7 +191,7 @@ export class UsersEndpoint extends Endpoint {
     addUserToGroupMembership(userIri: string, groupIri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
 
         return this.httpPost("/iri/" + encodeURIComponent(userIri) + "/group-memberships/" + encodeURIComponent(groupIri)).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -205,7 +206,7 @@ export class UsersEndpoint extends Endpoint {
     removeUserFromGroupMembership(userIri: string, groupIri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
 
         return this.httpDelete("/iri/" + encodeURIComponent(userIri) + "/group-memberships/" + encodeURIComponent(groupIri)).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -220,7 +221,7 @@ export class UsersEndpoint extends Endpoint {
     addUserToProjectMembership(userIri: string, projectIri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
 
         return this.httpPost("/iri/" + encodeURIComponent(userIri) + "/project-memberships/" + encodeURIComponent(projectIri)).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -235,7 +236,7 @@ export class UsersEndpoint extends Endpoint {
     removeUserFromProjectMembership(userIri: string, projectIri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
 
         return this.httpDelete("/iri/" + encodeURIComponent(userIri) + "/project-memberships/" + encodeURIComponent(projectIri)).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -250,7 +251,7 @@ export class UsersEndpoint extends Endpoint {
     addUserToProjectAdminMembership(userIri: string, projectIri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
 
         return this.httpPost("/iri/" + encodeURIComponent(userIri) + "/project-admin-memberships/" + encodeURIComponent(projectIri)).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -265,7 +266,7 @@ export class UsersEndpoint extends Endpoint {
     removeUserFromProjectAdminMembership(userIri: string, projectIri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
 
         return this.httpDelete("/iri/" + encodeURIComponent(userIri) + "/project-admin-memberships/" + encodeURIComponent(projectIri)).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -279,7 +280,7 @@ export class UsersEndpoint extends Endpoint {
     updateUserSystemAdminMembership(user: StoredUser): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
 
         return this.httpPut("/iri/" + encodeURIComponent(user.id) + "/SystemAdmin", {systemAdmin: user.systemAdmin}).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -293,7 +294,7 @@ export class UsersEndpoint extends Endpoint {
     deleteUser(iri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
 
         return this.httpDelete("/iri/" + encodeURIComponent(iri)).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 

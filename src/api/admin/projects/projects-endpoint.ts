@@ -1,5 +1,6 @@
 import { Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
+import { KnoraApiConfig } from "../../../knora-api-config";
 
 import { KeywordsResponse } from "../../../models/admin/keywords-response";
 import { MembersResponse } from "../../../models/admin/members-response";
@@ -24,7 +25,7 @@ export class ProjectsEndpoint extends Endpoint {
     getProjects(): Observable<ApiResponseData<ProjectsResponse> | ApiResponseError> {
 
         return this.httpGet("").pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectsResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectsResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -38,7 +39,7 @@ export class ProjectsEndpoint extends Endpoint {
     createProject(project: Project): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
 
         return this.httpPost("", project).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -50,7 +51,7 @@ export class ProjectsEndpoint extends Endpoint {
     getKeywords(): Observable<ApiResponseData<KeywordsResponse> | ApiResponseError> {
 
         return this.httpGet("/Keywords").pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, KeywordsResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, KeywordsResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -64,7 +65,7 @@ export class ProjectsEndpoint extends Endpoint {
     getProjectKeywords(iri: string): Observable<ApiResponseData<KeywordsResponse> | ApiResponseError> {
 
         return this.httpGet("/iri/" + encodeURIComponent(iri) + "/Keywords").pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, KeywordsResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, KeywordsResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -78,7 +79,7 @@ export class ProjectsEndpoint extends Endpoint {
     updateProject(project: StoredProject): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
 
         return this.httpPut("/iri/" + encodeURIComponent(project.id), project).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -92,7 +93,7 @@ export class ProjectsEndpoint extends Endpoint {
     deleteProject(iri: string): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
 
         return this.httpDelete("/iri/" + encodeURIComponent(iri)).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -107,7 +108,7 @@ export class ProjectsEndpoint extends Endpoint {
     getProject(property: "iri" | "shortname" | "shortcode", value: string): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
 
         return this.httpGet("/" + encodeURIComponent(property) + "/" + encodeURIComponent(value)).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -155,7 +156,7 @@ export class ProjectsEndpoint extends Endpoint {
     getProjectMembers(property: "iri" | "shortname" | "shortcode", value: string): Observable<ApiResponseData<MembersResponse> | ApiResponseError> {
 
         return this.httpGet("/" + encodeURIComponent(property) + "/" + encodeURIComponent(value) + "/members").pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, MembersResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, MembersResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -203,7 +204,7 @@ export class ProjectsEndpoint extends Endpoint {
     getProjectAdminMembers(property: "iri" | "shortname" | "shortcode", value: string): Observable<ApiResponseData<MembersResponse> | ApiResponseError> {
 
         return this.httpGet("/" + encodeURIComponent(property) + "/" + encodeURIComponent(value) + "/admin-members").pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, MembersResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, MembersResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -251,7 +252,7 @@ export class ProjectsEndpoint extends Endpoint {
     getProjectRestrictedViewSettings(property: "iri" | "shortname" | "shortcode", value: string): Observable<ApiResponseData<ProjectRestrictedViewSettingsResponse> | ApiResponseError> {
 
         return this.httpGet("/" + encodeURIComponent(property) + "/" + encodeURIComponent(value) + "/RestrictedViewSettings").pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectRestrictedViewSettingsResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectRestrictedViewSettingsResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 

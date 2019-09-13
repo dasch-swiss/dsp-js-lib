@@ -1,3 +1,6 @@
+import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
+import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+
 /**
  * Contains the configuration that can be used in the KnoraApiConnection.
  */
@@ -22,6 +25,16 @@ export class KnoraApiConfig {
     ////////////////
 
     // <editor-fold desc="">
+
+    /**
+     * JsonConvert instance
+     */
+    static readonly jsonConvert: JsonConvert = new JsonConvert(
+        OperationMode.ENABLE,
+        ValueCheckingMode.DISALLOW_NULL,
+        false,
+        PropertyMatchingRule.CASE_STRICT
+    );
 
     /**
      * The full API URL

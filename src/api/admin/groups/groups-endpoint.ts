@@ -1,5 +1,6 @@
 import { Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
+import { KnoraApiConfig } from "../../../knora-api-config";
 
 import { CreateGroupRequest } from "../../../models/admin/create-group-request";
 import { GroupResponse } from "../../../models/admin/group-response";
@@ -22,7 +23,7 @@ export class GroupsEndpoint extends Endpoint {
     getGroups(): Observable<ApiResponseData<GroupsResponse> | ApiResponseError> {
 
         return this.httpGet("").pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupsResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupsResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -36,7 +37,7 @@ export class GroupsEndpoint extends Endpoint {
     createGroup(group: CreateGroupRequest): Observable<ApiResponseData<GroupResponse> | ApiResponseError> {
 
         return this.httpPost("", group).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -50,7 +51,7 @@ export class GroupsEndpoint extends Endpoint {
     getGroupByIri(iri: string): Observable<ApiResponseData<GroupResponse> | ApiResponseError> {
 
         return this.httpGet("/" + encodeURIComponent(iri)).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -64,7 +65,7 @@ export class GroupsEndpoint extends Endpoint {
     updateGroup(group: StoredGroup): Observable<ApiResponseData<GroupResponse> | ApiResponseError> {
 
         return this.httpPut("/" + encodeURIComponent(group.id), group).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -78,7 +79,7 @@ export class GroupsEndpoint extends Endpoint {
     updateGroupStatus(group: StoredGroup): Observable<ApiResponseData<GroupResponse> | ApiResponseError> {
 
         return this.httpPut("/" + encodeURIComponent(group.id) + "/status", group).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -92,7 +93,7 @@ export class GroupsEndpoint extends Endpoint {
     deleteGroup(iri: string): Observable<ApiResponseData<GroupResponse> | ApiResponseError> {
 
         return this.httpDelete("/" + encodeURIComponent(iri)).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
@@ -106,7 +107,7 @@ export class GroupsEndpoint extends Endpoint {
     getGroupMembers(iri: string): Observable<ApiResponseData<MembersResponse> | ApiResponseError> {
 
         return this.httpGet("/" + encodeURIComponent(iri) + "/members").pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, MembersResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, MembersResponse, KnoraApiConfig.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 

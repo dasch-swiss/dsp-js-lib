@@ -1,5 +1,3 @@
-import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
-import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { Observable, throwError } from "rxjs";
 import { ajax, AjaxResponse } from "rxjs/ajax";
 import { AjaxError } from "rxjs/internal/observable/dom/AjaxObservable";
@@ -22,16 +20,6 @@ export class Endpoint {
     ////////////////
 
     // <editor-fold desc="">
-
-    /**
-     * JsonConvert instance
-     */
-    jsonConvert: JsonConvert = new JsonConvert(
-        OperationMode.ENABLE,
-        ValueCheckingMode.DISALLOW_NULL,
-        false,
-        PropertyMatchingRule.CASE_STRICT
-    );
 
     /**
      * The session token

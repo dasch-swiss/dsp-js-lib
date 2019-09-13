@@ -1,6 +1,7 @@
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map } from "rxjs/operators";
+import { KnoraApiConfig } from "../../../knora-api-config";
 
 import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
@@ -51,7 +52,7 @@ export class AuthenticationEndpoint extends Endpoint {
         }).pipe(
             map((ajaxResponse: AjaxResponse) => {
                 // Make sure the web token is stored.
-                const responseData = ApiResponseData.fromAjaxResponse(ajaxResponse, LoginResponse, this.jsonConvert);
+                const responseData = ApiResponseData.fromAjaxResponse(ajaxResponse, LoginResponse, KnoraApiConfig.jsonConvert);
                 this.jsonWebToken = responseData.body.token;
                 return responseData;
             }),
@@ -68,7 +69,7 @@ export class AuthenticationEndpoint extends Endpoint {
         return this.httpDelete("").pipe(
             map((ajaxResponse: AjaxResponse) => {
                 // Make sure the web token is removed.
-                const responseData = ApiResponseData.fromAjaxResponse(ajaxResponse, LogoutResponse, this.jsonConvert);
+                const responseData = ApiResponseData.fromAjaxResponse(ajaxResponse, LogoutResponse, KnoraApiConfig.jsonConvert);
                 this.jsonWebToken = "";
                 return responseData;
             }),

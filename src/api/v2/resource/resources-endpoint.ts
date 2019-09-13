@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
-import { ApiResponseError, OntologyCache } from "../../..";
+import { ApiResponseError, KnoraApiConfig, OntologyCache } from "../../..";
 import { ReadResource } from "../../../models/v2/resources/read-resource";
 import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { Endpoint } from "../../endpoint";
@@ -22,7 +22,7 @@ export class ResourcesEndpoint extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
-                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, ontologyCache, this.jsonConvert);
+                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, ontologyCache, KnoraApiConfig.jsonConvert);
             }),
             catchError(error => {
                 return this.handleError(error);
