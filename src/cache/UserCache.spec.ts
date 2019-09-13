@@ -1,7 +1,7 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { of } from "rxjs";
-import { ApiResponseError, UserResponse } from "..";
+import { UserResponse } from "..";
 import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { UserCache } from "./UserCache";

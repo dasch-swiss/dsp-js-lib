@@ -62,13 +62,11 @@ describe("ResourcesConversionUtil", () => {
                     expect(uriVals[0] instanceof ReadUriValue).toBeTruthy();
                     expect((uriVals[0] as ReadUriValue).uri).toEqual("http://www.google.ch");
 
-
                     expect(getResourceClassDefinitionSpy).toHaveBeenCalledTimes(2);
                     expect(getResourceClassDefinitionSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
 
                     expect(resSeq[0].outgoingReferences.length).toEqual(1);
                     expect(resSeq[0].outgoingReferences[0].id).toEqual("http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ");
-
 
                     done();
                 }
