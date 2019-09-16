@@ -22,8 +22,6 @@ export class V2Endpoint extends Endpoint {
 
     static readonly PATH_RESOURCES = "/resources";
 
-    static readonly PATH_SEARCH = "/search";
-
     // </editor-fold>
 
     ////////////////
@@ -62,7 +60,7 @@ export class V2Endpoint extends Endpoint {
         this.auth = new AuthenticationEndpoint(knoraApiConfig, path + V2Endpoint.PATH_AUTHENTICATION);
         this.onto = new OntologiesEndpoint(knoraApiConfig, path + V2Endpoint.PATH_ONTOLOGIES);
         this.res = new ResourcesEndpoint(knoraApiConfig, path + V2Endpoint.PATH_RESOURCES);
-        this.search = new SearchEndpoint(knoraApiConfig, path + V2Endpoint.PATH_SEARCH);
+        this.search = new SearchEndpoint(knoraApiConfig, path);
     }
 
     // </editor-fold>
