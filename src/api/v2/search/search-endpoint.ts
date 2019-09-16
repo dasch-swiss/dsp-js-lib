@@ -111,6 +111,27 @@ export class SearchEndpoint extends Endpoint {
         );
     }
 
+    doExtendedSearch(gravsearchQuery: string, ontologyCache: OntologyCache): Observable<ReadResource[] | ApiResponseError> {
+        // TODO: Do not hard-code the URL and http call params, generate this from Knora
+
+        // TODO: check if content-type have to be set to text/plain
+
+        return this.httpPost("/searchextended", gravsearchQuery, false).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // console.log(JSON.stringify(ajaxResponse.response));
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), mergeMap((jsonldobj: object) => {
+                // console.log(JSON.stringify(jsonldobj));
+                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, ontologyCache, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+    }
+
     doSearchByLabel(searchTerm: string, ontologyCache: OntologyCache, offset = 0, params?: ILabelSearchParams): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 

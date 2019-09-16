@@ -89,11 +89,11 @@ export class Endpoint {
      * @param path the relative URL for the request
      * @param body the body of the request
      */
-    protected httpPost(path?: string, body?: any): Observable<AjaxResponse> {
+    protected httpPost(path?: string, body?: any, contentTypeJson = true): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
 
-        return ajax.post(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(true));
+        return ajax.post(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentTypeJson));
 
     }
 
