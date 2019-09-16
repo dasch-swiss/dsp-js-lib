@@ -1,5 +1,6 @@
 import { JsonProperty } from "json2typescript";
 import { Constants } from "../../Constants";
+import { DateTimeStamp } from "../../custom-converters/date-time-stamp-converter";
 import { IdConverter } from "../../custom-converters/id-converter";
 import { UriConverter } from "../../custom-converters/uri-converter";
 
@@ -19,6 +20,18 @@ export class ReadValue {
 
     @JsonProperty(Constants.VersionArkUrl, UriConverter)
     versionArkUrl: string = "";
+
+    @JsonProperty(Constants.ValueCreationDate, DateTimeStamp)
+    valueCreationDate: string = "";
+
+    @JsonProperty(Constants.HasPermissions, String)
+    hasPermissions: string = "";
+
+    @JsonProperty(Constants.UserHasPermission, String)
+    userHasPermission: string = "";
+
+    @JsonProperty(Constants.ValueHasUUID, String)
+    uuid: string = "";
 
     propertyLabel?: string;
 

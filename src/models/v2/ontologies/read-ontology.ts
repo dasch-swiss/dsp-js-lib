@@ -10,7 +10,7 @@ export class ReadOntology {
     id: string = "";
 
     @JsonProperty(Constants.LastModificationDate, String, true)
-    lastModificationDate?: string = undefined;
+    lastModificationDate?: string = undefined; // TODO: adapt this once this is serialized as an object, see https://github.com/dhlab-basel/Knora/issues/1439
 
     properties: { [index: string]: PropertyDefinition } = {};
     classes: { [index: string]: ClassDefinition } = {};

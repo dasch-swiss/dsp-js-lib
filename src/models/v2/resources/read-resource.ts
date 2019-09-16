@@ -1,5 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
+import { DateTimeStamp } from "../custom-converters/date-time-stamp-converter";
 import { IdConverter } from "../custom-converters/id-converter";
 import { UriConverter } from "../custom-converters/uri-converter";
 import { ReadValue } from "./values/read-value";
@@ -13,8 +14,8 @@ export class ReadResource {
     @JsonProperty("@type", String)
     type: string = "";
 
-    @JsonProperty(Constants.Label, String, true)
-    label?: string = undefined;
+    @JsonProperty(Constants.Label, String)
+    label: string = "";
 
     @JsonProperty(Constants.AttachedToProject, IdConverter)
     attachedToProject: string = "";
@@ -22,11 +23,23 @@ export class ReadResource {
     @JsonProperty(Constants.AttachedToUser, IdConverter)
     attachedToUser: string = "";
 
+    @JsonProperty(Constants.HasPermissions, String)
+    hasPermissions: string = "";
+
+    @JsonProperty(Constants.UserHasPermission, String)
+    userHasPermission: string = "";
+
     @JsonProperty(Constants.ArkUrl, UriConverter)
     arkUrl: string = "";
 
     @JsonProperty(Constants.VersionArkUrl, UriConverter)
     versionArkUrl: string = "";
+
+    @JsonProperty(Constants.CreationDate, DateTimeStamp)
+    creationDate: string = "";
+
+    @JsonProperty(Constants.LastModificationDate, DateTimeStamp, true)
+    lastModificationDateDate?: string = undefined;
 
     resourceClassLabel?: string;
 
