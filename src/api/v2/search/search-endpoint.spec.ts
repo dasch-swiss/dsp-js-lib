@@ -33,6 +33,36 @@ describe("SearchEndpoint", () => {
 
     describe("Fulltext search", () => {
 
+        it("should handle parameters correctly", () => {
+
+            expect(SearchEndpoint["encodeFulltextParams"](0)).toEqual("?offset=0");
+
+            expect(SearchEndpoint["encodeFulltextParams"](1)).toEqual("?offset=1");
+
+            expect(SearchEndpoint["encodeFulltextParams"](0, {limitToProject: "http://rdfh.ch/projects/0001"}))
+                .toEqual("?offset=0&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
+
+            expect(SearchEndpoint["encodeFulltextParams"](0, {limitToResourceClass: "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"}))
+                .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2Fapi.dasch.swiss%2Fontology%2F0001%2Fanything%2Fv2%23Thing");
+
+            expect(SearchEndpoint["encodeFulltextParams"](0, {limitToStandoffClass: "http://api.knora.org/ontology/standoff/v2#StandoffParagraphTag"}))
+                .toEqual("?offset=0&limitToStandoffClass=http%3A%2F%2Fapi.knora.org%2Fontology%2Fstandoff%2Fv2%23StandoffParagraphTag");
+
+            expect(SearchEndpoint["encodeFulltextParams"](0, {
+                limitToProject: "http://rdfh.ch/projects/0001",
+                limitToResourceClass: "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+            }))
+                .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2Fapi.dasch.swiss%2Fontology%2F0001%2Fanything%2Fv2%23Thing&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
+
+            expect(SearchEndpoint["encodeFulltextParams"](0, {
+                limitToProject: "http://rdfh.ch/projects/0001",
+                limitToResourceClass: "http://api.dasch.swiss/ontology/0001/anything/v2#Thing",
+                limitToStandoffClass: "http://api.knora.org/ontology/standoff/v2#StandoffParagraphTag"
+            }))
+                .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2Fapi.dasch.swiss%2Fontology%2F0001%2Fanything%2Fv2%23Thing&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001&limitToStandoffClass=http%3A%2F%2Fapi.knora.org%2Fontology%2Fstandoff%2Fv2%23StandoffParagraphTag");
+
+        });
+
         it("should do a fulltext search with a simple search term", done => {
 
             knoraApiConnection.v2.search.doFulltextSearch("thing", ontoCache, 0).subscribe((response: ReadResource[]) => {
@@ -143,28 +173,24 @@ describe("SearchEndpoint", () => {
 
     });
 
-    describe("Fulltext count search", () => {
+    it("should do a fulltext count search with a simple search term", done => {
 
-        it("should do a fulltext count search with a simple search term", done => {
+        knoraApiConnection.v2.search.doFulltextSearchCountQuery("thing", 0).subscribe((response: CountQueryResponse) => {
 
-            knoraApiConnection.v2.search.doFulltextSearchCountQuery("thing", 0).subscribe((response: CountQueryResponse) => {
+            expect(response.numberOfResults).toEqual(16);
 
-                expect(response.numberOfResults).toEqual(16);
-
-                done();
-            });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/search/count-query-result.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://api.dasch.swiss/v2/search/count/thing?offset=0");
-
-            expect(request.method).toEqual("GET");
-
+            done();
         });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        const resource = require("../../../../test/data/api/v2/search/count-query-result.json");
+
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+        expect(request.url).toBe("http://api.dasch.swiss/v2/search/count/thing?offset=0");
+
+        expect(request.method).toEqual("GET");
 
     });
 
@@ -173,13 +199,19 @@ describe("SearchEndpoint", () => {
         it("should handle parameters correctly", () => {
 
             expect(SearchEndpoint["encodeLabelParams"](0)).toEqual("?offset=0");
+
             expect(SearchEndpoint["encodeLabelParams"](1)).toEqual("?offset=1");
 
             expect(SearchEndpoint["encodeLabelParams"](0, {limitToProject: "http://rdfh.ch/projects/0001"}))
                 .toEqual("?offset=0&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
+
             expect(SearchEndpoint["encodeLabelParams"](0, {limitToResourceClass: "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"}))
                 .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2Fapi.dasch.swiss%2Fontology%2F0001%2Fanything%2Fv2%23Thing");
-            expect(SearchEndpoint["encodeLabelParams"](0, {limitToProject: "http://rdfh.ch/projects/0001", limitToResourceClass: "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"}))
+
+            expect(SearchEndpoint["encodeLabelParams"](0, {
+                limitToProject: "http://rdfh.ch/projects/0001",
+                limitToResourceClass: "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+            }))
                 .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2Fapi.dasch.swiss%2Fontology%2F0001%2Fanything%2Fv2%23Thing&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
 
         });
