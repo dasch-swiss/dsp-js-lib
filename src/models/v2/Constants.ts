@@ -84,4 +84,6 @@ export class Constants {
     static Xsd = "http://www.w3.org/2001/XMLSchema";
     static XsdAnyUri = Constants.Xsd + Constants.Delimiter + "anyURI";
     static XsdDecimal = Constants.Xsd + Constants.Delimiter + "decimal";
+
+    static SchemaNumberOfItems = "http://schema.org/numberOfItems";
 }

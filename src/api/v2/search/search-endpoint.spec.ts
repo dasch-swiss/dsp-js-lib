@@ -5,6 +5,7 @@ import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ReadResource } from "../../../models/v2/resources/read-resource";
+import { CountQueryResponse } from "../../../models/v2/search/count-query-response";
 
 describe("SearchEndpoint", () => {
 
@@ -134,6 +135,31 @@ describe("SearchEndpoint", () => {
 
             expect(request.url)
                 .toEqual("http://api.dasch.swiss/v2/search/thing?offset=1&limitToStandoffClass=http%3A%2F%2Fapi.knora.org%2Fontology%2Fstandoff%2Fv2%23StandoffParagraphTag");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
+    describe("Fulltext count search", () => {
+
+        it("should do a fulltext count search with a simple search term", done => {
+
+            knoraApiConnection.v2.search.doFulltextSearchCountQuery("thing", 0).subscribe((response: CountQueryResponse) => {
+
+                expect(response.numberOfResults).toEqual(16);
+
+                done();
+            });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const resource = require("../../../../test/data/api/v2/search/count-query-result.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://api.dasch.swiss/v2/search/count/thing?offset=0");
 
             expect(request.method).toEqual("GET");
 
