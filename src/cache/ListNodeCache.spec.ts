@@ -89,6 +89,78 @@ describe("ListNodeCache", () => {
             });
         });
 
+        it("should get a list node from the cache several times asynchronously", done => {
+
+            listNodeCache["getItem"]("http://rdfh.ch/lists/0001/treeList01").subscribe((node: ListNode) => {
+
+                expect(node.id).toEqual("http://rdfh.ch/lists/0001/treeList01");
+
+                expect(getNodeSpy).toHaveBeenCalledTimes(1);
+                expect(getNodeSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList01");
+
+                expect(getListSpy).toHaveBeenCalledTimes(1);
+                expect(getListSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList");
+
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList01"]).not.toBeUndefined();
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList01"]["hasCompleted"]).toBeTruthy();
+
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList"]).not.toBeUndefined(); // root node Iri is dependency of each list node
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList02"]).not.toBeUndefined();
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList03"]).not.toBeUndefined();
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList10"]).not.toBeUndefined();
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList11"]).not.toBeUndefined();
+
+                done();
+
+            });
+
+            listNodeCache["getItem"]("http://rdfh.ch/lists/0001/treeList01").subscribe((node: ListNode) => {
+
+                expect(node.id).toEqual("http://rdfh.ch/lists/0001/treeList01");
+
+                expect(getNodeSpy).toHaveBeenCalledTimes(1);
+                expect(getNodeSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList01");
+
+                expect(getListSpy).toHaveBeenCalledTimes(1);
+                expect(getListSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList");
+
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList01"]).not.toBeUndefined();
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList01"]["hasCompleted"]).toBeTruthy();
+
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList"]).not.toBeUndefined(); // root node Iri is dependency of each list node
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList02"]).not.toBeUndefined();
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList03"]).not.toBeUndefined();
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList10"]).not.toBeUndefined();
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList11"]).not.toBeUndefined();
+
+                done();
+
+            });
+
+            listNodeCache["getItem"]("http://rdfh.ch/lists/0001/treeList01").subscribe((node: ListNode) => {
+
+                expect(node.id).toEqual("http://rdfh.ch/lists/0001/treeList01");
+
+                expect(getNodeSpy).toHaveBeenCalledTimes(1);
+                expect(getNodeSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList01");
+
+                expect(getListSpy).toHaveBeenCalledTimes(1);
+                expect(getListSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList");
+
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList01"]).not.toBeUndefined();
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList01"]["hasCompleted"]).toBeTruthy();
+
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList"]).not.toBeUndefined(); // root node Iri is dependency of each list node
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList02"]).not.toBeUndefined();
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList03"]).not.toBeUndefined();
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList10"]).not.toBeUndefined();
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList11"]).not.toBeUndefined();
+
+                done();
+
+            });
+        });
+
     });
 
     describe("Method getNode()", () => {

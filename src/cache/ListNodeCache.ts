@@ -13,6 +13,9 @@ export class ListNodeCache extends GenericCache<ListNode> {
     /**
      * Given a list node IRI, gets it from the cache.
      *
+     * The root node of a list should not be requested using this method.
+     * This should be left to dependency handling to optimize caching.
+     *
      * @param nodeIri the IRI of the list node to be returned.
      */
     getNode(nodeIri: string) {

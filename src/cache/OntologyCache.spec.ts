@@ -37,7 +37,7 @@ describe("OntologyCache", () => {
 
     describe("Method getItem()", () => {
 
-        it("should get an ontology from the cache", done => {
+        it("should get an ontology with dependencies from the cache", done => {
 
             ontoCache["getItem"]("http://api.dasch.swiss/ontology/0001/anything/v2").subscribe((onto: ReadOntology) => {
 
@@ -54,7 +54,52 @@ describe("OntologyCache", () => {
             });
         });
 
-        it("should get an ontology from the cache", done => {
+        it("should get an ontology with dependencies from the cache several times asynchronously", done => {
+
+            ontoCache["getItem"]("http://api.dasch.swiss/ontology/0001/anything/v2").subscribe((onto: ReadOntology) => {
+
+                expect(onto.id).toEqual("http://api.dasch.swiss/ontology/0001/anything/v2");
+
+                expect(getOntoSpy).toHaveBeenCalledTimes(2);
+                expect(getOntoSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2");
+                expect(getOntoSpy).toHaveBeenCalledWith("http://api.knora.org/ontology/knora-api/v2"); // anything onto depends on knora-api
+
+                expect(ontoCache["cache"]["http://api.dasch.swiss/ontology/0001/anything/v2"]).not.toBeUndefined();
+                expect(ontoCache["cache"]["http://api.knora.org/ontology/knora-api/v2"]).not.toBeUndefined(); // anything onto depends on knora-api
+                done();
+
+            });
+
+            ontoCache["getItem"]("http://api.dasch.swiss/ontology/0001/anything/v2").subscribe((onto: ReadOntology) => {
+
+                expect(onto.id).toEqual("http://api.dasch.swiss/ontology/0001/anything/v2");
+
+                expect(getOntoSpy).toHaveBeenCalledTimes(2);
+                expect(getOntoSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2");
+                expect(getOntoSpy).toHaveBeenCalledWith("http://api.knora.org/ontology/knora-api/v2"); // anything onto depends on knora-api
+
+                expect(ontoCache["cache"]["http://api.dasch.swiss/ontology/0001/anything/v2"]).not.toBeUndefined();
+                expect(ontoCache["cache"]["http://api.knora.org/ontology/knora-api/v2"]).not.toBeUndefined(); // anything onto depends on knora-api
+                done();
+
+            });
+
+            ontoCache["getItem"]("http://api.dasch.swiss/ontology/0001/anything/v2").subscribe((onto: ReadOntology) => {
+
+                expect(onto.id).toEqual("http://api.dasch.swiss/ontology/0001/anything/v2");
+
+                expect(getOntoSpy).toHaveBeenCalledTimes(2);
+                expect(getOntoSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2");
+                expect(getOntoSpy).toHaveBeenCalledWith("http://api.knora.org/ontology/knora-api/v2"); // anything onto depends on knora-api
+
+                expect(ontoCache["cache"]["http://api.dasch.swiss/ontology/0001/anything/v2"]).not.toBeUndefined();
+                expect(ontoCache["cache"]["http://api.knora.org/ontology/knora-api/v2"]).not.toBeUndefined(); // anything onto depends on knora-api
+                done();
+
+            });
+        });
+
+        it("should get an ontology without dependencies from the cache", done => {
 
             ontoCache["getItem"]("http://api.knora.org/ontology/knora-api/v2").subscribe((onto: ReadOntology) => {
 
