@@ -7,7 +7,6 @@ export class Constants {
     static IsResourceProperty = Constants.KnoraApiV2 + Constants.Delimiter + "isResourceProperty";
     static ObjectType = Constants.KnoraApiV2 + Constants.Delimiter + "objectType";
     static SubjectType = Constants.KnoraApiV2 + Constants.Delimiter + "subjectType";
-    static LastModificationDate = Constants.KnoraApiV2 + Constants.Delimiter + "lastModificationDate";
 
     static BooleanValue = Constants.KnoraApiV2 + Constants.Delimiter + "BooleanValue";
     static ColorValue = Constants.KnoraApiV2 + Constants.Delimiter + "ColorValue";
@@ -26,6 +25,12 @@ export class Constants {
     static AttachedToUser = Constants.KnoraApiV2 + Constants.Delimiter + "attachedToUser";
     static ArkUrl = Constants.KnoraApiV2 + Constants.Delimiter + "arkUrl";
     static VersionArkUrl = Constants.KnoraApiV2 + Constants.Delimiter + "versionArkUrl";
+    static CreationDate = Constants.KnoraApiV2 + Constants.Delimiter + "creationDate";
+    static ValueCreationDate = Constants.KnoraApiV2 + Constants.Delimiter + "valueCreationDate";
+    static ValueHasUUID = Constants.KnoraApiV2 + Constants.Delimiter + "valueHasUUID";
+    static LastModificationDate = Constants.KnoraApiV2 + Constants.Delimiter + "lastModificationDate";
+    static HasPermissions = Constants.KnoraApiV2 + Constants.Delimiter + "hasPermissions";
+    static UserHasPermission = Constants.KnoraApiV2 + Constants.Delimiter + "userHasPermission";
 
     static BooleanValueAsBoolean = Constants.KnoraApiV2 + Constants.Delimiter + "booleanValueAsBoolean";
     static ColorValueAsColor = Constants.KnoraApiV2 + Constants.Delimiter + "colorValueAsColor";
@@ -84,6 +89,8 @@ export class Constants {
     static Xsd = "http://www.w3.org/2001/XMLSchema";
     static XsdAnyUri = Constants.Xsd + Constants.Delimiter + "anyURI";
     static XsdDecimal = Constants.Xsd + Constants.Delimiter + "decimal";
+	static dateTimeStamp = Constants.Xsd + Constants.Delimiter + "dateTimeStamp";
 
     static SchemaNumberOfItems = "http://schema.org/numberOfItems";
+
 }
