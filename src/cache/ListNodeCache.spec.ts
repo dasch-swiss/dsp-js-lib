@@ -79,11 +79,10 @@ describe("ListNodeCache", () => {
                 expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList01"]["hasCompleted"]).toBeTruthy();
 
                 expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList"]).not.toBeUndefined(); // root node Iri is dependency of each list node
-
-                // console.log(Object.keys(listNodeCache["cache"]));
-
                 expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList02"]).not.toBeUndefined();
-
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList03"]).not.toBeUndefined();
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList10"]).not.toBeUndefined();
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList11"]).not.toBeUndefined();
 
                 done();
 
@@ -110,10 +109,10 @@ describe("ListNodeCache", () => {
                 expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList01"]["hasCompleted"]).toBeTruthy();
 
                 expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList"]).not.toBeUndefined(); // root node Iri is dependency of each list node
-
-                // console.log(Object.keys(listNodeCache["cache"]));
-
                 expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList02"]).not.toBeUndefined();
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList03"]).not.toBeUndefined();
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList10"]).not.toBeUndefined();
+                expect(listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList11"]).not.toBeUndefined();
 
                 done();
 
