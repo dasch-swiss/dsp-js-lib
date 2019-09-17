@@ -5,6 +5,7 @@ import { OntologyCache } from "../../../";
 import { IResourceClassAndPropertyDefinitions } from "../../../cache/OntologyCache";
 import { Constants } from "../Constants";
 import { ResourcePropertyDefinition } from "../ontologies/resource-property-definition";
+import { CountQueryResponse } from "../search/count-query-response";
 import { ReadResource } from "./read-resource";
 import { ReadBooleanValue } from "./values/read-boolean-value";
 import { ReadColorValue } from "./values/read-color-value";
@@ -339,6 +340,14 @@ export namespace ResourcesConversionUtil {
                 return val;
             }
         ));
+
+    };
+
+    export const createCountQueryResponse = (countQueryResult: object, jsonConvert: JsonConvert): CountQueryResponse => {
+
+        if (Array.isArray(countQueryResult)) throw new Error("countQueryResult is expected to be a single object");
+
+        return jsonConvert.deserialize(countQueryResult, CountQueryResponse) as CountQueryResponse;
 
     };
 
