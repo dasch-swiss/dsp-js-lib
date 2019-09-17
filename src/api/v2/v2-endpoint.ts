@@ -4,6 +4,7 @@ import { AuthenticationEndpoint } from "./authentication/authentication-endpoint
 import { ListsEndpoint } from "./list/lists-endpoint";
 import { OntologiesEndpoint } from "./ontology/ontologies-endpoint";
 import { ResourcesEndpoint } from "./resource/resources-endpoint";
+import { SearchEndpoint } from "./search/search-endpoint";
 
 /**
  * Defines the V2 endpoint of the Knora API.
@@ -46,6 +47,8 @@ export class V2Endpoint extends Endpoint {
 
     readonly list: ListsEndpoint;
 
+    readonly search: SearchEndpoint;
+
     /**
      * Constructor.
      * Sets up all endpoints for this endpoint.
@@ -61,6 +64,7 @@ export class V2Endpoint extends Endpoint {
         this.onto = new OntologiesEndpoint(knoraApiConfig, path + V2Endpoint.PATH_ONTOLOGIES);
         this.res = new ResourcesEndpoint(knoraApiConfig, path + V2Endpoint.PATH_RESOURCES);
         this.list = new ListsEndpoint(knoraApiConfig, path);
+        this.search = new SearchEndpoint(knoraApiConfig, path);
 
     }
 

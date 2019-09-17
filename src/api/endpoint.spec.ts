@@ -115,7 +115,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("POST");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json"});
+        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -143,7 +143,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("POST");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json"});
+        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -175,7 +175,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.requestHeaders).toEqual({
             "Authorization": "Bearer testtoken",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json; charset=utf-8"
         });
 
         expect(request.data()).toEqual({mydata: "data"});
@@ -204,7 +204,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("PUT");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json"});
+        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -232,7 +232,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("PUT");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json"});
+        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -264,7 +264,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.requestHeaders).toEqual({
             "Authorization": "Bearer testtoken",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json; charset=utf-8"
         });
 
         expect(request.data()).toEqual({mydata: "data"});
