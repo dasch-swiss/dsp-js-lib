@@ -1,5 +1,6 @@
 import { of } from "rxjs";
-import { OntologyCache } from "../../..";
+import { ListNodeCache, OntologyCache } from "../../..";
+import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
@@ -12,16 +13,26 @@ describe("ResourcesEndpoint", () => {
     const knoraApiConnection = new KnoraApiConnection(config);
 
     const ontoCache = new OntologyCache(knoraApiConnection, config);
+    const listNodeCache = new ListNodeCache(knoraApiConnection);
 
-    let getResourceClassSpy: jasmine.Spy;
+    let getResourceClassDefinitionFromCacheSpy: jasmine.Spy;
+    let getListNodeFromCacheSpy: jasmine.Spy;
 
     beforeEach(() => {
 
         jasmine.Ajax.install();
 
-        getResourceClassSpy = spyOn(ontoCache, "getResourceClassDefinition").and.callFake(
+        getResourceClassDefinitionFromCacheSpy = spyOn(ontoCache, "getResourceClassDefinition").and.callFake(
             (resClassIri: string) => {
                 return of(MockOntology.mockIResourceClassAndPropertyDefinitions(resClassIri));
+            }
+        );
+
+        getListNodeFromCacheSpy = spyOn(listNodeCache, "getNode").and.callFake(
+            (listNodeIri: string) => {
+                const mock = MockList.mockListNode(listNodeIri);
+
+                return of(mock);
             }
         );
     });
@@ -32,13 +43,13 @@ describe("ResourcesEndpoint", () => {
 
     it("should return a resource", done => {
 
-        knoraApiConnection.v2.res.getResource("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", ontoCache).subscribe((response: ReadResource) => {
+        knoraApiConnection.v2.res.getResource("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", ontoCache, listNodeCache).subscribe((response: ReadResource) => {
 
             expect(response.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw");
             expect(response.resourceClassLabel).toEqual("Thing");
 
-            expect(getResourceClassSpy).toHaveBeenCalledTimes(2);
-            expect(getResourceClassSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
+            expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(2);
+            expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
 
             done();
         });

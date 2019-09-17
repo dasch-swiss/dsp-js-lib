@@ -1,11 +1,13 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { of } from "rxjs";
-import { OntologyCache } from "../../..";
+import { ListNodeCache, OntologyCache } from "../../..";
+import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ResourcesConversionUtil } from "./ResourcesConversionUtil";
+import { ReadListValue } from "./values/read-list-value";
 import { ReadUriValue } from "./values/read-uri-value";
 
 describe("ResourcesConversionUtil", () => {
@@ -14,8 +16,10 @@ describe("ResourcesConversionUtil", () => {
     const knoraApiConnection = new KnoraApiConnection(config);
 
     const ontoCache = new OntologyCache(knoraApiConnection, config);
+    const listNodeCache = new ListNodeCache(knoraApiConnection);
 
-    let getResourceClassDefinitionSpy: jasmine.Spy;
+    let getResourceClassDefinitionFromCacheSpy: jasmine.Spy;
+    let getListNodeFromCacheSpy: jasmine.Spy;
 
     const jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -27,12 +31,22 @@ describe("ResourcesConversionUtil", () => {
     beforeEach(() => {
         jasmine.Ajax.install();
 
-        getResourceClassDefinitionSpy = spyOn(ontoCache, "getResourceClassDefinition").and.callFake(
+        getResourceClassDefinitionFromCacheSpy = spyOn(ontoCache, "getResourceClassDefinition").and.callFake(
             (resClassIri: string) => {
                 const mock = MockOntology.mockIResourceClassAndPropertyDefinitions(resClassIri);
                 return of(mock);
             }
         );
+
+        getListNodeFromCacheSpy = spyOn(listNodeCache, "getNode").and.callFake(
+            (listNodeIri: string) => {
+                const mock = MockList.mockListNode(listNodeIri);
+
+                return of(mock);
+
+            }
+        );
+
     });
 
     afterEach(() => {
@@ -45,7 +59,7 @@ describe("ResourcesConversionUtil", () => {
 
             const resource = require("../../../../test/data/api/v2/resources/testding-expanded.json");
 
-            ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, jsonConvert).subscribe(
+            ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, listNodeCache, jsonConvert).subscribe(
                 resSeq => {
 
                     expect(resSeq.length).toEqual(1);
@@ -87,12 +101,21 @@ describe("ResourcesConversionUtil", () => {
                     expect(uriVals[0] instanceof ReadUriValue).toBeTruthy();
                     expect((uriVals[0] as ReadUriValue).uri).toEqual("http://www.google.ch");
 
-                    expect(getResourceClassDefinitionSpy).toHaveBeenCalledTimes(2);
-                    expect(getResourceClassDefinitionSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
+                    const listVals = resSeq[0].getValues("http://api.dasch.swiss/ontology/0001/anything/v2#hasListItem");
+
+                    expect(listVals[0] instanceof ReadListValue);
+                    expect((listVals[0] as ReadListValue).listNode).toEqual("http://rdfh.ch/lists/0001/treeList01");
+                    expect((listVals[0] as ReadListValue).listNodeLabel).toEqual("Tree list node 01");
+
+                    expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(2);
+                    expect(getListNodeFromCacheSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList01");
+                    expect(getListNodeFromCacheSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/otherTreeList01");
+
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(2);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
 
                     expect(resSeq[0].outgoingReferences.length).toEqual(1);
                     expect(resSeq[0].outgoingReferences[0].id).toEqual("http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ");
-
 
                     done();
                 }
@@ -104,7 +127,7 @@ describe("ResourcesConversionUtil", () => {
 
             const resource = require("../../../../test/data/api/v2/resources/page-expanded.json");
 
-            ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, jsonConvert).subscribe(
+            ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, listNodeCache, jsonConvert).subscribe(
                 resSeq => {
 
                     // console.log(resSeq[0].properties);
@@ -121,7 +144,7 @@ describe("ResourcesConversionUtil", () => {
 
             const resource = require("../../../../test/data/api/v2/resources/region-expanded.json");
 
-            ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, jsonConvert).subscribe(
+            ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, listNodeCache, jsonConvert).subscribe(
                 resSeq => {
 
                     // console.log(resSeq[0].properties);
@@ -138,10 +161,10 @@ describe("ResourcesConversionUtil", () => {
 
             const emptyResource = {};
 
-            ResourcesConversionUtil.createReadResourceSequence(emptyResource, ontoCache, jsonConvert).subscribe(
+            ResourcesConversionUtil.createReadResourceSequence(emptyResource, ontoCache, listNodeCache, jsonConvert).subscribe(
                 resSeq => {
                     expect(resSeq.length).toEqual(0);
-                    expect(getResourceClassDefinitionSpy).toHaveBeenCalledTimes(0);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(0);
 
                     done();
                 }
@@ -153,15 +176,15 @@ describe("ResourcesConversionUtil", () => {
 
             const resource = require("../../../../test/data/api/v2/resources/things-expanded.json");
 
-            ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, jsonConvert).subscribe(
+            ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, listNodeCache, jsonConvert).subscribe(
                 resSeq => {
                     expect(resSeq.length).toEqual(16);
 
-                    expect(getResourceClassDefinitionSpy).toHaveBeenCalledTimes(16);
-                    expect(getResourceClassDefinitionSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
-                    expect(getResourceClassDefinitionSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#BlueThing");
-                    expect(getResourceClassDefinitionSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#ThingPicture");
-                    expect(getResourceClassDefinitionSpy).toHaveBeenCalledWith("http://api.knora.org/ontology/knora-api/v2#ForbiddenResource");
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(16);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#BlueThing");
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#ThingPicture");
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://api.knora.org/ontology/knora-api/v2#ForbiddenResource");
 
                     done();
                 }

@@ -1,6 +1,7 @@
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { KnoraApiConnection } from "../knora-api-connection";
+import { ListConversionUtil } from "../models/v2/lists/list-conversion-util";
 import { ListNode } from "../models/v2/lists/list-node";
 import { GenericCache } from "./GenericCache";
 
@@ -35,32 +36,11 @@ export class ListNodeCache extends GenericCache<ListNode> {
             // a dependency, get the whole list
             const list = this.knoraApiConnection.v2.list.getList(key);
 
-            /**
-             * Given a list node, collects the node
-             * and all of its direct and indirect children.
-             *
-             * @param node the node to start with.
-             */
-            const collectNodes = (node: ListNode) => {
-
-                // collection of nodes to add to
-                let subnodes: ListNode[] = [];
-
-                node.children.forEach(
-                    (child: ListNode) => {
-                        subnodes = subnodes.concat(collectNodes(child));
-                    }
-                );
-
-                return [node].concat(subnodes);
-
-            };
-
             return (list as Observable<ListNode>).pipe(
                 map(
                     rootNode => {
                         // Transform the list into an array of all list nodes
-                        const nodes: ListNode[] = collectNodes(rootNode);
+                        const nodes: ListNode[] = ListConversionUtil.collectNodes(rootNode);
 
                         return nodes.map(
                             node => {
