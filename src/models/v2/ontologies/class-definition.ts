@@ -9,6 +9,7 @@ export interface IHasProperty {
     propertyIndex: string;
     cardinality: Cardinality;
     guiOrder?: number;
+    isInherited: boolean;
 }
 
 export abstract class ClassDefinition {

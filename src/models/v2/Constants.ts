@@ -10,6 +10,7 @@ export class Constants {
     static IsLinkProperty = Constants.KnoraApiV2 + Constants.Delimiter + "isLinkProperty";
     static IsLinkValueProperty = Constants.KnoraApiV2 + Constants.Delimiter + "isLinkValueProperty";
     static IsEditable = Constants.KnoraApiV2 + Constants.Delimiter + "isEditable";
+    static IsInherited = Constants.KnoraApiV2 + Constants.Delimiter + "isInherited";
 
     static BooleanValue = Constants.KnoraApiV2 + Constants.Delimiter + "BooleanValue";
     static ColorValue = Constants.KnoraApiV2 + Constants.Delimiter + "ColorValue";

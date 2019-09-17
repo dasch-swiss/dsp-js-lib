@@ -47,20 +47,28 @@ export class HasCardinalityForPropertyConverter implements JsonCustomConvert<IHa
                     }
                 }
 
+                let isInherited = false;
+                if (ele.hasOwnProperty(Constants.IsInherited) && ele[Constants.IsInherited] === true) {
+                    isInherited = true;
+                }
+
                 let guiOrder: number = -1;
                 if (ele.hasOwnProperty(Constants.GuiOrder)) {
                     guiOrder = ele[Constants.GuiOrder];
                     hasCardForProp.push({
                         propertyIndex: propertyIndex,
                         cardinality: cardinality,
-                        guiOrder: guiOrder
+                        guiOrder: guiOrder,
+                        isInherited: isInherited
                     });
                 } else {
                     hasCardForProp.push({
                         propertyIndex: propertyIndex,
-                        cardinality: cardinality
+                        cardinality: cardinality,
+                        isInherited: isInherited
                     });
                 }
+
             }
 
         };
