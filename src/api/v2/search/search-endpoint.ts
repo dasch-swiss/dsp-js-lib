@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
-import { ApiResponseError, OntologyCache } from "../../..";
+import { ApiResponseError, ListNodeCache, OntologyCache } from "../../..";
 import { ReadResource } from "../../../models/v2/resources/read-resource";
 import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { CountQueryResponse } from "../../../models/v2/search/count-query-response";
@@ -73,7 +73,7 @@ export class SearchEndpoint extends Endpoint {
 
     }
 
-    doFulltextSearch(searchTerm: string, ontologyCache: OntologyCache, offset = 0, params?: IFulltextSearchParams): Observable<ReadResource[] | ApiResponseError> {
+    doFulltextSearch(searchTerm: string, ontologyCache: OntologyCache, listNodeCache: ListNodeCache, offset = 0, params?: IFulltextSearchParams): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         return this.httpGet("/search/" + encodeURIComponent(searchTerm) + SearchEndpoint.encodeFulltextParams(offset, params)).pipe(
@@ -84,7 +84,7 @@ export class SearchEndpoint extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
-                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, ontologyCache, this.jsonConvert);
+                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, ontologyCache, listNodeCache, this.jsonConvert);
             }),
             catchError(error => {
                 return this.handleError(error);
@@ -111,7 +111,7 @@ export class SearchEndpoint extends Endpoint {
         );
     }
 
-    doExtendedSearch(gravsearchQuery: string, ontologyCache: OntologyCache): Observable<ReadResource[] | ApiResponseError> {
+    doExtendedSearch(gravsearchQuery: string, ontologyCache: OntologyCache, listNodeCache: ListNodeCache): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         // TODO: check if content-type have to be set to text/plain
@@ -124,7 +124,7 @@ export class SearchEndpoint extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
-                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, ontologyCache, this.jsonConvert);
+                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, ontologyCache, listNodeCache, this.jsonConvert);
             }),
             catchError(error => {
                 return this.handleError(error);
@@ -151,7 +151,7 @@ export class SearchEndpoint extends Endpoint {
         );
     }
 
-    doSearchByLabel(searchTerm: string, ontologyCache: OntologyCache, offset = 0, params?: ILabelSearchParams): Observable<ReadResource[] | ApiResponseError> {
+    doSearchByLabel(searchTerm: string, ontologyCache: OntologyCache, listNodeCache: ListNodeCache, offset = 0, params?: ILabelSearchParams): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         return this.httpGet("/searchbylabel/" + encodeURIComponent(searchTerm) + SearchEndpoint.encodeLabelParams(offset, params)).pipe(
@@ -162,7 +162,7 @@ export class SearchEndpoint extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
-                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, ontologyCache, this.jsonConvert);
+                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, ontologyCache, listNodeCache, this.jsonConvert);
             }),
             catchError(error => {
                 return this.handleError(error);
