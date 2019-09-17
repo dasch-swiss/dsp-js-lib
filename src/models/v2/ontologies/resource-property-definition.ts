@@ -26,4 +26,13 @@ export class ResourcePropertyDefinition extends PropertyDefinition {
 
     @JsonProperty(Constants.ObjectType, IdConverter, true)
     objectType?: string = undefined;
+
+    @JsonProperty(Constants.IsLinkProperty, Boolean, true)
+    isLinkProperty: boolean = false;
+
+    @JsonProperty(Constants.IsLinkValueProperty, Boolean, true)
+    isLinkValueProperty: boolean = false;
+
+    @JsonProperty(Constants.IsEditable, Boolean, true)
+    isEditable: boolean = false;
 }

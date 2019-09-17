@@ -75,6 +75,21 @@ describe("OntologiesEndpoint", () => {
 
                     expect(response.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"].propertiesList.length).toEqual(36);
 
+                    expect(response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasDecimal"] instanceof ResourcePropertyDefinition);
+                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasDecimal"] as ResourcePropertyDefinition).isEditable).toBeTruthy();
+                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasDecimal"] as ResourcePropertyDefinition).isLinkProperty).toBeFalsy();
+                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasDecimal"] as ResourcePropertyDefinition).isLinkValueProperty).toBeFalsy();
+
+                    expect(response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThing"] instanceof ResourcePropertyDefinition);
+                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThing"] as ResourcePropertyDefinition).isEditable).toBeTruthy();
+                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThing"] as ResourcePropertyDefinition).isLinkProperty).toBeTruthy();
+                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThing"] as ResourcePropertyDefinition).isLinkValueProperty).toBeFalsy();
+
+                    expect(response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThingValue"] instanceof ResourcePropertyDefinition);
+                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThingValue"] as ResourcePropertyDefinition).isEditable).toBeTruthy();
+                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThingValue"] as ResourcePropertyDefinition).isLinkProperty).toBeFalsy();
+                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThingValue"] as ResourcePropertyDefinition).isLinkValueProperty).toBeTruthy();
+
                     done();
                 });
 

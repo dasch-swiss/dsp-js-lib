@@ -7,6 +7,9 @@ export class Constants {
     static IsResourceProperty = Constants.KnoraApiV2 + Constants.Delimiter + "isResourceProperty";
     static ObjectType = Constants.KnoraApiV2 + Constants.Delimiter + "objectType";
     static SubjectType = Constants.KnoraApiV2 + Constants.Delimiter + "subjectType";
+    static IsLinkProperty = Constants.KnoraApiV2 + Constants.Delimiter + "isLinkProperty";
+    static IsLinkValueProperty = Constants.KnoraApiV2 + Constants.Delimiter + "isLinkValueProperty";
+    static IsEditable = Constants.KnoraApiV2 + Constants.Delimiter + "isEditable";
 
     static BooleanValue = Constants.KnoraApiV2 + Constants.Delimiter + "BooleanValue";
     static ColorValue = Constants.KnoraApiV2 + Constants.Delimiter + "ColorValue";
@@ -23,7 +26,6 @@ export class Constants {
     static IsRootNode = Constants.KnoraApiV2 + Constants.Delimiter + "isRootNode";
     static HasRootNode = Constants.KnoraApiV2 + Constants.Delimiter + "hasRootNode";
     static HasSubListNode = Constants.KnoraApiV2 + Constants.Delimiter + "hasSubListNode";
-
 
     static AttachedToProject = Constants.KnoraApiV2 + Constants.Delimiter + "attachedToProject";
     static AttachedToUser = Constants.KnoraApiV2 + Constants.Delimiter + "attachedToUser";
@@ -71,6 +73,7 @@ export class Constants {
     static KnoraAdminV2 = "http://api.knora.org/ontology/knora-admin/v2";
 
     static SalsahGui = "http://api.knora.org/ontology/salsah-gui/v2";
+    static GuiAttribute = Constants.SalsahGui + Constants.Delimiter + "guiAttribute";
     static GuiOrder = Constants.SalsahGui + Constants.Delimiter + "guiOrder";
     static GuiElement = Constants.SalsahGui + Constants.Delimiter + "guiElement";
 
