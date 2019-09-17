@@ -236,6 +236,45 @@ describe("SearchEndpoint", () => {
 
         });
 
+        it("perform an extended search count query", done => {
+
+            const gravsearchQuery = `
+                PREFIX knora-api: <http://api.knora.org/ontology/knora-api/v2#>
+                CONSTRUCT {
+
+                    ?mainRes knora-api:isMainResource true .
+
+                } WHERE {
+
+                    ?mainRes a knora-api:Resource .
+
+                    ?mainRes a <http://api.dasch.swiss/ontology/0001/anything/v2#Thing> .
+                }
+
+                OFFSET 0
+            `;
+
+            knoraApiConnection.v2.search.doExtendedSearchCountQuery(gravsearchQuery).subscribe((response: CountQueryResponse) => {
+
+                expect(response.numberOfResults).toEqual(16);
+
+                done();
+            });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const resource = require("../../../../test/data/api/v2/search/count-query-result.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://api.dasch.swiss/v2/searchextended/count");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.params).toEqual(gravsearchQuery);
+
+        });
+
 
     });
 

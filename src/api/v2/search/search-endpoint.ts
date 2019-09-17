@@ -132,6 +132,25 @@ export class SearchEndpoint extends Endpoint {
         );
     }
 
+    doExtendedSearchCountQuery(gravsearchQuery: string): Observable<CountQueryResponse | ApiResponseError> {
+        // TODO: Do not hard-code the URL and http call params, generate this from Knora
+
+        return this.httpPost("/searchextended/count", gravsearchQuery, false).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // console.log(JSON.stringify(ajaxResponse.response));
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                // console.log(JSON.stringify(jsonldobj));
+                return ResourcesConversionUtil.createCountQueryResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+    }
+
     doSearchByLabel(searchTerm: string, ontologyCache: OntologyCache, offset = 0, params?: ILabelSearchParams): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
