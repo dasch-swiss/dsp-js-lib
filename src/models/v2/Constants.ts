@@ -20,6 +20,10 @@ export class Constants {
     static UriValue = Constants.KnoraApiV2 + Constants.Delimiter + "UriValue";
     static GeomValue = Constants.KnoraApiV2 + Constants.Delimiter + "GeomValue";
     static StillImageFileValue = Constants.KnoraApiV2 + Constants.Delimiter + "StillImageFileValue";
+    static IsRootNode = Constants.KnoraApiV2 + Constants.Delimiter + "isRootNode";
+    static HasRootNode = Constants.KnoraApiV2 + Constants.Delimiter + "hasRootNode";
+    static HasSubListNode = Constants.KnoraApiV2 + Constants.Delimiter + "hasSubListNode";
+
 
     static AttachedToProject = Constants.KnoraApiV2 + Constants.Delimiter + "attachedToProject";
     static AttachedToUser = Constants.KnoraApiV2 + Constants.Delimiter + "attachedToUser";
@@ -89,5 +93,8 @@ export class Constants {
     static Xsd = "http://www.w3.org/2001/XMLSchema";
     static XsdAnyUri = Constants.Xsd + Constants.Delimiter + "anyURI";
     static XsdDecimal = Constants.Xsd + Constants.Delimiter + "decimal";
-    static dateTimeStamp = Constants.Xsd + Constants.Delimiter + "dateTimeStamp";
+	static dateTimeStamp = Constants.Xsd + Constants.Delimiter + "dateTimeStamp";
+
+    static SchemaNumberOfItems = "http://schema.org/numberOfItems";
+
 }

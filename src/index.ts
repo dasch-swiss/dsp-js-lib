@@ -14,6 +14,7 @@ export { LogoutResponse } from "./models/v2/authentication/logout-response";
 
 export { UserCache } from "./cache/UserCache";
 export { OntologyCache } from "./cache/OntologyCache";
+export { ListNodeCache } from "./cache/ListNodeCache";
 
 export { ApiResponse } from "./models/api-response";
 export { ApiResponseData } from "./models/api-response-data";
