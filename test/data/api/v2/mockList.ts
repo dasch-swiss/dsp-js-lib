@@ -14,19 +14,35 @@ export namespace MockList {
         PropertyMatchingRule.CASE_STRICT
     );
 
-    export const mockListNode = (listNodeIri: string): ListNode => {
+    export const mockNode = (listNodeIri: string): ListNode => {
 
-        const treeList = jsonConvert.deserialize(treeListExpanded, ListNode) as ListNode;
+        const treeList = mockList("http://rdfh.ch/lists/0001/treeList");
 
-        const otherTreeList = jsonConvert.deserialize(othertreeListExpanded, ListNode) as ListNode;
+        const otherTreeList = mockList("http://rdfh.ch/lists/0001/otherTreeList");
 
         const combinedNodes = ListConversionUtil.collectNodes(treeList).concat(ListConversionUtil.collectNodes(otherTreeList));
 
-        return combinedNodes.filter(
+        const mockedNode =  combinedNodes.filter(
             listNode => {
                 return listNode.id === listNodeIri;
             }
-        )[0];
+        );
+
+        if (mockedNode.length !== 1) throw new Error("Node not found in mocked list");
+
+        return mockedNode[0];
+
+    };
+
+    export const mockList = (listNodeIri: string): ListNode => {
+
+        if (listNodeIri === "http://rdfh.ch/lists/0001/treeList") {
+            return jsonConvert.deserialize(treeListExpanded, ListNode) as ListNode;
+        } else if (listNodeIri === "http://rdfh.ch/lists/0001/otherTreeList") {
+            return jsonConvert.deserialize(othertreeListExpanded, ListNode) as ListNode;
+        } else {
+            throw new Error("Mock data file not found");
+        }
 
     };
 

@@ -1,6 +1,7 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { of } from "rxjs";
+import { MockList } from "../../test/data/api/v2/mockList";
 import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { ListNode } from "../models/v2/lists/list-node";
@@ -22,21 +23,13 @@ describe("ListNodeCache", () => {
         PropertyMatchingRule.CASE_STRICT
     );
 
-    const nodeJson = require("../../test/data/api/v2/lists/listnode-expanded.json");
-
-    const listJson = require("../../test/data/api/v2/lists/treelist-expanded.json");
-
     beforeEach(() => {
         jasmine.Ajax.install();
 
         getNodeSpy = spyOn(knoraApiConnection.v2.list, "getNode").and.callFake(
             (nodeIri: string) => {
 
-                const nodeResp = jsonConvert.deserialize(nodeJson, ListNode) as ListNode;
-
-                // console.log("getNodeSpy", nodeResp)
-
-                return of(nodeResp);
+                return of(MockList.mockNode(nodeIri));
 
             }
         );
@@ -44,11 +37,7 @@ describe("ListNodeCache", () => {
         getListSpy = spyOn(knoraApiConnection.v2.list, "getList").and.callFake(
             (nodeIri: string) => {
 
-                const listResp = jsonConvert.deserialize(listJson, ListNode) as ListNode;
-
-                // console.log("getListSpy ", listResp, " ", listJson)
-
-                return of(listResp);
+                return of(MockList.mockList(nodeIri));
 
             }
         );

@@ -40,7 +40,7 @@ describe("ResourcesConversionUtil", () => {
 
         getListNodeFromCacheSpy = spyOn(listNodeCache, "getNode").and.callFake(
             (listNodeIri: string) => {
-                const mock = MockList.mockListNode(listNodeIri);
+                const mock = MockList.mockNode(listNodeIri);
 
                 return of(mock);
 
