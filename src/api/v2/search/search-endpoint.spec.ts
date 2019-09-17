@@ -232,6 +232,8 @@ describe("SearchEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/sparql-query; charset=utf-8"});
+
             expect(request.params).toEqual(gravsearchQuery);
 
         });
@@ -271,10 +273,11 @@ describe("SearchEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/sparql-query; charset=utf-8"});
+
             expect(request.params).toEqual(gravsearchQuery);
 
         });
-
 
     });
 

@@ -116,7 +116,7 @@ export class SearchEndpoint extends Endpoint {
 
         // TODO: check if content-type have to be set to text/plain
 
-        return this.httpPost("/searchextended", gravsearchQuery, false).pipe(
+        return this.httpPost("/searchextended", gravsearchQuery, "sparql").pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
@@ -135,7 +135,7 @@ export class SearchEndpoint extends Endpoint {
     doExtendedSearchCountQuery(gravsearchQuery: string): Observable<CountQueryResponse | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
-        return this.httpPost("/searchextended/count", gravsearchQuery, false).pipe(
+        return this.httpPost("/searchextended/count", gravsearchQuery, "sparql").pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
