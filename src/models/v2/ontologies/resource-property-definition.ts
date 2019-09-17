@@ -1,5 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
+import { GuiAttributeConverter } from "../custom-converters/gui-attribute-converter";
 import { IdConverter } from "../custom-converters/id-converter";
 import { SubPropertyOfConverter } from "../custom-converters/subproperty-of-converter";
 import { PropertyDefinition } from "./property-definition";
@@ -35,4 +36,7 @@ export class ResourcePropertyDefinition extends PropertyDefinition {
 
     @JsonProperty(Constants.IsEditable, Boolean, true)
     isEditable: boolean = false;
+
+    @JsonProperty(Constants.GuiAttribute, GuiAttributeConverter, true)
+    guiAttributes: string[] = [];
 }

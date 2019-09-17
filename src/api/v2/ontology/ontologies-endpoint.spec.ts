@@ -90,6 +90,12 @@ describe("OntologiesEndpoint", () => {
                     expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThingValue"] as ResourcePropertyDefinition).isLinkProperty).toBeFalsy();
                     expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThingValue"] as ResourcePropertyDefinition).isLinkValueProperty).toBeTruthy();
 
+                    expect(response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasListItem"] instanceof ResourcePropertyDefinition);
+                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasListItem"] as ResourcePropertyDefinition).isEditable).toBeTruthy();
+                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasListItem"] as ResourcePropertyDefinition).isLinkProperty).toBeFalsy();
+                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasListItem"] as ResourcePropertyDefinition).isLinkValueProperty).toBeFalsy();
+                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasListItem"] as ResourcePropertyDefinition).guiAttributes).toEqual(["hlist=<http://rdfh.ch/lists/0001/treeList>"]);
+
                     done();
                 });
 
