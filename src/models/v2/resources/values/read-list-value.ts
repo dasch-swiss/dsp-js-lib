@@ -8,4 +8,6 @@ export class ReadListValue extends ReadValue {
 
     @JsonProperty(Constants.ListValueAsListNode, IdConverter)
     listNode: string = "";
+
+    listNodeLabel: string;
 }

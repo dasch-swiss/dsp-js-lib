@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
-import { ApiResponseError, KnoraApiConfig, OntologyCache } from "../../..";
+import { ApiResponseError, KnoraApiConfig, ListNodeCache, OntologyCache } from "../../..";
 import { ReadResource } from "../../../models/v2/resources/read-resource";
 import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { Endpoint } from "../../endpoint";
@@ -11,7 +11,7 @@ const jsonld = require("jsonld/dist/jsonld.js");
 
 export class ResourcesEndpoint extends Endpoint {
 
-    getResources(resourceIri: string[], ontologyCache: OntologyCache): Observable<ReadResource[] | ApiResponseError> {
+    getResources(resourceIri: string[], ontologyCache: OntologyCache, listNodeCache: ListNodeCache): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
         // TODO: submit several Resource Iris separated by a slash
         return this.httpGet("/" + encodeURIComponent(resourceIri[0])).pipe(
@@ -22,7 +22,7 @@ export class ResourcesEndpoint extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
-                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, ontologyCache, KnoraApiConfig.jsonConvert);
+                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, ontologyCache, listNodeCache, KnoraApiConfig.jsonConvert);
             }),
             catchError(error => {
                 return this.handleError(error);
@@ -30,8 +30,8 @@ export class ResourcesEndpoint extends Endpoint {
         );
     }
 
-    getResource(resourceIri: string, ontologyCache: OntologyCache): Observable<ReadResource | ApiResponseError> {
-        return this.getResources([resourceIri], ontologyCache).pipe(
+    getResource(resourceIri: string, ontologyCache: OntologyCache, listNodeCache: ListNodeCache): Observable<ReadResource | ApiResponseError> {
+        return this.getResources([resourceIri], ontologyCache, listNodeCache).pipe(
             map((resources: ReadResource[]) => resources[0]),
             catchError(error => {
                 return this.handleError(error);
