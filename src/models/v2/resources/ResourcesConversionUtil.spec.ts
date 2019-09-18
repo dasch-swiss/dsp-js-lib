@@ -9,6 +9,7 @@ import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ResourcesConversionUtil } from "./ResourcesConversionUtil";
 import { ReadListValue } from "./values/read-list-value";
 import { ReadUriValue } from "./values/read-uri-value";
+import { ReadValue } from "./values/read-value";
 
 describe("ResourcesConversionUtil", () => {
 
@@ -100,6 +101,8 @@ describe("ResourcesConversionUtil", () => {
 
                     expect(uriVals[0] instanceof ReadUriValue).toBeTruthy();
                     expect((uriVals[0] as ReadUriValue).uri).toEqual("http://www.google.ch");
+
+                    const uriValsTyped = resSeq[0].getValuesAs("http://api.dasch.swiss/ontology/0001/anything/v2#hasUri", ReadUriValue);
 
                     const listVals = resSeq[0].getValues("http://api.dasch.swiss/ontology/0001/anything/v2#hasListItem");
 

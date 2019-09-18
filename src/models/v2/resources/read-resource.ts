@@ -5,6 +5,9 @@ import { IdConverter } from "../custom-converters/id-converter";
 import { UriConverter } from "../custom-converters/uri-converter";
 import { ReadValue } from "./values/read-value";
 
+// https://dev.to/krumpet/generic-type-guard-in-typescript-258l
+type Constructor<T> = { new(...args: any[]): T };
+
 @JsonObject("ReadResource")
 export class ReadResource {
 
@@ -45,7 +48,7 @@ export class ReadResource {
 
     resourceClassComment?: string;
 
-    properties: {[index: string]: ReadValue[]} = {};
+    properties: { [index: string]: ReadValue[] } = {};
 
     incomingReferences: ReadResource[] = [];
 
@@ -69,6 +72,23 @@ export class ReadResource {
         } else {
             return [];
         }
+    }
+
+    getValuesAs<T>(property: string, valueType: Constructor<T>): T[] {
+
+        return this.getValues(property).map(
+            val => {
+                if (this.typeGuard(val, valueType)) {
+                    return (val as T);
+                } else {
+                    throw new Error("Cannot cast to type " + valueType);
+                }
+            }
+        );
+    }
+
+    private typeGuard<T>(o: any, className: Constructor<T>): o is T {
+        return o instanceof className;
     }
 
 }
