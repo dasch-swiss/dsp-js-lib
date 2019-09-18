@@ -3,10 +3,8 @@ import { Constants } from "../Constants";
 import { DateTimeStamp } from "../custom-converters/date-time-stamp-converter";
 import { IdConverter } from "../custom-converters/id-converter";
 import { UriConverter } from "../custom-converters/uri-converter";
+import { ResourcesConversionUtil } from "./ResourcesConversionUtil";
 import { ReadValue } from "./values/read-value";
-
-// https://dev.to/krumpet/generic-type-guard-in-typescript-258l
-type Constructor<T> = { new(...args: any[]): T };
 
 @JsonObject("ReadResource")
 export class ReadResource {
@@ -74,21 +72,17 @@ export class ReadResource {
         }
     }
 
-    getValuesAs<T>(property: string, valueType: Constructor<T>): T[] {
+    getValuesAs<T>(property: string, valueType: ResourcesConversionUtil.Constructor<T>): T[] {
 
         return this.getValues(property).map(
             val => {
-                if (this.typeGuard(val, valueType)) {
+                if (ResourcesConversionUtil.typeGuard(val, valueType)) {
                     return (val as T);
                 } else {
                     throw new Error("Cannot cast to type " + valueType);
                 }
             }
         );
-    }
-
-    private typeGuard<T>(o: any, className: Constructor<T>): o is T {
-        return o instanceof className;
     }
 
 }
