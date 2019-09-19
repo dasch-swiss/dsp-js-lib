@@ -3,7 +3,7 @@ import { Constants } from "../Constants";
 import { DateTimeStamp } from "../custom-converters/date-time-stamp-converter";
 import { IdConverter } from "../custom-converters/id-converter";
 import { UriConverter } from "../custom-converters/uri-converter";
-import { ResourcesConversionUtil } from "./ResourcesConversionUtil";
+import { TypeGuard } from "./type-guard";
 import { ReadValue } from "./values/read-value";
 
 @JsonObject("ReadResource")
@@ -72,11 +72,11 @@ export class ReadResource {
         }
     }
 
-    getValuesAs<T extends ReadValue>(property: string, valueType: ResourcesConversionUtil.Constructor<T>): T[] {
+    getValuesAs<T extends ReadValue>(property: string, valueType: TypeGuard.Constructor<T>): T[] {
 
         return this.getValues(property).map(
             val => {
-                if (ResourcesConversionUtil.typeGuard(val, valueType)) {
+                if (TypeGuard.typeGuard(val, valueType)) {
                     return (val as T);
                 } else {
                     throw new Error("Cannot cast to type " + valueType);
