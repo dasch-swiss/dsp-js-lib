@@ -157,8 +157,8 @@ export namespace ResourcesConversionUtil {
      * @param dataType the specific value type to convert to.
      * @param jsonConvert the converter to be used.
      */
-    const handleSimpleValue = (valueJsonld: object, dataType: { new(): ReadValue }, jsonConvert: JsonConvert): Observable<ReadValue> => {
-        return of(jsonConvert.deserialize(valueJsonld, dataType) as ReadValue);
+    const handleSimpleValue = <T extends ReadValue>(valueJsonld: object, dataType: { new(): T }, jsonConvert: JsonConvert): Observable<T> => {
+        return of(jsonConvert.deserialize(valueJsonld, dataType) as T);
     };
 
     /**

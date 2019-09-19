@@ -1,3 +1,5 @@
+import { EntityDefinition } from "./EntityDefinition";
+
 export enum Cardinality {
     "_1" = 0,
     "_0_1" = 1,
@@ -11,13 +13,7 @@ export interface IHasProperty {
     guiOrder?: number;
 }
 
-export abstract class ClassDefinition {
-
-    abstract id: string;
-
-    abstract comment?: string;
-
-    abstract label?: string;
+export abstract class ClassDefinition extends EntityDefinition {
 
     abstract subClassOf: string[];
 

@@ -72,7 +72,7 @@ export class ReadResource {
         }
     }
 
-    getValuesAs<T>(property: string, valueType: ResourcesConversionUtil.Constructor<T>): T[] {
+    getValuesAs<T extends ReadValue>(property: string, valueType: ResourcesConversionUtil.Constructor<T>): T[] {
 
         return this.getValues(property).map(
             val => {
