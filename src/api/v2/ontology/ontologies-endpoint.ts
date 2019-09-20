@@ -5,6 +5,7 @@ import { ApiResponseError } from "../../..";
 import { OntologyConversionUtil } from "../../../models/v2/ontologies/OntologyConversionUtil";
 import { ReadOntology } from "../../../models/v2/ontologies/read-ontology";
 import { Endpoint } from "../../endpoint";
+import { OntologyCompactor} from "../helper/ontology-compactor";
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require("jsonld/dist/jsonld.js");
@@ -24,7 +25,9 @@ export class OntologiesEndpoint extends Endpoint {
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
-                return jsonld.compact(ajaxResponse.response, {});
+                const compactor = OntologyCompactor.getOntologyCompactor();
+                return compactor.compact(ajaxResponse.response);
+                //return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertOntology(jsonldobj, this.jsonConvert, this.knoraApiConfig);
             }),

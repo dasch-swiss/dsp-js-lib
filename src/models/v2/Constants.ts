@@ -1,7 +1,11 @@
 export class Constants {
 
-    static KnoraApiV2 = "http://api.knora.org/ontology/knora-api/v2";
+
+
     static Delimiter = "#";
+    static KnoraApiV2 = "http://api.knora.org/ontology/knora-api/v2";
+    static KnoraApiV2Short = "ka";
+
     static IsResourceClass = Constants.KnoraApiV2 + Constants.Delimiter + "isResourceClass";
     static IsStandoffClass = Constants.KnoraApiV2 + Constants.Delimiter + "isStandoffClass";
     static IsResourceProperty = Constants.KnoraApiV2 + Constants.Delimiter + "isResourceProperty";
@@ -71,10 +75,12 @@ export class Constants {
     static KnoraAdminV2 = "http://api.knora.org/ontology/knora-admin/v2";
 
     static SalsahGui = "http://api.knora.org/ontology/salsah-gui/v2";
+    static SalsahGuiShort = "sg:";
     static GuiOrder = Constants.SalsahGui + Constants.Delimiter + "guiOrder";
     static GuiElement = Constants.SalsahGui + Constants.Delimiter + "guiElement";
 
     static Owl = "http://www.w3.org/2002/07/owl";
+    static OwlShort = "owl:";
     static Class = Constants.Owl + Constants.Delimiter + "Class";
     static Restriction = Constants.Owl + Constants.Delimiter + "Restriction";
     static MaxCardinality = Constants.Owl + Constants.Delimiter + "maxCardinality";
@@ -85,16 +91,24 @@ export class Constants {
     static ObjectProperty = Constants.Owl + Constants.Delimiter + "ObjectProperty";
 
     static Rdfs = "http://www.w3.org/2000/01/rdf-schema";
+    static RdfsShort = "rdfs"
+
     static SubClassOf = Constants.Rdfs + Constants.Delimiter + "subClassOf";
     static Comment = Constants.Rdfs + Constants.Delimiter + "comment";
     static Label = Constants.Rdfs + Constants.Delimiter + "label";
     static SubPropertyOf = Constants.Rdfs + Constants.Delimiter + "subPropertyOf";
 
     static Xsd = "http://www.w3.org/2001/XMLSchema";
+    static XsdShort = "xsd"
     static XsdAnyUri = Constants.Xsd + Constants.Delimiter + "anyURI";
     static XsdDecimal = Constants.Xsd + Constants.Delimiter + "decimal";
-	static dateTimeStamp = Constants.Xsd + Constants.Delimiter + "dateTimeStamp";
+    static dateTimeStamp = Constants.Xsd + Constants.Delimiter + "dateTimeStamp";
 
     static SchemaNumberOfItems = "http://schema.org/numberOfItems";
+
+    static Rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+    static RdfShort = "rdf";
+
+
 
 }

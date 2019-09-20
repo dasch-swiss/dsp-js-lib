@@ -5,6 +5,7 @@ import { ReadOntology } from "../../../models/v2/ontologies/read-ontology";
 import { ResourceClassDefinition } from "../../../models/v2/ontologies/resource-class-definition";
 import { ResourcePropertyDefinition } from "../../../models/v2/ontologies/resource-property-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
+import { OntologyCompactor } from "../helper/ontology-compactor";
 
 describe("OntologiesEndpoint", () => {
 
@@ -60,9 +61,11 @@ describe("OntologiesEndpoint", () => {
         });
 
         it("should return a project ontology", done => {
-
+            const compactor = OntologyCompactor.getOntologyCompactor();
+            compactor.addPrefix("any", "http://api.dasch.swiss/ontology/0001/anything/v2#");
             knoraApiConnection.v2.onto.getOntology("http://api.dasch.swiss/ontology/0001/anything/v2").subscribe(
                 (response: ReadOntology) => {
+                    console.log(JSON.stringify(response, null, 2));
                     expect(response.id).toEqual("http://api.dasch.swiss/ontology/0001/anything/v2");
 
                     expect(response.dependsOnOntologies.size).toEqual(1);
