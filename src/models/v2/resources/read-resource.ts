@@ -63,6 +63,14 @@ export class ReadResource {
         }
     }
 
+    getValuesType(property: string): string {
+        if (this.properties.hasOwnProperty(property) && (this.properties[property].length > 0)) {
+            return this.properties[property][0].type;
+        } else {
+            return "";
+        }
+    }
+
     getValues(property: string): ReadValue[] {
         if (this.properties.hasOwnProperty(property)) {
             return this.properties[property];

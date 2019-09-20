@@ -83,6 +83,7 @@ describe("ResourcesConversionUtil", () => {
                     expect(resSeq[0].getNumberOfProperties()).toEqual(12);
                     expect(resSeq[0].getNumberOfValues("http://api.dasch.swiss/ontology/0001/anything/v2#hasUri")).toEqual(1);
 
+                    expect(resSeq[0].getValuesType("http://api.dasch.swiss/ontology/0001/anything/v2#hasUri")).toEqual("http://api.knora.org/ontology/knora-api/v2#UriValue");
                     const uriVals = resSeq[0].getValues("http://api.dasch.swiss/ontology/0001/anything/v2#hasUri");
 
                     expect(uriVals.length).toEqual(1);
