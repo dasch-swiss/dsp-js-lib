@@ -20,4 +20,7 @@ export class ResourceClassDefinition extends ClassDefinition {
 
     @JsonProperty(Constants.SubClassOf, HasCardinalityForPropertyConverter)
     propertiesList: IHasProperty[] = [];
+
+    @JsonProperty(Constants.CanBeInstantiated, Boolean, true)
+    canBeInstantiated: boolean = false;
 }
