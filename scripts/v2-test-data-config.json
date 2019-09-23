@@ -25,6 +25,10 @@
       "destination": "./test/data/api/v2/resources/things.json"
     },
     {
+      "source": "/webapi/src/test/resources/test-data/searchR2RV2/RegionsForPage.jsonld",
+      "destination": "./test/data/api/v2/resources/regions.json"
+    },
+    {
       "source": "/webapi/src/test/resources/test-data/resourcesR2RV2/NarrenschiffFirstPage.jsonld",
       "destination": "./test/data/api/v2/resources/page.json"
     },
