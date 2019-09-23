@@ -1,0 +1,12 @@
+{
+  "test-data": [
+    {
+      "source": "/webapi/src/test/resources/test-data/ontologyR2RV2/knoraApiOntologyWithValueObjects.jsonld",
+      "destination": "./test/data/api/v2/ontologies/knora-api-ontology.json"
+    },
+    {
+      "source": "/webapi/src/test/resources/test-data/resourcesR2RV2/Testding.jsonld",
+      "destination": "./test/data/api/v2/resources/testding.json"
+    }
+  ]
+}
