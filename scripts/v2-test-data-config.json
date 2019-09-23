@@ -5,6 +5,18 @@
       "destination": "./test/data/api/v2/ontologies/knora-api-ontology.json"
     },
     {
+      "source": "/webapi/src/test/resources/test-data/ontologyR2RV2/anythingOntologyWithValueObjects.jsonld",
+      "destination": "./test/data/api/v2/ontologies/anything-ontology.json"
+    },
+    {
+      "source": "/webapi/src/test/resources/test-data/ontologyR2RV2/minimalOntologyWithValueObjects.jsonld",
+      "destination": "./test/data/api/v2/ontologies/minimal-ontology.json"
+    },
+    {
+      "source": "/webapi/src/test/resources/test-data/ontologyR2RV2/incunabulaOntologyWithValueObjects.jsonld",
+      "destination": "./test/data/api/v2/ontologies/incunabula-ontology.json"
+    },
+    {
       "source": "/webapi/src/test/resources/test-data/resourcesR2RV2/Testding.jsonld",
       "destination": "./test/data/api/v2/resources/testding.json"
     }
