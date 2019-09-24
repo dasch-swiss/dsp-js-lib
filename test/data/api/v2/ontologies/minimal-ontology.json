@@ -17,7 +17,7 @@
       "@id" : "knora-api:hasValue"
     }
   } ],
-  "@id" : "http://api.dasch.swiss/ontology/0001/minimal/v2",
+  "@id" : "http://0.0.0.0:3333/ontology/0001/minimal/v2",
   "@type" : "owl:Ontology",
   "knora-api:attachedToProject" : {
     "@id" : "http://rdfh.ch/projects/0001"

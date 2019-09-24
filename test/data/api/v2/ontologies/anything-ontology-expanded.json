@@ -1,7 +1,7 @@
 {
   "@graph": [
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#BlueThing",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#BlueThing",
       "@type": "http://www.w3.org/2002/07/owl#Class",
       "http://api.knora.org/ontology/knora-api/v2#canBeInstantiated": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceClass": true,
@@ -9,7 +9,7 @@
       "http://www.w3.org/2000/01/rdf-schema#label": "Blue thing",
       "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
         {
-          "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+          "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
         },
         {
           "@type": "http://www.w3.org/2002/07/owl#Restriction",
@@ -153,7 +153,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 0,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasListItem"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem"
           }
         },
         {
@@ -162,7 +162,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 0,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherListItem"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherListItem"
           }
         },
         {
@@ -171,7 +171,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 2,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasRichtext"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasRichtext"
           }
         },
         {
@@ -180,7 +180,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 2,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasText"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasText"
           }
         },
         {
@@ -189,7 +189,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 3,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasDate"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate"
           }
         },
         {
@@ -198,7 +198,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 4,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasInteger"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger"
           }
         },
         {
@@ -207,7 +207,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 5,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasDecimal"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal"
           }
         },
         {
@@ -216,7 +216,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 6,
           "http://www.w3.org/2002/07/owl#maxCardinality": 1,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasBoolean"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean"
           }
         },
         {
@@ -225,7 +225,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 7,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasUri"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri"
           }
         },
         {
@@ -234,7 +234,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 9,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasInterval"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval"
           }
         },
         {
@@ -243,7 +243,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 10,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasColor"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasColor"
           }
         },
         {
@@ -252,7 +252,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 11,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasGeometry"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeometry"
           }
         },
         {
@@ -261,7 +261,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 12,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasGeoname"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeoname"
           }
         },
         {
@@ -270,7 +270,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 13,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasThingPicture"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasThingPicture"
           }
         },
         {
@@ -279,7 +279,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 13,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasThingPictureValue"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasThingPictureValue"
           }
         },
         {
@@ -288,7 +288,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 15,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#isPartOfOtherThing"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#isPartOfOtherThing"
           }
         },
         {
@@ -297,7 +297,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 15,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#isPartOfOtherThingValue"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#isPartOfOtherThingValue"
           }
         },
         {
@@ -305,7 +305,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 16,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasBlueThingValue"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBlueThingValue"
           }
         },
         {
@@ -313,13 +313,13 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 63,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasBlueThing"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBlueThing"
           }
         }
       ]
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#StandoffEventTag",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#StandoffEventTag",
       "@type": "http://www.w3.org/2002/07/owl#Class",
       "http://api.knora.org/ontology/knora-api/v2#isStandoffClass": true,
       "http://www.w3.org/2000/01/rdf-schema#comment": "Represents an event in a TextValue",
@@ -332,7 +332,7 @@
           "@type": "http://www.w3.org/2002/07/owl#Restriction",
           "http://www.w3.org/2002/07/owl#cardinality": 1,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#standoffEventTagHasDescription"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#standoffEventTagHasDescription"
           }
         },
         {
@@ -490,7 +490,7 @@
       ]
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
       "@type": "http://www.w3.org/2002/07/owl#Class",
       "http://api.knora.org/ontology/knora-api/v2#canBeInstantiated": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceClass": true,
@@ -642,7 +642,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 0,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasListItem"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem"
           }
         },
         {
@@ -650,7 +650,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 0,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherListItem"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherListItem"
           }
         },
         {
@@ -658,7 +658,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 1,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThing"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThing"
           }
         },
         {
@@ -666,7 +666,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 1,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThingValue"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue"
           }
         },
         {
@@ -674,7 +674,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 2,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasRichtext"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasRichtext"
           }
         },
         {
@@ -682,7 +682,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 2,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasText"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasText"
           }
         },
         {
@@ -690,7 +690,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 3,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasDate"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate"
           }
         },
         {
@@ -698,7 +698,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 4,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasInteger"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger"
           }
         },
         {
@@ -706,7 +706,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 5,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasDecimal"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal"
           }
         },
         {
@@ -714,7 +714,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 6,
           "http://www.w3.org/2002/07/owl#maxCardinality": 1,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasBoolean"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean"
           }
         },
         {
@@ -722,7 +722,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 7,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasUri"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri"
           }
         },
         {
@@ -730,7 +730,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 9,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasInterval"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval"
           }
         },
         {
@@ -738,7 +738,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 10,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasColor"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasColor"
           }
         },
         {
@@ -746,7 +746,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 11,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasGeometry"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeometry"
           }
         },
         {
@@ -754,7 +754,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 12,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasGeoname"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeoname"
           }
         },
         {
@@ -762,7 +762,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 13,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasThingPicture"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasThingPicture"
           }
         },
         {
@@ -770,7 +770,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 13,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasThingPictureValue"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasThingPictureValue"
           }
         },
         {
@@ -778,7 +778,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 15,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#isPartOfOtherThing"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#isPartOfOtherThing"
           }
         },
         {
@@ -786,13 +786,13 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 15,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#isPartOfOtherThingValue"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#isPartOfOtherThingValue"
           }
         }
       ]
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#ThingPicture",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#ThingPicture",
       "@type": "http://www.w3.org/2002/07/owl#Class",
       "http://api.knora.org/ontology/knora-api/v2#canBeInstantiated": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceClass": true,
@@ -807,7 +807,7 @@
           "@type": "http://www.w3.org/2002/07/owl#Restriction",
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasPictureTitle"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasPictureTitle"
           }
         },
         {
@@ -957,7 +957,7 @@
       ]
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#ThingWithRegion",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#ThingWithRegion",
       "@type": "http://www.w3.org/2002/07/owl#Class",
       "http://api.knora.org/ontology/knora-api/v2#canBeInstantiated": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceClass": true,
@@ -971,14 +971,14 @@
           "@type": "http://www.w3.org/2002/07/owl#Restriction",
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#thingHasRegion"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#thingHasRegion"
           }
         },
         {
           "@type": "http://www.w3.org/2002/07/owl#Restriction",
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#thingHasRegionValue"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#thingHasRegionValue"
           }
         },
         {
@@ -1120,7 +1120,7 @@
       ]
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#ThingWithRepresentation",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#ThingWithRepresentation",
       "@type": "http://www.w3.org/2002/07/owl#Class",
       "http://api.knora.org/ontology/knora-api/v2#canBeInstantiated": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceClass": true,
@@ -1283,7 +1283,7 @@
       ]
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#ThingWithSeqnum",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#ThingWithSeqnum",
       "@type": "http://www.w3.org/2002/07/owl#Class",
       "http://api.knora.org/ontology/knora-api/v2#canBeInstantiated": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceClass": true,
@@ -1291,7 +1291,7 @@
       "http://www.w3.org/2000/01/rdf-schema#label": "Thing with sequence number",
       "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
         {
-          "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+          "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
         },
         {
           "@type": "http://www.w3.org/2002/07/owl#Restriction",
@@ -1435,7 +1435,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 0,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasListItem"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem"
           }
         },
         {
@@ -1444,7 +1444,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 0,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherListItem"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherListItem"
           }
         },
         {
@@ -1453,7 +1453,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 1,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThing"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThing"
           }
         },
         {
@@ -1462,7 +1462,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 1,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThingValue"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue"
           }
         },
         {
@@ -1471,7 +1471,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 2,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasRichtext"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasRichtext"
           }
         },
         {
@@ -1480,7 +1480,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 2,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasText"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasText"
           }
         },
         {
@@ -1489,7 +1489,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 3,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasDate"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate"
           }
         },
         {
@@ -1498,7 +1498,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 4,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasInteger"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger"
           }
         },
         {
@@ -1507,7 +1507,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 5,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasDecimal"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal"
           }
         },
         {
@@ -1516,7 +1516,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 6,
           "http://www.w3.org/2002/07/owl#maxCardinality": 1,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasBoolean"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean"
           }
         },
         {
@@ -1525,7 +1525,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 7,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasUri"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri"
           }
         },
         {
@@ -1534,7 +1534,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 9,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasInterval"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval"
           }
         },
         {
@@ -1543,7 +1543,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 10,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasColor"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasColor"
           }
         },
         {
@@ -1552,7 +1552,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 11,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasGeometry"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeometry"
           }
         },
         {
@@ -1561,7 +1561,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 12,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasGeoname"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeoname"
           }
         },
         {
@@ -1570,7 +1570,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 13,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasThingPicture"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasThingPicture"
           }
         },
         {
@@ -1579,7 +1579,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 13,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasThingPictureValue"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasThingPictureValue"
           }
         },
         {
@@ -1588,7 +1588,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 15,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#isPartOfOtherThing"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#isPartOfOtherThing"
           }
         },
         {
@@ -1597,7 +1597,7 @@
           "http://api.knora.org/ontology/salsah-gui/v2#guiOrder": 15,
           "http://www.w3.org/2002/07/owl#minCardinality": 0,
           "http://www.w3.org/2002/07/owl#onProperty": {
-            "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#isPartOfOtherThingValue"
+            "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#isPartOfOtherThingValue"
           }
         },
         {
@@ -1611,7 +1611,7 @@
       ]
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#TrivialThing",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#TrivialThing",
       "@type": "http://www.w3.org/2002/07/owl#Class",
       "http://api.knora.org/ontology/knora-api/v2#canBeInstantiated": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceClass": true,
@@ -1761,27 +1761,27 @@
       ]
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasBlueThing",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBlueThing",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isLinkProperty": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceProperty": true,
       "http://api.knora.org/ontology/knora-api/v2#objectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#BlueThing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#BlueThing"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiElement": {
         "@id": "http://api.knora.org/ontology/salsah-gui/v2#Searchbox"
       },
       "http://www.w3.org/2000/01/rdf-schema#label": "A blue thing",
       "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThing"
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasBlueThingValue",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBlueThingValue",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isLinkValueProperty": true,
@@ -1790,15 +1790,15 @@
         "@id": "http://api.knora.org/ontology/knora-api/v2#LinkValue"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://www.w3.org/2000/01/rdf-schema#label": "A blue thing",
       "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThingValue"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue"
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasBoolean",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceProperty": true,
@@ -1806,7 +1806,7 @@
         "@id": "http://api.knora.org/ontology/knora-api/v2#BooleanValue"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiElement": {
         "@id": "http://api.knora.org/ontology/salsah-gui/v2#Checkbox"
@@ -1817,7 +1817,7 @@
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasColor",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasColor",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceProperty": true,
@@ -1825,7 +1825,7 @@
         "@id": "http://api.knora.org/ontology/knora-api/v2#ColorValue"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiElement": {
         "@id": "http://api.knora.org/ontology/salsah-gui/v2#Colorpicker"
@@ -1836,7 +1836,7 @@
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasDate",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceProperty": true,
@@ -1844,7 +1844,7 @@
         "@id": "http://api.knora.org/ontology/knora-api/v2#DateValue"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiElement": {
         "@id": "http://api.knora.org/ontology/salsah-gui/v2#Date"
@@ -1855,7 +1855,7 @@
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasDecimal",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceProperty": true,
@@ -1863,7 +1863,7 @@
         "@id": "http://api.knora.org/ontology/knora-api/v2#DecimalValue"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiAttribute": [
         "maxlength=255",
@@ -1878,7 +1878,7 @@
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasGeometry",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeometry",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceProperty": true,
@@ -1886,7 +1886,7 @@
         "@id": "http://api.knora.org/ontology/knora-api/v2#GeomValue"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiElement": {
         "@id": "http://api.knora.org/ontology/salsah-gui/v2#Geometry"
@@ -1897,7 +1897,7 @@
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasGeoname",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeoname",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceProperty": true,
@@ -1905,7 +1905,7 @@
         "@id": "http://api.knora.org/ontology/knora-api/v2#GeonameValue"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiElement": {
         "@id": "http://api.knora.org/ontology/salsah-gui/v2#Geonames"
@@ -1916,7 +1916,7 @@
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasInteger",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceProperty": true,
@@ -1924,7 +1924,7 @@
         "@id": "http://api.knora.org/ontology/knora-api/v2#IntValue"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiAttribute": [
         "max=-1",
@@ -1939,7 +1939,7 @@
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasInterval",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceProperty": true,
@@ -1947,7 +1947,7 @@
         "@id": "http://api.knora.org/ontology/knora-api/v2#IntervalValue"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiElement": {
         "@id": "http://api.knora.org/ontology/salsah-gui/v2#Interval"
@@ -1958,7 +1958,7 @@
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasListItem",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceProperty": true,
@@ -1966,7 +1966,7 @@
         "@id": "http://api.knora.org/ontology/knora-api/v2#ListValue"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiAttribute": "hlist=<http://rdfh.ch/lists/0001/treeList>",
       "http://api.knora.org/ontology/salsah-gui/v2#guiElement": {
@@ -1978,7 +1978,7 @@
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherListItem",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherListItem",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceProperty": true,
@@ -1986,7 +1986,7 @@
         "@id": "http://api.knora.org/ontology/knora-api/v2#ListValue"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiAttribute": "hlist=<http://rdfh.ch/lists/0001/otherTreeList>",
       "http://api.knora.org/ontology/salsah-gui/v2#guiElement": {
@@ -1998,16 +1998,16 @@
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThing",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThing",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isLinkProperty": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceProperty": true,
       "http://api.knora.org/ontology/knora-api/v2#objectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiElement": {
         "@id": "http://api.knora.org/ontology/salsah-gui/v2#Searchbox"
@@ -2018,7 +2018,7 @@
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThingValue",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isLinkValueProperty": true,
@@ -2027,7 +2027,7 @@
         "@id": "http://api.knora.org/ontology/knora-api/v2#LinkValue"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiElement": {
         "@id": "http://api.knora.org/ontology/salsah-gui/v2#Searchbox"
@@ -2038,7 +2038,7 @@
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasPictureTitle",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasPictureTitle",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceProperty": true,
@@ -2046,7 +2046,7 @@
         "@id": "http://api.knora.org/ontology/knora-api/v2#TextValue"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#ThingPicture"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#ThingPicture"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiAttribute": [
         "maxlength=255",
@@ -2061,7 +2061,7 @@
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasRichtext",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasRichtext",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceProperty": true,
@@ -2069,7 +2069,7 @@
         "@id": "http://api.knora.org/ontology/knora-api/v2#TextValue"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiElement": {
         "@id": "http://api.knora.org/ontology/salsah-gui/v2#Richtext"
@@ -2080,7 +2080,7 @@
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasText",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasText",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceProperty": true,
@@ -2088,7 +2088,7 @@
         "@id": "http://api.knora.org/ontology/knora-api/v2#TextValue"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiAttribute": [
         "maxlength=255",
@@ -2103,16 +2103,16 @@
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasThingPicture",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasThingPicture",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isLinkProperty": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceProperty": true,
       "http://api.knora.org/ontology/knora-api/v2#objectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#ThingPicture"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#ThingPicture"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiElement": {
         "@id": "http://api.knora.org/ontology/salsah-gui/v2#Searchbox"
@@ -2123,7 +2123,7 @@
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasThingPictureValue",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasThingPictureValue",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isLinkValueProperty": true,
@@ -2132,7 +2132,7 @@
         "@id": "http://api.knora.org/ontology/knora-api/v2#LinkValue"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiElement": {
         "@id": "http://api.knora.org/ontology/salsah-gui/v2#Searchbox"
@@ -2143,7 +2143,7 @@
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#hasUri",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceProperty": true,
@@ -2151,7 +2151,7 @@
         "@id": "http://api.knora.org/ontology/knora-api/v2#UriValue"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiAttribute": [
         "maxlength=255",
@@ -2166,16 +2166,16 @@
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#isPartOfOtherThing",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#isPartOfOtherThing",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isLinkProperty": true,
       "http://api.knora.org/ontology/knora-api/v2#isResourceProperty": true,
       "http://api.knora.org/ontology/knora-api/v2#objectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiElement": {
         "@id": "http://api.knora.org/ontology/salsah-gui/v2#Searchbox"
@@ -2186,7 +2186,7 @@
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#isPartOfOtherThingValue",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#isPartOfOtherThingValue",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isLinkValueProperty": true,
@@ -2195,7 +2195,7 @@
         "@id": "http://api.knora.org/ontology/knora-api/v2#LinkValue"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiElement": {
         "@id": "http://api.knora.org/ontology/salsah-gui/v2#Searchbox"
@@ -2206,17 +2206,17 @@
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#standoffEventTagHasDescription",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#standoffEventTagHasDescription",
       "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
       "http://api.knora.org/ontology/knora-api/v2#objectType": {
         "@id": "http://www.w3.org/2001/XMLSchema#string"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#StandoffEventTag"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#StandoffEventTag"
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#thingHasRegion",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#thingHasRegion",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isLinkProperty": true,
@@ -2225,7 +2225,7 @@
         "@id": "http://api.knora.org/ontology/knora-api/v2#Region"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#ThingWithRegion"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#ThingWithRegion"
       },
       "http://api.knora.org/ontology/salsah-gui/v2#guiElement": {
         "@id": "http://api.knora.org/ontology/salsah-gui/v2#Searchbox"
@@ -2236,7 +2236,7 @@
       }
     },
     {
-      "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#thingHasRegionValue",
+      "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#thingHasRegionValue",
       "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
       "http://api.knora.org/ontology/knora-api/v2#isEditable": true,
       "http://api.knora.org/ontology/knora-api/v2#isLinkValueProperty": true,
@@ -2245,7 +2245,7 @@
         "@id": "http://api.knora.org/ontology/knora-api/v2#LinkValue"
       },
       "http://api.knora.org/ontology/knora-api/v2#subjectType": {
-        "@id": "http://api.dasch.swiss/ontology/0001/anything/v2#ThingWithRegion"
+        "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2#ThingWithRegion"
       },
       "http://www.w3.org/2000/01/rdf-schema#label": "has region",
       "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": {
@@ -2253,7 +2253,7 @@
       }
     }
   ],
-  "@id": "http://api.dasch.swiss/ontology/0001/anything/v2",
+  "@id": "http://0.0.0.0:3333/ontology/0001/anything/v2",
   "@type": "http://www.w3.org/2002/07/owl#Ontology",
   "http://api.knora.org/ontology/knora-api/v2#attachedToProject": {
     "@id": "http://rdfh.ch/projects/0001"

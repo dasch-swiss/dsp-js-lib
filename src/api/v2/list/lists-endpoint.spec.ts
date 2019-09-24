@@ -5,7 +5,7 @@ import { ListNode } from "../../../models/v2/lists/list-node";
 
 describe("ListsEndpoint", () => {
 
-    const config = new KnoraApiConfig("http", "api.dasch.swiss", undefined, undefined, undefined, true);
+    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, undefined, true);
     const knoraApiConnection = new KnoraApiConnection(config);
 
     beforeEach(() => {
@@ -34,7 +34,7 @@ describe("ListsEndpoint", () => {
 
         request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(onto)));
 
-        expect(request.url).toBe("http://api.dasch.swiss/v2/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList");
+        expect(request.url).toBe("http://0.0.0.0:3333/v2/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList");
 
         expect(request.method).toEqual("GET");
 
@@ -58,7 +58,7 @@ describe("ListsEndpoint", () => {
 
         request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(onto)));
 
-        expect(request.url).toBe("http://api.dasch.swiss/v2/node/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList01");
+        expect(request.url).toBe("http://0.0.0.0:3333/v2/node/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList01");
 
         expect(request.method).toEqual("GET");
 
