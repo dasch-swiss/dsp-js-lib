@@ -23,6 +23,7 @@ import {
     ReadTextValueAsString,
     ReadTextValueAsXml
 } from "./values/read-text-value";
+import { ReadTimeValue } from "./values/read-time-value";
 import { ReadUriValue } from "./values/read-uri-value";
 import { ReadValue } from "./values/read-value";
 
@@ -341,6 +342,11 @@ export namespace ResourcesConversionUtil {
 
             case Constants.StillImageFileValue: {
                 value = handleSimpleValue(valueJsonld, ReadStillImageFileValue, jsonConvert);
+                break;
+            }
+
+            case Constants.TimeValue: {
+                value = handleSimpleValue(valueJsonld, ReadTimeValue, jsonConvert);
                 break;
             }
 

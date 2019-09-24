@@ -28,6 +28,7 @@ export class Constants {
     static IsRootNode = Constants.KnoraApiV2 + Constants.Delimiter + "isRootNode";
     static HasRootNode = Constants.KnoraApiV2 + Constants.Delimiter + "hasRootNode";
     static HasSubListNode = Constants.KnoraApiV2 + Constants.Delimiter + "hasSubListNode";
+    static TimeValue = Constants.KnoraApiV2 + Constants.Delimiter + "TimeValue";
 
     static AttachedToProject = Constants.KnoraApiV2 + Constants.Delimiter + "attachedToProject";
     static AttachedToUser = Constants.KnoraApiV2 + Constants.Delimiter + "attachedToUser";
@@ -71,6 +72,8 @@ export class Constants {
     static StillImageFileValueHasIIIFBaseUrl = Constants.KnoraApiV2 + Constants.Delimiter + "stillImageFileValueHasIIIFBaseUrl";
     static FileValueHasFilename = Constants.KnoraApiV2 + Constants.Delimiter + "fileValueHasFilename";
     static FileValueAsUrl = Constants.KnoraApiV2 + Constants.Delimiter + "fileValueAsUrl";
+    static TimeValueAsTimeStamp = Constants.KnoraApiV2 + Constants.Delimiter + "timeValueAsTimeStamp";
+
 
     static KnoraAdminV2 = "http://api.knora.org/ontology/knora-admin/v2";
 

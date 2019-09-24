@@ -8,6 +8,7 @@ import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ResourcesConversionUtil } from "./ResourcesConversionUtil";
 import { ReadListValue } from "./values/read-list-value";
+import { ReadTimeValue } from "./values/read-time-value";
 import { ReadUriValue } from "./values/read-uri-value";
 
 describe("ResourcesConversionUtil", () => {
@@ -197,7 +198,10 @@ describe("ResourcesConversionUtil", () => {
                     expect(resSeq.length).toEqual(1);
 
                     expect(resSeq[0].getNumberOfValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasTimeStamp")).toEqual(1);
-                    console.log(resSeq[0].getValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasTimeStamp"));
+                    const timeValue = resSeq[0].getValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasTimeStamp")[0];
+
+                    expect(timeValue instanceof ReadTimeValue).toBeTruthy();
+                    expect((timeValue as ReadTimeValue).time).toEqual("2019-08-30T10:47:20.684093Z");
 
                     expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
                     expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
