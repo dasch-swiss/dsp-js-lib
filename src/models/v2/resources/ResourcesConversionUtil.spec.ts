@@ -9,11 +9,10 @@ import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ResourcesConversionUtil } from "./ResourcesConversionUtil";
 import { ReadListValue } from "./values/read-list-value";
 import { ReadUriValue } from "./values/read-uri-value";
-import { ReadValue } from "./values/read-value";
 
 describe("ResourcesConversionUtil", () => {
 
-    const config = new KnoraApiConfig("http", "0.0.0.0:3333", 3333, undefined, "", true);
+    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, "", true);
     const knoraApiConnection = new KnoraApiConnection(config);
 
     const ontoCache = new OntologyCache(knoraApiConnection, config);

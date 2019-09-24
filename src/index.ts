@@ -22,6 +22,7 @@ export { ApiResponseData } from "./models/api-response-data";
 export { ApiResponseError } from "./models/api-response-error";
 
 export { ReadResource } from "./models/v2/resources/read-resource";
+export { CountQueryResponse} from "./models/v2/search/count-query-response";
 
 export { ReadBooleanValue } from "./models/v2/resources/values/read-boolean-value";
 export { ReadColorValue } from "./models/v2/resources/values/read-color-value";
@@ -36,3 +37,5 @@ export { ReadListValue } from "./models/v2/resources/values/read-list-value";
 export { ReadTextValue, ReadTextValueAsString, ReadTextValueAsHtml, ReadTextValueAsXml } from "./models/v2/resources/values/read-text-value";
 export { ReadUriValue } from "./models/v2/resources/values/read-uri-value";
 export { ReadValue } from "./models/v2/resources/values/read-value";
+
+export { Constants } from "./models/v2/Constants";
