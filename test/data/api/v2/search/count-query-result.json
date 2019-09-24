@@ -1,5 +1,5 @@
 {
-  "schema:numberOfItems" : 16,
+  "schema:numberOfItems" : 2,
   "@context" : {
     "schema" : "http://schema.org/"
   }
