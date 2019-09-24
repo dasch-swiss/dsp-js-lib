@@ -33,6 +33,10 @@
       "destination": "./test/data/api/v2/resources/page.json"
     },
     {
+      "source": "/webapi/src/test/resources/test-data/searchR2RV2/ThingWithTimeStamp.jsonld",
+      "destination": "./test/data/api/v2/resources/thing-with-time-value.json"
+    },
+    {
       "source": "/webapi/src/test/resources/test-data/listsR2RV2/treelist.jsonld",
       "destination": "./test/data/api/v2/lists/treelist.json"
     },

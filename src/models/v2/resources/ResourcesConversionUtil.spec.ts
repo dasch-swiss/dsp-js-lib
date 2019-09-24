@@ -187,6 +187,27 @@ describe("ResourcesConversionUtil", () => {
 
         });
 
+        it("parse JSON-LD representing a resource with a time value", done => {
+
+            const resource = require("../../../../test/data/api/v2/resources/thing-with-time-value-expanded.json");
+
+            ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, listNodeCache, jsonConvert).subscribe(
+                resSeq => {
+
+                    expect(resSeq.length).toEqual(1);
+
+                    expect(resSeq[0].getNumberOfValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasTimeStamp")).toEqual(1);
+                    console.log(resSeq[0].getValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasTimeStamp"));
+
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+
+                    done();
+                }
+            );
+
+        });
+
     });
 
 });
