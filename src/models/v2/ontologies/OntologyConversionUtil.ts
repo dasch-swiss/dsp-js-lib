@@ -2,6 +2,7 @@ import { JsonConvert } from "json2typescript";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { Constants } from "../Constants";
 import { IHasProperty } from "./class-definition";
+import { EntityDefinition } from "./EntityDefinition";
 import { ReadOntology } from "./read-ontology";
 import { ResourceClassDefinition } from "./resource-class-definition";
 import { ResourcePropertyDefinition } from "./resource-property-definition";
@@ -90,13 +91,13 @@ export namespace OntologyConversionUtil {
     };
 
     /**
-     * Converts an entity defintion to the specified type.
+     * Converts an entity definition to the specified type.
      *
      * @param entity the entity definition to be converted.
      * @param dataType the target type of the conversion.
      * @param jsonConvert the converter to be used.
      */
-    export const convertEntity = <T>(entity: object, dataType: { new(): T }, jsonConvert: JsonConvert): T => {
+    export const convertEntity = <T extends EntityDefinition>(entity: object, dataType: { new(): T }, jsonConvert: JsonConvert): T => {
         return jsonConvert.deserializeObject(entity, dataType);
     };
 
