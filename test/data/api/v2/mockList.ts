@@ -1,5 +1,6 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+import { AsyncSubject } from "rxjs";
 import { ListConversionUtil } from "../../../../src/models/v2/lists/list-conversion-util";
 import { ListNode } from "../../../../src/models/v2/lists/list-node";
 import treeListExpanded from "../v2/lists/treelist-expanded.json";
@@ -13,6 +14,18 @@ export namespace MockList {
         false,
         PropertyMatchingRule.CASE_STRICT
     );
+
+    export const mockCompletedAsyncSubject = (listNodeIri: string): AsyncSubject<ListNode> => {
+
+        const mock: ListNode = mockNode(listNodeIri);
+
+        const sub = new AsyncSubject<ListNode>();
+        sub.next(mock);
+        sub.complete();
+
+        return sub;
+
+    };
 
     export const mockNode = (listNodeIri: string): ListNode => {
 

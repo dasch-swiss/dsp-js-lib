@@ -34,9 +34,7 @@ describe("SearchEndpoint", () => {
 
         getListNodeFromCacheSpy = spyOn(listNodeCache, "getNode").and.callFake(
             (listNodeIri: string) => {
-                const mock = MockList.mockNode(listNodeIri);
-
-                return of(mock) as AsyncSubject<ListNode>;
+                return MockList.mockCompletedAsyncSubject(listNodeIri);
             }
         );
     });
