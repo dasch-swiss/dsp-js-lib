@@ -1,11 +1,8 @@
-export abstract class PropertyDefinition {
-    abstract id: string;
+import { EntityDefinition } from "./EntityDefinition";
+
+export abstract class PropertyDefinition extends EntityDefinition {
 
     abstract subPropertyOf: string[];
-
-    abstract comment?: string;
-
-    abstract label?: string;
 
     abstract subjectType?: string;
 
