@@ -86,6 +86,7 @@ export namespace ResourcesConversionUtil {
                 // add information from ontology
                 resource.resourceClassLabel = entitiyDefs.classes[resourceType].label;
                 resource.resourceClassComment = entitiyDefs.classes[resourceType].comment;
+                resource.entityInfo = entitiyDefs;
 
                 if (resourceProps.length > 0) {
 

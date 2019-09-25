@@ -101,7 +101,10 @@ describe("ResourcesConversionUtil", () => {
                     expect(uriVals[0] instanceof ReadUriValue).toBeTruthy();
                     expect((uriVals[0] as ReadUriValue).uri).toEqual("http://www.google.ch");
 
-                    const uriValsTyped = resSeq[0].getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri", ReadUriValue);
+                    const uriValsTyped: ReadUriValue[] = resSeq[0].getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri", ReadUriValue);
+                    expect(uriValsTyped[0].uri).toEqual("http://www.google.ch");
+
+                    expect(resSeq[0].getValueType("http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri")).toEqual("http://api.knora.org/ontology/knora-api/v2#UriValue");
 
                     const listVals = resSeq[0].getValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem");
 
