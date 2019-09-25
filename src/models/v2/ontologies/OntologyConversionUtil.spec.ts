@@ -13,7 +13,7 @@ describe("OntologyConversionUtil", () => {
 
     describe("Method getOntologyIriFromEntityIri", () => {
 
-        const config = new KnoraApiConfig("http", "api.dasch.swiss");
+        const config = new KnoraApiConfig("http", "0.0.0.0", 3333);
 
         it("should get the ontology IRI from a knora-api entity", () => {
             const ontologyIri = OntologyConversionUtil.getOntologyIriFromEntityIri("http://api.knora.org/ontology/knora-api/v2#Resource", config);
@@ -23,9 +23,9 @@ describe("OntologyConversionUtil", () => {
         });
 
         it("should get the ontology IRI from a project entity", () => {
-            const ontologyIri = OntologyConversionUtil.getOntologyIriFromEntityIri("http://api.dasch.swiss/ontology/0807/mls/v2#Article", config);
+            const ontologyIri = OntologyConversionUtil.getOntologyIriFromEntityIri("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing", config);
 
-            expect(ontologyIri[0]).toEqual("http://api.dasch.swiss/ontology/0807/mls/v2");
+            expect(ontologyIri[0]).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
 
         });
 

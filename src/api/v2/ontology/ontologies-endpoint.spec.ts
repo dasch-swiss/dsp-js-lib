@@ -8,7 +8,7 @@ import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-p
 
 describe("OntologiesEndpoint", () => {
 
-    const config = new KnoraApiConfig("http", "api.dasch.swiss", undefined, undefined, undefined, true);
+    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, undefined, true);
     const knoraApiConnection = new KnoraApiConnection(config);
 
     beforeEach(() => {
@@ -53,7 +53,7 @@ describe("OntologiesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(onto)));
 
-            expect(request.url).toBe("http://api.dasch.swiss/v2/ontologies/allentities/http%3A%2F%2Fapi.knora.org%2Fontology%2Fknora-api%2Fv2");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/allentities/http%3A%2F%2Fapi.knora.org%2Fontology%2Fknora-api%2Fv2");
 
             expect(request.method).toEqual("GET");
 
@@ -61,40 +61,40 @@ describe("OntologiesEndpoint", () => {
 
         it("should return a project ontology", done => {
 
-            knoraApiConnection.v2.onto.getOntology("http://api.dasch.swiss/ontology/0001/anything/v2").subscribe(
+            knoraApiConnection.v2.onto.getOntology("http://0.0.0.0:3333/ontology/0001/anything/v2").subscribe(
                 (response: ReadOntology) => {
-                    expect(response.id).toEqual("http://api.dasch.swiss/ontology/0001/anything/v2");
+                    expect(response.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
 
                     expect(response.dependsOnOntologies.size).toEqual(1);
                     expect(response.dependsOnOntologies.has("http://api.knora.org/ontology/knora-api/v2")).toBeTruthy();
 
-                    expect(response.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"] instanceof ResourceClassDefinition);
-                    expect(response.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"].id).toEqual("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
-                    expect(response.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"].label).toEqual("Thing");
-                    expect(response.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"].comment).toEqual("'The whole world is full of things, which means there's a real need for someone to go searching for them. And that's exactly what a thing-searcher does.' --Pippi Longstocking");
+                    expect(response.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"] instanceof ResourceClassDefinition);
+                    expect(response.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+                    expect(response.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].label).toEqual("Thing");
+                    expect(response.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].comment).toEqual("'The whole world is full of things, which means there's a real need for someone to go searching for them. And that's exactly what a thing-searcher does.' --Pippi Longstocking");
 
-                    expect(response.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"].propertiesList.length).toEqual(36);
+                    expect(response.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].propertiesList.length).toEqual(36);
 
-                    expect(response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasDecimal"] instanceof ResourcePropertyDefinition);
-                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasDecimal"] as ResourcePropertyDefinition).isEditable).toBeTruthy();
-                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasDecimal"] as ResourcePropertyDefinition).isLinkProperty).toBeFalsy();
-                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasDecimal"] as ResourcePropertyDefinition).isLinkValueProperty).toBeFalsy();
+                    expect(response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal"] instanceof ResourcePropertyDefinition);
+                    expect((response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal"] as ResourcePropertyDefinition).isEditable).toBeTruthy();
+                    expect((response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal"] as ResourcePropertyDefinition).isLinkProperty).toBeFalsy();
+                    expect((response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal"] as ResourcePropertyDefinition).isLinkValueProperty).toBeFalsy();
 
-                    expect(response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThing"] instanceof ResourcePropertyDefinition);
-                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThing"] as ResourcePropertyDefinition).isEditable).toBeTruthy();
-                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThing"] as ResourcePropertyDefinition).isLinkProperty).toBeTruthy();
-                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThing"] as ResourcePropertyDefinition).isLinkValueProperty).toBeFalsy();
+                    expect(response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThing"] instanceof ResourcePropertyDefinition);
+                    expect((response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThing"] as ResourcePropertyDefinition).isEditable).toBeTruthy();
+                    expect((response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThing"] as ResourcePropertyDefinition).isLinkProperty).toBeTruthy();
+                    expect((response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThing"] as ResourcePropertyDefinition).isLinkValueProperty).toBeFalsy();
 
-                    expect(response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThingValue"] instanceof ResourcePropertyDefinition);
-                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThingValue"] as ResourcePropertyDefinition).isEditable).toBeTruthy();
-                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThingValue"] as ResourcePropertyDefinition).isLinkProperty).toBeFalsy();
-                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasOtherThingValue"] as ResourcePropertyDefinition).isLinkValueProperty).toBeTruthy();
+                    expect(response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue"] instanceof ResourcePropertyDefinition);
+                    expect((response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue"] as ResourcePropertyDefinition).isEditable).toBeTruthy();
+                    expect((response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue"] as ResourcePropertyDefinition).isLinkProperty).toBeFalsy();
+                    expect((response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue"] as ResourcePropertyDefinition).isLinkValueProperty).toBeTruthy();
 
-                    expect(response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasListItem"] instanceof ResourcePropertyDefinition);
-                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasListItem"] as ResourcePropertyDefinition).isEditable).toBeTruthy();
-                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasListItem"] as ResourcePropertyDefinition).isLinkProperty).toBeFalsy();
-                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasListItem"] as ResourcePropertyDefinition).isLinkValueProperty).toBeFalsy();
-                    expect((response.properties["http://api.dasch.swiss/ontology/0001/anything/v2#hasListItem"] as ResourcePropertyDefinition).guiAttributes).toEqual(["hlist=<http://rdfh.ch/lists/0001/treeList>"]);
+                    expect(response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem"] instanceof ResourcePropertyDefinition);
+                    expect((response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem"] as ResourcePropertyDefinition).isEditable).toBeTruthy();
+                    expect((response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem"] as ResourcePropertyDefinition).isLinkProperty).toBeFalsy();
+                    expect((response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem"] as ResourcePropertyDefinition).isLinkValueProperty).toBeFalsy();
+                    expect((response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem"] as ResourcePropertyDefinition).guiAttributes).toEqual(["hlist=<http://rdfh.ch/lists/0001/treeList>"]);
 
                     done();
                 });
@@ -105,7 +105,7 @@ describe("OntologiesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(onto)));
 
-            expect(request.url).toBe("http://api.dasch.swiss/v2/ontologies/allentities/http%3A%2F%2Fapi.dasch.swiss%2Fontology%2F0001%2Fanything%2Fv2");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/allentities/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2");
 
             expect(request.method).toEqual("GET");
 
@@ -113,10 +113,10 @@ describe("OntologiesEndpoint", () => {
 
         it("should return a very simple project ontology", done => {
 
-            knoraApiConnection.v2.onto.getOntology("http://api.dasch.swiss/ontology/0001/minimal/v2").subscribe(
+            knoraApiConnection.v2.onto.getOntology("http://0.0.0.0:3333/ontology/0001/minimal/v2").subscribe(
                 (response: ReadOntology) => {
 
-                    expect(response.id).toEqual("http://api.dasch.swiss/ontology/0001/minimal/v2");
+                    expect(response.id).toEqual("http://0.0.0.0:3333/ontology/0001/minimal/v2");
 
                     expect(response.dependsOnOntologies.size).toEqual(1);
                     expect(response.dependsOnOntologies.has("http://api.knora.org/ontology/knora-api/v2")).toBeTruthy();
@@ -130,7 +130,7 @@ describe("OntologiesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(onto)));
 
-            expect(request.url).toBe("http://api.dasch.swiss/v2/ontologies/allentities/http%3A%2F%2Fapi.dasch.swiss%2Fontology%2F0001%2Fminimal%2Fv2");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/allentities/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fminimal%2Fv2");
 
             expect(request.method).toEqual("GET");
 
