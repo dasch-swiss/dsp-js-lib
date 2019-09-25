@@ -8,7 +8,7 @@ import { ResourceClassDefinition } from "../models/v2/ontologies/resource-class-
 
 describe("OntologyCache", () => {
 
-    const config = new KnoraApiConfig("http", "api.dasch.swiss", undefined, "", "", true);
+    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, "", "", true);
     const knoraApiConnection = new KnoraApiConnection(config);
 
     let getOntoSpy: jasmine.Spy;
@@ -39,15 +39,15 @@ describe("OntologyCache", () => {
 
         it("should get an ontology with dependencies from the cache", done => {
 
-            ontoCache["getItem"]("http://api.dasch.swiss/ontology/0001/anything/v2").subscribe((onto: ReadOntology) => {
+            ontoCache["getItem"]("http://0.0.0.0:3333/ontology/0001/anything/v2").subscribe((onto: ReadOntology) => {
 
-                expect(onto.id).toEqual("http://api.dasch.swiss/ontology/0001/anything/v2");
+                expect(onto.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
 
                 expect(getOntoSpy).toHaveBeenCalledTimes(2);
-                expect(getOntoSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2");
+                expect(getOntoSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2");
                 expect(getOntoSpy).toHaveBeenCalledWith("http://api.knora.org/ontology/knora-api/v2"); // anything onto depends on knora-api
 
-                expect(ontoCache["cache"]["http://api.dasch.swiss/ontology/0001/anything/v2"]).not.toBeUndefined();
+                expect(ontoCache["cache"]["http://0.0.0.0:3333/ontology/0001/anything/v2"]).not.toBeUndefined();
                 expect(ontoCache["cache"]["http://api.knora.org/ontology/knora-api/v2"]).not.toBeUndefined(); // anything onto depends on knora-api
                 done();
 
@@ -56,43 +56,43 @@ describe("OntologyCache", () => {
 
         it("should get an ontology with dependencies from the cache several times asynchronously", done => {
 
-            ontoCache["getItem"]("http://api.dasch.swiss/ontology/0001/anything/v2").subscribe((onto: ReadOntology) => {
+            ontoCache["getItem"]("http://0.0.0.0:3333/ontology/0001/anything/v2").subscribe((onto: ReadOntology) => {
 
-                expect(onto.id).toEqual("http://api.dasch.swiss/ontology/0001/anything/v2");
+                expect(onto.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
 
                 expect(getOntoSpy).toHaveBeenCalledTimes(2);
-                expect(getOntoSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2");
+                expect(getOntoSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2");
                 expect(getOntoSpy).toHaveBeenCalledWith("http://api.knora.org/ontology/knora-api/v2"); // anything onto depends on knora-api
 
-                expect(ontoCache["cache"]["http://api.dasch.swiss/ontology/0001/anything/v2"]).not.toBeUndefined();
+                expect(ontoCache["cache"]["http://0.0.0.0:3333/ontology/0001/anything/v2"]).not.toBeUndefined();
                 expect(ontoCache["cache"]["http://api.knora.org/ontology/knora-api/v2"]).not.toBeUndefined(); // anything onto depends on knora-api
                 done();
 
             });
 
-            ontoCache["getItem"]("http://api.dasch.swiss/ontology/0001/anything/v2").subscribe((onto: ReadOntology) => {
+            ontoCache["getItem"]("http://0.0.0.0:3333/ontology/0001/anything/v2").subscribe((onto: ReadOntology) => {
 
-                expect(onto.id).toEqual("http://api.dasch.swiss/ontology/0001/anything/v2");
+                expect(onto.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
 
                 expect(getOntoSpy).toHaveBeenCalledTimes(2);
-                expect(getOntoSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2");
+                expect(getOntoSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2");
                 expect(getOntoSpy).toHaveBeenCalledWith("http://api.knora.org/ontology/knora-api/v2"); // anything onto depends on knora-api
 
-                expect(ontoCache["cache"]["http://api.dasch.swiss/ontology/0001/anything/v2"]).not.toBeUndefined();
+                expect(ontoCache["cache"]["http://0.0.0.0:3333/ontology/0001/anything/v2"]).not.toBeUndefined();
                 expect(ontoCache["cache"]["http://api.knora.org/ontology/knora-api/v2"]).not.toBeUndefined(); // anything onto depends on knora-api
                 done();
 
             });
 
-            ontoCache["getItem"]("http://api.dasch.swiss/ontology/0001/anything/v2").subscribe((onto: ReadOntology) => {
+            ontoCache["getItem"]("http://0.0.0.0:3333/ontology/0001/anything/v2").subscribe((onto: ReadOntology) => {
 
-                expect(onto.id).toEqual("http://api.dasch.swiss/ontology/0001/anything/v2");
+                expect(onto.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
 
                 expect(getOntoSpy).toHaveBeenCalledTimes(2);
-                expect(getOntoSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2");
+                expect(getOntoSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2");
                 expect(getOntoSpy).toHaveBeenCalledWith("http://api.knora.org/ontology/knora-api/v2"); // anything onto depends on knora-api
 
-                expect(ontoCache["cache"]["http://api.dasch.swiss/ontology/0001/anything/v2"]).not.toBeUndefined();
+                expect(ontoCache["cache"]["http://0.0.0.0:3333/ontology/0001/anything/v2"]).not.toBeUndefined();
                 expect(ontoCache["cache"]["http://api.knora.org/ontology/knora-api/v2"]).not.toBeUndefined(); // anything onto depends on knora-api
                 done();
 
@@ -120,17 +120,17 @@ describe("OntologyCache", () => {
 
         it("should get an ontology with direct dependencies from the cache", done => {
 
-            ontoCache.getOntology("http://api.dasch.swiss/ontology/0001/anything/v2").subscribe(ontos => {
+            ontoCache.getOntology("http://0.0.0.0:3333/ontology/0001/anything/v2").subscribe(ontos => {
 
                 expect(ontos.size).toEqual(2);
-                expect(ontos.has("http://api.dasch.swiss/ontology/0001/anything/v2")).toBeTruthy();
+                expect(ontos.has("http://0.0.0.0:3333/ontology/0001/anything/v2")).toBeTruthy();
                 expect(ontos.has("http://api.knora.org/ontology/knora-api/v2")).toBeTruthy();
 
-                expect(ontos.get("http://api.dasch.swiss/ontology/0001/anything/v2") instanceof ReadOntology).toBeTruthy();
+                expect(ontos.get("http://0.0.0.0:3333/ontology/0001/anything/v2") instanceof ReadOntology).toBeTruthy();
                 expect(ontos.get("http://api.knora.org/ontology/knora-api/v2") instanceof ReadOntology).toBeTruthy();
 
                 expect(getOntoSpy).toHaveBeenCalledTimes(2);
-                expect(getOntoSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2");
+                expect(getOntoSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2");
                 expect(getOntoSpy).toHaveBeenCalledWith("http://api.knora.org/ontology/knora-api/v2"); // anything onto depends on knora-api
 
                 done();
@@ -163,15 +163,15 @@ describe("OntologyCache", () => {
 
         it("should get the definition of a resource class and its properties", done => {
 
-            ontoCache.getResourceClassDefinition("http://api.dasch.swiss/ontology/0001/anything/v2#Thing").subscribe(
+            ontoCache.getResourceClassDefinition("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing").subscribe(
                 resClassDef => {
 
-                    expect(resClassDef.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"] instanceof ResourceClassDefinition).toBeTruthy();
+                    expect(resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"] instanceof ResourceClassDefinition).toBeTruthy();
                     expect(Object.keys(resClassDef.properties).length).toEqual(35);
 
                     done();
 
-                    /*resClassDef.classes["http://api.dasch.swiss/ontology/0001/anything/v2#Thing"].propertiesList.forEach(prop => console.log(prop.propertyIndex));
+                    /*resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].propertiesList.forEach(prop => console.log(prop.propertyIndex));
                     console.log("+++++")
                     const propKeys = Object.keys(resClassDef.properties);
                     propKeys.forEach(key => {
