@@ -1,10 +1,11 @@
-import { of } from "rxjs";
+import { AsyncSubject, of } from "rxjs";
 import { ListNodeCache, OntologyCache } from "../../..";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
+import { ListNode } from "../../../models/v2/lists/list-node";
 import { ReadResource } from "../../../models/v2/resources/read-resource";
 import { CountQueryResponse } from "../../../models/v2/search/count-query-response";
 import { SearchEndpoint } from "./search-endpoint";
@@ -35,7 +36,7 @@ describe("SearchEndpoint", () => {
             (listNodeIri: string) => {
                 const mock = MockList.mockNode(listNodeIri);
 
-                return of(mock);
+                return of(mock) as AsyncSubject<ListNode>;
             }
         );
     });
