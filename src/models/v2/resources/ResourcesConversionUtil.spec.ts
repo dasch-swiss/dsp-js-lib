@@ -1,11 +1,12 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
-import { of } from "rxjs";
+import { AsyncSubject, of } from "rxjs";
 import { ListNodeCache, OntologyCache } from "../../..";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
+import { ListNode } from "../lists/list-node";
 import { ResourcesConversionUtil } from "./ResourcesConversionUtil";
 import { ReadListValue } from "./values/read-list-value";
 import { ReadTimeValue } from "./values/read-time-value";
@@ -41,10 +42,7 @@ describe("ResourcesConversionUtil", () => {
 
         getListNodeFromCacheSpy = spyOn(listNodeCache, "getNode").and.callFake(
             (listNodeIri: string) => {
-                const mock = MockList.mockNode(listNodeIri);
-
-                return of(mock);
-
+                return MockList.mockCompletedAsyncSubject(listNodeIri);
             }
         );
 

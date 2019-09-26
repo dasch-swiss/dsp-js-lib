@@ -44,6 +44,10 @@ export class ReadValue {
                 attachedToUser?: string,
                 arkUrl?: string,
                 versionArkUrl?: string,
+                valueCreationDate?: string,
+                hasPermissions?: string,
+                userHasPermission?: string,
+                uuid?: string,
                 propertyLabel?: string,
                 propertyComment?: string,
                 property?: string) {
@@ -53,6 +57,10 @@ export class ReadValue {
         if (attachedToUser !== undefined) this.attachedToUser = attachedToUser;
         if (arkUrl !== undefined) this.arkUrl = arkUrl;
         if (versionArkUrl !== undefined) this.versionArkUrl = versionArkUrl;
+        if (valueCreationDate !== undefined) this.valueCreationDate = valueCreationDate;
+        if (hasPermissions !== undefined) this.hasPermissions = hasPermissions;
+        if (userHasPermission !== undefined) this.userHasPermission = userHasPermission;
+        if (uuid !== undefined) this.uuid = uuid;
         if (propertyLabel !== undefined) this.propertyLabel = propertyLabel;
         if (propertyComment !== undefined) this.propertyComment = propertyLabel;
         if (property !== undefined) this.property = property;
