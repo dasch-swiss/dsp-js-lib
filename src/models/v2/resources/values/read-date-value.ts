@@ -99,6 +99,10 @@ export class ReadDateValue extends ReadValue {
             date.attachedToUser,
             date.arkUrl,
             date.versionArkUrl,
+            date.valueCreationDate,
+            date.hasPermissions,
+            date.userHasPermission,
+            date.uuid,
             date.propertyLabel,
             date.propertyComment,
             date.property
