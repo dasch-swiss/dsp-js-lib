@@ -43,6 +43,10 @@ export class ReadGeomValue extends ReadValue {
             geometry.attachedToUser,
             geometry.arkUrl,
             geometry.versionArkUrl,
+            geometry.valueCreationDate,
+            geometry.hasPermissions,
+            geometry.userHasPermission,
+            geometry.uuid,
             geometry.propertyLabel,
             geometry.propertyComment,
             geometry.property
