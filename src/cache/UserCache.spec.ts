@@ -1,7 +1,7 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { of } from "rxjs";
-import { UserResponse } from "..";
+import { ApiResponseData, ApiResponseError, UserResponse } from "..";
 import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { UserCache } from "./UserCache";
@@ -30,9 +30,9 @@ describe("UserCache", () => {
         jasmine.Ajax.install();
 
         getUserSpy = spyOn(knoraApiConnection.admin.usersEndpoint, "getUser").and.callFake(
-            (prop: string, userId: string) => {
+            (prop: "iri" | "username" | "email", userId: string) => {
 
-                return of({body: userResp});
+                return of({body: userResp} as ApiResponseData<UserResponse> | ApiResponseError);
             }
         );
 
