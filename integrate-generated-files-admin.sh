@@ -2,8 +2,8 @@
 set -e
 
 usage() {
-  echo "Usage: $0 <generate-files-dir>" 1>&2;
-  echo "Run this script from project root: ./integrate-generated-files.sh"
+  echo "Usage: $0 <generated-files-dir>" 1>&2;
+  echo "Run this script from project root: ./integrate-generated-files-admin.sh"
   exit 1;
   }
 
@@ -15,5 +15,3 @@ then
 else
   usage
 fi
-
-

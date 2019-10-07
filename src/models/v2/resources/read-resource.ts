@@ -1,4 +1,5 @@
 import { JsonObject, JsonProperty } from "json2typescript";
+import { IResourceClassAndPropertyDefinitions } from "../../../cache/OntologyCache";
 import { Constants } from "../Constants";
 import { DateTimeStamp } from "../custom-converters/date-time-stamp-converter";
 import { IdConverter } from "../custom-converters/id-converter";
@@ -46,6 +47,8 @@ export class ReadResource {
 
     resourceClassComment?: string;
 
+    entityInfo: IResourceClassAndPropertyDefinitions;
+
     properties: { [index: string]: ReadValue[] } = {};
 
     incomingReferences: ReadResource[] = [];
@@ -61,6 +64,14 @@ export class ReadResource {
             return this.properties[property].length;
         } else {
             return 0;
+        }
+    }
+
+    getValueType(property: string): string | false {
+        if (this.entityInfo.properties.hasOwnProperty(property) && this.entityInfo.properties[property].objectType !== undefined) {
+            return this.entityInfo.properties[property].objectType as string;
+        } else {
+            return false;
         }
     }
 

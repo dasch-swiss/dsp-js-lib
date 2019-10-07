@@ -1,11 +1,12 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
-import { of } from "rxjs";
+import { AsyncSubject, of } from "rxjs";
 import { ListNodeCache, OntologyCache } from "../../..";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
+import { ListNode } from "../lists/list-node";
 import { ResourcesConversionUtil } from "./ResourcesConversionUtil";
 import { ReadListValue } from "./values/read-list-value";
 import { ReadUriValue } from "./values/read-uri-value";
@@ -13,7 +14,7 @@ import { ReadValue } from "./values/read-value";
 
 describe("ResourcesConversionUtil", () => {
 
-    const config = new KnoraApiConfig("http", "api.dasch.swiss", undefined, undefined, "", true);
+    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, "", true);
     const knoraApiConnection = new KnoraApiConnection(config);
 
     const ontoCache = new OntologyCache(knoraApiConnection, config);
@@ -41,10 +42,7 @@ describe("ResourcesConversionUtil", () => {
 
         getListNodeFromCacheSpy = spyOn(listNodeCache, "getNode").and.callFake(
             (listNodeIri: string) => {
-                const mock = MockList.mockNode(listNodeIri);
-
-                return of(mock);
-
+                return MockList.mockCompletedAsyncSubject(listNodeIri);
             }
         );
 
@@ -66,7 +64,7 @@ describe("ResourcesConversionUtil", () => {
                     expect(resSeq.length).toEqual(1);
 
                     expect(resSeq[0].id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw");
-                    expect(resSeq[0].type).toEqual("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
+                    expect(resSeq[0].type).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
                     expect(resSeq[0].label).toEqual("testding");
 
                     expect(resSeq[0].attachedToProject).toEqual("http://rdfh.ch/projects/0001");
@@ -82,9 +80,9 @@ describe("ResourcesConversionUtil", () => {
                     expect(resSeq[0].resourceClassComment).toEqual("'The whole world is full of things, which means there's a real need for someone to go searching for them. And that's exactly what a thing-searcher does.' --Pippi Longstocking");
 
                     expect(resSeq[0].getNumberOfProperties()).toEqual(12);
-                    expect(resSeq[0].getNumberOfValues("http://api.dasch.swiss/ontology/0001/anything/v2#hasUri")).toEqual(1);
+                    expect(resSeq[0].getNumberOfValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri")).toEqual(1);
 
-                    const uriVals = resSeq[0].getValues("http://api.dasch.swiss/ontology/0001/anything/v2#hasUri");
+                    const uriVals = resSeq[0].getValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri");
 
                     expect(uriVals.length).toEqual(1);
 
@@ -102,9 +100,12 @@ describe("ResourcesConversionUtil", () => {
                     expect(uriVals[0] instanceof ReadUriValue).toBeTruthy();
                     expect((uriVals[0] as ReadUriValue).uri).toEqual("http://www.google.ch");
 
-                    const uriValsTyped = resSeq[0].getValuesAs("http://api.dasch.swiss/ontology/0001/anything/v2#hasUri", ReadUriValue);
+                    const uriValsTyped: ReadUriValue[] = resSeq[0].getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri", ReadUriValue);
+                    expect(uriValsTyped[0].uri).toEqual("http://www.google.ch");
 
-                    const listVals = resSeq[0].getValues("http://api.dasch.swiss/ontology/0001/anything/v2#hasListItem");
+                    expect(resSeq[0].getValueType("http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri")).toEqual("http://api.knora.org/ontology/knora-api/v2#UriValue");
+
+                    const listVals = resSeq[0].getValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem");
 
                     expect(listVals[0] instanceof ReadListValue);
                     expect((listVals[0] as ReadListValue).listNode).toEqual("http://rdfh.ch/lists/0001/treeList01");
@@ -115,7 +116,7 @@ describe("ResourcesConversionUtil", () => {
                     expect(getListNodeFromCacheSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/otherTreeList01");
 
                     expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(2);
-                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
 
                     expect(resSeq[0].outgoingReferences.length).toEqual(1);
                     expect(resSeq[0].outgoingReferences[0].id).toEqual("http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ");
@@ -143,16 +144,14 @@ describe("ResourcesConversionUtil", () => {
 
         });
 
-        it("parse JSON-LD representing a single region resource", done => {
+        it("parse JSON-LD representing two region resources", done => {
 
-            const resource = require("../../../../test/data/api/v2/resources/region-expanded.json");
+            const resource = require("../../../../test/data/api/v2/resources/regions-expanded.json");
 
             ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, listNodeCache, jsonConvert).subscribe(
                 resSeq => {
 
-                    // console.log(resSeq[0].properties);
-
-                    expect(resSeq.length).toEqual(1);
+                    expect(resSeq.length).toEqual(2);
 
                     done();
                 }
@@ -181,13 +180,10 @@ describe("ResourcesConversionUtil", () => {
 
             ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, listNodeCache, jsonConvert).subscribe(
                 resSeq => {
-                    expect(resSeq.length).toEqual(16);
+                    expect(resSeq.length).toEqual(2);
 
-                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(16);
-                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
-                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#BlueThing");
-                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#ThingPicture");
-                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://api.knora.org/ontology/knora-api/v2#ForbiddenResource");
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(2);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
 
                     done();
                 }

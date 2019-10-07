@@ -1,17 +1,18 @@
-import { of } from "rxjs";
+import { AsyncSubject, of } from "rxjs";
 import { ListNodeCache, OntologyCache } from "../../..";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
+import { ListNode } from "../../../models/v2/lists/list-node";
 import { ReadResource } from "../../../models/v2/resources/read-resource";
 import { CountQueryResponse } from "../../../models/v2/search/count-query-response";
 import { SearchEndpoint } from "./search-endpoint";
 
 describe("SearchEndpoint", () => {
 
-    const config = new KnoraApiConfig("http", "api.dasch.swiss", undefined, undefined, "", true);
+    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, "", true);
     const knoraApiConnection = new KnoraApiConnection(config);
 
     const ontoCache = new OntologyCache(knoraApiConnection, config);
@@ -33,9 +34,7 @@ describe("SearchEndpoint", () => {
 
         getListNodeFromCacheSpy = spyOn(listNodeCache, "getNode").and.callFake(
             (listNodeIri: string) => {
-                const mock = MockList.mockNode(listNodeIri);
-
-                return of(mock);
+                return MockList.mockCompletedAsyncSubject(listNodeIri);
             }
         );
     });
@@ -55,24 +54,24 @@ describe("SearchEndpoint", () => {
             expect(SearchEndpoint["encodeFulltextParams"](0, {limitToProject: "http://rdfh.ch/projects/0001"}))
                 .toEqual("?offset=0&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
 
-            expect(SearchEndpoint["encodeFulltextParams"](0, {limitToResourceClass: "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"}))
-                .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2Fapi.dasch.swiss%2Fontology%2F0001%2Fanything%2Fv2%23Thing");
+            expect(SearchEndpoint["encodeFulltextParams"](0, {limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"}))
+                .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing");
 
             expect(SearchEndpoint["encodeFulltextParams"](0, {limitToStandoffClass: "http://api.knora.org/ontology/standoff/v2#StandoffParagraphTag"}))
                 .toEqual("?offset=0&limitToStandoffClass=http%3A%2F%2Fapi.knora.org%2Fontology%2Fstandoff%2Fv2%23StandoffParagraphTag");
 
             expect(SearchEndpoint["encodeFulltextParams"](0, {
                 limitToProject: "http://rdfh.ch/projects/0001",
-                limitToResourceClass: "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+                limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
             }))
-                .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2Fapi.dasch.swiss%2Fontology%2F0001%2Fanything%2Fv2%23Thing&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
+                .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
 
             expect(SearchEndpoint["encodeFulltextParams"](0, {
                 limitToProject: "http://rdfh.ch/projects/0001",
-                limitToResourceClass: "http://api.dasch.swiss/ontology/0001/anything/v2#Thing",
+                limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
                 limitToStandoffClass: "http://api.knora.org/ontology/standoff/v2#StandoffParagraphTag"
             }))
-                .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2Fapi.dasch.swiss%2Fontology%2F0001%2Fanything%2Fv2%23Thing&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001&limitToStandoffClass=http%3A%2F%2Fapi.knora.org%2Fontology%2Fstandoff%2Fv2%23StandoffParagraphTag");
+                .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001&limitToStandoffClass=http%3A%2F%2Fapi.knora.org%2Fontology%2Fstandoff%2Fv2%23StandoffParagraphTag");
 
         });
 
@@ -80,7 +79,7 @@ describe("SearchEndpoint", () => {
 
             knoraApiConnection.v2.search.doFulltextSearch("thing", ontoCache, listNodeCache, 0).subscribe((response: ReadResource[]) => {
 
-                expect(response.length).toEqual(16);
+                expect(response.length).toEqual(2);
 
                 done();
             });
@@ -91,7 +90,7 @@ describe("SearchEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
-            expect(request.url).toBe("http://api.dasch.swiss/v2/search/thing?offset=0");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/search/thing?offset=0");
 
             expect(request.method).toEqual("GET");
 
@@ -101,7 +100,7 @@ describe("SearchEndpoint", () => {
 
             knoraApiConnection.v2.search.doFulltextSearch("thing", ontoCache, listNodeCache, 1).subscribe((response: ReadResource[]) => {
 
-                expect(response.length).toEqual(16);
+                expect(response.length).toEqual(2);
 
                 done();
             });
@@ -112,7 +111,7 @@ describe("SearchEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
-            expect(request.url).toBe("http://api.dasch.swiss/v2/search/thing?offset=1");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/search/thing?offset=1");
 
             expect(request.method).toEqual("GET");
 
@@ -120,9 +119,9 @@ describe("SearchEndpoint", () => {
 
         it("should do a fulltext search with a simple search term restricting the search to a specific resource class", done => {
 
-            knoraApiConnection.v2.search.doFulltextSearch("thing", ontoCache, listNodeCache, 1, {limitToResourceClass: "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"}).subscribe((response: ReadResource[]) => {
+            knoraApiConnection.v2.search.doFulltextSearch("thing", ontoCache, listNodeCache, 1, {limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"}).subscribe((response: ReadResource[]) => {
 
-                expect(response.length).toEqual(16);
+                expect(response.length).toEqual(2);
 
                 done();
             });
@@ -134,7 +133,7 @@ describe("SearchEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
             expect(request.url)
-                .toEqual("http://api.dasch.swiss/v2/search/thing?offset=1&limitToResourceClass=http%3A%2F%2Fapi.dasch.swiss%2Fontology%2F0001%2Fanything%2Fv2%23Thing");
+                .toEqual("http://0.0.0.0:3333/v2/search/thing?offset=1&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing");
 
             expect(request.method).toEqual("GET");
 
@@ -144,7 +143,7 @@ describe("SearchEndpoint", () => {
 
             knoraApiConnection.v2.search.doFulltextSearch("thing", ontoCache, listNodeCache, 1, {limitToProject: "http://rdfh.ch/projects/0001"}).subscribe((response: ReadResource[]) => {
 
-                expect(response.length).toEqual(16);
+                expect(response.length).toEqual(2);
 
                 done();
             });
@@ -156,7 +155,7 @@ describe("SearchEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
             expect(request.url)
-                .toEqual("http://api.dasch.swiss/v2/search/thing?offset=1&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
+                .toEqual("http://0.0.0.0:3333/v2/search/thing?offset=1&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
 
             expect(request.method).toEqual("GET");
 
@@ -166,7 +165,7 @@ describe("SearchEndpoint", () => {
 
             knoraApiConnection.v2.search.doFulltextSearch("thing", ontoCache, listNodeCache, 1, {limitToStandoffClass: "http://api.knora.org/ontology/standoff/v2#StandoffParagraphTag"}).subscribe((response: ReadResource[]) => {
 
-                expect(response.length).toEqual(16);
+                expect(response.length).toEqual(2);
 
                 done();
             });
@@ -178,7 +177,7 @@ describe("SearchEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
             expect(request.url)
-                .toEqual("http://api.dasch.swiss/v2/search/thing?offset=1&limitToStandoffClass=http%3A%2F%2Fapi.knora.org%2Fontology%2Fstandoff%2Fv2%23StandoffParagraphTag");
+                .toEqual("http://0.0.0.0:3333/v2/search/thing?offset=1&limitToStandoffClass=http%3A%2F%2Fapi.knora.org%2Fontology%2Fstandoff%2Fv2%23StandoffParagraphTag");
 
             expect(request.method).toEqual("GET");
 
@@ -190,7 +189,7 @@ describe("SearchEndpoint", () => {
 
         knoraApiConnection.v2.search.doFulltextSearchCountQuery("thing", 0).subscribe((response: CountQueryResponse) => {
 
-            expect(response.numberOfResults).toEqual(16);
+            expect(response.numberOfResults).toEqual(2);
 
             done();
         });
@@ -201,7 +200,7 @@ describe("SearchEndpoint", () => {
 
         request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
-        expect(request.url).toBe("http://api.dasch.swiss/v2/search/count/thing?offset=0");
+        expect(request.url).toBe("http://0.0.0.0:3333/v2/search/count/thing?offset=0");
 
         expect(request.method).toEqual("GET");
 
@@ -221,7 +220,7 @@ describe("SearchEndpoint", () => {
 
                     ?mainRes a knora-api:Resource .
 
-                    ?mainRes a <http://api.dasch.swiss/ontology/0001/anything/v2#Thing> .
+                    ?mainRes a <http://0.0.0.0:3333/ontology/0001/anything/v2#Thing> .
                 }
 
                 OFFSET 0
@@ -229,7 +228,7 @@ describe("SearchEndpoint", () => {
 
             knoraApiConnection.v2.search.doExtendedSearch(gravsearchQuery, ontoCache, listNodeCache).subscribe((response: ReadResource[]) => {
 
-                expect(response.length).toEqual(16);
+                expect(response.length).toEqual(2);
 
                 done();
             });
@@ -240,7 +239,7 @@ describe("SearchEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
-            expect(request.url).toBe("http://api.dasch.swiss/v2/searchextended");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchextended");
 
             expect(request.method).toEqual("POST");
 
@@ -262,7 +261,7 @@ describe("SearchEndpoint", () => {
 
                     ?mainRes a knora-api:Resource .
 
-                    ?mainRes a <http://api.dasch.swiss/ontology/0001/anything/v2#Thing> .
+                    ?mainRes a <http://0.0.0.0:3333/ontology/0001/anything/v2#Thing> .
                 }
 
                 OFFSET 0
@@ -270,7 +269,7 @@ describe("SearchEndpoint", () => {
 
             knoraApiConnection.v2.search.doExtendedSearchCountQuery(gravsearchQuery).subscribe((response: CountQueryResponse) => {
 
-                expect(response.numberOfResults).toEqual(16);
+                expect(response.numberOfResults).toEqual(2);
 
                 done();
             });
@@ -281,7 +280,7 @@ describe("SearchEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
-            expect(request.url).toBe("http://api.dasch.swiss/v2/searchextended/count");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchextended/count");
 
             expect(request.method).toEqual("POST");
 
@@ -304,14 +303,14 @@ describe("SearchEndpoint", () => {
             expect(SearchEndpoint["encodeLabelParams"](0, {limitToProject: "http://rdfh.ch/projects/0001"}))
                 .toEqual("?offset=0&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
 
-            expect(SearchEndpoint["encodeLabelParams"](0, {limitToResourceClass: "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"}))
-                .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2Fapi.dasch.swiss%2Fontology%2F0001%2Fanything%2Fv2%23Thing");
+            expect(SearchEndpoint["encodeLabelParams"](0, {limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"}))
+                .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing");
 
             expect(SearchEndpoint["encodeLabelParams"](0, {
                 limitToProject: "http://rdfh.ch/projects/0001",
-                limitToResourceClass: "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"
+                limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
             }))
-                .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2Fapi.dasch.swiss%2Fontology%2F0001%2Fanything%2Fv2%23Thing&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
+                .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
 
         });
 
@@ -319,7 +318,7 @@ describe("SearchEndpoint", () => {
 
             knoraApiConnection.v2.search.doSearchByLabel("thing", ontoCache, listNodeCache, 0).subscribe((response: ReadResource[]) => {
 
-                expect(response.length).toEqual(16);
+                expect(response.length).toEqual(2);
 
                 done();
             });
@@ -330,7 +329,7 @@ describe("SearchEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
-            expect(request.url).toBe("http://api.dasch.swiss/v2/searchbylabel/thing?offset=0");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchbylabel/thing?offset=0");
 
             expect(request.method).toEqual("GET");
 
@@ -340,7 +339,7 @@ describe("SearchEndpoint", () => {
 
             knoraApiConnection.v2.search.doSearchByLabel("thing", ontoCache, listNodeCache, 1).subscribe((response: ReadResource[]) => {
 
-                expect(response.length).toEqual(16);
+                expect(response.length).toEqual(2);
 
                 done();
             });
@@ -351,7 +350,7 @@ describe("SearchEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
-            expect(request.url).toBe("http://api.dasch.swiss/v2/searchbylabel/thing?offset=1");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchbylabel/thing?offset=1");
 
             expect(request.method).toEqual("GET");
 
@@ -359,9 +358,9 @@ describe("SearchEndpoint", () => {
 
         it("should do a label search with a simple search term restricting the search to a specific resource class", done => {
 
-            knoraApiConnection.v2.search.doSearchByLabel("thing", ontoCache, listNodeCache, 1, {limitToResourceClass: "http://api.dasch.swiss/ontology/0001/anything/v2#Thing"}).subscribe((response: ReadResource[]) => {
+            knoraApiConnection.v2.search.doSearchByLabel("thing", ontoCache, listNodeCache, 1, {limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"}).subscribe((response: ReadResource[]) => {
 
-                expect(response.length).toEqual(16);
+                expect(response.length).toEqual(2);
 
                 done();
             });
@@ -373,7 +372,7 @@ describe("SearchEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
             expect(request.url)
-                .toEqual("http://api.dasch.swiss/v2/searchbylabel/thing?offset=1&limitToResourceClass=http%3A%2F%2Fapi.dasch.swiss%2Fontology%2F0001%2Fanything%2Fv2%23Thing");
+                .toEqual("http://0.0.0.0:3333/v2/searchbylabel/thing?offset=1&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing");
 
             expect(request.method).toEqual("GET");
 
@@ -383,7 +382,7 @@ describe("SearchEndpoint", () => {
 
             knoraApiConnection.v2.search.doSearchByLabel("thing", ontoCache, listNodeCache, 1, {limitToProject: "http://rdfh.ch/projects/0001"}).subscribe((response: ReadResource[]) => {
 
-                expect(response.length).toEqual(16);
+                expect(response.length).toEqual(2);
 
                 done();
             });
@@ -395,7 +394,7 @@ describe("SearchEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
             expect(request.url)
-                .toEqual("http://api.dasch.swiss/v2/searchbylabel/thing?offset=1&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
+                .toEqual("http://0.0.0.0:3333/v2/searchbylabel/thing?offset=1&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
 
             expect(request.method).toEqual("GET");
 

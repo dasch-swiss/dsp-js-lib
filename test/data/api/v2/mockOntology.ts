@@ -26,7 +26,7 @@ export namespace MockOntology {
 
         if (ontoIri === "http://api.knora.org/ontology/knora-api/v2") {
             ontologyJsonld = knoraApiOntologyExpanded;
-        } else if (ontoIri === "http://api.dasch.swiss/ontology/0001/anything/v2") {
+        } else if (ontoIri === "http://0.0.0.0:3333/ontology/0001/anything/v2") {
             ontologyJsonld = anythingOntologyExpanded;
         } else {
             throw new Error("Ontology not supported: " + ontoIri);
@@ -66,7 +66,7 @@ export namespace MockOntology {
 
         const referencedOntologies: Set<string> = new Set([]);
 
-        if (ontoIri === "http://api.dasch.swiss/ontology/0001/anything/v2") {
+        if (ontoIri === "http://0.0.0.0:3333/ontology/0001/anything/v2") {
             referencedOntologies.add("http://api.knora.org/ontology/knora-api/v2");
         }
 

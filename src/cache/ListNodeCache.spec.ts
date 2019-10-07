@@ -9,7 +9,7 @@ import { ListNodeCache } from "./ListNodeCache";
 
 describe("ListNodeCache", () => {
 
-    const config = new KnoraApiConfig("http", "api.dasch.swiss", undefined, "", "", true);
+    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, "", "", true);
     const knoraApiConnection = new KnoraApiConnection(config);
 
     let getNodeSpy: jasmine.Spy;

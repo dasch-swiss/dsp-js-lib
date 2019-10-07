@@ -1,15 +1,16 @@
-import { of } from "rxjs";
+import { AsyncSubject, of } from "rxjs";
 import { ListNodeCache, OntologyCache } from "../../..";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
+import { ListNode } from "../../../models/v2/lists/list-node";
 import { ReadResource } from "../../../models/v2/resources/read-resource";
 
 describe("ResourcesEndpoint", () => {
 
-    const config = new KnoraApiConfig("http", "api.dasch.swiss", undefined, undefined, "", true);
+    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, "", true);
     const knoraApiConnection = new KnoraApiConnection(config);
 
     const ontoCache = new OntologyCache(knoraApiConnection, config);
@@ -30,9 +31,7 @@ describe("ResourcesEndpoint", () => {
 
         getListNodeFromCacheSpy = spyOn(listNodeCache, "getNode").and.callFake(
             (listNodeIri: string) => {
-                const mock = MockList.mockNode(listNodeIri);
-
-                return of(mock);
+                return MockList.mockCompletedAsyncSubject(listNodeIri);
             }
         );
     });
@@ -49,7 +48,7 @@ describe("ResourcesEndpoint", () => {
             expect(response.resourceClassLabel).toEqual("Thing");
 
             expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(2);
-            expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://api.dasch.swiss/ontology/0001/anything/v2#Thing");
+            expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
 
             done();
         });
@@ -60,7 +59,7 @@ describe("ResourcesEndpoint", () => {
 
         request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
-        expect(request.url).toBe("http://api.dasch.swiss/v2/resources/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw");
+        expect(request.url).toBe("http://0.0.0.0:3333/v2/resources/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw");
 
         expect(request.method).toEqual("GET");
 
