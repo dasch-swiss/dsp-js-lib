@@ -39,6 +39,8 @@ export class ReadValue {
 
     property: string;
 
+    strval?: string;
+
     constructor(id?: string,
                 type?: string,
                 attachedToUser?: string,
@@ -50,7 +52,8 @@ export class ReadValue {
                 uuid?: string,
                 propertyLabel?: string,
                 propertyComment?: string,
-                property?: string) {
+                property?: string,
+                strval?: string) {
 
         if (id !== undefined) this.id = id;
         if (type !== undefined) this.type = type;
@@ -64,6 +67,7 @@ export class ReadValue {
         if (propertyLabel !== undefined) this.propertyLabel = propertyLabel;
         if (propertyComment !== undefined) this.propertyComment = propertyLabel;
         if (property !== undefined) this.property = property;
+        if (strval !== undefined) this.strval = strval;
 
     }
 }

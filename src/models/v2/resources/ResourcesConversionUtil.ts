@@ -9,7 +9,7 @@ import { CountQueryResponse } from "../search/count-query-response";
 import { ReadResource } from "./read-resource";
 import { ReadBooleanValue } from "./values/read-boolean-value";
 import { ReadColorValue } from "./values/read-color-value";
-import { ParseReadDateValue, ReadDateValue } from "./values/read-date-value";
+import { KnoraDate, KnoraPeriod, ParseReadDateValue, Precision, ReadDateValue } from "./values/read-date-value";
 import { ReadDecimalValue } from "./values/read-decimal-value";
 import { ReadStillImageFileValue } from "./values/read-file-value";
 import { ParseReadGeomValue, ReadGeomValue } from "./values/read-geom-value";
@@ -260,12 +260,22 @@ export namespace ResourcesConversionUtil {
         switch (type) {
 
             case Constants.BooleanValue: {
-                value = handleSimpleValue(valueJsonld, ReadBooleanValue, jsonConvert);
+                const boolVal = handleSimpleValue(valueJsonld, ReadBooleanValue, jsonConvert);
+                value = boolVal.pipe(map(val => {
+                    const tmp = val as unknown as ReadBooleanValue;
+                    val.strval = tmp.bool ? 'TRUE' : 'FALSE';
+                    return val;
+                }));
                 break;
             }
 
             case Constants.ColorValue: {
-                value = handleSimpleValue(valueJsonld, ReadColorValue, jsonConvert);
+                const colorVal = handleSimpleValue(valueJsonld, ReadColorValue, jsonConvert);
+                value = colorVal.pipe(map(val => {
+                    const tmp = val as unknown as ReadColorValue;
+                    val.strval = tmp.color;
+                    return val;
+                }));
                 break;
             }
 
@@ -273,30 +283,76 @@ export namespace ResourcesConversionUtil {
                 const dateVal = handleSimpleValue(valueJsonld, ParseReadDateValue, jsonConvert) as Observable<ParseReadDateValue>;
                 value = dateVal.pipe(map(
                     date => {
-                        return new ReadDateValue(date);
+                        const val =  new ReadDateValue(date);
+
+                        let datestr: string = "";
+                        if (val.date instanceof KnoraPeriod) {
+                            datestr = val.date.start.year.toString();
+                            if (val.date.start.precision === Precision.monthPrecision && val.date.start.month) {
+                                datestr += "/" + val.date.start.month.toString();
+                            }
+                            if (val.date.start.precision === Precision.dayPrecision && val.date.start.day) {
+                                datestr += "/" + val.date.start.day.toString();
+                            }
+                            datestr += " - " + val.date.end.year.toString();
+                            if (val.date.end.precision === Precision.monthPrecision && val.date.end.month) {
+                                datestr += "/" + val.date.end.month.toString();
+                            }
+                            if (val.date.end.precision === Precision.dayPrecision && val.date.end.day) {
+                                datestr += "/" + val.date.end.day.toString();
+                            }
+                        } else if (val.date instanceof KnoraDate) {
+                            datestr = val.date.year.toString();
+                            if (val.date.precision === Precision.monthPrecision && val.date.month) {
+                                datestr += "/" + val.date.month.toString();
+                            }
+                            if (val.date.precision === Precision.dayPrecision && val.date.day) {
+                                datestr += "/" + val.date.day.toString();
+                            }
+                        } else {
+                            // ToDo: error message
+                        }
+
+                        val.strval = datestr;
+                        return val;
                     }
                 ));
                 break;
             }
 
             case Constants.IntValue: {
-                value = handleSimpleValue(valueJsonld, ReadIntValue, jsonConvert);
+                const intVal = handleSimpleValue(valueJsonld, ReadIntValue, jsonConvert);
+                value = intVal.pipe(map(val => {
+                    const tmp = val as unknown as ReadIntValue;
+                    val.strval = tmp.int.toString();
+                    return val;
+                }));
                 break;
             }
 
             case Constants.DecimalValue: {
-                value = handleSimpleValue(valueJsonld, ReadDecimalValue, jsonConvert);
+                const decimalVal = handleSimpleValue(valueJsonld, ReadDecimalValue, jsonConvert);
+                value = decimalVal.pipe(map(val => {
+                    const tmp = val as unknown as ReadDecimalValue;
+                    val.strval = tmp.decimal.toString();
+                    return val;
+                }));
                 break;
             }
 
             case Constants.IntervalValue: {
-                value = handleSimpleValue(valueJsonld, ReadIntervalValue, jsonConvert);
+                const intervalVal = handleSimpleValue(valueJsonld, ReadIntervalValue, jsonConvert);
+                value = intervalVal.pipe(map(val => {
+                    const tmp = val as unknown as ReadIntervalValue;
+                    val.strval = tmp.start.toString() + " - " + tmp.end.toString();
+                    return val;
+                }));
                 break;
             }
 
             case Constants.ListValue: {
                 const listValue = value = handleSimpleValue(valueJsonld, ReadListValue, jsonConvert) as Observable<ReadListValue>;
-                value = listValue.pipe(
+                const listVal = listValue.pipe(
                     mergeMap(
                         (listVal: ReadListValue) => {
 
@@ -312,36 +368,73 @@ export namespace ResourcesConversionUtil {
                         }
                     )
                 );
+                value = listVal.pipe(map(val => {
+                    const tmp = val as unknown as ReadListValue;
+                    val.strval = tmp.listNodeLabel;
+                    return val;
+                }));
                 break;
             }
 
             case Constants.UriValue: {
-                value = handleSimpleValue(valueJsonld, ReadUriValue, jsonConvert);
+                const uriVal = handleSimpleValue(valueJsonld, ReadUriValue, jsonConvert);
+                value = uriVal.pipe(map(val => {
+                    const tmp = val as unknown as ReadUriValue;
+                    val.strval = tmp.uri;
+                    return val;
+                }));
                 break;
             }
 
             case Constants.TextValue: {
-                value = handleTextValue(valueJsonld, jsonConvert);
+                const textVal = handleTextValue(valueJsonld, jsonConvert);
+                value = textVal.pipe(map(val => {
+                    if (val instanceof ReadTextValueAsString) {
+                        const tmp = val as unknown as ReadTextValueAsString;
+                        val.strval = tmp.text;
+                    } else if (val instanceof ReadTextValueAsXml) {
+                        const tmp = val as unknown as ReadTextValueAsXml;
+                        val.strval = tmp.xml;
+                    } else if (val instanceof ReadTextValueAsHtml) {
+                        const tmp = val as unknown as ReadTextValueAsHtml;
+                        val.strval = tmp.html;
+                    } else {
+                        // ToDo: ERROR MESSAGE
+                    }
+                    return val;
+                }));
                 break;
             }
 
             case Constants.LinkValue: {
-                value = handleLinkValue(valueJsonld, ontologyCache, listNodeCache, jsonConvert);
+                const linkVal = handleLinkValue(valueJsonld, ontologyCache, listNodeCache, jsonConvert);
+                value = linkVal.pipe(map(val => {
+                    const tmp = val as unknown as ReadLinkValue;
+                    val.strval = tmp.linkedResourceIri;
+                    return val;
+                }));
                 break;
             }
 
             case Constants.GeomValue: {
-                const geomValue = handleSimpleValue(valueJsonld, ParseReadGeomValue, jsonConvert) as Observable<ParseReadGeomValue>;
-                value = geomValue.pipe(map(
+                const geomVal = handleSimpleValue(valueJsonld, ParseReadGeomValue, jsonConvert) as Observable<ParseReadGeomValue>;
+                value = geomVal.pipe(map(
                     geom => {
-                        return new ReadGeomValue(geom);
+                        const tmp = new ReadGeomValue(geom);
+                        tmp.strval = "GEOMETRY"
+                        return tmp;
                     }
                 ));
                 break;
             }
 
             case Constants.StillImageFileValue: {
-                value = handleSimpleValue(valueJsonld, ReadStillImageFileValue, jsonConvert);
+                const stillImageVal = handleSimpleValue(valueJsonld, ReadStillImageFileValue, jsonConvert);
+                value = stillImageVal.pipe(map(val => {
+                    const tmp = val as unknown as ReadStillImageFileValue;
+                    val.strval = tmp.fileUrl;
+                    return val;
+                }));
                 break;
             }
 

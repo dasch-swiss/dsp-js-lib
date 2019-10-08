@@ -87,6 +87,7 @@ describe("ResourcesConversionUtil", () => {
                     expect(uriVals.length).toEqual(1);
 
                     expect(uriVals[0].id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/uBAmWuRhR-eo1u1eP7qqNg");
+                    expect(uriVals[0].strval).toEqual("http://www.google.ch");
                     expect(uriVals[0].type).toEqual("http://api.knora.org/ontology/knora-api/v2#UriValue");
                     expect(uriVals[0].attachedToUser).toEqual("http://rdfh.ch/users/BhkfBc3hTeS_IDo-JgXRbQ");
                     expect(uriVals[0].arkUrl).toEqual("http://0.0.0.0:3336/ark:/72163/1/0001/H6gBWUuJSuuO=CilHV8kQwk/uBAmWuRhR=eo1u1eP7qqNgs");
@@ -107,6 +108,7 @@ describe("ResourcesConversionUtil", () => {
 
                     const listVals = resSeq[0].getValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem");
 
+                    expect(listVals[0].strval).toEqual("Tree list node 01");
                     expect(listVals[0] instanceof ReadListValue);
                     expect((listVals[0] as ReadListValue).listNode).toEqual("http://rdfh.ch/lists/0001/treeList01");
                     expect((listVals[0] as ReadListValue).listNodeLabel).toEqual("Tree list node 01");
