@@ -83,6 +83,15 @@ export class ReadResource {
         }
     }
 
+    getValuesAsStringArray(property: string, defstr: string = '?'): string[] {
+        const values: string[] = [];
+        const vals: ReadValue[] = this.getValues(property);
+        for (const val of vals) {
+            values.push(val.strval === undefined ? defstr : val.strval);
+        }
+        return values;
+    }
+
     getValuesAs<T extends ReadValue>(property: string, valueType: TypeGuard.Constructor<T>): T[] {
 
         return this.getValues(property).map(
