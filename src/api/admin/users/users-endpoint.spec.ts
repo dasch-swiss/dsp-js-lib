@@ -2,6 +2,7 @@ import { ApiResponseError, User, UserResponse } from "../../..";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
+import { StoredUser } from "../../../models/admin/stored-user";
 import { UsersResponse } from "../../../models/admin/users-response";
 import { ApiResponseData } from "../../../models/api-response-data";
 
@@ -147,6 +148,85 @@ describe("UsersEndpoint", () => {
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
             const payload = require("../../../../test/data/api/admin/users/create-user-request.json");
+
+            expect(request.data()).toEqual(payload);
+
+        });
+
+    });
+
+    // updateUserBasicInformation
+
+    describe("Method updateUserBasicInformation", () => {
+
+        xit("should update user information", done => {
+
+            const storedUser = new StoredUser();
+
+            storedUser.username = "donald.big.duck";
+            storedUser.email = "donald.big.duck@example.org";
+            storedUser.givenName = "Big Donald";
+            storedUser.familyName = "Duckmann";
+            storedUser.lang = "de";
+
+            // TODO: fix this in Knora
+            // status and id not present in expected payload
+
+            knoraApiConnection.admin.usersEndpoint.updateUserBasicInformation(storedUser).subscribe(
+                (response: ApiResponseData<UserResponse> | ApiResponseError) => {
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const user = require("../../../../test/data/api/admin/users/get-user-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(user)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/users/iri/useriri/BasicUserInformation");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const payload = require("../../../../test/data/api/admin/users/update-user-request.json");
+
+            expect(request.data()).toEqual(payload);
+
+        });
+
+    });
+
+    // updateUserStatus
+
+    describe("Method updateUserStatus", () => {
+
+        it("should update a user's status", done => {
+
+            const userIri = "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q";
+
+            knoraApiConnection.admin.usersEndpoint.updateUserStatus(userIri, false).subscribe(
+                (response: ApiResponseData<UserResponse> | ApiResponseError) => {
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const user = require("../../../../test/data/api/admin/users/get-user-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(user)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/users/iri/http%3A%2F%2Frdfh.ch%2Fusers%2F9XBCrDV3SRa7kS1WwynB4Q/Status");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const payload = require("../../../../test/data/api/admin/users/update-user-status-request.json");
 
             expect(request.data()).toEqual(payload);
 
