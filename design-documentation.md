@@ -18,6 +18,9 @@
 
 #### Authentication
 
+The `AuthenticationEndpoint` performs login and logout operations to the Knora API. 
+When a user logs in, a token is set and submitted which each request to the Knora API.
+
 #### Ontology
 
 The `OntologiesEndpoint` handles requests to the Knora API that relate to ontologies.
@@ -42,6 +45,7 @@ The result of a search is converted to an array of `ReadResource` or a  `CountQu
 `ListsEndpoint` handles requests relating to whole lists or specific list nodes. 
 Lists and list nodes serialized as JSON-LD are converted to `ListNode`.
 When reading lists or list nodes, `ListsEndpoint` should not be used directly by the client. 
+Instead, `ListNodeCache` should be used, keeping API calls and conversions to a minimum.
 
 ### Utility Methods
 
