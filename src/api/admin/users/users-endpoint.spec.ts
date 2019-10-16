@@ -2,6 +2,7 @@ import { ApiResponseError, User, UserResponse } from "../../..";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
+import { GroupsResponse } from "../../../models/admin/groups-response";
 import { StoredUser } from "../../../models/admin/stored-user";
 import { UsersResponse } from "../../../models/admin/users-response";
 import { ApiResponseData } from "../../../models/api-response-data";
@@ -113,6 +114,35 @@ describe("UsersEndpoint", () => {
 
     });
 
+    // getUserGroupMemberships
+
+    describe("Method getUserGroupMemberships", () => {
+
+        it("should get a user's group memberships", done => {
+
+            const userIri = "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q";
+
+            knoraApiConnection.admin.usersEndpoint.getUserGroupMemberships(userIri).subscribe(
+                (response: ApiResponseData<GroupsResponse> | ApiResponseError) => {
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const groupMemberships = require("../../../../test/data/api/admin/users/get-user-group-memberships-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(groupMemberships)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/users/iri/http%3A%2F%2Frdfh.ch%2Fusers%2F9XBCrDV3SRa7kS1WwynB4Q/group-memberships");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
     describe("Method createUser", () => {
 
         it("should create a user", done => {
@@ -121,7 +151,7 @@ describe("UsersEndpoint", () => {
 
             newUser.username = "donald.duck";
             newUser.email = "donald.duck@example.org";
-            newUser.givenName =  "Donald";
+            newUser.givenName = "Donald";
             newUser.familyName = "Duck";
             newUser.password = "test";
             newUser.status = true;
@@ -154,8 +184,6 @@ describe("UsersEndpoint", () => {
         });
 
     });
-
-    // updateUserBasicInformation
 
     describe("Method updateUserBasicInformation", () => {
 
@@ -264,9 +292,5 @@ describe("UsersEndpoint", () => {
         });
 
     });
-
-    // updateUserPassword
-
-
 
 });
