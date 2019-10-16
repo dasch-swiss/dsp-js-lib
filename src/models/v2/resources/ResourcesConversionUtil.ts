@@ -284,36 +284,6 @@ export namespace ResourcesConversionUtil {
                 value = dateVal.pipe(map(
                     date => {
                         const val =  new ReadDateValue(date);
-
-                        let datestr: string = "";
-                        if (val.date instanceof KnoraPeriod) {
-                            datestr = val.date.start.year.toString();
-                            if (val.date.start.precision === Precision.monthPrecision && val.date.start.month) {
-                                datestr += "/" + val.date.start.month.toString();
-                            }
-                            if (val.date.start.precision === Precision.dayPrecision && val.date.start.day) {
-                                datestr += "/" + val.date.start.day.toString();
-                            }
-                            datestr += " - " + val.date.end.year.toString();
-                            if (val.date.end.precision === Precision.monthPrecision && val.date.end.month) {
-                                datestr += "/" + val.date.end.month.toString();
-                            }
-                            if (val.date.end.precision === Precision.dayPrecision && val.date.end.day) {
-                                datestr += "/" + val.date.end.day.toString();
-                            }
-                        } else if (val.date instanceof KnoraDate) {
-                            datestr = val.date.year.toString();
-                            if (val.date.precision === Precision.monthPrecision && val.date.month) {
-                                datestr += "/" + val.date.month.toString();
-                            }
-                            if (val.date.precision === Precision.dayPrecision && val.date.day) {
-                                datestr += "/" + val.date.day.toString();
-                            }
-                        } else {
-                            // ToDo: error message
-                        }
-
-                        val.strval = datestr;
                         return val;
                     }
                 ));
