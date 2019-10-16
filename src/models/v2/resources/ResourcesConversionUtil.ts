@@ -65,7 +65,7 @@ export namespace ResourcesConversionUtil {
     const createReadResource = (resourceJsonld: { [index: string]: string | object[] }, ontologyCache: OntologyCache, listNodeCache: ListNodeCache, jsonConvert: JsonConvert): Observable<ReadResource> => {
 
         if (Array.isArray(resourceJsonld)) throw new Error("resource is expected to be a single object");
-        
+
         const resource = jsonConvert.deserialize(resourceJsonld, ReadResource) as ReadResource;
 
         return ontologyCache.getResourceClassDefinition(resource.type).pipe(mergeMap(

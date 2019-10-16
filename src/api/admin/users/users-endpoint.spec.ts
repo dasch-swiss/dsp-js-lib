@@ -1,4 +1,4 @@
-import { UserResponse } from "../../..";
+import { ApiResponseError, User, UserResponse } from "../../..";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
@@ -107,6 +107,48 @@ describe("UsersEndpoint", () => {
             expect(request.url).toBe("http://localhost:3333/admin/users/username/anything.user01");
 
             expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
+    describe("Method createUser", () => {
+
+        it("should create a user", done => {
+
+            const newUser = new User();
+
+            newUser.username = "donald.duck";
+            newUser.email = "donald.duck@example.org";
+            newUser.givenName =  "Donald";
+            newUser.familyName = "Duck";
+            newUser.password = "test";
+            newUser.status = true;
+            newUser.lang = "en";
+            newUser.systemAdmin = false;
+
+            knoraApiConnection.admin.usersEndpoint.createUser(newUser).subscribe(
+                (response: ApiResponseData<UserResponse> | ApiResponseError) => {
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const user = require("../../../../test/data/api/admin/users/get-user-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(user)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/users");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const payload = require("../../../../test/data/api/admin/users/create-user-request.json");
+
+            expect(request.data()).toEqual(payload);
 
         });
 
