@@ -197,7 +197,11 @@ describe("UsersEndpoint", () => {
             const userIri = "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q";
 
             knoraApiConnection.admin.usersEndpoint.getUserGroupMemberships(userIri).subscribe(
-                (response: ApiResponseData<GroupsResponse> | ApiResponseError) => {
+                (response: ApiResponseData<GroupsResponse>) => {
+
+                    expect(response.body.groups.length).toEqual(1);
+                    expect(response.body.groups[0].id).toEqual("http://rdfh.ch/groups/0001/thing-searcher");
+
 
                     done();
                 }
