@@ -3,13 +3,14 @@ import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { GroupsResponse } from "../../../models/admin/groups-response";
+import { ProjectsResponse } from "../../../models/admin/projects-response";
 import { StoredUser } from "../../../models/admin/stored-user";
 import { UsersResponse } from "../../../models/admin/users-response";
 import { ApiResponseData } from "../../../models/api-response-data";
 
 describe("UsersEndpoint", () => {
 
-    const config = new KnoraApiConfig("http", "localhost", 3333);
+    const config = new KnoraApiConfig("http", "localhost", 3333, undefined, undefined, true);
     const knoraApiConnection = new KnoraApiConnection(config);
 
     beforeEach(() => {
@@ -114,8 +115,6 @@ describe("UsersEndpoint", () => {
 
     });
 
-    // getUserGroupMemberships
-
     describe("Method getUserGroupMemberships", () => {
 
         it("should get a user's group memberships", done => {
@@ -136,6 +135,46 @@ describe("UsersEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(groupMemberships)));
 
             expect(request.url).toBe("http://localhost:3333/admin/users/iri/http%3A%2F%2Frdfh.ch%2Fusers%2F9XBCrDV3SRa7kS1WwynB4Q/group-memberships");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
+    describe("Method getUserProjectMemberships", () => {
+
+        xit("should get a user's project memberships", done => {
+
+            // TODO: fix this in Knora
+            /*
+
+            Fatal error in JsonConvert. Failed to map the JSON object to the class "ReadProject" because the defined JSON property "members" does not exist:
+
+	Class property:
+		members
+
+	JSON property:
+		members
+		
+             */
+
+            const userIri = "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q";
+
+            knoraApiConnection.admin.usersEndpoint.getUserProjectMemberships(userIri).subscribe(
+                (response: ApiResponseData<ProjectsResponse> | ApiResponseError) => {
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projectMemberships = require("../../../../test/data/api/admin/users/get-user-project-memberships-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projectMemberships)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/users/iri/http%3A%2F%2Frdfh.ch%2Fusers%2F9XBCrDV3SRa7kS1WwynB4Q/project-memberships");
 
             expect(request.method).toEqual("GET");
 
