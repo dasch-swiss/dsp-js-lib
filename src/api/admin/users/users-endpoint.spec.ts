@@ -657,6 +657,31 @@ describe("UsersEndpoint", () => {
 
         });
 
+    });
+
+    describe("Method deleteUser", () => {
+
+        it("should delete a user", done => {
+
+            const userIri = "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q";
+
+            knoraApiConnection.admin.usersEndpoint.deleteUser(userIri).subscribe(
+                (response: ApiResponseData<UserResponse> | ApiResponseError) => {
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const user = require("../../../../test/data/api/admin/users/get-user-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(user)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/users/iri/http%3A%2F%2Frdfh.ch%2Fusers%2F9XBCrDV3SRa7kS1WwynB4Q");
+
+            expect(request.method).toEqual("DELETE");
+
+        });
 
     });
 
