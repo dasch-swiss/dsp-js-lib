@@ -567,4 +567,64 @@ describe("UsersEndpoint", () => {
 
     });
 
+    describe("Method addUserToProjectAdminMembership", () => {
+
+        it("should add a user to a project admin membership", done => {
+
+            const userIri = "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q";
+
+            const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
+
+            knoraApiConnection.admin.usersEndpoint.addUserToProjectAdminMembership(userIri, groupIri).subscribe(
+                (response: ApiResponseData<UserResponse> | ApiResponseError) => {
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const user = require("../../../../test/data/api/admin/users/get-user-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(user)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/users/iri/http%3A%2F%2Frdfh.ch%2Fusers%2F9XBCrDV3SRa7kS1WwynB4Q/project-admin-memberships/http%3A%2F%2Frdfh.ch%2Fgroups%2F0001%2Fthing-searcher");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+        });
+
+    });
+
+    describe("Method removeUserFromProjectAdminMembership", () => {
+
+        it("should remove a user from a project admin membership", done => {
+
+            const userIri = "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q";
+
+            const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
+
+            knoraApiConnection.admin.usersEndpoint.removeUserFromProjectAdminMembership(userIri, groupIri).subscribe(
+                (response: ApiResponseData<UserResponse> | ApiResponseError) => {
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const user = require("../../../../test/data/api/admin/users/get-user-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(user)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/users/iri/http%3A%2F%2Frdfh.ch%2Fusers%2F9XBCrDV3SRa7kS1WwynB4Q/project-admin-memberships/http%3A%2F%2Frdfh.ch%2Fgroups%2F0001%2Fthing-searcher");
+
+            expect(request.method).toEqual("DELETE");
+
+        });
+
+    });
+
 });
