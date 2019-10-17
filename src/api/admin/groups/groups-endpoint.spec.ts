@@ -5,6 +5,7 @@ import { KnoraApiConnection } from "../../../knora-api-connection";
 import { CreateGroupRequest } from "../../../models/admin/create-group-request";
 import { GroupResponse } from "../../../models/admin/group-response";
 import { GroupsResponse } from "../../../models/admin/groups-response";
+import { MembersResponse } from "../../../models/admin/members-response";
 import { StoredGroup } from "../../../models/admin/stored-group";
 
 describe("GroupsEndpoint", () => {
@@ -217,6 +218,36 @@ describe("GroupsEndpoint", () => {
             expect(request.url).toBe("http://localhost:3333/admin/groups/http%3A%2F%2Frdfh.ch%2Fgroups%2F00FF%2Fimages-reviewer");
 
             expect(request.method).toEqual("DELETE");
+
+        });
+
+    });
+
+    describe("Method getGroupMembers", () => {
+
+        it("should get a group's members", done => {
+
+            const groupIri = "http://rdfh.ch/groups/00FF/images-reviewer";
+
+            knoraApiConnection.admin.groupsEndpoint.getGroupMembers(groupIri).subscribe(
+                (response: ApiResponseData<MembersResponse>) => {
+
+                    expect(response.body.members.length).toEqual(2);
+                    expect(response.body.members[0].id).toEqual("http://rdfh.ch/users/images-reviewer-user");
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const members = require("../../../../test/data/api/admin/groups/get-group-members-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(members)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/groups/http%3A%2F%2Frdfh.ch%2Fgroups%2F00FF%2Fimages-reviewer/members");
+
+            expect(request.method).toEqual("GET");
 
         });
 
