@@ -5,6 +5,7 @@ import { KnoraApiConnection } from "../../../knora-api-connection";
 import { CreateGroupRequest } from "../../../models/admin/create-group-request";
 import { GroupResponse } from "../../../models/admin/group-response";
 import { GroupsResponse } from "../../../models/admin/groups-response";
+import { StoredGroup } from "../../../models/admin/stored-group";
 
 describe("GroupsEndpoint", () => {
 
@@ -48,7 +49,7 @@ describe("GroupsEndpoint", () => {
 
     describe("Method createGroup", () => {
 
-        xit("should create a  group", done => {
+        xit("should create a group", done => {
 
             const group = new CreateGroupRequest();
 
@@ -57,7 +58,7 @@ describe("GroupsEndpoint", () => {
             group.status = true;
             group.selfjoin = false;
 
-            // TODO: fix in Knora: playload
+            // TODO: fix in Knora: payload
 
             knoraApiConnection.admin.groupsEndpoint.createGroup(group).subscribe(
                 (response: ApiResponseData<GroupResponse>) => {
@@ -103,9 +104,9 @@ describe("GroupsEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const groups = require("../../../../test/data/api/admin/groups/get-group-response.json");
+            const group = require("../../../../test/data/api/admin/groups/get-group-response.json");
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(groups)));
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(group)));
 
             expect(request.url).toBe("http://localhost:3333/admin/groups/http%3A%2F%2Frdfh.ch%2Fgroups%2F00FF%2Fimages-reviewer");
 
@@ -113,6 +114,44 @@ describe("GroupsEndpoint", () => {
 
         });
 
+    });
+
+    describe("Method updateGroup", () => {
+
+        xit("should update a group", done => {
+
+            const storedGroup = new StoredGroup();
+
+            storedGroup.id = "http://rdfh.ch/groups/00FF/images-reviewer";
+            storedGroup.name =  "UpdatedGroupName";
+            storedGroup.description = "UpdatedGroupDescription";
+
+            // TODO: fix in Knora: payload
+
+            knoraApiConnection.admin.groupsEndpoint.updateGroup(storedGroup).subscribe(
+                (response: ApiResponseData<GroupResponse>) => {
+
+                    // expect(response.body.groups.length).toEqual(2);
+                    expect(response.body.group.name).toEqual("Image reviewer");
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const group = require("../../../../test/data/api/admin/groups/get-group-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(group)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/groups/http%3A%2F%2Frdfh.ch%2Fgroups%2F00FF%2Fimages-reviewer");
+
+            expect(request.method).toEqual("PUT");
+
+            const payload = require("../../../../test/data/api/admin/groups/update-group-request.json");
+
+            expect(request.data()).toEqual(payload);
+
+        });
 
     });
 
