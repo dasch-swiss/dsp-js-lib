@@ -86,5 +86,35 @@ describe("GroupsEndpoint", () => {
 
     });
 
+    describe("Method getGroupByIri", () => {
+
+        it("should get a group by its IRI", done => {
+
+            const groupIri = "http://rdfh.ch/groups/00FF/images-reviewer";
+
+            knoraApiConnection.admin.groupsEndpoint.getGroupByIri(groupIri).subscribe(
+                (response: ApiResponseData<GroupResponse>) => {
+
+                    expect(response.body.group.id).toEqual("http://rdfh.ch/groups/00FF/images-reviewer");
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const groups = require("../../../../test/data/api/admin/groups/get-group-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(groups)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/groups/http%3A%2F%2Frdfh.ch%2Fgroups%2F00FF%2Fimages-reviewer");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+
+    });
+
 
 });
