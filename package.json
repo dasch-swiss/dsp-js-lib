@@ -18,7 +18,8 @@
     "build": "tsc && mkdir -p build/ && cp CHANGELOG.md build/ && cp LICENSE build/ && cp README.md build/ && cp package.json build/",
     "yalc-publish": "npm run build && yalc publish build/ --push",
     "npm-pack": "npm run test && npm run build && npm pack build/ && mkdir -p dist/ && cp *.tgz dist/ && rm *.tgz",
-    "npm-publish": "npm run npm-pack && npm publish"
+    "npm-publish": "npm run npm-pack && npm publish",
+    "builddocs": "typedoc --out docs --readme none --name '@knora/api API Documentation' --module commonjs src/*.ts"
   },
   "repository": {
     "type": "git",
@@ -57,6 +58,7 @@
     "@types/jsonld": "^1.5.0",
     "json2typescript": "^1.2.3",
     "jsonld": "^1.8.0",
-    "rxjs": "^6.5.3"
+    "rxjs": "^6.5.3",
+    "typedoc": "^0.15.0"
   }
 }
