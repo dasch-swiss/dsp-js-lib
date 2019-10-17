@@ -94,6 +94,13 @@ This package provides the following short-hand scripts:
 
 > Note: You need to install `yalc` globally by `npm install yalc -g` to use script number 3. In order to publish a package to NPM, you need to be logged in to NPM and you have to update the version in the `package.json`.
 
+For further development with Knora the following scripts can be used:
+
+6. `./integrate-generated-files-admin.sh <path-to-generated-Knora-Admin-API-code`: integrate generated code for the Knora Admin API, 
+see <https://docs.knora.org> -> internals -> development -> generating client apis (use it without `mock=true`).
+7. `npm run integrate-vs-test-data <path-to-Knora-project-root>`: this scripts integrates JSON-LD test data for Knora API v2.
+8. `npm run expand-jsonld-test-data`: creates versions with expanded prefixes for Knora API v2 JSON-LD test data.
+
 # Documentation
 
 TBD
