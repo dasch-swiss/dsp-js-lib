@@ -15,15 +15,33 @@ An `Endpoint` offers methods to communicate with the Knora API. At the current s
 
 ### Knora Admin API Endpoints
 
+The Knora Admin API is used to administrate projects in Knora. This also includes management of users and groups as well as permissions.
+The Knora API relies on JSON as an exchange format.
+
 #### Users
+
+The `UsersEndpoint` deals with all requests related to creating, reading, updating and deleting users.
+It communicates directly with the Knoa API, taking care of deserializing JSON responses received from Knora and serializing payloads submitted in requests to JSON. 
 
 #### Groups
 
+The `GroupsEndpoint` deals with all requests related to creating, reading, updating and deleting groups.
+It communicates directly with the Knoa API, taking care of deserializing JSON responses received from Knora and serializing payloads submitted in requests to JSON. 
+
 #### Projects
+
+The `ProjectsEndpoint` deals with all requests related to creating, reading, updating and deleting projects.
+It communicates directly with the Knoa API, taking care of deserializing JSON responses received from Knora and serializing payloads submitted in requests to JSON. 
 
 #### Permissions
 
+The `ProjectsEndpoint` deals with all requests related to reading permissions.
+It communicates directly with the Knoa API, taking care of deserializing JSON responses received from Knora. 
+
 ### Knora Api v2 Endpoints
+
+The Knora API v2 is used to create, read, search, and modify data (resources and values).
+The Knora API relies on JSON-LD as an exchange format.
 
 #### Authentication
 
