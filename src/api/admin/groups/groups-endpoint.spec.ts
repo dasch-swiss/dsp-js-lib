@@ -155,5 +155,42 @@ describe("GroupsEndpoint", () => {
 
     });
 
+    describe("Method updateGroupStatus", () => {
+
+        xit("should update a group", done => {
+
+            const storedGroup = new StoredGroup();
+
+            storedGroup.id = "http://rdfh.ch/groups/00FF/images-reviewer";
+            storedGroup.status = true;
+
+            // TODO: fix in Knora: payload
+
+            knoraApiConnection.admin.groupsEndpoint.updateGroupStatus(storedGroup).subscribe(
+                (response: ApiResponseData<GroupResponse>) => {
+
+                    // expect(response.body.groups.length).toEqual(2);
+                    expect(response.body.group.name).toEqual("Image reviewer");
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const group = require("../../../../test/data/api/admin/groups/get-group-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(group)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/groups/http%3A%2F%2Frdfh.ch%2Fgroups%2F00FF%2Fimages-reviewer/status");
+
+            expect(request.method).toEqual("PUT");
+
+            const payload = require("../../../../test/data/api/admin/groups/change-group-status-request.json");
+
+            expect(request.data()).toEqual(payload);
+
+        });
+
+    });
 
 });
