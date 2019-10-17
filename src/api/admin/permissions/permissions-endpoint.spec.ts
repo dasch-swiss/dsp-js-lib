@@ -11,7 +11,6 @@ describe("PermissionsEndpoint", () => {
     const knoraApiConnection = new KnoraApiConnection(config);
 
     beforeEach(() => {
-
         jasmine.Ajax.install();
     });
 
@@ -44,9 +43,9 @@ describe("PermissionsEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const users = require("../../../../test/data/api/admin/permissions/get-administrative-permission-response.json");
+            const permissions = require("../../../../test/data/api/admin/permissions/get-administrative-permission-response.json");
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(users)));
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissions)));
 
             expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF/http%3A%2F%2Fwww.knora.org%2Fontology%2Fknora-admin%23ProjectMember?permissionType=AdministrativePermission");
 
