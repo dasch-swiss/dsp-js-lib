@@ -257,6 +257,46 @@ describe("UsersEndpoint", () => {
 
     });
 
+    describe("Method getUserProjectAdminMemberships", () => {
+
+        xit("should get a user's project admin memberships", done => {
+
+            // TODO: fix this in Knora
+            /*
+
+            Fatal error in JsonConvert. Failed to map the JSON object to the class "ReadProject" because the defined JSON property "members" does not exist:
+
+	Class property:
+		members
+
+	JSON property:
+		members
+
+             */
+
+            const userIri = "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q";
+
+            knoraApiConnection.admin.usersEndpoint.getUserProjectAdminMemberships(userIri).subscribe(
+                (response: ApiResponseData<ProjectsResponse> | ApiResponseError) => {
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projectMemberships = require("../../../../test/data/api/admin/users/get-user-project-memberships-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projectMemberships)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/users/iri/http%3A%2F%2Frdfh.ch%2Fusers%2F9XBCrDV3SRa7kS1WwynB4Q/project-admin-memberships");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
     describe("Method createUser", () => {
 
         it("should create a user", done => {
