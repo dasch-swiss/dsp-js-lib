@@ -2,6 +2,7 @@ import { ApiResponseError, User, UserResponse } from "../../..";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
+import { BasicUserInfo } from "../../../models/admin/basic-user-info";
 import { GroupsResponse } from "../../../models/admin/groups-response";
 import { ProjectsResponse } from "../../../models/admin/projects-response";
 import { StoredUser } from "../../../models/admin/stored-user";
@@ -201,7 +202,6 @@ describe("UsersEndpoint", () => {
                     expect(response.body.groups.length).toEqual(1);
                     expect(response.body.groups[0].id).toEqual("http://rdfh.ch/groups/0001/thing-searcher");
 
-
                     done();
                 }
             );
@@ -222,7 +222,7 @@ describe("UsersEndpoint", () => {
 
     describe("Method getUserProjectMemberships", () => {
 
-        xit("should get a user's project memberships", done => {
+        it("should get a user's project memberships", done => {
 
             // TODO: fix this in Knora
             /*
@@ -262,7 +262,7 @@ describe("UsersEndpoint", () => {
 
     describe("Method getUserProjectAdminMemberships", () => {
 
-        xit("should get a user's project admin memberships", done => {
+        it("should get a user's project admin memberships", done => {
 
             // TODO: fix this in Knora
             /*
@@ -344,20 +344,18 @@ describe("UsersEndpoint", () => {
 
     describe("Method updateUserBasicInformation", () => {
 
-        xit("should update user information", done => {
+        it("should update user information", done => {
 
-            const storedUser = new StoredUser();
+            const basicUserInfo = new BasicUserInfo();
+            const userIri = "http://rdfh.ch/users/normaluser";
 
-            storedUser.username = "donald.big.duck";
-            storedUser.email = "donald.big.duck@example.org";
-            storedUser.givenName = "Big Donald";
-            storedUser.familyName = "Duckmann";
-            storedUser.lang = "de";
+            basicUserInfo.username = "donald.big.duck";
+            basicUserInfo.email = "donald.big.duck@example.org";
+            basicUserInfo.givenName = "Big Donald";
+            basicUserInfo.familyName = "Duckmann";
+            basicUserInfo.lang = "de";
 
-            // TODO: fix this in Knora
-            // status and id not present in expected payload
-
-            knoraApiConnection.admin.usersEndpoint.updateUserBasicInformation(storedUser).subscribe(
+            knoraApiConnection.admin.usersEndpoint.updateUserBasicInformation(userIri, basicUserInfo).subscribe(
                 (response: ApiResponseData<UserResponse> | ApiResponseError) => {
 
                     done();
@@ -370,7 +368,7 @@ describe("UsersEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(user)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/users/iri/useriri/BasicUserInformation");
+            expect(request.url).toBe("http://localhost:3333/admin/users/iri/http%3A%2F%2Frdfh.ch%2Fusers%2Fnormaluser/BasicUserInformation");
 
             expect(request.method).toEqual("PUT");
 

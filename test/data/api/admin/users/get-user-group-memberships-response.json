@@ -7,25 +7,21 @@
       "project": {
         "description": [
           {
-            "value": "Anything Project is a testing project ",
-            "language": "en"
+            "value": "Anything Project"
           }
         ],
         "id": "http://rdfh.ch/projects/0001",
-        "keywords": [
-          "anything",
-          "dasch",
-          "test"
-        ],
+        "keywords": [],
         "logo": null,
         "longname": "Anything Project",
         "ontologies": [
-          "http://www.knora.org/ontology/0001/anything"
+          "http://www.knora.org/ontology/0001/anything",
+          "http://www.knora.org/ontology/0001/something"
         ],
         "selfjoin": false,
         "shortcode": "0001",
         "shortname": "anything",
-        "status": false
+        "status": true
       },
       "selfjoin": true,
       "status": true
