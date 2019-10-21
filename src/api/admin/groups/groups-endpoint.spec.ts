@@ -61,8 +61,6 @@ describe("GroupsEndpoint", () => {
             group.status = true;
             group.selfjoin = false;
 
-            // TODO: fix in Knora: payload
-
             knoraApiConnection.admin.groupsEndpoint.createGroup(group).subscribe(
                 (response: ApiResponseData<GroupResponse>) => {
 
@@ -133,7 +131,6 @@ describe("GroupsEndpoint", () => {
             knoraApiConnection.admin.groupsEndpoint.updateGroup(groupIri, groupInfo).subscribe(
                 (response: ApiResponseData<GroupResponse>) => {
 
-                    // expect(response.body.groups.length).toEqual(2);
                     expect(response.body.group.name).toEqual("Image reviewer");
 
                     done();
@@ -169,7 +166,6 @@ describe("GroupsEndpoint", () => {
             knoraApiConnection.admin.groupsEndpoint.updateGroupStatus(groupIri, groupStatus).subscribe(
                 (response: ApiResponseData<GroupResponse>) => {
 
-                    // expect(response.body.groups.length).toEqual(2);
                     expect(response.body.group.name).toEqual("Image reviewer");
 
                     done();
@@ -201,8 +197,7 @@ describe("GroupsEndpoint", () => {
 
             knoraApiConnection.admin.groupsEndpoint.deleteGroup(groupIri).subscribe(
                 (response: ApiResponseData<GroupResponse>) => {
-
-                    // expect(response.body.groups.length).toEqual(2);
+                    
                     expect(response.body.group.name).toEqual("Image reviewer");
 
                     done();
