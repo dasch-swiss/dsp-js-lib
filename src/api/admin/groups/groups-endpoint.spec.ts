@@ -64,7 +64,6 @@ describe("GroupsEndpoint", () => {
             knoraApiConnection.admin.groupsEndpoint.createGroup(group).subscribe(
                 (response: ApiResponseData<GroupResponse>) => {
 
-                    // expect(response.body.groups.length).toEqual(2);
                     expect(response.body.group.name).toEqual("Image reviewer");
 
                     done();
@@ -197,7 +196,7 @@ describe("GroupsEndpoint", () => {
 
             knoraApiConnection.admin.groupsEndpoint.deleteGroup(groupIri).subscribe(
                 (response: ApiResponseData<GroupResponse>) => {
-                    
+
                     expect(response.body.group.name).toEqual("Image reviewer");
 
                     done();

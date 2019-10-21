@@ -18,8 +18,8 @@ export class ResourcesEndpoint extends Endpoint {
      * Given a sequence of resource IRIs, gets the resources from Knora.
      *
      * @param resourceIris Iris of the resources to get.
-     * @param ontologyCache instance of `OntologyCache` to use.
-     * @param listNodeCache instance of `ListNodeCache` to use.
+     * @param ontologyCache instance of `OntologyCache` to be used.
+     * @param listNodeCache instance of `ListNodeCache` to be used.
      */
     getResources(resourceIris: string[], ontologyCache: OntologyCache, listNodeCache: ListNodeCache): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
