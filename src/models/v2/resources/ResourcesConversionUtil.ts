@@ -357,6 +357,11 @@ export namespace ResourcesConversionUtil {
 
     };
 
+    /**
+     * Creates a response to a count query.
+     * @param countQueryResult the result of the count query.
+     * @param jsonConvert the instance of jsonConvert to be used.
+     */
     export const createCountQueryResponse = (countQueryResult: object, jsonConvert: JsonConvert): CountQueryResponse => {
 
         if (Array.isArray(countQueryResult)) throw new Error("countQueryResult is expected to be a single object");
