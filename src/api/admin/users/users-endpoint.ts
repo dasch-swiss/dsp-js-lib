@@ -5,10 +5,10 @@ import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { Endpoint } from "../../endpoint";
 
-import { BasicUserInfo } from "../../../models/admin/basic-user-info";
 import { GroupsResponse } from "../../../models/admin/groups-response";
 import { ProjectsResponse } from "../../../models/admin/projects-response";
 import { StoredUser } from "../../../models/admin/stored-user";
+import { UpdateUserRequest } from "../../../models/admin/update-user-request";
 import { User } from "../../../models/admin/user";
 import { UserResponse } from "../../../models/admin/user-response";
 import { UsersResponse } from "../../../models/admin/users-response";
@@ -140,7 +140,7 @@ export class UsersEndpoint extends Endpoint {
      * @param iri The IRI of the user to be updated.
      * @param userInfo The user information to be updated.
      */
-    updateUserBasicInformation(iri: string, userInfo: BasicUserInfo): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+    updateUserBasicInformation(iri: string, userInfo: UpdateUserRequest): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
     
         return this.httpPut("/iri/" + encodeURIComponent(iri) + "/BasicUserInformation", userInfo).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
@@ -168,12 +168,12 @@ export class UsersEndpoint extends Endpoint {
      * Updates a user's password.
      * 
      * @param iri The IRI of the user to be updated.
-     * @param oldPassword The user's old password.
-     * @param newPassword The user's new password.
+     * @param requesterPassword The requesting user's current password.
+     * @param newPassword The specified user's new password.
      */
-    updateUserPassword(iri: string, oldPassword: string, newPassword: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+    updateUserPassword(iri: string, requesterPassword: string, newPassword: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
     
-        return this.httpPut("/iri/" + encodeURIComponent(iri) + "/Password", { requesterPassword: oldPassword, newPassword: newPassword }).pipe(
+        return this.httpPut("/iri/" + encodeURIComponent(iri) + "/Password", { requesterPassword: requesterPassword, newPassword: newPassword }).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );

@@ -11,7 +11,7 @@ import { Project } from "../../../models/admin/project";
 import { ProjectResponse } from "../../../models/admin/project-response";
 import { ProjectRestrictedViewSettingsResponse } from "../../../models/admin/project-restricted-view-settings-response";
 import { ProjectsResponse } from "../../../models/admin/projects-response";
-import { StoredProject } from "../../../models/admin/stored-project";
+import { UpdateProjectRequest } from "../../../models/admin/update-project-request";
 
 /**
  * An endpoint for working with Knora projects.
@@ -73,11 +73,12 @@ export class ProjectsEndpoint extends Endpoint {
     /**
      * Updates a project.
      * 
-     * @param project The project to be updated.
+     * @param iri The IRI of the project to be updated.
+     * @param projectInfo The project info to be updated.
      */
-    updateProject(project: StoredProject): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
+    updateProject(iri: string, projectInfo: UpdateProjectRequest): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
     
-        return this.httpPut("/iri/" + encodeURIComponent(project.id), project).pipe(
+        return this.httpPut("/iri/" + encodeURIComponent(iri), projectInfo).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );

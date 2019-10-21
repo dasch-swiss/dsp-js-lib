@@ -1,10 +1,10 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 
 /**
- * Basic information about a user.
+ * A request to update a user.
  */
-@JsonObject("BasicUserInfo")
-export class BasicUserInfo {
+@JsonObject("UpdateUserRequest")
+export class UpdateUserRequest {
 
     /**
      * The email address and login name of a user.

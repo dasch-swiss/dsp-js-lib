@@ -9,6 +9,7 @@ import { ProjectRestrictedViewSettingsResponse } from "../../../models/admin/pro
 import { ProjectsResponse } from "../../../models/admin/projects-response";
 import { StoredProject } from "../../../models/admin/stored-project";
 import { StringLiteral } from "../../../models/admin/string-literal";
+import { UpdateProjectRequest } from "../../../models/admin/update-project-request";
 
 describe("ProjectsEndpoint", () => {
 
@@ -155,28 +156,26 @@ describe("ProjectsEndpoint", () => {
 
     describe("Method updateProject", () => {
 
-        xit("should update a project", done => {
+        it("should update a project", done => {
 
-            // TODO: fix in Knora: "id" and "shortcode" are not present on
+            const projectIri = "http://rdfh.ch/projects/00FF";
+            const projectInfo = new UpdateProjectRequest();
 
-            const project = new StoredProject();
-
-            project.id = "http://rdfh.ch/projects/00FF";
-            project.shortname = "newproject";
-            project.longname = "updated project longname";
+            projectInfo.shortname = "newproject";
+            projectInfo.longname = "updated project longname";
 
             const description = new StringLiteral();
             description.language = "en";
             description.value = "updated project description";
 
-            project.description = [description];
+            projectInfo.description = [description];
 
-            project.keywords = ["updated", "keywords"];
-            project.logo = "/fu/bar/baz-updated.jpg";
-            project.status = true;
-            project.selfjoin = true;
+            projectInfo.keywords = ["updated", "keywords"];
+            projectInfo.logo = "/fu/bar/baz-updated.jpg";
+            projectInfo.status = true;
+            projectInfo.selfjoin = true;
 
-            knoraApiConnection.admin.projectsEndpoint.updateProject(project).subscribe(
+            knoraApiConnection.admin.projectsEndpoint.updateProject(projectIri, projectInfo).subscribe(
                 (response: ApiResponseData<ProjectResponse>) => {
 
                     expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");

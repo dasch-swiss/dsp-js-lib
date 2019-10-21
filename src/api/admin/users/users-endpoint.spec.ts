@@ -2,10 +2,10 @@ import { ApiResponseError, User, UserResponse } from "../../..";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
-import { BasicUserInfo } from "../../../models/admin/basic-user-info";
 import { GroupsResponse } from "../../../models/admin/groups-response";
 import { ProjectsResponse } from "../../../models/admin/projects-response";
 import { StoredUser } from "../../../models/admin/stored-user";
+import { UpdateUserRequest } from "../../../models/admin/update-user-request";
 import { UsersResponse } from "../../../models/admin/users-response";
 import { ApiResponseData } from "../../../models/api-response-data";
 
@@ -320,16 +320,16 @@ describe("UsersEndpoint", () => {
 
         it("should update user information", done => {
 
-            const basicUserInfo = new BasicUserInfo();
             const userIri = "http://rdfh.ch/users/normaluser";
+            const userInfo = new UpdateUserRequest();
 
-            basicUserInfo.username = "donald.big.duck";
-            basicUserInfo.email = "donald.big.duck@example.org";
-            basicUserInfo.givenName = "Big Donald";
-            basicUserInfo.familyName = "Duckmann";
-            basicUserInfo.lang = "de";
+            userInfo.username = "donald.big.duck";
+            userInfo.email = "donald.big.duck@example.org";
+            userInfo.givenName = "Big Donald";
+            userInfo.familyName = "Duckmann";
+            userInfo.lang = "de";
 
-            knoraApiConnection.admin.usersEndpoint.updateUserBasicInformation(userIri, basicUserInfo).subscribe(
+            knoraApiConnection.admin.usersEndpoint.updateUserBasicInformation(userIri, userInfo).subscribe(
                 (response: ApiResponseData<UserResponse> | ApiResponseError) => {
 
                     done();

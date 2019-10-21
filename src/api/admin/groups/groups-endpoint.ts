@@ -9,7 +9,7 @@ import { CreateGroupRequest } from "../../../models/admin/create-group-request";
 import { GroupResponse } from "../../../models/admin/group-response";
 import { GroupsResponse } from "../../../models/admin/groups-response";
 import { MembersResponse } from "../../../models/admin/members-response";
-import { StoredGroup } from "../../../models/admin/stored-group";
+import { UpdateGroupRequest } from "../../../models/admin/update-group-request";
 
 /**
  * An endpoint for working with Knora groups.
@@ -59,11 +59,12 @@ export class GroupsEndpoint extends Endpoint {
     /**
      * Updates a group.
      * 
-     * @param group The group to be updated.
+     * @param iri The IRI of the group to be updated.
+     * @param groupInfo The group information to be updated.
      */
-    updateGroup(group: StoredGroup): Observable<ApiResponseData<GroupResponse> | ApiResponseError> {
+    updateGroup(iri: string, groupInfo: UpdateGroupRequest): Observable<ApiResponseData<GroupResponse> | ApiResponseError> {
     
-        return this.httpPut("/" + encodeURIComponent(group.id), group).pipe(
+        return this.httpPut("/" + encodeURIComponent(iri), groupInfo).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
@@ -73,11 +74,12 @@ export class GroupsEndpoint extends Endpoint {
     /**
      * Updates the status of a group.
      * 
-     * @param group The group to be updated.
+     * @param iri The IRI of the group to be updated.
+     * @param status The new status of the group.
      */
-    updateGroupStatus(group: StoredGroup): Observable<ApiResponseData<GroupResponse> | ApiResponseError> {
+    updateGroupStatus(iri: string, status: boolean): Observable<ApiResponseData<GroupResponse> | ApiResponseError> {
     
-        return this.httpPut("/" + encodeURIComponent(group.id) + "/status", group).pipe(
+        return this.httpPut("/" + encodeURIComponent(iri) + "/status", { status: status }).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );

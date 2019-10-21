@@ -7,6 +7,7 @@ import { GroupResponse } from "../../../models/admin/group-response";
 import { GroupsResponse } from "../../../models/admin/groups-response";
 import { MembersResponse } from "../../../models/admin/members-response";
 import { StoredGroup } from "../../../models/admin/stored-group";
+import { UpdateGroupRequest } from "../../../models/admin/update-group-request";
 
 describe("GroupsEndpoint", () => {
 
@@ -50,12 +51,13 @@ describe("GroupsEndpoint", () => {
 
     describe("Method createGroup", () => {
 
-        xit("should create a group", done => {
+        it("should create a group", done => {
 
             const group = new CreateGroupRequest();
 
             group.name =  "NewGroup";
-            group.projectIri = "http://rdfh.ch/projects/00FF";
+            group.project = "http://rdfh.ch/projects/00FF";
+            group.description = "NewGroupDescription";
             group.status = true;
             group.selfjoin = false;
 
@@ -119,17 +121,16 @@ describe("GroupsEndpoint", () => {
 
     describe("Method updateGroup", () => {
 
-        xit("should update a group", done => {
+        it("should update a group", done => {
 
-            const storedGroup = new StoredGroup();
+            const groupIri = "http://rdfh.ch/groups/00FF/images-reviewer";
 
-            storedGroup.id = "http://rdfh.ch/groups/00FF/images-reviewer";
-            storedGroup.name =  "UpdatedGroupName";
-            storedGroup.description = "UpdatedGroupDescription";
+            const groupInfo = new UpdateGroupRequest();
 
-            // TODO: fix in Knora: payload
+            groupInfo.name =  "UpdatedGroupName";
+            groupInfo.description = "UpdatedGroupDescription";
 
-            knoraApiConnection.admin.groupsEndpoint.updateGroup(storedGroup).subscribe(
+            knoraApiConnection.admin.groupsEndpoint.updateGroup(groupIri, groupInfo).subscribe(
                 (response: ApiResponseData<GroupResponse>) => {
 
                     // expect(response.body.groups.length).toEqual(2);
@@ -158,16 +159,14 @@ describe("GroupsEndpoint", () => {
 
     describe("Method updateGroupStatus", () => {
 
-        xit("should update a group's status", done => {
+        it("should update a group's status", done => {
 
-            const storedGroup = new StoredGroup();
-
-            storedGroup.id = "http://rdfh.ch/groups/00FF/images-reviewer";
-            storedGroup.status = true;
+            const groupIri = "http://rdfh.ch/groups/00FF/images-reviewer";
+            const groupStatus = true;
 
             // TODO: fix in Knora: payload
 
-            knoraApiConnection.admin.groupsEndpoint.updateGroupStatus(storedGroup).subscribe(
+            knoraApiConnection.admin.groupsEndpoint.updateGroupStatus(groupIri, groupStatus).subscribe(
                 (response: ApiResponseData<GroupResponse>) => {
 
                     // expect(response.body.groups.length).toEqual(2);
