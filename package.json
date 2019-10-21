@@ -19,7 +19,7 @@
     "yalc-publish": "npm run build && yalc publish build/ --push",
     "npm-pack": "npm run test && npm run build && npm pack build/ && mkdir -p dist/ && cp *.tgz dist/ && rm *.tgz",
     "npm-publish": "npm run npm-pack && npm publish",
-    "builddocs": "typedoc --out docs --readme none --name '@knora/api API Documentation' --excludeNotExported --exclude \"**/*.spec.*\" src/*.ts"
+    "builddocs": "typedoc --out docs --readme none --name '@knora/api API Documentation' --exclude \"**/*.spec.*\" src/*.ts"
   },
   "repository": {
     "type": "git",
