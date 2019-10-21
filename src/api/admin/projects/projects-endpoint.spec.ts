@@ -2,6 +2,7 @@ import { ApiResponseData, ApiResponseError, Project, UserResponse } from "../../
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
+import { KeywordsResponse } from "../../../models/admin/keywords-response";
 import { ProjectResponse } from "../../../models/admin/project-response";
 import { ProjectsResponse } from "../../../models/admin/projects-response";
 import { StringLiteral } from "../../../models/admin/string-literal";
@@ -88,6 +89,33 @@ describe("ProjectsEndpoint", () => {
             const payload = require("../../../../test/data/api/admin/projects/create-project-request.json");
 
             expect(request.data()).toEqual(payload);
+
+        });
+
+    });
+
+    describe("Method getKeywords", () => {
+
+        it("should return the keywords", done => {
+
+            knoraApiConnection.admin.projectsEndpoint.getKeywords().subscribe(
+                (response: ApiResponseData<KeywordsResponse>) => {
+
+                    expect(response.body.keywords.length).toEqual(16);
+                    expect(response.body.keywords[0]).toEqual("Basel");
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projects = require("../../../../test/data/api/admin/projects/get-keywords-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/Keywords");
+
+            expect(request.method).toEqual("GET");
 
         });
 
