@@ -11,10 +11,24 @@ const jsonld = require("jsonld/dist/jsonld.js");
 
 export class ResourcesEndpoint extends Endpoint {
 
-    getResources(resourceIri: string[], ontologyCache: OntologyCache, listNodeCache: ListNodeCache): Observable<ReadResource[] | ApiResponseError> {
+    /**
+     * Given a sequence of resource IRIs, gets the resources from Knora.
+     *
+     * @param resourceIris Iris of the resources to get.
+     * @param ontologyCache instance of `OntologyCache` to use.
+     * @param listNodeCache instance of `ListNodeCache` to use.
+     */
+    getResources(resourceIris: string[], ontologyCache: OntologyCache, listNodeCache: ListNodeCache): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
-        // TODO: submit several Resource Iris separated by a slash
-        return this.httpGet("/" + encodeURIComponent(resourceIri[0])).pipe(
+
+        // make URL containing resource Iris as segments
+        const resIris: string = resourceIris.map((resIri: string) => {
+            return "/" + encodeURIComponent(resIri);
+        }).reduce((acc, currentValue) => {
+            return acc + currentValue;
+        });
+
+        return this.httpGet(resIris).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
@@ -30,6 +44,13 @@ export class ResourcesEndpoint extends Endpoint {
         );
     }
 
+    /**
+     * Given a resource IRI, gets the resource from Knora.
+     *
+     * @param resourceIri Iri of the resource to get.
+     * @param ontologyCache instance of `OntologyCache` to use.
+     * @param listNodeCache instance of `ListNodeCache` to use.
+     */
     getResource(resourceIri: string, ontologyCache: OntologyCache, listNodeCache: ListNodeCache): Observable<ReadResource | ApiResponseError> {
         return this.getResources([resourceIri], ontologyCache, listNodeCache).pipe(
             map((resources: ReadResource[]) => resources[0]),
