@@ -1,8 +1,9 @@
-import { ApiResponseData, ApiResponseError, Project, UserResponse } from "../../..";
+import { ApiResponseData, Project } from "../../..";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { KeywordsResponse } from "../../../models/admin/keywords-response";
+import { MembersResponse } from "../../../models/admin/members-response";
 import { ProjectResponse } from "../../../models/admin/project-response";
 import { ProjectsResponse } from "../../../models/admin/projects-response";
 import { StoredProject } from "../../../models/admin/stored-project";
@@ -370,6 +371,76 @@ describe("ProjectsEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
 
             expect(request.url).toBe("http://localhost:3333/admin/projects/shortcode/00FF");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
+    describe("Method getProjectMembers", () => {
+
+        it("should return members of a project identified by its iri", done => {
+
+            knoraApiConnection.admin.projectsEndpoint.getProjectMembers("iri", "http://rdfh.ch/projects/00FF").subscribe(
+                (response: ApiResponseData<MembersResponse>) => {
+
+                    expect(response.body.members.length).toEqual(4);
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projects = require("../../../../test/data/api/admin/projects/get-project-members-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF/members");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should return members of a project identified by its shortname", done => {
+
+            knoraApiConnection.admin.projectsEndpoint.getProjectMembers("shortname", "images").subscribe(
+                (response: ApiResponseData<MembersResponse>) => {
+
+                    expect(response.body.members.length).toEqual(4);
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projects = require("../../../../test/data/api/admin/projects/get-project-members-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/shortname/images/members");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should return members of a project identified by its shortcode", done => {
+
+            knoraApiConnection.admin.projectsEndpoint.getProjectMembers("shortcode", "00FF").subscribe(
+                (response: ApiResponseData<MembersResponse>) => {
+
+                    expect(response.body.members.length).toEqual(4);
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projects = require("../../../../test/data/api/admin/projects/get-project-members-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/shortcode/00FF/members");
 
             expect(request.method).toEqual("GET");
 
