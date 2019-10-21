@@ -224,19 +224,6 @@ describe("UsersEndpoint", () => {
 
         it("should get a user's project memberships", done => {
 
-            // TODO: fix this in Knora
-            /*
-
-            Fatal error in JsonConvert. Failed to map the JSON object to the class "ReadProject" because the defined JSON property "members" does not exist:
-
-	Class property:
-		members
-
-	JSON property:
-		members
-		
-             */
-
             const userIri = "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q";
 
             knoraApiConnection.admin.usersEndpoint.getUserProjectMemberships(userIri).subscribe(
@@ -263,19 +250,6 @@ describe("UsersEndpoint", () => {
     describe("Method getUserProjectAdminMemberships", () => {
 
         it("should get a user's project admin memberships", done => {
-
-            // TODO: fix this in Knora
-            /*
-
-            Fatal error in JsonConvert. Failed to map the JSON object to the class "ReadProject" because the defined JSON property "members" does not exist:
-
-	Class property:
-		members
-
-	JSON property:
-		members
-
-             */
 
             const userIri = "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q";
 
