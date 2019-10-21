@@ -526,4 +526,152 @@ describe("ProjectsEndpoint", () => {
 
     });
 
+    describe("Method getProjectAdminMembers", () => {
+
+        it("should return admin members of a project identified by its iri", done => {
+
+            knoraApiConnection.admin.projectsEndpoint.getProjectAdminMembers("iri", "http://rdfh.ch/projects/00FF").subscribe(
+                (response: ApiResponseData<MembersResponse>) => {
+
+                    expect(response.body.members.length).toEqual(2);
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projects = require("../../../../test/data/api/admin/projects/get-project-admin-members-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF/admin-members");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should return admin members of a project identified by its shortname", done => {
+
+            knoraApiConnection.admin.projectsEndpoint.getProjectAdminMembers("shortname", "images").subscribe(
+                (response: ApiResponseData<MembersResponse>) => {
+
+                    expect(response.body.members.length).toEqual(2);
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projects = require("../../../../test/data/api/admin/projects/get-project-admin-members-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/shortname/images/admin-members");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should return admin members of a project identified by its shortcode", done => {
+
+            knoraApiConnection.admin.projectsEndpoint.getProjectAdminMembers("shortcode", "00FF").subscribe(
+                (response: ApiResponseData<MembersResponse>) => {
+
+                    expect(response.body.members.length).toEqual(2);
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projects = require("../../../../test/data/api/admin/projects/get-project-admin-members-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/shortcode/00FF/admin-members");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
+    describe("Method getProjectMembersByIri", () => {
+
+        it("should return members of a project identified by its iri", done => {
+
+            knoraApiConnection.admin.projectsEndpoint.getProjectAdminMembersByIri("http://rdfh.ch/projects/00FF").subscribe(
+                (response: ApiResponseData<MembersResponse>) => {
+
+                    expect(response.body.members.length).toEqual(2);
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projects = require("../../../../test/data/api/admin/projects/get-project-admin-members-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF/admin-members");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
+    describe("Method getProjectAdminMembersByShortname", () => {
+
+        it("should return members of a project identified by its iri", done => {
+
+            knoraApiConnection.admin.projectsEndpoint.getProjectAdminMembersByShortname("images").subscribe(
+                (response: ApiResponseData<MembersResponse>) => {
+
+                    expect(response.body.members.length).toEqual(2);
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projects = require("../../../../test/data/api/admin/projects/get-project-admin-members-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/shortname/images/admin-members");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
+    describe("Method getProjectAdminMembersByShortcode", () => {
+
+        it("should return members of a project identified by its iri", done => {
+
+            knoraApiConnection.admin.projectsEndpoint.getProjectAdminMembersByShortcode("00FF").subscribe(
+                (response: ApiResponseData<MembersResponse>) => {
+
+                    expect(response.body.members.length).toEqual(2);
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projects = require("../../../../test/data/api/admin/projects/get-project-admin-members-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/shortcode/00FF/admin-members");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
 });
