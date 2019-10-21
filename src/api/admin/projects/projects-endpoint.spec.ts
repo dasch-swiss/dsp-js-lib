@@ -229,4 +229,74 @@ describe("ProjectsEndpoint", () => {
 
     });
 
+    describe("Method getProject", () => {
+
+        it("should return a project by its IRI", done => {
+
+            knoraApiConnection.admin.projectsEndpoint.getProject("iri", "http://rdfh.ch/projects/00FF").subscribe(
+                (response: ApiResponseData<ProjectResponse>) => {
+
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projects = require("../../../../test/data/api/admin/projects/get-project-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should return a project by its shortname", done => {
+
+            knoraApiConnection.admin.projectsEndpoint.getProject("shortname", "images").subscribe(
+                (response: ApiResponseData<ProjectResponse>) => {
+
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projects = require("../../../../test/data/api/admin/projects/get-project-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/shortname/images");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should return a project by its shortcode", done => {
+
+            knoraApiConnection.admin.projectsEndpoint.getProject("shortcode", "00FF").subscribe(
+                (response: ApiResponseData<ProjectResponse>) => {
+
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projects = require("../../../../test/data/api/admin/projects/get-project-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/shortcode/00FF");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
 });
