@@ -5,6 +5,7 @@ import { KnoraApiConnection } from "../../../knora-api-connection";
 import { KeywordsResponse } from "../../../models/admin/keywords-response";
 import { MembersResponse } from "../../../models/admin/members-response";
 import { ProjectResponse } from "../../../models/admin/project-response";
+import { ProjectRestrictedViewSettingsResponse } from "../../../models/admin/project-restricted-view-settings-response";
 import { ProjectsResponse } from "../../../models/admin/projects-response";
 import { StoredProject } from "../../../models/admin/stored-project";
 import { StringLiteral } from "../../../models/admin/string-literal";
@@ -667,6 +668,160 @@ describe("ProjectsEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
 
             expect(request.url).toBe("http://localhost:3333/admin/projects/shortcode/00FF/admin-members");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
+    describe("Method getProjectRestrictedViewSettings", () => {
+
+        it("should return restricted view settings of a project identified by its iri", done => {
+
+            knoraApiConnection.admin.projectsEndpoint.getProjectRestrictedViewSettings("iri", "http://rdfh.ch/projects/00FF").subscribe(
+                (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
+
+                    expect(response.body.settings.size).toEqual("!512,512");
+                    expect(response.body.settings.watermark).toEqual("path_to_image");
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projects = require("../../../../test/data/api/admin/projects/get-project-restricted-view-settings-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF/RestrictedViewSettings");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should return restricted view settings of a project identified by its shortname", done => {
+
+            knoraApiConnection.admin.projectsEndpoint.getProjectRestrictedViewSettings("shortname", "images").subscribe(
+                (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
+
+                    expect(response.body.settings.size).toEqual("!512,512");
+                    expect(response.body.settings.watermark).toEqual("path_to_image");
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projects = require("../../../../test/data/api/admin/projects/get-project-restricted-view-settings-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/shortname/images/RestrictedViewSettings");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should return restricted view settings of a project identified by its shortcode", done => {
+
+            knoraApiConnection.admin.projectsEndpoint.getProjectRestrictedViewSettings("shortcode", "00FF").subscribe(
+                (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
+
+                    expect(response.body.settings.size).toEqual("!512,512");
+                    expect(response.body.settings.watermark).toEqual("path_to_image");
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projects = require("../../../../test/data/api/admin/projects/get-project-restricted-view-settings-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/shortcode/00FF/RestrictedViewSettings");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
+    describe("Method getProjectRestrictedViewSettingByIri", () => {
+
+        it("should return restricted view settings of a project identified by its iri", done => {
+
+            knoraApiConnection.admin.projectsEndpoint.getProjectRestrictedViewSettingByIri("http://rdfh.ch/projects/00FF").subscribe(
+                (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
+
+                    expect(response.body.settings.size).toEqual("!512,512");
+                    expect(response.body.settings.watermark).toEqual("path_to_image");
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projects = require("../../../../test/data/api/admin/projects/get-project-restricted-view-settings-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF/RestrictedViewSettings");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
+    describe("Method getProjectRestrictedViewSettingByShortname", () => {
+
+        it("should return restricted view settings of a project identified by its shortname", done => {
+
+            knoraApiConnection.admin.projectsEndpoint.getProjectRestrictedViewSettingByShortname("images").subscribe(
+                (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
+
+                    expect(response.body.settings.size).toEqual("!512,512");
+                    expect(response.body.settings.watermark).toEqual("path_to_image");
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projects = require("../../../../test/data/api/admin/projects/get-project-restricted-view-settings-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/shortname/images/RestrictedViewSettings");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
+    describe("Method getProjectRestrictedViewSettingByShortcode", () => {
+
+        it("should return restricted view settings of a project identified by its shortcode", done => {
+
+            knoraApiConnection.admin.projectsEndpoint.getProjectRestrictedViewSettingByShortcode("00FF").subscribe(
+                (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
+
+                    expect(response.body.settings.size).toEqual("!512,512");
+                    expect(response.body.settings.watermark).toEqual("path_to_image");
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projects = require("../../../../test/data/api/admin/projects/get-project-restricted-view-settings-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/shortcode/00FF/RestrictedViewSettings");
 
             expect(request.method).toEqual("GET");
 
