@@ -12,7 +12,7 @@ The library is developed in TypeScript and declaration files are part of the pac
 
 # Changelog
 
-TBD.
+See file `CHANGLELOG.md`.
 
 # Getting started
 
@@ -103,4 +103,5 @@ see <https://docs.knora.org> -> internals -> development -> generating client ap
 
 # Documentation
 
-TBD
+For the public API, see <https://dasch-swiss.github.io/knora-api-js-lib>.
+For design documentation, see file `design-documentation.md`. 
