@@ -5,6 +5,10 @@ import { ListConversionUtil } from "../models/v2/lists/list-conversion-util";
 import { ListNode } from "../models/v2/lists/list-node";
 import { GenericCache } from "./GenericCache";
 
+/**
+ * Caches list nodes obtained from Knora.
+ * As an optimization, the whole list is requested and cached (all of its nodes) once a list node has been rquested.
+ */
 export class ListNodeCache extends GenericCache<ListNode> {
 
     constructor(private knoraApiConnection: KnoraApiConnection) {

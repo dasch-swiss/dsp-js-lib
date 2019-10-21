@@ -16,6 +16,9 @@ export interface IResourceClassAndPropertyDefinitions {
     properties: { [index: string]: PropertyDefinition };
 }
 
+/**
+ * Caches ontologies obtained from Knora and handles direct dependencies between ontologies.
+ */
 export class OntologyCache extends GenericCache<ReadOntology> {
 
     constructor(private knoraApiConnection: KnoraApiConnection, private knoraApiConfig: KnoraApiConfig) {

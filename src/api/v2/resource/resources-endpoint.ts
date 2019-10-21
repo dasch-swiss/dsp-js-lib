@@ -10,7 +10,7 @@ declare let require: any; // http://stackoverflow.com/questions/34730010/angular
 const jsonld = require("jsonld/dist/jsonld.js");
 
 /**
- * Handles request to the resources route of the Knora API.
+ * Handles requests to the resources route of the Knora API.
  */
 export class ResourcesEndpoint extends Endpoint {
 
