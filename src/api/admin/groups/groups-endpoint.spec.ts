@@ -158,7 +158,7 @@ describe("GroupsEndpoint", () => {
 
     describe("Method updateGroupStatus", () => {
 
-        xit("should update a group", done => {
+        xit("should update a group's status", done => {
 
             const storedGroup = new StoredGroup();
 
