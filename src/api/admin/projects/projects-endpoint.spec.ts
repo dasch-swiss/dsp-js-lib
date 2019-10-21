@@ -121,4 +121,31 @@ describe("ProjectsEndpoint", () => {
 
     });
 
+    describe("Method getProjectKeywords", () => {
+
+        it("should return a project's keywords", done => {
+
+            knoraApiConnection.admin.projectsEndpoint.getProjectKeywords("http://rdfh.ch/projects/00FF").subscribe(
+                (response: ApiResponseData<KeywordsResponse>) => {
+
+                    expect(response.body.keywords.length).toEqual(14);
+                    expect(response.body.keywords[0]).toEqual("Basel");
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projects = require("../../../../test/data/api/admin/projects/get-project-keywords-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF/Keywords");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
 });
