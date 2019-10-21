@@ -69,7 +69,9 @@ describe("ProjectsEndpoint", () => {
             project.selfjoin = false;
 
             knoraApiConnection.admin.projectsEndpoint.createProject(project).subscribe(
-                (response: ApiResponseData<ProjectResponse> | ApiResponseError) => {
+                (response: ApiResponseData<ProjectResponse>) => {
+
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
 
                     done();
                 }
@@ -173,7 +175,9 @@ describe("ProjectsEndpoint", () => {
             project.selfjoin = true;
 
             knoraApiConnection.admin.projectsEndpoint.updateProject(project).subscribe(
-                (response: ApiResponseData<ProjectResponse> | ApiResponseError) => {
+                (response: ApiResponseData<ProjectResponse>) => {
+
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
 
                     done();
                 }
@@ -194,6 +198,32 @@ describe("ProjectsEndpoint", () => {
             const payload = require("../../../../test/data/api/admin/projects/update-project-request.json");
 
             expect(request.data()).toEqual(payload);
+
+        });
+
+    });
+
+    describe("Method deleteProject", () => {
+
+        it("should delete a project", done => {
+
+            knoraApiConnection.admin.projectsEndpoint.deleteProject("http://rdfh.ch/projects/00FF").subscribe(
+                (response: ApiResponseData<ProjectResponse>) => {
+
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const project = require("../../../../test/data/api/admin/projects/get-project-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(project)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF");
+
+            expect(request.method).toEqual("DELETE");
 
         });
 
