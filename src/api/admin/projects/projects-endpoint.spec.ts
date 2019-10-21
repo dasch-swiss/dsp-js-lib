@@ -5,6 +5,7 @@ import { KnoraApiConnection } from "../../../knora-api-connection";
 import { KeywordsResponse } from "../../../models/admin/keywords-response";
 import { ProjectResponse } from "../../../models/admin/project-response";
 import { ProjectsResponse } from "../../../models/admin/projects-response";
+import { StoredProject } from "../../../models/admin/stored-project";
 import { StringLiteral } from "../../../models/admin/string-literal";
 
 describe("ProjectsEndpoint", () => {
@@ -143,6 +144,56 @@ describe("ProjectsEndpoint", () => {
             expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF/Keywords");
 
             expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
+    describe("Method updateProject", () => {
+
+        xit("should update a project", done => {
+
+            // TODO: fix in Knora: "id" and "shortcode" are not present on
+
+            const project = new StoredProject();
+
+            project.id = "http://rdfh.ch/projects/00FF";
+            project.shortname = "newproject";
+            project.longname = "updated project longname";
+
+            const description = new StringLiteral();
+            description.language = "en";
+            description.value = "updated project description";
+
+            project.description = [description];
+
+            project.keywords = ["updated", "keywords"];
+            project.logo = "/fu/bar/baz-updated.jpg";
+            project.status = true;
+            project.selfjoin = true;
+
+            knoraApiConnection.admin.projectsEndpoint.updateProject(project).subscribe(
+                (response: ApiResponseData<ProjectResponse> | ApiResponseError) => {
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const user = require("../../../../test/data/api/admin/projects/get-project-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(user)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const payload = require("../../../../test/data/api/admin/projects/update-project-request.json");
+
+            expect(request.data()).toEqual(payload);
 
         });
 
