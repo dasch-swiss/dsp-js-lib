@@ -65,4 +65,27 @@ describe("ResourcesEndpoint", () => {
 
     });
 
+    it("should return several resource", done => {
+
+        knoraApiConnection.v2.res.getResources(["http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "http://rdfh.ch/0001/uqmMo72OQ2K2xe7mkIytlg"], ontoCache, listNodeCache).subscribe((response: ReadResource[]) => {
+
+            expect(response.length).toEqual(2);
+
+            done();
+        });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        const resource = require("../../../../test/data/api/v2/resources/things.json");
+
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+        expect(request.url).toBe("http://0.0.0.0:3333/v2/resources/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/http%3A%2F%2Frdfh.ch%2F0001%2FuqmMo72OQ2K2xe7mkIytlg");
+
+        expect(request.method).toEqual("GET");
+
+    });
+
+
+
 });

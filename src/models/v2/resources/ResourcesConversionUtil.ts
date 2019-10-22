@@ -64,14 +64,11 @@ export namespace ResourcesConversionUtil {
      */
     const createReadResource = (resourceJsonld: { [index: string]: string | object[] }, ontologyCache: OntologyCache, listNodeCache: ListNodeCache, jsonConvert: JsonConvert): Observable<ReadResource> => {
 
-        // console.log("parsing ", resourceJsonld["@id"]);
-
         if (Array.isArray(resourceJsonld)) throw new Error("resource is expected to be a single object");
 
-        // determine resource class
-        const resourceType = resourceJsonld["@type"] as string;
+        const resource = jsonConvert.deserialize(resourceJsonld, ReadResource) as ReadResource;
 
-        return ontologyCache.getResourceClassDefinition(resourceType).pipe(mergeMap(
+        return ontologyCache.getResourceClassDefinition(resource.type).pipe(mergeMap(
             (entitiyDefs: IResourceClassAndPropertyDefinitions) => {
 
                 const resourceProps: string[] = Object.keys(resourceJsonld)
@@ -79,13 +76,9 @@ export namespace ResourcesConversionUtil {
                         return entitiyDefs.properties[propIri] instanceof ResourcePropertyDefinition;
                     });
 
-                // console.log("props ", resourceProps);
-
-                const resource = jsonConvert.deserialize(resourceJsonld, ReadResource) as ReadResource;
-
                 // add information from ontology
-                resource.resourceClassLabel = entitiyDefs.classes[resourceType].label;
-                resource.resourceClassComment = entitiyDefs.classes[resourceType].comment;
+                resource.resourceClassLabel = entitiyDefs.classes[resource.type].label;
+                resource.resourceClassComment = entitiyDefs.classes[resource.type].comment;
                 resource.entityInfo = entitiyDefs;
 
                 if (resourceProps.length > 0) {
@@ -412,6 +405,11 @@ export namespace ResourcesConversionUtil {
 
     };
 
+    /**
+     * Creates a response to a count query.
+     * @param countQueryResult the result of the count query.
+     * @param jsonConvert the instance of jsonConvert to be used.
+     */
     export const createCountQueryResponse = (countQueryResult: object, jsonConvert: JsonConvert): CountQueryResponse => {
 
         if (Array.isArray(countQueryResult)) throw new Error("countQueryResult is expected to be a single object");
