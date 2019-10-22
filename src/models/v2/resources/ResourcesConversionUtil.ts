@@ -261,9 +261,8 @@ export namespace ResourcesConversionUtil {
 
             case Constants.BooleanValue: {
                 const boolVal = handleSimpleValue(valueJsonld, ReadBooleanValue, jsonConvert);
-                value = boolVal.pipe(map(val => {
-                    const tmp = val as unknown as ReadBooleanValue;
-                    val.strval = tmp.bool ? 'TRUE' : 'FALSE';
+                value = boolVal.pipe(map((val: ReadBooleanValue) => {
+                    val.strval = val.bool ? 'TRUE' : 'FALSE';
                     return val;
                 }));
                 break;
@@ -271,9 +270,8 @@ export namespace ResourcesConversionUtil {
 
             case Constants.ColorValue: {
                 const colorVal = handleSimpleValue(valueJsonld, ReadColorValue, jsonConvert);
-                value = colorVal.pipe(map(val => {
-                    const tmp = val as unknown as ReadColorValue;
-                    val.strval = tmp.color;
+                value = colorVal.pipe(map((val: ReadColorValue) => {
+                    val.strval = val.color;
                     return val;
                 }));
                 break;
@@ -282,9 +280,8 @@ export namespace ResourcesConversionUtil {
             case Constants.DateValue: {
                 const dateVal = handleSimpleValue(valueJsonld, ParseReadDateValue, jsonConvert) as Observable<ParseReadDateValue>;
                 value = dateVal.pipe(map(
-                    date => {
-                        const val =  new ReadDateValue(date);
-                        return val;
+                    (val: ParseReadDateValue) => {
+                        return new ReadDateValue(val);
                     }
                 ));
                 break;
@@ -292,9 +289,8 @@ export namespace ResourcesConversionUtil {
 
             case Constants.IntValue: {
                 const intVal = handleSimpleValue(valueJsonld, ReadIntValue, jsonConvert);
-                value = intVal.pipe(map(val => {
-                    const tmp = val as unknown as ReadIntValue;
-                    val.strval = tmp.int.toString();
+                value = intVal.pipe(map((val: ReadIntValue) => {
+                    val.strval = val.int.toString();
                     return val;
                 }));
                 break;
@@ -302,9 +298,8 @@ export namespace ResourcesConversionUtil {
 
             case Constants.DecimalValue: {
                 const decimalVal = handleSimpleValue(valueJsonld, ReadDecimalValue, jsonConvert);
-                value = decimalVal.pipe(map(val => {
-                    const tmp = val as unknown as ReadDecimalValue;
-                    val.strval = tmp.decimal.toString();
+                value = decimalVal.pipe(map((val: ReadDecimalValue) => {
+                    val.strval = val.decimal.toString();
                     return val;
                 }));
                 break;
@@ -312,9 +307,8 @@ export namespace ResourcesConversionUtil {
 
             case Constants.IntervalValue: {
                 const intervalVal = handleSimpleValue(valueJsonld, ReadIntervalValue, jsonConvert);
-                value = intervalVal.pipe(map(val => {
-                    const tmp = val as unknown as ReadIntervalValue;
-                    val.strval = tmp.start.toString() + " - " + tmp.end.toString();
+                value = intervalVal.pipe(map((val: ReadIntervalValue) => {
+                    val.strval = val.start.toString() + " - " + val.end.toString();
                     return val;
                 }));
                 break;
@@ -338,9 +332,8 @@ export namespace ResourcesConversionUtil {
                         }
                     )
                 );
-                value = listVal.pipe(map(val => {
-                    const tmp = val as unknown as ReadListValue;
-                    val.strval = tmp.listNodeLabel;
+                value = listVal.pipe(map((val: ReadListValue) => {
+                    val.strval = val.listNodeLabel;
                     return val;
                 }));
                 break;
@@ -348,9 +341,8 @@ export namespace ResourcesConversionUtil {
 
             case Constants.UriValue: {
                 const uriVal = handleSimpleValue(valueJsonld, ReadUriValue, jsonConvert);
-                value = uriVal.pipe(map(val => {
-                    const tmp = val as unknown as ReadUriValue;
-                    val.strval = tmp.uri;
+                value = uriVal.pipe(map((val: ReadUriValue) => {
+                    val.strval = val.uri;
                     return val;
                 }));
                 break;
@@ -358,18 +350,15 @@ export namespace ResourcesConversionUtil {
 
             case Constants.TextValue: {
                 const textVal = handleTextValue(valueJsonld, jsonConvert);
-                value = textVal.pipe(map(val => {
+                value = textVal.pipe(map((val: ReadTextValue) => {
                     if (val instanceof ReadTextValueAsString) {
-                        const tmp = val as unknown as ReadTextValueAsString;
-                        val.strval = tmp.text;
+                        val.strval = val.text;
                     } else if (val instanceof ReadTextValueAsXml) {
-                        const tmp = val as unknown as ReadTextValueAsXml;
-                        val.strval = tmp.xml;
+                        val.strval = val.xml;
                     } else if (val instanceof ReadTextValueAsHtml) {
-                        const tmp = val as unknown as ReadTextValueAsHtml;
-                        val.strval = tmp.html;
+                        val.strval = val.html;
                     } else {
-                        // ToDo: ERROR MESSAGE
+                        console.error("String representation for a ReadTextValue could not be constructed for: ", type);
                     }
                     return val;
                 }));
@@ -378,9 +367,8 @@ export namespace ResourcesConversionUtil {
 
             case Constants.LinkValue: {
                 const linkVal = handleLinkValue(valueJsonld, ontologyCache, listNodeCache, jsonConvert);
-                value = linkVal.pipe(map(val => {
-                    const tmp = val as unknown as ReadLinkValue;
-                    val.strval = tmp.linkedResourceIri;
+                value = linkVal.pipe(map((val: ReadLinkValue) => {
+                    val.strval = val.linkedResourceIri;
                     return val;
                 }));
                 break;
@@ -389,10 +377,8 @@ export namespace ResourcesConversionUtil {
             case Constants.GeomValue: {
                 const geomVal = handleSimpleValue(valueJsonld, ParseReadGeomValue, jsonConvert) as Observable<ParseReadGeomValue>;
                 value = geomVal.pipe(map(
-                    geom => {
-                        const tmp = new ReadGeomValue(geom);
-                        tmp.strval = "GEOMETRY"
-                        return tmp;
+                    (geom: ParseReadGeomValue) => {
+                        return new ReadGeomValue(geom);
                     }
                 ));
                 break;
@@ -400,9 +386,8 @@ export namespace ResourcesConversionUtil {
 
             case Constants.StillImageFileValue: {
                 const stillImageVal = handleSimpleValue(valueJsonld, ReadStillImageFileValue, jsonConvert);
-                value = stillImageVal.pipe(map(val => {
-                    const tmp = val as unknown as ReadStillImageFileValue;
-                    val.strval = tmp.fileUrl;
+                value = stillImageVal.pipe(map((val: ReadStillImageFileValue) => {
+                    val.strval = val.fileUrl;
                     return val;
                 }));
                 break;

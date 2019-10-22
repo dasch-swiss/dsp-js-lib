@@ -6,7 +6,7 @@ import {
     OntologyCache,
     ReadBooleanValue,
     ReadColorValue,
-    ReadDecimalValue,
+    ReadDecimalValue, ReadGeomValue,
     ReadIntervalValue,
     ReadIntValue,
     ReadLinkValue,
@@ -21,6 +21,7 @@ import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ListNode } from "../lists/list-node";
 import { ResourcesConversionUtil } from "./ResourcesConversionUtil";
+import { Point2D, RegionGeometry } from "./values/read-geom-value";
 import { ReadListValue } from "./values/read-list-value";
 import { ReadUriValue } from "./values/read-uri-value";
 import { KnoraDate, Precision, ReadDateValue } from "./values/read-date-value";
@@ -250,7 +251,7 @@ describe("ResourcesConversionUtil", () => {
                     expect(resSeq[0].outgoingReferences[0].id).toEqual("http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ");
 
                     //
-                    // testing date value
+                    // test date value
                     //
                     const dateVals = resSeq[0].getValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate");
                     expect(dateVals.length).toEqual(1);
@@ -298,6 +299,12 @@ describe("ResourcesConversionUtil", () => {
                 resSeq => {
 
                     expect(resSeq.length).toEqual(2);
+
+                    const geomVal: ReadGeomValue[] = resSeq[0].getValuesAs("http://api.knora.org/ontology/knora-api/v2#hasGeometry", ReadGeomValue);
+
+                    const regGeom = new RegionGeometry("active", "#ff3333", 2, [new Point2D(0.08098591549295775, 0.16741071428571427), new Point2D(0.7394366197183099, 0.7299107142857143)], "rectangle");
+
+                    expect(geomVal[0].geometry).toEqual(regGeom);
 
                     done();
                 }
