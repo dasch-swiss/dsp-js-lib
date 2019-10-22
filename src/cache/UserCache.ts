@@ -5,6 +5,9 @@ import { KnoraApiConnection } from "../knora-api-connection";
 import { ReadOntology } from "../models/v2/ontologies/read-ontology";
 import { GenericCache } from "./GenericCache";
 
+/**
+ * Caches user information obtained from Knora.
+ */
 export class UserCache extends GenericCache<UserResponse> {
 
     constructor(private knoraApiConnection: KnoraApiConnection) {

@@ -10,27 +10,57 @@ import { Endpoint } from "../../endpoint";
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require("jsonld/dist/jsonld.js");
 
+/**
+ * Params for fulltext search.
+ */
 export interface IFulltextSearchParams {
 
+    /**
+     * Iri of resource class the fulltext search is restricted to, if any.
+     */
     limitToResourceClass?: string;
 
+    /**
+     * Iri of the project the fulltext search is restricted to, if any.
+     */
     limitToProject?: string;
 
+    /**
+     * Iri of standoff class the fulltext search is restricted to, if any.
+     */
     limitToStandoffClass?: string;
 
 }
 
+/**
+ * Params for search by label
+ */
 export interface ILabelSearchParams {
 
+    /**
+     * Iri of the project the search by label is restricted to, if any.
+     */
     limitToResourceClass?: string;
 
+    /**
+     * Iri of the project the search by label is restricted to, if any.
+     */
     limitToProject?: string;
 
 }
 
+/**
+ * Handles requests to the search route of the Knora API.
+ */
 export class SearchEndpoint extends Endpoint {
 
-    private static encodeFulltextParams(offset: number, params?: IFulltextSearchParams) {
+    /**
+     * URL encodes fulltext search params.
+     *
+     * @param offset offset to be used for paging, zero-based.
+     * @param params parameters for fulltext search.
+     */
+    private static encodeFulltextParams(offset: number, params?: IFulltextSearchParams): string {
 
         let paramsString = `?offset=${offset}`;
 
@@ -53,7 +83,13 @@ export class SearchEndpoint extends Endpoint {
         return paramsString;
     }
 
-    private static encodeLabelParams(offset: number, params?: ILabelSearchParams) {
+    /**
+     * URL encodes search by label params.
+     *
+     * @param offset offset to be used for paging, zero-based.
+     * @param params parameters for search by label.
+     */
+    private static encodeLabelParams(offset: number, params?: ILabelSearchParams): string {
 
         let paramsString = `?offset=${offset}`;
 
@@ -73,6 +109,15 @@ export class SearchEndpoint extends Endpoint {
 
     }
 
+    /**
+     * Performs a fulltext search.
+     *
+     * @param searchTerm the term to search for.
+     * @param ontologyCache instance of `OntologyCache` to be used.
+     * @param listNodeCache instance of `ListNodeCache` to be used.
+     * @param offset offset to be used for paging, zero-based.
+     * @param params parameters for fulltext search, if any.
+     */
     doFulltextSearch(searchTerm: string, ontologyCache: OntologyCache, listNodeCache: ListNodeCache, offset = 0, params?: IFulltextSearchParams): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
@@ -92,6 +137,13 @@ export class SearchEndpoint extends Endpoint {
         );
     }
 
+    /**
+     * Performs a fulltext search count query.
+     *
+     * @param searchTerm the term to search for.
+     * @param offset offset to be used for paging, zero-based.
+     * @param params parameters for fulltext search, if any.
+     */
     doFulltextSearchCountQuery(searchTerm: string, offset = 0, params?: IFulltextSearchParams): Observable<CountQueryResponse | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
@@ -111,6 +163,13 @@ export class SearchEndpoint extends Endpoint {
         );
     }
 
+    /**
+     * Performs a Gravsearch query.
+     *
+     * @param gravsearchQuery the given Gravsearch query.
+     * @param ontologyCache instance of `OntologyCache` to be used.
+     * @param listNodeCache instance of `ListNodeCache` to be used.
+     */
     doExtendedSearch(gravsearchQuery: string, ontologyCache: OntologyCache, listNodeCache: ListNodeCache): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
@@ -132,6 +191,11 @@ export class SearchEndpoint extends Endpoint {
         );
     }
 
+    /**
+     * Performs a Gravsearch count query.
+     *
+     * @param gravsearchQuery the given Gravsearch query.
+     */
     doExtendedSearchCountQuery(gravsearchQuery: string): Observable<CountQueryResponse | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
@@ -151,6 +215,15 @@ export class SearchEndpoint extends Endpoint {
         );
     }
 
+    /**
+     * Performs a search by label.
+     *
+     * @param searchTerm the label to search for.
+     * @param ontologyCache instance of `OntologyCache` to be used.
+     * @param listNodeCache instance of `ListNodeCache` to be used.
+     * @param offset offset to be used for paging, zero-based.
+     * @param params parameters for fulltext search, if any.
+     */
     doSearchByLabel(searchTerm: string, ontologyCache: OntologyCache, listNodeCache: ListNodeCache, offset = 0, params?: ILabelSearchParams): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
