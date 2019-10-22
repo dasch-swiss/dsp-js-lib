@@ -55,10 +55,20 @@ export class ReadResource {
 
     outgoingReferences: ReadResource[] = [];
 
+    /**
+     * Gets number of resource properties for this resource.
+     * Each resource property is counted once,
+     * regardless of how many values it has (if number of values > 1).
+     */
     getNumberOfProperties(): number {
         return Object.keys(this.properties).length;
     }
 
+    /**
+     * Gets the number of values for a given resource property.
+     *
+     * @param property the IRI of the property.
+     */
     getNumberOfValues(property: string): number {
         if (this.properties.hasOwnProperty(property)) {
             return this.properties[property].length;
@@ -67,6 +77,12 @@ export class ReadResource {
         }
     }
 
+    /**
+     * Gets the value type of a given resource property,
+     * or `false` if cannot be determined.
+     *
+     * @param property the IRI of the property.
+     */
     getValueType(property: string): string | false {
         if (this.entityInfo.properties.hasOwnProperty(property) && this.entityInfo.properties[property].objectType !== undefined) {
             return this.entityInfo.properties[property].objectType as string;
@@ -75,6 +91,11 @@ export class ReadResource {
         }
     }
 
+    /**
+     * Gets all the values for a given resource property.
+     *
+     * @param property the IRI of the property.
+     */
     getValues(property: string): ReadValue[] {
         if (this.properties.hasOwnProperty(property)) {
             return this.properties[property];
@@ -83,17 +104,27 @@ export class ReadResource {
         }
     }
 
-    getValuesAsStringArray(property: string, defstr: string = '?'): string[] {
-        const values: string[] = [];
+    /**
+     * Gets an array of string values representing the values of a property.
+     *
+     * @param property the IRI of the property.
+     * @param defaultStr placeholder if there is no string representation of a value.
+     */
+    getValuesAsStringArray(property: string, defaultStr: string = '?'): string[] {
         const vals: ReadValue[] = this.getValues(property);
-        for (const val of vals) {
-            values.push(val.strval === undefined ? defstr : val.strval);
-        }
-        return values;
+        return vals.map((val: ReadValue) =>  {
+            return val.strval === undefined ? defaultStr : val.strval;
+        });
     }
 
+    /**
+     * Gets all the values for a given resource property as instances of the requested type.
+     * If the value cannot be casted to the requested type, an error is thrown.
+     *
+     * @param property the IRI of the property.
+     * @param valueType the requested type of the value.
+     */
     getValuesAs<T extends ReadValue>(property: string, valueType: TypeGuard.Constructor<T>): T[] {
-
         return this.getValues(property).map(
             val => {
                 if (TypeGuard.typeGuard(val, valueType)) {
