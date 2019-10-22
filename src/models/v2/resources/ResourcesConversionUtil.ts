@@ -271,7 +271,7 @@ export namespace ResourcesConversionUtil {
             }
 
             case Constants.DateValue: {
-                const dateVal = handleSimpleValue(valueJsonld, ParseReadDateValue, jsonConvert) as Observable<ParseReadDateValue>;
+                const dateVal = handleSimpleValue(valueJsonld, ParseReadDateValue, jsonConvert);
                 value = dateVal.pipe(map(
                     (val: ParseReadDateValue) => {
                         return new ReadDateValue(val);
@@ -308,27 +308,22 @@ export namespace ResourcesConversionUtil {
             }
 
             case Constants.ListValue: {
-                const listValue = value = handleSimpleValue(valueJsonld, ReadListValue, jsonConvert) as Observable<ReadListValue>;
-                const listVal = listValue.pipe(
+                const listValue = value = handleSimpleValue(valueJsonld, ReadListValue, jsonConvert);
+                value = listValue.pipe(
                     mergeMap(
                         (listVal: ReadListValue) => {
-
                             // get referred list node's label
                             return listNodeCache.getNode(listVal.listNode).pipe(
                                 map(
                                     listNode => {
                                         listVal.listNodeLabel = listNode.label;
+                                        listVal.strval = listNode.label;
                                         return listVal;
                                     })
                             );
-
                         }
                     )
                 );
-                value = listVal.pipe(map((val: ReadListValue) => {
-                    val.strval = val.listNodeLabel;
-                    return val;
-                }));
                 break;
             }
 
@@ -368,7 +363,7 @@ export namespace ResourcesConversionUtil {
             }
 
             case Constants.GeomValue: {
-                const geomVal = handleSimpleValue(valueJsonld, ParseReadGeomValue, jsonConvert) as Observable<ParseReadGeomValue>;
+                const geomVal = handleSimpleValue(valueJsonld, ParseReadGeomValue, jsonConvert);
                 value = geomVal.pipe(map(
                     (geom: ParseReadGeomValue) => {
                         return new ReadGeomValue(geom);

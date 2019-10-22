@@ -233,6 +233,7 @@ describe("ResourcesConversionUtil", () => {
 
                     expect(resSeq[0].getValueType("http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri")).toEqual("http://api.knora.org/ontology/knora-api/v2#UriValue");
 
+                    // test list value
                     const listVals = resSeq[0].getValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem");
 
                     expect(listVals[0].strval).toEqual("Tree list node 01");
