@@ -9,7 +9,7 @@ import { CountQueryResponse } from "../search/count-query-response";
 import { ReadResource } from "./read-resource";
 import { ReadBooleanValue } from "./values/read-boolean-value";
 import { ReadColorValue } from "./values/read-color-value";
-import { KnoraDate, KnoraPeriod, ParseReadDateValue, Precision, ReadDateValue } from "./values/read-date-value";
+import { ParseReadDateValue, ReadDateValue } from "./values/read-date-value";
 import { ReadDecimalValue } from "./values/read-decimal-value";
 import { ReadStillImageFileValue } from "./values/read-file-value";
 import { ParseReadGeomValue, ReadGeomValue } from "./values/read-geom-value";
@@ -255,7 +255,7 @@ export namespace ResourcesConversionUtil {
             case Constants.BooleanValue: {
                 const boolVal = handleSimpleValue(valueJsonld, ReadBooleanValue, jsonConvert);
                 value = boolVal.pipe(map((val: ReadBooleanValue) => {
-                    val.strval = val.bool ? 'TRUE' : 'FALSE';
+                    val.strval = val.bool ? "TRUE" : "FALSE";
                     return val;
                 }));
                 break;
