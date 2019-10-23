@@ -1,4 +1,6 @@
-import { ApiResponseError, User, UserResponse } from "../../..";
+import { User } from "../../../models/admin/user";
+import { ApiResponseError } from "../../../models/api-response-error";
+import { UserResponse } from "../../../models/admin/user-response";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";

@@ -1,7 +1,8 @@
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
-import { ApiResponseError, KnoraApiConfig } from "../../..";
+import { KnoraApiConfig } from "../../../knora-api-config";
+import { ApiResponseError } from "../../../models/api-response-error";
 import { ReadResource } from "../../../models/v2/resources/read-resource";
 import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { CountQueryResponse } from "../../../models/v2/search/count-query-response";
@@ -118,7 +119,6 @@ export class SearchEndpoint extends Endpoint {
      * Performs a fulltext search.
      *
      * @param searchTerm the term to search for.
-     * @param listNodeCache instance of `ListNodeCache` to be used.
      * @param offset offset to be used for paging, zero-based.
      * @param params parameters for fulltext search, if any.
      */
@@ -171,7 +171,6 @@ export class SearchEndpoint extends Endpoint {
      * Performs a Gravsearch query.
      *
      * @param gravsearchQuery the given Gravsearch query.
-     * @param listNodeCache instance of `ListNodeCache` to be used.
      */
     doExtendedSearch(gravsearchQuery: string): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
@@ -222,7 +221,6 @@ export class SearchEndpoint extends Endpoint {
      * Performs a search by label.
      *
      * @param searchTerm the label to search for.
-     * @param listNodeCache instance of `ListNodeCache` to be used.
      * @param offset offset to be used for paging, zero-based.
      * @param params parameters for fulltext search, if any.
      */

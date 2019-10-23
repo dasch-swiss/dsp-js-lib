@@ -1,26 +1,22 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { of } from "rxjs";
-import {
-    ReadBooleanValue,
-    ReadColorValue,
-    ReadDecimalValue,
-    ReadGeomValue,
-    ReadIntervalValue,
-    ReadIntValue,
-    ReadLinkValue,
-    ReadResource,
-    ReadTextValueAsString,
-    ReadTextValueAsXml
-} from "../../..";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
+import { ReadResource } from "./read-resource";
 import { ResourcesConversionUtil } from "./ResourcesConversionUtil";
+import { ReadBooleanValue } from "./values/read-boolean-value";
+import { ReadColorValue } from "./values/read-color-value";
 import { KnoraDate, Precision, ReadDateValue } from "./values/read-date-value";
-import { Point2D, RegionGeometry } from "./values/read-geom-value";
+import { ReadDecimalValue } from "./values/read-decimal-value";
+import { Point2D, ReadGeomValue, RegionGeometry } from "./values/read-geom-value";
+import { ReadIntValue } from "./values/read-int-value";
+import { ReadIntervalValue } from "./values/read-interval-value";
+import { ReadLinkValue } from "./values/read-link-value";
 import { ReadListValue } from "./values/read-list-value";
+import { ReadTextValueAsString, ReadTextValueAsXml } from "./values/read-text-value";
 import { ReadUriValue } from "./values/read-uri-value";
 
 describe("ResourcesConversionUtil", () => {
