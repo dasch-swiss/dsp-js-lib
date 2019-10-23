@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
-import { ApiResponseError, KnoraApiConfig, ListNodeCache } from "../../..";
+import { ApiResponseError, KnoraApiConfig } from "../../..";
 import { ReadResource } from "../../../models/v2/resources/read-resource";
 import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { CountQueryResponse } from "../../../models/v2/search/count-query-response";
@@ -122,7 +122,7 @@ export class SearchEndpoint extends Endpoint {
      * @param offset offset to be used for paging, zero-based.
      * @param params parameters for fulltext search, if any.
      */
-    doFulltextSearch(searchTerm: string, listNodeCache: ListNodeCache, offset = 0, params?: IFulltextSearchParams): Observable<ReadResource[] | ApiResponseError> {
+    doFulltextSearch(searchTerm: string, offset = 0, params?: IFulltextSearchParams): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         return this.httpGet("/search/" + encodeURIComponent(searchTerm) + SearchEndpoint.encodeFulltextParams(offset, params)).pipe(
@@ -133,7 +133,7 @@ export class SearchEndpoint extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
-                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, listNodeCache, this.jsonConvert);
+                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
             }),
             catchError(error => {
                 return this.handleError(error);
@@ -173,7 +173,7 @@ export class SearchEndpoint extends Endpoint {
      * @param gravsearchQuery the given Gravsearch query.
      * @param listNodeCache instance of `ListNodeCache` to be used.
      */
-    doExtendedSearch(gravsearchQuery: string, listNodeCache: ListNodeCache): Observable<ReadResource[] | ApiResponseError> {
+    doExtendedSearch(gravsearchQuery: string): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         // TODO: check if content-type have to be set to text/plain
@@ -186,7 +186,7 @@ export class SearchEndpoint extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
-                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, listNodeCache, this.jsonConvert);
+                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
             }),
             catchError(error => {
                 return this.handleError(error);
@@ -226,7 +226,7 @@ export class SearchEndpoint extends Endpoint {
      * @param offset offset to be used for paging, zero-based.
      * @param params parameters for fulltext search, if any.
      */
-    doSearchByLabel(searchTerm: string, listNodeCache: ListNodeCache, offset = 0, params?: ILabelSearchParams): Observable<ReadResource[] | ApiResponseError> {
+    doSearchByLabel(searchTerm: string, offset = 0, params?: ILabelSearchParams): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         return this.httpGet("/searchbylabel/" + encodeURIComponent(searchTerm) + SearchEndpoint.encodeLabelParams(offset, params)).pipe(
@@ -237,7 +237,7 @@ export class SearchEndpoint extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
-                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, listNodeCache, this.jsonConvert);
+                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
             }),
             catchError(error => {
                 return this.handleError(error);

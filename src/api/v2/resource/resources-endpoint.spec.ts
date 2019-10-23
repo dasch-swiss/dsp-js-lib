@@ -1,5 +1,4 @@
 import { of } from "rxjs";
-import { ListNodeCache } from "../../..";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
@@ -12,8 +11,6 @@ describe("ResourcesEndpoint", () => {
     const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, "", true);
     let knoraApiConnection: KnoraApiConnection;
 
-    let listNodeCache: ListNodeCache;
-
     let getResourceClassDefinitionFromCacheSpy: jasmine.Spy;
     let getListNodeFromCacheSpy: jasmine.Spy;
 
@@ -23,15 +20,13 @@ describe("ResourcesEndpoint", () => {
 
         knoraApiConnection = new KnoraApiConnection(config);
 
-        listNodeCache = new ListNodeCache(knoraApiConnection);
-
         getResourceClassDefinitionFromCacheSpy = spyOn(knoraApiConnection.v2.ontologyCache, "getResourceClassDefinition").and.callFake(
             (resClassIri: string) => {
                 return of(MockOntology.mockIResourceClassAndPropertyDefinitions(resClassIri));
             }
         );
 
-        getListNodeFromCacheSpy = spyOn(listNodeCache, "getNode").and.callFake(
+        getListNodeFromCacheSpy = spyOn(knoraApiConnection.v2.listNodeCache, "getNode").and.callFake(
             (listNodeIri: string) => {
                 return MockList.mockCompletedAsyncSubject(listNodeIri);
             }
@@ -44,7 +39,7 @@ describe("ResourcesEndpoint", () => {
 
     it("should return a resource", done => {
 
-        knoraApiConnection.v2.res.getResource("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", listNodeCache).subscribe((response: ReadResource) => {
+        knoraApiConnection.v2.res.getResource("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw").subscribe((response: ReadResource) => {
 
             expect(response.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw");
             expect(response.resourceClassLabel).toEqual("Thing");
@@ -69,7 +64,7 @@ describe("ResourcesEndpoint", () => {
 
     it("should return several resource", done => {
 
-        knoraApiConnection.v2.res.getResources(["http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "http://rdfh.ch/0001/uqmMo72OQ2K2xe7mkIytlg"], listNodeCache).subscribe((response: ReadResource[]) => {
+        knoraApiConnection.v2.res.getResources(["http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "http://rdfh.ch/0001/uqmMo72OQ2K2xe7mkIytlg"]).subscribe((response: ReadResource[]) => {
 
             expect(response.length).toEqual(2);
 

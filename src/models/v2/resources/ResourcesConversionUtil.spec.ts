@@ -2,7 +2,6 @@ import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { of } from "rxjs";
 import {
-    ListNodeCache,
     ReadBooleanValue,
     ReadColorValue,
     ReadDecimalValue,
@@ -29,8 +28,6 @@ describe("ResourcesConversionUtil", () => {
     const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, "", true);
     let knoraApiConnection: KnoraApiConnection;
 
-    let listNodeCache: ListNodeCache;
-
     let getResourceClassDefinitionFromCacheSpy: jasmine.Spy;
     let getListNodeFromCacheSpy: jasmine.Spy;
 
@@ -46,8 +43,6 @@ describe("ResourcesConversionUtil", () => {
 
         knoraApiConnection = new KnoraApiConnection(config);
 
-        listNodeCache = new ListNodeCache(knoraApiConnection);
-
         getResourceClassDefinitionFromCacheSpy = spyOn(knoraApiConnection.v2.ontologyCache, "getResourceClassDefinition").and.callFake(
             (resClassIri: string) => {
                 const mock = MockOntology.mockIResourceClassAndPropertyDefinitions(resClassIri);
@@ -55,7 +50,7 @@ describe("ResourcesConversionUtil", () => {
             }
         );
 
-        getListNodeFromCacheSpy = spyOn(listNodeCache, "getNode").and.callFake(
+        getListNodeFromCacheSpy = spyOn(knoraApiConnection.v2.listNodeCache, "getNode").and.callFake(
             (listNodeIri: string) => {
                 return MockList.mockCompletedAsyncSubject(listNodeIri);
             }
@@ -73,7 +68,7 @@ describe("ResourcesConversionUtil", () => {
 
             const resource = require("../../../../test/data/api/v2/resources/testding-expanded.json");
 
-            ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, listNodeCache, jsonConvert).subscribe(
+            ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
                 resSeq => {
 
                     expect(resSeq.length).toEqual(1);
@@ -279,7 +274,7 @@ describe("ResourcesConversionUtil", () => {
 
             const resource = require("../../../../test/data/api/v2/resources/page-expanded.json");
 
-            ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, listNodeCache, jsonConvert).subscribe(
+            ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
                 resSeq => {
 
                     // console.log(resSeq[0].properties);
@@ -296,7 +291,7 @@ describe("ResourcesConversionUtil", () => {
 
             const resource = require("../../../../test/data/api/v2/resources/regions-expanded.json");
 
-            ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, listNodeCache, jsonConvert).subscribe(
+            ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
                 resSeq => {
 
                     expect(resSeq.length).toEqual(2);
@@ -317,7 +312,7 @@ describe("ResourcesConversionUtil", () => {
 
             const emptyResource = {};
 
-            ResourcesConversionUtil.createReadResourceSequence(emptyResource, knoraApiConnection.v2.ontologyCache, listNodeCache, jsonConvert).subscribe(
+            ResourcesConversionUtil.createReadResourceSequence(emptyResource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
                 resSeq => {
                     expect(resSeq.length).toEqual(0);
                     expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(0);
@@ -332,7 +327,7 @@ describe("ResourcesConversionUtil", () => {
 
             const resource = require("../../../../test/data/api/v2/resources/things-expanded.json");
 
-            ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, listNodeCache, jsonConvert).subscribe(
+            ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
                 resSeq => {
                     expect(resSeq.length).toEqual(2);
 
