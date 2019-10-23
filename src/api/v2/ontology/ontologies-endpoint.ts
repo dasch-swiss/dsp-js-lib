@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
-import { ApiResponseError } from "../../..";
+import { ApiResponseError } from "../../../models/api-response-error";
 import { OntologyConversionUtil } from "../../../models/v2/ontologies/OntologyConversionUtil";
 import { ReadOntology } from "../../../models/v2/ontologies/read-ontology";
 import { Endpoint } from "../../endpoint";
