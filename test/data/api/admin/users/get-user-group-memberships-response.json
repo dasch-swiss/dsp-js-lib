@@ -1,0 +1,30 @@
+{
+  "groups": [
+    {
+      "description": "A group for thing searchers.",
+      "id": "http://rdfh.ch/groups/0001/thing-searcher",
+      "name": "Thing searcher",
+      "project": {
+        "description": [
+          {
+            "value": "Anything Project"
+          }
+        ],
+        "id": "http://rdfh.ch/projects/0001",
+        "keywords": [],
+        "logo": null,
+        "longname": "Anything Project",
+        "ontologies": [
+          "http://www.knora.org/ontology/0001/anything",
+          "http://www.knora.org/ontology/0001/something"
+        ],
+        "selfjoin": false,
+        "shortcode": "0001",
+        "shortname": "anything",
+        "status": true
+      },
+      "selfjoin": true,
+      "status": true
+    }
+  ]
+}

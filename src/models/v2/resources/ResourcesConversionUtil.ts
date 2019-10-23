@@ -64,14 +64,11 @@ export namespace ResourcesConversionUtil {
      */
     const createReadResource = (resourceJsonld: { [index: string]: string | object[] }, ontologyCache: OntologyCache, listNodeCache: ListNodeCache, jsonConvert: JsonConvert): Observable<ReadResource> => {
 
-        // console.log("parsing ", resourceJsonld["@id"]);
-
         if (Array.isArray(resourceJsonld)) throw new Error("resource is expected to be a single object");
 
-        // determine resource class
-        const resourceType = resourceJsonld["@type"] as string;
+        const resource = jsonConvert.deserialize(resourceJsonld, ReadResource) as ReadResource;
 
-        return ontologyCache.getResourceClassDefinition(resourceType).pipe(mergeMap(
+        return ontologyCache.getResourceClassDefinition(resource.type).pipe(mergeMap(
             (entitiyDefs: IResourceClassAndPropertyDefinitions) => {
 
                 const resourceProps: string[] = Object.keys(resourceJsonld)
@@ -79,13 +76,9 @@ export namespace ResourcesConversionUtil {
                         return entitiyDefs.properties[propIri] instanceof ResourcePropertyDefinition;
                     });
 
-                // console.log("props ", resourceProps);
-
-                const resource = jsonConvert.deserialize(resourceJsonld, ReadResource) as ReadResource;
-
                 // add information from ontology
-                resource.resourceClassLabel = entitiyDefs.classes[resourceType].label;
-                resource.resourceClassComment = entitiyDefs.classes[resourceType].comment;
+                resource.resourceClassLabel = entitiyDefs.classes[resource.type].label;
+                resource.resourceClassComment = entitiyDefs.classes[resource.type].comment;
                 resource.entityInfo = entitiyDefs;
 
                 if (resourceProps.length > 0) {
@@ -260,55 +253,74 @@ export namespace ResourcesConversionUtil {
         switch (type) {
 
             case Constants.BooleanValue: {
-                value = handleSimpleValue(valueJsonld, ReadBooleanValue, jsonConvert);
+                const boolVal = handleSimpleValue(valueJsonld, ReadBooleanValue, jsonConvert);
+                value = boolVal.pipe(map((val: ReadBooleanValue) => {
+                    val.strval = val.bool ? "TRUE" : "FALSE";
+                    return val;
+                }));
                 break;
             }
 
             case Constants.ColorValue: {
-                value = handleSimpleValue(valueJsonld, ReadColorValue, jsonConvert);
+                const colorVal = handleSimpleValue(valueJsonld, ReadColorValue, jsonConvert);
+                value = colorVal.pipe(map((val: ReadColorValue) => {
+                    val.strval = val.color;
+                    return val;
+                }));
                 break;
             }
 
             case Constants.DateValue: {
-                const dateVal = handleSimpleValue(valueJsonld, ParseReadDateValue, jsonConvert) as Observable<ParseReadDateValue>;
+                const dateVal = handleSimpleValue(valueJsonld, ParseReadDateValue, jsonConvert);
                 value = dateVal.pipe(map(
-                    date => {
-                        return new ReadDateValue(date);
+                    (val: ParseReadDateValue) => {
+                        return new ReadDateValue(val);
                     }
                 ));
                 break;
             }
 
             case Constants.IntValue: {
-                value = handleSimpleValue(valueJsonld, ReadIntValue, jsonConvert);
+                const intVal = handleSimpleValue(valueJsonld, ReadIntValue, jsonConvert);
+                value = intVal.pipe(map((val: ReadIntValue) => {
+                    val.strval = val.int.toString();
+                    return val;
+                }));
                 break;
             }
 
             case Constants.DecimalValue: {
-                value = handleSimpleValue(valueJsonld, ReadDecimalValue, jsonConvert);
+                const decimalVal = handleSimpleValue(valueJsonld, ReadDecimalValue, jsonConvert);
+                value = decimalVal.pipe(map((val: ReadDecimalValue) => {
+                    val.strval = val.decimal.toString();
+                    return val;
+                }));
                 break;
             }
 
             case Constants.IntervalValue: {
-                value = handleSimpleValue(valueJsonld, ReadIntervalValue, jsonConvert);
+                const intervalVal = handleSimpleValue(valueJsonld, ReadIntervalValue, jsonConvert);
+                value = intervalVal.pipe(map((val: ReadIntervalValue) => {
+                    val.strval = val.start.toString() + " - " + val.end.toString();
+                    return val;
+                }));
                 break;
             }
 
             case Constants.ListValue: {
-                const listValue = value = handleSimpleValue(valueJsonld, ReadListValue, jsonConvert) as Observable<ReadListValue>;
+                const listValue = value = handleSimpleValue(valueJsonld, ReadListValue, jsonConvert);
                 value = listValue.pipe(
                     mergeMap(
                         (listVal: ReadListValue) => {
-
                             // get referred list node's label
                             return listNodeCache.getNode(listVal.listNode).pipe(
                                 map(
                                     listNode => {
                                         listVal.listNodeLabel = listNode.label;
+                                        listVal.strval = listNode.label;
                                         return listVal;
                                     })
                             );
-
                         }
                     )
                 );
@@ -316,24 +328,44 @@ export namespace ResourcesConversionUtil {
             }
 
             case Constants.UriValue: {
-                value = handleSimpleValue(valueJsonld, ReadUriValue, jsonConvert);
+                const uriVal = handleSimpleValue(valueJsonld, ReadUriValue, jsonConvert);
+                value = uriVal.pipe(map((val: ReadUriValue) => {
+                    val.strval = val.uri;
+                    return val;
+                }));
                 break;
             }
 
             case Constants.TextValue: {
-                value = handleTextValue(valueJsonld, jsonConvert);
+                const textVal = handleTextValue(valueJsonld, jsonConvert);
+                value = textVal.pipe(map((val: ReadTextValue) => {
+                    if (val instanceof ReadTextValueAsString) {
+                        val.strval = val.text;
+                    } else if (val instanceof ReadTextValueAsXml) {
+                        val.strval = val.xml;
+                    } else if (val instanceof ReadTextValueAsHtml) {
+                        val.strval = val.html;
+                    } else {
+                        console.error("String representation for a ReadTextValue could not be constructed for: ", type);
+                    }
+                    return val;
+                }));
                 break;
             }
 
             case Constants.LinkValue: {
-                value = handleLinkValue(valueJsonld, ontologyCache, listNodeCache, jsonConvert);
+                const linkVal = handleLinkValue(valueJsonld, ontologyCache, listNodeCache, jsonConvert);
+                value = linkVal.pipe(map((val: ReadLinkValue) => {
+                    val.strval = val.linkedResourceIri;
+                    return val;
+                }));
                 break;
             }
 
             case Constants.GeomValue: {
-                const geomValue = handleSimpleValue(valueJsonld, ParseReadGeomValue, jsonConvert) as Observable<ParseReadGeomValue>;
-                value = geomValue.pipe(map(
-                    geom => {
+                const geomVal = handleSimpleValue(valueJsonld, ParseReadGeomValue, jsonConvert);
+                value = geomVal.pipe(map(
+                    (geom: ParseReadGeomValue) => {
                         return new ReadGeomValue(geom);
                     }
                 ));
@@ -341,7 +373,11 @@ export namespace ResourcesConversionUtil {
             }
 
             case Constants.StillImageFileValue: {
-                value = handleSimpleValue(valueJsonld, ReadStillImageFileValue, jsonConvert);
+                const stillImageVal = handleSimpleValue(valueJsonld, ReadStillImageFileValue, jsonConvert);
+                value = stillImageVal.pipe(map((val: ReadStillImageFileValue) => {
+                    val.strval = val.fileUrl;
+                    return val;
+                }));
                 break;
             }
 
@@ -364,6 +400,11 @@ export namespace ResourcesConversionUtil {
 
     };
 
+    /**
+     * Creates a response to a count query.
+     * @param countQueryResult the result of the count query.
+     * @param jsonConvert the instance of jsonConvert to be used.
+     */
     export const createCountQueryResponse = (countQueryResult: object, jsonConvert: JsonConvert): CountQueryResponse => {
 
         if (Array.isArray(countQueryResult)) throw new Error("countQueryResult is expected to be a single object");
