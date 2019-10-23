@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
-import { ApiResponseError, KnoraApiConfig, ListNodeCache, OntologyCache } from "../../..";
+import { ApiResponseError, KnoraApiConfig, ListNodeCache } from "../../..";
 import { ReadResource } from "../../../models/v2/resources/read-resource";
 import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { Endpoint } from "../../endpoint";

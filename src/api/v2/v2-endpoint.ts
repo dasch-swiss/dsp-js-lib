@@ -1,4 +1,4 @@
-import { OntologyCache } from "../..";
+import { OntologyCache } from "../../cache/OntologyCache";
 import { KnoraApiConfig } from "../../knora-api-config";
 import { Endpoint } from "../endpoint";
 import { AuthenticationEndpoint } from "./authentication/authentication-endpoint";
