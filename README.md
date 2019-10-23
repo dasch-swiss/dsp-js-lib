@@ -8,10 +8,11 @@
 
 This JavaScript library allows a developer to implement the Knora API without knowing technical details about it.
 We published this library as `@knora/api` on NPM for easy integration into JavaScript projects.
+The library is developed in TypeScript and declaration files are part of the package to allow for integration with other TypeScript projects.
 
 # Changelog
 
-TBD.
+See file `CHANGLELOG.md`.
 
 # Getting started
 
@@ -21,10 +22,10 @@ This library has been written to be used in any JavaScript project.
 It may be integrated with any JavaScript framework/library of your choice, such as Angular, React, Vue.js, and more.
 
 We recommend to install this library through NPM. This will make sure that all dependencies are installed.
-At the moment, this library depends on `rxjs` and `json2typescript`.
+At the moment, this library depends on `rxjs`, `json2typescript`, and `jsonld`.
 
-In order to be able to integrate this library, you should have a basic understanding of `Observable`.
-All HTTP requests to Salsah are done by using observables through the rxjs library.
+In order to be able to integrate this library, you should have a basic understanding of an `Observable`.
+All HTTP requests to Knora are performed using an `Observable` through the RxJS library.
 
 ## Installation
 
@@ -37,10 +38,7 @@ Below you may find a minimal example in TypeScript for the process of the user l
 If your IDE does not automatically help you with imports, these are the necessary files for the basic example:
 
 ```
-import { KnoraApiConfig, KnoraApiConnection } from "@knora/api";
-import { ApiResponseData } from "@knora/api/src/models/api-response-data";
-import { ApiResponseError } from "@knora/api/src/models/api-response-error";
-import { LoginResponse } from "@knora/api/src/models/v2/login-response";
+import { KnoraApiConfig, KnoraApiConnection, ApiResponseData, ApiResponseError, LoginResponse } from "@knora/api";
 ```
 
 Now, we will set up an instance of the class `KnoraApiConnection`. 
@@ -80,6 +78,10 @@ Any subsequent call after a successful login will be performed using the session
 You will always need to subscribe to a method that returns an observable and then provide (up to) two anonymous functions.
 The signature of the success function is always `ApiResponseData<TheData> => void`, the signature of the error function is always `ApiResponseError => void`.
 
+## Test environment for Angular
+
+<https://github.com/dasch-swiss/knora-api-js-lib-test> provides a ready-to-use test environment for Angular developers.
+
 # Scripts for testing and deployment
 
 This package provides the following short-hand scripts:
@@ -92,6 +94,14 @@ This package provides the following short-hand scripts:
 
 > Note: You need to install `yalc` globally by `npm install yalc -g` to use script number 3. In order to publish a package to NPM, you need to be logged in to NPM and you have to update the version in the `package.json`.
 
+For further development with Knora the following scripts can be used:
+
+1. `./integrate-generated-files-admin.sh <path-to-generated-Knora-Admin-API-code`: integrate generated code for the Knora Admin API, 
+see <https://docs.knora.org> -> internals -> development -> generating client apis (use it without `mock=true`).
+2. `npm run integrate-vs-test-data <path-to-Knora-project-root>`: this scripts integrates JSON-LD test data for Knora API v2.
+3. `npm run expand-jsonld-test-data`: creates versions with expanded prefixes for Knora API v2 JSON-LD test data.
+
 # Documentation
 
-TBD
+For the public API, see <https://dasch-swiss.github.io/knora-api-js-lib>.
+For design documentation, see file `design-documentation.md`. 

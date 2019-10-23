@@ -5,6 +5,9 @@ import { ReadValue } from "./read-value";
 @JsonObject("ReadDateValue")
 export class ParseReadDateValue extends ReadValue {
 
+    @JsonProperty(Constants.ValueAsString, String)
+    datestring: string = "";
+
     @JsonProperty(Constants.DateValueHasCalendar, String)
     calendar: string = "";
 
@@ -105,7 +108,8 @@ export class ReadDateValue extends ReadValue {
             date.uuid,
             date.propertyLabel,
             date.propertyComment,
-            date.property
+            date.property,
+            date.datestring
         );
 
         if (date.startYear === date.endYear && date.startMonth === date.endMonth && date.startDay === date.endDay && date.startEra === date.endEra) {

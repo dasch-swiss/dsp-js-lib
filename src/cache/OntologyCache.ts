@@ -8,14 +8,25 @@ import { ReadOntology } from "../models/v2/ontologies/read-ontology";
 import { GenericCache } from "./GenericCache";
 
 /**
- * Contains resource class definitions
+ * Represents resource class definitions
  * and property definitions the resource classes have cardinalities for.
  */
 export interface IResourceClassAndPropertyDefinitions {
+
+    /**
+     * Resource class definitions and their cardinalities.
+     */
     classes: { [index: string]: ClassDefinition };
+
+    /**
+     * Property definitions referred to in cardinalities.
+     */
     properties: { [index: string]: PropertyDefinition };
 }
 
+/**
+ * Caches ontologies obtained from Knora and handles direct dependencies between ontologies.
+ */
 export class OntologyCache extends GenericCache<ReadOntology> {
 
     constructor(private knoraApiConnection: KnoraApiConnection, private knoraApiConfig: KnoraApiConfig) {
