@@ -1,6 +1,7 @@
 import { AsyncSubject, forkJoin, Observable, of } from "rxjs";
 import { map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig, KnoraApiConnection } from "..";
+import { V2Endpoint } from "../api/v2/v2-endpoint";
 import { ClassDefinition, IHasProperty } from "../models/v2/ontologies/class-definition";
 import { OntologyConversionUtil } from "../models/v2/ontologies/OntologyConversionUtil";
 import { PropertyDefinition } from "../models/v2/ontologies/property-definition";
@@ -29,7 +30,7 @@ export interface IResourceClassAndPropertyDefinitions {
  */
 export class OntologyCache extends GenericCache<ReadOntology> {
 
-    constructor(private knoraApiConnection: KnoraApiConnection, private knoraApiConfig: KnoraApiConfig) {
+    constructor(private knoraApiConfig: KnoraApiConfig, private v2Endpoint: V2Endpoint) {
         super();
     }
 
@@ -141,7 +142,7 @@ export class OntologyCache extends GenericCache<ReadOntology> {
     }
 
     protected requestItemFromKnora(key: string, isDependency: boolean): Observable<ReadOntology[]> {
-        return this.knoraApiConnection.v2.onto.getOntology(key).pipe(
+        return this.v2Endpoint.onto.getOntology(key).pipe(
             map((onto: ReadOntology) => [onto])
         );
     }

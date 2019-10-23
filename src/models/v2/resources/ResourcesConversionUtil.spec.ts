@@ -1,17 +1,17 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
-import { AsyncSubject, of } from "rxjs";
+import { of } from "rxjs";
 import {
     ListNodeCache,
     OntologyCache,
     ReadBooleanValue,
     ReadColorValue,
-    ReadDecimalValue, ReadGeomValue,
+    ReadDecimalValue,
+    ReadGeomValue,
     ReadIntervalValue,
     ReadIntValue,
     ReadLinkValue,
     ReadResource,
-    ReadTextValue,
     ReadTextValueAsString,
     ReadTextValueAsXml
 } from "../../..";
@@ -19,21 +19,18 @@ import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
-import { ListNode } from "../lists/list-node";
 import { ResourcesConversionUtil } from "./ResourcesConversionUtil";
+import { KnoraDate, Precision, ReadDateValue } from "./values/read-date-value";
 import { Point2D, RegionGeometry } from "./values/read-geom-value";
 import { ReadListValue } from "./values/read-list-value";
 import { ReadUriValue } from "./values/read-uri-value";
-import { KnoraDate, Precision, ReadDateValue } from "./values/read-date-value";
-import { ReadValue } from "./values/read-value";
 
 describe("ResourcesConversionUtil", () => {
 
     const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, "", true);
-    const knoraApiConnection = new KnoraApiConnection(config);
+    let knoraApiConnection: KnoraApiConnection;
 
-    const ontoCache = new OntologyCache(knoraApiConnection, config);
-    const listNodeCache = new ListNodeCache(knoraApiConnection);
+    let listNodeCache: ListNodeCache;
 
     let getResourceClassDefinitionFromCacheSpy: jasmine.Spy;
     let getListNodeFromCacheSpy: jasmine.Spy;
@@ -48,7 +45,11 @@ describe("ResourcesConversionUtil", () => {
     beforeEach(() => {
         jasmine.Ajax.install();
 
-        getResourceClassDefinitionFromCacheSpy = spyOn(ontoCache, "getResourceClassDefinition").and.callFake(
+        knoraApiConnection  = new KnoraApiConnection(config);
+
+        listNodeCache = new ListNodeCache(knoraApiConnection);
+
+        getResourceClassDefinitionFromCacheSpy = spyOn(knoraApiConnection.v2.ontologyCache, "getResourceClassDefinition").and.callFake(
             (resClassIri: string) => {
                 const mock = MockOntology.mockIResourceClassAndPropertyDefinitions(resClassIri);
                 return of(mock);
@@ -73,7 +74,7 @@ describe("ResourcesConversionUtil", () => {
 
             const resource = require("../../../../test/data/api/v2/resources/testding-expanded.json");
 
-            ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, listNodeCache, jsonConvert).subscribe(
+            ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, listNodeCache, jsonConvert).subscribe(
                 resSeq => {
 
                     expect(resSeq.length).toEqual(1);
@@ -279,7 +280,7 @@ describe("ResourcesConversionUtil", () => {
 
             const resource = require("../../../../test/data/api/v2/resources/page-expanded.json");
 
-            ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, listNodeCache, jsonConvert).subscribe(
+            ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, listNodeCache, jsonConvert).subscribe(
                 resSeq => {
 
                     // console.log(resSeq[0].properties);
@@ -296,7 +297,7 @@ describe("ResourcesConversionUtil", () => {
 
             const resource = require("../../../../test/data/api/v2/resources/regions-expanded.json");
 
-            ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, listNodeCache, jsonConvert).subscribe(
+            ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, listNodeCache, jsonConvert).subscribe(
                 resSeq => {
 
                     expect(resSeq.length).toEqual(2);
@@ -317,7 +318,7 @@ describe("ResourcesConversionUtil", () => {
 
             const emptyResource = {};
 
-            ResourcesConversionUtil.createReadResourceSequence(emptyResource, ontoCache, listNodeCache, jsonConvert).subscribe(
+            ResourcesConversionUtil.createReadResourceSequence(emptyResource, knoraApiConnection.v2.ontologyCache, listNodeCache, jsonConvert).subscribe(
                 resSeq => {
                     expect(resSeq.length).toEqual(0);
                     expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(0);
@@ -332,7 +333,7 @@ describe("ResourcesConversionUtil", () => {
 
             const resource = require("../../../../test/data/api/v2/resources/things-expanded.json");
 
-            ResourcesConversionUtil.createReadResourceSequence(resource, ontoCache, listNodeCache, jsonConvert).subscribe(
+            ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, listNodeCache, jsonConvert).subscribe(
                 resSeq => {
                     expect(resSeq.length).toEqual(2);
 
