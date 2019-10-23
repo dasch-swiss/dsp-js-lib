@@ -3,7 +3,6 @@ import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-c
 import { of } from "rxjs";
 import {
     ListNodeCache,
-    OntologyCache,
     ReadBooleanValue,
     ReadColorValue,
     ReadDecimalValue,
@@ -45,7 +44,7 @@ describe("ResourcesConversionUtil", () => {
     beforeEach(() => {
         jasmine.Ajax.install();
 
-        knoraApiConnection  = new KnoraApiConnection(config);
+        knoraApiConnection = new KnoraApiConnection(config);
 
         listNodeCache = new ListNodeCache(knoraApiConnection);
 

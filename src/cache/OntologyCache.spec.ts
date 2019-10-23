@@ -1,5 +1,4 @@
 import { of } from "rxjs";
-import { OntologyCache } from "..";
 import { MockOntology } from "../../test/data/api/v2/mockOntology";
 import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";

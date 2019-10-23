@@ -1,11 +1,10 @@
-import { AsyncSubject, of } from "rxjs";
-import { ListNodeCache, OntologyCache } from "../../..";
+import { of } from "rxjs";
+import { ListNodeCache } from "../../..";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
-import { ListNode } from "../../../models/v2/lists/list-node";
 import { ReadResource } from "../../../models/v2/resources/read-resource";
 
 describe("ResourcesEndpoint", () => {
@@ -88,7 +87,5 @@ describe("ResourcesEndpoint", () => {
         expect(request.method).toEqual("GET");
 
     });
-
-
 
 });
