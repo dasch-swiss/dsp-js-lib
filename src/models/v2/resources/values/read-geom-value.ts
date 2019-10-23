@@ -49,7 +49,8 @@ export class ReadGeomValue extends ReadValue {
             geometry.uuid,
             geometry.propertyLabel,
             geometry.propertyComment,
-            geometry.property
+            geometry.property,
+            "GEOMETRY"
         );
         
         const geometryJSON = JSON.parse(geometry.geometryString);
