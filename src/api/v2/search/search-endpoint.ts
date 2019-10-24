@@ -1,11 +1,13 @@
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
-import { ApiResponseError, ListNodeCache, OntologyCache } from "../../..";
+import { KnoraApiConfig } from "../../../knora-api-config";
+import { ApiResponseError } from "../../../models/api-response-error";
 import { ReadResource } from "../../../models/v2/resources/read-resource";
 import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { CountQueryResponse } from "../../../models/v2/search/count-query-response";
 import { Endpoint } from "../../endpoint";
+import { V2Endpoint } from "../v2-endpoint";
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require("jsonld/dist/jsonld.js");
@@ -53,6 +55,10 @@ export interface ILabelSearchParams {
  * Handles requests to the search route of the Knora API.
  */
 export class SearchEndpoint extends Endpoint {
+
+    constructor(protected readonly knoraApiConfig: KnoraApiConfig, protected readonly path: string, private readonly v2Endpoint: V2Endpoint) {
+        super(knoraApiConfig, path);
+    }
 
     /**
      * URL encodes fulltext search params.
@@ -113,12 +119,10 @@ export class SearchEndpoint extends Endpoint {
      * Performs a fulltext search.
      *
      * @param searchTerm the term to search for.
-     * @param ontologyCache instance of `OntologyCache` to be used.
-     * @param listNodeCache instance of `ListNodeCache` to be used.
      * @param offset offset to be used for paging, zero-based.
      * @param params parameters for fulltext search, if any.
      */
-    doFulltextSearch(searchTerm: string, ontologyCache: OntologyCache, listNodeCache: ListNodeCache, offset = 0, params?: IFulltextSearchParams): Observable<ReadResource[] | ApiResponseError> {
+    doFulltextSearch(searchTerm: string, offset = 0, params?: IFulltextSearchParams): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         return this.httpGet("/search/" + encodeURIComponent(searchTerm) + SearchEndpoint.encodeFulltextParams(offset, params)).pipe(
@@ -129,7 +133,7 @@ export class SearchEndpoint extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
-                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, ontologyCache, listNodeCache, this.jsonConvert);
+                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
             }),
             catchError(error => {
                 return this.handleError(error);
@@ -167,10 +171,8 @@ export class SearchEndpoint extends Endpoint {
      * Performs a Gravsearch query.
      *
      * @param gravsearchQuery the given Gravsearch query.
-     * @param ontologyCache instance of `OntologyCache` to be used.
-     * @param listNodeCache instance of `ListNodeCache` to be used.
      */
-    doExtendedSearch(gravsearchQuery: string, ontologyCache: OntologyCache, listNodeCache: ListNodeCache): Observable<ReadResource[] | ApiResponseError> {
+    doExtendedSearch(gravsearchQuery: string): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         // TODO: check if content-type have to be set to text/plain
@@ -183,7 +185,7 @@ export class SearchEndpoint extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
-                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, ontologyCache, listNodeCache, this.jsonConvert);
+                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
             }),
             catchError(error => {
                 return this.handleError(error);
@@ -219,12 +221,10 @@ export class SearchEndpoint extends Endpoint {
      * Performs a search by label.
      *
      * @param searchTerm the label to search for.
-     * @param ontologyCache instance of `OntologyCache` to be used.
-     * @param listNodeCache instance of `ListNodeCache` to be used.
      * @param offset offset to be used for paging, zero-based.
      * @param params parameters for fulltext search, if any.
      */
-    doSearchByLabel(searchTerm: string, ontologyCache: OntologyCache, listNodeCache: ListNodeCache, offset = 0, params?: ILabelSearchParams): Observable<ReadResource[] | ApiResponseError> {
+    doSearchByLabel(searchTerm: string, offset = 0, params?: ILabelSearchParams): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         return this.httpGet("/searchbylabel/" + encodeURIComponent(searchTerm) + SearchEndpoint.encodeLabelParams(offset, params)).pipe(
@@ -235,7 +235,7 @@ export class SearchEndpoint extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
-                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, ontologyCache, listNodeCache, this.jsonConvert);
+                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
             }),
             catchError(error => {
                 return this.handleError(error);

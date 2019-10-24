@@ -7,22 +7,8 @@ import { KnoraApiConfig } from "./knora-api-config";
  */
 export class KnoraApiConnection {
 
-    ///////////////
-    // CONSTANTS //
-    ///////////////
-
-    // <editor-fold desc="">
-
     static readonly PATH_ADMIN = "/admin";
     static readonly PATH_V2 = "/v2";
-
-    // </editor-fold>
-
-    ////////////////
-    // PROPERTIES //
-    ////////////////
-
-    // <editor-fold desc="">
 
     /**
      * Holds all endpoints of the admin route
@@ -33,14 +19,6 @@ export class KnoraApiConnection {
      * Holds all endpoints of the v2 route
      */
     readonly v2: V2Endpoint;
-
-    // </editor-fold>
-
-    /////////////////
-    // CONSTRUCTOR //
-    /////////////////
-
-    // <editor-fold desc="">
 
     /**
      * Constructor.
@@ -55,14 +33,4 @@ export class KnoraApiConnection {
         // todo more
 
     }
-
-    // </editor-fold>
-
-    /////////////
-    // METHODS //
-    /////////////
-
-    // <editor-fold desc="">
-    // </editor-fold>
-
 }

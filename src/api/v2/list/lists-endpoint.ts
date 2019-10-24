@@ -1,9 +1,8 @@
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
-import { ApiResponseError } from "../../..";
+import { ApiResponseError } from "../../../models/api-response-error";
 import { ListNode } from "../../../models/v2/lists/list-node";
-import { ReadOntology } from "../../../models/v2/ontologies/read-ontology";
 import { Endpoint } from "../../endpoint";
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined

@@ -1,4 +1,5 @@
-import { ApiResponseData, Project } from "../../..";
+import { Project } from "../../../models/admin/project";
+import { ApiResponseData } from "../../../models/api-response-data";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
@@ -7,7 +8,6 @@ import { MembersResponse } from "../../../models/admin/members-response";
 import { ProjectResponse } from "../../../models/admin/project-response";
 import { ProjectRestrictedViewSettingsResponse } from "../../../models/admin/project-restricted-view-settings-response";
 import { ProjectsResponse } from "../../../models/admin/projects-response";
-import { StoredProject } from "../../../models/admin/stored-project";
 import { StringLiteral } from "../../../models/admin/string-literal";
 import { UpdateProjectRequest } from "../../../models/admin/update-project-request";
 
