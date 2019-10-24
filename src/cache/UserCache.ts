@@ -1,8 +1,8 @@
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { ApiResponseData, UserResponse } from "..";
 import { KnoraApiConnection } from "../knora-api-connection";
-import { ReadOntology } from "../models/v2/ontologies/read-ontology";
+import { UserResponse } from "../models/admin/user-response";
+import { ApiResponseData } from "../models/api-response-data";
 import { GenericCache } from "./GenericCache";
 
 /**

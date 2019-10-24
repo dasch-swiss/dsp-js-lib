@@ -1,3 +1,5 @@
+import { ListNodeCache } from "../../cache/ListNodeCache";
+import { OntologyCache } from "../../cache/OntologyCache";
 import { KnoraApiConfig } from "../../knora-api-config";
 import { Endpoint } from "../endpoint";
 import { AuthenticationEndpoint } from "./authentication/authentication-endpoint";
@@ -11,35 +13,13 @@ import { SearchEndpoint } from "./search/search-endpoint";
  */
 export class V2Endpoint extends Endpoint {
 
-    ///////////////
-    // CONSTANTS //
-    ///////////////
-
-    // <editor-fold desc="">
-
     static readonly PATH_AUTHENTICATION = "/authentication";
 
     static readonly PATH_ONTOLOGIES = "/ontologies";
 
     static readonly PATH_RESOURCES = "/resources";
 
-    // </editor-fold>
-
-    ////////////////
-    // PROPERTIES //
-    ////////////////
-
-    // <editor-fold desc="">
-
     readonly auth: AuthenticationEndpoint;
-
-    // </editor-fold>
-
-    /////////////////
-    // CONSTRUCTOR //
-    /////////////////
-
-    // <editor-fold desc="">
 
     readonly onto: OntologiesEndpoint;
 
@@ -48,6 +28,10 @@ export class V2Endpoint extends Endpoint {
     readonly list: ListsEndpoint;
 
     readonly search: SearchEndpoint;
+
+    readonly ontologyCache: OntologyCache;
+
+    readonly listNodeCache: ListNodeCache;
 
     /**
      * Constructor.
@@ -62,19 +46,13 @@ export class V2Endpoint extends Endpoint {
         // Instantiate the endpoints
         this.auth = new AuthenticationEndpoint(knoraApiConfig, path + V2Endpoint.PATH_AUTHENTICATION);
         this.onto = new OntologiesEndpoint(knoraApiConfig, path + V2Endpoint.PATH_ONTOLOGIES);
-        this.res = new ResourcesEndpoint(knoraApiConfig, path + V2Endpoint.PATH_RESOURCES);
+        this.res = new ResourcesEndpoint(knoraApiConfig, path + V2Endpoint.PATH_RESOURCES, this);
         this.list = new ListsEndpoint(knoraApiConfig, path);
-        this.search = new SearchEndpoint(knoraApiConfig, path);
+        this.search = new SearchEndpoint(knoraApiConfig, path, this);
 
+        // Instantiate caches
+        this.ontologyCache = new OntologyCache(knoraApiConfig, this);
+        this.listNodeCache = new ListNodeCache(this);
     }
-
-    // </editor-fold>
-
-    /////////////
-    // METHODS //
-    /////////////
-
-    // <editor-fold desc="">
-    // </editor-fold>
 
 }

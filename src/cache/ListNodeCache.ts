@@ -1,5 +1,7 @@
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import { V2Endpoint } from "../api/v2/v2-endpoint";
+import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { ListConversionUtil } from "../models/v2/lists/list-conversion-util";
 import { ListNode } from "../models/v2/lists/list-node";
@@ -11,7 +13,7 @@ import { GenericCache } from "./GenericCache";
  */
 export class ListNodeCache extends GenericCache<ListNode> {
 
-    constructor(private knoraApiConnection: KnoraApiConnection) {
+    constructor(private v2Endpoint: V2Endpoint) {
         super();
     }
 
@@ -34,11 +36,11 @@ export class ListNodeCache extends GenericCache<ListNode> {
     protected requestItemFromKnora(key: string, isDependency: boolean): Observable<ListNode[]> {
         if (!isDependency) {
             // not a dependency, get the list node
-            return this.knoraApiConnection.v2.list.getNode(key)
+            return this.v2Endpoint.list.getNode(key)
                 .pipe(map((node: ListNode) => [node]));
         } else {
             // a dependency, get the whole list
-            const list = this.knoraApiConnection.v2.list.getList(key);
+            const list = this.v2Endpoint.list.getList(key);
 
             return (list as Observable<ListNode>).pipe(
                 map(

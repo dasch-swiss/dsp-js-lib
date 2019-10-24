@@ -1,4 +1,3 @@
-import { ApiResponseData, Group, UsersResponse } from "../../..";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
@@ -6,8 +5,8 @@ import { CreateGroupRequest } from "../../../models/admin/create-group-request";
 import { GroupResponse } from "../../../models/admin/group-response";
 import { GroupsResponse } from "../../../models/admin/groups-response";
 import { MembersResponse } from "../../../models/admin/members-response";
-import { StoredGroup } from "../../../models/admin/stored-group";
 import { UpdateGroupRequest } from "../../../models/admin/update-group-request";
+import { ApiResponseData } from "../../../models/api-response-data";
 
 describe("GroupsEndpoint", () => {
 
@@ -55,7 +54,7 @@ describe("GroupsEndpoint", () => {
 
             const group = new CreateGroupRequest();
 
-            group.name =  "NewGroup";
+            group.name = "NewGroup";
             group.project = "http://rdfh.ch/projects/00FF";
             group.description = "NewGroupDescription";
             group.status = true;
@@ -124,7 +123,7 @@ describe("GroupsEndpoint", () => {
 
             const groupInfo = new UpdateGroupRequest();
 
-            groupInfo.name =  "UpdatedGroupName";
+            groupInfo.name = "UpdatedGroupName";
             groupInfo.description = "UpdatedGroupDescription";
 
             knoraApiConnection.admin.groupsEndpoint.updateGroup(groupIri, groupInfo).subscribe(

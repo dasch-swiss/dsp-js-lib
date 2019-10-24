@@ -1,4 +1,7 @@
-import { ApiResponseData, ApiResponseError, LoginResponse, LogoutResponse } from "../../..";
+import { LogoutResponse } from  "../../../models/v2/authentication/logout-response";
+import { ApiResponseError } from "../../../models/api-response-error";
+import { LoginResponse } from "../../../models/v2/authentication/login-response";
+import { ApiResponseData } from "../../../models/api-response-data";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
