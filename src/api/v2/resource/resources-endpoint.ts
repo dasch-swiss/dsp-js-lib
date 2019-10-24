@@ -24,7 +24,6 @@ export class ResourcesEndpoint extends Endpoint {
      * Given a sequence of resource IRIs, gets the resources from Knora.
      *
      * @param resourceIris Iris of the resources to get.
-     * @param listNodeCache instance of `ListNodeCache` to be used.
      */
     getResources(resourceIris: string[]): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
@@ -56,7 +55,6 @@ export class ResourcesEndpoint extends Endpoint {
      * Given a resource IRI, gets the resource from Knora.
      *
      * @param resourceIri Iri of the resource to get.
-     * @param listNodeCache instance of `ListNodeCache` to use.
      */
     getResource(resourceIri: string): Observable<ReadResource | ApiResponseError> {
         return this.getResources([resourceIri]).pipe(
