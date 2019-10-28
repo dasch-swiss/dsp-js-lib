@@ -1,9 +1,11 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { of } from "rxjs";
-import { ApiResponseData, ApiResponseError, UserResponse } from "..";
 import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
+import { UserResponse } from "../models/admin/user-response";
+import { ApiResponseData } from "../models/api-response-data";
+import { ApiResponseError } from "../models/api-response-error";
 import { UserCache } from "./UserCache";
 
 describe("UserCache", () => {
