@@ -37,4 +37,6 @@ export { ReadTextValue, ReadTextValueAsString, ReadTextValueAsHtml, ReadTextValu
 export { ReadUriValue } from "./models/v2/resources/values/read-uri-value";
 export { ReadValue } from "./models/v2/resources/values/read-value";
 
+export { ListNode } from "./models/v2/lists/list-node";
+
 export { Constants } from "./models/v2/Constants";
