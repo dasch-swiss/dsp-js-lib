@@ -19,6 +19,7 @@ export { ApiResponse } from "./models/api-response";
 export { ApiResponseData } from "./models/api-response-data";
 export { ApiResponseError } from "./models/api-response-error";
 
+export { ReadOntology } from "./models/v2/ontologies/read-ontology";
 export { ReadResource } from "./models/v2/resources/read-resource";
 export { CountQueryResponse} from "./models/v2/search/count-query-response";
 
