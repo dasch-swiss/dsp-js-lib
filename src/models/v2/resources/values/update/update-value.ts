@@ -1,8 +1,8 @@
 import { JsonProperty } from "json2typescript";
-import { Constants } from "../../Constants";
-import { BaseValue } from "./base-value";
+import { Constants } from "../../../Constants";
+import { BaseValue } from "../base-value";
 
-export class UpdateValue extends BaseValue {
+export abstract class UpdateValue extends BaseValue {
 
     @JsonProperty("@id", String)
     id: string = "";

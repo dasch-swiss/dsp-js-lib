@@ -7,17 +7,17 @@ import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ReadResource } from "./read-resource";
 import { ResourcesConversionUtil } from "./ResourcesConversionUtil";
-import { ReadBooleanValue } from "./values/read-boolean-value";
-import { ReadColorValue } from "./values/read-color-value";
-import { KnoraDate, Precision, ReadDateValue } from "./values/read-date-value";
-import { ReadDecimalValue } from "./values/read-decimal-value";
-import { Point2D, ReadGeomValue, RegionGeometry } from "./values/read-geom-value";
-import { ReadIntValue } from "./values/read-int-value";
-import { ReadIntervalValue } from "./values/read-interval-value";
-import { ReadLinkValue } from "./values/read-link-value";
-import { ReadListValue } from "./values/read-list-value";
-import { ReadTextValueAsString, ReadTextValueAsXml } from "./values/read-text-value";
-import { ReadUriValue } from "./values/read-uri-value";
+import { ReadBooleanValue } from "./values/read/read-boolean-value";
+import { ReadColorValue } from "./values/read/read-color-value";
+import { KnoraDate, Precision, ReadDateValue } from "./values/read/read-date-value";
+import { ReadDecimalValue } from "./values/read/read-decimal-value";
+import { Point2D, ReadGeomValue, RegionGeometry } from "./values/read/read-geom-value";
+import { ReadIntValue } from "./values/read/read-int-value";
+import { ReadIntervalValue } from "./values/read/read-interval-value";
+import { ReadLinkValue } from "./values/read/read-link-value";
+import { ReadListValue } from "./values/read/read-list-value";
+import { ReadTextValueAsString, ReadTextValueAsXml } from "./values/read/read-text-value";
+import { ReadUriValue } from "./values/read/read-uri-value";
 
 describe("ResourcesConversionUtil", () => {
 

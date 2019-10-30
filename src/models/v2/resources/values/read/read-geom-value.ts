@@ -1,5 +1,5 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-import { Constants } from "../../Constants";
+import { Constants } from "../../../Constants";
 import { ReadValue } from "./read-value";
 
 @JsonObject("ReadGeomValue")

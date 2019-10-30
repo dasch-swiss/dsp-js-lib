@@ -1,9 +1,9 @@
 import { JsonProperty } from "json2typescript";
-import { Constants } from "../../Constants";
-import { DateTimeStamp } from "../../custom-converters/date-time-stamp-converter";
-import { IdConverter } from "../../custom-converters/id-converter";
-import { UriConverter } from "../../custom-converters/uri-converter";
-import { BaseValue } from "./base-value";
+import { Constants } from "../../../Constants";
+import { DateTimeStamp } from "../../../custom-converters/date-time-stamp-converter";
+import { IdConverter } from "../../../custom-converters/id-converter";
+import { UriConverter } from "../../../custom-converters/uri-converter";
+import { BaseValue } from "../base-value";
 
 export class ReadValue extends BaseValue {
 

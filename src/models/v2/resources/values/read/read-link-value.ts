@@ -1,5 +1,5 @@
 import { JsonObject } from "json2typescript";
-import { ReadResource } from "../read-resource";
+import { ReadResource } from "../../read-resource";
 import { ReadValue } from "./read-value";
 
 @JsonObject("ReadLinkValue")

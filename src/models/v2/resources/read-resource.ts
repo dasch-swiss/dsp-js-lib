@@ -5,7 +5,7 @@ import { DateTimeStamp } from "../custom-converters/date-time-stamp-converter";
 import { IdConverter } from "../custom-converters/id-converter";
 import { UriConverter } from "../custom-converters/uri-converter";
 import { TypeGuard } from "./type-guard";
-import { ReadValue } from "./values/read-value";
+import { ReadValue } from "./values/read/read-value";
 
 @JsonObject("ReadResource")
 export class ReadResource {

@@ -1,6 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-import { Constants } from "../../Constants";
-import { IdConverter } from "../../custom-converters/id-converter";
+import { Constants } from "../../../Constants";
+import { IdConverter } from "../../../custom-converters/id-converter";
 import { ReadValue } from "./read-value";
 
 export abstract class ReadTextValue extends ReadValue {
