@@ -109,7 +109,8 @@ export class ReadDateValue extends ReadValue {
             date.propertyLabel,
             date.propertyComment,
             date.property,
-            date.datestring
+            date.datestring,
+            date.valueHasComment
         );
 
         if (date.startYear === date.endYear && date.startMonth === date.endMonth && date.startDay === date.endDay && date.startEra === date.endEra) {

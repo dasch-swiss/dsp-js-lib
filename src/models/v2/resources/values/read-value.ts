@@ -3,14 +3,12 @@ import { Constants } from "../../Constants";
 import { DateTimeStamp } from "../../custom-converters/date-time-stamp-converter";
 import { IdConverter } from "../../custom-converters/id-converter";
 import { UriConverter } from "../../custom-converters/uri-converter";
+import { BaseValue } from "./base-value";
 
-export class ReadValue {
+export class ReadValue extends BaseValue {
 
     @JsonProperty("@id", String)
     id: string = "";
-
-    @JsonProperty("@type", String)
-    type: string = "";
 
     @JsonProperty(Constants.AttachedToUser, IdConverter)
     attachedToUser: string = "";
@@ -53,7 +51,10 @@ export class ReadValue {
                 propertyLabel?: string,
                 propertyComment?: string,
                 property?: string,
-                strval?: string) {
+                strval?: string,
+                valueHasComment?: string) {
+
+        super();
 
         if (id !== undefined) this.id = id;
         if (type !== undefined) this.type = type;
@@ -68,6 +69,7 @@ export class ReadValue {
         if (propertyComment !== undefined) this.propertyComment = propertyLabel;
         if (property !== undefined) this.property = property;
         if (strval !== undefined) this.strval = strval;
+        if (valueHasComment !== undefined) this.valueHasComment = valueHasComment;
 
     }
 }

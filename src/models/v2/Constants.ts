@@ -71,8 +71,9 @@ export class Constants {
     static StillImageFileValueHasIIIFBaseUrl = Constants.KnoraApiV2 + Constants.Delimiter + "stillImageFileValueHasIIIFBaseUrl";
     static FileValueHasFilename = Constants.KnoraApiV2 + Constants.Delimiter + "fileValueHasFilename";
     static FileValueAsUrl = Constants.KnoraApiV2 + Constants.Delimiter + "fileValueAsUrl";
+    static ValueHasComment = Constants.KnoraApiV2 + Constants.Delimiter + "valueHasComment";
 
-    static KnoraAdminV2 = "http://api.knora.org/ontology/knora-admin/v2";
+        static KnoraAdminV2 = "http://api.knora.org/ontology/knora-admin/v2";
 
     static SalsahGui = "http://api.knora.org/ontology/salsah-gui/v2";
     static GuiAttribute = Constants.SalsahGui + Constants.Delimiter + "guiAttribute";
