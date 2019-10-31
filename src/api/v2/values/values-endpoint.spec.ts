@@ -39,7 +39,7 @@ describe("ValuesEndpoint", () => {
 
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 res => {
-                    console.log(res);
+                    //console.log(res);
                     done();
                 }
             );

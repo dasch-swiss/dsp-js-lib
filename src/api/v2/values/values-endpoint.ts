@@ -16,8 +16,6 @@ export class ValuesEndpoint extends Endpoint {
 
         res[resource.property] = val;
 
-        console.log(res);
-
         return this.httpPut("", res);
     }
 
