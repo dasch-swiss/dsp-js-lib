@@ -3,7 +3,6 @@ import { Constants } from "../../../Constants";
 import { DateTimeStamp } from "../../../custom-converters/date-time-stamp-converter";
 import { IdConverter } from "../../../custom-converters/id-converter";
 import { UriConverter } from "../../../custom-converters/uri-converter";
-import { BaseValue } from "../base-value";
 import { ReadWriteValue } from "../read-write-value";
 
 @JsonObject("ReadValue")
