@@ -4,6 +4,7 @@ import { Constants } from "../../Constants";
 import { CreateIntValue } from "./create/create-int-value";
 import { DeleteIntValue } from "./delete/delete-int-value";
 import { UpdateIntValue } from "./update/update-int-value";
+import { UpdateValuePermissions } from "./update/update-value-permissions";
 
 describe("ValueConversion", () => {
 
@@ -81,6 +82,26 @@ describe("ValueConversion", () => {
                 "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
                 "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg",
                 "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 1,
+                "http://api.knora.org/ontology/knora-api/v2#hasPermissions": "RV"
+            };
+
+            expect(result).toEqual(expectedResult);
+
+        });
+
+        it("update an Integer Value with permissions", () => {
+
+            const updatePermissions = new UpdateValuePermissions();
+
+            updatePermissions.id = "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg";
+            updatePermissions.type = Constants.IntValue;
+            updatePermissions.hasPermissions = "RV";
+
+            const result: any = jsonConvert.serializeObject(updatePermissions);
+
+            const expectedResult = {
+                "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
+                "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg",
                 "http://api.knora.org/ontology/knora-api/v2#hasPermissions": "RV"
             };
 
