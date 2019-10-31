@@ -20,7 +20,7 @@ export { ApiResponseData } from "./models/api-response-data";
 export { ApiResponseError } from "./models/api-response-error";
 
 export { ReadOntology } from "./models/v2/ontologies/read-ontology";
-export { ReadResource } from "./models/v2/resources/read-resource";
+export { ReadResource } from "./models/v2/resources/read/read-resource";
 export { CountQueryResponse} from "./models/v2/search/count-query-response";
 
 export { ReadBooleanValue } from "./models/v2/resources/values/read/read-boolean-value";

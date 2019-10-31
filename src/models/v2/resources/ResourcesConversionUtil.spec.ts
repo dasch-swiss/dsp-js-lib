@@ -5,7 +5,7 @@ import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
-import { ReadResource } from "./read-resource";
+import { ReadResource } from "./read/read-resource";
 import { ResourcesConversionUtil } from "./ResourcesConversionUtil";
 import { ReadBooleanValue } from "./values/read/read-boolean-value";
 import { ReadColorValue } from "./values/read/read-color-value";

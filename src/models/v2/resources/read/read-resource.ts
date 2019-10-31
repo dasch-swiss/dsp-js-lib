@@ -1,20 +1,15 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-import { IResourceClassAndPropertyDefinitions } from "../../../cache/OntologyCache";
-import { Constants } from "../Constants";
-import { DateTimeStamp } from "../custom-converters/date-time-stamp-converter";
-import { IdConverter } from "../custom-converters/id-converter";
-import { UriConverter } from "../custom-converters/uri-converter";
-import { TypeGuard } from "./type-guard";
-import { ReadValue } from "./values/read/read-value";
+import { IResourceClassAndPropertyDefinitions } from "../../../../cache/OntologyCache";
+import { Constants } from "../../Constants";
+import { DateTimeStamp } from "../../custom-converters/date-time-stamp-converter";
+import { IdConverter } from "../../custom-converters/id-converter";
+import { UriConverter } from "../../custom-converters/uri-converter";
+import { ReadWriteResource } from "../read-write-resource";
+import { TypeGuard } from "../type-guard";
+import { ReadValue } from "../values/read/read-value";
 
 @JsonObject("ReadResource")
-export class ReadResource {
-
-    @JsonProperty("@id", String)
-    id: string = "";
-
-    @JsonProperty("@type", String)
-    type: string = "";
+export class ReadResource extends ReadWriteResource {
 
     @JsonProperty(Constants.Label, String)
     label: string = "";
@@ -110,9 +105,9 @@ export class ReadResource {
      * @param property the IRI of the property.
      * @param defaultStr placeholder if there is no string representation of a value.
      */
-    getValuesAsStringArray(property: string, defaultStr: string = '?'): string[] {
+    getValuesAsStringArray(property: string, defaultStr: string = "?"): string[] {
         const vals: ReadValue[] = this.getValues(property);
-        return vals.map((val: ReadValue) =>  {
+        return vals.map((val: ReadValue) => {
             return val.strval === undefined ? defaultStr : val.strval;
         });
     }

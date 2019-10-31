@@ -6,7 +6,7 @@ import { IResourceClassAndPropertyDefinitions, OntologyCache } from "../../../ca
 import { Constants } from "../Constants";
 import { ResourcePropertyDefinition } from "../ontologies/resource-property-definition";
 import { CountQueryResponse } from "../search/count-query-response";
-import { ReadResource } from "./read-resource";
+import { ReadResource } from "./read/read-resource";
 import { ReadBooleanValue } from "./values/read/read-boolean-value";
 import { ReadColorValue } from "./values/read/read-color-value";
 import { ParseReadDateValue, ReadDateValue } from "./values/read/read-date-value";
