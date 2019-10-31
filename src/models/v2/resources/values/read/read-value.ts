@@ -4,9 +4,10 @@ import { DateTimeStamp } from "../../../custom-converters/date-time-stamp-conver
 import { IdConverter } from "../../../custom-converters/id-converter";
 import { UriConverter } from "../../../custom-converters/uri-converter";
 import { BaseValue } from "../base-value";
+import { ReadWriteValue } from "../read-write-value";
 
 @JsonObject("ReadValue")
-export class ReadValue extends BaseValue {
+export class ReadValue extends ReadWriteValue {
 
     @JsonProperty("@id", String)
     id: string = "";

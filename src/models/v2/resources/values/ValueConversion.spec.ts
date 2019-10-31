@@ -22,61 +22,117 @@ describe("ValueConversion", () => {
         jasmine.Ajax.uninstall();
     });
 
-    it("update an Integer Value without comment", () => {
+    describe("Update a value", () => {
 
-        const updateIntVal = new UpdateIntValue();
+        it("update an Integer Value", () => {
 
-        updateIntVal.id = "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg";
-        updateIntVal.type = Constants.IntValue;
-        updateIntVal.int = 1;
+            const updateIntVal = new UpdateIntValue();
 
-        const result: any = jsonConvert.serializeObject(updateIntVal);
+            updateIntVal.id = "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg";
+            updateIntVal.type = Constants.IntValue;
+            updateIntVal.int = 1;
 
-        const expectedResult = {
-            "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
-            "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg",
-            "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 1
-        };
+            const result: any = jsonConvert.serializeObject(updateIntVal);
 
-        expect(result).toEqual(expectedResult);
+            const expectedResult = {
+                "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
+                "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg",
+                "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 1
+            };
+
+            expect(result).toEqual(expectedResult);
+
+        });
+
+        it("update an Integer Value with comment", () => {
+
+            const updateIntVal = new UpdateIntValue();
+
+            updateIntVal.id = "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg";
+            updateIntVal.type = Constants.IntValue;
+            updateIntVal.int = 1;
+            updateIntVal.valueHasComment = "comment on 1";
+
+            const result: any = jsonConvert.serializeObject(updateIntVal);
+
+            const expectedResult = {
+                "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
+                "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg",
+                "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 1,
+                "http://api.knora.org/ontology/knora-api/v2#valueHasComment": "comment on 1"
+            };
+
+            expect(result).toEqual(expectedResult);
+
+        });
+
+        it("update an Integer Value with permissions", () => {
+
+            const updateIntVal = new UpdateIntValue();
+
+            updateIntVal.id = "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg";
+            updateIntVal.type = Constants.IntValue;
+            updateIntVal.int = 1;
+            updateIntVal.hasPermissions = "RV";
+
+            const result: any = jsonConvert.serializeObject(updateIntVal);
+
+            const expectedResult = {
+                "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
+                "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg",
+                "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 1,
+                "http://api.knora.org/ontology/knora-api/v2#hasPermissions": "RV"
+            };
+
+            expect(result).toEqual(expectedResult);
+
+        });
 
     });
 
-    it("create an Integer Value without comment", () => {
+    describe("Create a value", () => {
 
-        const createIntVal = new CreateIntValue();
+        it("create an Integer Value without comment", () => {
 
-        createIntVal.type = Constants.IntValue;
-        createIntVal.int = 1;
+            const createIntVal = new CreateIntValue();
 
-        const result: any = jsonConvert.serializeObject(createIntVal);
+            createIntVal.type = Constants.IntValue;
+            createIntVal.int = 1;
 
-        const expectedResult = {
-            "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
-            "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 1
-        };
+            const result: any = jsonConvert.serializeObject(createIntVal);
 
-        expect(result).toEqual(expectedResult);
+            const expectedResult = {
+                "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
+                "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 1
+            };
+
+            expect(result).toEqual(expectedResult);
+
+        });
 
     });
 
-    it("delete an Integer Value without comment", () => {
+    describe("Create a value", () => {
 
-        const deleteIntVal = new DeleteIntValue();
+        it("delete an Integer Value without comment", () => {
 
-        deleteIntVal.id = "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg";
-        deleteIntVal.type = Constants.IntValue;
-        deleteIntVal.int = 1;
+            const deleteIntVal = new DeleteIntValue();
 
-        const result: any = jsonConvert.serializeObject(deleteIntVal);
+            deleteIntVal.id = "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg";
+            deleteIntVal.type = Constants.IntValue;
+            deleteIntVal.int = 1;
 
-        const expectedResult = {
-            "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg",
-            "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
-            "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 1
-        };
+            const result: any = jsonConvert.serializeObject(deleteIntVal);
 
-        expect(result).toEqual(expectedResult);
+            const expectedResult = {
+                "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg",
+                "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
+                "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 1
+            };
+
+            expect(result).toEqual(expectedResult);
+
+        });
 
     });
 
