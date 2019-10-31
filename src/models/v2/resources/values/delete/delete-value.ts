@@ -1,7 +1,8 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../../Constants";
 
-export abstract class DeleteValue {
+@JsonObject("DeleteValue")
+export class DeleteValue {
 
     @JsonProperty("@id", String)
     id: string = "";

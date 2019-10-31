@@ -2,7 +2,7 @@ import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { Constants } from "../../Constants";
 import { CreateIntValue } from "./create/create-int-value";
-import { DeleteIntValue } from "./delete/delete-int-value";
+import { DeleteValue } from "./delete/delete-value";
 import { UpdateIntValue } from "./update/update-int-value";
 import { UpdateValuePermissions } from "./update/update-value-permissions";
 
@@ -133,22 +133,40 @@ describe("ValueConversion", () => {
 
     });
 
-    describe("Create a value", () => {
+    describe("Delete a value", () => {
 
-        it("delete an Integer Value without comment", () => {
+        it("delete a value", () => {
 
-            const deleteIntVal = new DeleteIntValue();
+            const deleteVal = new DeleteValue();
 
-            deleteIntVal.id = "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg";
-            deleteIntVal.type = Constants.IntValue;
-            deleteIntVal.int = 1;
+            deleteVal.id = "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg";
+            deleteVal.type = Constants.IntValue;
 
-            const result: any = jsonConvert.serializeObject(deleteIntVal);
+            const result: any = jsonConvert.serializeObject(deleteVal);
 
             const expectedResult = {
                 "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg",
                 "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
-                "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 1
+            };
+
+            expect(result).toEqual(expectedResult);
+
+        });
+
+        it("delete a value with a delete comment", () => {
+
+            const deleteVal = new DeleteValue();
+
+            deleteVal.id = "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg";
+            deleteVal.type = Constants.IntValue;
+            deleteVal.deleteComment = "delete it";
+
+            const result: any = jsonConvert.serializeObject(deleteVal);
+
+            const expectedResult = {
+                "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg",
+                "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
+                "http://api.knora.org/ontology/knora-api/v2#deleteComment": "delete it"
             };
 
             expect(result).toEqual(expectedResult);
