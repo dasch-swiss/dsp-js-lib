@@ -21,6 +21,10 @@ export { ApiResponseError } from "./models/api-response-error";
 
 export { ReadOntology } from "./models/v2/ontologies/read-ontology";
 export { ReadResource } from "./models/v2/resources/read/read-resource";
+export { UpdateResource } from "./models/v2/resources/update/update-resource";
+
+export { UpdateValue } from "./models/v2/resources/values/update/update-value";
+export { UpdateIntValue } from "./models/v2/resources/values/update/update-int-value";
 export { CountQueryResponse} from "./models/v2/search/count-query-response";
 
 export { ReadBooleanValue } from "./models/v2/resources/values/read/read-boolean-value";
