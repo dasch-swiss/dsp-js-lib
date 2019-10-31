@@ -73,6 +73,7 @@ export class Constants {
     static FileValueAsUrl = Constants.KnoraApiV2 + Constants.Delimiter + "fileValueAsUrl";
     static ValueHasComment = Constants.KnoraApiV2 + Constants.Delimiter + "valueHasComment";
     static DeleteComment = Constants.KnoraApiV2 + Constants.Delimiter + "deleteComment";
+    static Result = Constants.KnoraApiV2 + Constants.Delimiter + "result";
 
     static KnoraAdminV2 = "http://api.knora.org/ontology/knora-admin/v2";
 

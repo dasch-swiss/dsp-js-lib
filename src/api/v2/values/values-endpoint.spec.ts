@@ -4,6 +4,8 @@ import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { UpdateResource } from "../../../models/v2/resources/update/update-resource";
 import { CreateIntValue } from "../../../models/v2/resources/values/create/create-int-value";
+import { DeleteValue } from "../../../models/v2/resources/values/delete/delete-value";
+import { DeleteValueResponse } from "../../../models/v2/resources/values/delete/delete-value-response";
 import { UpdateIntValue } from "../../../models/v2/resources/values/update/update-int-value";
 import { UpdateValue } from "../../../models/v2/resources/values/update/update-value";
 import { WriteValueResponse } from "../../../models/v2/resources/values/write-value-response";
@@ -120,5 +122,60 @@ describe("ValuesEndpoint", () => {
             expect(request.data()).toEqual(expectedPayload);
 
         });
+    });
+
+    describe("Method deleteValue", () => {
+
+        it("should delete a value", done => {
+
+            const deleteVal = new DeleteValue();
+
+            deleteVal.id = "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rh";
+            deleteVal.type = "http://api.knora.org/ontology/knora-api/v2#IntValue";
+
+            const updateResource = new UpdateResource<DeleteValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/a-thing";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
+
+            updateResource.value = deleteVal;
+
+            knoraApiConnection.v2.values.deleteValue(updateResource).subscribe(
+                (res: DeleteValueResponse) => {
+                    expect(res.result).toEqual("Value <http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg> marked as deleted");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(
+                {
+                    "knora-api:result": "Value <http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg> marked as deleted",
+                    "@context": {
+                        "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
+                    }
+                }
+            )));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values/delete");
+
+            expect(request.method).toEqual("POST");
+
+            const expectedPayload = {
+                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
+                "@id": "http://rdfh.ch/0001/a-thing",
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger": {
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
+                    "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rh"
+                }
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+
+        });
+
+
     });
 });

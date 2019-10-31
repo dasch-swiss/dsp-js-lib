@@ -1,9 +1,11 @@
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
-import { ApiResponseError } from "../../..";
+import { ApiResponseError, ReadResource, ReadValue } from "../../..";
 import { UpdateResource } from "../../../models/v2/resources/update/update-resource";
 import { CreateValue } from "../../../models/v2/resources/values/create/create-value";
+import { DeleteValue } from "../../../models/v2/resources/values/delete/delete-value";
+import { DeleteValueResponse } from "../../../models/v2/resources/values/delete/delete-value-response";
 import { UpdateValue } from "../../../models/v2/resources/values/update/update-value";
 import { WriteValueResponse } from "../../../models/v2/resources/values/write-value-response";
 import { Endpoint } from "../../endpoint";
@@ -38,7 +40,7 @@ export class ValuesEndpoint extends Endpoint {
         );
     }
 
-    createValue(resource: UpdateResource<CreateValue>) {
+    createValue(resource: UpdateResource<CreateValue>): Observable<WriteValueResponse | ApiResponseError> {
 
         const res = this.jsonConvert.serializeObject(resource);
 
@@ -61,7 +63,26 @@ export class ValuesEndpoint extends Endpoint {
 
     }
 
-    deleteValue() {
+    deleteValue(resource: UpdateResource<DeleteValue>): Observable<DeleteValueResponse | ApiResponseError> {
+
+        const res = this.jsonConvert.serializeObject(resource);
+
+        const val = this.jsonConvert.serializeObject(resource.value);
+
+        res[resource.property] = val;
+
+        return this.httpPost("/delete", res).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // console.log(JSON.stringify(ajaxResponse.response));
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }),
+            map(jsonldobj => {
+                return this.jsonConvert.deserializeObject(jsonldobj, DeleteValueResponse);
+            }),
+            catchError(error => this.handleError(error))
+        );
 
     }
 }
