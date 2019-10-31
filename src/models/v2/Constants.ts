@@ -72,8 +72,9 @@ export class Constants {
     static FileValueHasFilename = Constants.KnoraApiV2 + Constants.Delimiter + "fileValueHasFilename";
     static FileValueAsUrl = Constants.KnoraApiV2 + Constants.Delimiter + "fileValueAsUrl";
     static ValueHasComment = Constants.KnoraApiV2 + Constants.Delimiter + "valueHasComment";
+    static DeleteComment = Constants.KnoraApiV2 + Constants.Delimiter + "deleteComment";
 
-        static KnoraAdminV2 = "http://api.knora.org/ontology/knora-admin/v2";
+    static KnoraAdminV2 = "http://api.knora.org/ontology/knora-admin/v2";
 
     static SalsahGui = "http://api.knora.org/ontology/salsah-gui/v2";
     static GuiAttribute = Constants.SalsahGui + Constants.Delimiter + "guiAttribute";
@@ -99,7 +100,7 @@ export class Constants {
     static Xsd = "http://www.w3.org/2001/XMLSchema";
     static XsdAnyUri = Constants.Xsd + Constants.Delimiter + "anyURI";
     static XsdDecimal = Constants.Xsd + Constants.Delimiter + "decimal";
-	static dateTimeStamp = Constants.Xsd + Constants.Delimiter + "dateTimeStamp";
+    static dateTimeStamp = Constants.Xsd + Constants.Delimiter + "dateTimeStamp";
 
     static SchemaNumberOfItems = "http://schema.org/numberOfItems";
 

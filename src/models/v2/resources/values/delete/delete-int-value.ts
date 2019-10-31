@@ -1,10 +1,10 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../../Constants";
 import { IBaseIntValue } from "../base-int-value";
-import { UpdateValue } from "./update-value";
+import { DeleteValue } from "./delete-value";
 
-@JsonObject("UpdateIntValue")
-export class UpdateIntValue extends UpdateValue implements IBaseIntValue {
+@JsonObject("DeleteIntValue")
+export class DeleteIntValue extends DeleteValue implements IBaseIntValue {
 
     @JsonProperty(Constants.IntValueAsInt, Number)
     int: number = 0;

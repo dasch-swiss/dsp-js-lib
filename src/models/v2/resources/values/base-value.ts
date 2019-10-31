@@ -1,4 +1,4 @@
-import { JsonProperty } from "json2typescript";
+import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../Constants";
 
 export abstract class BaseValue {
@@ -7,6 +7,6 @@ export abstract class BaseValue {
     type: string = "";
 
     @JsonProperty(Constants.ValueHasComment, String, true)
-    valueHasComment?: string;
+    valueHasComment?: string = undefined;
 
 }

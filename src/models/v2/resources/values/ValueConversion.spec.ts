@@ -2,6 +2,7 @@ import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { Constants } from "../../Constants";
 import { CreateIntValue } from "./create/create-int-value";
+import { DeleteIntValue } from "./delete/delete-int-value";
 import { UpdateIntValue } from "./update/update-int-value";
 
 describe("ValueConversion", () => {
@@ -59,6 +60,24 @@ describe("ValueConversion", () => {
 
     });
 
+    it("delete an Integer Value without comment", () => {
 
+        const deleteIntVal = new DeleteIntValue();
+
+        deleteIntVal.id = "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg";
+        deleteIntVal.type = Constants.IntValue;
+        deleteIntVal.int = 1;
+
+        const result: any = jsonConvert.serializeObject(deleteIntVal);
+
+        const expectedResult = {
+            "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg",
+            "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
+            "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 1
+        };
+
+        expect(result).toEqual(expectedResult);
+
+    });
 
 });
