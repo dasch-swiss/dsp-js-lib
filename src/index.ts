@@ -27,6 +27,8 @@ export { UpdateValue } from "./models/v2/resources/values/update/update-value";
 export { UpdateIntValue } from "./models/v2/resources/values/update/update-int-value";
 export { CreateValue } from "./models/v2/resources/values/create/create-value";
 export { CreateIntValue } from "./models/v2/resources/values/create/create-int-value";
+export { DeleteValue } from "./models/v2/resources/values/delete/delete-value";
+export { DeleteValueResponse } from "./models/v2/resources/values/delete/delete-value-response";
 export { WriteValueResponse } from "./models/v2/resources/values/write-value-response";
 export { CountQueryResponse} from "./models/v2/search/count-query-response";
 
