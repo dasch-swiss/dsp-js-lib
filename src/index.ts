@@ -25,6 +25,9 @@ export { UpdateResource } from "./models/v2/resources/update/update-resource";
 
 export { UpdateValue } from "./models/v2/resources/values/update/update-value";
 export { UpdateIntValue } from "./models/v2/resources/values/update/update-int-value";
+export { CreateValue } from "./models/v2/resources/values/create/create-value";
+export { CreateIntValue } from "./models/v2/resources/values/create/create-int-value";
+export { WriteValueResponse } from "./models/v2/resources/values/write-value-response";
 export { CountQueryResponse} from "./models/v2/search/count-query-response";
 
 export { ReadBooleanValue } from "./models/v2/resources/values/read/read-boolean-value";
