@@ -5,6 +5,9 @@ import { BaseValue } from "./base-value";
 @JsonObject("ReadWriteValue")
 export abstract class WriteValue extends BaseValue {
 
+    @JsonProperty(Constants.HasPermissions, String, true)
+    hasPermissions?: string = undefined;
+
     @JsonProperty(Constants.ValueHasComment, String, true)
     valueHasComment?: string = undefined;
 
