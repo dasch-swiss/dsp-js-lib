@@ -31,20 +31,20 @@ describe("ValuesEndpoint", () => {
 
             const updateIntVal = new UpdateIntValue();
 
-            updateIntVal.id = "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg";
+            updateIntVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg";
             updateIntVal.type = Constants.IntValue;
             updateIntVal.int = 2;
 
             const updateResource = new UpdateResource<UpdateValue>();
 
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
             updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
             updateResource.value = updateIntVal;
 
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rh");
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
                     done();
                 }
             );
@@ -52,7 +52,7 @@ describe("ValuesEndpoint", () => {
             const request = jasmine.Ajax.requests.mostRecent();
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rh",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 "@type": Constants.IntValue
             })));
 
@@ -64,10 +64,10 @@ describe("ValuesEndpoint", () => {
 
             const expectedPayload = {
                 "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/a-thing",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
                 "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger": {
                     "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
-                    "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg",
+                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg",
                     "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 2
                 }
             };
@@ -79,21 +79,21 @@ describe("ValuesEndpoint", () => {
 
             const updateIntVal = new UpdateIntValue();
 
-            updateIntVal.id = "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg";
+            updateIntVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg";
             updateIntVal.type = Constants.IntValue;
             updateIntVal.int = 2;
             updateIntVal.valueHasComment = "comment on 2";
 
             const updateResource = new UpdateResource<UpdateValue>();
 
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
             updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
             updateResource.value = updateIntVal;
 
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rh");
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
                     done();
                 }
             );
@@ -101,7 +101,7 @@ describe("ValuesEndpoint", () => {
             const request = jasmine.Ajax.requests.mostRecent();
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rh",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 "@type": Constants.IntValue
             })));
 
@@ -113,10 +113,10 @@ describe("ValuesEndpoint", () => {
 
             const expectedPayload = {
                 "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/a-thing",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
                 "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger": {
                     "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
-                    "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg",
+                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg",
                     "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 2,
                     "http://api.knora.org/ontology/knora-api/v2#valueHasComment": "comment on 2"
                 }
@@ -129,21 +129,21 @@ describe("ValuesEndpoint", () => {
 
             const updateIntVal = new UpdateIntValue();
 
-            updateIntVal.id = "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg";
+            updateIntVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg";
             updateIntVal.type = Constants.IntValue;
             updateIntVal.int = 2;
             updateIntVal.hasPermissions = "RV";
 
             const updateResource = new UpdateResource<UpdateValue>();
 
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
             updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
             updateResource.value = updateIntVal;
 
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rh");
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
                     done();
                 }
             );
@@ -151,7 +151,7 @@ describe("ValuesEndpoint", () => {
             const request = jasmine.Ajax.requests.mostRecent();
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rh",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 "@type": Constants.IntValue
             })));
 
@@ -163,10 +163,10 @@ describe("ValuesEndpoint", () => {
 
             const expectedPayload = {
                 "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/a-thing",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
                 "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger": {
                     "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
-                    "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg",
+                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg",
                     "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 2,
                     "http://api.knora.org/ontology/knora-api/v2#hasPermissions": "RV"
                 }
@@ -181,20 +181,20 @@ describe("ValuesEndpoint", () => {
 
             const updateIntVal = new UpdateValuePermissions();
 
-            updateIntVal.id = "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg";
+            updateIntVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg";
             updateIntVal.type = Constants.IntValue;
             updateIntVal.hasPermissions = "RV";
 
             const updateResource = new UpdateResource<UpdateValue>();
 
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
             updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
             updateResource.value = updateIntVal;
 
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rh");
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
                     done();
                 }
             );
@@ -202,7 +202,7 @@ describe("ValuesEndpoint", () => {
             const request = jasmine.Ajax.requests.mostRecent();
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rh",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 "@type": Constants.IntValue
             })));
 
@@ -214,10 +214,10 @@ describe("ValuesEndpoint", () => {
 
             const expectedPayload = {
                 "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/a-thing",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
                 "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger": {
                     "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
-                    "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg",
+                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg",
                     "http://api.knora.org/ontology/knora-api/v2#hasPermissions": "RV"
                 }
             };
@@ -239,14 +239,14 @@ describe("ValuesEndpoint", () => {
 
             const updateResource = new UpdateResource<CreateValue>();
 
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
             updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
             updateResource.value = createIntVal;
 
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rh");
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
                     done();
                 }
             );
@@ -254,7 +254,7 @@ describe("ValuesEndpoint", () => {
             const request = jasmine.Ajax.requests.mostRecent();
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rh",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 "@type": Constants.IntValue
             })));
 
@@ -266,7 +266,7 @@ describe("ValuesEndpoint", () => {
 
             const expectedPayload = {
                 "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/a-thing",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
                 "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger": {
                     "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
                     "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 5
@@ -287,14 +287,14 @@ describe("ValuesEndpoint", () => {
 
             const updateResource = new UpdateResource<CreateValue>();
 
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
             updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
             updateResource.value = createIntVal;
 
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rh");
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
                     done();
                 }
             );
@@ -302,7 +302,7 @@ describe("ValuesEndpoint", () => {
             const request = jasmine.Ajax.requests.mostRecent();
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rh",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 "@type": Constants.IntValue
             })));
 
@@ -314,7 +314,7 @@ describe("ValuesEndpoint", () => {
 
             const expectedPayload = {
                 "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/a-thing",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
                 "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger": {
                     "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
                     "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 5,
@@ -336,14 +336,14 @@ describe("ValuesEndpoint", () => {
 
             const updateResource = new UpdateResource<CreateValue>();
 
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
             updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
             updateResource.value = createIntVal;
 
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rh");
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
                     done();
                 }
             );
@@ -351,7 +351,7 @@ describe("ValuesEndpoint", () => {
             const request = jasmine.Ajax.requests.mostRecent();
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rh",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 "@type": Constants.IntValue
             })));
 
@@ -363,7 +363,7 @@ describe("ValuesEndpoint", () => {
 
             const expectedPayload = {
                 "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/a-thing",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
                 "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger": {
                     "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
                     "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 5,
@@ -383,12 +383,12 @@ describe("ValuesEndpoint", () => {
 
             const deleteVal = new DeleteValue();
 
-            deleteVal.id = "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rh";
+            deleteVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg";
             deleteVal.type = "http://api.knora.org/ontology/knora-api/v2#IntValue";
 
             const updateResource = new UpdateResource<DeleteValue>();
 
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
             updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
 
@@ -418,10 +418,10 @@ describe("ValuesEndpoint", () => {
 
             const expectedPayload = {
                 "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/a-thing",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
                 "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger": {
                     "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
-                    "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rh"
+                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg"
                 }
             };
 
@@ -433,13 +433,13 @@ describe("ValuesEndpoint", () => {
 
             const deleteVal = new DeleteValue();
 
-            deleteVal.id = "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rh";
+            deleteVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg";
             deleteVal.type = "http://api.knora.org/ontology/knora-api/v2#IntValue";
             deleteVal.deleteComment = "value is too boring";
 
             const updateResource = new UpdateResource<DeleteValue>();
 
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
             updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
 
@@ -469,10 +469,10 @@ describe("ValuesEndpoint", () => {
 
             const expectedPayload = {
                 "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/a-thing",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
                 "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger": {
                     "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
-                    "@id": "http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rh",
+                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg",
                     "http://api.knora.org/ontology/knora-api/v2#deleteComment": "value is too boring"
                 }
             };
