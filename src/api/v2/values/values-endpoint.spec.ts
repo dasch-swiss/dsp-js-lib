@@ -3,6 +3,7 @@ import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { UpdateResource } from "../../../models/v2/resources/update/update-resource";
+import { CreateDecimalValue } from "../../../models/v2/resources/values/create/create-decimal-value";
 import { CreateIntValue } from "../../../models/v2/resources/values/create/create-int-value";
 import { DeleteValue } from "../../../models/v2/resources/values/delete/delete-value";
 import { DeleteValueResponse } from "../../../models/v2/resources/values/delete/delete-value-response";
@@ -281,7 +282,7 @@ describe("ValuesEndpoint", () => {
 
     describe("Method createValue", () => {
 
-        it("should create a value", done => {
+        it("should create an integer value", done => {
 
             const createIntVal = new CreateIntValue();
 
@@ -321,6 +322,56 @@ describe("ValuesEndpoint", () => {
                 "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger": {
                     "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
                     "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 5
+                }
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+
+        });
+
+        it("should create a decimal value", done => {
+
+            const createDecimalVal = new CreateDecimalValue();
+
+            createDecimalVal.type = Constants.DecimalValue;
+            createDecimalVal.decimal = 3.5;
+
+            const updateResource = new UpdateResource<CreateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal";
+            updateResource.value = createDecimalVal;
+
+            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                "@type": Constants.IntValue
+            })));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = {
+                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal": {
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#DecimalValue",
+                    "http://api.knora.org/ontology/knora-api/v2#decimalValueAsDecimal": {
+                        "@type": "http://www.w3.org/2001/XMLSchema#decimal",
+                        "@value": "3.5"
+                    }
                 }
             };
 
