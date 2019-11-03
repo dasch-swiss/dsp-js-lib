@@ -3,10 +3,12 @@ import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { UpdateResource } from "../../../models/v2/resources/update/update-resource";
+import { CreateColorValue } from "../../../models/v2/resources/values/create/create-color-value";
 import { CreateDecimalValue } from "../../../models/v2/resources/values/create/create-decimal-value";
 import { CreateIntValue } from "../../../models/v2/resources/values/create/create-int-value";
 import { DeleteValue } from "../../../models/v2/resources/values/delete/delete-value";
 import { DeleteValueResponse } from "../../../models/v2/resources/values/delete/delete-value-response";
+import { UpdateColorValue } from "../../../models/v2/resources/values/update/update-color-value";
 import { UpdateDecimalValue } from "../../../models/v2/resources/values/update/update-decimal-value";
 import { UpdateIntValue } from "../../../models/v2/resources/values/update/update-int-value";
 import { UpdateValue } from "../../../models/v2/resources/values/update/update-value";
@@ -121,6 +123,54 @@ describe("ValuesEndpoint", () => {
                         "@type": "http://www.w3.org/2001/XMLSchema#decimal",
                         "@value": "2.5"
                     }
+                }
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
+        it("should update a color value", done => {
+
+            const updateDecimalVal = new UpdateColorValue();
+
+            updateDecimalVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/TAziKNP8QxuyhC4Qf9-b6w";
+            updateDecimalVal.type = Constants.ColorValue;
+            updateDecimalVal.color = "#000000";
+
+            const updateResource = new UpdateResource<UpdateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasColor";
+            updateResource.value = updateDecimalVal;
+
+            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                "@type": Constants.IntValue
+            })));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = {
+                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasColor": {
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#ColorValue",
+                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/TAziKNP8QxuyhC4Qf9-b6w",
+                    "http://api.knora.org/ontology/knora-api/v2#colorValueAsColor": "#000000"
                 }
             };
 
@@ -372,6 +422,53 @@ describe("ValuesEndpoint", () => {
                         "@type": "http://www.w3.org/2001/XMLSchema#decimal",
                         "@value": "3.5"
                     }
+                }
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+
+        });
+
+        it("should create a color value", done => {
+
+            const createColorVal = new CreateColorValue();
+
+            createColorVal.type = Constants.ColorValue;
+            createColorVal.color = "#000000";
+
+            const updateResource = new UpdateResource<CreateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasColor";
+            updateResource.value = createColorVal;
+
+            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                "@type": Constants.IntValue
+            })));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = {
+                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasColor": {
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#ColorValue",
+                    "http://api.knora.org/ontology/knora-api/v2#colorValueAsColor": "#000000"
                 }
             };
 
