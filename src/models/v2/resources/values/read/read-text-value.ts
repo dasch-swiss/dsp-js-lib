@@ -3,6 +3,7 @@ import { Constants } from "../../../Constants";
 import { IdConverter } from "../../../custom-converters/id-converter";
 import { ReadValue } from "./read-value";
 
+@JsonObject("ReadTextValue")
 export abstract class ReadTextValue extends ReadValue {
 }
 

@@ -20,9 +20,9 @@ export class ValuesEndpoint extends Endpoint {
 
     updateValue(resource: UpdateResource<UpdateValue>): Observable<WriteValueResponse | ApiResponseError> {
 
-        const res = this.jsonConvert.serializeObject(resource);
+        const res = this.jsonConvert.serializeObject<UpdateResource<UpdateValue>>(resource);
 
-        const val = this.jsonConvert.serializeObject(resource.value);
+        const val = this.jsonConvert.serializeObject<UpdateValue>(resource.value);
 
         res[resource.property] = val;
 
@@ -42,9 +42,9 @@ export class ValuesEndpoint extends Endpoint {
 
     createValue(resource: UpdateResource<CreateValue>): Observable<WriteValueResponse | ApiResponseError> {
 
-        const res = this.jsonConvert.serializeObject(resource);
+        const res = this.jsonConvert.serializeObject<UpdateResource<CreateValue>>(resource);
 
-        const val = this.jsonConvert.serializeObject(resource.value);
+        const val = this.jsonConvert.serializeObject<CreateValue>(resource.value);
 
         res[resource.property] = val;
 
@@ -65,9 +65,9 @@ export class ValuesEndpoint extends Endpoint {
 
     deleteValue(resource: UpdateResource<DeleteValue>): Observable<DeleteValueResponse | ApiResponseError> {
 
-        const res = this.jsonConvert.serializeObject(resource);
+        const res = this.jsonConvert.serializeObject<UpdateResource<DeleteValue>>(resource);
 
-        const val = this.jsonConvert.serializeObject(resource.value);
+        const val = this.jsonConvert.serializeObject<DeleteValue>(resource.value);
 
         res[resource.property] = val;
 
