@@ -3,21 +3,28 @@ import { Constants } from "../Constants";
 import { CustomConverterUtils } from "./utils";
 
 @JsonConverter
-export class DecimalConverter implements JsonCustomConvert<string> {
-    serialize(description: string): any {
+export class DecimalConverter implements JsonCustomConvert<number> {
+    serialize(decimal: number): any {
+
+        return {
+            "@type": Constants.XsdDecimal,
+            "@value": String(decimal)
+        };
+
     }
 
-    deserialize(item: any): string {
-        let decimal = "";
+    deserialize(item: any): number {
 
         if (Array.isArray(item)) throw new Error("Expected a single element");
 
         if (!item.hasOwnProperty("@type") || item["@type"] !== Constants.XsdDecimal) throw new Error("Not of expected type xsd:decimal");
 
+        // xsd:decimal is encoded as a string
         if (item.hasOwnProperty("@value") && CustomConverterUtils.isString(item["@value"])) {
-            decimal = item["@value"];
+            return item["@value"];
+        } else {
+            throw new Error("No @value given for decimal value");
         }
 
-        return decimal;
     }
 }

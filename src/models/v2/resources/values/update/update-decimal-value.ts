@@ -1,12 +1,12 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-import { Constants } from "../../../Constants";
+import { Constants, UpdateValue } from "../../../../..";
 import { DecimalConverter } from "../../../custom-converters/decimal-converter";
 import { IBaseDecimalValue } from "../type-specific-interfaces/base-decimal-value";
-import { ReadValue } from "./read-value";
 
-@JsonObject("ReadDecimalValue")
-export class ReadDecimalValue extends ReadValue implements IBaseDecimalValue {
+@JsonObject("CreateDecimalValue")
+export class UpdateDecimalValue extends UpdateValue implements IBaseDecimalValue {
 
     @JsonProperty(Constants.DecimalValueAsDecimal, DecimalConverter)
     decimal: number = 0;
+
 }

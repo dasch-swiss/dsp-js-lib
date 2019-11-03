@@ -1,6 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../../Constants";
-import { IBaseIntValue } from "../base-int-value";
+import { IBaseIntValue } from "../type-specific-interfaces/base-int-value";
 import { CreateValue } from "./create-value";
 
 @JsonObject("CreateIntValue")

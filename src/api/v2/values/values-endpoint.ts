@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
-import { ApiResponseError, ReadResource, ReadValue } from "../../..";
+import { ApiResponseError } from "../../..";
 import { UpdateResource } from "../../../models/v2/resources/update/update-resource";
 import { CreateValue } from "../../../models/v2/resources/values/create/create-value";
 import { DeleteValue } from "../../../models/v2/resources/values/delete/delete-value";

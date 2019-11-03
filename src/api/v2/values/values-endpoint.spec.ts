@@ -6,6 +6,7 @@ import { UpdateResource } from "../../../models/v2/resources/update/update-resou
 import { CreateIntValue } from "../../../models/v2/resources/values/create/create-int-value";
 import { DeleteValue } from "../../../models/v2/resources/values/delete/delete-value";
 import { DeleteValueResponse } from "../../../models/v2/resources/values/delete/delete-value-response";
+import { UpdateDecimalValue } from "../../../models/v2/resources/values/update/update-decimal-value";
 import { UpdateIntValue } from "../../../models/v2/resources/values/update/update-int-value";
 import { UpdateValue } from "../../../models/v2/resources/values/update/update-value";
 import { UpdateValuePermissions } from "../../../models/v2/resources/values/update/update-value-permissions";
@@ -26,7 +27,7 @@ describe("ValuesEndpoint", () => {
 
     describe("Method updateValue", () => {
 
-        it("should update a value", done => {
+        it("should update an integer value", done => {
 
             const updateIntVal = new UpdateIntValue();
 
@@ -74,7 +75,7 @@ describe("ValuesEndpoint", () => {
             expect(request.data()).toEqual(expectedPayload);
         });
 
-        it("should update a value with a comment", done => {
+        it("should update an integer value with a comment", done => {
 
             const updateIntVal = new UpdateIntValue();
 
@@ -124,7 +125,7 @@ describe("ValuesEndpoint", () => {
             expect(request.data()).toEqual(expectedPayload);
         });
 
-        it("update an Integer Value with permissions", done => {
+        it("update an integer Value with permissions", done => {
 
             const updateIntVal = new UpdateIntValue();
 
@@ -176,7 +177,7 @@ describe("ValuesEndpoint", () => {
 
         });
 
-        it("update an Integer Value's permissions", done => {
+        it("update an integer Value's permissions", done => {
 
             const updateIntVal = new UpdateValuePermissions();
 
@@ -222,7 +223,6 @@ describe("ValuesEndpoint", () => {
             };
 
             expect(request.data()).toEqual(expectedPayload);
-
 
         });
 
