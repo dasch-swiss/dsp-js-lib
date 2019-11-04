@@ -2,6 +2,7 @@ import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { ApiResponseError } from "../../../models/api-response-error";
+import { OntologiesMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { OntologyConversionUtil } from "../../../models/v2/ontologies/OntologyConversionUtil";
 import { ReadOntology } from "../../../models/v2/ontologies/read-ontology";
 import { Endpoint } from "../../endpoint";
@@ -15,7 +16,27 @@ const jsonld = require("jsonld/dist/jsonld.js");
 export class OntologiesEndpoint extends Endpoint {
 
     /**
-     * Request an ontology from Knora and converts it to a `ReadOntology`.
+     * Requests metadata about all ontologies from Knora.
+     */
+    getOntologiesMetadata(): Observable<OntologiesMetadata | ApiResponseError> {
+
+        // TODO: Do not hard-code the URL and http call params, generate this from Knora
+        return this.httpGet("/metadata").pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, OntologiesMetadata);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+    }
+
+    /**
+     * Requests an ontology from Knora and converts it to a `ReadOntology`.
      *
      * @param ontologyIri the IRI of the ontology to be requested.
      * @return the ontology or an error.

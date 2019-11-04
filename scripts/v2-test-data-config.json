@@ -43,6 +43,10 @@
     {
       "source": "/webapi/src/test/resources/test-data/listsR2RV2/treelistnode.jsonld",
       "destination": "./test/data/api/v2/lists/listnode.json"
+    },
+    {
+      "source": "/webapi/src/test/resources/test-data/ontologyR2RV2/allOntologyMetadata.jsonld",
+      "destination": "./test/data/api/v2/ontologies/allOntologyMetadata.json"
     }
   ]
 }
