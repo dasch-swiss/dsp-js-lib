@@ -1,6 +1,7 @@
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
+import { OntologiesMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { ReadOntology } from "../../../models/v2/ontologies/read-ontology";
 import { ResourceClassDefinition } from "../../../models/v2/ontologies/resource-class-definition";
 import { ResourcePropertyDefinition } from "../../../models/v2/ontologies/resource-property-definition";
@@ -17,6 +18,32 @@ describe("OntologiesEndpoint", () => {
 
     afterEach(() => {
         jasmine.Ajax.uninstall();
+    });
+
+    describe("Method getOntologiesMetadata", () => {
+
+        it("should return metadata about all ontologies", done => {
+
+            knoraApiConnection.v2.onto.getOntologiesMetadata().subscribe(
+                (response: OntologiesMetadata) => {
+                    expect(response.ontologies.length).toEqual(14);
+                    expect(response.ontologies[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const ontoMetadata = require("../../../../test/data/api/v2/ontologies/all-ontology-metadata.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(ontoMetadata)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/metadata");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
     });
 
     describe("Method getOntology", () => {
