@@ -1,6 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
-import { DateTimeStamp } from "../custom-converters/date-time-stamp-converter";
+import { DateTimeStampConverter } from "../custom-converters/date-time-stamp-converter";
 import { ClassDefinition } from "./class-definition";
 import { PropertyDefinition } from "./property-definition";
 
@@ -10,7 +10,7 @@ export class ReadOntology {
     @JsonProperty("@id", String)
     id: string = "";
 
-    @JsonProperty(Constants.LastModificationDate, DateTimeStamp, true)
+    @JsonProperty(Constants.LastModificationDate, DateTimeStampConverter, true)
     lastModificationDate?: string = undefined;
 
     properties: { [index: string]: PropertyDefinition } = {};

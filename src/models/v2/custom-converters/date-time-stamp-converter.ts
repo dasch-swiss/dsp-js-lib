@@ -3,7 +3,7 @@ import { Constants } from "../Constants";
 import { CustomConverterUtils } from "./utils";
 
 @JsonConverter
-export class DateTimeStamp implements JsonCustomConvert<string> {
+export class DateTimeStampConverter implements JsonCustomConvert<string> {
     serialize(description: string): any {
     }
 
