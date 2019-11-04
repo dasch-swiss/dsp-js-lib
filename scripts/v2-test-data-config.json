@@ -46,7 +46,7 @@
     },
     {
       "source": "/webapi/src/test/resources/test-data/ontologyR2RV2/allOntologyMetadata.jsonld",
-      "destination": "./test/data/api/v2/ontologies/allOntologyMetadata.json"
+      "destination": "./test/data/api/v2/ontologies/all-ontology-metadata.json"
     }
   ]
 }

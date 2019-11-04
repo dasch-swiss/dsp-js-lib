@@ -34,14 +34,14 @@ describe("OntologiesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const ontoMetadata = require("../../../../test/data/api/v2/ontologies/allOntologyMetadata.json");
+            const ontoMetadata = require("../../../../test/data/api/v2/ontologies/all-ontology-metadata.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(ontoMetadata)));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/metadata");
 
             expect(request.method).toEqual("GET");
-            
+
         });
 
     });
