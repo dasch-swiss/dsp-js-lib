@@ -2,13 +2,12 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../../Constants";
 import { IdConverter } from "../../../custom-converters/id-converter";
 import { IBaseListValue } from "../type-specific-interfaces/base-list-value";
-import { ReadValue } from "./read-value";
+import { UpdateValue } from "./update-value";
 
-@JsonObject("ReadListValue")
-export class ReadListValue extends ReadValue implements IBaseListValue {
+@JsonObject("UpdateListValue")
+export class UpdateListValue extends UpdateValue implements IBaseListValue {
 
     @JsonProperty(Constants.ListValueAsListNode, IdConverter)
     listNode: string = "";
 
-    listNodeLabel: string;
 }

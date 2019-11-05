@@ -8,6 +8,7 @@ import { CreateColorValue } from "../../../models/v2/resources/values/create/cre
 import { CreateDecimalValue } from "../../../models/v2/resources/values/create/create-decimal-value";
 import { CreateIntValue } from "../../../models/v2/resources/values/create/create-int-value";
 import { CreateIntervalValue } from "../../../models/v2/resources/values/create/create-interval-value";
+import { CreateListValue } from "../../../models/v2/resources/values/create/create-list-value";
 import { DeleteValue } from "../../../models/v2/resources/values/delete/delete-value";
 import { DeleteValueResponse } from "../../../models/v2/resources/values/delete/delete-value-response";
 import { UpdateBooleanValue } from "../../../models/v2/resources/values/update/update-boolean-value";
@@ -15,6 +16,7 @@ import { UpdateColorValue } from "../../../models/v2/resources/values/update/upd
 import { UpdateDecimalValue } from "../../../models/v2/resources/values/update/update-decimal-value";
 import { UpdateIntValue } from "../../../models/v2/resources/values/update/update-int-value";
 import { UpdateIntervalValue } from "../../../models/v2/resources/values/update/update-interval-value";
+import { UpdateListValue } from "../../../models/v2/resources/values/update/update-list-value";
 import { UpdateValue } from "../../../models/v2/resources/values/update/update-value";
 import { UpdateValuePermissions } from "../../../models/v2/resources/values/update/update-value-permissions";
 import { WriteValueResponse } from "../../../models/v2/resources/values/write-value-response";
@@ -280,6 +282,57 @@ describe("ValuesEndpoint", () => {
                     "@type": "http://api.knora.org/ontology/knora-api/v2#IntervalValue",
                     "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/IN4R19yYR0ygi3K2VEHpUQ",
                     "http://api.knora.org/ontology/knora-api/v2#booleanValueAsBoolean": true
+                }
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
+        it("should update a list value", done => {
+
+            const updateListVal = new UpdateListValue();
+
+            updateListVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/XAhEeE3kSVqM4JPGdLt4Ew";
+            updateListVal.type = Constants.ListValue;
+            updateListVal.listNode = "http://rdfh.ch/lists/0001/treeList02";
+
+            const updateResource = new UpdateResource<UpdateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem";
+            updateResource.value = updateListVal;
+
+            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                "@type": Constants.ListValue
+            })));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = {
+                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem": {
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#ListValue",
+                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/XAhEeE3kSVqM4JPGdLt4Ew",
+                    "http://api.knora.org/ontology/knora-api/v2#listValueAsListNode":
+                        {
+                            "@id": "http://rdfh.ch/lists/0001/treeList02"
+                        }
                 }
             };
 
@@ -679,6 +732,55 @@ describe("ValuesEndpoint", () => {
                 "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval": {
                     "@type": "http://api.knora.org/ontology/knora-api/v2#IntervalValue",
                     "http://api.knora.org/ontology/knora-api/v2#booleanValueAsBoolean": true
+                }
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
+        it("should create a list value", done => {
+
+            const createListVal = new CreateListValue();
+
+            createListVal.type = Constants.ListValue;
+            createListVal.listNode = "http://rdfh.ch/lists/0001/treeList03";
+
+            const updateResource = new UpdateResource<CreateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem";
+            updateResource.value = createListVal;
+
+            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                "@type": Constants.ListValue
+            })));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = {
+                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem": {
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#ListValue",
+                    "http://api.knora.org/ontology/knora-api/v2#listValueAsListNode":
+                        {
+                            "@id": "http://rdfh.ch/lists/0001/treeList03"
+                        }
                 }
             };
 
