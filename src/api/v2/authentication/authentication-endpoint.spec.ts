@@ -1,10 +1,10 @@
-import { LogoutResponse } from  "../../../models/v2/authentication/logout-response";
-import { ApiResponseError } from "../../../models/api-response-error";
-import { LoginResponse } from "../../../models/v2/authentication/login-response";
-import { ApiResponseData } from "../../../models/api-response-data";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
+import { ApiResponseData } from "../../../models/api-response-data";
+import { ApiResponseError } from "../../../models/api-response-error";
+import { LoginResponse } from "../../../models/v2/authentication/login-response";
+import { LogoutResponse } from "../../../models/v2/authentication/logout-response";
 
 describe("Test class AuthenticationEndpoint", () => {
 
@@ -16,13 +16,13 @@ describe("Test class AuthenticationEndpoint", () => {
         jasmine.Ajax.uninstall();
     });
 
-    it("should perform a login", done => {
+    it("should perform a login by username", done => {
 
         const config = new KnoraApiConfig("http", "localhost", 3333);
 
         const knoraApiConnection = new KnoraApiConnection(config);
 
-        knoraApiConnection.v2.auth.login("user", "test").subscribe((response: ApiResponseData<LoginResponse>) => {
+        knoraApiConnection.v2.auth.login("username", "user", "test").subscribe((response: ApiResponseData<LoginResponse>) => {
 
             expect(response.body.token).toEqual("testtoken");
             expect(knoraApiConnection.v2.jsonWebToken).toEqual("testtoken");
@@ -42,13 +42,65 @@ describe("Test class AuthenticationEndpoint", () => {
 
     });
 
+    it("should perform a login by email", done => {
+
+        const config = new KnoraApiConfig("http", "localhost", 3333);
+
+        const knoraApiConnection = new KnoraApiConnection(config);
+
+        knoraApiConnection.v2.auth.login("email", "root@example.com", "test").subscribe((response: ApiResponseData<LoginResponse>) => {
+
+            expect(response.body.token).toEqual("testtoken");
+            expect(knoraApiConnection.v2.jsonWebToken).toEqual("testtoken");
+
+            done();
+        });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({token: "testtoken"})));
+
+        expect(request.url).toEqual("http://localhost:3333/v2/authentication");
+
+        expect(request.method).toEqual("POST");
+
+        expect(request.data()).toEqual({email: "root@example.com", password: "test"});
+
+    });
+
+    it("should perform a login by iri", done => {
+
+        const config = new KnoraApiConfig("http", "localhost", 3333);
+
+        const knoraApiConnection = new KnoraApiConnection(config);
+
+        knoraApiConnection.v2.auth.login("iri", "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q", "test").subscribe((response: ApiResponseData<LoginResponse>) => {
+
+            expect(response.body.token).toEqual("testtoken");
+            expect(knoraApiConnection.v2.jsonWebToken).toEqual("testtoken");
+
+            done();
+        });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({token: "testtoken"})));
+
+        expect(request.url).toEqual("http://localhost:3333/v2/authentication");
+
+        expect(request.method).toEqual("POST");
+
+        expect(request.data()).toEqual({iri: "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q", password: "test"});
+
+    });
+
     it("should attempt to perform a login with invalid credentials", done => {
 
         const config = new KnoraApiConfig("http", "localhost", 3333);
 
         const knoraApiConnection = new KnoraApiConnection(config);
 
-        knoraApiConnection.v2.auth.login("user", "wrongpassword").subscribe(
+        knoraApiConnection.v2.auth.login("username", "user", "wrongpassword").subscribe(
             () => {
             },
             (err: ApiResponseError) => {
