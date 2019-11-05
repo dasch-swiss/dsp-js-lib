@@ -7,6 +7,7 @@ import { CreateBooleanValue } from "../../../models/v2/resources/values/create/c
 import { CreateColorValue } from "../../../models/v2/resources/values/create/create-color-value";
 import { CreateDateValue } from "../../../models/v2/resources/values/create/create-date-value";
 import { CreateDecimalValue } from "../../../models/v2/resources/values/create/create-decimal-value";
+import { CreateStillImageFileValue } from "../../../models/v2/resources/values/create/create-file-value";
 import { CreateIntValue } from "../../../models/v2/resources/values/create/create-int-value";
 import { CreateIntervalValue } from "../../../models/v2/resources/values/create/create-interval-value";
 import { CreateLinkValue } from "../../../models/v2/resources/values/create/create-link-value";
@@ -22,6 +23,7 @@ import { UpdateBooleanValue } from "../../../models/v2/resources/values/update/u
 import { UpdateColorValue } from "../../../models/v2/resources/values/update/update-color-value";
 import { UpdateDateValue } from "../../../models/v2/resources/values/update/update-date-value";
 import { UpdateDecimalValue } from "../../../models/v2/resources/values/update/update-decimal-value";
+import { UpdateStillImageFileValue } from "../../../models/v2/resources/values/update/update-file-value";
 import { UpdateIntValue } from "../../../models/v2/resources/values/update/update-int-value";
 import { UpdateIntervalValue } from "../../../models/v2/resources/values/update/update-interval-value";
 import { UpdateLinkValue } from "../../../models/v2/resources/values/update/update-link-value";
@@ -600,6 +602,53 @@ describe("ValuesEndpoint", () => {
                     "http://api.knora.org/ontology/knora-api/v2#dateValueHasEndYear": 2019,
                     "http://api.knora.org/ontology/knora-api/v2#dateValueHasEndEra": "CE"
 
+                }
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
+        it("should update a still image file value", done => {
+
+            const updateStillImageFileVal = new UpdateStillImageFileValue();
+
+            updateStillImageFileVal.id = "http://rdfh.ch/0803/7bbb8e59b703/values/22bc3f713f07";
+            updateStillImageFileVal.filename = "myfile.jpx";
+
+            const updateResource = new UpdateResource<UpdateValue>();
+
+            updateResource.id = "http://rdfh.ch/0803/7bbb8e59b703";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0803/incunabula/v2#page";
+            updateResource.property = "http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue";
+            updateResource.value = updateStillImageFileVal;
+
+            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                "@type": Constants.DateValue
+            })));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = {
+                "@type": "http://0.0.0.0:3333/ontology/0803/incunabula/v2#page",
+                "@id": "http://rdfh.ch/0803/7bbb8e59b703",
+                "http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue": {
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#StillImageFileValue",
+                    "@id": "http://rdfh.ch/0803/7bbb8e59b703/values/22bc3f713f07",
+                    "http://api.knora.org/ontology/knora-api/v2#fileValueHasFilename": "myfile.jpx"
                 }
             };
 
@@ -1293,7 +1342,50 @@ describe("ValuesEndpoint", () => {
             expect(request.data()).toEqual(expectedPayload);
         });
 
+        it("should create a still image file value", done => {
 
+            const createStillImageFileVal = new CreateStillImageFileValue();
+
+            createStillImageFileVal.filename = "myfile.jpx";
+
+            const updateResource = new UpdateResource<CreateValue>();
+
+            updateResource.id = "http://rdfh.ch/0803/7bbb8e59b703";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0803/incunabula/v2#page";
+            updateResource.property = "http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue";
+            updateResource.value = createStillImageFileVal;
+
+            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                "@type": Constants.DateValue
+            })));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = {
+                "@type": "http://0.0.0.0:3333/ontology/0803/incunabula/v2#page",
+                "@id": "http://rdfh.ch/0803/7bbb8e59b703",
+                "http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue": {
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#StillImageFileValue",
+                    "http://api.knora.org/ontology/knora-api/v2#fileValueHasFilename": "myfile.jpx"
+                }
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
         it("should create a value with a comment", done => {
 
             const createIntVal = new CreateIntValue();
