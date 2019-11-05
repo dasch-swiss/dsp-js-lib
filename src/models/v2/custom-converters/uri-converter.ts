@@ -4,7 +4,11 @@ import { CustomConverterUtils } from "./utils";
 
 @JsonConverter
 export class UriConverter implements JsonCustomConvert<string> {
-    serialize(description: string): any {
+    serialize(uri: string): any {
+        return {
+            "@type": Constants.XsdAnyUri,
+            "@value": uri
+        };
     }
 
     deserialize(item: any): string {

@@ -1,13 +1,16 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-import { Constants } from "../../../Constants";
+import { Constants, CreateValue, UpdateValue } from "../../../../..";
 import { UriConverter } from "../../../custom-converters/uri-converter";
 import { IBaseUriValue } from "../type-specific-interfaces/base-uri-value";
-import { ReadValue } from "./read-value";
 
-@JsonObject("ReadUriValue")
-export class ReadUriValue extends ReadValue implements IBaseUriValue {
+@JsonObject("CreateUriValue")
+export class CreateUriValue extends CreateValue implements IBaseUriValue {
 
     @JsonProperty(Constants.UriValueAsUri, UriConverter)
     uri: string = "";
+
+    constructor() {
+        super(Constants.UriValue);
+    }
 
 }

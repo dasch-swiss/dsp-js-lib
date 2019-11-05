@@ -10,6 +10,7 @@ import { CreateIntValue } from "../../../models/v2/resources/values/create/creat
 import { CreateIntervalValue } from "../../../models/v2/resources/values/create/create-interval-value";
 import { CreateLinkValue } from "../../../models/v2/resources/values/create/create-link-value";
 import { CreateListValue } from "../../../models/v2/resources/values/create/create-list-value";
+import { CreateUriValue } from "../../../models/v2/resources/values/create/create-uri-value";
 import { DeleteValue } from "../../../models/v2/resources/values/delete/delete-value";
 import { DeleteValueResponse } from "../../../models/v2/resources/values/delete/delete-value-response";
 import { UpdateBooleanValue } from "../../../models/v2/resources/values/update/update-boolean-value";
@@ -19,6 +20,7 @@ import { UpdateIntValue } from "../../../models/v2/resources/values/update/updat
 import { UpdateIntervalValue } from "../../../models/v2/resources/values/update/update-interval-value";
 import { UpdateLinkValue } from "../../../models/v2/resources/values/update/update-link-value";
 import { UpdateListValue } from "../../../models/v2/resources/values/update/update-list-value";
+import { UpdateUriValue } from "../../../models/v2/resources/values/update/update-uri-value";
 import { UpdateValue } from "../../../models/v2/resources/values/update/update-value";
 import { UpdateValuePermissions } from "../../../models/v2/resources/values/update/update-value-permissions";
 import { WriteValueResponse } from "../../../models/v2/resources/values/write-value-response";
@@ -378,6 +380,57 @@ describe("ValuesEndpoint", () => {
                     "http://api.knora.org/ontology/knora-api/v2#linkValueHasTargetIri":
                         {
                             "@id": "http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ"
+                        }
+                }
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
+        it("should update a URI value", done => {
+
+            const updateUriVal = new UpdateUriValue();
+
+            updateUriVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/uBAmWuRhR-eo1u1eP7qqNg";
+            updateUriVal.uri = "https://www.google.ch";
+
+            const updateResource = new UpdateResource<UpdateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri";
+            updateResource.value = updateUriVal;
+
+            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                "@type": Constants.UriValue
+            })));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = {
+                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri": {
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#UriValue",
+                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/uBAmWuRhR-eo1u1eP7qqNg",
+                    "http://api.knora.org/ontology/knora-api/v2#uriValueAsUri":
+                        {
+                            "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+                            "@value": "https://www.google.ch"
                         }
                 }
             };
@@ -864,6 +917,55 @@ describe("ValuesEndpoint", () => {
                     "http://api.knora.org/ontology/knora-api/v2#linkValueHasTargetIri":
                         {
                             "@id": "http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ"
+                        }
+                }
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
+        it("should create a URI value", done => {
+
+            const updateUriVal = new CreateUriValue();
+
+            updateUriVal.uri = "https://www.google.ch";
+
+            const updateResource = new UpdateResource<CreateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri";
+            updateResource.value = updateUriVal;
+
+            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                "@type": Constants.UriValue
+            })));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = {
+                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri": {
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#UriValue",
+                    "http://api.knora.org/ontology/knora-api/v2#uriValueAsUri":
+                        {
+                            "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+                            "@value": "https://www.google.ch"
                         }
                 }
             };
