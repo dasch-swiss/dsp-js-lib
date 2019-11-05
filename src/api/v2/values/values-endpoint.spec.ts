@@ -5,6 +5,7 @@ import { KnoraApiConnection } from "../../../knora-api-connection";
 import { UpdateResource } from "../../../models/v2/resources/update/update-resource";
 import { CreateBooleanValue } from "../../../models/v2/resources/values/create/create-boolean-value";
 import { CreateColorValue } from "../../../models/v2/resources/values/create/create-color-value";
+import { CreateDateValue } from "../../../models/v2/resources/values/create/create-date-value";
 import { CreateDecimalValue } from "../../../models/v2/resources/values/create/create-decimal-value";
 import { CreateIntValue } from "../../../models/v2/resources/values/create/create-int-value";
 import { CreateIntervalValue } from "../../../models/v2/resources/values/create/create-interval-value";
@@ -19,6 +20,7 @@ import { DeleteValue } from "../../../models/v2/resources/values/delete/delete-v
 import { DeleteValueResponse } from "../../../models/v2/resources/values/delete/delete-value-response";
 import { UpdateBooleanValue } from "../../../models/v2/resources/values/update/update-boolean-value";
 import { UpdateColorValue } from "../../../models/v2/resources/values/update/update-color-value";
+import { UpdateDateValue } from "../../../models/v2/resources/values/update/update-date-value";
 import { UpdateDecimalValue } from "../../../models/v2/resources/values/update/update-decimal-value";
 import { UpdateIntValue } from "../../../models/v2/resources/values/update/update-int-value";
 import { UpdateIntervalValue } from "../../../models/v2/resources/values/update/update-interval-value";
@@ -535,9 +537,69 @@ describe("ValuesEndpoint", () => {
                     "@type": "http://api.knora.org/ontology/knora-api/v2#TextValue",
                     "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/rvB4eQ5MTF-Qxq0YgkwaDg",
                     "http://api.knora.org/ontology/knora-api/v2#textValueAsXml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><text>test</text>",
-                    "http://api.knora.org/ontology/knora-api/v2#textValueHasMapping" : {
+                    "http://api.knora.org/ontology/knora-api/v2#textValueHasMapping": {
                         "@id": "http://rdfh.ch/standoff/mappings/StandardMapping"
                     }
+                }
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
+        it("should update a date value", done => {
+
+            const updateDateVal = new UpdateDateValue();
+
+            updateDateVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/-rG4F5FTTu2iB5mTBPVn5Q";
+            updateDateVal.calendar = "GREGORIAN";
+            updateDateVal.startYear = 2019;
+            updateDateVal.startMonth = 10;
+            updateDateVal.startEra = "CE";
+            updateDateVal.endYear = 2019;
+            updateDateVal.endMonth = 10;
+            updateDateVal.endEra = "CE";
+
+            const updateResource = new UpdateResource<UpdateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate";
+            updateResource.value = updateDateVal;
+
+            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                "@type": Constants.DateValue
+            })));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = {
+                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate": {
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#DateValue",
+                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/-rG4F5FTTu2iB5mTBPVn5Q",
+                    "http://api.knora.org/ontology/knora-api/v2#dateValueHasCalendar": "GREGORIAN",
+                    "http://api.knora.org/ontology/knora-api/v2#dateValueHasStartMonth": 10,
+                    "http://api.knora.org/ontology/knora-api/v2#dateValueHasStartYear": 2019,
+                    "http://api.knora.org/ontology/knora-api/v2#dateValueHasStartEra": "CE",
+                    "http://api.knora.org/ontology/knora-api/v2#dateValueHasEndMonth": 10,
+                    "http://api.knora.org/ontology/knora-api/v2#dateValueHasEndYear": 2019,
+                    "http://api.knora.org/ontology/knora-api/v2#dateValueHasEndEra": "CE"
+
                 }
             };
 
@@ -1164,7 +1226,7 @@ describe("ValuesEndpoint", () => {
                 "http://0.0.0.0:3333/ontology/0001/anything/v2#hasRichtext": {
                     "@type": "http://api.knora.org/ontology/knora-api/v2#TextValue",
                     "http://api.knora.org/ontology/knora-api/v2#textValueAsXml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><text>test</text>",
-                    "http://api.knora.org/ontology/knora-api/v2#textValueHasMapping" : {
+                    "http://api.knora.org/ontology/knora-api/v2#textValueHasMapping": {
                         "@id": "http://rdfh.ch/standoff/mappings/StandardMapping"
                     }
                 }
@@ -1172,6 +1234,65 @@ describe("ValuesEndpoint", () => {
 
             expect(request.data()).toEqual(expectedPayload);
         });
+
+        it("should create a date value", done => {
+
+            const createDateVal = new CreateDateValue();
+
+            createDateVal.calendar = "GREGORIAN";
+            createDateVal.startYear = 2019;
+            createDateVal.startMonth = 10;
+            createDateVal.startEra = "CE";
+            createDateVal.endYear = 2019;
+            createDateVal.endMonth = 10;
+            createDateVal.endEra = "CE";
+
+            const updateResource = new UpdateResource<CreateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate";
+            updateResource.value = createDateVal;
+
+            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                "@type": Constants.DateValue
+            })));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = {
+                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate": {
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#DateValue",
+                    "http://api.knora.org/ontology/knora-api/v2#dateValueHasCalendar": "GREGORIAN",
+                    "http://api.knora.org/ontology/knora-api/v2#dateValueHasStartMonth": 10,
+                    "http://api.knora.org/ontology/knora-api/v2#dateValueHasStartYear": 2019,
+                    "http://api.knora.org/ontology/knora-api/v2#dateValueHasStartEra": "CE",
+                    "http://api.knora.org/ontology/knora-api/v2#dateValueHasEndMonth": 10,
+                    "http://api.knora.org/ontology/knora-api/v2#dateValueHasEndYear": 2019,
+                    "http://api.knora.org/ontology/knora-api/v2#dateValueHasEndEra": "CE"
+
+                }
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
 
         it("should create a value with a comment", done => {
 

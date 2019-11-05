@@ -1,9 +1,10 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../../Constants";
+import { IBaseDateValue } from "../type-specific-interfaces/base-date-value";
 import { ReadValue } from "./read-value";
 
 @JsonObject("ReadDateValue")
-export class ParseReadDateValue extends ReadValue {
+export class ParseReadDateValue extends ReadValue implements IBaseDateValue {
 
     @JsonProperty(Constants.ValueAsString, String)
     datestring: string = "";
