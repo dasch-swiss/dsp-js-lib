@@ -8,4 +8,8 @@ export class CreateBooleanValue extends CreateValue implements IBaseBooleanValue
     @JsonProperty(Constants.BooleanValueAsBoolean, Boolean)
     bool: boolean = false;
 
+    constructor() {
+        super(Constants.BooleanValue);
+    }
+
 }
