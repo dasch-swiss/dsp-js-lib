@@ -1,9 +1,10 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../../Constants";
+import { IBaseGeomValue } from "../type-specific-interfaces/base-geom-value";
 import { ReadValue } from "./read-value";
 
 @JsonObject("ReadGeomValue")
-export class ParseReadGeomValue extends ReadValue {
+export class ParseReadGeomValue extends ReadValue implements IBaseGeomValue {
 
     @JsonProperty(Constants.GeometryValueAsGeometry, String)
     geometryString: string = "";

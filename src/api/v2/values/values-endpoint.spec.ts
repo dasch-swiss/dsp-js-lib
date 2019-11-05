@@ -8,6 +8,7 @@ import { CreateColorValue } from "../../../models/v2/resources/values/create/cre
 import { CreateDateValue } from "../../../models/v2/resources/values/create/create-date-value";
 import { CreateDecimalValue } from "../../../models/v2/resources/values/create/create-decimal-value";
 import { CreateStillImageFileValue } from "../../../models/v2/resources/values/create/create-file-value";
+import { CreateGeomValue } from "../../../models/v2/resources/values/create/create-geom-value";
 import { CreateIntValue } from "../../../models/v2/resources/values/create/create-int-value";
 import { CreateIntervalValue } from "../../../models/v2/resources/values/create/create-interval-value";
 import { CreateLinkValue } from "../../../models/v2/resources/values/create/create-link-value";
@@ -24,6 +25,7 @@ import { UpdateColorValue } from "../../../models/v2/resources/values/update/upd
 import { UpdateDateValue } from "../../../models/v2/resources/values/update/update-date-value";
 import { UpdateDecimalValue } from "../../../models/v2/resources/values/update/update-decimal-value";
 import { UpdateStillImageFileValue } from "../../../models/v2/resources/values/update/update-file-value";
+import { UpdateGeomValue } from "../../../models/v2/resources/values/update/update-geom-value";
 import { UpdateIntValue } from "../../../models/v2/resources/values/update/update-int-value";
 import { UpdateIntervalValue } from "../../../models/v2/resources/values/update/update-interval-value";
 import { UpdateLinkValue } from "../../../models/v2/resources/values/update/update-link-value";
@@ -624,7 +626,7 @@ describe("ValuesEndpoint", () => {
 
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.id).toEqual("http://rdfh.ch/0803/7bbb8e59b703/values/updated");
                     done();
                 }
             );
@@ -632,7 +634,7 @@ describe("ValuesEndpoint", () => {
             const request = jasmine.Ajax.requests.mostRecent();
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                "@id": "http://rdfh.ch/0803/7bbb8e59b703/values/updated",
                 "@type": Constants.DateValue
             })));
 
@@ -654,6 +656,54 @@ describe("ValuesEndpoint", () => {
 
             expect(request.data()).toEqual(expectedPayload);
         });
+
+        it("should update a geom value", done => {
+
+            const updateGeomVal = new UpdateGeomValue();
+
+            updateGeomVal.id = "http://rdfh.ch/0803/021ec18f1735/values/4dc0163d338201";
+            updateGeomVal.geometryString = "{\"status\":\"active\",\"lineColor\":\"#ff3333\",\"lineWidth\":2,\"points\":[{\"x\":0.08098591549295775,\"y\":0.16741071428571427},{\"x\":0.7394366197183099,\"y\":0.7299107142857143}],\"type\":\"rectangle\",\"original_index\":0}";
+
+            const updateResource = new UpdateResource<UpdateValue>();
+
+            updateResource.id = "http://rdfh.ch/0803/021ec18f1735";
+            updateResource.type = "http://api.knora.org/ontology/knora-api/v2#Region";
+            updateResource.property = "http://api.knora.org/ontology/knora-api/v2#hasGeometry";
+            updateResource.value = updateGeomVal;
+
+            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0803/021ec18f1735/values/updated");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0803/021ec18f1735/values/updated",
+                "@type": Constants.GeomValue
+            })));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = {
+                "@type": "http://api.knora.org/ontology/knora-api/v2#Region",
+                "@id": "http://rdfh.ch/0803/021ec18f1735",
+                "http://api.knora.org/ontology/knora-api/v2#hasGeometry": {
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#GeomValue",
+                    "@id": "http://rdfh.ch/0803/021ec18f1735/values/4dc0163d338201",
+                    "http://api.knora.org/ontology/knora-api/v2#geometryValueAsGeometry": "{\"status\":\"active\",\"lineColor\":\"#ff3333\",\"lineWidth\":2,\"points\":[{\"x\":0.08098591549295775,\"y\":0.16741071428571427},{\"x\":0.7394366197183099,\"y\":0.7299107142857143}],\"type\":\"rectangle\",\"original_index\":0}"
+                }
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
 
         it("should update an integer value with a comment", done => {
 
@@ -1386,6 +1436,52 @@ describe("ValuesEndpoint", () => {
 
             expect(request.data()).toEqual(expectedPayload);
         });
+
+        it("should create a geom value", done => {
+
+            const updateGeomVal = new CreateGeomValue();
+
+            updateGeomVal.geometryString = "{\"status\":\"active\",\"lineColor\":\"#ff3333\",\"lineWidth\":2,\"points\":[{\"x\":0.08098591549295775,\"y\":0.16741071428571427},{\"x\":0.7394366197183099,\"y\":0.7299107142857143}],\"type\":\"rectangle\",\"original_index\":0}";
+
+            const updateResource = new UpdateResource<CreateValue>();
+
+            updateResource.id = "http://rdfh.ch/0803/021ec18f1735";
+            updateResource.type = "http://api.knora.org/ontology/knora-api/v2#Region";
+            updateResource.property = "http://api.knora.org/ontology/knora-api/v2#hasGeometry";
+            updateResource.value = updateGeomVal;
+
+            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0803/021ec18f1735/values/created");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0803/021ec18f1735/values/created",
+                "@type": Constants.GeomValue
+            })));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = {
+                "@type": "http://api.knora.org/ontology/knora-api/v2#Region",
+                "@id": "http://rdfh.ch/0803/021ec18f1735",
+                "http://api.knora.org/ontology/knora-api/v2#hasGeometry": {
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#GeomValue",
+                    "http://api.knora.org/ontology/knora-api/v2#geometryValueAsGeometry": "{\"status\":\"active\",\"lineColor\":\"#ff3333\",\"lineWidth\":2,\"points\":[{\"x\":0.08098591549295775,\"y\":0.16741071428571427},{\"x\":0.7394366197183099,\"y\":0.7299107142857143}],\"type\":\"rectangle\",\"original_index\":0}"
+                }
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
         it("should create a value with a comment", done => {
 
             const createIntVal = new CreateIntValue();
