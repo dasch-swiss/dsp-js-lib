@@ -1,11 +1,12 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../../Constants";
 import { IBaseBooleanValue } from "../type-specific-interfaces/base-boolean-value";
-import { ReadValue } from "./read-value";
+import { UpdateValue } from "./update-value";
 
-@JsonObject("ReadBooleanValue")
-export class ReadBooleanValue extends ReadValue implements IBaseBooleanValue {
+@JsonObject("UpdateBooleanValue")
+export class UpdateBooleanValue extends UpdateValue implements IBaseBooleanValue {
 
     @JsonProperty(Constants.BooleanValueAsBoolean, Boolean)
     bool: boolean = false;
+
 }

@@ -3,12 +3,14 @@ import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { UpdateResource } from "../../../models/v2/resources/update/update-resource";
+import { CreateBooleanValue } from "../../../models/v2/resources/values/create/create-boolean-value";
 import { CreateColorValue } from "../../../models/v2/resources/values/create/create-color-value";
 import { CreateDecimalValue } from "../../../models/v2/resources/values/create/create-decimal-value";
 import { CreateIntValue } from "../../../models/v2/resources/values/create/create-int-value";
 import { CreateIntervalValue } from "../../../models/v2/resources/values/create/create-interval-value";
 import { DeleteValue } from "../../../models/v2/resources/values/delete/delete-value";
 import { DeleteValueResponse } from "../../../models/v2/resources/values/delete/delete-value-response";
+import { UpdateBooleanValue } from "../../../models/v2/resources/values/update/update-boolean-value";
 import { UpdateColorValue } from "../../../models/v2/resources/values/update/update-color-value";
 import { UpdateDecimalValue } from "../../../models/v2/resources/values/update/update-decimal-value";
 import { UpdateIntValue } from "../../../models/v2/resources/values/update/update-int-value";
@@ -230,6 +232,54 @@ describe("ValuesEndpoint", () => {
                         "@value": "2.5"
                     }
 
+                }
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
+        it("should update a Boolean value", done => {
+
+            const updateBooleanVal = new UpdateBooleanValue();
+
+            updateBooleanVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/IN4R19yYR0ygi3K2VEHpUQ";
+            updateBooleanVal.type = Constants.IntervalValue;
+            updateBooleanVal.bool = true;
+
+            const updateResource = new UpdateResource<UpdateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval";
+            updateResource.value = updateBooleanVal;
+
+            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                "@type": Constants.IntervalValue
+            })));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = {
+                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval": {
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#IntervalValue",
+                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/IN4R19yYR0ygi3K2VEHpUQ",
+                    "http://api.knora.org/ontology/knora-api/v2#booleanValueAsBoolean": true
                 }
             };
 
@@ -589,6 +639,51 @@ describe("ValuesEndpoint", () => {
             expect(request.data()).toEqual(expectedPayload);
         });
 
+        it("should create a Boolean value", done => {
+
+            const createBooleanVal = new CreateBooleanValue();
+
+            createBooleanVal.type = Constants.IntervalValue;
+            createBooleanVal.bool = true;
+
+            const updateResource = new UpdateResource<CreateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval";
+            updateResource.value = createBooleanVal;
+
+            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                "@type": Constants.IntervalValue
+            })));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = {
+                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval": {
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#IntervalValue",
+                    "http://api.knora.org/ontology/knora-api/v2#booleanValueAsBoolean": true
+                }
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
 
         it("should create a value with a comment", done => {
 
