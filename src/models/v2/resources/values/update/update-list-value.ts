@@ -10,4 +10,8 @@ export class UpdateListValue extends UpdateValue implements IBaseListValue {
     @JsonProperty(Constants.ListValueAsListNode, IdConverter)
     listNode: string = "";
 
+    constructor() {
+        super(Constants.ListValue);
+    }
+
 }

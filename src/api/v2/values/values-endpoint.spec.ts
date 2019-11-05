@@ -43,7 +43,6 @@ describe("ValuesEndpoint", () => {
             const updateIntVal = new UpdateIntValue();
 
             updateIntVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg";
-            updateIntVal.type = Constants.IntValue;
             updateIntVal.int = 2;
 
             const updateResource = new UpdateResource<UpdateValue>();
@@ -91,7 +90,6 @@ describe("ValuesEndpoint", () => {
             const updateDecimalVal = new UpdateDecimalValue();
 
             updateDecimalVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/bXMwnrHvQH2DMjOFrGmNzg";
-            updateDecimalVal.type = Constants.DecimalValue;
             updateDecimalVal.decimal = 2.5;
 
             const updateResource = new UpdateResource<UpdateValue>();
@@ -142,7 +140,6 @@ describe("ValuesEndpoint", () => {
             const updateColorVal = new UpdateColorValue();
 
             updateColorVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/TAziKNP8QxuyhC4Qf9-b6w";
-            updateColorVal.type = Constants.ColorValue;
             updateColorVal.color = "#000000";
 
             const updateResource = new UpdateResource<UpdateValue>();
@@ -190,7 +187,6 @@ describe("ValuesEndpoint", () => {
             const updateIntervalVal = new UpdateIntervalValue();
 
             updateIntervalVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/RbDKPKHWTC-0lkRKae-E6A";
-            updateIntervalVal.type = Constants.IntervalValue;
             updateIntervalVal.start = 1.5;
             updateIntervalVal.end = 2.5;
 
@@ -247,7 +243,6 @@ describe("ValuesEndpoint", () => {
             const updateBooleanVal = new UpdateBooleanValue();
 
             updateBooleanVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/IN4R19yYR0ygi3K2VEHpUQ";
-            updateBooleanVal.type = Constants.IntervalValue;
             updateBooleanVal.bool = true;
 
             const updateResource = new UpdateResource<UpdateValue>();
@@ -281,7 +276,7 @@ describe("ValuesEndpoint", () => {
                 "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
                 "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#IntervalValue",
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#BooleanValue",
                     "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/IN4R19yYR0ygi3K2VEHpUQ",
                     "http://api.knora.org/ontology/knora-api/v2#booleanValueAsBoolean": true
                 }
@@ -295,7 +290,6 @@ describe("ValuesEndpoint", () => {
             const updateListVal = new UpdateListValue();
 
             updateListVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/XAhEeE3kSVqM4JPGdLt4Ew";
-            updateListVal.type = Constants.ListValue;
             updateListVal.listNode = "http://rdfh.ch/lists/0001/treeList02";
 
             const updateResource = new UpdateResource<UpdateValue>();
@@ -346,7 +340,6 @@ describe("ValuesEndpoint", () => {
             const updateLinkVal = new UpdateLinkValue();
 
             updateLinkVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/uvRVxzL1RD-t9VIQ1TpfUw";
-            updateLinkVal.type = Constants.LinkValue;
             updateLinkVal.linkedResourceIri = "http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ";
 
             const updateResource = new UpdateResource<UpdateValue>();
@@ -397,7 +390,6 @@ describe("ValuesEndpoint", () => {
             const updateIntVal = new UpdateIntValue();
 
             updateIntVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg";
-            updateIntVal.type = Constants.IntValue;
             updateIntVal.int = 2;
             updateIntVal.valueHasComment = "comment on 2";
 
@@ -447,7 +439,6 @@ describe("ValuesEndpoint", () => {
             const updateIntVal = new UpdateIntValue();
 
             updateIntVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg";
-            updateIntVal.type = Constants.IntValue;
             updateIntVal.int = 2;
             updateIntVal.hasPermissions = "RV";
 
@@ -549,8 +540,6 @@ describe("ValuesEndpoint", () => {
         it("should create an integer value", done => {
 
             const createIntVal = new CreateIntValue();
-
-            createIntVal.type = Constants.IntValue;
             createIntVal.int = 5;
 
             const updateResource = new UpdateResource<CreateValue>();
@@ -597,7 +586,6 @@ describe("ValuesEndpoint", () => {
 
             const createDecimalVal = new CreateDecimalValue();
 
-            createDecimalVal.type = Constants.DecimalValue;
             createDecimalVal.decimal = 3.5;
 
             const updateResource = new UpdateResource<CreateValue>();
@@ -647,7 +635,6 @@ describe("ValuesEndpoint", () => {
 
             const createColorVal = new CreateColorValue();
 
-            createColorVal.type = Constants.ColorValue;
             createColorVal.color = "#000000";
 
             const updateResource = new UpdateResource<CreateValue>();
@@ -694,7 +681,6 @@ describe("ValuesEndpoint", () => {
 
             const createIntervalVal = new CreateIntervalValue();
 
-            createIntervalVal.type = Constants.IntervalValue;
             createIntervalVal.start = 1.5;
             createIntervalVal.end = 2.5;
 
@@ -748,15 +734,13 @@ describe("ValuesEndpoint", () => {
         it("should create a Boolean value", done => {
 
             const createBooleanVal = new CreateBooleanValue();
-
-            createBooleanVal.type = Constants.IntervalValue;
             createBooleanVal.bool = true;
 
             const updateResource = new UpdateResource<CreateValue>();
 
             updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean";
             updateResource.value = createBooleanVal;
 
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
@@ -782,8 +766,8 @@ describe("ValuesEndpoint", () => {
             const expectedPayload = {
                 "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#IntervalValue",
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean": {
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#BooleanValue",
                     "http://api.knora.org/ontology/knora-api/v2#booleanValueAsBoolean": true
                 }
             };
@@ -795,7 +779,6 @@ describe("ValuesEndpoint", () => {
 
             const createListVal = new CreateListValue();
 
-            createListVal.type = Constants.ListValue;
             createListVal.listNode = "http://rdfh.ch/lists/0001/treeList03";
 
             const updateResource = new UpdateResource<CreateValue>();
@@ -844,7 +827,6 @@ describe("ValuesEndpoint", () => {
 
             const createLinkVal = new CreateLinkValue();
 
-            createLinkVal.type = Constants.LinkValue;
             createLinkVal.linkedResourceIri = "http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ";
 
             const updateResource = new UpdateResource<CreateValue>();
@@ -893,7 +875,6 @@ describe("ValuesEndpoint", () => {
 
             const createIntVal = new CreateIntValue();
 
-            createIntVal.type = Constants.IntValue;
             createIntVal.int = 5;
             createIntVal.valueHasComment = "comment on 5";
 
@@ -942,7 +923,6 @@ describe("ValuesEndpoint", () => {
 
             const createIntVal = new CreateIntValue();
 
-            createIntVal.type = Constants.IntValue;
             createIntVal.int = 5;
             createIntVal.hasPermissions = "RV";
 

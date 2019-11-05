@@ -9,4 +9,8 @@ export class UpdateLinkValue extends UpdateValue implements IBaseLinkValue {
 
     @JsonProperty(Constants.LinkValueHasTargetIri, IdConverter)
     linkedResourceIri: string = "";
+
+    constructor() {
+        super(Constants.LinkValue);
+    }
 }

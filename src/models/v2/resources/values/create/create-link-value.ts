@@ -8,4 +8,8 @@ export class CreateLinkValue extends CreateValue implements IBaseLinkValue {
 
     @JsonProperty(Constants.LinkValueHasTargetIri, IdConverter)
     linkedResourceIri: string = "";
+
+    constructor() {
+        super(Constants.LinkValue);
+    }
 }

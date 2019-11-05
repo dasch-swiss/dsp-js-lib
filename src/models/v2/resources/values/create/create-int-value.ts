@@ -9,4 +9,7 @@ export class CreateIntValue extends CreateValue implements IBaseIntValue {
     @JsonProperty(Constants.IntValueAsInt, Number)
     int: number = 0;
 
+    constructor() {
+        super(Constants.IntValue);
+    }
 }

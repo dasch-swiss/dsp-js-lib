@@ -9,4 +9,8 @@ export class UpdateIntValue extends UpdateValue implements IBaseIntValue {
     @JsonProperty(Constants.IntValueAsInt, Number)
     int: number = 0;
 
+    constructor() {
+        super(Constants.IntValue);
+    }
+
 }

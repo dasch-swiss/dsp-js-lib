@@ -9,4 +9,8 @@ export class UpdateColorValue extends UpdateValue implements IBaseColorValue {
     @JsonProperty(Constants.ColorValueAsColor, String)
     color: string;
 
+    constructor() {
+        super(Constants.ColorValue);
+    }
+
 }

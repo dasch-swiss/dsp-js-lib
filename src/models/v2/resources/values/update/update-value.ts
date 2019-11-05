@@ -9,12 +9,16 @@ export abstract class UpdateValue /*extends WriteValue*/ {
     id: string = "";
 
     @JsonProperty("@type", String)
-    type: string = "";
+    readonly type: string = "";
 
     @JsonProperty(Constants.HasPermissions, String, true)
     hasPermissions?: string = undefined;
 
     @JsonProperty(Constants.ValueHasComment, String, true)
     valueHasComment?: string = undefined;
+
+    constructor(type: string) {
+        this.type = type;
+    }
 
 }

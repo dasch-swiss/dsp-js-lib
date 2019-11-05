@@ -9,4 +9,8 @@ export class CreateColorValue extends CreateValue implements IBaseColorValue {
     @JsonProperty(Constants.ColorValueAsColor, String)
     color: string;
 
+    constructor() {
+        super(Constants.ColorValue);
+    }
+
 }

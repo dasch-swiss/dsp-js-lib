@@ -12,4 +12,8 @@ export class CreateIntervalValue extends CreateValue implements IBaseIntervalVal
     @JsonProperty(Constants.IntervalValueHasEnd, DecimalConverter)
     end: number = 0;
 
+    constructor() {
+        super(Constants.IntervalValue);
+    }
+
 }

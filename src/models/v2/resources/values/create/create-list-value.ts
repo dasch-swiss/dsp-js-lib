@@ -9,4 +9,7 @@ export class CreateListValue extends CreateValue implements IBaseListValue {
     @JsonProperty(Constants.ListValueAsListNode, IdConverter)
     listNode: string = "";
 
+    constructor() {
+        super(Constants.ListValue);
+    }
 }
