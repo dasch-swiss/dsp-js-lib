@@ -16,15 +16,19 @@ export class AuthenticationEndpoint extends Endpoint {
     /**
      *  Logs in a user.
      *
-     * @param username the given username.
+     * @param property The name of the property by which the user is identified.
+     * @param id the given user.
      * @param password the user's password.
      */
-    login(username: string, password: string): Observable<ApiResponseData<LoginResponse> | ApiResponseError> {
+    login(property: "iri" | "email" | "username", id: string, password: string): Observable<ApiResponseData<LoginResponse> | ApiResponseError> {
 
-        return this.httpPost("", {
-            password,
-            username
-        }).pipe(
+        const credentials: any = {
+            password
+        };
+
+        credentials[property] = id;
+
+        return this.httpPost("", credentials).pipe(
             map((ajaxResponse: AjaxResponse) => {
                 // Make sure the web token is stored.
                 const responseData = ApiResponseData.fromAjaxResponse(ajaxResponse, LoginResponse, this.jsonConvert);
