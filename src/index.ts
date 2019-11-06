@@ -52,10 +52,6 @@ export { OntologyMetadata, OntologiesMetadata } from "./models/v2/ontologies/ont
 export { ReadResource } from "./models/v2/resources/read/read-resource";
 export { CountQueryResponse} from "./models/v2/search/count-query-response";
 export { UpdateResource } from "./models/v2/resources/update/update-resource";
-export { UpdateValue } from "./models/v2/resources/values/update/update-value";
-export { UpdateIntValue } from "./models/v2/resources/values/update/update-int-value";
-export { CreateValue } from "./models/v2/resources/values/create/create-value";
-export { CreateIntValue } from "./models/v2/resources/values/create/create-int-value";
 export { DeleteValue } from "./models/v2/resources/values/delete/delete-value";
 export { DeleteValueResponse } from "./models/v2/resources/values/delete/delete-value-response";
 export { WriteValueResponse } from "./models/v2/resources/values/write-value-response";
@@ -73,6 +69,34 @@ export { ReadListValue } from "./models/v2/resources/values/read/read-list-value
 export { ReadTextValue, ReadTextValueAsString, ReadTextValueAsHtml, ReadTextValueAsXml } from "./models/v2/resources/values/read/read-text-value";
 export { ReadUriValue } from "./models/v2/resources/values/read/read-uri-value";
 export { ReadValue } from "./models/v2/resources/values/read/read-value";
+
+export { UpdateValue } from "./models/v2/resources/values/update/update-value";
+export { UpdateBooleanValue } from "./models/v2/resources/values/update/update-boolean-value";
+export { UpdateColorValue } from "./models/v2/resources/values/update/update-color-value";
+export { UpdateDateValue } from "./models/v2/resources/values/update/update-date-value";
+export { UpdateDecimalValue } from "./models/v2/resources/values/update/update-decimal-value";
+export { UpdateStillImageFileValue } from "./models/v2/resources/values/update/update-file-value";
+export { UpdateGeomValue } from "./models/v2/resources/values/update/update-geom-value";
+export { UpdateIntValue } from "./models/v2/resources/values/update/update-int-value";
+export { UpdateIntervalValue } from "./models/v2/resources/values/update/update-interval-value";
+export { UpdateLinkValue } from "./models/v2/resources/values/update/update-link-value";
+export { UpdateListValue } from "./models/v2/resources/values/update/update-list-value";
+export { UpdateTextValueAsString, UpdateTextValueAsXml } from "./models/v2/resources/values/update/update-text-value";
+export { UpdateUriValue } from "./models/v2/resources/values/update/update-uri-value";
+
+export { CreateValue } from "./models/v2/resources/values/create/create-value";
+export { CreateBooleanValue } from "./models/v2/resources/values/create/create-boolean-value";
+export { CreateColorValue } from "./models/v2/resources/values/create/create-color-value";
+export { CreateDateValue } from "./models/v2/resources/values/create/create-date-value";
+export { CreateDecimalValue } from "./models/v2/resources/values/create/create-decimal-value";
+export { CreateStillImageFileValue } from "./models/v2/resources/values/create/create-file-value";
+export { CreateGeomValue } from "./models/v2/resources/values/create/create-geom-value";
+export { CreateIntValue } from "./models/v2/resources/values/create/create-int-value";
+export { CreateIntervalValue } from "./models/v2/resources/values/create/create-interval-value";
+export { CreateLinkValue } from "./models/v2/resources/values/create/create-link-value";
+export { CreateListValue } from "./models/v2/resources/values/create/create-list-value";
+export { CreateTextValueAsString, CreateTextValueAsXml } from "./models/v2/resources/values/create/create-text-value";
+export { CreateUriValue } from "./models/v2/resources/values/create/create-uri-value";
 
 export { ListNode } from "./models/v2/lists/list-node";
 
