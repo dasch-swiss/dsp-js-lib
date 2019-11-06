@@ -18,6 +18,11 @@ const jsonld = require("jsonld/dist/jsonld.js");
  */
 export class ValuesEndpoint extends Endpoint {
 
+    /**
+     * Updates an existing value.
+     *
+     * @param resource The resource with the value to be updated.
+     */
     updateValue(resource: UpdateResource<UpdateValue>): Observable<WriteValueResponse | ApiResponseError> {
 
         const res = this.jsonConvert.serializeObject<UpdateResource<UpdateValue>>(resource);
@@ -40,6 +45,11 @@ export class ValuesEndpoint extends Endpoint {
         );
     }
 
+    /**
+     * Creates a new value.
+     *
+     * @param resource The resource with the value to be created.
+     */
     createValue(resource: UpdateResource<CreateValue>): Observable<WriteValueResponse | ApiResponseError> {
 
         const res = this.jsonConvert.serializeObject<UpdateResource<CreateValue>>(resource);
@@ -63,6 +73,11 @@ export class ValuesEndpoint extends Endpoint {
 
     }
 
+    /**
+     * Deletes a value.
+     *
+     * @param resource The resource with the value to be deleted.
+     */
     deleteValue(resource: UpdateResource<DeleteValue>): Observable<DeleteValueResponse | ApiResponseError> {
 
         const res = this.jsonConvert.serializeObject<UpdateResource<DeleteValue>>(resource);
