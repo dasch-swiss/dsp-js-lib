@@ -1,7 +1,7 @@
-import { Constants, CreateValue } from "../../..";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
+import { Constants } from "../../../models/v2/Constants";
 import { UpdateResource } from "../../../models/v2/resources/update/update-resource";
 import { CreateBooleanValue } from "../../../models/v2/resources/values/create/create-boolean-value";
 import { CreateColorValue } from "../../../models/v2/resources/values/create/create-color-value";
@@ -18,6 +18,7 @@ import {
     CreateTextValueAsXml
 } from "../../../models/v2/resources/values/create/create-text-value";
 import { CreateUriValue } from "../../../models/v2/resources/values/create/create-uri-value";
+import { CreateValue } from "../../../models/v2/resources/values/create/create-value";
 import { DeleteValue } from "../../../models/v2/resources/values/delete/delete-value";
 import { DeleteValueResponse } from "../../../models/v2/resources/values/delete/delete-value-response";
 import { UpdateBooleanValue } from "../../../models/v2/resources/values/update/update-boolean-value";
@@ -703,7 +704,6 @@ describe("ValuesEndpoint", () => {
 
             expect(request.data()).toEqual(expectedPayload);
         });
-
 
         it("should update an integer value with a comment", done => {
 

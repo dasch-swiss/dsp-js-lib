@@ -1,7 +1,8 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-import { Constants, CreateValue } from "../../../../..";
+import { Constants } from "../../../Constants";
 import { IdConverter } from "../../../custom-converters/id-converter";
 import { IBaseTextValueAsString, IBaseTextValueAsXml } from "../type-specific-interfaces/base-text-value";
+import { CreateValue } from "./create-value";
 
 @JsonObject("CreateTextValueAsString")
 export class CreateTextValueAsString extends CreateValue implements IBaseTextValueAsString {

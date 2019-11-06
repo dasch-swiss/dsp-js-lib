@@ -1,7 +1,8 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-import { Constants, CreateValue } from "../../../../..";
+import { Constants } from "../../../Constants";
 import { IdConverter } from "../../../custom-converters/id-converter";
 import { IBaseLinkValue } from "../type-specific-interfaces/base-link-value";
+import { CreateValue } from "./create-value";
 
 @JsonObject("CreateLinkValue")
 export class CreateLinkValue extends CreateValue implements IBaseLinkValue {
