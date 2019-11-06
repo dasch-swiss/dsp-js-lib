@@ -35,7 +35,7 @@ export class GroupsEndpoint extends Endpoint {
      */
     createGroup(group: CreateGroupRequest): Observable<ApiResponseData<GroupResponse> | ApiResponseError> {
     
-        return this.httpPost("", group).pipe(
+        return this.httpPost("", this.jsonConvert.serializeObject(group)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
@@ -64,7 +64,7 @@ export class GroupsEndpoint extends Endpoint {
      */
     updateGroup(iri: string, groupInfo: UpdateGroupRequest): Observable<ApiResponseData<GroupResponse> | ApiResponseError> {
     
-        return this.httpPut("/" + encodeURIComponent(iri), groupInfo).pipe(
+        return this.httpPut("/" + encodeURIComponent(iri), this.jsonConvert.serializeObject(groupInfo)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
