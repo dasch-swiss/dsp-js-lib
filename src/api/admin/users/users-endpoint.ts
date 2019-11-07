@@ -13,6 +13,7 @@ import { User } from "../../../models/admin/user";
 import { UserResponse } from "../../../models/admin/user-response";
 import { UsersResponse } from "../../../models/admin/users-response";
 
+
 /**
  * An endpoint for working with Knora users.
  */
@@ -127,7 +128,7 @@ export class UsersEndpoint extends Endpoint {
      */
     createUser(user: User): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
     
-        return this.httpPost("", user).pipe(
+        return this.httpPost("", this.jsonConvert.serializeObject(user)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
@@ -142,7 +143,7 @@ export class UsersEndpoint extends Endpoint {
      */
     updateUserBasicInformation(iri: string, userInfo: UpdateUserRequest): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
     
-        return this.httpPut("/iri/" + encodeURIComponent(iri) + "/BasicUserInformation", userInfo).pipe(
+        return this.httpPut("/iri/" + encodeURIComponent(iri) + "/BasicUserInformation", this.jsonConvert.serializeObject(userInfo)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );

@@ -13,6 +13,7 @@ import { ProjectRestrictedViewSettingsResponse } from "../../../models/admin/pro
 import { ProjectsResponse } from "../../../models/admin/projects-response";
 import { UpdateProjectRequest } from "../../../models/admin/update-project-request";
 
+
 /**
  * An endpoint for working with Knora projects.
  */
@@ -37,7 +38,7 @@ export class ProjectsEndpoint extends Endpoint {
      */
     createProject(project: Project): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
     
-        return this.httpPost("", project).pipe(
+        return this.httpPost("", this.jsonConvert.serializeObject(project)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
@@ -78,7 +79,7 @@ export class ProjectsEndpoint extends Endpoint {
      */
     updateProject(iri: string, projectInfo: UpdateProjectRequest): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
     
-        return this.httpPut("/iri/" + encodeURIComponent(iri), projectInfo).pipe(
+        return this.httpPut("/iri/" + encodeURIComponent(iri), this.jsonConvert.serializeObject(projectInfo)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );

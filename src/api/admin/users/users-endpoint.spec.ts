@@ -58,6 +58,16 @@ describe("UsersEndpoint", () => {
                 (response: ApiResponseData<UserResponse>) => {
                     expect(response.body.user.familyName).toEqual("User01");
 
+                    expect(response.body.user.permissions.administrativePermissionsPerProject).toBeDefined();
+                    expect(response.body.user.permissions.administrativePermissionsPerProject!["http://rdfh.ch/projects/0001"]).toBeDefined();
+                    expect(response.body.user.permissions.administrativePermissionsPerProject!["http://rdfh.ch/projects/0001"]!.length).toEqual(1);
+                    expect(response.body.user.permissions.administrativePermissionsPerProject!["http://rdfh.ch/projects/0001"]![0]!.name).toEqual("ProjectResourceCreateAllPermission");
+
+                    expect(response.body.user.permissions.groupsPerProject).toBeDefined();
+                    expect(response.body.user.permissions.groupsPerProject!["http://rdfh.ch/projects/0001"]).toBeDefined();
+                    expect(response.body.user.permissions.groupsPerProject!["http://rdfh.ch/projects/0001"]!.length).toEqual(2);
+                    expect(response.body.user.permissions.groupsPerProject!["http://rdfh.ch/projects/0001"]![0]).toEqual("http://rdfh.ch/groups/0001/thing-searcher");
+
                     done();
                 });
 

@@ -1,6 +1,6 @@
 import { JsonConverter, JsonCustomConvert } from "json2typescript";
 import { Constants } from "../Constants";
-import { CustomConverterUtils } from "./utils";
+import { CustomConverterUtils } from "../../../util/utils";
 
 @JsonConverter
 export class DecimalConverter implements JsonCustomConvert<number> {
