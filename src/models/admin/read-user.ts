@@ -1,5 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 
+import { PermissionsData } from "./permissions-data";
 import { StoredGroup } from "./stored-group";
 import { StoredProject } from "./stored-project";
 import { StoredUser } from "./stored-user";
@@ -15,6 +16,12 @@ export class ReadUser extends StoredUser {
      */
     @JsonProperty("groups", [StoredGroup])
     groups: StoredGroup[] = [];
+
+    /**
+     * A user's permissions data.
+     */
+    @JsonProperty("permissions", PermissionsData)
+    permissions: PermissionsData = new PermissionsData();
 
     /**
      * The given user is part of the given project.
