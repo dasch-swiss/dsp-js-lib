@@ -1,7 +1,7 @@
 import { JsonConverter, JsonCustomConvert } from "json2typescript";
 import { Constants } from "../Constants";
 import { Cardinality, IHasProperty } from "../ontologies/class-definition";
-import { CustomConverterUtils } from "./utils";
+import { CustomConverterUtils } from "../../../util/utils";
 
 @JsonConverter
 export class HasCardinalityForPropertyConverter implements JsonCustomConvert<IHasProperty[]> {
