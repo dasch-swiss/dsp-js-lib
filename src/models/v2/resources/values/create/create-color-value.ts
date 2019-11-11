@@ -7,7 +7,7 @@ import { CreateValue } from "./create-value";
 export class CreateColorValue extends CreateValue implements IBaseColorValue {
 
     @JsonProperty(Constants.ColorValueAsColor, String)
-    color: string;
+    color: string = "";
 
     constructor() {
         super(Constants.ColorValue);
