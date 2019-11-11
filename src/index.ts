@@ -49,6 +49,12 @@ export { ApiResponseError } from "./models/api-response-error";
 export { ReadOntology } from "./models/v2/ontologies/read-ontology";
 export { OntologyMetadata, OntologiesMetadata } from "./models/v2/ontologies/ontology-metadata";
 
+export { IResourceClassAndPropertyDefinitions } from "./cache/OntologyCache";
+export { ClassDefinition, IHasProperty, Cardinality } from "./models/v2/ontologies/class-definition";
+export { SystemPropertyDefinition } from "./models/v2/ontologies/system-property-definition";
+export { ResourcePropertyDefinition } from "./models/v2/ontologies/resource-property-definition";
+export { ResourceClassDefinition } from "./models/v2/ontologies/resource-class-definition";
+export { StandoffClassDefinition } from "./models/v2/ontologies/standoff-class-definition";
 export { ReadResource } from "./models/v2/resources/read/read-resource";
 export { CountQueryResponse} from "./models/v2/search/count-query-response";
 export { UpdateResource } from "./models/v2/resources/update/update-resource";

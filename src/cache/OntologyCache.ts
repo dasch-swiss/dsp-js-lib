@@ -1,7 +1,7 @@
 import { AsyncSubject, forkJoin, Observable, of } from "rxjs";
 import { map, mergeMap } from "rxjs/operators";
-import { KnoraApiConfig } from "../knora-api-config";
 import { V2Endpoint } from "../api/v2/v2-endpoint";
+import { KnoraApiConfig } from "../knora-api-config";
 import { ClassDefinition, IHasProperty } from "../models/v2/ontologies/class-definition";
 import { OntologyConversionUtil } from "../models/v2/ontologies/OntologyConversionUtil";
 import { PropertyDefinition } from "../models/v2/ontologies/property-definition";
