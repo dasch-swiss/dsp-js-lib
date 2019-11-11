@@ -3,6 +3,7 @@ import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
+import { CredentialsReponse } from "../../../models/v2/authentication/credentials-reponse";
 import { LoginResponse } from "../../../models/v2/authentication/login-response";
 import { LogoutResponse } from "../../../models/v2/authentication/logout-response";
 
@@ -147,6 +148,57 @@ describe("Test class AuthenticationEndpoint", () => {
         expect(request.url).toEqual("http://localhost:3333/v2/authentication");
 
         expect(request.method).toEqual("DELETE");
+
+    });
+
+    it("should check credentials for a user that is logged in", done => {
+
+        const config = new KnoraApiConfig("http", "localhost", 3333);
+
+        const knoraApiConnection = new KnoraApiConnection(config);
+
+        knoraApiConnection.v2.auth.checkCredentials().subscribe(
+            (response: ApiResponseData<CredentialsReponse>) => {
+                expect(response.body.message).toEqual("credentials are OK");
+                done();
+            }
+        );
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({message: "credentials are OK"})));
+
+        expect(request.url).toEqual("http://localhost:3333/v2/authentication");
+
+        expect(request.method).toEqual("GET");
+
+    });
+
+    it("should check credentials for a user that is not logged in", done => {
+
+        const config = new KnoraApiConfig("http", "localhost", 3333);
+
+        const knoraApiConnection = new KnoraApiConnection(config);
+
+        knoraApiConnection.v2.auth.checkCredentials().subscribe(
+            () => {
+            },
+            (err: ApiResponseError) => {
+                expect(err.status).toEqual(401);
+                done();
+            }
+        );
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockNotAuthorizedResponse(JSON.stringify({
+            "knora-api:error": "org.knora.webapi.BadCredentialsException: bad credentials: none found",
+            "@context": {"knora-api": "http://api.knora.org/ontology/knora-api/v2#"}
+        })));
+
+        expect(request.url).toEqual("http://localhost:3333/v2/authentication");
+
+        expect(request.method).toEqual("GET");
 
     });
 

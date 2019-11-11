@@ -4,6 +4,7 @@ import { catchError, map } from "rxjs/operators";
 
 import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
+import { CredentialsReponse } from "../../../models/v2/authentication/credentials-reponse";
 import { LoginResponse } from "../../../models/v2/authentication/login-response";
 import { LogoutResponse } from "../../../models/v2/authentication/logout-response";
 import { Endpoint } from "../../endpoint";
@@ -55,6 +56,21 @@ export class AuthenticationEndpoint extends Endpoint {
             catchError(error => this.handleError(error))
         );
 
+    }
+
+    /**
+     * Checks credentials.
+     *
+     * Returns a `ApiResponseError` if the client is not authorized.
+     */
+    checkCredentials(): Observable<ApiResponseData<CredentialsReponse> | ApiResponseError> {
+
+        return this.httpGet("").pipe(
+            map((ajaxResponse: AjaxResponse) => {
+                return ApiResponseData.fromAjaxResponse(ajaxResponse, CredentialsReponse);
+            }),
+            catchError(error => this.handleError(error))
+        );
     }
 
 }
