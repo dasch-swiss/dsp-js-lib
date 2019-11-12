@@ -1,7 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 
 @JsonObject("CredentialsResponse")
-export class CredentialsReponse {
+export class CredentialsResponse {
 
     @JsonProperty("message")
     message: string = "";

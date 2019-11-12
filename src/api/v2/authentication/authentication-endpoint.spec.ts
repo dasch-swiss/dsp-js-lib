@@ -3,7 +3,7 @@ import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
-import { CredentialsReponse } from "../../../models/v2/authentication/credentials-reponse";
+import { CredentialsResponse } from "../../../models/v2/authentication/credentials-response";
 import { LoginResponse } from "../../../models/v2/authentication/login-response";
 import { LogoutResponse } from "../../../models/v2/authentication/logout-response";
 
@@ -158,7 +158,7 @@ describe("Test class AuthenticationEndpoint", () => {
         const knoraApiConnection = new KnoraApiConnection(config);
 
         knoraApiConnection.v2.auth.checkCredentials().subscribe(
-            (response: ApiResponseData<CredentialsReponse>) => {
+            (response: ApiResponseData<CredentialsResponse>) => {
                 expect(response.body.message).toEqual("credentials are OK");
                 done();
             }
