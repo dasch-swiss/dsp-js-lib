@@ -1,6 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 
-@JsonObject("CredentialsReponse")
+@JsonObject("CredentialsResponse")
 export class CredentialsReponse {
 
     @JsonProperty("message")
