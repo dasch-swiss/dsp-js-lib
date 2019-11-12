@@ -36,6 +36,7 @@ export { UserResponse } from "./models/admin/user-response";
 export { UsersResponse } from "./models/admin/users-response";
 
 export { LoginResponse } from "./models/v2/authentication/login-response";
+export { CredentialsResponse } from "./models/v2/authentication/credentials-response";
 export { LogoutResponse } from "./models/v2/authentication/logout-response";
 
 export { StringLiteral } from "./models/admin/string-literal";
