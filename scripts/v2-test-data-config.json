@@ -95,6 +95,14 @@
       "destination": "./test/data/api/v2/values/create-date-value-with-day-precision-request.json"
     },
     {
+      "source": "/test-data/v2/values/create-date-value-with-month-precision-request.json",
+      "destination": "./test/data/api/v2/values/create-date-value-with-month-precision-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-date-value-with-year-precision-request.json",
+      "destination": "./test/data/api/v2/values/create-date-value-with-year-precision-request.json"
+    },
+    {
       "source": "/test-data/v2/values/create-geometry-value-request.json",
       "destination": "./test/data/api/v2/values/create-geometry-value-request.json"
     },
@@ -149,6 +157,14 @@
     {
       "source": "/test-data/v2/values/update-date-value-with-day-precision-request.json",
       "destination": "./test/data/api/v2/values/update-date-value-with-day-precision-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-date-value-with-month-precision-request.json",
+      "destination": "./test/data/api/v2/values/update-date-value-with-month-precision-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-date-value-with-year-precision-request.json",
+      "destination": "./test/data/api/v2/values/update-date-value-with-year-precision-request.json"
     },
     {
       "source": "/test-data/v2/values/update-still-image-file-value-request.json",

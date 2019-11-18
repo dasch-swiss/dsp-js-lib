@@ -7,7 +7,6 @@ import { CreateBooleanValue } from "../../../models/v2/resources/values/create/c
 import { CreateColorValue } from "../../../models/v2/resources/values/create/create-color-value";
 import { CreateDateValue } from "../../../models/v2/resources/values/create/create-date-value";
 import { CreateDecimalValue } from "../../../models/v2/resources/values/create/create-decimal-value";
-import { CreateStillImageFileValue } from "../../../models/v2/resources/values/create/create-file-value";
 import { CreateGeomValue } from "../../../models/v2/resources/values/create/create-geom-value";
 import { CreateIntValue } from "../../../models/v2/resources/values/create/create-int-value";
 import { CreateIntervalValue } from "../../../models/v2/resources/values/create/create-interval-value";
@@ -447,7 +446,7 @@ describe("ValuesEndpoint", () => {
             expect(request.data()).toEqual(expectedPayload);
         });
 
-        it("should update a date value", done => {
+        it("should update a date value with day precision", done => {
 
             const updateDateVal = new UpdateDateValue();
 
@@ -490,6 +489,94 @@ describe("ValuesEndpoint", () => {
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-date-value-with-day-precision-request-expanded.json");
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
+        it("should update a date value with month precision", done => {
+
+            const updateDateVal = new UpdateDateValue();
+
+            updateDateVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/-rG4F5FTTu2iB5mTBPVn5Q";
+            updateDateVal.calendar = "GREGORIAN";
+            updateDateVal.startYear = 2018;
+            updateDateVal.startMonth = 9;
+            updateDateVal.startEra = "CE";
+            updateDateVal.endYear = 2018;
+            updateDateVal.endMonth = 12;
+            updateDateVal.endEra = "CE";
+
+            const updateResource = new UpdateResource<UpdateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate";
+            updateResource.value = updateDateVal;
+
+            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                "@type": Constants.DateValue
+            })));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = require("../../../../test/data/api/v2/values/update-date-value-with-month-precision-request-expanded.json");
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
+        it("should update a date value with year precision", done => {
+
+            const updateDateVal = new UpdateDateValue();
+
+            updateDateVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/-rG4F5FTTu2iB5mTBPVn5Q";
+            updateDateVal.calendar = "GREGORIAN";
+            updateDateVal.startYear = 2018;
+            updateDateVal.startEra = "CE";
+            updateDateVal.endYear = 2020;
+            updateDateVal.endEra = "CE";
+
+            const updateResource = new UpdateResource<UpdateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate";
+            updateResource.value = updateDateVal;
+
+            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                "@type": Constants.DateValue
+            })));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = require("../../../../test/data/api/v2/values/update-date-value-with-year-precision-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });
@@ -1081,7 +1168,7 @@ describe("ValuesEndpoint", () => {
             expect(request.data()).toEqual(expectedPayload);
         });
 
-        it("should create a date value", done => {
+        it("should create a date value with day precision", done => {
 
             const createDateVal = new CreateDateValue();
 
@@ -1123,6 +1210,92 @@ describe("ValuesEndpoint", () => {
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-date-value-with-day-precision-request-expanded.json");
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
+        it("should create a date value with month precision", done => {
+
+            const createDateVal = new CreateDateValue();
+
+            createDateVal.calendar = "GREGORIAN";
+            createDateVal.startYear = 2018;
+            createDateVal.startMonth = 10;
+            createDateVal.startEra = "CE";
+            createDateVal.endYear = 2018;
+            createDateVal.endMonth = 10;
+            createDateVal.endEra = "CE";
+
+            const updateResource = new UpdateResource<CreateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/a-thing";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate";
+            updateResource.value = createDateVal;
+
+            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                "@type": Constants.DateValue
+            })));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = require("../../../../test/data/api/v2/values/create-date-value-with-month-precision-request-expanded.json");
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
+        it("should create a date value with year precision", done => {
+
+            const createDateVal = new CreateDateValue();
+
+            createDateVal.calendar = "GREGORIAN";
+            createDateVal.startYear = 2018;
+            createDateVal.startEra = "CE";
+            createDateVal.endYear = 2019;
+            createDateVal.endEra = "CE";
+
+            const updateResource = new UpdateResource<CreateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/a-thing";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate";
+            updateResource.value = createDateVal;
+
+            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                "@type": Constants.DateValue
+            })));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = require("../../../../test/data/api/v2/values/create-date-value-with-year-precision-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });
