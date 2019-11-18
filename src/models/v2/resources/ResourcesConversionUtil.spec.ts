@@ -126,8 +126,7 @@ describe("ResourcesConversionUtil", () => {
                     expect(decimalVals[0].type).toEqual("http://api.knora.org/ontology/knora-api/v2#DecimalValue");
                     expect(decimalVals[0].strval).toEqual("1.5");
                     const decimalValsTyped: ReadDecimalValue[] = resSeq[0].getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal", ReadDecimalValue);
-                    expect(decimalValsTyped[0].decimal).toBeGreaterThanOrEqual(1.5);
-                    expect(decimalValsTyped[0].decimal).toBeLessThanOrEqual(1.5);
+                    expect(decimalValsTyped[0].decimal).toBeCloseTo(1.5, 1);
 
                     //
                     // test integer value

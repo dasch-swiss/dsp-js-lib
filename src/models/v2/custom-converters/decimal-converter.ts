@@ -21,7 +21,7 @@ export class DecimalConverter implements JsonCustomConvert<number> {
 
         // xsd:decimal is encoded as a string
         if (item.hasOwnProperty("@value") && CustomConverterUtils.isString(item["@value"])) {
-            return item["@value"];
+            return Number(item["@value"]);
         } else {
             throw new Error("No @value given for decimal value");
         }

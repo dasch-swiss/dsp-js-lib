@@ -1,5 +1,5 @@
 import { of } from "rxjs";
-import { ReadIntValue, ReadResource } from "../../..";
+import { ReadDecimalValue, ReadIntValue, ReadResource } from "../../..";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
@@ -99,6 +99,35 @@ describe("ValuesEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/valueshttp%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/dJ1ES8QTQNepFKF5-EAqdg");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should read a decimal value", done => {
+
+            knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "bXMwnrHvQH2DMjOFrGmNzg-EAqdg").subscribe(
+                (res: ReadResource) => {
+                    const decVal = res.getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal", ReadDecimalValue);
+                    expect(decVal.length).toEqual(1);
+                    expect(decVal[0].decimal).toBeCloseTo(1.5, 1);
+
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+
+                    expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const resource = require("../../../../test/data/api/v2/values/get-decimal-value-response-expanded.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/valueshttp%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/bXMwnrHvQH2DMjOFrGmNzg-EAqdg");
 
             expect(request.method).toEqual("GET");
 

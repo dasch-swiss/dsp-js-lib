@@ -197,6 +197,10 @@
     {
       "source": "/test-data/v2/values/get-int-value-response.json",
       "destination": "./test/data/api/v2/values/get-int-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-decimal-value-response.json",
+      "destination": "./test/data/api/v2/values/get-decimal-value-response.json"
     }
 
   ]
