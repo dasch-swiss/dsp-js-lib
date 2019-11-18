@@ -33,7 +33,7 @@ export class ValuesEndpoint extends Endpoint {
      * @param valueUuid the value's UUID.
      */
     getValue(resourceIri: string, valueUuid: string): Observable<ReadResource | ApiResponseError> {
-        return this.httpGet(encodeURIComponent(resourceIri) + "/" + encodeURIComponent(valueUuid)).pipe(
+        return this.httpGet("/" + encodeURIComponent(resourceIri) + "/" + encodeURIComponent(valueUuid)).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object

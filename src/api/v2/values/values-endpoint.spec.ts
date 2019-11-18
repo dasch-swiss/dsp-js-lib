@@ -98,7 +98,7 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/valueshttp%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/dJ1ES8QTQNepFKF5-EAqdg");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/dJ1ES8QTQNepFKF5-EAqdg");
 
             expect(request.method).toEqual("GET");
 
@@ -127,7 +127,7 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/valueshttp%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/bXMwnrHvQH2DMjOFrGmNzg-EAqdg");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/bXMwnrHvQH2DMjOFrGmNzg-EAqdg");
 
             expect(request.method).toEqual("GET");
 
