@@ -77,6 +77,26 @@
     {
       "source": "/test-data/v2/values/create-link-value-request.json",
       "destination": "./test/data/api/v2/values/create-link-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-uri-value-request.json",
+      "destination": "./test/data/api/v2/values/create-uri-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-text-value-without-standoff-request.json",
+      "destination": "./test/data/api/v2/values/create-text-value-without-standoff-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-text-value-with-standoff-request.json",
+      "destination": "./test/data/api/v2/values/create-text-value-with-standoff-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-date-value-with-day-precision-request.json",
+      "destination": "./test/data/api/v2/values/create-date-value-with-day-precision-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-geometry-value-request.json",
+      "destination": "./test/data/api/v2/values/create-geometry-value-request.json"
     }
 
   ]
