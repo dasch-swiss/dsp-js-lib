@@ -1305,7 +1305,7 @@ describe("ValuesEndpoint", () => {
 
             deleteVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg";
             deleteVal.type = "http://api.knora.org/ontology/knora-api/v2#IntValue";
-            deleteVal.deleteComment = "value is too boring";
+            deleteVal.deleteComment = "this value was incorrect";
 
             const updateResource = new UpdateResource<DeleteValue>();
 
@@ -1337,15 +1337,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
-                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg",
-                    "http://api.knora.org/ontology/knora-api/v2#deleteComment": "value is too boring"
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/delete-int-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
 
