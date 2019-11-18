@@ -173,6 +173,10 @@
     {
       "source": "/test-data/v2/values/delete-int-value-request.json",
       "destination": "./test/data/api/v2/values/delete-int-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/delete-link-value-request.json",
+      "destination": "./test/data/api/v2/values/delete-link-value-request.json"
     }
 
   ]

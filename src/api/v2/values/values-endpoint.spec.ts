@@ -1343,5 +1343,48 @@ describe("ValuesEndpoint", () => {
 
         });
 
+        it("should delete a value without a comment", done => {
+
+            const deleteVal = new DeleteValue();
+
+            deleteVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/uvRVxzL1RD-t9VIQ1TpfUw";
+            deleteVal.type = "http://api.knora.org/ontology/knora-api/v2#LinkValue";
+
+            const updateResource = new UpdateResource<DeleteValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue";
+
+            updateResource.value = deleteVal;
+
+            knoraApiConnection.v2.values.deleteValue(updateResource).subscribe(
+                (res: DeleteValueResponse) => {
+                    expect(res.result).toEqual("Value <http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg> marked as deleted");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(
+                {
+                    "knora-api:result": "Value <http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg> marked as deleted",
+                    "@context": {
+                        "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
+                    }
+                }
+            )));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values/delete");
+
+            expect(request.method).toEqual("POST");
+
+            const expectedPayload = require("../../../../test/data/api/v2/values/delete-link-value-request-expanded.json");
+
+            expect(request.data()).toEqual(expectedPayload);
+
+        });
+
     });
 });
