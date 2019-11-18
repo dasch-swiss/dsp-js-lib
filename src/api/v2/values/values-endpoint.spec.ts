@@ -1,3 +1,7 @@
+import { of } from "rxjs";
+import { ReadIntValue, ReadResource } from "../../..";
+import { MockList } from "../../../../test/data/api/v2/mockList";
+import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
@@ -39,17 +43,67 @@ import { UpdateValue } from "../../../models/v2/resources/values/update/update-v
 import { UpdateValuePermissions } from "../../../models/v2/resources/values/update/update-value-permissions";
 import { WriteValueResponse } from "../../../models/v2/resources/values/write-value-response";
 
-const config = new KnoraApiConfig("http", "localhost", 3333, undefined, undefined, true);
-const knoraApiConnection = new KnoraApiConnection(config);
+const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, undefined, true);
+let knoraApiConnection: KnoraApiConnection;
+
+let getResourceClassDefinitionFromCacheSpy: jasmine.Spy;
+let getListNodeFromCacheSpy: jasmine.Spy;
 
 describe("ValuesEndpoint", () => {
 
     beforeEach(() => {
         jasmine.Ajax.install();
+
+        knoraApiConnection = new KnoraApiConnection(config);
+
+        getResourceClassDefinitionFromCacheSpy = spyOn(knoraApiConnection.v2.ontologyCache, "getResourceClassDefinition").and.callFake(
+            (resClassIri: string) => {
+                return of(MockOntology.mockIResourceClassAndPropertyDefinitions(resClassIri));
+            }
+        );
+
+        getListNodeFromCacheSpy = spyOn(knoraApiConnection.v2.listNodeCache, "getNode").and.callFake(
+            (listNodeIri: string) => {
+                return MockList.mockCompletedAsyncSubject(listNodeIri);
+            }
+        );
     });
 
     afterEach(() => {
         jasmine.Ajax.uninstall();
+    });
+
+    describe("Method getValue", () => {
+
+        it("should read an integer value", done => {
+
+            knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "dJ1ES8QTQNepFKF5-EAqdg").subscribe(
+                (res: ReadResource) => {
+                    const intVal = res.getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger", ReadIntValue);
+                    expect(intVal.length).toEqual(1);
+                    expect(intVal[0].int).toEqual(1);
+
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+
+                    expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const resource = require("../../../../test/data/api/v2/values/get-int-value-response-expanded.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/valueshttp%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/dJ1ES8QTQNepFKF5-EAqdg");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
     });
 
     describe("Method updateValue", () => {
@@ -82,7 +136,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.IntValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("PUT");
 
@@ -121,7 +175,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.DecimalValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("PUT");
 
@@ -160,7 +214,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.ColorValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("PUT");
 
@@ -200,7 +254,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.IntervalValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("PUT");
 
@@ -239,7 +293,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.IntervalValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("PUT");
 
@@ -278,7 +332,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.ListValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("PUT");
 
@@ -317,7 +371,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.LinkValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("PUT");
 
@@ -356,7 +410,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.UriValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("PUT");
 
@@ -395,7 +449,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.TextValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("PUT");
 
@@ -435,7 +489,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.TextValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("PUT");
 
@@ -482,7 +536,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.DateValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("PUT");
 
@@ -527,7 +581,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.DateValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("PUT");
 
@@ -570,7 +624,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.DateValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("PUT");
 
@@ -609,7 +663,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.DateValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("PUT");
 
@@ -648,7 +702,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.GeomValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("PUT");
 
@@ -688,7 +742,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.IntValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("PUT");
 
@@ -728,7 +782,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.IntValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("PUT");
 
@@ -769,7 +823,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.IntValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("PUT");
 
@@ -811,7 +865,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.IntValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("POST");
 
@@ -850,7 +904,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.IntValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("POST");
 
@@ -889,7 +943,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.IntValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("POST");
 
@@ -929,7 +983,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.IntervalValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("POST");
 
@@ -966,7 +1020,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.IntervalValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("POST");
 
@@ -1004,7 +1058,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.ListValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("POST");
 
@@ -1042,7 +1096,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.LinkValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("POST");
 
@@ -1080,7 +1134,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.UriValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("POST");
 
@@ -1118,7 +1172,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.TextValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("POST");
 
@@ -1157,7 +1211,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.TextValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("POST");
 
@@ -1203,7 +1257,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.DateValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("POST");
 
@@ -1247,7 +1301,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.DateValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("POST");
 
@@ -1289,7 +1343,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.DateValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("POST");
 
@@ -1327,7 +1381,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.GeomValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("POST");
 
@@ -1366,7 +1420,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.TextValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("POST");
 
@@ -1406,7 +1460,7 @@ describe("ValuesEndpoint", () => {
                 "@type": Constants.IntValue
             })));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
             expect(request.method).toEqual("POST");
 
@@ -1455,7 +1509,7 @@ describe("ValuesEndpoint", () => {
                 }
             )));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values/delete");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/delete");
 
             expect(request.method).toEqual("POST");
 
@@ -1506,7 +1560,7 @@ describe("ValuesEndpoint", () => {
                 }
             )));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values/delete");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/delete");
 
             expect(request.method).toEqual("POST");
 
@@ -1549,7 +1603,7 @@ describe("ValuesEndpoint", () => {
                 }
             )));
 
-            expect(request.url).toBe("http://localhost:3333/v2/values/delete");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/delete");
 
             expect(request.method).toEqual("POST");
 

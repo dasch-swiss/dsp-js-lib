@@ -193,6 +193,10 @@
     {
       "source": "/test-data/v2/values/delete-link-value-request.json",
       "destination": "./test/data/api/v2/values/delete-link-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-int-value-response.json",
+      "destination": "./test/data/api/v2/values/get-int-value-response.json"
     }
 
   ]
