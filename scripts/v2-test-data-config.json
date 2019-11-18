@@ -105,6 +105,58 @@
     {
       "source": "/test-data/v2/values/create-int-value-with-custom-permissions-request.json",
       "destination": "./test/data/api/v2/values/create-int-value-with-custom-permissions-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-int-value-request.json",
+      "destination": "./test/data/api/v2/values/update-int-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-decimal-value-request.json",
+      "destination": "./test/data/api/v2/values/update-decimal-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-color-value-request.json",
+      "destination": "./test/data/api/v2/values/update-color-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-interval-value-request.json",
+      "destination": "./test/data/api/v2/values/update-interval-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-boolean-value-request.json",
+      "destination": "./test/data/api/v2/values/update-boolean-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-list-value-request.json",
+      "destination": "./test/data/api/v2/values/update-list-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-link-value-request.json",
+      "destination": "./test/data/api/v2/values/update-link-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-uri-value-request.json",
+      "destination": "./test/data/api/v2/values/update-uri-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-text-value-without-standoff-request.json",
+      "destination": "./test/data/api/v2/values/update-text-value-without-standoff-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-text-value-with-standoff-request.json",
+      "destination": "./test/data/api/v2/values/update-text-value-with-standoff-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-date-value-with-day-precision-request.json",
+      "destination": "./test/data/api/v2/values/update-date-value-with-day-precision-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-still-image-file-value-request.json",
+      "destination": "./test/data/api/v2/values/update-still-image-file-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-geometry-value-request.json",
+      "destination": "./test/data/api/v2/values/update-geometry-value-request.json"
     }
 
   ]

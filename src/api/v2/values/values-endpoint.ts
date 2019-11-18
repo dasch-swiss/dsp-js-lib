@@ -52,6 +52,8 @@ export class ValuesEndpoint extends Endpoint {
      */
     createValue(resource: UpdateResource<CreateValue>): Observable<WriteValueResponse | ApiResponseError> {
 
+        // TODO: prevent creation requests for file values
+
         const res = this.jsonConvert.serializeObject<UpdateResource<CreateValue>>(resource);
 
         const val = this.jsonConvert.serializeObject<CreateValue>(resource.value);

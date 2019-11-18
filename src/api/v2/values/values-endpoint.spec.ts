@@ -60,7 +60,7 @@ describe("ValuesEndpoint", () => {
             const updateIntVal = new UpdateIntValue();
 
             updateIntVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg";
-            updateIntVal.int = 2;
+            updateIntVal.int = 5;
 
             const updateResource = new UpdateResource<UpdateValue>();
 
@@ -89,15 +89,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
-                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg",
-                    "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 2
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/update-int-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });
@@ -107,7 +99,7 @@ describe("ValuesEndpoint", () => {
             const updateDecimalVal = new UpdateDecimalValue();
 
             updateDecimalVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/bXMwnrHvQH2DMjOFrGmNzg";
-            updateDecimalVal.decimal = 2.5;
+            updateDecimalVal.decimal = 5.6;
 
             const updateResource = new UpdateResource<UpdateValue>();
 
@@ -136,18 +128,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#DecimalValue",
-                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/bXMwnrHvQH2DMjOFrGmNzg",
-                    "http://api.knora.org/ontology/knora-api/v2#decimalValueAsDecimal": {
-                        "@type": "http://www.w3.org/2001/XMLSchema#decimal",
-                        "@value": "2.5"
-                    }
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/update-decimal-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });
@@ -157,7 +138,7 @@ describe("ValuesEndpoint", () => {
             const updateColorVal = new UpdateColorValue();
 
             updateColorVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/TAziKNP8QxuyhC4Qf9-b6w";
-            updateColorVal.color = "#000000";
+            updateColorVal.color = "#ff3344";
 
             const updateResource = new UpdateResource<UpdateValue>();
 
@@ -186,15 +167,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasColor": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#ColorValue",
-                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/TAziKNP8QxuyhC4Qf9-b6w",
-                    "http://api.knora.org/ontology/knora-api/v2#colorValueAsColor": "#000000"
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/update-color-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });
@@ -204,8 +177,8 @@ describe("ValuesEndpoint", () => {
             const updateIntervalVal = new UpdateIntervalValue();
 
             updateIntervalVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/RbDKPKHWTC-0lkRKae-E6A";
-            updateIntervalVal.start = 1.5;
-            updateIntervalVal.end = 2.5;
+            updateIntervalVal.start = 5.6;
+            updateIntervalVal.end = 7.8;
 
             const updateResource = new UpdateResource<UpdateValue>();
 
@@ -234,23 +207,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#IntervalValue",
-                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/RbDKPKHWTC-0lkRKae-E6A",
-                    "http://api.knora.org/ontology/knora-api/v2#intervalValueHasStart": {
-                        "@type": "http://www.w3.org/2001/XMLSchema#decimal",
-                        "@value": "1.5"
-                    },
-                    "http://api.knora.org/ontology/knora-api/v2#intervalValueHasEnd": {
-                        "@type": "http://www.w3.org/2001/XMLSchema#decimal",
-                        "@value": "2.5"
-                    }
-
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/update-interval-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });
@@ -260,13 +217,13 @@ describe("ValuesEndpoint", () => {
             const updateBooleanVal = new UpdateBooleanValue();
 
             updateBooleanVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/IN4R19yYR0ygi3K2VEHpUQ";
-            updateBooleanVal.bool = true;
+            updateBooleanVal.bool = false;
 
             const updateResource = new UpdateResource<UpdateValue>();
 
             updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean";
             updateResource.value = updateBooleanVal;
 
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
@@ -289,15 +246,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#BooleanValue",
-                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/IN4R19yYR0ygi3K2VEHpUQ",
-                    "http://api.knora.org/ontology/knora-api/v2#booleanValueAsBoolean": true
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/update-boolean-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });
@@ -336,18 +285,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#ListValue",
-                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/XAhEeE3kSVqM4JPGdLt4Ew",
-                    "http://api.knora.org/ontology/knora-api/v2#listValueAsListNode":
-                        {
-                            "@id": "http://rdfh.ch/lists/0001/treeList02"
-                        }
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/update-list-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });
@@ -357,7 +295,7 @@ describe("ValuesEndpoint", () => {
             const updateLinkVal = new UpdateLinkValue();
 
             updateLinkVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/uvRVxzL1RD-t9VIQ1TpfUw";
-            updateLinkVal.linkedResourceIri = "http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ";
+            updateLinkVal.linkedResourceIri = "http://rdfh.ch/0001/5IEswyQFQp2bxXDrOyEfEA";
 
             const updateResource = new UpdateResource<UpdateValue>();
 
@@ -386,18 +324,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#LinkValue",
-                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/uvRVxzL1RD-t9VIQ1TpfUw",
-                    "http://api.knora.org/ontology/knora-api/v2#linkValueHasTargetIri":
-                        {
-                            "@id": "http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ"
-                        }
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/update-link-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });
@@ -407,7 +334,7 @@ describe("ValuesEndpoint", () => {
             const updateUriVal = new UpdateUriValue();
 
             updateUriVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/uBAmWuRhR-eo1u1eP7qqNg";
-            updateUriVal.uri = "https://www.google.ch";
+            updateUriVal.uri = "https://docs.knora.org";
 
             const updateResource = new UpdateResource<UpdateValue>();
 
@@ -436,19 +363,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#UriValue",
-                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/uBAmWuRhR-eo1u1eP7qqNg",
-                    "http://api.knora.org/ontology/knora-api/v2#uriValueAsUri":
-                        {
-                            "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
-                            "@value": "https://www.google.ch"
-                        }
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/update-uri-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });
@@ -458,7 +373,7 @@ describe("ValuesEndpoint", () => {
             const updateTextVal = new UpdateTextValueAsString();
 
             updateTextVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/SZyeLLmOTcCCuS3B0VksHQ";
-            updateTextVal.text = "test";
+            updateTextVal.text = "This is the updated text.";
 
             const updateResource = new UpdateResource<UpdateValue>();
 
@@ -487,15 +402,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasText": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#TextValue",
-                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/SZyeLLmOTcCCuS3B0VksHQ",
-                    "http://api.knora.org/ontology/knora-api/v2#valueAsString": "test"
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/update-text-value-without-standoff-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });
@@ -505,14 +412,14 @@ describe("ValuesEndpoint", () => {
             const updateTextVal = new UpdateTextValueAsXml();
 
             updateTextVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/rvB4eQ5MTF-Qxq0YgkwaDg";
-            updateTextVal.xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><text>test</text>";
+            updateTextVal.xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<text>\n   This updated text links to another <a class=\"salsah-link\" href=\"http://rdfh.ch/0001/another-thing\">resource</a>.\n</text>";
             updateTextVal.mapping = "http://rdfh.ch/standoff/mappings/StandardMapping";
 
             const updateResource = new UpdateResource<UpdateValue>();
 
             updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasRichtext";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasText";
             updateResource.value = updateTextVal;
 
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
@@ -535,18 +442,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasRichtext": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#TextValue",
-                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/rvB4eQ5MTF-Qxq0YgkwaDg",
-                    "http://api.knora.org/ontology/knora-api/v2#textValueAsXml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><text>test</text>",
-                    "http://api.knora.org/ontology/knora-api/v2#textValueHasMapping": {
-                        "@id": "http://rdfh.ch/standoff/mappings/StandardMapping"
-                    }
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/update-text-value-with-standoff-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });
@@ -557,11 +453,13 @@ describe("ValuesEndpoint", () => {
 
             updateDateVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/-rG4F5FTTu2iB5mTBPVn5Q";
             updateDateVal.calendar = "GREGORIAN";
-            updateDateVal.startYear = 2019;
+            updateDateVal.startYear = 2018;
             updateDateVal.startMonth = 10;
+            updateDateVal.startDay = 5;
             updateDateVal.startEra = "CE";
-            updateDateVal.endYear = 2019;
-            updateDateVal.endMonth = 10;
+            updateDateVal.endYear = 2018;
+            updateDateVal.endMonth = 12;
+            updateDateVal.endDay = 6;
             updateDateVal.endEra = "CE";
 
             const updateResource = new UpdateResource<UpdateValue>();
@@ -591,22 +489,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#DateValue",
-                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/-rG4F5FTTu2iB5mTBPVn5Q",
-                    "http://api.knora.org/ontology/knora-api/v2#dateValueHasCalendar": "GREGORIAN",
-                    "http://api.knora.org/ontology/knora-api/v2#dateValueHasStartMonth": 10,
-                    "http://api.knora.org/ontology/knora-api/v2#dateValueHasStartYear": 2019,
-                    "http://api.knora.org/ontology/knora-api/v2#dateValueHasStartEra": "CE",
-                    "http://api.knora.org/ontology/knora-api/v2#dateValueHasEndMonth": 10,
-                    "http://api.knora.org/ontology/knora-api/v2#dateValueHasEndYear": 2019,
-                    "http://api.knora.org/ontology/knora-api/v2#dateValueHasEndEra": "CE"
-
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/update-date-value-with-day-precision-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });
@@ -615,13 +498,13 @@ describe("ValuesEndpoint", () => {
 
             const updateStillImageFileVal = new UpdateStillImageFileValue();
 
-            updateStillImageFileVal.id = "http://rdfh.ch/0803/7bbb8e59b703/values/22bc3f713f07";
-            updateStillImageFileVal.filename = "myfile.jpx";
+            updateStillImageFileVal.id = "http://rdfh.ch/0001/a-thing-picture/values/goZ7JFRNSeqF-dNxsqAS7Q";
+            updateStillImageFileVal.filename = "IQUO3t1AABm-FSLC0vNvVpr.jp2";
 
             const updateResource = new UpdateResource<UpdateValue>();
 
-            updateResource.id = "http://rdfh.ch/0803/7bbb8e59b703";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0803/incunabula/v2#page";
+            updateResource.id = "http://rdfh.ch/0001/a-thing-picture";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#ThingPicture";
             updateResource.property = "http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue";
             updateResource.value = updateStillImageFileVal;
 
@@ -645,15 +528,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0803/incunabula/v2#page",
-                "@id": "http://rdfh.ch/0803/7bbb8e59b703",
-                "http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#StillImageFileValue",
-                    "@id": "http://rdfh.ch/0803/7bbb8e59b703/values/22bc3f713f07",
-                    "http://api.knora.org/ontology/knora-api/v2#fileValueHasFilename": "myfile.jpx"
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/update-still-image-file-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });
@@ -662,14 +537,14 @@ describe("ValuesEndpoint", () => {
 
             const updateGeomVal = new UpdateGeomValue();
 
-            updateGeomVal.id = "http://rdfh.ch/0803/021ec18f1735/values/4dc0163d338201";
-            updateGeomVal.geometryString = "{\"status\":\"active\",\"lineColor\":\"#ff3333\",\"lineWidth\":2,\"points\":[{\"x\":0.08098591549295775,\"y\":0.16741071428571427},{\"x\":0.7394366197183099,\"y\":0.7299107142857143}],\"type\":\"rectangle\",\"original_index\":0}";
+            updateGeomVal.id = "http://rdfh.ch/0001/http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/we-ybmj-SRen-91n4RaDOQ";
+            updateGeomVal.geometryString = "{\"status\":\"active\",\"lineColor\":\"#ff3344\",\"lineWidth\":2,\"points\":[{\"x\":0.08098591549295775,\"y\":0.16741071428571427},{\"x\":0.7394366197183099,\"y\":0.7299107142857143}],\"type\":\"rectangle\",\"original_index\":0}";
 
             const updateResource = new UpdateResource<UpdateValue>();
 
-            updateResource.id = "http://rdfh.ch/0803/021ec18f1735";
-            updateResource.type = "http://api.knora.org/ontology/knora-api/v2#Region";
-            updateResource.property = "http://api.knora.org/ontology/knora-api/v2#hasGeometry";
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeometry";
             updateResource.value = updateGeomVal;
 
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
@@ -692,15 +567,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://api.knora.org/ontology/knora-api/v2#Region",
-                "@id": "http://rdfh.ch/0803/021ec18f1735",
-                "http://api.knora.org/ontology/knora-api/v2#hasGeometry": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#GeomValue",
-                    "@id": "http://rdfh.ch/0803/021ec18f1735/values/4dc0163d338201",
-                    "http://api.knora.org/ontology/knora-api/v2#geometryValueAsGeometry": "{\"status\":\"active\",\"lineColor\":\"#ff3333\",\"lineWidth\":2,\"points\":[{\"x\":0.08098591549295775,\"y\":0.16741071428571427},{\"x\":0.7394366197183099,\"y\":0.7299107142857143}],\"type\":\"rectangle\",\"original_index\":0}"
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/update-geometry-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });
@@ -1282,51 +1149,6 @@ describe("ValuesEndpoint", () => {
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-date-value-with-day-precision-request-expanded.json");
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should create a still image file value", done => {
-
-            const createStillImageFileVal = new CreateStillImageFileValue();
-
-            createStillImageFileVal.filename = "myfile.jpx";
-
-            const updateResource = new UpdateResource<CreateValue>();
-
-            updateResource.id = "http://rdfh.ch/0803/7bbb8e59b703";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0803/incunabula/v2#page";
-            updateResource.property = "http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue";
-            updateResource.value = createStillImageFileVal;
-
-            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.DateValue
-            })));
-
-            expect(request.url).toBe("http://localhost:3333/v2/values");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
-
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0803/incunabula/v2#page",
-                "@id": "http://rdfh.ch/0803/7bbb8e59b703",
-                "http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#StillImageFileValue",
-                    "http://api.knora.org/ontology/knora-api/v2#fileValueHasFilename": "myfile.jpx"
-                }
-            };
 
             expect(request.data()).toEqual(expectedPayload);
         });
