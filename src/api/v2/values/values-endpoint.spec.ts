@@ -1369,19 +1369,19 @@ describe("ValuesEndpoint", () => {
             expect(request.data()).toEqual(expectedPayload);
         });
 
-        it("should create a value with a comment", done => {
+        it("should create a text value with a comment", done => {
 
-            const createIntVal = new CreateIntValue();
+            const createTextVal = new CreateTextValueAsString();
 
-            createIntVal.int = 5;
-            createIntVal.valueHasComment = "comment on 5";
+            createTextVal.text = "This is the text.";
+            createTextVal.valueHasComment = "This is the comment on the text.";
 
             const updateResource = new UpdateResource<CreateValue>();
 
-            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.id = "http://rdfh.ch/0001/a-thing";
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
-            updateResource.value = createIntVal;
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasText";
+            updateResource.value = createTextVal;
 
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
@@ -1394,7 +1394,7 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.IntValue
+                "@type": Constants.TextValue
             })));
 
             expect(request.url).toBe("http://localhost:3333/v2/values");
@@ -1403,15 +1403,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
-                    "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 5,
-                    "http://api.knora.org/ontology/knora-api/v2#valueHasComment": "comment on 5"
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/create-text-value-with-comment-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
 
@@ -1421,12 +1413,12 @@ describe("ValuesEndpoint", () => {
 
             const createIntVal = new CreateIntValue();
 
-            createIntVal.int = 5;
-            createIntVal.hasPermissions = "RV";
+            createIntVal.int = 4;
+            createIntVal.hasPermissions = "CR knora-admin:Creator|V http://rdfh.ch/groups/0001/thing-searcher";
 
             const updateResource = new UpdateResource<CreateValue>();
 
-            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.id = "http://rdfh.ch/0001/a-thing";
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
             updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
             updateResource.value = createIntVal;
@@ -1451,15 +1443,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
-                    "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 5,
-                    "http://api.knora.org/ontology/knora-api/v2#hasPermissions": "RV"
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/create-int-value-with-custom-permissions-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
 

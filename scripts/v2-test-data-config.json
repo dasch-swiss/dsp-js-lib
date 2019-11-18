@@ -97,6 +97,14 @@
     {
       "source": "/test-data/v2/values/create-geometry-value-request.json",
       "destination": "./test/data/api/v2/values/create-geometry-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-text-value-with-comment-request.json",
+      "destination": "./test/data/api/v2/values/create-text-value-with-comment-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-int-value-with-custom-permissions-request.json",
+      "destination": "./test/data/api/v2/values/create-int-value-with-custom-permissions-request.json"
     }
 
   ]
