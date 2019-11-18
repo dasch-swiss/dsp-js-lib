@@ -1,5 +1,5 @@
 {
-  "test-data": [
+  "static-test-data": [
     {
       "source": "/webapi/src/test/resources/test-data/ontologyR2RV2/knoraApiOntologyWithValueObjects.jsonld",
       "destination": "./test/data/api/v2/ontologies/knora-api-ontology.json"
@@ -48,5 +48,36 @@
       "source": "/webapi/src/test/resources/test-data/ontologyR2RV2/allOntologyMetadata.jsonld",
       "destination": "./test/data/api/v2/ontologies/all-ontology-metadata.json"
     }
+  ],
+  "generated-test-data": [
+    {
+      "source": "/test-data/v2/values/create-int-value-request.json",
+      "destination": "./test/data/api/v2/values/create-int-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-decimal-value-request.json",
+      "destination": "./test/data/api/v2/values/create-decimal-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-color-value-request.json",
+      "destination": "./test/data/api/v2/values/create-color-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-interval-value-request.json",
+      "destination": "./test/data/api/v2/values/create-interval-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-boolean-value-request.json",
+      "destination": "./test/data/api/v2/values/create-boolean-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-list-value-request.json",
+      "destination": "./test/data/api/v2/values/create-list-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-link-value-request.json",
+      "destination": "./test/data/api/v2/values/create-link-value-request.json"
+    }
+
   ]
 }

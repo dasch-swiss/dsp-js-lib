@@ -860,11 +860,11 @@ describe("ValuesEndpoint", () => {
         it("should create an integer value", done => {
 
             const createIntVal = new CreateIntValue();
-            createIntVal.int = 5;
+            createIntVal.int = 4;
 
             const updateResource = new UpdateResource<CreateValue>();
 
-            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.id = "http://rdfh.ch/0001/a-thing";
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
             updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
             updateResource.value = createIntVal;
@@ -889,14 +889,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
-                    "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 5
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/create-int-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
 
@@ -906,11 +899,11 @@ describe("ValuesEndpoint", () => {
 
             const createDecimalVal = new CreateDecimalValue();
 
-            createDecimalVal.decimal = 3.5;
+            createDecimalVal.decimal = 4.3;
 
             const updateResource = new UpdateResource<CreateValue>();
 
-            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.id = "http://rdfh.ch/0001/a-thing";
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
             updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal";
             updateResource.value = createDecimalVal;
@@ -935,17 +928,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#DecimalValue",
-                    "http://api.knora.org/ontology/knora-api/v2#decimalValueAsDecimal": {
-                        "@type": "http://www.w3.org/2001/XMLSchema#decimal",
-                        "@value": "3.5"
-                    }
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/create-decimal-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
 
@@ -955,11 +938,11 @@ describe("ValuesEndpoint", () => {
 
             const createColorVal = new CreateColorValue();
 
-            createColorVal.color = "#000000";
+            createColorVal.color = "#ff3333";
 
             const updateResource = new UpdateResource<CreateValue>();
 
-            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.id = "http://rdfh.ch/0001/a-thing";
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
             updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasColor";
             updateResource.value = createColorVal;
@@ -984,14 +967,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasColor": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#ColorValue",
-                    "http://api.knora.org/ontology/knora-api/v2#colorValueAsColor": "#000000"
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/create-color-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
 
@@ -1001,12 +977,12 @@ describe("ValuesEndpoint", () => {
 
             const createIntervalVal = new CreateIntervalValue();
 
-            createIntervalVal.start = 1.5;
-            createIntervalVal.end = 2.5;
+            createIntervalVal.start = 1.2;
+            createIntervalVal.end = 3.4;
 
             const updateResource = new UpdateResource<CreateValue>();
 
-            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.id = "http://rdfh.ch/0001/a-thing";
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
             updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval";
             updateResource.value = createIntervalVal;
@@ -1031,22 +1007,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#IntervalValue",
-                    "http://api.knora.org/ontology/knora-api/v2#intervalValueHasStart": {
-                        "@type": "http://www.w3.org/2001/XMLSchema#decimal",
-                        "@value": "1.5"
-                    },
-                    "http://api.knora.org/ontology/knora-api/v2#intervalValueHasEnd": {
-                        "@type": "http://www.w3.org/2001/XMLSchema#decimal",
-                        "@value": "2.5"
-                    }
-
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/create-interval-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });
@@ -1058,14 +1019,14 @@ describe("ValuesEndpoint", () => {
 
             const updateResource = new UpdateResource<CreateValue>();
 
-            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.id = "http://rdfh.ch/0001/a-thing";
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
             updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean";
             updateResource.value = createBooleanVal;
 
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
                     done();
                 }
             );
@@ -1073,7 +1034,7 @@ describe("ValuesEndpoint", () => {
             const request = jasmine.Ajax.requests.mostRecent();
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 "@type": Constants.IntervalValue
             })));
 
@@ -1083,14 +1044,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#BooleanValue",
-                    "http://api.knora.org/ontology/knora-api/v2#booleanValueAsBoolean": true
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/create-boolean-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });
@@ -1103,7 +1057,7 @@ describe("ValuesEndpoint", () => {
 
             const updateResource = new UpdateResource<CreateValue>();
 
-            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.id = "http://rdfh.ch/0001/a-thing";
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
             updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem";
             updateResource.value = createListVal;
@@ -1128,17 +1082,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#ListValue",
-                    "http://api.knora.org/ontology/knora-api/v2#listValueAsListNode":
-                        {
-                            "@id": "http://rdfh.ch/lists/0001/treeList03"
-                        }
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/create-list-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });
@@ -1147,11 +1091,11 @@ describe("ValuesEndpoint", () => {
 
             const createLinkVal = new CreateLinkValue();
 
-            createLinkVal.linkedResourceIri = "http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ";
+            createLinkVal.linkedResourceIri = "http://rdfh.ch/0001/A67ka6UQRHWf313tbhQBjw";
 
             const updateResource = new UpdateResource<CreateValue>();
 
-            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.id = "http://rdfh.ch/0001/a-thing";
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
             updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue";
             updateResource.value = createLinkVal;
@@ -1176,17 +1120,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#LinkValue",
-                    "http://api.knora.org/ontology/knora-api/v2#linkValueHasTargetIri":
-                        {
-                            "@id": "http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ"
-                        }
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/create-link-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });
