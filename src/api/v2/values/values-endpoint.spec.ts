@@ -574,11 +574,51 @@ describe("ValuesEndpoint", () => {
 
         it("should update an integer value with a comment", done => {
 
+            const updateTextVal = new UpdateTextValueAsString();
+
+            updateTextVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/SZyeLLmOTcCCuS3B0VksHQ";
+            updateTextVal.text = "this is a text value that has an updated comment";
+            updateTextVal.valueHasComment = "this is an updated comment";
+
+            const updateResource = new UpdateResource<UpdateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasText";
+            updateResource.value = updateTextVal;
+
+            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                "@type": Constants.IntValue
+            })));
+
+            expect(request.url).toBe("http://localhost:3333/v2/values");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = require("../../../../test/data/api/v2/values/update-text-value-with-comment-request-expanded.json");
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
+        it("update an integer value and its permissions", done => {
+
             const updateIntVal = new UpdateIntValue();
 
             updateIntVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg";
-            updateIntVal.int = 2;
-            updateIntVal.valueHasComment = "comment on 2";
+            updateIntVal.int = 6;
+            updateIntVal.hasPermissions = "CR http://rdfh.ch/groups/0001/thing-searcher";
 
             const updateResource = new UpdateResource<UpdateValue>();
 
@@ -607,77 +647,19 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
-                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg",
-                    "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 2,
-                    "http://api.knora.org/ontology/knora-api/v2#valueHasComment": "comment on 2"
-                }
-            };
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("update an integer Value with permissions", done => {
-
-            const updateIntVal = new UpdateIntValue();
-
-            updateIntVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg";
-            updateIntVal.int = 2;
-            updateIntVal.hasPermissions = "RV";
-
-            const updateResource = new UpdateResource<UpdateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
-            updateResource.value = updateIntVal;
-
-            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.IntValue
-            })));
-
-            expect(request.url).toBe("http://localhost:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
-
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
-                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg",
-                    "http://api.knora.org/ontology/knora-api/v2#intValueAsInt": 2,
-                    "http://api.knora.org/ontology/knora-api/v2#hasPermissions": "RV"
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/update-int-value-with-custom-permissions-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
 
         });
 
-        it("update an integer Value's permissions", done => {
+        it("update an integer value's permissions", done => {
 
             const updateIntVal = new UpdateValuePermissions();
 
             updateIntVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg";
             updateIntVal.type = Constants.IntValue;
-            updateIntVal.hasPermissions = "RV";
+            updateIntVal.hasPermissions = "CR http://rdfh.ch/groups/0001/thing-searcher|V knora-admin:KnownUser";
 
             const updateResource = new UpdateResource<UpdateValue>();
 
@@ -706,15 +688,7 @@ describe("ValuesEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
-                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg",
-                    "http://api.knora.org/ontology/knora-api/v2#hasPermissions": "RV"
-                }
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/values/update-int-value-permissions-only-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
 
