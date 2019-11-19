@@ -11,8 +11,8 @@ export class UpdateProjectRequest {
     /**
      * Project keywords.
      */
-    @JsonProperty("keywords", [String])
-    keywords: string[] = [];
+    @JsonProperty("keywords", [String], true)
+    keywords?: string[] = undefined;
 
     /**
      * The path to the projects's logo.
@@ -29,8 +29,8 @@ export class UpdateProjectRequest {
     /**
      * A description of a project.
      */
-    @JsonProperty("description", [StringLiteral])
-    description: StringLiteral[] = [];
+    @JsonProperty("description", [StringLiteral], true)
+    description?: StringLiteral[] = undefined;
 
     /**
      * Exists and is true if users can add themselves to the project or group.
