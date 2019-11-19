@@ -1,11 +1,11 @@
 import { of } from "rxjs";
 import {
     ReadBooleanValue,
-    ReadColorValue,
+    ReadColorValue, ReadDateValue,
     ReadDecimalValue,
     ReadIntervalValue,
     ReadIntValue, ReadLinkValue, ReadListValue,
-    ReadResource, ReadTextValueAsString, ReadTextValueAsXml, ReadUriValue
+    ReadResource, ReadStillImageFileValue, ReadTextValueAsString, ReadTextValueAsXml, ReadUriValue
 } from "../../..";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
@@ -31,6 +31,7 @@ import { CreateUriValue } from "../../../models/v2/resources/values/create/creat
 import { CreateValue } from "../../../models/v2/resources/values/create/create-value";
 import { DeleteValue } from "../../../models/v2/resources/values/delete/delete-value";
 import { DeleteValueResponse } from "../../../models/v2/resources/values/delete/delete-value-response";
+import { KnoraDate } from "../../../models/v2/resources/values/read/read-date-value";
 import { UpdateBooleanValue } from "../../../models/v2/resources/values/update/update-boolean-value";
 import { UpdateColorValue } from "../../../models/v2/resources/values/update/update-color-value";
 import { UpdateDateValue } from "../../../models/v2/resources/values/update/update-date-value";
@@ -49,6 +50,7 @@ import { UpdateUriValue } from "../../../models/v2/resources/values/update/updat
 import { UpdateValue } from "../../../models/v2/resources/values/update/update-value";
 import { UpdateValuePermissions } from "../../../models/v2/resources/values/update/update-value-permissions";
 import { WriteValueResponse } from "../../../models/v2/resources/values/write-value-response";
+import instantiate = WebAssembly.instantiate;
 
 const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, undefined, true);
 let knoraApiConnection: KnoraApiConnection;
@@ -342,6 +344,69 @@ describe("ValuesEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/rvB4eQ5MTF-Qxq0YgkwaDg");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should read a date value", done => {
+
+            knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "-rG4F5FTTu2iB5mTBPVn5Q").subscribe(
+                (res: ReadResource) => {
+                    const dateVal = res.getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate", ReadDateValue);
+                    expect(dateVal.length).toEqual(1);
+                    expect(dateVal[0].date instanceof KnoraDate).toBeTruthy();
+                    expect((dateVal[0].date as KnoraDate).calendar).toEqual("GREGORIAN");
+                    expect((dateVal[0].date as KnoraDate).day).toEqual(13);
+                    expect((dateVal[0].date as KnoraDate).month).toEqual(5);
+                    expect((dateVal[0].date as KnoraDate).year).toEqual(2018);
+
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+
+                    expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const resource = require("../../../../test/data/api/v2/values/get-date-value-response-expanded.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/-rG4F5FTTu2iB5mTBPVn5Q");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should read a still image file value", done => {
+
+            knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "goZ7JFRNSeqF-dNxsqAS7Q").subscribe(
+                (res: ReadResource) => {
+                    const dateVal = res.getValuesAs("http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue", ReadStillImageFileValue);
+                    expect(dateVal.length).toEqual(1);
+                    expect(dateVal[0].filename).toEqual("B1D0OkEgfFp-Cew2Seur7Wi.jp2");
+                    expect(dateVal[0].dimX).toEqual(512);
+
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#ThingPicture");
+
+                    expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const resource = require("../../../../test/data/api/v2/values/get-still-image-file-value-response-expanded.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/goZ7JFRNSeqF-dNxsqAS7Q");
 
             expect(request.method).toEqual("GET");
 

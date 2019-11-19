@@ -233,6 +233,14 @@
     {
       "source": "/test-data/v2/values/get-text-value-with-standoff-response.json",
       "destination": "./test/data/api/v2/values/get-text-value-with-standoff-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-date-value-response.json",
+      "destination": "./test/data/api/v2/values/get-date-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-still-image-file-value-response.json",
+      "destination": "./test/data/api/v2/values/get-still-image-file-value-response.json"
     }
 
   ]
