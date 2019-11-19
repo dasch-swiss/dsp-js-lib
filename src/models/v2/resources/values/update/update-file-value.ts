@@ -3,8 +3,8 @@ import { Constants } from "../../../Constants";
 import { IBaseFileValue } from "../type-specific-interfaces/base-file-value";
 import { UpdateValue } from "./update-value";
 
-@JsonObject("UpdateStillImageFileValue")
-export class UpdateStillImageFileValue extends UpdateValue implements IBaseFileValue {
+@JsonObject("UpdateFileValue")
+export abstract class UpdateFileValue extends UpdateValue implements IBaseFileValue {
 
     @JsonProperty(Constants.FileValueHasFilename, String)
     filename: string = "";
@@ -12,5 +12,8 @@ export class UpdateStillImageFileValue extends UpdateValue implements IBaseFileV
     constructor() {
         super(Constants.StillImageFileValue);
     }
+}
 
+@JsonObject("UpdateStillImageFileValue")
+export class UpdateStillImageFileValue extends UpdateFileValue {
 }

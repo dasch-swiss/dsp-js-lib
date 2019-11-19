@@ -6,6 +6,7 @@ import { KnoraApiConfig } from "../../../knora-api-config";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { UpdateResource } from "../../../models/v2/resources/update/update-resource";
+import { CreateFileValue } from "../../../models/v2/resources/values/create/create-file-value";
 import { CreateValue } from "../../../models/v2/resources/values/create/create-value";
 import { DeleteValue } from "../../../models/v2/resources/values/delete/delete-value";
 import { DeleteValueResponse } from "../../../models/v2/resources/values/delete/delete-value-response";
@@ -84,9 +85,11 @@ export class ValuesEndpoint extends Endpoint {
      */
     createValue(resource: UpdateResource<CreateValue>): Observable<WriteValueResponse | ApiResponseError> {
 
-        // TODO: prevent creation requests for file values
-
         const res = this.jsonConvert.serializeObject<UpdateResource<CreateValue>>(resource);
+
+        if (resource.value instanceof CreateFileValue) {
+            throw Error("A value of type CreateFileValue can only be created with a new resource");
+        }
 
         const val = this.jsonConvert.serializeObject<CreateValue>(resource.value);
 

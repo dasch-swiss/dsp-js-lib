@@ -1,5 +1,6 @@
 import { of } from "rxjs";
 import {
+    CreateStillImageFileValue,
     ReadBooleanValue,
     ReadColorValue, ReadDateValue,
     ReadDecimalValue, ReadGeomValue,
@@ -1798,6 +1799,26 @@ describe("ValuesEndpoint", () => {
             const expectedPayload = require("../../../../test/data/api/v2/values/create-geometry-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
+        });
+
+        it("should attempt to create a still image file value", () => {
+
+            const createStillImageFileVal = new CreateStillImageFileValue();
+
+            createStillImageFileVal.filename = "IQUO3t1AABm-FSLC0vNvVpr.jp2";
+
+            const updateResource = new UpdateResource<CreateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/a-thing-picture";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#ThingPicture";
+            updateResource.property = "http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue";
+            updateResource.value = createStillImageFileVal;
+
+            expect(
+                () => {
+                    knoraApiConnection.v2.values.createValue(updateResource);
+                }).toThrow(new Error("A value of type CreateFileValue can only be created with a new resource"));
+
         });
 
         it("should create a geoname value", done => {
