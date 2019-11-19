@@ -213,6 +213,14 @@
     {
       "source": "/test-data/v2/values/get-boolean-value-response.json",
       "destination": "./test/data/api/v2/values/get-boolean-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-list-value-response.json",
+      "destination": "./test/data/api/v2/values/get-list-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-link-value-response.json",
+      "destination": "./test/data/api/v2/values/get-link-value-response.json"
     }
 
   ]

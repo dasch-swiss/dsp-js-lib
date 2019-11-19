@@ -4,7 +4,7 @@ import {
     ReadColorValue,
     ReadDecimalValue,
     ReadIntervalValue,
-    ReadIntValue,
+    ReadIntValue, ReadLinkValue, ReadListValue,
     ReadResource
 } from "../../..";
 import { MockList } from "../../../../test/data/api/v2/mockList";
@@ -199,7 +199,7 @@ describe("ValuesEndpoint", () => {
 
         });
 
-        it("should read an boolean value", done => {
+        it("should read an Boolean value", done => {
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "IN4R19yYR0ygi3K2VEHpUQ").subscribe(
                 (res: ReadResource) => {
@@ -223,6 +223,66 @@ describe("ValuesEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/IN4R19yYR0ygi3K2VEHpUQ");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should read a list value", done => {
+
+            knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "XAhEeE3kSVqM4JPGdLt4Ew").subscribe(
+                (res: ReadResource) => {
+                    const listVal = res.getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem", ReadListValue);
+                    expect(listVal.length).toEqual(1);
+                    expect(listVal[0].listNode).toEqual("http://rdfh.ch/lists/0001/treeList01");
+                    expect(listVal[0].listNodeLabel).toEqual("Tree list node 01");
+
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+
+                    expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(1);
+                    expect(getListNodeFromCacheSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList01");
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const resource = require("../../../../test/data/api/v2/values/get-list-value-response-expanded.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/XAhEeE3kSVqM4JPGdLt4Ew");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should read an link value", done => {
+
+            knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "uvRVxzL1RD-t9VIQ1TpfUw").subscribe(
+                (res: ReadResource) => {
+                    const linkVal = res.getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue", ReadLinkValue);
+                    expect(linkVal.length).toEqual(1);
+                    expect(linkVal[0].linkedResourceIri).toEqual("http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ");
+
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(2);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+
+                    expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const resource = require("../../../../test/data/api/v2/values/get-link-value-response-expanded.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/uvRVxzL1RD-t9VIQ1TpfUw");
 
             expect(request.method).toEqual("GET");
 
