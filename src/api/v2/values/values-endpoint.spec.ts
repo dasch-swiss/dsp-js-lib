@@ -1,5 +1,12 @@
 import { of } from "rxjs";
-import { ReadDecimalValue, ReadIntValue, ReadResource } from "../../..";
+import {
+    ReadBooleanValue,
+    ReadColorValue,
+    ReadDecimalValue,
+    ReadIntervalValue,
+    ReadIntValue,
+    ReadResource
+} from "../../..";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
@@ -128,6 +135,94 @@ describe("ValuesEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/bXMwnrHvQH2DMjOFrGmNzg-EAqdg");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should read a color value", done => {
+
+            knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "TAziKNP8QxuyhC4Qf9-b6w").subscribe(
+                (res: ReadResource) => {
+                    const colorVal = res.getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasColor", ReadColorValue);
+                    expect(colorVal.length).toEqual(1);
+                    expect(colorVal[0].color).toEqual("#ff3333");
+
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+
+                    expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const resource = require("../../../../test/data/api/v2/values/get-color-value-response-expanded.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/TAziKNP8QxuyhC4Qf9-b6w");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should read an interval value", done => {
+
+            knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "RbDKPKHWTC-0lkRKae-E6A").subscribe(
+                (res: ReadResource) => {
+                    const intervalVal = res.getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval", ReadIntervalValue);
+                    expect(intervalVal.length).toEqual(1);
+                    expect(intervalVal[0].start).toEqual(0);
+                    expect(intervalVal[0].end).toEqual(216000);
+
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+
+                    expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const resource = require("../../../../test/data/api/v2/values/get-interval-value-response-expanded.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/RbDKPKHWTC-0lkRKae-E6A");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should read an boolean value", done => {
+
+            knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "IN4R19yYR0ygi3K2VEHpUQ").subscribe(
+                (res: ReadResource) => {
+                    const boolVal = res.getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean", ReadBooleanValue);
+                    expect(boolVal.length).toEqual(1);
+                    expect(boolVal[0].bool).toBeTruthy();
+
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+
+                    expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const resource = require("../../../../test/data/api/v2/values/get-boolean-value-response-expanded.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/IN4R19yYR0ygi3K2VEHpUQ");
 
             expect(request.method).toEqual("GET");
 

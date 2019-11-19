@@ -201,6 +201,18 @@
     {
       "source": "/test-data/v2/values/get-decimal-value-response.json",
       "destination": "./test/data/api/v2/values/get-decimal-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-color-value-response.json",
+      "destination": "./test/data/api/v2/values/get-color-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-interval-value-response.json",
+      "destination": "./test/data/api/v2/values/get-interval-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-boolean-value-response.json",
+      "destination": "./test/data/api/v2/values/get-boolean-value-response.json"
     }
 
   ]
