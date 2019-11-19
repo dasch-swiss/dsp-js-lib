@@ -19,6 +19,7 @@ import { CreateColorValue } from "../../../models/v2/resources/values/create/cre
 import { CreateDateValue } from "../../../models/v2/resources/values/create/create-date-value";
 import { CreateDecimalValue } from "../../../models/v2/resources/values/create/create-decimal-value";
 import { CreateGeomValue } from "../../../models/v2/resources/values/create/create-geom-value";
+import { CreateGeonameValue } from "../../../models/v2/resources/values/create/create-geoname-value";
 import { CreateIntValue } from "../../../models/v2/resources/values/create/create-int-value";
 import { CreateIntervalValue } from "../../../models/v2/resources/values/create/create-interval-value";
 import { CreateLinkValue } from "../../../models/v2/resources/values/create/create-link-value";
@@ -39,6 +40,7 @@ import { UpdateDateValue } from "../../../models/v2/resources/values/update/upda
 import { UpdateDecimalValue } from "../../../models/v2/resources/values/update/update-decimal-value";
 import { UpdateStillImageFileValue } from "../../../models/v2/resources/values/update/update-file-value";
 import { UpdateGeomValue } from "../../../models/v2/resources/values/update/update-geom-value";
+import { UpdateGeonameValue } from "../../../models/v2/resources/values/update/update-geoname-value";
 import { UpdateIntValue } from "../../../models/v2/resources/values/update/update-int-value";
 import { UpdateIntervalValue } from "../../../models/v2/resources/values/update/update-interval-value";
 import { UpdateLinkValue } from "../../../models/v2/resources/values/update/update-link-value";
@@ -1080,6 +1082,45 @@ describe("ValuesEndpoint", () => {
             expect(request.data()).toEqual(expectedPayload);
         });
 
+        it("should update a geoname value", done => {
+
+            const updateGeomVal = new UpdateGeonameValue();
+
+            updateGeomVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/hty-ONF8SwKN2RKU7rLKDg";
+            updateGeomVal.geoname = "2988507";
+
+            const updateResource = new UpdateResource<UpdateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeoname";
+            updateResource.value = updateGeomVal;
+
+            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0803/021ec18f1735/values/updated");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0803/021ec18f1735/values/updated",
+                "@type": Constants.GeonameValue
+            })));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = require("../../../../test/data/api/v2/values/update-geoname-value-request-expanded.json");
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
         it("should update an integer value with a comment", done => {
 
             const updateTextVal = new UpdateTextValueAsString();
@@ -1755,6 +1796,44 @@ describe("ValuesEndpoint", () => {
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-geometry-value-request-expanded.json");
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
+        it("should create a geoname value", done => {
+
+            const createGeomVal = new CreateGeonameValue();
+
+            createGeomVal.geoname = "2661604";
+
+            const updateResource = new UpdateResource<CreateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/a-thing";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeoname";
+            updateResource.value = createGeomVal;
+
+            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0803/021ec18f1735/values/created");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0803/021ec18f1735/values/created",
+                "@type": Constants.GeonameValue
+            })));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = require("../../../../test/data/api/v2/values/create-geoname-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });
