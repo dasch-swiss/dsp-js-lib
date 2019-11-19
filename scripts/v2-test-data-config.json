@@ -221,6 +221,18 @@
     {
       "source": "/test-data/v2/values/get-link-value-response.json",
       "destination": "./test/data/api/v2/values/get-link-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-uri-value-response.json",
+      "destination": "./test/data/api/v2/values/get-uri-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-text-value-without-standoff-response.json",
+      "destination": "./test/data/api/v2/values/get-text-value-without-standoff-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-text-value-with-standoff-response.json",
+      "destination": "./test/data/api/v2/values/get-text-value-with-standoff-response.json"
     }
 
   ]

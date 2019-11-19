@@ -5,7 +5,7 @@ import {
     ReadDecimalValue,
     ReadIntervalValue,
     ReadIntValue, ReadLinkValue, ReadListValue,
-    ReadResource
+    ReadResource, ReadTextValueAsString, ReadTextValueAsXml, ReadUriValue
 } from "../../..";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
@@ -283,6 +283,65 @@ describe("ValuesEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/uvRVxzL1RD-t9VIQ1TpfUw");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should read a text value without standoff", done => {
+
+            knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "SZyeLLmOTcCCuS3B0VksHQ").subscribe(
+                (res: ReadResource) => {
+                    const textVal = res.getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasText", ReadTextValueAsString);
+                    expect(textVal.length).toEqual(1);
+                    expect(textVal[0].text).toEqual("test");
+
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+
+                    expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const resource = require("../../../../test/data/api/v2/values/get-text-value-without-standoff-response-expanded.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/SZyeLLmOTcCCuS3B0VksHQ");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should read a text value with standoff", done => {
+
+            knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "rvB4eQ5MTF-Qxq0YgkwaDg").subscribe(
+                (res: ReadResource) => {
+                    const textVal = res.getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasRichtext", ReadTextValueAsXml);
+                    expect(textVal.length).toEqual(1);
+                    expect(textVal[0].xml).toEqual("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<text><p>test with <strong>markup</strong></p></text>");
+                    expect(textVal[0].mapping).toEqual("http://rdfh.ch/standoff/mappings/StandardMapping");
+
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+
+                    expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const resource = require("../../../../test/data/api/v2/values/get-text-value-with-standoff-response-expanded.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/rvB4eQ5MTF-Qxq0YgkwaDg");
 
             expect(request.method).toEqual("GET");
 
