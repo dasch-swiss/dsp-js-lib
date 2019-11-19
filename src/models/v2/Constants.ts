@@ -15,6 +15,7 @@ export class Constants {
 
     static BooleanValue = Constants.KnoraApiV2 + Constants.Delimiter + "BooleanValue";
     static ColorValue = Constants.KnoraApiV2 + Constants.Delimiter + "ColorValue";
+    static GeonameValue = Constants.KnoraApiV2 + Constants.Delimiter + "GeonameValue";
     static DateValue = Constants.KnoraApiV2 + Constants.Delimiter + "DateValue";
     static IntValue = Constants.KnoraApiV2 + Constants.Delimiter + "IntValue";
     static DecimalValue = Constants.KnoraApiV2 + Constants.Delimiter + "DecimalValue";
@@ -42,6 +43,7 @@ export class Constants {
 
     static BooleanValueAsBoolean = Constants.KnoraApiV2 + Constants.Delimiter + "booleanValueAsBoolean";
     static ColorValueAsColor = Constants.KnoraApiV2 + Constants.Delimiter + "colorValueAsColor";
+    static GeonameValueAsGeonameCode = Constants.KnoraApiV2 + Constants.Delimiter + "geonameValueAsGeonameCode";
     static DateValueHasCalendar = Constants.KnoraApiV2 + Constants.Delimiter + "dateValueHasCalendar";
     static DateValueHasEndDay = Constants.KnoraApiV2 + Constants.Delimiter + "dateValueHasEndDay";
     static DateValueHasEndEra = Constants.KnoraApiV2 + Constants.Delimiter + "dateValueHasEndEra";

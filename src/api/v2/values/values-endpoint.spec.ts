@@ -32,6 +32,7 @@ import { CreateValue } from "../../../models/v2/resources/values/create/create-v
 import { DeleteValue } from "../../../models/v2/resources/values/delete/delete-value";
 import { DeleteValueResponse } from "../../../models/v2/resources/values/delete/delete-value-response";
 import { KnoraDate } from "../../../models/v2/resources/values/read/read-date-value";
+import { ReadGeonameValue } from "../../../models/v2/resources/values/read/read-geoname-value";
 import { UpdateBooleanValue } from "../../../models/v2/resources/values/update/update-boolean-value";
 import { UpdateColorValue } from "../../../models/v2/resources/values/update/update-color-value";
 import { UpdateDateValue } from "../../../models/v2/resources/values/update/update-date-value";
@@ -412,7 +413,7 @@ describe("ValuesEndpoint", () => {
 
         });
 
-        it("should read a still image file value", done => {
+        it("should read a geometry value", done => {
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "we-ybmj-SRen-91n4RaDOQ").subscribe(
                 (res: ReadResource) => {
@@ -436,6 +437,35 @@ describe("ValuesEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/we-ybmj-SRen-91n4RaDOQ");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should read a Geoname value", done => {
+
+            knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "hty-ONF8SwKN2RKU7rLKDg").subscribe(
+                (res: ReadResource) => {
+                    const geomVal = res.getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeoname", ReadGeonameValue);
+                    expect(geomVal.length).toEqual(1);
+                    expect(geomVal[0].geoname).toEqual("2661604");
+
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+
+                    expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const resource = require("../../../../test/data/api/v2/values/get-geoname-value-response-expanded.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/hty-ONF8SwKN2RKU7rLKDg");
 
             expect(request.method).toEqual("GET");
 

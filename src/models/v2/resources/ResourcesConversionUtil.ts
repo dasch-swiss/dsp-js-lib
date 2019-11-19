@@ -13,6 +13,7 @@ import { ParseReadDateValue, ReadDateValue } from "./values/read/read-date-value
 import { ReadDecimalValue } from "./values/read/read-decimal-value";
 import { ReadStillImageFileValue } from "./values/read/read-file-value";
 import { ParseReadGeomValue, ReadGeomValue } from "./values/read/read-geom-value";
+import { ReadGeonameValue } from "./values/read/read-geoname-value";
 import { ReadIntValue } from "./values/read/read-int-value";
 import { ReadIntervalValue } from "./values/read/read-interval-value";
 import { ReadLinkValue } from "./values/read/read-link-value";
@@ -376,6 +377,15 @@ export namespace ResourcesConversionUtil {
                 const stillImageVal = handleSimpleValue(valueJsonld, ReadStillImageFileValue, jsonConvert);
                 value = stillImageVal.pipe(map((val: ReadStillImageFileValue) => {
                     val.strval = val.fileUrl;
+                    return val;
+                }));
+                break;
+            }
+
+            case Constants.GeonameValue: {
+                const geonameVal = handleSimpleValue(valueJsonld, ReadGeonameValue, jsonConvert);
+                value = geonameVal.pipe(map((val: ReadGeonameValue) => {
+                    val.strval = val.geoname;
                     return val;
                 }));
                 break;
