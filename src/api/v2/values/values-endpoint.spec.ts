@@ -2,7 +2,7 @@ import { of } from "rxjs";
 import {
     ReadBooleanValue,
     ReadColorValue, ReadDateValue,
-    ReadDecimalValue,
+    ReadDecimalValue, ReadGeomValue,
     ReadIntervalValue,
     ReadIntValue, ReadLinkValue, ReadListValue,
     ReadResource, ReadStillImageFileValue, ReadTextValueAsString, ReadTextValueAsXml, ReadUriValue
@@ -386,10 +386,10 @@ describe("ValuesEndpoint", () => {
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "goZ7JFRNSeqF-dNxsqAS7Q").subscribe(
                 (res: ReadResource) => {
-                    const dateVal = res.getValuesAs("http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue", ReadStillImageFileValue);
-                    expect(dateVal.length).toEqual(1);
-                    expect(dateVal[0].filename).toEqual("B1D0OkEgfFp-Cew2Seur7Wi.jp2");
-                    expect(dateVal[0].dimX).toEqual(512);
+                    const stillImageVal = res.getValuesAs("http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue", ReadStillImageFileValue);
+                    expect(stillImageVal.length).toEqual(1);
+                    expect(stillImageVal[0].filename).toEqual("B1D0OkEgfFp-Cew2Seur7Wi.jp2");
+                    expect(stillImageVal[0].dimX).toEqual(512);
 
                     expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
                     expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#ThingPicture");
@@ -407,6 +407,35 @@ describe("ValuesEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/goZ7JFRNSeqF-dNxsqAS7Q");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should read a still image file value", done => {
+
+            knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "we-ybmj-SRen-91n4RaDOQ").subscribe(
+                (res: ReadResource) => {
+                    const geomVal = res.getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeometry", ReadGeomValue);
+                    expect(geomVal.length).toEqual(1);
+                    expect(geomVal[0].geometry.type).toEqual("rectangle");
+
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+
+                    expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const resource = require("../../../../test/data/api/v2/values/get-geom-value-response-expanded.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/we-ybmj-SRen-91n4RaDOQ");
 
             expect(request.method).toEqual("GET");
 

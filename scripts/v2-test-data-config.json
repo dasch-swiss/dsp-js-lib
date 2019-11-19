@@ -241,6 +241,10 @@
     {
       "source": "/test-data/v2/values/get-still-image-file-value-response.json",
       "destination": "./test/data/api/v2/values/get-still-image-file-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-geom-value-response.json",
+      "destination": "./test/data/api/v2/values/get-geom-value-response.json"
     }
 
   ]
