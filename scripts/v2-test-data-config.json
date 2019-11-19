@@ -1,5 +1,5 @@
 {
-  "test-data": [
+  "static-test-data": [
     {
       "source": "/webapi/src/test/resources/test-data/ontologyR2RV2/knoraApiOntologyWithValueObjects.jsonld",
       "destination": "./test/data/api/v2/ontologies/knora-api-ontology.json"
@@ -48,5 +48,216 @@
       "source": "/webapi/src/test/resources/test-data/ontologyR2RV2/allOntologyMetadata.jsonld",
       "destination": "./test/data/api/v2/ontologies/all-ontology-metadata.json"
     }
+  ],
+  "generated-test-data": [
+    {
+      "source": "/test-data/v2/values/create-int-value-request.json",
+      "destination": "./test/data/api/v2/values/create-int-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-decimal-value-request.json",
+      "destination": "./test/data/api/v2/values/create-decimal-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-color-value-request.json",
+      "destination": "./test/data/api/v2/values/create-color-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-interval-value-request.json",
+      "destination": "./test/data/api/v2/values/create-interval-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-boolean-value-request.json",
+      "destination": "./test/data/api/v2/values/create-boolean-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-list-value-request.json",
+      "destination": "./test/data/api/v2/values/create-list-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-link-value-request.json",
+      "destination": "./test/data/api/v2/values/create-link-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-uri-value-request.json",
+      "destination": "./test/data/api/v2/values/create-uri-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-text-value-without-standoff-request.json",
+      "destination": "./test/data/api/v2/values/create-text-value-without-standoff-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-text-value-with-standoff-request.json",
+      "destination": "./test/data/api/v2/values/create-text-value-with-standoff-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-date-value-with-day-precision-request.json",
+      "destination": "./test/data/api/v2/values/create-date-value-with-day-precision-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-date-value-with-month-precision-request.json",
+      "destination": "./test/data/api/v2/values/create-date-value-with-month-precision-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-date-value-with-year-precision-request.json",
+      "destination": "./test/data/api/v2/values/create-date-value-with-year-precision-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-geometry-value-request.json",
+      "destination": "./test/data/api/v2/values/create-geometry-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-geoname-value-request.json",
+      "destination": "./test/data/api/v2/values/create-geoname-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-text-value-with-comment-request.json",
+      "destination": "./test/data/api/v2/values/create-text-value-with-comment-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/create-int-value-with-custom-permissions-request.json",
+      "destination": "./test/data/api/v2/values/create-int-value-with-custom-permissions-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-int-value-request.json",
+      "destination": "./test/data/api/v2/values/update-int-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-decimal-value-request.json",
+      "destination": "./test/data/api/v2/values/update-decimal-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-color-value-request.json",
+      "destination": "./test/data/api/v2/values/update-color-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-interval-value-request.json",
+      "destination": "./test/data/api/v2/values/update-interval-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-boolean-value-request.json",
+      "destination": "./test/data/api/v2/values/update-boolean-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-list-value-request.json",
+      "destination": "./test/data/api/v2/values/update-list-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-link-value-request.json",
+      "destination": "./test/data/api/v2/values/update-link-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-uri-value-request.json",
+      "destination": "./test/data/api/v2/values/update-uri-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-text-value-without-standoff-request.json",
+      "destination": "./test/data/api/v2/values/update-text-value-without-standoff-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-text-value-with-standoff-request.json",
+      "destination": "./test/data/api/v2/values/update-text-value-with-standoff-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-date-value-with-day-precision-request.json",
+      "destination": "./test/data/api/v2/values/update-date-value-with-day-precision-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-date-value-with-month-precision-request.json",
+      "destination": "./test/data/api/v2/values/update-date-value-with-month-precision-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-date-value-with-year-precision-request.json",
+      "destination": "./test/data/api/v2/values/update-date-value-with-year-precision-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-still-image-file-value-request.json",
+      "destination": "./test/data/api/v2/values/update-still-image-file-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-geometry-value-request.json",
+      "destination": "./test/data/api/v2/values/update-geometry-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-geoname-value-request.json",
+      "destination": "./test/data/api/v2/values/update-geoname-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-text-value-with-comment-request.json",
+      "destination": "./test/data/api/v2/values/update-text-value-with-comment-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-int-value-with-custom-permissions-request.json",
+      "destination": "./test/data/api/v2/values/update-int-value-with-custom-permissions-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-int-value-permissions-only-request.json",
+      "destination": "./test/data/api/v2/values/update-int-value-permissions-only-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/delete-int-value-request.json",
+      "destination": "./test/data/api/v2/values/delete-int-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/delete-link-value-request.json",
+      "destination": "./test/data/api/v2/values/delete-link-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-int-value-response.json",
+      "destination": "./test/data/api/v2/values/get-int-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-decimal-value-response.json",
+      "destination": "./test/data/api/v2/values/get-decimal-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-color-value-response.json",
+      "destination": "./test/data/api/v2/values/get-color-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-interval-value-response.json",
+      "destination": "./test/data/api/v2/values/get-interval-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-boolean-value-response.json",
+      "destination": "./test/data/api/v2/values/get-boolean-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-list-value-response.json",
+      "destination": "./test/data/api/v2/values/get-list-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-link-value-response.json",
+      "destination": "./test/data/api/v2/values/get-link-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-uri-value-response.json",
+      "destination": "./test/data/api/v2/values/get-uri-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-text-value-without-standoff-response.json",
+      "destination": "./test/data/api/v2/values/get-text-value-without-standoff-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-text-value-with-standoff-response.json",
+      "destination": "./test/data/api/v2/values/get-text-value-with-standoff-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-date-value-response.json",
+      "destination": "./test/data/api/v2/values/get-date-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-still-image-file-value-response.json",
+      "destination": "./test/data/api/v2/values/get-still-image-file-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-geom-value-response.json",
+      "destination": "./test/data/api/v2/values/get-geom-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/values/get-geoname-value-response.json",
+      "destination": "./test/data/api/v2/values/get-geoname-value-response.json"
+    }
+
   ]
 }

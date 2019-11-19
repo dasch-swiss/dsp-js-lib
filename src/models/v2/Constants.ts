@@ -15,6 +15,7 @@ export class Constants {
 
     static BooleanValue = Constants.KnoraApiV2 + Constants.Delimiter + "BooleanValue";
     static ColorValue = Constants.KnoraApiV2 + Constants.Delimiter + "ColorValue";
+    static GeonameValue = Constants.KnoraApiV2 + Constants.Delimiter + "GeonameValue";
     static DateValue = Constants.KnoraApiV2 + Constants.Delimiter + "DateValue";
     static IntValue = Constants.KnoraApiV2 + Constants.Delimiter + "IntValue";
     static DecimalValue = Constants.KnoraApiV2 + Constants.Delimiter + "DecimalValue";
@@ -42,6 +43,7 @@ export class Constants {
 
     static BooleanValueAsBoolean = Constants.KnoraApiV2 + Constants.Delimiter + "booleanValueAsBoolean";
     static ColorValueAsColor = Constants.KnoraApiV2 + Constants.Delimiter + "colorValueAsColor";
+    static GeonameValueAsGeonameCode = Constants.KnoraApiV2 + Constants.Delimiter + "geonameValueAsGeonameCode";
     static DateValueHasCalendar = Constants.KnoraApiV2 + Constants.Delimiter + "dateValueHasCalendar";
     static DateValueHasEndDay = Constants.KnoraApiV2 + Constants.Delimiter + "dateValueHasEndDay";
     static DateValueHasEndEra = Constants.KnoraApiV2 + Constants.Delimiter + "dateValueHasEndEra";
@@ -71,6 +73,9 @@ export class Constants {
     static StillImageFileValueHasIIIFBaseUrl = Constants.KnoraApiV2 + Constants.Delimiter + "stillImageFileValueHasIIIFBaseUrl";
     static FileValueHasFilename = Constants.KnoraApiV2 + Constants.Delimiter + "fileValueHasFilename";
     static FileValueAsUrl = Constants.KnoraApiV2 + Constants.Delimiter + "fileValueAsUrl";
+    static ValueHasComment = Constants.KnoraApiV2 + Constants.Delimiter + "valueHasComment";
+    static DeleteComment = Constants.KnoraApiV2 + Constants.Delimiter + "deleteComment";
+    static Result = Constants.KnoraApiV2 + Constants.Delimiter + "result";
 
     static KnoraAdminV2 = "http://api.knora.org/ontology/knora-admin/v2";
 
@@ -98,7 +103,7 @@ export class Constants {
     static Xsd = "http://www.w3.org/2001/XMLSchema";
     static XsdAnyUri = Constants.Xsd + Constants.Delimiter + "anyURI";
     static XsdDecimal = Constants.Xsd + Constants.Delimiter + "decimal";
-	static dateTimeStamp = Constants.Xsd + Constants.Delimiter + "dateTimeStamp";
+    static dateTimeStamp = Constants.Xsd + Constants.Delimiter + "dateTimeStamp";
 
     static SchemaNumberOfItems = "http://schema.org/numberOfItems";
 

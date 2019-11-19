@@ -3,7 +3,7 @@ import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { ApiResponseError } from "../../../models/api-response-error";
-import { ReadResource } from "../../../models/v2/resources/read-resource";
+import { ReadResource } from "../../../models/v2/resources/read/read-resource";
 import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { CountQueryResponse } from "../../../models/v2/search/count-query-response";
 import { Endpoint } from "../../endpoint";
