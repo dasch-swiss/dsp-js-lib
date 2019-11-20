@@ -9,11 +9,13 @@ export abstract class UpdateFileValue extends UpdateValue implements IBaseFileVa
     @JsonProperty(Constants.FileValueHasFilename, String)
     filename: string = "";
 
-    constructor() {
-        super(Constants.StillImageFileValue);
-    }
 }
 
 @JsonObject("UpdateStillImageFileValue")
 export class UpdateStillImageFileValue extends UpdateFileValue {
+
+    constructor() {
+        super(Constants.StillImageFileValue);
+    }
+
 }

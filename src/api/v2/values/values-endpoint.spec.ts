@@ -660,7 +660,7 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.IntervalValue
+                "@type": Constants.BooleanValue
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1030,7 +1030,7 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0803/7bbb8e59b703/values/updated",
-                "@type": Constants.DateValue
+                "@type": Constants.StillImageFileValue
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1310,7 +1310,7 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.IntValue
+                "@type": Constants.DecimalValue
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1349,7 +1349,7 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.IntValue
+                "@type": Constants.ColorValue
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1426,7 +1426,7 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.IntervalValue
+                "@type": Constants.BooleanValue
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1805,6 +1805,8 @@ describe("ValuesEndpoint", () => {
 
             const createStillImageFileVal = new CreateStillImageFileValue();
 
+            expect(createStillImageFileVal.type).toEqual("http://api.knora.org/ontology/knora-api/v2#StillImageFileValue");
+
             createStillImageFileVal.filename = "IQUO3t1AABm-FSLC0vNvVpr.jp2";
 
             const updateResource = new UpdateResource<CreateValue>();
@@ -1942,56 +1944,6 @@ describe("ValuesEndpoint", () => {
     });
 
     describe("Method deleteValue", () => {
-
-        it("should delete a value", done => {
-
-            const deleteVal = new DeleteValue();
-
-            deleteVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg";
-            deleteVal.type = "http://api.knora.org/ontology/knora-api/v2#IntValue";
-
-            const updateResource = new UpdateResource<DeleteValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
-
-            updateResource.value = deleteVal;
-
-            knoraApiConnection.v2.values.deleteValue(updateResource).subscribe(
-                (res: DeleteValueResponse) => {
-                    expect(res.result).toEqual("Value <http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg> marked as deleted");
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(
-                {
-                    "knora-api:result": "Value <http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg> marked as deleted",
-                    "@context": {
-                        "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
-                    }
-                }
-            )));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/delete");
-
-            expect(request.method).toEqual("POST");
-
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger": {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#IntValue",
-                    "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg"
-                }
-            };
-
-            expect(request.data()).toEqual(expectedPayload);
-
-        });
 
         it("should delete a value with a comment", done => {
 
