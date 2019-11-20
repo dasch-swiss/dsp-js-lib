@@ -7,12 +7,13 @@ import { CreateValue } from "./create-value";
 export abstract class CreateFileValue extends CreateValue implements IBaseFileValue {
     @JsonProperty(Constants.FileValueHasFilename, String)
     filename: string = "";
-
-    constructor() {
-        super(Constants.StillImageFileValue);
-    }
 }
 
 @JsonObject("CreateStillImageFileValue")
 export class CreateStillImageFileValue extends CreateFileValue {
+
+    constructor() {
+        super(Constants.StillImageFileValue);
+    }
+
 }

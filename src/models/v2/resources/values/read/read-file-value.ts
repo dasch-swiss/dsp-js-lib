@@ -5,7 +5,7 @@ import { IBaseFileValue } from "../type-specific-interfaces/base-file-value";
 import { ReadValue } from "./read-value";
 
 @JsonObject("ReadFileValue")
-export abstract class ReadFileValue extends ReadValue {
+export abstract class ReadFileValue extends ReadValue implements IBaseFileValue {
 
     @JsonProperty(Constants.FileValueHasFilename, String)
     filename: string = "";
@@ -15,7 +15,7 @@ export abstract class ReadFileValue extends ReadValue {
 }
 
 @JsonObject("ReadStillImageFileValue")
-export class ReadStillImageFileValue extends ReadFileValue implements IBaseFileValue {
+export class ReadStillImageFileValue extends ReadFileValue {
 
     @JsonProperty(Constants.StillImageFileValueHasDimX, Number)
     dimX: number = 0;
