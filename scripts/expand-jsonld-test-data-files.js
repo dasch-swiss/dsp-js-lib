@@ -37,7 +37,9 @@ const expandJsonLD = (path) => {
 const ontologiesPath = "test/data/api/v2/ontologies/";
 const resourcesPath = "test/data/api/v2/resources/";
 const listsPath = "test/data/api/v2/lists/";
+const valuesPath = "test/data/api/v2/values/";
 
 expandJsonLD(ontologiesPath);
 expandJsonLD(resourcesPath);
 expandJsonLD(listsPath);
+expandJsonLD(valuesPath);

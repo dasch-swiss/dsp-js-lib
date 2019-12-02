@@ -6,25 +6,26 @@ import { IResourceClassAndPropertyDefinitions, OntologyCache } from "../../../ca
 import { Constants } from "../Constants";
 import { ResourcePropertyDefinition } from "../ontologies/resource-property-definition";
 import { CountQueryResponse } from "../search/count-query-response";
-import { ReadResource } from "./read-resource";
-import { ReadBooleanValue } from "./values/read-boolean-value";
-import { ReadColorValue } from "./values/read-color-value";
-import { ParseReadDateValue, ReadDateValue } from "./values/read-date-value";
-import { ReadDecimalValue } from "./values/read-decimal-value";
-import { ReadStillImageFileValue } from "./values/read-file-value";
-import { ParseReadGeomValue, ReadGeomValue } from "./values/read-geom-value";
-import { ReadIntValue } from "./values/read-int-value";
-import { ReadIntervalValue } from "./values/read-interval-value";
-import { ReadLinkValue } from "./values/read-link-value";
-import { ReadListValue } from "./values/read-list-value";
+import { ReadResource } from "./read/read-resource";
+import { ReadBooleanValue } from "./values/read/read-boolean-value";
+import { ReadColorValue } from "./values/read/read-color-value";
+import { ParseReadDateValue, ReadDateValue } from "./values/read/read-date-value";
+import { ReadDecimalValue } from "./values/read/read-decimal-value";
+import { ReadStillImageFileValue } from "./values/read/read-file-value";
+import { ParseReadGeomValue, ReadGeomValue } from "./values/read/read-geom-value";
+import { ReadGeonameValue } from "./values/read/read-geoname-value";
+import { ReadIntValue } from "./values/read/read-int-value";
+import { ReadIntervalValue } from "./values/read/read-interval-value";
+import { ReadLinkValue } from "./values/read/read-link-value";
+import { ReadListValue } from "./values/read/read-list-value";
 import {
     ReadTextValue,
     ReadTextValueAsHtml,
     ReadTextValueAsString,
     ReadTextValueAsXml
-} from "./values/read-text-value";
-import { ReadUriValue } from "./values/read-uri-value";
-import { ReadValue } from "./values/read-value";
+} from "./values/read/read-text-value";
+import { ReadUriValue } from "./values/read/read-uri-value";
+import { ReadValue } from "./values/read/read-value";
 
 export namespace ResourcesConversionUtil {
 
@@ -376,6 +377,15 @@ export namespace ResourcesConversionUtil {
                 const stillImageVal = handleSimpleValue(valueJsonld, ReadStillImageFileValue, jsonConvert);
                 value = stillImageVal.pipe(map((val: ReadStillImageFileValue) => {
                     val.strval = val.fileUrl;
+                    return val;
+                }));
+                break;
+            }
+
+            case Constants.GeonameValue: {
+                const geonameVal = handleSimpleValue(valueJsonld, ReadGeonameValue, jsonConvert);
+                value = geonameVal.pipe(map((val: ReadGeonameValue) => {
+                    val.strval = val.geoname;
                     return val;
                 }));
                 break;

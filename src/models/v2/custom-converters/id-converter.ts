@@ -3,18 +3,22 @@ import { CustomConverterUtils } from "../../../util/utils";
 
 @JsonConverter
 export class IdConverter implements JsonCustomConvert<string> {
-    serialize(description: string): any {
+    serialize(id: string): any {
+
+        return {
+            "@id": id
+        };
     }
 
     deserialize(item: any): string {
-        let id = "";
 
         if (Array.isArray(item)) throw new Error("Expected a single element");
         
         if (item.hasOwnProperty("@id") && CustomConverterUtils.isString(item["@id"])) {
-            id = item["@id"];
+            return item["@id"];
+        } else {
+            throw new Error("Expected @id");
         }
 
-        return id;
     }
 }
