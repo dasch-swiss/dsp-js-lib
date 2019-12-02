@@ -4,7 +4,7 @@ import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
-import { ReadResource } from "../../../models/v2/resources/read-resource";
+import { ReadResource } from "../../../models/v2/resources/read/read-resource";
 
 describe("ResourcesEndpoint", () => {
 
