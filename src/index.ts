@@ -42,6 +42,7 @@ export { LogoutResponse } from "./models/v2/authentication/logout-response";
 export { StringLiteral } from "./models/admin/string-literal";
 
 export { UserCache } from "./cache/UserCache";
+export { ProjectCache } from "./cache/ProjectCache";
 
 export { ApiResponse } from "./models/api-response";
 export { ApiResponseData } from "./models/api-response-data";

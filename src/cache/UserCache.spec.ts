@@ -54,6 +54,7 @@ describe("UserCache", () => {
 
                 expect(res.user.username).toEqual("anything.user01");
                 expect(getUserSpy).toHaveBeenCalledTimes(1);
+                expect(getUserSpy).toHaveBeenCalledWith("username", "anything.user01");
 
                 expect(userCache["cache"]["anything.user01"]).not.toBeUndefined();
                 done();
