@@ -25,7 +25,13 @@ export class Constants {
     static LinkValue = Constants.KnoraApiV2 + Constants.Delimiter + "LinkValue";
     static UriValue = Constants.KnoraApiV2 + Constants.Delimiter + "UriValue";
     static GeomValue = Constants.KnoraApiV2 + Constants.Delimiter + "GeomValue";
+    static FileValue = Constants.KnoraApiV2 + Constants.Delimiter + "FileValue";
+    static AudioFileValue = Constants.KnoraApiV2 + Constants.Delimiter + "AudioFileValue";
+    static DDDFileValue = Constants.KnoraApiV2 + Constants.Delimiter + "DDDFileValue";
+    static DocumentFileValue = Constants.KnoraApiV2 + Constants.Delimiter + "DocumentFileValue";
     static StillImageFileValue = Constants.KnoraApiV2 + Constants.Delimiter + "StillImageFileValue";
+    static MovingImageFileValue = Constants.KnoraApiV2 + Constants.Delimiter + "MovingImageFileValue";
+    static TextFileValue = Constants.KnoraApiV2 + Constants.Delimiter + "TextFileValue";
     static IsRootNode = Constants.KnoraApiV2 + Constants.Delimiter + "isRootNode";
     static HasRootNode = Constants.KnoraApiV2 + Constants.Delimiter + "hasRootNode";
     static HasSubListNode = Constants.KnoraApiV2 + Constants.Delimiter + "hasSubListNode";
@@ -71,6 +77,11 @@ export class Constants {
     static StillImageFileValueHasDimX = Constants.KnoraApiV2 + Constants.Delimiter + "stillImageFileValueHasDimX";
     static StillImageFileValueHasDimY = Constants.KnoraApiV2 + Constants.Delimiter + "stillImageFileValueHasDimY";
     static StillImageFileValueHasIIIFBaseUrl = Constants.KnoraApiV2 + Constants.Delimiter + "stillImageFileValueHasIIIFBaseUrl";
+    static AudioFileValueHasDuration = Constants.KnoraApiV2 + Constants.Delimiter + "audioFileValueHasDuration";
+    static MovingImageFileValueHasDimX = Constants.KnoraApiV2 + Constants.Delimiter + "movingImageFileValueHasDimX";
+    static MovingImageFileValueHasDimY = Constants.KnoraApiV2 + Constants.Delimiter + "movingImageFileValueHasDimY";
+    static MovingImageFileValueHasDuration = Constants.KnoraApiV2 + Constants.Delimiter + "movingImageFileValueHasDuration";
+    static MovingImageFileValueHasFps = Constants.KnoraApiV2 + Constants.Delimiter + "movingImageFileValueHasFps";
     static FileValueHasFilename = Constants.KnoraApiV2 + Constants.Delimiter + "fileValueHasFilename";
     static FileValueAsUrl = Constants.KnoraApiV2 + Constants.Delimiter + "fileValueAsUrl";
     static ValueHasComment = Constants.KnoraApiV2 + Constants.Delimiter + "valueHasComment";
