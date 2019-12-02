@@ -50,12 +50,12 @@ describe("UserCache", () => {
 
         it("should get a user from the cache", done => {
 
-            userCache["getItem"]("http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q").subscribe((res: UserResponse) => {
+            userCache["getItem"]("anything.user01").subscribe((res: UserResponse) => {
 
-                expect(res.user.id).toEqual("http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q");
+                expect(res.user.username).toEqual("anything.user01");
                 expect(getUserSpy).toHaveBeenCalledTimes(1);
 
-                expect(userCache["cache"]["http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q"]).not.toBeUndefined();
+                expect(userCache["cache"]["anything.user01"]).not.toBeUndefined();
                 done();
 
             });
@@ -63,12 +63,12 @@ describe("UserCache", () => {
 
         it("should get the user from the cache twice synchronously", done => {
 
-            userCache["getItem"]("http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q").subscribe((res: UserResponse) => {
-                expect(res.user.id).toEqual("http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q");
+            userCache["getItem"]("anything.user01").subscribe((res: UserResponse) => {
+                expect(res.user.username).toEqual("anything.user01");
                 expect(getUserSpy).toHaveBeenCalledTimes(1);
 
-                userCache["getItem"]("http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q").subscribe((res2: UserResponse) => {
-                    expect(res2.user.id).toEqual("http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q");
+                userCache["getItem"]("anything.user01").subscribe((res2: UserResponse) => {
+                    expect(res2.user.username).toEqual("anything.user01");
                     expect(getUserSpy).toHaveBeenCalledTimes(1);
                     done();
                 });
@@ -77,29 +77,29 @@ describe("UserCache", () => {
 
         it("should get the same user from the cache several times asynchronously", () => {
 
-            userCache["getItem"]("http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q").subscribe((res: UserResponse) => {
+            userCache["getItem"]("anything.user01").subscribe((res: UserResponse) => {
                 expect(getUserSpy).toHaveBeenCalledTimes(1);
             });
 
-            userCache["getItem"]("http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q").subscribe((res: UserResponse) => {
+            userCache["getItem"]("anything.user01").subscribe((res: UserResponse) => {
                 expect(getUserSpy).toHaveBeenCalledTimes(1);
             });
 
-            userCache["getItem"]("http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q").subscribe((res: UserResponse) => {
+            userCache["getItem"]("anything.user01").subscribe((res: UserResponse) => {
                 expect(getUserSpy).toHaveBeenCalledTimes(1);
             });
 
             expect(getUserSpy).toHaveBeenCalledTimes(1);
-            expect(getUserSpy).toHaveBeenCalledWith("iri", "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q");
+            expect(getUserSpy).toHaveBeenCalledWith("username", "anything.user01");
 
         });
 
         it("should get a user from the cache and refresh the entry", done => {
 
-            userCache["getItem"]("http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q").subscribe((res: UserResponse) => {
+            userCache["getItem"]("anything.user01").subscribe((res: UserResponse) => {
                 expect(getUserSpy).toHaveBeenCalledTimes(1);
 
-                userCache["reloadItem"]("http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q").subscribe((res2: UserResponse) => {
+                userCache["reloadItem"]("anything.user01").subscribe((res2: UserResponse) => {
                     expect(getUserSpy).toHaveBeenCalledTimes(2);
                     done();
                 });
