@@ -35,6 +35,12 @@ export class Constants {
     static IsRootNode = Constants.KnoraApiV2 + Constants.Delimiter + "isRootNode";
     static HasRootNode = Constants.KnoraApiV2 + Constants.Delimiter + "hasRootNode";
     static HasSubListNode = Constants.KnoraApiV2 + Constants.Delimiter + "hasSubListNode";
+    static HasStillImageFileValue = Constants.KnoraApiV2 + Constants.Delimiter + "hasStillImageFileValue";
+    static HasTextFileValue = Constants.KnoraApiV2 + Constants.Delimiter + "hasTextFileValue";
+    static HasMovingImageFileValue = Constants.KnoraApiV2 + Constants.Delimiter + "hasMovingImageFileValue";
+    static HasDocumentFileValue = Constants.KnoraApiV2 + Constants.Delimiter + "hasDocumentFileValue";
+    static HasDDDFileValue = Constants.KnoraApiV2 + Constants.Delimiter + "hasDDDFileValue";
+    static HasAudioFileValue = Constants.KnoraApiV2 + Constants.Delimiter + "hasAudioFileValue";
 
     static AttachedToProject = Constants.KnoraApiV2 + Constants.Delimiter + "attachedToProject";
     static AttachedToUser = Constants.KnoraApiV2 + Constants.Delimiter + "attachedToUser";
@@ -88,7 +94,12 @@ export class Constants {
     static DeleteComment = Constants.KnoraApiV2 + Constants.Delimiter + "deleteComment";
     static Result = Constants.KnoraApiV2 + Constants.Delimiter + "result";
 
-    static KnoraAdminV2 = "http://api.knora.org/ontology/knora-admin/v2";
+    static KnoraAdmin = "http://www.knora.org/ontology";
+    static DefaultSharedOntologyIRI: string = Constants.KnoraAdmin + "#DefaultSharedOntologiesProject";
+    static SystemProjectIRI: string = Constants.KnoraAdmin + "#SystemProject";
+    static SystemAdminGroupIRI: string = Constants.KnoraAdmin + "#SystemAdmin";
+    static ProjectAdminGroupIRI: string = Constants.KnoraAdmin + "#ProjectAdmin";
+    static ProjectMemberGroupIRI: string = Constants.KnoraAdmin + "#ProjectMember";
 
     static SalsahGui = "http://api.knora.org/ontology/salsah-gui/v2";
     static GuiAttribute = Constants.SalsahGui + Constants.Delimiter + "guiAttribute";
