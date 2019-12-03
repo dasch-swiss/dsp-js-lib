@@ -3,6 +3,7 @@ import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { KnoraApiConfig } from "../../../knora-api-config";
+import { CreateResource } from "../../../models/v2/resources/create/create-resource";
 import { ReadResource } from "../../../models/v2/resources/read/read-resource";
 import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { Endpoint } from "../../endpoint";
@@ -63,5 +64,34 @@ export class ResourcesEndpoint extends Endpoint {
                 return this.handleError(error);
             })
         );
+    }
+
+    createResource(resource: CreateResource): Observable<ReadResource | ApiResponseError> {
+
+        const res = this.jsonConvert.serializeObject(resource);
+
+        // iterate over properties and serialize them
+        const keys = Object.keys(resource.properties);
+
+        keys.forEach(prop => {
+                res[prop] = this.jsonConvert.serializeArray(resource.properties[prop]);
+        });
+
+        return this.httpPost("", res).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // console.log(JSON.stringify(ajaxResponse.response));
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), mergeMap((jsonldobj: object) => {
+                // console.log(JSON.stringify(jsonldobj));
+                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
+            }),
+            map((resources: ReadResource[]) => resources[0]),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
     }
 }

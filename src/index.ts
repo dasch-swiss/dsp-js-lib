@@ -59,6 +59,7 @@ export { StandoffClassDefinition } from "./models/v2/ontologies/standoff-class-d
 export { ReadResource } from "./models/v2/resources/read/read-resource";
 export { CountQueryResponse} from "./models/v2/search/count-query-response";
 export { UpdateResource } from "./models/v2/resources/update/update-resource";
+export { CreateResource } from "./models/v2/resources/create/create-resource";
 export { DeleteValue } from "./models/v2/resources/values/delete/delete-value";
 export { DeleteValueResponse } from "./models/v2/resources/values/delete/delete-value-response";
 export { WriteValueResponse } from "./models/v2/resources/values/write-value-response";
