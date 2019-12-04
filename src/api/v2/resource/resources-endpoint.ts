@@ -66,13 +66,20 @@ export class ResourcesEndpoint extends Endpoint {
         );
     }
 
+    /**
+     * Creates a new resource.
+     *
+     * @param resource the resource to be created.
+     */
     createResource(resource: CreateResource): Observable<ReadResource | ApiResponseError> {
 
         const res = this.jsonConvert.serializeObject(resource);
-
-        // iterate over properties and serialize them
+        
+        // get property keys
         const keys = Object.keys(resource.properties);
 
+        // for each property, serialize its values
+        // and assign them to the resource
         keys.forEach(prop => {
                 res[prop] = this.jsonConvert.serializeArray(resource.properties[prop]);
         });

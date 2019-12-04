@@ -4,7 +4,11 @@ import { CustomConverterUtils } from "../../../util/utils";
 
 @JsonConverter
 export class DateTimeStamp implements JsonCustomConvert<string> {
-    serialize(description: string): any {
+    serialize(dateTimeStamp: string): any {
+        return {
+            "@type": Constants.dateTimeStamp,
+            "@value": dateTimeStamp
+        };
     }
 
     deserialize(item: any): string {
