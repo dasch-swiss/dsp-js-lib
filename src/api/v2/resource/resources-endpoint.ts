@@ -86,7 +86,8 @@ export class ResourcesEndpoint extends Endpoint {
         // and assign them to the resource
         keys.forEach(prop => {
 
-            // TODO: check that array contains least one value
+            // check that array contains least one value
+            if (resource.properties[prop].length === 0) throw new Error("No values defined for " + prop);
 
             res[prop] = this.jsonConvert.serializeArray(resource.properties[prop]);
         });

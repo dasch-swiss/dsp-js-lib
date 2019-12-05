@@ -1,5 +1,5 @@
 import { of } from "rxjs";
-import { CreateBooleanValue } from "../../..";
+import { CreateBooleanValue, CreateDecimalValue } from "../../..";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
@@ -95,7 +95,39 @@ describe("ResourcesEndpoint", () => {
 
     describe("method createResource", () => {
 
-        it("should create a resource", done => {
+        const createResourceResponse = {
+            "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
+            "@type": "anything:Thing",
+            "rdfs:label": "testding",
+            "knora-api:attachedToProject": {
+                "@id": "http://rdfh.ch/projects/0001"
+            },
+            "knora-api:attachedToUser": {
+                "@id": "http://rdfh.ch/users/BhkfBc3hTeS_IDo-JgXRbQ"
+            },
+            "knora-api:hasPermissions": "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:KnownUser|RV knora-admin:UnknownUser",
+            "knora-api:userHasPermission": "RV",
+            "knora-api:arkUrl": {
+                "@type": "xsd:anyURI",
+                "@value": "http://0.0.0.0:3336/ark:/72163/1/0001/H6gBWUuJSuuO=CilHV8kQwk"
+            }, "knora-api:versionArkUrl": {
+                "@type": "xsd:anyURI",
+                "@value": "http://0.0.0.0:3336/ark:/72163/1/0001/H6gBWUuJSuuO=CilHV8kQwk.20180528T155203897Z"
+            },
+            "knora-api:creationDate": {
+                "@type": "xsd:dateTimeStamp",
+                "@value": "2018-05-28T15:52:03.897Z"
+            },
+            "@context": {
+                "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+                "knora-api": "http://api.knora.org/ontology/knora-api/v2#",
+                "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                "xsd": "http://www.w3.org/2001/XMLSchema#",
+                "anything": "http://0.0.0.0:3333/ontology/0001/anything/v2#"
+            }
+        };
+
+        it("should create a resource with one property with one value", done => {
 
             const createResource = new CreateResource();
 
@@ -125,38 +157,6 @@ describe("ResourcesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const createResourceResponse = {
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "@type": "anything:Thing",
-                "rdfs:label": "testding",
-                "knora-api:attachedToProject": {
-                    "@id": "http://rdfh.ch/projects/0001"
-                },
-                "knora-api:attachedToUser": {
-                    "@id": "http://rdfh.ch/users/BhkfBc3hTeS_IDo-JgXRbQ"
-                },
-                "knora-api:hasPermissions": "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:KnownUser|RV knora-admin:UnknownUser",
-                "knora-api:userHasPermission": "RV",
-                "knora-api:arkUrl": {
-                    "@type": "xsd:anyURI",
-                    "@value": "http://0.0.0.0:3336/ark:/72163/1/0001/H6gBWUuJSuuO=CilHV8kQwk"
-                }, "knora-api:versionArkUrl": {
-                    "@type": "xsd:anyURI",
-                    "@value": "http://0.0.0.0:3336/ark:/72163/1/0001/H6gBWUuJSuuO=CilHV8kQwk.20180528T155203897Z"
-                },
-                "knora-api:creationDate": {
-                    "@type": "xsd:dateTimeStamp",
-                    "@value": "2018-05-28T15:52:03.897Z"
-                },
-                "@context": {
-                    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-                    "knora-api": "http://api.knora.org/ontology/knora-api/v2#",
-                    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-                    "xsd": "http://www.w3.org/2001/XMLSchema#",
-                    "anything": "http://0.0.0.0:3333/ontology/0001/anything/v2#"
-                }
-            };
-
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createResourceResponse)));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/resources");
@@ -174,6 +174,148 @@ describe("ResourcesEndpoint", () => {
             };
 
             expect(request.data()).toEqual(expectedPayload);
+
+        });
+
+        it("should create a resource with one property with two values", done => {
+
+            const createResource = new CreateResource();
+
+            createResource.label = "testding";
+
+            createResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+
+            createResource.attachedToProject = "http://rdfh.ch/projects/0001";
+
+            const boolVal1 = new CreateBooleanValue();
+            boolVal1.bool = true;
+
+            const boolVal2 = new CreateBooleanValue();
+            boolVal2.bool = false;
+
+            const props = {
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean": [
+                    boolVal1, boolVal2
+                ]
+            };
+
+            createResource.properties = props;
+
+            knoraApiConnection.v2.res.createResource(createResource).subscribe(
+                (res: ReadResource) => {
+                    expect(res.type).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createResourceResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/resources");
+
+            expect(request.method).toEqual("POST");
+
+            const expectedPayload = {
+                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
+                "http://www.w3.org/2000/01/rdf-schema#label": "testding",
+                "http://api.knora.org/ontology/knora-api/v2#attachedToProject": {"@id": "http://rdfh.ch/projects/0001"},
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean": [{
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#BooleanValue",
+                    "http://api.knora.org/ontology/knora-api/v2#booleanValueAsBoolean": true
+                }, {
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#BooleanValue",
+                    "http://api.knora.org/ontology/knora-api/v2#booleanValueAsBoolean": false
+                }]
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+
+        });
+
+        it("should create a resource with two properties", done => {
+
+            const createResource = new CreateResource();
+
+            createResource.label = "testding";
+
+            createResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+
+            createResource.attachedToProject = "http://rdfh.ch/projects/0001";
+
+            const boolVal = new CreateBooleanValue();
+            boolVal.bool = true;
+
+            const decVal = new CreateDecimalValue();
+            decVal.decimal = 1.5;
+
+            const props = {
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean": [
+                    boolVal
+                ],
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal": [
+                    decVal
+                ]
+            };
+
+            createResource.properties = props;
+
+            knoraApiConnection.v2.res.createResource(createResource).subscribe(
+                (res: ReadResource) => {
+                    expect(res.type).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createResourceResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/resources");
+
+            expect(request.method).toEqual("POST");
+
+            const expectedPayload = {
+                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
+                "http://www.w3.org/2000/01/rdf-schema#label": "testding",
+                "http://api.knora.org/ontology/knora-api/v2#attachedToProject": {"@id": "http://rdfh.ch/projects/0001"},
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean": [{
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#BooleanValue",
+                    "http://api.knora.org/ontology/knora-api/v2#booleanValueAsBoolean": true
+                }],
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal": [{
+                    "@type": "http://api.knora.org/ontology/knora-api/v2#DecimalValue",
+                    "http://api.knora.org/ontology/knora-api/v2#decimalValueAsDecimal": {
+                        "@type": "http://www.w3.org/2001/XMLSchema#decimal",
+                        "@value": "1.5"
+                    }
+                }]
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+
+        });
+
+        it("should attempt to create a resource with a property without values", () => {
+
+            const createResource = new CreateResource();
+
+            createResource.label = "testding";
+
+            createResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+
+            createResource.attachedToProject = "http://rdfh.ch/projects/0001";
+
+            const props = {
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean": []
+            };
+
+            createResource.properties = props;
+
+            expect(
+                () => {
+                    knoraApiConnection.v2.res.createResource(createResource);
+                }).toThrow(new Error("No values defined for http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean"));
 
         });
 
