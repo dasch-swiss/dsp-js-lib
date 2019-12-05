@@ -15,7 +15,7 @@ export class UpdateResourceMetadata {
     lastModificationDateDate?: string = undefined;
 
     @JsonProperty(Constants.Label, String, true)
-    label?: string = "";
+    label?: string = undefined;
 
     @JsonProperty(Constants.HasPermissions, String, true)
     hasPermissions?: string = undefined;

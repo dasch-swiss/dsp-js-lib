@@ -79,17 +79,19 @@ export class ResourcesEndpoint extends Endpoint {
 
         const res = this.jsonConvert.serializeObject(resource);
 
-        // get property keys
-        const keys = Object.keys(resource.properties);
+        // get property Iris
+        const propIris = Object.keys(resource.properties);
 
         // for each property, serialize its values
         // and assign them to the resource
-        keys.forEach(prop => {
+        propIris.forEach(propIri => {
 
             // check that array contains least one value
-            if (resource.properties[prop].length === 0) throw new Error("No values defined for " + prop);
+            if (resource.properties[propIri].length === 0) {
+                throw new Error("No values defined for " + propIri);
+            }
 
-            res[prop] = this.jsonConvert.serializeArray(resource.properties[prop]);
+            res[propIri] = this.jsonConvert.serializeArray(resource.properties[propIri]);
         });
 
         return this.httpPost("", res).pipe(
@@ -117,7 +119,10 @@ export class ResourcesEndpoint extends Endpoint {
      */
     updateResourceMetadata(resourceMetadata: UpdateResourceMetadata): Observable<UpdateResourceMetadataResponse | ApiResponseError> {
 
-        // TODO: check that at least one of the following properties is updated: label, permissions, new modification date
+        // check that at least one of the following properties is updated: label, hasPermissions, newModificationDateDate
+        if (resourceMetadata.label === undefined && resourceMetadata.hasPermissions === undefined && resourceMetadata.newModificationDateDate === undefined) {
+            throw new Error("At least one of the following properties has to be updated: label, hasPermissions, newModificationDateDate");
+        }
 
         const res = this.jsonConvert.serializeObject(resourceMetadata);
 

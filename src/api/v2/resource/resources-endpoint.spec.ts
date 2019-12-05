@@ -323,7 +323,7 @@ describe("ResourcesEndpoint", () => {
 
     describe("method updateResourceMetadata", () => {
 
-        it("should update a resource's metadata", done => {
+        it("should update a resource's label", done => {
 
             const updateResourceMetadata = new UpdateResourceMetadata();
 
@@ -362,6 +362,156 @@ describe("ResourcesEndpoint", () => {
             };
 
             expect(request.data()).toEqual(expectedPayload);
+
+        });
+
+        it("should update a resource's label submitting the last modification date", done => {
+
+            const updateResourceMetadata = new UpdateResourceMetadata();
+
+            updateResourceMetadata.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+
+            updateResourceMetadata.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+
+            updateResourceMetadata.label = "Das Ding der Dinge";
+
+            updateResourceMetadata.lastModificationDateDate = "2018-05-28T15:52:03.897Z";
+
+            knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
+                (res: UpdateResourceMetadataResponse) => {
+                    expect(res.result).toEqual("Resource metadata updated");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const updateResResponse = {
+                "knora-api:result": "Resource metadata updated",
+                "@context": {
+                    "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
+                }
+            };
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(updateResResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/resources");
+
+            expect(request.method).toEqual("PUT");
+
+            const expectedPayload = {
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
+                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
+                "http://www.w3.org/2000/01/rdf-schema#label": "Das Ding der Dinge",
+                "http://api.knora.org/ontology/knora-api/v2#lastModificationDate": {
+                    "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+                    "@value": "2018-05-28T15:52:03.897Z"
+                }
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+
+        });
+
+        it("should update a resource's permissions", done => {
+
+            const updateResourceMetadata = new UpdateResourceMetadata();
+
+            updateResourceMetadata.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+
+            updateResourceMetadata.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+
+            updateResourceMetadata.hasPermissions = "CR";
+
+            knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
+                (res: UpdateResourceMetadataResponse) => {
+                    expect(res.result).toEqual("Resource metadata updated");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const updateResResponse = {
+                "knora-api:result": "Resource metadata updated",
+                "@context": {
+                    "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
+                }
+            };
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(updateResResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/resources");
+
+            expect(request.method).toEqual("PUT");
+
+            const expectedPayload = {
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
+                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
+                "http://api.knora.org/ontology/knora-api/v2#hasPermissions": "CR"
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+
+        });
+
+        it("should update a resource's modification date", done => {
+
+            const updateResourceMetadata = new UpdateResourceMetadata();
+
+            updateResourceMetadata.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+
+            updateResourceMetadata.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+
+            updateResourceMetadata.newModificationDateDate = "2019-05-28T15:52:03.897Z";
+
+            knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
+                (res: UpdateResourceMetadataResponse) => {
+                    expect(res.result).toEqual("Resource metadata updated");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const updateResResponse = {
+                "knora-api:result": "Resource metadata updated",
+                "@context": {
+                    "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
+                }
+            };
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(updateResResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/resources");
+
+            expect(request.method).toEqual("PUT");
+
+            const expectedPayload = {
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
+                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
+                "http://api.knora.org/ontology/knora-api/v2#newModificationDate": {
+                    "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+                    "@value": "2019-05-28T15:52:03.897Z"
+                }
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+
+        });
+
+        it("should attempt to update a resource's metadata without any required property", () => {
+
+            const updateResourceMetadata = new UpdateResourceMetadata();
+
+            updateResourceMetadata.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+
+            updateResourceMetadata.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+
+            expect(
+                () => {
+                    knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata);
+                }).toThrow(new Error("At least one of the following properties has to be updated: label, hasPermissions, newModificationDateDate"));
 
         });
 
