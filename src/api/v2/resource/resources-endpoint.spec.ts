@@ -529,6 +529,7 @@ describe("ResourcesEndpoint", () => {
 
             knoraApiConnection.v2.res.deleteResource(deleteResource).subscribe(
                 (res: DeleteResourceResponse) => {
+                    expect(res.result).toEqual("Resource marked as deleted");
                     done();
                 }
             );
@@ -536,7 +537,7 @@ describe("ResourcesEndpoint", () => {
             const request = jasmine.Ajax.requests.mostRecent();
 
             const updateResResponse = {
-                "knora-api:result": "Resource deleted",
+                "knora-api:result": "Resource marked as deleted",
                 "@context": {
                     "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
                 }
@@ -569,6 +570,7 @@ describe("ResourcesEndpoint", () => {
 
             knoraApiConnection.v2.res.deleteResource(deleteResource).subscribe(
                 (res: DeleteResourceResponse) => {
+                    expect(res.result).toEqual("Resource marked as deleted");
                     done();
                 }
             );
@@ -576,7 +578,7 @@ describe("ResourcesEndpoint", () => {
             const request = jasmine.Ajax.requests.mostRecent();
 
             const updateResResponse = {
-                "knora-api:result": "Resource deleted",
+                "knora-api:result": "Resource marked as deleted",
                 "@context": {
                     "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
                 }
@@ -613,6 +615,7 @@ describe("ResourcesEndpoint", () => {
 
             knoraApiConnection.v2.res.deleteResource(deleteResource).subscribe(
                 (res: DeleteResourceResponse) => {
+                    expect(res.result).toEqual("Resource marked as deleted");
                     done();
                 }
             );
@@ -620,7 +623,7 @@ describe("ResourcesEndpoint", () => {
             const request = jasmine.Ajax.requests.mostRecent();
 
             const updateResResponse = {
-                "knora-api:result": "Resource deleted",
+                "knora-api:result": "Resource marked as deleted",
                 "@context": {
                     "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
                 }
