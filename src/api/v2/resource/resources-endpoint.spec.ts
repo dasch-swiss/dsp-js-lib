@@ -6,6 +6,8 @@ import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { CreateResource } from "../../../models/v2/resources/create/create-resource";
+import { DeleteResource } from "../../../models/v2/resources/delete/delete-resource";
+import { DeleteResourceResponse } from "../../../models/v2/resources/delete/delete-resource-response";
 import { ReadResource } from "../../../models/v2/resources/read/read-resource";
 import { UpdateResourceMetadata } from "../../../models/v2/resources/update/update-resource-metadata";
 import { UpdateResourceMetadataResponse } from "../../../models/v2/resources/update/update-resource-metadata-response";
@@ -215,6 +217,48 @@ describe("ResourcesEndpoint", () => {
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
                 "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
                 "http://www.w3.org/2000/01/rdf-schema#label": "Das Ding der Dinge"
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+
+        });
+
+    });
+
+    describe("method deleteResource", () => {
+
+        it("should delete a resource", done => {
+
+            const deleteResource = new DeleteResource();
+
+            deleteResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+
+            deleteResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+
+            knoraApiConnection.v2.res.deleteResource(deleteResource).subscribe(
+                (res: DeleteResourceResponse) => {
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const updateResResponse = {
+                "knora-api:result": "Resource deleted",
+                "@context": {
+                    "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
+                }
+            };
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(updateResResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/resources/delete");
+
+            expect(request.method).toEqual("POST");
+
+            const expectedPayload = {
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
+                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
             };
 
             expect(request.data()).toEqual(expectedPayload);

@@ -4,6 +4,8 @@ import { catchError, map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { CreateResource } from "../../../models/v2/resources/create/create-resource";
+import { DeleteResource } from "../../../models/v2/resources/delete/delete-resource";
+import { DeleteResourceResponse } from "../../../models/v2/resources/delete/delete-resource-response";
 import { ReadResource } from "../../../models/v2/resources/read/read-resource";
 import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { UpdateResourceMetadata } from "../../../models/v2/resources/update/update-resource-metadata";
@@ -130,6 +132,31 @@ export class ResourcesEndpoint extends Endpoint {
             }),
             catchError(error => this.handleError(error))
         );
+
+    }
+
+    /**
+     * Deletes a resource.
+     *
+     * @param resource the resource to be deleted.
+     */
+    deleteResource(resource: DeleteResource): Observable<DeleteResourceResponse | ApiResponseError> {
+
+        const res = this.jsonConvert.serializeObject(resource);
+
+        return this.httpPost("/delete", res).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // console.log(JSON.stringify(ajaxResponse.response));
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }),
+            map(jsonldobj => {
+                return this.jsonConvert.deserializeObject(jsonldobj, DeleteResourceResponse);
+            }),
+            catchError(error => this.handleError(error))
+        );
+
 
     }
 }
