@@ -7,6 +7,8 @@ import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { CreateResource } from "../../../models/v2/resources/create/create-resource";
 import { ReadResource } from "../../../models/v2/resources/read/read-resource";
+import { UpdateResourceMetadata } from "../../../models/v2/resources/update/update-resource-metadata";
+import { UpdateResourceMetadataResponse } from "../../../models/v2/resources/update/update-resource-metadata-response";
 
 describe("ResourcesEndpoint", () => {
 
@@ -121,7 +123,7 @@ describe("ResourcesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const testRes = {
+            const createResourceResponse = {
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
                 "@type": "anything:Thing",
                 "rdfs:label": "testding",
@@ -153,7 +155,7 @@ describe("ResourcesEndpoint", () => {
                 }
             };
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(testRes)));
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createResourceResponse)));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/resources");
 
@@ -167,6 +169,52 @@ describe("ResourcesEndpoint", () => {
                     "@type": "http://api.knora.org/ontology/knora-api/v2#BooleanValue",
                     "http://api.knora.org/ontology/knora-api/v2#booleanValueAsBoolean": true
                 }]
+            };
+
+            expect(request.data()).toEqual(expectedPayload);
+
+        });
+
+    });
+
+    describe("method updateResourceMetadata", () => {
+
+        it("should update a resource's metadata", done => {
+
+            const updateResourceMetadata = new UpdateResourceMetadata();
+
+            updateResourceMetadata.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+
+            updateResourceMetadata.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+
+            updateResourceMetadata.label = "Das Ding der Dinge";
+
+            knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
+                (res: UpdateResourceMetadataResponse) => {
+                    expect(res.result).toEqual("Resource metadata updated");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const updateResResponse = {
+                "knora-api:result": "Resource metadata updated",
+                "@context": {
+                    "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
+                }
+            };
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(updateResResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/resources");
+
+            expect(request.method).toEqual("PUT");
+
+            const expectedPayload = {
+                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
+                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
+                "http://www.w3.org/2000/01/rdf-schema#label": "Das Ding der Dinge"
             };
 
             expect(request.data()).toEqual(expectedPayload);

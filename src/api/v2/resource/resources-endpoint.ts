@@ -1,11 +1,13 @@
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
-import { ApiResponseError } from "../../../models/api-response-error";
 import { KnoraApiConfig } from "../../../knora-api-config";
+import { ApiResponseError } from "../../../models/api-response-error";
 import { CreateResource } from "../../../models/v2/resources/create/create-resource";
 import { ReadResource } from "../../../models/v2/resources/read/read-resource";
 import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
+import { UpdateResourceMetadata } from "../../../models/v2/resources/update/update-resource-metadata";
+import { UpdateResourceMetadataResponse } from "../../../models/v2/resources/update/update-resource-metadata-response";
 import { Endpoint } from "../../endpoint";
 import { V2Endpoint } from "../v2-endpoint";
 
@@ -74,14 +76,17 @@ export class ResourcesEndpoint extends Endpoint {
     createResource(resource: CreateResource): Observable<ReadResource | ApiResponseError> {
 
         const res = this.jsonConvert.serializeObject(resource);
-        
+
         // get property keys
         const keys = Object.keys(resource.properties);
 
         // for each property, serialize its values
         // and assign them to the resource
         keys.forEach(prop => {
-                res[prop] = this.jsonConvert.serializeArray(resource.properties[prop]);
+
+            // TODO: check that array contains least one value
+
+            res[prop] = this.jsonConvert.serializeArray(resource.properties[prop]);
         });
 
         return this.httpPost("", res).pipe(
@@ -98,6 +103,32 @@ export class ResourcesEndpoint extends Endpoint {
             catchError(error => {
                 return this.handleError(error);
             })
+        );
+
+    }
+
+    /**
+     * Updates a resource's metadata.
+     *
+     * @param resourceMetadata the new metadata.
+     */
+    updateResourceMetadata(resourceMetadata: UpdateResourceMetadata): Observable<UpdateResourceMetadataResponse | ApiResponseError> {
+
+        // TODO: check that at least one of the following properties is updated: label, permissions, new modification date
+
+        const res = this.jsonConvert.serializeObject(resourceMetadata);
+
+        return this.httpPut("", res).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // console.log(JSON.stringify(ajaxResponse.response));
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }),
+            map(jsonldobj => {
+                return this.jsonConvert.deserializeObject(jsonldobj, UpdateResourceMetadataResponse);
+            }),
+            catchError(error => this.handleError(error))
         );
 
     }
