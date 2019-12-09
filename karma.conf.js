@@ -49,7 +49,10 @@ module.exports = function(config) {
                 "strictNullChecks": true,
                 "target": "es5"
             },
-            exclude: ["test-framework"]
+            exclude: [
+                "test-framework",
+                "knora-api"
+            ]
         },
         browserConsoleLogOptions: {
             level: "",
