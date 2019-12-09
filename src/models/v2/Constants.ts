@@ -1,6 +1,7 @@
 export class Constants {
 
-    static KnoraApiV2 = "http://api.knora.org/ontology/knora-api/v2";
+    static KnoraApi = "http://api.knora.org";
+    static KnoraApiV2 = Constants.KnoraApi + "/ontology/knora-api/v2";
     static Delimiter = "#";
     static IsResourceClass = Constants.KnoraApiV2 + Constants.Delimiter + "isResourceClass";
     static IsStandoffClass = Constants.KnoraApiV2 + Constants.Delimiter + "isStandoffClass";
@@ -13,6 +14,12 @@ export class Constants {
     static IsInherited = Constants.KnoraApiV2 + Constants.Delimiter + "isInherited";
     static CanBeInstantiated = Constants.KnoraApiV2 + Constants.Delimiter + "canBeInstantiated";
 
+    static StandoffOntology: string = Constants.KnoraApi + "/ontology/standoff/v2";
+
+    static XMLToStandoffMapping: string = Constants.KnoraApiV2 + Constants.Delimiter + "XMLToStandoffMapping";
+    static Resource = Constants.KnoraApiV2 + Constants.Delimiter + "Resource";
+    static ResourceIcon = Constants.KnoraApiV2 + Constants.Delimiter + "ResourceIcon";
+    static ForbiddenResource = Constants.KnoraApiV2 + Constants.Delimiter + "ForbiddenResource";
     static BooleanValue = Constants.KnoraApiV2 + Constants.Delimiter + "BooleanValue";
     static ColorValue = Constants.KnoraApiV2 + Constants.Delimiter + "ColorValue";
     static GeonameValue = Constants.KnoraApiV2 + Constants.Delimiter + "GeonameValue";
@@ -21,6 +28,7 @@ export class Constants {
     static DecimalValue = Constants.KnoraApiV2 + Constants.Delimiter + "DecimalValue";
     static IntervalValue = Constants.KnoraApiV2 + Constants.Delimiter + "IntervalValue";
     static ListValue = Constants.KnoraApiV2 + Constants.Delimiter + "ListValue";
+    static ListNode = Constants.KnoraApiV2 + Constants.Delimiter + "ListNode";
     static TextValue = Constants.KnoraApiV2 + Constants.Delimiter + "TextValue";
     static LinkValue = Constants.KnoraApiV2 + Constants.Delimiter + "LinkValue";
     static UriValue = Constants.KnoraApiV2 + Constants.Delimiter + "UriValue";
@@ -41,6 +49,8 @@ export class Constants {
     static HasDocumentFileValue = Constants.KnoraApiV2 + Constants.Delimiter + "hasDocumentFileValue";
     static HasDDDFileValue = Constants.KnoraApiV2 + Constants.Delimiter + "hasDDDFileValue";
     static HasAudioFileValue = Constants.KnoraApiV2 + Constants.Delimiter + "hasAudioFileValue";
+
+    static HasGeometry = Constants.KnoraApiV2 + Constants.Delimiter + "hasGeometry";
 
     static AttachedToProject = Constants.KnoraApiV2 + Constants.Delimiter + "attachedToProject";
     static AttachedToUser = Constants.KnoraApiV2 + Constants.Delimiter + "attachedToUser";
@@ -115,6 +125,10 @@ export class Constants {
     static OnProperty = Constants.Owl + Constants.Delimiter + "onProperty";
     static DataTypeProperty = Constants.Owl + Constants.Delimiter + "DatatypeProperty";
     static ObjectProperty = Constants.Owl + Constants.Delimiter + "ObjectProperty";
+    static AnnotationProperty = Constants.Owl + Constants.Delimiter + "AnnotationProperty";
+
+    static Rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns";
+    static RdfProperty = Constants.Rdf + Constants.Delimiter + "Property";
 
     static Rdfs = "http://www.w3.org/2000/01/rdf-schema";
     static SubClassOf = Constants.Rdfs + Constants.Delimiter + "subClassOf";
@@ -124,7 +138,10 @@ export class Constants {
 
     static Xsd = "http://www.w3.org/2001/XMLSchema";
     static XsdAnyUri = Constants.Xsd + Constants.Delimiter + "anyURI";
+    static XsdString = Constants.Xsd + Constants.Delimiter + "string";
+    static XsdBoolean = Constants.Xsd + Constants.Delimiter + "boolean";
     static XsdDecimal = Constants.Xsd + Constants.Delimiter + "decimal";
+    static XsdInteger = Constants.Xsd + Constants.Delimiter + "integer";
     static dateTimeStamp = Constants.Xsd + Constants.Delimiter + "dateTimeStamp";
 
     static SchemaNumberOfItems = "http://schema.org/numberOfItems";
