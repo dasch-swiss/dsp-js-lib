@@ -104,7 +104,7 @@ export class Constants {
     static DeleteComment = Constants.KnoraApiV2 + Constants.Delimiter + "deleteComment";
     static Result = Constants.KnoraApiV2 + Constants.Delimiter + "result";
 
-    static KnoraAdmin = "http://www.knora.org/ontology/knora-admin/v2";
+    static KnoraAdmin = "http://api.knora.org/ontology/knora-admin/v2";
     static DefaultSharedOntologyIRI: string = Constants.KnoraAdmin + Constants.Delimiter + "DefaultSharedOntologiesProject";
     static SystemProjectIRI: string = Constants.KnoraAdmin + Constants.Delimiter + "SystemProject";
     static SystemAdminGroupIRI: string = Constants.KnoraAdmin + Constants.Delimiter + "SystemAdmin";
