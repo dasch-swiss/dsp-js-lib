@@ -104,12 +104,12 @@ export class Constants {
     static DeleteComment = Constants.KnoraApiV2 + Constants.Delimiter + "deleteComment";
     static Result = Constants.KnoraApiV2 + Constants.Delimiter + "result";
 
-    static KnoraAdmin = "http://www.knora.org/ontology";
-    static DefaultSharedOntologyIRI: string = Constants.KnoraAdmin + "#DefaultSharedOntologiesProject";
-    static SystemProjectIRI: string = Constants.KnoraAdmin + "#SystemProject";
-    static SystemAdminGroupIRI: string = Constants.KnoraAdmin + "#SystemAdmin";
-    static ProjectAdminGroupIRI: string = Constants.KnoraAdmin + "#ProjectAdmin";
-    static ProjectMemberGroupIRI: string = Constants.KnoraAdmin + "#ProjectMember";
+    static KnoraAdmin = "http://www.knora.org/ontology/knora-admin/v2";
+    static DefaultSharedOntologyIRI: string = Constants.KnoraAdmin + Constants.Delimiter + "DefaultSharedOntologiesProject";
+    static SystemProjectIRI: string = Constants.KnoraAdmin + Constants.Delimiter + "SystemProject";
+    static SystemAdminGroupIRI: string = Constants.KnoraAdmin + Constants.Delimiter + "SystemAdmin";
+    static ProjectAdminGroupIRI: string = Constants.KnoraAdmin + Constants.Delimiter + "ProjectAdmin";
+    static ProjectMemberGroupIRI: string = Constants.KnoraAdmin + Constants.Delimiter + "ProjectMember";
 
     static SalsahGui = "http://api.knora.org/ontology/salsah-gui/v2";
     static GuiAttribute = Constants.SalsahGui + Constants.Delimiter + "guiAttribute";
