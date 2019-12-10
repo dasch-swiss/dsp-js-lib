@@ -7,10 +7,6 @@
     {
       "source": "/webapi/src/test/resources/test-data/searchR2RV2/RegionsForPage.jsonld",
       "destination": "./test/data/api/v2/resources/regions.json"
-    },
-    {
-      "source": "/webapi/src/test/resources/test-data/resourcesR2RV2/NarrenschiffFirstPage.jsonld",
-      "destination": "./test/data/api/v2/resources/page.json"
     }
   ],
   "generated-test-data": [
@@ -37,6 +33,10 @@
     {
       "source": "/test-data/v2/resources/testding.json",
       "destination": "./test/data/api/v2/resources/testding.json"
+    },
+    {
+      "source": "/test-data/v2/resources/page.json",
+      "destination": "./test/data/api/v2/resources/page.json"
     },
     {
       "source": "/test-data/v2/lists/treelist.json",
