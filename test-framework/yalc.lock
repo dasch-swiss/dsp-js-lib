@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "@knora/api": {
+      "signature": "670d78654021587421cd789e0ffb01f6",
+      "file": true
+    }
+  }
+}

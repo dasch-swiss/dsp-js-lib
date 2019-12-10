@@ -1,6 +1,51 @@
-language: node_js
+dist: xenial
+sudo: required
+
+services:
+  - docker
+
+language: scala
+
 node_js:
-  - "stable"
+  - "11"
+
+scala:
+  -  "2.12.1"
+
+jdk:
+  - openjdk10
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
+    - "$HOME/.ivy2"
+
+addons:
+  chrome: stable
+  apt:
+    packages:
+      - expect
+
+install:
+  - git clone --single-branch --depth 1 https://github.com/dasch-swiss/knora-api.git
+  - cd knora-api && make stack-up
+  - sleep 15
+  - make init-db-test
+  - sleep 15
+  - make stack-restart-api
+  - cd $TRAVIS_BUILD_DIR
+  - yarn global add yalc
+
 script:
+  - npm install
   - npm test
   - npm run build
+  - npm run yalc-publish
+  - cd test-framework
+  - yalc remove --all && yalc add @knora/api
+  - yarn install
+  - yarn webdriver-update
+  - yarn e2e
+  - yarn build
+  - docker build .
