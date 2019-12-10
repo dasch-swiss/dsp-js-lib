@@ -1,10 +1,6 @@
 {
   "static-test-data": [
     {
-      "source": "/webapi/src/test/resources/test-data/resourcesR2RV2/Testding.jsonld",
-      "destination": "./test/data/api/v2/resources/testding.json"
-    },
-    {
       "source": "/webapi/src/test/resources/test-data/searchR2RV2/ThingSmallerThanDecimal.jsonld",
       "destination": "./test/data/api/v2/resources/things.json"
     },
@@ -37,6 +33,10 @@
     {
       "source": "/test-data/v2/ontologies/incunabula-ontology.json",
       "destination": "./test/data/api/v2/ontologies/incunabula-ontology.json"
+    },
+    {
+      "source": "/test-data/v2/resources/testding.json",
+      "destination": "./test/data/api/v2/resources/testding.json"
     },
     {
       "source": "/test-data/v2/lists/treelist.json",
