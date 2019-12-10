@@ -15,13 +15,13 @@
     {
       "source": "/webapi/src/test/resources/test-data/resourcesR2RV2/NarrenschiffFirstPage.jsonld",
       "destination": "./test/data/api/v2/resources/page.json"
-    },
-    {
-      "source": "/webapi/src/test/resources/test-data/ontologyR2RV2/allOntologyMetadata.jsonld",
-      "destination": "./test/data/api/v2/ontologies/all-ontology-metadata.json"
     }
   ],
   "generated-test-data": [
+    {
+      "source": "/test-data/v2/ontologies/all-ontology-metadata.json",
+      "destination": "./test/data/api/v2/ontologies/all-ontology-metadata.json"
+    },
     {
       "source": "/test-data/v2/ontologies/knora-api-ontology.json",
       "destination": "./test/data/api/v2/ontologies/knora-api-ontology.json"
