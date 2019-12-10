@@ -1,22 +1,6 @@
 {
   "static-test-data": [
     {
-      "source": "/webapi/src/test/resources/test-data/ontologyR2RV2/knoraApiOntologyWithValueObjects.jsonld",
-      "destination": "./test/data/api/v2/ontologies/knora-api-ontology.json"
-    },
-    {
-      "source": "/webapi/src/test/resources/test-data/ontologyR2RV2/anythingOntologyWithValueObjects.jsonld",
-      "destination": "./test/data/api/v2/ontologies/anything-ontology.json"
-    },
-    {
-      "source": "/webapi/src/test/resources/test-data/ontologyR2RV2/minimalOntologyWithValueObjects.jsonld",
-      "destination": "./test/data/api/v2/ontologies/minimal-ontology.json"
-    },
-    {
-      "source": "/webapi/src/test/resources/test-data/ontologyR2RV2/incunabulaOntologyWithValueObjects.jsonld",
-      "destination": "./test/data/api/v2/ontologies/incunabula-ontology.json"
-    },
-    {
       "source": "/webapi/src/test/resources/test-data/resourcesR2RV2/Testding.jsonld",
       "destination": "./test/data/api/v2/resources/testding.json"
     },
@@ -50,6 +34,22 @@
     }
   ],
   "generated-test-data": [
+    {
+      "source": "/test-data/v2/ontologies/knora-api-ontology.json",
+      "destination": "./test/data/api/v2/ontologies/knora-api-ontology.json"
+    },
+    {
+      "source": "/test-data/v2/ontologies/anything-ontology.json",
+      "destination": "./test/data/api/v2/ontologies/anything-ontology.json"
+    },
+    {
+      "source": "/test-data/v2/ontologies//minimal-ontology.json",
+      "destination": "./test/data/api/v2/ontologies/minimal-ontology.json"
+    },
+    {
+      "source": "/test-data/v2/ontologies/incunabula-ontology.json",
+      "destination": "./test/data/api/v2/ontologies/incunabula-ontology.json"
+    },
     {
       "source": "/test-data/v2/values/create-int-value-request.json",
       "destination": "./test/data/api/v2/values/create-int-value-request.json"
