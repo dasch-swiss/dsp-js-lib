@@ -17,18 +17,6 @@
       "destination": "./test/data/api/v2/resources/page.json"
     },
     {
-      "source": "/webapi/src/test/resources/test-data/listsR2RV2/treelist.jsonld",
-      "destination": "./test/data/api/v2/lists/treelist.json"
-    },
-    {
-      "source": "/webapi/src/test/resources/test-data/listsR2RV2/othertreelist.jsonld",
-      "destination": "./test/data/api/v2/lists/othertreelist.json"
-    },
-    {
-      "source": "/webapi/src/test/resources/test-data/listsR2RV2/treelistnode.jsonld",
-      "destination": "./test/data/api/v2/lists/listnode.json"
-    },
-    {
       "source": "/webapi/src/test/resources/test-data/ontologyR2RV2/allOntologyMetadata.jsonld",
       "destination": "./test/data/api/v2/ontologies/all-ontology-metadata.json"
     }
@@ -49,6 +37,18 @@
     {
       "source": "/test-data/v2/ontologies/incunabula-ontology.json",
       "destination": "./test/data/api/v2/ontologies/incunabula-ontology.json"
+    },
+    {
+      "source": "/test-data/v2/lists/treelist.json",
+      "destination": "./test/data/api/v2/lists/treelist.json"
+    },
+    {
+      "source": "/test-data/v2/lists/othertreelist.json",
+      "destination": "./test/data/api/v2/lists/othertreelist.json"
+    },
+    {
+      "source": "/test-data/v2/lists/listnode.json",
+      "destination": "./test/data/api/v2/lists/listnode.json"
     },
     {
       "source": "/test-data/v2/values/create-int-value-request.json",
