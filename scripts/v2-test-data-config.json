@@ -1,6 +1,4 @@
 {
-  "static-test-data": [
-  ],
   "generated-test-data": [
     {
       "source": "/test-data/v2/ontologies/all-ontology-metadata.json",
