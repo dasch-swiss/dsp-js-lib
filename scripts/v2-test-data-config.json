@@ -1,13 +1,5 @@
 {
   "static-test-data": [
-    {
-      "source": "/webapi/src/test/resources/test-data/searchR2RV2/ThingSmallerThanDecimal.jsonld",
-      "destination": "./test/data/api/v2/resources/things.json"
-    },
-    {
-      "source": "/webapi/src/test/resources/test-data/searchR2RV2/RegionsForPage.jsonld",
-      "destination": "./test/data/api/v2/resources/regions.json"
-    }
   ],
   "generated-test-data": [
     {
@@ -37,6 +29,14 @@
     {
       "source": "/test-data/v2/resources/page.json",
       "destination": "./test/data/api/v2/resources/page.json"
+    },
+    {
+      "source": "/test-data/v2/search/things.json",
+      "destination": "./test/data/api/v2/resources/things.json"
+    },
+    {
+      "source": "/test-data/v2/search/regions.json",
+      "destination": "./test/data/api/v2/resources/regions.json"
     },
     {
       "source": "/test-data/v2/lists/treelist.json",
