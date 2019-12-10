@@ -22,7 +22,6 @@
     "coverage",
     "dist",
     "node_modules",
-    "test",
     "**/*.spec.ts",
     "test-framework"
   ],
