@@ -85,7 +85,7 @@ describe("ResourcesConversionUtil", () => {
                     expect(resSeq[0].resourceClassLabel).toEqual("Thing");
                     expect(resSeq[0].resourceClassComment).toEqual("'The whole world is full of things, which means there's a real need for someone to go searching for them. And that's exactly what a thing-searcher does.' --Pippi Longstocking");
 
-                    expect(resSeq[0].getNumberOfProperties()).toEqual(12);
+                    expect(resSeq[0].getNumberOfProperties()).toEqual(14);
                     expect(resSeq[0].getNumberOfValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri")).toEqual(1);
 
                     //
