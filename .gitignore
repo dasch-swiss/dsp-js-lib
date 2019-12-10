@@ -33,3 +33,6 @@
 .idea/**/dbnavigator.xml
 
 ############################
+
+/test-framework/node_modules
+/test-framework/.yalc

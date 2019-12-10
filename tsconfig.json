@@ -23,7 +23,8 @@
     "dist",
     "node_modules",
     "test",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "test-framework"
   ],
   "files": [
     "index.ts"
