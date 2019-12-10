@@ -58,7 +58,7 @@ export { ResourcePropertyDefinition } from "./models/v2/ontologies/resource-prop
 export { ResourceClassDefinition } from "./models/v2/ontologies/resource-class-definition";
 export { StandoffClassDefinition } from "./models/v2/ontologies/standoff-class-definition";
 export { ReadResource } from "./models/v2/resources/read/read-resource";
-export { CountQueryResponse} from "./models/v2/search/count-query-response";
+export { CountQueryResponse } from "./models/v2/search/count-query-response";
 export { UpdateResource } from "./models/v2/resources/update/update-resource";
 export { DeleteValue } from "./models/v2/resources/values/delete/delete-value";
 export { DeleteValueResponse } from "./models/v2/resources/values/delete/delete-value-response";
@@ -66,15 +66,17 @@ export { WriteValueResponse } from "./models/v2/resources/values/write-value-res
 
 export { ReadBooleanValue } from "./models/v2/resources/values/read/read-boolean-value";
 export { ReadColorValue } from "./models/v2/resources/values/read/read-color-value";
-export { ReadDateValue } from "./models/v2/resources/values/read/read-date-value";
+export { ReadDateValue, KnoraDate, KnoraPeriod, Precision } from "./models/v2/resources/values/read/read-date-value";
 export { ReadDecimalValue } from "./models/v2/resources/values/read/read-decimal-value";
 export { ReadFileValue, ReadStillImageFileValue } from "./models/v2/resources/values/read/read-file-value";
-export { ReadGeomValue } from "./models/v2/resources/values/read/read-geom-value";
+export { ReadGeomValue, RegionGeometry, Point2D } from "./models/v2/resources/values/read/read-geom-value";
 export { ReadIntValue } from "./models/v2/resources/values/read/read-int-value";
 export { ReadIntervalValue } from "./models/v2/resources/values/read/read-interval-value";
 export { ReadLinkValue } from "./models/v2/resources/values/read/read-link-value";
 export { ReadListValue } from "./models/v2/resources/values/read/read-list-value";
-export { ReadTextValue, ReadTextValueAsString, ReadTextValueAsHtml, ReadTextValueAsXml } from "./models/v2/resources/values/read/read-text-value";
+export {
+    ReadTextValue, ReadTextValueAsString, ReadTextValueAsHtml, ReadTextValueAsXml
+} from "./models/v2/resources/values/read/read-text-value";
 export { ReadUriValue } from "./models/v2/resources/values/read/read-uri-value";
 export { ReadValue } from "./models/v2/resources/values/read/read-value";
 
