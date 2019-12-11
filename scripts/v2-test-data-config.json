@@ -263,6 +263,10 @@
     {
       "source": "/test-data/v2/resources/update-resource-metadata-request.json",
       "destination": "./test/data/api/v2/resources/update-resource-metadata-request.json"
+    },
+    {
+      "source": "/test-data/v2/resources/delete-resource-request.json",
+      "destination": "./test/data/api/v2/resources/delete-resource-request.json"
     }
   ]
 }

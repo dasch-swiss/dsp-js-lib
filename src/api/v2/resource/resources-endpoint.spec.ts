@@ -401,9 +401,13 @@ describe("ResourcesEndpoint", () => {
 
             const deleteResource = new DeleteResource();
 
-            deleteResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            deleteResource.id = "http://rdfh.ch/0001/a-thing";
 
             deleteResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+
+            deleteResource.deleteComment = "This resource is too boring.";
+
+            deleteResource.lastModificationDateDate = "2019-12-11T15:38:51.330Z";
 
             knoraApiConnection.v2.res.deleteResource(deleteResource).subscribe(
                 (res: DeleteResourceResponse) => {
@@ -427,97 +431,7 @@ describe("ResourcesEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            const expectedPayload = {
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
-            };
-
-            expect(request.data()).toEqual(expectedPayload);
-
-        });
-
-        it("should delete a resource submitting the last modification date", done => {
-
-            const deleteResource = new DeleteResource();
-
-            deleteResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
-
-            deleteResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-
-            deleteResource.lastModificationDateDate = "2018-05-28T15:52:03.897Z";
-
-            knoraApiConnection.v2.res.deleteResource(deleteResource).subscribe(
-                (res: DeleteResourceResponse) => {
-                    expect(res.result).toEqual("Resource marked as deleted");
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const updateResResponse = {
-                "knora-api:result": "Resource marked as deleted",
-                "@context": {
-                    "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
-                }
-            };
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(updateResResponse)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/resources/delete");
-
-            expect(request.method).toEqual("POST");
-
-            const expectedPayload = {
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "http://api.knora.org/ontology/knora-api/v2#lastModificationDate": {
-                    "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
-                    "@value": "2018-05-28T15:52:03.897Z"
-                }
-            };
-
-            expect(request.data()).toEqual(expectedPayload);
-
-        });
-
-        it("should delete a resource with a comment", done => {
-
-            const deleteResource = new DeleteResource();
-
-            deleteResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
-
-            deleteResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-
-            deleteResource.deleteComment = "too boring";
-
-            knoraApiConnection.v2.res.deleteResource(deleteResource).subscribe(
-                (res: DeleteResourceResponse) => {
-                    expect(res.result).toEqual("Resource marked as deleted");
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const updateResResponse = {
-                "knora-api:result": "Resource marked as deleted",
-                "@context": {
-                    "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
-                }
-            };
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(updateResResponse)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/resources/delete");
-
-            expect(request.method).toEqual("POST");
-
-            const expectedPayload = {
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "http://api.knora.org/ontology/knora-api/v2#deleteComment": "too boring"
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/resources/delete-resource-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
 
