@@ -259,6 +259,10 @@
     {
       "source": "/test-data/v2/resources/create-resource-with-values-request.json",
       "destination": "./test/data/api/v2/resources/create-resource-with-values-request.json"
+    },
+    {
+      "source": "/test-data/v2/resources/update-resource-metadata-request.json",
+      "destination": "./test/data/api/v2/resources/update-resource-metadata-request.json"
     }
   ]
 }
