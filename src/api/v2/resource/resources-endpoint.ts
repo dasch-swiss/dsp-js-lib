@@ -91,7 +91,13 @@ export class ResourcesEndpoint extends Endpoint {
                 throw new Error("No values defined for " + propIri);
             }
 
-            res[propIri] = this.jsonConvert.serializeArray(resource.properties[propIri]);
+            // if array contains only one element, serialize as an object
+            if (resource.properties[propIri].length === 1) {
+                res[propIri] = this.jsonConvert.serializeObject(resource.properties[propIri][0]);
+            } else {
+                res[propIri] = this.jsonConvert.serializeArray(resource.properties[propIri]);
+            }
+
         });
 
         return this.httpPost("", res).pipe(

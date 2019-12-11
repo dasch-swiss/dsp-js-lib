@@ -255,6 +255,10 @@
     {
       "source": "/test-data/v2/values/get-geoname-value-response.json",
       "destination": "./test/data/api/v2/values/get-geoname-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/resources/create-resource-with-values-request.json",
+      "destination": "./test/data/api/v2/resources/create-resource-with-values-request.json"
     }
   ]
 }

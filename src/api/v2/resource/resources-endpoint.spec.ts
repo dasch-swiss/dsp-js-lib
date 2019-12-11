@@ -1,5 +1,12 @@
 import { of } from "rxjs";
-import { CreateBooleanValue, CreateDecimalValue } from "../../..";
+import {
+    CreateBooleanValue,
+    CreateColorValue,
+    CreateDateValue,
+    CreateDecimalValue,
+    CreateGeomValue, CreateIntervalValue,
+    CreateIntValue, CreateLinkValue, CreateListValue, CreateTextValueAsString, CreateTextValueAsXml, CreateUriValue
+} from "../../..";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
@@ -11,6 +18,7 @@ import { DeleteResourceResponse } from "../../../models/v2/resources/delete/dele
 import { ReadResource } from "../../../models/v2/resources/read/read-resource";
 import { UpdateResourceMetadata } from "../../../models/v2/resources/update/update-resource-metadata";
 import { UpdateResourceMetadataResponse } from "../../../models/v2/resources/update/update-resource-metadata-response";
+import { CreateGeonameValue } from "../../../models/v2/resources/values/create/create-geoname-value";
 
 describe("ResourcesEndpoint", () => {
 
@@ -127,11 +135,11 @@ describe("ResourcesEndpoint", () => {
             }
         };
 
-        it("should create a resource with one property with one value", done => {
+        it("should create a resource with values", done => {
 
             const createResource = new CreateResource();
 
-            createResource.label = "testding";
+            createResource.label = "test thing";
 
             createResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
 
@@ -140,121 +148,93 @@ describe("ResourcesEndpoint", () => {
             const boolVal = new CreateBooleanValue();
             boolVal.bool = true;
 
-            const props = {
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean": [
-                    boolVal
-                ]
-            };
+            const colorVal = new CreateColorValue();
+            colorVal.color = "#ff3333";
 
-            createResource.properties = props;
-
-            knoraApiConnection.v2.res.createResource(createResource).subscribe(
-                (res: ReadResource) => {
-                    expect(res.type).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createResourceResponse)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/resources");
-
-            expect(request.method).toEqual("POST");
-
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "http://www.w3.org/2000/01/rdf-schema#label": "testding",
-                "http://api.knora.org/ontology/knora-api/v2#attachedToProject": {"@id": "http://rdfh.ch/projects/0001"},
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean": [{
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#BooleanValue",
-                    "http://api.knora.org/ontology/knora-api/v2#booleanValueAsBoolean": true
-                }]
-            };
-
-            expect(request.data()).toEqual(expectedPayload);
-
-        });
-
-        it("should create a resource with one property with two values", done => {
-
-            const createResource = new CreateResource();
-
-            createResource.label = "testding";
-
-            createResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-
-            createResource.attachedToProject = "http://rdfh.ch/projects/0001";
-
-            const boolVal1 = new CreateBooleanValue();
-            boolVal1.bool = true;
-
-            const boolVal2 = new CreateBooleanValue();
-            boolVal2.bool = false;
-
-            const props = {
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean": [
-                    boolVal1, boolVal2
-                ]
-            };
-
-            createResource.properties = props;
-
-            knoraApiConnection.v2.res.createResource(createResource).subscribe(
-                (res: ReadResource) => {
-                    expect(res.type).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createResourceResponse)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/resources");
-
-            expect(request.method).toEqual("POST");
-
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "http://www.w3.org/2000/01/rdf-schema#label": "testding",
-                "http://api.knora.org/ontology/knora-api/v2#attachedToProject": {"@id": "http://rdfh.ch/projects/0001"},
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean": [{
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#BooleanValue",
-                    "http://api.knora.org/ontology/knora-api/v2#booleanValueAsBoolean": true
-                }, {
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#BooleanValue",
-                    "http://api.knora.org/ontology/knora-api/v2#booleanValueAsBoolean": false
-                }]
-            };
-
-            expect(request.data()).toEqual(expectedPayload);
-
-        });
-
-        it("should create a resource with two properties", done => {
-
-            const createResource = new CreateResource();
-
-            createResource.label = "testding";
-
-            createResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-
-            createResource.attachedToProject = "http://rdfh.ch/projects/0001";
-
-            const boolVal = new CreateBooleanValue();
-            boolVal.bool = true;
+            const dateVal = new CreateDateValue();
+            dateVal.calendar = "GREGORIAN";
+            dateVal.startEra = "CE";
+            dateVal.startYear = 1489;
+            dateVal.endEra = "CE";
+            dateVal.endYear = 1489;
 
             const decVal = new CreateDecimalValue();
             decVal.decimal = 1.5;
+
+            const geomVal = new CreateGeomValue();
+            geomVal.geometryString =
+                "{\"status\":\"active\",\"lineColor\":\"#ff3333\",\"lineWidth\":2,\"points\":[{\"x\":0.08098591549295775,\"y\":0.16741071428571427},{\"x\":0.7394366197183099,\"y\":0.7299107142857143}],\"type\":\"rectangle\",\"original_index\":0}";
+
+            const geonameVal = new CreateGeonameValue();
+            geonameVal.geoname = "2661604";
+
+            const intVal = new CreateIntValue();
+            intVal.int = 5;
+            intVal.hasPermissions = "CR knora-admin:Creator|V http://rdfh.ch/groups/0001/thing-searcher";
+            intVal.valueHasComment = "this is the number five";
+
+            const intVal2 = new CreateIntValue();
+            intVal2.int = 6;
+
+            const intervalVal = new CreateIntervalValue();
+            intervalVal.start = 1.2;
+            intervalVal.end = 3.4;
+
+            const listVal = new CreateListValue();
+            listVal.listNode = "http://rdfh.ch/lists/0001/treeList03";
+
+            const linkVal = new CreateLinkValue();
+            linkVal.linkedResourceIri = "http://rdfh.ch/0001/a-thing";
+
+            const textValStandoff = new CreateTextValueAsXml();
+            textValStandoff.xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<text><p><strong>this is</strong> text</p> with standoff</text>";
+            textValStandoff.mapping = "http://rdfh.ch/standoff/mappings/StandardMapping";
+
+            const textValString = new CreateTextValueAsString();
+            textValString.text = "this is text without standoff";
+
+            const uriVal = new CreateUriValue();
+            uriVal.uri = "https://www.knora.org";
 
             const props = {
                 "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean": [
                     boolVal
                 ],
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasColor": [
+                    colorVal
+                ],
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate": [
+                    dateVal
+                ],
                 "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal": [
                     decVal
+                ],
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeometry": [
+                    geomVal
+                ],
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeoname": [
+                    geonameVal
+                ],
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger": [
+                    intVal, intVal2
+                ],
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval": [
+                    intervalVal
+                ],
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem": [
+                    listVal
+                ],
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue": [
+                    linkVal
+                ],
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasRichtext": [
+                    textValStandoff
+                ],
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasText": [
+                    textValString
+                ],
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri": [
+                    uriVal
                 ]
             };
 
@@ -275,22 +255,7 @@ describe("ResourcesEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            const expectedPayload = {
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "http://www.w3.org/2000/01/rdf-schema#label": "testding",
-                "http://api.knora.org/ontology/knora-api/v2#attachedToProject": {"@id": "http://rdfh.ch/projects/0001"},
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean": [{
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#BooleanValue",
-                    "http://api.knora.org/ontology/knora-api/v2#booleanValueAsBoolean": true
-                }],
-                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal": [{
-                    "@type": "http://api.knora.org/ontology/knora-api/v2#DecimalValue",
-                    "http://api.knora.org/ontology/knora-api/v2#decimalValueAsDecimal": {
-                        "@type": "http://www.w3.org/2001/XMLSchema#decimal",
-                        "@value": "1.5"
-                    }
-                }]
-            };
+            const expectedPayload = require("../../../../test/data/api/v2/resources/create-resource-with-values-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
 
