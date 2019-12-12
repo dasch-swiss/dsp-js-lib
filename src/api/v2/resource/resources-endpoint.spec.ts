@@ -258,6 +258,8 @@ describe("ResourcesEndpoint", () => {
 
     describe("method updateResourceMetadata", () => {
 
+        const updateResResponse = require("../../../../test/data/api/v2/resources/update-resource-metadata-response-expanded.json");
+
         it("should update a resource's label", done => {
 
             const updateResourceMetadata = new UpdateResourceMetadata();
@@ -280,13 +282,6 @@ describe("ResourcesEndpoint", () => {
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
-
-            const updateResResponse = {
-                "knora-api:result": "Resource metadata updated",
-                "@context": {
-                    "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
-                }
-            };
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(updateResResponse)));
 
@@ -325,13 +320,6 @@ describe("ResourcesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const updateResResponse = {
-                "knora-api:result": "Resource metadata updated",
-                "@context": {
-                    "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
-                }
-            };
-
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(updateResResponse)));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/resources");
@@ -339,7 +327,7 @@ describe("ResourcesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             const expectedPayload = require("../../../../test/data/api/v2/resources/update-resource-metadata-request-with-last-mod-date-expanded.json");
-// update-resource-metadata-request-with-last-mod-date-expanded.json
+
             expect(request.data()).toEqual(expectedPayload);
 
         });
@@ -384,14 +372,9 @@ describe("ResourcesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const updateResResponse = {
-                "knora-api:result": "Resource marked as deleted",
-                "@context": {
-                    "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
-                }
-            };
+            const deleteResResponse = require("../../../../test/data/api/v2/resources/delete-resource-response-expanded.json");
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(updateResResponse)));
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteResResponse)));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/resources/delete");
 

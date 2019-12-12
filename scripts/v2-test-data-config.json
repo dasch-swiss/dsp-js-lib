@@ -275,6 +275,14 @@
     {
       "source": "/test-data/v2/resources/update-resource-metadata-request-with-last-mod-date.json",
       "destination": "./test/data/api/v2/resources/update-resource-metadata-request-with-last-mod-date.json"
+    },
+    {
+      "source": "/test-data/v2/resources/update-resource-metadata-response.json",
+      "destination": "./test/data/api/v2/resources/update-resource-metadata-response.json"
+    },
+    {
+      "source": "/test-data/v2/resources/delete-resource-response.json",
+      "destination": "./test/data/api/v2/resources/delete-resource-response.json"
     }
   ]
 }
