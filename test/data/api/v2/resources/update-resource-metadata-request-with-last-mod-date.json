@@ -9,7 +9,7 @@
   },
   "knora-api:newModificationDate" : {
     "@type" : "xsd:dateTimeStamp",
-    "@value" : "2019-12-13T09:13:57.518Z"
+    "@value" : "2019-12-12T10:23:25.836924Z"
   },
   "@context" : {
     "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",

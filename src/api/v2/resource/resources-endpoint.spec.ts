@@ -360,7 +360,7 @@ describe("ResourcesEndpoint", () => {
 
             updateResourceMetadata.hasPermissions = "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:ProjectMember";
 
-            updateResourceMetadata.newModificationDateDate = "2019-12-12T15:38:51.329Z";
+            updateResourceMetadata.newModificationDateDate = "2019-12-12T10:23:25.836924Z";
 
             knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
                 (res: UpdateResourceMetadataResponse) => {
@@ -397,7 +397,7 @@ describe("ResourcesEndpoint", () => {
 
             updateResourceMetadata.lastModificationDateDate = "2019-02-13T09:05:10Z";
 
-            updateResourceMetadata.newModificationDateDate = "2019-12-13T09:13:57.518Z";
+            updateResourceMetadata.newModificationDateDate = "2019-12-12T10:23:25.836924Z";
 
             knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
                 (res: UpdateResourceMetadataResponse) => {
@@ -449,7 +449,7 @@ describe("ResourcesEndpoint", () => {
 
             deleteResource.deleteComment = "This resource is too boring.";
 
-            deleteResource.lastModificationDateDate = "2019-12-11T15:38:51.330Z";
+            deleteResource.lastModificationDateDate = "2019-12-12T10:23:25.836924Z";
 
             knoraApiConnection.v2.res.deleteResource(deleteResource).subscribe(
                 (res: DeleteResourceResponse) => {
