@@ -103,7 +103,7 @@ describe("ResourcesEndpoint", () => {
 
     describe("method createResource", () => {
 
-        const createResourceResponse = require("../../../../test/data/api/v2/resources/preview-expanded.json");
+        const createResourceResponse = require("../../../../test/data/api/v2/resources/resource-preview-expanded.json");
 
         it("should create a resource with values", done => {
 
