@@ -231,6 +231,94 @@ describe("ResourcesEndpoint", () => {
 
         });
 
+        it("create a resource as a specific user", done => {
+
+            const createResource = new CreateResource();
+
+            createResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+
+            createResource.label = "test thing";
+
+            createResource.attachedToProject = "http://rdfh.ch/projects/0001";
+
+            createResource.attachedToUser = "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q";
+
+            const boolVal = new CreateBooleanValue();
+            boolVal.bool = true;
+
+            const props = {
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean": [
+                    boolVal
+                ]
+            };
+
+            createResource.properties = props;
+
+            knoraApiConnection.v2.res.createResource(createResource).subscribe(
+                (res: ReadResource) => {
+                    expect(res.type).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createResourceResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/resources");
+
+            expect(request.method).toEqual("POST");
+
+            const expectedPayload = require("../../../../test/data/api/v2/resources/create-resource-as-user-expanded.json");
+
+            expect(request.data()).toEqual(expectedPayload);
+
+        });
+
+        it("create a resource as a specific custom creation date", done => {
+
+            const createResource = new CreateResource();
+
+            createResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+
+            createResource.label = "test thing";
+
+            createResource.attachedToProject = "http://rdfh.ch/projects/0001";
+
+            createResource.creationDate = "2019-01-09T15:45:54.502951Z";
+
+            const boolVal = new CreateBooleanValue();
+            boolVal.bool = true;
+
+            const props = {
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean": [
+                    boolVal
+                ]
+            };
+
+            createResource.properties = props;
+
+            knoraApiConnection.v2.res.createResource(createResource).subscribe(
+                (res: ReadResource) => {
+                    expect(res.type).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createResourceResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/resources");
+
+            expect(request.method).toEqual("POST");
+
+            const expectedPayload = require("../../../../test/data/api/v2/resources/create-resource-with-custom-creation-date-expanded.json");
+
+            expect(request.data()).toEqual(expectedPayload);
+
+        });
+
         it("should attempt to create a resource with a property without values", () => {
 
             const createResource = new CreateResource();
