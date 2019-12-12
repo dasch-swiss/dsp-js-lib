@@ -62,6 +62,11 @@ This guarantees that an ontology is only requested once from Knora, keeping API 
 The `ResourcesEndpoint` handles requests to the Knora API that relate to resource instances.
 When reading resources, resource instances are returned from Knora as JSON-LD and converted to an array of `ReadResource` using `ResourcesConversionUtil`.
 
+### Values
+
+The `ValuesEndpoint` handles requests to the Knora API that relate to operations on values.
+When reading values, these are embedded in resource instances and converted to an array of `ReadResource` using `ResourcesConversionUtil`.
+
 #### Search
 
 The `SearchEndpoint` handles requests to the Knora API that relate to searches, either full-text or complex (Gravsearch). 
