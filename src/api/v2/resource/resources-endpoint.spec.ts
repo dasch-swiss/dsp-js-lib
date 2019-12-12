@@ -103,7 +103,7 @@ describe("ResourcesEndpoint", () => {
 
     describe("method createResource", () => {
 
-        const createResourceResponse = require("../../../../test/data/api/v2/resources/resource-preview-expanded.json");
+        const createResourceResponse = require("../../../../test/data/api/v2/resources/resource-preview.json");
 
         it("should create a resource with values", done => {
 
@@ -258,7 +258,7 @@ describe("ResourcesEndpoint", () => {
 
     describe("method updateResourceMetadata", () => {
 
-        const updateResResponse = require("../../../../test/data/api/v2/resources/update-resource-metadata-response-expanded.json");
+        const updateResResponse = require("../../../../test/data/api/v2/resources/update-resource-metadata-response.json");
 
         it("should update a resource's label", done => {
 
@@ -372,7 +372,7 @@ describe("ResourcesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const deleteResResponse = require("../../../../test/data/api/v2/resources/delete-resource-response-expanded.json");
+            const deleteResResponse = require("../../../../test/data/api/v2/resources/delete-resource-response.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteResResponse)));
 
