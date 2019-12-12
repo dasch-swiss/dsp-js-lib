@@ -103,37 +103,7 @@ describe("ResourcesEndpoint", () => {
 
     describe("method createResource", () => {
 
-        const createResourceResponse = {
-            "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-            "@type": "anything:Thing",
-            "rdfs:label": "testding",
-            "knora-api:attachedToProject": {
-                "@id": "http://rdfh.ch/projects/0001"
-            },
-            "knora-api:attachedToUser": {
-                "@id": "http://rdfh.ch/users/BhkfBc3hTeS_IDo-JgXRbQ"
-            },
-            "knora-api:hasPermissions": "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:KnownUser|RV knora-admin:UnknownUser",
-            "knora-api:userHasPermission": "RV",
-            "knora-api:arkUrl": {
-                "@type": "xsd:anyURI",
-                "@value": "http://0.0.0.0:3336/ark:/72163/1/0001/H6gBWUuJSuuO=CilHV8kQwk"
-            }, "knora-api:versionArkUrl": {
-                "@type": "xsd:anyURI",
-                "@value": "http://0.0.0.0:3336/ark:/72163/1/0001/H6gBWUuJSuuO=CilHV8kQwk.20180528T155203897Z"
-            },
-            "knora-api:creationDate": {
-                "@type": "xsd:dateTimeStamp",
-                "@value": "2018-05-28T15:52:03.897Z"
-            },
-            "@context": {
-                "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-                "knora-api": "http://api.knora.org/ontology/knora-api/v2#",
-                "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-                "xsd": "http://www.w3.org/2001/XMLSchema#",
-                "anything": "http://0.0.0.0:3333/ontology/0001/anything/v2#"
-            }
-        };
+        const createResourceResponse = require("../../../../test/data/api/v2/resources/preview-expanded.json");
 
         it("should create a resource with values", done => {
 
