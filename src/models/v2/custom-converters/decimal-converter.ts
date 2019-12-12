@@ -8,7 +8,7 @@ export class DecimalConverter implements JsonCustomConvert<number> {
 
         return {
             "@type": Constants.XsdDecimal,
-            "@value": String(decimal)
+            "@value": decimal.toPrecision()
         };
 
     }
