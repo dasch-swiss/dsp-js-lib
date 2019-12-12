@@ -304,13 +304,17 @@ describe("ResourcesEndpoint", () => {
 
             const updateResourceMetadata = new UpdateResourceMetadata();
 
-            updateResourceMetadata.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResourceMetadata.id = "http://rdfh.ch/0001/a-thing";
 
             updateResourceMetadata.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
 
-            updateResourceMetadata.label = "Das Ding der Dinge";
+            updateResourceMetadata.label = "test thing with modified label";
 
-            updateResourceMetadata.lastModificationDateDate = "2018-05-28T15:52:03.897Z";
+            updateResourceMetadata.hasPermissions = "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:ProjectMember";
+
+            updateResourceMetadata.lastModificationDateDate = "2019-02-13T09:05:10Z";
+
+            updateResourceMetadata.newModificationDateDate = "2019-12-13T09:13:57.518Z";
 
             knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
                 (res: UpdateResourceMetadataResponse) => {
@@ -334,16 +338,8 @@ describe("ResourcesEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            const expectedPayload = {
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
-                "@type": "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
-                "http://www.w3.org/2000/01/rdf-schema#label": "Das Ding der Dinge",
-                "http://api.knora.org/ontology/knora-api/v2#lastModificationDate": {
-                    "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
-                    "@value": "2018-05-28T15:52:03.897Z"
-                }
-            };
-
+            const expectedPayload = require("../../../../test/data/api/v2/resources/update-resource-metadata-request-with-last-mod-date-expanded.json");
+// update-resource-metadata-request-with-last-mod-date-expanded.json
             expect(request.data()).toEqual(expectedPayload);
 
         });
