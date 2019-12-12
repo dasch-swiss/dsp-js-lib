@@ -61,6 +61,7 @@ export class Constants {
     static ValueCreationDate = Constants.KnoraApiV2 + Constants.Delimiter + "valueCreationDate";
     static ValueHasUUID = Constants.KnoraApiV2 + Constants.Delimiter + "valueHasUUID";
     static LastModificationDate = Constants.KnoraApiV2 + Constants.Delimiter + "lastModificationDate";
+    static NewModificationDate = Constants.KnoraApiV2 + Constants.Delimiter + "newModificationDate";
     static HasPermissions = Constants.KnoraApiV2 + Constants.Delimiter + "hasPermissions";
     static UserHasPermission = Constants.KnoraApiV2 + Constants.Delimiter + "userHasPermission";
 

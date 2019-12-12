@@ -1,59 +1,53 @@
 {
-  "static-test-data": [
+  "generated-test-data": [
     {
-      "source": "/webapi/src/test/resources/test-data/ontologyR2RV2/knoraApiOntologyWithValueObjects.jsonld",
+      "source": "/test-data/v2/ontologies/all-ontology-metadata.json",
+      "destination": "./test/data/api/v2/ontologies/all-ontology-metadata.json"
+    },
+    {
+      "source": "/test-data/v2/ontologies/knora-api-ontology.json",
       "destination": "./test/data/api/v2/ontologies/knora-api-ontology.json"
     },
     {
-      "source": "/webapi/src/test/resources/test-data/ontologyR2RV2/anythingOntologyWithValueObjects.jsonld",
+      "source": "/test-data/v2/ontologies/anything-ontology.json",
       "destination": "./test/data/api/v2/ontologies/anything-ontology.json"
     },
     {
-      "source": "/webapi/src/test/resources/test-data/ontologyR2RV2/minimalOntologyWithValueObjects.jsonld",
+      "source": "/test-data/v2/ontologies//minimal-ontology.json",
       "destination": "./test/data/api/v2/ontologies/minimal-ontology.json"
     },
     {
-      "source": "/webapi/src/test/resources/test-data/ontologyR2RV2/incunabulaOntologyWithValueObjects.jsonld",
+      "source": "/test-data/v2/ontologies/incunabula-ontology.json",
       "destination": "./test/data/api/v2/ontologies/incunabula-ontology.json"
     },
     {
-      "source": "/webapi/src/test/resources/test-data/resourcesR2RV2/Testding.jsonld",
+      "source": "/test-data/v2/resources/testding.json",
       "destination": "./test/data/api/v2/resources/testding.json"
     },
     {
-      "source": "/webapi/src/test/resources/test-data/searchR2RV2/ThingSmallerThanDecimal.jsonld",
-      "destination": "./test/data/api/v2/resources/things.json"
-    },
-    {
-      "source": "/webapi/src/test/resources/test-data/searchR2RV2/RegionsForPage.jsonld",
-      "destination": "./test/data/api/v2/resources/regions.json"
-    },
-    {
-      "source": "/webapi/src/test/resources/test-data/resourcesR2RV2/NarrenschiffFirstPage.jsonld",
+      "source": "/test-data/v2/resources/page.json",
       "destination": "./test/data/api/v2/resources/page.json"
     },
     {
-      "source": "/webapi/src/test/resources/test-data/searchR2RV2/ThingWithTimeStamp.jsonld",
-      "destination": "./test/data/api/v2/resources/thing-with-time-value.json"
+      "source": "/test-data/v2/search/things.json",
+      "destination": "./test/data/api/v2/resources/things.json"
     },
     {
-      "source": "/webapi/src/test/resources/test-data/listsR2RV2/treelist.jsonld",
+      "source": "/test-data/v2/search/regions.json",
+      "destination": "./test/data/api/v2/resources/regions.json"
+    },
+    {
+      "source": "/test-data/v2/lists/treelist.json",
       "destination": "./test/data/api/v2/lists/treelist.json"
     },
     {
-      "source": "/webapi/src/test/resources/test-data/listsR2RV2/othertreelist.jsonld",
+      "source": "/test-data/v2/lists/othertreelist.json",
       "destination": "./test/data/api/v2/lists/othertreelist.json"
     },
     {
-      "source": "/webapi/src/test/resources/test-data/listsR2RV2/treelistnode.jsonld",
+      "source": "/test-data/v2/lists/listnode.json",
       "destination": "./test/data/api/v2/lists/listnode.json"
     },
-    {
-      "source": "/webapi/src/test/resources/test-data/ontologyR2RV2/allOntologyMetadata.jsonld",
-      "destination": "./test/data/api/v2/ontologies/all-ontology-metadata.json"
-    }
-  ],
-  "generated-test-data": [
     {
       "source": "/test-data/v2/values/create-int-value-request.json",
       "destination": "./test/data/api/v2/values/create-int-value-request.json"
@@ -261,6 +255,42 @@
     {
       "source": "/test-data/v2/values/get-geoname-value-response.json",
       "destination": "./test/data/api/v2/values/get-geoname-value-response.json"
+    },
+    {
+      "source": "/test-data/v2/resources/create-resource-with-values-request.json",
+      "destination": "./test/data/api/v2/resources/create-resource-with-values-request.json"
+    },
+    {
+      "source": "/test-data/v2/resources/create-resource-as-user.json",
+      "destination": "./test/data/api/v2/resources/create-resource-as-user.json"
+    },
+    {
+      "source": "/test-data/v2/resources/create-resource-with-custom-creation-date.json",
+      "destination": "./test/data/api/v2/resources/create-resource-with-custom-creation-date.json"
+    },
+    {
+      "source": "/test-data/v2/resources/update-resource-metadata-request.json",
+      "destination": "./test/data/api/v2/resources/update-resource-metadata-request.json"
+    },
+    {
+      "source": "/test-data/v2/resources/delete-resource-request.json",
+      "destination": "./test/data/api/v2/resources/delete-resource-request.json"
+    },
+    {
+      "source": "/test-data/v2/resources/resource-preview.json",
+      "destination": "./test/data/api/v2/resources/resource-preview.json"
+    },
+    {
+      "source": "/test-data/v2/resources/update-resource-metadata-request-with-last-mod-date.json",
+      "destination": "./test/data/api/v2/resources/update-resource-metadata-request-with-last-mod-date.json"
+    },
+    {
+      "source": "/test-data/v2/resources/update-resource-metadata-response.json",
+      "destination": "./test/data/api/v2/resources/update-resource-metadata-response.json"
+    },
+    {
+      "source": "/test-data/v2/resources/delete-resource-response.json",
+      "destination": "./test/data/api/v2/resources/delete-resource-response.json"
     }
   ]
 }
