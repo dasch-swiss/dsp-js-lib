@@ -1,0 +1,89 @@
+{
+  "list": {
+    "children": [
+      {
+        "children": [],
+        "comments": [],
+        "hasRootNode": "http://rdfh.ch/lists/0807/4HXuuotZSNGuW_wjz6KvuQ",
+        "id": "http://rdfh.ch/lists/0807/BTpjWYm-SSClZv-LG7CC4Q",
+        "labels": [
+          {
+            "value": "Person",
+            "language": "de"
+          }
+        ],
+        "name": "person",
+        "position": 0
+      },
+      {
+        "children": [],
+        "comments": [],
+        "hasRootNode": "http://rdfh.ch/lists/0807/4HXuuotZSNGuW_wjz6KvuQ",
+        "id": "http://rdfh.ch/lists/0807/L79ezS4mTb2vVHl_G3XIrg",
+        "labels": [
+          {
+            "value": "Institution",
+            "language": "de"
+          }
+        ],
+        "name": "institution",
+        "position": 1
+      },
+      {
+        "children": [],
+        "comments": [],
+        "hasRootNode": "http://rdfh.ch/lists/0807/4HXuuotZSNGuW_wjz6KvuQ",
+        "id": "http://rdfh.ch/lists/0807/kL69o-bqQv-FLvzvQk_dEg",
+        "labels": [
+          {
+            "value": "Liste",
+            "language": "de"
+          }
+        ],
+        "name": "list",
+        "position": 2
+      },
+      {
+        "children": [],
+        "comments": [],
+        "hasRootNode": "http://rdfh.ch/lists/0807/4HXuuotZSNGuW_wjz6KvuQ",
+        "id": "http://rdfh.ch/lists/0807/PkaX0S-zQRaxJaRW-IvqXQ",
+        "labels": [
+          {
+            "value": "Ort",
+            "language": "de"
+          }
+        ],
+        "name": "location",
+        "position": 3
+      },
+      {
+        "children": [],
+        "comments": [],
+        "hasRootNode": "http://rdfh.ch/lists/0807/4HXuuotZSNGuW_wjz6KvuQ",
+        "id": "http://rdfh.ch/lists/0807/54Cg6gIxTvu1166vyWKizg",
+        "labels": [
+          {
+            "value": "Sache",
+            "language": "de"
+          }
+        ],
+        "name": "thing",
+        "position": 4
+      }
+    ],
+    "listinfo": {
+      "comments": [],
+      "id": "http://rdfh.ch/lists/0807/4HXuuotZSNGuW_wjz6KvuQ",
+      "isRootNode": true,
+      "labels": [
+        {
+          "value": "Artikeltyp",
+          "language": "de"
+        }
+      ],
+      "name": "articletype",
+      "projectIri": "http://rdfh.ch/projects/0807"
+    }
+  }
+}

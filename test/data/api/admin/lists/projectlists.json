@@ -1,0 +1,30 @@
+{
+  "lists": [
+    {
+      "comments": [
+        {
+          "value": "Diese Liste kann von allen Projekten verwendet werden.",
+          "language": "de"
+        },
+        {
+          "value": "This list can be used by all projects.",
+          "language": "en"
+        }
+      ],
+      "id": "http://rdfh.ch/lists/FFFF/ynm01",
+      "isRootNode": true,
+      "labels": [
+        {
+          "value": "Die Ja, Nein, Vielleicht Liste",
+          "language": "de"
+        },
+        {
+          "value": "The Yes, No, Maybe List",
+          "language": "en"
+        }
+      ],
+      "name": "A name of a list",
+      "projectIri": "http://www.knora.org/ontology/knora-admin#SystemProject"
+    }
+  ]
+}

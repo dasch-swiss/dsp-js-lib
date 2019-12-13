@@ -2,6 +2,7 @@ import { KnoraApiConfig } from "../../knora-api-config";
 import { Endpoint } from "../endpoint";
 
 import { GroupsEndpoint } from "./groups/groups-endpoint";
+import { ListsEndpoint } from "./lists/lists-endpoint";
 import { PermissionsEndpoint } from "./permissions/permissions-endpoint";
 import { ProjectsEndpoint } from "./projects/projects-endpoint";
 import { UsersEndpoint } from "./users/users-endpoint";
@@ -30,6 +31,11 @@ export class AdminEndpoint extends Endpoint {
      * An endpoint for working with Knora permissions.
      */
     readonly permissionsEndpoint: PermissionsEndpoint;
+
+    /**
+     * An endpoint for working with lists
+     */
+    readonly listsEndpoint: ListsEndpoint;
     
     /**
      * Constructor.
@@ -48,5 +54,6 @@ export class AdminEndpoint extends Endpoint {
         this.groupsEndpoint = new GroupsEndpoint(knoraApiConfig, path + "/groups");
         this.projectsEndpoint = new ProjectsEndpoint(knoraApiConfig, path + "/projects");
         this.permissionsEndpoint = new PermissionsEndpoint(knoraApiConfig, path + "/permissions");
+        this.listsEndpoint = new ListsEndpoint(knoraApiConfig, path + "/lists");
     }
 }

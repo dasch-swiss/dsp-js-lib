@@ -10,6 +10,7 @@ import {
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { Constants } from "../Constants";
 import { IdConverter } from "../custom-converters/id-converter";
+import { StringLiteral } from "../../admin/string-literal";
 
 @JsonConverter
 export class SubListNodeConverter implements JsonCustomConvert<ListNode[]> {
@@ -59,3 +60,4 @@ export class ListNode {
     @JsonProperty(Constants.HasSubListNode, SubListNodeConverter, true)
     children: ListNode[] = [];
 }
+
