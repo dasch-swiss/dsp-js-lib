@@ -34,7 +34,11 @@ export { StoredUser } from "./models/admin/stored-user";
 export { UpdateUserRequest } from "./models/admin/update-user-request";
 export { UserResponse } from "./models/admin/user-response";
 export { UsersResponse } from "./models/admin/users-response";
-
+export { ListInfo } from "./models/admin/lists";
+export { FullListNode } from "./models/admin/lists";
+export { ProjectLists } from "./models/admin/lists";
+export { FullList } from "./models/admin/lists";
+export { FullListResponse } from "./models/admin/fulllist-response";
 export { LoginResponse } from "./models/v2/authentication/login-response";
 export { CredentialsResponse } from "./models/v2/authentication/credentials-response";
 export { LogoutResponse } from "./models/v2/authentication/logout-response";
@@ -42,6 +46,7 @@ export { LogoutResponse } from "./models/v2/authentication/logout-response";
 export { StringLiteral } from "./models/admin/string-literal";
 
 export { UserCache } from "./cache/UserCache";
+export { ListCache } from "./cache/ListCache";
 
 export { ApiResponse } from "./models/api-response";
 export { ApiResponseData } from "./models/api-response-data";

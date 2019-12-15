@@ -1,6 +1,8 @@
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
+import { AdministrativePermissionResponse, UsersResponse } from "../../..";
+import { FullListResponse } from "../../../models/admin/fulllist-response";
 
 import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
@@ -32,16 +34,10 @@ export class ListsEndpoint extends Endpoint {
         );
     }
 
-    getFullList(listIri: string): Observable<FullList | ApiResponseError> {
+    getFullList(listIri: string): Observable<ApiResponseData<FullListResponse> | ApiResponseError> {
         return this.httpGet("/" + encodeURIComponent(listIri)).pipe(
-            map(
-                (ajaxResponse: AjaxResponse) => {
-                    return this.jsonConvert.deserialize(ajaxResponse.response.list, FullList) as FullList;
-                }
-            ),
-            catchError(error => {
-                return this.handleError(error);
-            })
+            map((ajaxResponse: AjaxResponse) => ApiResponseData.fromAjaxResponse(ajaxResponse, FullListResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
 }

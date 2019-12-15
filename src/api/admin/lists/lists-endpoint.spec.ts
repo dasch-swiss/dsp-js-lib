@@ -1,6 +1,8 @@
+import { ApiResponseData, UserResponse } from "../../..";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
+import { FullListResponse } from "../../../models/admin/fulllist-response";
 import { FullList, ProjectLists } from "../../../models/admin/lists";
 describe("ListsEndpoint", () => {
 
@@ -67,49 +69,49 @@ describe("ListsEndpoint", () => {
     it("should return a full list", done => {
 
         knoraApiConnection.admin.listsEndpoint.getFullList("http://rdfh.ch/lists/0807/4HXuuotZSNGuW_wjz6KvuQ").subscribe(
-            (fulllist: FullList) => {
+            (fulllist: ApiResponseData<FullListResponse>) => {
 
-                expect(fulllist.listinfo.id).toEqual("http://rdfh.ch/lists/0807/4HXuuotZSNGuW_wjz6KvuQ");
-                expect(fulllist.listinfo.name).toEqual("articletype");
-                expect(fulllist.listinfo.projectIri).toEqual("http://rdfh.ch/projects/0807");
-                expect(fulllist.listinfo.labels).toBeDefined();
-                expect(fulllist.listinfo.labels && fulllist.listinfo.labels.length).toEqual(1);
-                if (fulllist.listinfo.labels && fulllist.listinfo.labels.length > 0) {
-                    expect(fulllist.listinfo.labels[0].language).toEqual("de");
-                    expect(fulllist.listinfo.labels[0].value).toEqual("Artikeltyp");
+                expect(fulllist.body.list.listinfo.id).toEqual("http://rdfh.ch/lists/0807/4HXuuotZSNGuW_wjz6KvuQ");
+                expect(fulllist.body.list.listinfo.name).toEqual("articletype");
+                expect(fulllist.body.list.listinfo.projectIri).toEqual("http://rdfh.ch/projects/0807");
+                expect(fulllist.body.list.listinfo.labels).toBeDefined();
+                expect(fulllist.body.list.listinfo.labels && fulllist.body.list.listinfo.labels.length).toEqual(1);
+                if (fulllist.body.list.listinfo.labels && fulllist.body.list.listinfo.labels.length > 0) {
+                    expect(fulllist.body.list.listinfo.labels[0].language).toEqual("de");
+                    expect(fulllist.body.list.listinfo.labels[0].value).toEqual("Artikeltyp");
                 }
 
-                expect(fulllist.children.length).toBeGreaterThan(0);
-                if (fulllist.children.length > 0) {
-                    expect(fulllist.children[0].id).toEqual("http://rdfh.ch/lists/0807/BTpjWYm-SSClZv-LG7CC4Q");
-                    expect(fulllist.children[0].position).toEqual(0);
-                    expect(fulllist.children[0].name).toBeDefined();
-                    if (fulllist.children[0].name) {
-                        expect(fulllist.children[0].name).toEqual("person");
+                expect(fulllist.body.list.children.length).toBeGreaterThan(0);
+                if (fulllist.body.list.children.length > 0) {
+                    expect(fulllist.body.list.children[0].id).toEqual("http://rdfh.ch/lists/0807/BTpjWYm-SSClZv-LG7CC4Q");
+                    expect(fulllist.body.list.children[0].position).toEqual(0);
+                    expect(fulllist.body.list.children[0].name).toBeDefined();
+                    if (fulllist.body.list.children[0].name) {
+                        expect(fulllist.body.list.children[0].name).toEqual("person");
                     }
-                    expect(fulllist.children[0].labels).toBeDefined();
-                    if (fulllist.children[0].labels) {
-                        expect(fulllist.children[0].labels.length).toEqual(1);
-                        if (fulllist.children[0].labels.length > 0) {
-                            expect(fulllist.children[0].labels[0].language).toEqual("de");
-                            expect(fulllist.children[0].labels[0].value).toEqual("Person");
+                    expect(fulllist.body.list.children[0].labels).toBeDefined();
+                    if (fulllist.body.list.children[0].labels) {
+                        expect(fulllist.body.list.children[0].labels.length).toEqual(1);
+                        if (fulllist.body.list.children[0].labels.length > 0) {
+                            expect(fulllist.body.list.children[0].labels[0].language).toEqual("de");
+                            expect(fulllist.body.list.children[0].labels[0].value).toEqual("Person");
                         }
                     }
                 }
 
-                if (fulllist.children.length > 4) {
-                    expect(fulllist.children[4].id).toEqual("http://rdfh.ch/lists/0807/54Cg6gIxTvu1166vyWKizg");
-                    expect(fulllist.children[4].position).toEqual(4);
-                    expect(fulllist.children[4].name).toBeDefined();
-                    if (fulllist.children[4].name) {
-                        expect(fulllist.children[4].name).toEqual("thing");
+                if (fulllist.body.list.children.length > 4) {
+                    expect(fulllist.body.list.children[4].id).toEqual("http://rdfh.ch/lists/0807/54Cg6gIxTvu1166vyWKizg");
+                    expect(fulllist.body.list.children[4].position).toEqual(4);
+                    expect(fulllist.body.list.children[4].name).toBeDefined();
+                    if (fulllist.body.list.children[4].name) {
+                        expect(fulllist.body.list.children[4].name).toEqual("thing");
                     }
-                    expect(fulllist.children[4].labels).toBeDefined();
-                    if (fulllist.children[4].labels) {
-                        expect(fulllist.children[4].labels.length).toEqual(1);
-                        if (fulllist.children[4].labels.length > 0) {
-                            expect(fulllist.children[4].labels[0].language).toEqual("de");
-                            expect(fulllist.children[4].labels[0].value).toEqual("Sache");
+                    expect(fulllist.body.list.children[4].labels).toBeDefined();
+                    if (fulllist.body.list.children[4].labels) {
+                        expect(fulllist.body.list.children[4].labels.length).toEqual(1);
+                        if (fulllist.body.list.children[4].labels.length > 0) {
+                            expect(fulllist.body.list.children[4].labels[0].language).toEqual("de");
+                            expect(fulllist.body.list.children[4].labels[0].value).toEqual("Sache");
                         }
                     }
                 }

@@ -1,3 +1,6 @@
+import { ListCache } from "../../cache/ListCache";
+import { ListNodeCache } from "../../cache/ListNodeCache";
+import { OntologyCache } from "../../cache/OntologyCache";
 import { KnoraApiConfig } from "../../knora-api-config";
 import { Endpoint } from "../endpoint";
 
@@ -36,7 +39,11 @@ export class AdminEndpoint extends Endpoint {
      * An endpoint for working with lists
      */
     readonly listsEndpoint: ListsEndpoint;
-    
+
+
+    readonly listsCache: ListCache;
+
+
     /**
      * Constructor.
      * Sets up all endpoints for this endpoint.
@@ -55,5 +62,9 @@ export class AdminEndpoint extends Endpoint {
         this.projectsEndpoint = new ProjectsEndpoint(knoraApiConfig, path + "/projects");
         this.permissionsEndpoint = new PermissionsEndpoint(knoraApiConfig, path + "/permissions");
         this.listsEndpoint = new ListsEndpoint(knoraApiConfig, path + "/lists");
+
+        // Instantiate caches
+        this.listsCache = new ListCache(this.listsEndpoint);
+
     }
 }
