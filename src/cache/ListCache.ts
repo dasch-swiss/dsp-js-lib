@@ -15,6 +15,12 @@ export class ListCache extends GenericCache<FullListResponse> {
         super();
     }
 
+    getFullList(listIri: string): Observable<FullList> {
+        return this.getItem(listIri).pipe(
+            map((res: FullListResponse) => res.list)
+        );
+    }
+
     protected requestItemFromKnora(key: string, isDependency: boolean): Observable<FullListResponse[]> {
         return this.listsEndpoint.getFullList(key).pipe(
             map((response: ApiResponseData<FullListResponse>) => {
