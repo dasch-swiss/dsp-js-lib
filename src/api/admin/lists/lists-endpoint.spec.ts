@@ -4,6 +4,7 @@ import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { CreateListRequest } from "../../../models/admin/create-list-request";
 import { ListInfoResponse } from "../../../models/admin/list-info-response";
+import { ListNodeInfoResponse } from "../../../models/admin/list-node-info-response";
 import { ListResponse } from "../../../models/admin/list-response";
 import { ListsResponse } from "../../../models/admin/lists-response";
 import { UpdateListInfoRequest } from "../../../models/admin/update-list-info-request";
@@ -198,7 +199,7 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.getListInfo("http://rdfh.ch/lists/0001/treeList").subscribe(
                 (res: ApiResponseData<ListInfoResponse>) => {
-                    
+
                     done();
                 }
             );
@@ -210,6 +211,31 @@ describe("ListsEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
 
             expect(request.url).toBe("http://localhost:3333/admin/lists/infos/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
+    describe("Method getListNodeInfo", () => {
+
+        it("should return information about a list node", done => {
+
+            knoraApiConnection.admin.listsEndpoint.getListNodeInfo("http://rdfh.ch/lists/0001/treeList01").subscribe(
+                (res: ApiResponseData<ListNodeInfoResponse>) => {
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const listsResponse = require("../../../../test/data/api/admin/lists/get-list-node-info-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/nodes/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList01");
 
             expect(request.method).toEqual("GET");
 
