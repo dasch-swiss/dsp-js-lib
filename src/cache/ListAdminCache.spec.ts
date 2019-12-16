@@ -10,7 +10,7 @@ import { ListAdminCache } from "./ListAdminCache";
 
 describe("ListCache", () => {
 
-    const config = new KnoraApiConfig("http", "localhost", 3333);
+    const config = new KnoraApiConfig("http", "0.0.0.0", 3333);
     const knoraApiConnection = new KnoraApiConnection(config);
 
     let getListSpy: jasmine.Spy;
