@@ -25,8 +25,9 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.getLists().subscribe(
                 (res: ApiResponseData<ListsResponse>) => {
+                    expect(res.body.lists.length).toEqual(8);
                     done();
-              }
+                }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
@@ -39,9 +40,32 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("GET");
 
-
         });
 
+    });
+
+    describe("Method getListsInProject", () => {
+
+        it("should return a list of lists in a project", done => {
+
+            knoraApiConnection.admin.listsEndpoint.getListsInProject("http://rdfh.ch/projects/00FF").subscribe(
+                (res: ApiResponseData<ListsResponse>) => {
+                    expect(res.body.lists.length).toEqual(8);
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const listsResponse = require("../../../../test/data/api/admin/lists/get-lists-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists?projectIri=http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF");
+
+            expect(request.method).toEqual("GET");
+
+        });
 
     });
 
@@ -84,7 +108,6 @@ describe("ListsEndpoint", () => {
 
         });
 
-
     });
 
     describe("Method getList", () => {
@@ -93,6 +116,7 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.getList("http://rdfh.ch/lists/0001/treeList").subscribe(
                 (res: ApiResponseData<ListResponse>) => {
+                    // expect(res.body.list.listinfo.id).toEqual("http://rdfh.ch/lists/0001/treeList");
                     done();
                 }
             );
@@ -107,9 +131,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("GET");
 
-
         });
-
 
     });
 
