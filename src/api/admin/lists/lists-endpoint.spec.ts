@@ -192,4 +192,29 @@ describe("ListsEndpoint", () => {
 
     });
 
+    describe("Method getListInfo", () => {
+
+        it("should return information about a list", done => {
+
+            knoraApiConnection.admin.listsEndpoint.getListInfo("http://rdfh.ch/lists/0001/treeList").subscribe(
+                (res: ApiResponseData<ListInfoResponse>) => {
+                    
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const listsResponse = require("../../../../test/data/api/admin/lists/get-list-info-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/infos/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
 });
