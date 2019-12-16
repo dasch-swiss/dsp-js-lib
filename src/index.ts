@@ -35,6 +35,19 @@ export { UpdateUserRequest } from "./models/admin/update-user-request";
 export { UserResponse } from "./models/admin/user-response";
 export { UsersResponse } from "./models/admin/users-response";
 
+export { List } from "./models/admin/list";
+export { ListInfoResponse } from "./models/admin/list-info-response";
+export { ListNode } from "./models/admin/list-node";
+export { ListNodeInfo } from "./models/admin/list-node-info";
+export { ListNodeInfoResponse } from "./models/admin/list-node-info-response";
+export { ListResponse } from "./models/admin/list-response";
+export { ListsResponse } from "./models/admin/lists-response";
+export { CreateChildNodeRequest } from "./models/admin/create-child-node-request";
+export { CreateListRequest } from "./models/admin/create-list-request";
+export { StoredListNodeInfo } from "./models/admin/stored-list-node-info";
+export { StoredListNode } from "./models/admin/stored-list-node";
+export { UpdateListInfoRequest } from "./models/admin/update-list-info-request";
+
 export { LoginResponse } from "./models/v2/authentication/login-response";
 export { CredentialsResponse } from "./models/v2/authentication/credentials-response";
 export { LogoutResponse } from "./models/v2/authentication/logout-response";
@@ -108,6 +121,6 @@ export { CreateListValue } from "./models/v2/resources/values/create/create-list
 export { CreateTextValueAsString, CreateTextValueAsXml } from "./models/v2/resources/values/create/create-text-value";
 export { CreateUriValue } from "./models/v2/resources/values/create/create-uri-value";
 
-export { ListNode } from "./models/v2/lists/list-node";
+export { ListNodeV2 } from "./models/v2/lists/list-node-v2";
 
 export { Constants } from "./models/v2/Constants";

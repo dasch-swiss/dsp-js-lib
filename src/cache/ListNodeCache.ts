@@ -4,14 +4,14 @@ import { V2Endpoint } from "../api/v2/v2-endpoint";
 import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { ListConversionUtil } from "../models/v2/lists/list-conversion-util";
-import { ListNode } from "../models/v2/lists/list-node";
+import { ListNodeV2 } from "../models/v2/lists/list-node-v2";
 import { GenericCache } from "./GenericCache";
 
 /**
  * Caches list nodes obtained from Knora.
  * As an optimization, the whole list is requested and cached (all of its nodes) once a list node has been rquested.
  */
-export class ListNodeCache extends GenericCache<ListNode> {
+export class ListNodeCache extends GenericCache<ListNodeV2> {
 
     constructor(private v2Endpoint: V2Endpoint) {
         super();
@@ -29,24 +29,24 @@ export class ListNodeCache extends GenericCache<ListNode> {
         return this.getItem(nodeIri);
     }
 
-    protected getKeyOfItem(item: ListNode): string {
+    protected getKeyOfItem(item: ListNodeV2): string {
         return item.id;
     }
 
-    protected requestItemFromKnora(key: string, isDependency: boolean): Observable<ListNode[]> {
+    protected requestItemFromKnora(key: string, isDependency: boolean): Observable<ListNodeV2[]> {
         if (!isDependency) {
             // not a dependency, get the list node
             return this.v2Endpoint.list.getNode(key)
-                .pipe(map((node: ListNode) => [node]));
+                .pipe(map((node: ListNodeV2) => [node]));
         } else {
             // a dependency, get the whole list
             const list = this.v2Endpoint.list.getList(key);
 
-            return (list as Observable<ListNode>).pipe(
+            return (list as Observable<ListNodeV2>).pipe(
                 map(
                     rootNode => {
                         // Transform the list into an array of all list nodes
-                        const nodes: ListNode[] = ListConversionUtil.collectNodes(rootNode);
+                        const nodes: ListNodeV2[] = ListConversionUtil.collectNodes(rootNode);
 
                         return nodes.map(
                             node => {
@@ -64,7 +64,7 @@ export class ListNodeCache extends GenericCache<ListNode> {
         }
     }
 
-    protected getDependenciesOfItem(item: ListNode): string[] {
+    protected getDependenciesOfItem(item: ListNodeV2): string[] {
         if (item.hasRootNode !== undefined) {
             // The whole list will be fetched as a dependency
             // of any given list node

@@ -2,7 +2,7 @@ import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { ApiResponseError } from "../../../models/api-response-error";
-import { ListNode } from "../../../models/v2/lists/list-node";
+import { ListNodeV2 } from "../../../models/v2/lists/list-node-v2";
 import { Endpoint } from "../../endpoint";
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
@@ -18,7 +18,7 @@ export class ListsEndpoint extends Endpoint {
      *
      * @param nodeIri the Ir of the list node to be fetched.
      */
-    getNode(nodeIri: string): Observable<ListNode | ApiResponseError> {
+    getNode(nodeIri: string): Observable<ListNodeV2 | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
         return this.httpGet("/node/" + encodeURIComponent(nodeIri)).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
@@ -28,7 +28,7 @@ export class ListsEndpoint extends Endpoint {
             }),
             map(
                 res => {
-                    return this.jsonConvert.deserialize(res, ListNode) as ListNode;
+                    return this.jsonConvert.deserialize(res, ListNodeV2) as ListNodeV2;
                 }
             ),
             catchError(error => {
@@ -42,7 +42,7 @@ export class ListsEndpoint extends Endpoint {
      *
      * @param rootNodeIri the list's root node Iri.
      */
-    getList(rootNodeIri: string): Observable<ListNode | ApiResponseError> {
+    getList(rootNodeIri: string): Observable<ListNodeV2 | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
         return this.httpGet("/lists/" + encodeURIComponent(rootNodeIri)).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
@@ -52,7 +52,7 @@ export class ListsEndpoint extends Endpoint {
             }),
             map(
                 res => {
-                    return this.jsonConvert.deserialize(res, ListNode) as ListNode;
+                    return this.jsonConvert.deserialize(res, ListNodeV2) as ListNodeV2;
                 }
             ),
             catchError(error => {
