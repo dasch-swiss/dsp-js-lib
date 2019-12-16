@@ -47,7 +47,7 @@ describe("ListsEndpoint", () => {
 
     describe("Method createList", () => {
 
-        fit("should create a list", done => {
+        it("should create a list", done => {
 
             const list = new CreateListRequest();
 
