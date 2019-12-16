@@ -1,6 +1,5 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 
-import { ListNode } from "./list-node";
 import { StringLiteral } from "./string-literal";
 
 /**
@@ -8,12 +7,6 @@ import { StringLiteral } from "./string-literal";
  */
 @JsonObject("ListNodeInfo")
 export class ListNodeInfo {
-
-   /**
-     * The child nodes of this list node.
-     */
-    @JsonProperty("children", [ListNode])
-    children: ListNode[] = [];
 
    /**
      * The comments attached to the enclosing object.
