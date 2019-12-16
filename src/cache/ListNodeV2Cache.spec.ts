@@ -5,9 +5,9 @@ import { MockList } from "../../test/data/api/v2/mockList";
 import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { ListNodeV2 } from "../models/v2/lists/list-node-v2";
-import { ListNodeCache } from "./ListNodeCache";
+import { ListNodeV2Cache } from "./ListNodeV2Cache";
 
-describe("ListNodeCache", () => {
+describe("ListNodeV2Cache", () => {
 
     const config = new KnoraApiConfig("http", "0.0.0.0", 3333, "", "", true);
     let knoraApiConnection: KnoraApiConnection;
