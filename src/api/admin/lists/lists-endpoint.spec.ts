@@ -1,7 +1,8 @@
-import { ApiResponseData } from "../../..";
+import { ApiResponseData, StringLiteral } from "../../..";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
+import { CreateListRequest } from "../../../models/admin/create-list-request";
 import { ListResponse } from "../../../models/admin/list-response";
 import { ListsResponse } from "../../../models/admin/lists-response";
 
@@ -38,6 +39,48 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("GET");
 
+
+        });
+
+
+    });
+
+    describe("Method createList", () => {
+
+        fit("should create a list", done => {
+
+            const list = new CreateListRequest();
+
+            list.comments = [];
+            list.projectIri = "http://rdfh.ch/projects/00FF";
+
+            const label = new StringLiteral();
+            label.language = "de";
+            label.value = "Neue Liste";
+
+            list.labels = [label];
+
+            knoraApiConnection.admin.listsEndpoint.createList(list).subscribe(
+                (res: ApiResponseData<ListResponse>) => {
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const listsResponse = require("../../../../test/data/api/admin/lists/get-list-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const payload = require("../../../../test/data/api/admin/lists/create-list-request.json");
+
+            expect(request.data()).toEqual(payload);
 
         });
 
