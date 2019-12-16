@@ -12,7 +12,7 @@ import { Constants } from "../Constants";
 import { IdConverter } from "../custom-converters/id-converter";
 
 @JsonConverter
-export class SubListNodeConverter implements JsonCustomConvert<ListNode[]> {
+export class SubListNodeConverter implements JsonCustomConvert<ListNodeV2[]> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -21,10 +21,10 @@ export class SubListNodeConverter implements JsonCustomConvert<ListNode[]> {
         PropertyMatchingRule.CASE_STRICT
     );
 
-    serialize(subclasses: ListNode[]): any {
+    serialize(subclasses: ListNodeV2[]): any {
     }
 
-    deserialize(subnodes: any): ListNode[] {
+    deserialize(subnodes: any): ListNodeV2[] {
 
         let children: object[];
 
@@ -37,12 +37,12 @@ export class SubListNodeConverter implements JsonCustomConvert<ListNode[]> {
         return children
             .map(
                 child =>
-                    SubListNodeConverter.jsonConvert.deserialize(child, ListNode) as ListNode);
+                    SubListNodeConverter.jsonConvert.deserialize(child, ListNodeV2) as ListNodeV2);
     }
 }
 
 @JsonObject("ListNode")
-export class ListNode {
+export class ListNodeV2 {
 
     @JsonProperty("@id", String)
     id: string = "";
@@ -57,5 +57,5 @@ export class ListNode {
     hasRootNode?: string = undefined;
 
     @JsonProperty(Constants.HasSubListNode, SubListNodeConverter, true)
-    children: ListNode[] = [];
+    children: ListNodeV2[] = [];
 }
