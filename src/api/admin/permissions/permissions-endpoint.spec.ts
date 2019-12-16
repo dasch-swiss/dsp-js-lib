@@ -51,37 +51,6 @@ describe("PermissionsEndpoint", () => {
 
         });
 
-        it("should return the administrative permissions by type", done => {
-
-            const projectIri = "http://rdfh.ch/projects/00FF";
-
-            const groupIri = "http://www.knora.org/ontology/knora-admin#ProjectMember";
-
-            knoraApiConnection.admin.permissionsEndpoint.getAdministrativePermissionByType(projectIri, groupIri, "administrative_permissions").subscribe(
-                (response: ApiResponseData<AdministrativePermissionResponse>) => {
-
-                    expect(response.body.administrative_permission.hasPermissions.length).toEqual(1);
-
-                    const permissions = new Permission();
-                    permissions.name = "ProjectResourceCreateAllPermission";
-
-                    expect(response.body.administrative_permission.hasPermissions[0]).toEqual(permissions);
-
-                    done();
-                });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const permissionsResponse = require("../../../../test/data/api/admin/permissions/get-administrative-permission-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionsResponse)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF/http%3A%2F%2Fwww.knora.org%2Fontology%2Fknora-admin%23ProjectMember?permissionType=administrative_permissions");
-
-            expect(request.method).toEqual("GET");
-
-        });
-
     });
 
 });

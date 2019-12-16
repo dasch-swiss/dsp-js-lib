@@ -28,20 +28,4 @@ export class PermissionsEndpoint extends Endpoint {
     
     }
     
-    /**
-     * Gets the administrative permission for a project and group, specifying a permission type.
-     * 
-     * @param projectIri The project IRI.
-     * @param groupIri The group IRI.
-     * @param permissionType The permission type.
-     */
-    getAdministrativePermissionByType(projectIri: string, groupIri: string, permissionType: string): Observable<ApiResponseData<AdministrativePermissionResponse> | ApiResponseError> {
-    
-        return this.httpGet("/" + encodeURIComponent(projectIri) + "/" + encodeURIComponent(groupIri) + "?permissionType=" + encodeURIComponent(permissionType)).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, AdministrativePermissionResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
-        );
-    
-    }
-    
 }
