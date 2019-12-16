@@ -2,7 +2,7 @@ import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { AsyncSubject } from "rxjs";
 import { ListConversionUtil } from "../../../../src/models/v2/lists/list-conversion-util";
-import { ListNode } from "../../../../src/models/v2/lists/list-node";
+import { ListNodeV2 } from "../../../../src/models/v2/lists/list-node-v2";
 import treeListExpanded from "../v2/lists/treelist-expanded.json";
 import othertreeListExpanded from  "../v2/lists/othertreelist-expanded.json";
 
@@ -15,11 +15,11 @@ export namespace MockList {
         PropertyMatchingRule.CASE_STRICT
     );
 
-    export const mockCompletedAsyncSubject = (listNodeIri: string): AsyncSubject<ListNode> => {
+    export const mockCompletedAsyncSubject = (listNodeIri: string): AsyncSubject<ListNodeV2> => {
 
-        const mock: ListNode = mockNode(listNodeIri);
+        const mock: ListNodeV2 = mockNode(listNodeIri);
 
-        const sub = new AsyncSubject<ListNode>();
+        const sub = new AsyncSubject<ListNodeV2>();
         sub.next(mock);
         sub.complete();
 
@@ -27,7 +27,7 @@ export namespace MockList {
 
     };
 
-    export const mockNode = (listNodeIri: string): ListNode => {
+    export const mockNode = (listNodeIri: string): ListNodeV2 => {
 
         const treeList = mockList("http://rdfh.ch/lists/0001/treeList");
 
@@ -47,12 +47,12 @@ export namespace MockList {
 
     };
 
-    export const mockList = (listNodeIri: string): ListNode => {
+    export const mockList = (listNodeIri: string): ListNodeV2 => {
 
         if (listNodeIri === "http://rdfh.ch/lists/0001/treeList") {
-            return jsonConvert.deserialize(treeListExpanded, ListNode) as ListNode;
+            return jsonConvert.deserialize(treeListExpanded, ListNodeV2) as ListNodeV2;
         } else if (listNodeIri === "http://rdfh.ch/lists/0001/otherTreeList") {
-            return jsonConvert.deserialize(othertreeListExpanded, ListNode) as ListNode;
+            return jsonConvert.deserialize(othertreeListExpanded, ListNodeV2) as ListNodeV2;
         } else {
             throw new Error("Mock data file not found");
         }
