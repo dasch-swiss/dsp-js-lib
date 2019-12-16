@@ -21,6 +21,12 @@ export class ListNodeInfo {
     hasRootNode?: string = undefined;
 
    /**
+     * The ID of the enclosing object.
+     */
+    @JsonProperty("id", String)
+    id: string = "";
+
+   /**
      * True if this is the root node of a list.
      */
     @JsonProperty("isRootNode", Boolean, true)
