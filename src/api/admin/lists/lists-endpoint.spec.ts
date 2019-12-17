@@ -218,14 +218,14 @@ describe("ListsEndpoint", () => {
             childNode.comments = [comment1];
 
             knoraApiConnection.admin.listsEndpoint.createChildNode(childNode).subscribe(
-                (res: ApiResponseData<ListInfoResponse>) => {
+                (res: ApiResponseData<ListNodeInfoResponse>) => {
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const listsResponse = require("../../../../test/data/api/admin/lists/get-list-info-response.json");
+            const listsResponse = require("../../../../test/data/api/admin/lists/get-list-node-info-response.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
 

@@ -92,10 +92,10 @@ export class ListsEndpoint extends Endpoint {
      * 
      * @param node The node to be created.
      */
-    createChildNode(node: CreateChildNodeRequest): Observable<ApiResponseData<ListInfoResponse> | ApiResponseError> {
+    createChildNode(node: CreateChildNodeRequest): Observable<ApiResponseData<ListNodeInfoResponse> | ApiResponseError> {
     
         return this.httpPost("/" + encodeURIComponent(node.parentNodeIri), this.jsonConvert.serializeObject(node)).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListInfoResponse, this.jsonConvert)),
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListNodeInfoResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
     
