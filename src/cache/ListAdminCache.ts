@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { ListResponse } from "..";
 import { AdminEndpoint } from "../api/admin/admin-endpoint";
+import { ListResponse } from "../models/admin/list-response";
 import { ApiResponseData } from "../models/api-response-data";
 import { GenericCache } from "./GenericCache";
 

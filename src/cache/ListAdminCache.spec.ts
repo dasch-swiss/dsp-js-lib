@@ -1,9 +1,9 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { of } from "rxjs";
-import { ListResponse } from "..";
 import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
+import { ListResponse } from "../models/admin/list-response";
 import { ApiResponseData } from "../models/api-response-data";
 import { ApiResponseError } from "../models/api-response-error";
 import { ListAdminCache } from "./ListAdminCache";
