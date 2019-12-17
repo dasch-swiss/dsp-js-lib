@@ -36,7 +36,12 @@ It communicates directly with the Knoa API, taking care of deserializing JSON re
 #### Permissions
 
 The `ProjectsEndpoint` deals with all requests related to reading permissions.
-It communicates directly with the Knoa API, taking care of deserializing JSON responses received from Knora. 
+It communicates directly with the Knoa API, taking care of deserializing JSON responses received from Knora.
+
+#### Lists
+
+The `ListsEndpoint` deals with all requests about lists that use the admin API.
+It communicates directly with the Knoa API, taking care of deserializing JSON responses received from Knora.
 
 ### Knora Api v2 Endpoints
 
