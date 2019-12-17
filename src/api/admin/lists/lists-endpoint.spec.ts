@@ -231,7 +231,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList01");
 
-            expect(request.method).toEqual("PUT");
+            expect(request.method).toEqual("POST");
 
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
