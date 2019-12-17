@@ -95,9 +95,9 @@ export class AppComponent implements OnInit {
 
   }
 
-  getUser(email: string) {
-    this.knoraApiConnection.admin.usersEndpoint.getUser('email', email).subscribe(
-        (a: ApiResponseData<UserResponse>) => console.log(a.body.user),
+  getUser(iri: string) {
+    this.userCache.getUser(iri).subscribe(
+        (a: UserResponse) => console.log(a.user),
         b => console.error(b)
     );
   }
