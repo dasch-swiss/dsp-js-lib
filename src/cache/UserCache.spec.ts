@@ -109,4 +109,19 @@ describe("UserCache", () => {
 
     });
 
+    describe("Method getUser", () => {
+
+        it("should get a user by its Iri", done => {
+            userCache.getUser("http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q").subscribe((res: UserResponse) => {
+
+                expect(res.user.id).toEqual("http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q");
+                expect(getUserSpy).toHaveBeenCalledTimes(1);
+
+                expect(userCache["cache"]["http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q"]).not.toBeUndefined();
+                done();
+            });
+        });
+
+    });
+
 });
