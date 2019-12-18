@@ -1,4 +1,3 @@
-import { ApiResponseData, StringLiteral } from "../../..";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
@@ -8,7 +7,9 @@ import { ListInfoResponse } from "../../../models/admin/list-info-response";
 import { ListNodeInfoResponse } from "../../../models/admin/list-node-info-response";
 import { ListResponse } from "../../../models/admin/list-response";
 import { ListsResponse } from "../../../models/admin/lists-response";
+import { StringLiteral } from "../../../models/admin/string-literal";
 import { UpdateListInfoRequest } from "../../../models/admin/update-list-info-request";
+import { ApiResponseData } from "../../../models/api-response-data";
 
 describe("ListsEndpoint", () => {
 
@@ -207,7 +208,6 @@ describe("ListsEndpoint", () => {
             const label1 = new StringLiteral();
             label1.language = "en";
             label1.value = "test node";
-
 
             childNode.labels = [label1];
 

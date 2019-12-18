@@ -14,6 +14,15 @@ export class UserCache extends GenericCache<UserResponse> {
         super();
     }
 
+    /**
+     * Gets a user identified by its Iri.
+     *
+     * @param iri the Iri identifying the user.
+     */
+    getUser(iri: string) {
+        return this.getItem(iri);
+    }
+
     protected requestItemFromKnora(key: string, isDependency: boolean): Observable<UserResponse[]> {
         return this.knoraApiConnection.admin.usersEndpoint.getUser("iri", key).pipe(
             map((response: ApiResponseData<UserResponse>) => {

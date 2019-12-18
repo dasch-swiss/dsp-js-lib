@@ -55,6 +55,7 @@ export { LogoutResponse } from "./models/v2/authentication/logout-response";
 export { StringLiteral } from "./models/admin/string-literal";
 
 export { UserCache } from "./cache/UserCache";
+export { ListAdminCache } from "./cache/ListAdminCache";
 
 export { ApiResponse } from "./models/api-response";
 export { ApiResponseData } from "./models/api-response-data";
