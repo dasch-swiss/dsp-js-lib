@@ -74,13 +74,9 @@ knoraApiConnection.v2.auth.login("user", "password").subscribe(
 Our library makes sure that session data (token) is stored within the KnoraApiConnection instance.
 Any subsequent call after a successful login will be performed using the session.
 
-> Remark: All API calls follow the same pattern. 
-You will always need to subscribe to a method that returns an observable and then provide (up to) two anonymous functions.
-The signature of the success function is always `ApiResponseData<TheData> => void`, the signature of the error function is always `ApiResponseError => void`.
-
 ## Test environment for Angular
 
-<https://github.com/dasch-swiss/knora-api-js-lib-test> provides a ready-to-use test environment for Angular developers.
+`./test-framework` provides a ready-to-use test environment for Angular developers. See `./test-framework/README.md` for further instructions.
 
 # Scripts for testing and deployment
 
