@@ -5,7 +5,7 @@ import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ReadResource } from "../../../models/v2/resources/read/read-resource";
-import { CountQueryResponse } from "../../../models/v2/search/count-query-response";
+import { CountQueryResponse } from "../../../models/v2/resources/search/count-query-response";
 import { SearchEndpoint } from "./search-endpoint";
 
 describe("SearchEndpoint", () => {

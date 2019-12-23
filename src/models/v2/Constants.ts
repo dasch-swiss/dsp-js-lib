@@ -1,5 +1,6 @@
 export class Constants {
 
+    // Knora API
     static KnoraApi = "http://api.knora.org";
     static KnoraApiV2 = Constants.KnoraApi + "/ontology/knora-api/v2";
     static Delimiter = "#";
@@ -105,6 +106,7 @@ export class Constants {
     static DeleteComment = Constants.KnoraApiV2 + Constants.Delimiter + "deleteComment";
     static Result = Constants.KnoraApiV2 + Constants.Delimiter + "result";
 
+    // Knora Admin
     static KnoraAdmin = "http://www.knora.org/ontology/knora-admin";
     static DefaultSharedOntologyIRI: string = Constants.KnoraAdmin + Constants.Delimiter + "DefaultSharedOntologiesProject";
     static SystemProjectIRI: string = Constants.KnoraAdmin + Constants.Delimiter + "SystemProject";
@@ -112,11 +114,13 @@ export class Constants {
     static ProjectAdminGroupIRI: string = Constants.KnoraAdmin + Constants.Delimiter + "ProjectAdmin";
     static ProjectMemberGroupIRI: string = Constants.KnoraAdmin + Constants.Delimiter + "ProjectMember";
 
+    // Salsah GUI
     static SalsahGui = "http://api.knora.org/ontology/salsah-gui/v2";
     static GuiAttribute = Constants.SalsahGui + Constants.Delimiter + "guiAttribute";
     static GuiOrder = Constants.SalsahGui + Constants.Delimiter + "guiOrder";
     static GuiElement = Constants.SalsahGui + Constants.Delimiter + "guiElement";
 
+    // OWL
     static Owl = "http://www.w3.org/2002/07/owl";
     static Class = Constants.Owl + Constants.Delimiter + "Class";
     static Restriction = Constants.Owl + Constants.Delimiter + "Restriction";
@@ -128,15 +132,18 @@ export class Constants {
     static ObjectProperty = Constants.Owl + Constants.Delimiter + "ObjectProperty";
     static AnnotationProperty = Constants.Owl + Constants.Delimiter + "AnnotationProperty";
 
+    // RDF
     static Rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns";
     static RdfProperty = Constants.Rdf + Constants.Delimiter + "Property";
 
+    // RDF-S
     static Rdfs = "http://www.w3.org/2000/01/rdf-schema";
     static SubClassOf = Constants.Rdfs + Constants.Delimiter + "subClassOf";
     static Comment = Constants.Rdfs + Constants.Delimiter + "comment";
     static Label = Constants.Rdfs + Constants.Delimiter + "label";
     static SubPropertyOf = Constants.Rdfs + Constants.Delimiter + "subPropertyOf";
 
+    // XSD
     static Xsd = "http://www.w3.org/2001/XMLSchema";
     static XsdAnyUri = Constants.Xsd + Constants.Delimiter + "anyURI";
     static XsdString = Constants.Xsd + Constants.Delimiter + "string";
@@ -145,6 +152,34 @@ export class Constants {
     static XsdInteger = Constants.Xsd + Constants.Delimiter + "integer";
     static dateTimeStamp = Constants.Xsd + Constants.Delimiter + "dateTimeStamp";
 
+    // schema.org
     static SchemaNumberOfItems = "http://schema.org/numberOfItems";
 
+    // Gravsearch
+     static EqualsComparisonOperator: string = "=";
+     static EqualsComparisonLabel: string = "is equal to";
+
+     static NotEqualsComparisonOperator: string = "!=";
+     static NotEqualsComparisonLabel: string = "is not equal to";
+
+     static GreaterThanComparisonOperator: string = ">";
+     static GreaterThanComparisonLabel: string = "is greater than";
+
+     static GreaterThanEqualsComparisonOperator: string = ">=";
+     static GreaterThanEqualsComparisonLabel: string = "is greater than equals to";
+
+     static LessThanComparisonOperator: string = "<";
+     static LessThanComparisonLabel: string = "is less than";
+
+     static LessThanEqualsComparisonOperator: string = "<=";
+     static LessThanQualsComparisonLabel: string = "is less than equals to";
+
+     static ExistsComparisonOperator: string = "E";
+     static ExistsComparisonLabel: string = "exists";
+
+     static LikeComparisonOperator: string = "regex";
+     static LikeComparisonLabel: string = "is like";
+
+     static MatchComparisonOperator: string = "contains";
+     static MatchComparisonLabel: string = "matches";
 }

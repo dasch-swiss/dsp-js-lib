@@ -71,7 +71,7 @@ export { ResourcePropertyDefinition } from "./models/v2/ontologies/resource-prop
 export { ResourceClassDefinition } from "./models/v2/ontologies/resource-class-definition";
 export { StandoffClassDefinition } from "./models/v2/ontologies/standoff-class-definition";
 export { ReadResource } from "./models/v2/resources/read/read-resource";
-export { CountQueryResponse } from "./models/v2/search/count-query-response";
+export { CountQueryResponse } from "./models/v2/resources/search/count-query-response";
 export { UpdateResource } from "./models/v2/resources/update/update-resource";
 export { CreateResource } from "./models/v2/resources/create/create-resource";
 export { DeleteValue } from "./models/v2/resources/values/delete/delete-value";

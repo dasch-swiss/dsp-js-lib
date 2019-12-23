@@ -1,5 +1,5 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-import { Constants } from "../Constants";
+import { Constants } from "../../Constants";
 
 @JsonObject("CountQueryResponse")
 export class CountQueryResponse {
