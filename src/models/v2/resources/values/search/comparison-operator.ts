@@ -8,7 +8,7 @@ export abstract class ComparisonOperator {
 
 }
 
-export class Equals extends ComparisonOperator {
+export class EqualsOperator extends ComparisonOperator {
 
     type = Constants.EqualsComparisonOperator;
 
@@ -16,7 +16,7 @@ export class Equals extends ComparisonOperator {
 
 }
 
-export class NotEquals extends ComparisonOperator {
+export class NotEqualsOperator extends ComparisonOperator {
 
     type = Constants.NotEqualsComparisonOperator;
 
@@ -24,7 +24,7 @@ export class NotEquals extends ComparisonOperator {
 
 }
 
-export class GreaterThanEquals extends ComparisonOperator {
+export class GreaterThanEqualsOperator extends ComparisonOperator {
 
     type = Constants.GreaterThanEqualsComparisonOperator;
 
@@ -32,7 +32,7 @@ export class GreaterThanEquals extends ComparisonOperator {
 
 }
 
-export class GreaterThan extends ComparisonOperator {
+export class GreaterThanOperator extends ComparisonOperator {
 
     type = Constants.GreaterThanComparisonOperator;
 
@@ -40,7 +40,7 @@ export class GreaterThan extends ComparisonOperator {
 
 }
 
-export class LessThan extends ComparisonOperator {
+export class LessThanOperator extends ComparisonOperator {
 
     type = Constants.LessThanComparisonOperator;
 
@@ -48,7 +48,7 @@ export class LessThan extends ComparisonOperator {
 
 }
 
-export class LessThanEquals implements ComparisonOperator {
+export class LessThanEqualsOperator implements ComparisonOperator {
 
     type = Constants.LessThanEqualsComparisonOperator;
 
@@ -57,7 +57,7 @@ export class LessThanEquals implements ComparisonOperator {
 }
 
 
-export class Exists implements ComparisonOperator {
+export class ExistsOperator implements ComparisonOperator {
 
     type = Constants.ExistsComparisonOperator;
 
@@ -65,7 +65,7 @@ export class Exists implements ComparisonOperator {
 
 }
 
-export class Like implements ComparisonOperator {
+export class LikeOperator implements ComparisonOperator {
 
     type = Constants.LikeComparisonOperator;
 
@@ -73,7 +73,7 @@ export class Like implements ComparisonOperator {
 
 }
 
-export class Match implements ComparisonOperator {
+export class MatchOperator implements ComparisonOperator {
 
     type = Constants.MatchComparisonOperator;
 

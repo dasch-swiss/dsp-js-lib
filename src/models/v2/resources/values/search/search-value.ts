@@ -1,20 +1,21 @@
 import { PropertyDefinition } from "../../../ontologies/property-definition";
 import { ComparisonOperator } from "./comparison-operator";
+import { Expression } from "./expression";
 
 export abstract class ValueLiteral {
 
-    value: any;
+    abstract value: any;
 
-    abstract toSparql(): string;
+    abstract getLiteral(): string;
 
 }
 
-export abstract class SearchValue {
+export abstract class SearchValue extends Expression {
 
     property: PropertyDefinition;
 
-    comparisonOperator: ComparisonOperator;
+    abstract comparisonOperator: ComparisonOperator;
 
-    valueLiteral?: ValueLiteral;
+    abstract valueLiteral?: ValueLiteral;
 
 }
