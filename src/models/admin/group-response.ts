@@ -8,7 +8,7 @@ import { ReadGroup } from "./read-group";
 @JsonObject("GroupResponse")
 export class GroupResponse {
 
-    /**
+   /**
      * A single group.
      */
     @JsonProperty("group", ReadGroup)

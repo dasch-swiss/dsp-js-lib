@@ -1,12 +1,4 @@
 import { of } from "rxjs";
-import {
-    CreateBooleanValue,
-    CreateColorValue,
-    CreateDateValue,
-    CreateDecimalValue,
-    CreateGeomValue, CreateIntervalValue,
-    CreateIntValue, CreateLinkValue, CreateListValue, CreateTextValueAsString, CreateTextValueAsXml, CreateUriValue
-} from "../../..";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
@@ -18,7 +10,21 @@ import { DeleteResourceResponse } from "../../../models/v2/resources/delete/dele
 import { ReadResource } from "../../../models/v2/resources/read/read-resource";
 import { UpdateResourceMetadata } from "../../../models/v2/resources/update/update-resource-metadata";
 import { UpdateResourceMetadataResponse } from "../../../models/v2/resources/update/update-resource-metadata-response";
+import { CreateBooleanValue } from "../../../models/v2/resources/values/create/create-boolean-value";
+import { CreateColorValue } from "../../../models/v2/resources/values/create/create-color-value";
+import { CreateDateValue } from "../../../models/v2/resources/values/create/create-date-value";
+import { CreateDecimalValue } from "../../../models/v2/resources/values/create/create-decimal-value";
+import { CreateGeomValue } from "../../../models/v2/resources/values/create/create-geom-value";
 import { CreateGeonameValue } from "../../../models/v2/resources/values/create/create-geoname-value";
+import { CreateIntValue } from "../../../models/v2/resources/values/create/create-int-value";
+import { CreateIntervalValue } from "../../../models/v2/resources/values/create/create-interval-value";
+import { CreateLinkValue } from "../../../models/v2/resources/values/create/create-link-value";
+import { CreateListValue } from "../../../models/v2/resources/values/create/create-list-value";
+import {
+    CreateTextValueAsString,
+    CreateTextValueAsXml
+} from "../../../models/v2/resources/values/create/create-text-value";
+import { CreateUriValue } from "../../../models/v2/resources/values/create/create-uri-value";
 
 describe("ResourcesEndpoint", () => {
 

@@ -1,7 +1,7 @@
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
-import { ListNode } from "../../../models/v2/lists/list-node";
+import { ListNodeV2 } from "../../../models/v2/lists/list-node-v2";
 
 describe("ListsEndpoint", () => {
 
@@ -19,7 +19,7 @@ describe("ListsEndpoint", () => {
     it("should return a list", done => {
 
         knoraApiConnection.v2.list.getList("http://rdfh.ch/lists/0001/treeList").subscribe(
-            (list: ListNode) => {
+            (list: ListNodeV2) => {
 
                 expect(list.id).toEqual("http://rdfh.ch/lists/0001/treeList");
                 expect(list.children.length).toEqual(3);
@@ -43,7 +43,7 @@ describe("ListsEndpoint", () => {
     it("should return a list node", done => {
 
         knoraApiConnection.v2.list.getNode("http://rdfh.ch/lists/0001/treeList01").subscribe(
-            (list: ListNode) => {
+            (list: ListNodeV2) => {
 
                 expect(list.id).toEqual("http://rdfh.ch/lists/0001/treeList01");
                 expect(list.children.length).toEqual(0);
