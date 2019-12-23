@@ -11,7 +11,7 @@ import {
   DeleteValueResponse,
   KnoraApiConfig,
   KnoraApiConnection,
-  ListNode,
+  ListNodeV2,
   LoginResponse,
   ReadOntology,
   ReadResource,
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
 
   resource: ReadResource;
 
-  listNode: ListNode;
+  listNode: ListNodeV2;
 
   searchResult: ReadResource[];
   size: number;
@@ -95,9 +95,9 @@ export class AppComponent implements OnInit {
 
   }
 
-  getUser(email: string) {
-    this.knoraApiConnection.admin.usersEndpoint.getUser('email', email).subscribe(
-        (a: ApiResponseData<UserResponse>) => console.log(a.body.user),
+  getUser(iri: string) {
+    this.userCache.getUser(iri).subscribe(
+        (a: UserResponse) => console.log(a.user),
         b => console.error(b)
     );
   }
@@ -201,7 +201,7 @@ export class AppComponent implements OnInit {
   getListNode(listNodeIri: string) {
 
     this.knoraApiConnection.v2.listNodeCache.getNode(listNodeIri).subscribe(
-        (res: ListNode) => {
+        (res: ListNodeV2) => {
           console.log(res);
 
           this.listNode = res;

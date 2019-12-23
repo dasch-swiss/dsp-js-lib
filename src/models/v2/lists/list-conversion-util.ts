@@ -1,4 +1,4 @@
-import { ListNode } from "./list-node";
+import { ListNodeV2 } from "./list-node-v2";
 
 export namespace ListConversionUtil {
 
@@ -8,13 +8,13 @@ export namespace ListConversionUtil {
      *
      * @param node the node to start with.
      */
-    export const collectNodes = (node: ListNode) => {
+    export const collectNodes = (node: ListNodeV2) => {
 
         // collection of nodes to add to
-        let subnodes: ListNode[] = [];
+        let subnodes: ListNodeV2[] = [];
 
         node.children.forEach(
-            (child: ListNode) => {
+            (child: ListNodeV2) => {
                 subnodes = subnodes.concat(collectNodes(child));
             }
         );

@@ -1,24 +1,17 @@
 import { of } from "rxjs";
-import {
-    CreateStillImageFileValue,
-    ReadBooleanValue,
-    ReadColorValue, ReadDateValue,
-    ReadDecimalValue, ReadGeomValue,
-    ReadIntervalValue,
-    ReadIntValue, ReadLinkValue, ReadListValue,
-    ReadResource, ReadStillImageFileValue, ReadTextValueAsString, ReadTextValueAsXml, ReadUriValue
-} from "../../..";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { Constants } from "../../../models/v2/Constants";
+import { ReadResource } from "../../../models/v2/resources/read/read-resource";
 import { UpdateResource } from "../../../models/v2/resources/update/update-resource";
 import { CreateBooleanValue } from "../../../models/v2/resources/values/create/create-boolean-value";
 import { CreateColorValue } from "../../../models/v2/resources/values/create/create-color-value";
 import { CreateDateValue } from "../../../models/v2/resources/values/create/create-date-value";
 import { CreateDecimalValue } from "../../../models/v2/resources/values/create/create-decimal-value";
+import { CreateStillImageFileValue } from "../../../models/v2/resources/values/create/create-file-value";
 import { CreateGeomValue } from "../../../models/v2/resources/values/create/create-geom-value";
 import { CreateGeonameValue } from "../../../models/v2/resources/values/create/create-geoname-value";
 import { CreateIntValue } from "../../../models/v2/resources/values/create/create-int-value";
@@ -33,8 +26,18 @@ import { CreateUriValue } from "../../../models/v2/resources/values/create/creat
 import { CreateValue } from "../../../models/v2/resources/values/create/create-value";
 import { DeleteValue } from "../../../models/v2/resources/values/delete/delete-value";
 import { DeleteValueResponse } from "../../../models/v2/resources/values/delete/delete-value-response";
-import { KnoraDate } from "../../../models/v2/resources/values/read/read-date-value";
+import { ReadBooleanValue } from "../../../models/v2/resources/values/read/read-boolean-value";
+import { ReadColorValue } from "../../../models/v2/resources/values/read/read-color-value";
+import { KnoraDate, ReadDateValue } from "../../../models/v2/resources/values/read/read-date-value";
+import { ReadDecimalValue } from "../../../models/v2/resources/values/read/read-decimal-value";
+import { ReadStillImageFileValue } from "../../../models/v2/resources/values/read/read-file-value";
+import { ReadGeomValue } from "../../../models/v2/resources/values/read/read-geom-value";
 import { ReadGeonameValue } from "../../../models/v2/resources/values/read/read-geoname-value";
+import { ReadIntValue } from "../../../models/v2/resources/values/read/read-int-value";
+import { ReadIntervalValue } from "../../../models/v2/resources/values/read/read-interval-value";
+import { ReadLinkValue } from "../../../models/v2/resources/values/read/read-link-value";
+import { ReadListValue } from "../../../models/v2/resources/values/read/read-list-value";
+import { ReadTextValueAsString, ReadTextValueAsXml } from "../../../models/v2/resources/values/read/read-text-value";
 import { UpdateBooleanValue } from "../../../models/v2/resources/values/update/update-boolean-value";
 import { UpdateColorValue } from "../../../models/v2/resources/values/update/update-color-value";
 import { UpdateDateValue } from "../../../models/v2/resources/values/update/update-date-value";
@@ -54,7 +57,6 @@ import { UpdateUriValue } from "../../../models/v2/resources/values/update/updat
 import { UpdateValue } from "../../../models/v2/resources/values/update/update-value";
 import { UpdateValuePermissions } from "../../../models/v2/resources/values/update/update-value-permissions";
 import { WriteValueResponse } from "../../../models/v2/resources/values/write-value-response";
-import instantiate = WebAssembly.instantiate;
 
 const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, undefined, true);
 let knoraApiConnection: KnoraApiConnection;

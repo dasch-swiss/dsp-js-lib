@@ -1,7 +1,7 @@
 import { JsonConvert } from "json2typescript";
 import { forkJoin, Observable, of } from "rxjs";
 import { map, mergeMap } from "rxjs/operators";
-import { ListNodeCache } from "../../../cache/ListNodeCache";
+import { ListNodeV2Cache } from "../../../cache/ListNodeV2Cache";
 import { IResourceClassAndPropertyDefinitions, OntologyCache } from "../../../cache/OntologyCache";
 import { Constants } from "../Constants";
 import { ResourcePropertyDefinition } from "../ontologies/resource-property-definition";
@@ -41,7 +41,7 @@ export namespace ResourcesConversionUtil {
      * @param listNodeCache instance of ListNodeCache to be used.
      * @param jsonConvert instance of JsonConvert to be used.
      */
-    export const createReadResourceSequence = (resourcesJsonld: object, ontologyCache: OntologyCache, listNodeCache: ListNodeCache, jsonConvert: JsonConvert): Observable<ReadResource[]> => {
+    export const createReadResourceSequence = (resourcesJsonld: object, ontologyCache: OntologyCache, listNodeCache: ListNodeV2Cache, jsonConvert: JsonConvert): Observable<ReadResource[]> => {
 
         if (resourcesJsonld.hasOwnProperty("@graph")) {
             // sequence of resources
@@ -65,7 +65,7 @@ export namespace ResourcesConversionUtil {
      * @param listNodeCache instance of ListNodeCache to be used.
      * @param jsonConvert instance of JsonConvert to be used.
      */
-    const createReadResource = (resourceJsonld: { [index: string]: string | object[] }, ontologyCache: OntologyCache, listNodeCache: ListNodeCache, jsonConvert: JsonConvert): Observable<ReadResource> => {
+    const createReadResource = (resourceJsonld: { [index: string]: string | object[] }, ontologyCache: OntologyCache, listNodeCache: ListNodeV2Cache, jsonConvert: JsonConvert): Observable<ReadResource> => {
 
         if (Array.isArray(resourceJsonld)) throw new Error("resource is expected to be a single object");
 
@@ -192,7 +192,7 @@ export namespace ResourcesConversionUtil {
      * @param listNodeCache instance of ListNodeCache to be used.
      * @param jsonConvert jsonConvert the converter to be used.
      */
-    const handleLinkValue = (valueJsonld: any, ontologyCache: OntologyCache, listNodeCache: ListNodeCache, jsonConvert: JsonConvert): Observable<ReadLinkValue> => {
+    const handleLinkValue = (valueJsonld: any, ontologyCache: OntologyCache, listNodeCache: ListNodeV2Cache, jsonConvert: JsonConvert): Observable<ReadLinkValue> => {
 
         const linkValue = jsonConvert.deserialize(valueJsonld, ReadLinkValue) as ReadLinkValue;
 
@@ -245,7 +245,7 @@ export namespace ResourcesConversionUtil {
      * @param listNodeCache instance of ListNodeCache to be used.
      * @param jsonConvert instance of JsonConvert to be used.
      */
-    const createValueValue = (propIri: string, valueJsonld: any, entitiyDefs: IResourceClassAndPropertyDefinitions, ontologyCache: OntologyCache, listNodeCache: ListNodeCache, jsonConvert: JsonConvert): Observable<ReadValue> => {
+    const createValueValue = (propIri: string, valueJsonld: any, entitiyDefs: IResourceClassAndPropertyDefinitions, ontologyCache: OntologyCache, listNodeCache: ListNodeV2Cache, jsonConvert: JsonConvert): Observable<ReadValue> => {
 
             if (Array.isArray(valueJsonld)) throw new Error("value is expected to be a single object");
 

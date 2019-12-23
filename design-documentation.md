@@ -36,7 +36,12 @@ It communicates directly with the Knoa API, taking care of deserializing JSON re
 #### Permissions
 
 The `ProjectsEndpoint` deals with all requests related to reading permissions.
-It communicates directly with the Knoa API, taking care of deserializing JSON responses received from Knora. 
+It communicates directly with the Knoa API, taking care of deserializing JSON responses received from Knora.
+
+#### Lists
+
+The `ListsEndpoint` deals with all requests about lists that use the admin API.
+It communicates directly with the Knoa API, taking care of deserializing JSON responses received from Knora.
 
 ### Knora Api v2 Endpoints
 
@@ -112,10 +117,24 @@ Caching is necessary to avoid making redundant calls to the Knora API and proces
 - `getKeyOfItem(item: T): string`: Given the element, get the key that identifies it. For example given a `ReadOntology` returns its IRI.
 - `getDependenciesOfItem(item: T): string[]`: Given an element, gets its dependencies. For example given a `ReadOntology` returns the IRIs of ontologies it directly depends on.
 
-### Ontology Cache
+### Admin
+
+#### Admin List Cache
+
+`ListAdminCache` caches admin lists, retrieving a list from the admin API if necessary.
+
+#### User Cache 
+
+`UserCache` caches users by their Iri, retrieving a user from the admin API if necessary.
+
+### V2
+
+#### Ontology Cache
 
 `OntologyCache` is an implementation of `GenericCache` for `ReadOntology`. `OntologyCache` does not only handle the caching of single ontologies but also has a method that combines information from different ontologies, e.g., a resource class definition that has cardinalities for properties form other ontologies.
 
-### List Node Cache
+#### List Node v2 Cache
 
-`ListNodeCache` caches list nodes. As an optimization, the entire list is regarded as a dependency of any given list node and requested. Like this, all list nodes can be fetched with one request and written to the cache.
+`ListNodeV2Cache` caches v2 list nodes. As an optimization, the entire list is regarded as a dependency of any given list node and requested. Like this, all list nodes can be fetched with one request and written to the cache.
+
+````

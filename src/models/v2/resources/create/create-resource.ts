@@ -1,5 +1,5 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-import { CreateValue } from "../../../..";
+import { CreateValue } from "../../../../models/v2/resources/values/create/create-value";
 import { Constants } from "../../Constants";
 import { DateTimeStamp } from "../../custom-converters/date-time-stamp-converter";
 import { IdConverter } from "../../custom-converters/id-converter";
