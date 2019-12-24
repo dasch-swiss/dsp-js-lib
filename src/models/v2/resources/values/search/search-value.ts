@@ -1,4 +1,5 @@
-import { PropertyDefinition } from "../../../ontologies/property-definition";
+import { ResourcePropertyDefinition } from "../../../../..";
+import { SearchResource } from "../../search/search-resource";
 import { ComparisonOperator } from "./comparison-operator";
 import { Expression } from "./expression";
 
@@ -14,10 +15,10 @@ export abstract class ValueLiteral {
 
 export abstract class SearchValue extends Expression {
 
-    abstract property: PropertyDefinition;
+    abstract property: ResourcePropertyDefinition;
 
     abstract comparisonOperator: ComparisonOperator;
 
-    abstract valueLiteral?: ValueLiteral;
+    abstract value?: ValueLiteral | SearchResource;
 
 }

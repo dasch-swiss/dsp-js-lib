@@ -1,9 +1,12 @@
+import { ResourcePropertyDefinition } from "../../../../..";
 import { Constants } from "../../../Constants";
-import { PropertyDefinition } from "../../../ontologies/property-definition";
 import {
-    EqualsOperator, ExistsOperator,
-    GreaterThanEqualsOperator, GreaterThanOperator,
-    LessThanEqualsOperator, LessThanOperator,
+    EqualsOperator,
+    ExistsOperator,
+    GreaterThanEqualsOperator,
+    GreaterThanOperator,
+    LessThanEqualsOperator,
+    LessThanOperator,
     NotEqualsOperator
 } from "./comparison-operator";
 import { SearchValue, ValueLiteral } from "./search-value";
@@ -23,7 +26,7 @@ export class IntegerValueLiteral extends ValueLiteral {
 
 export class SearchIntegerValue extends SearchValue {
 
-    constructor(public property: PropertyDefinition, public valueLiteral: IntegerValueLiteral, public comparisonOperator: EqualsOperator | NotEqualsOperator
+    constructor(public property: ResourcePropertyDefinition, public value: IntegerValueLiteral, public comparisonOperator: EqualsOperator | NotEqualsOperator
         | GreaterThanEqualsOperator | LessThanEqualsOperator
         | GreaterThanOperator | LessThanOperator
         | ExistsOperator) {

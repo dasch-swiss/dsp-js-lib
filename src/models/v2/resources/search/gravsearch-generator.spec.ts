@@ -1,4 +1,4 @@
-import { IResourceClassAndPropertyDefinitions } from "../../../..";
+import { IResourceClassAndPropertyDefinitions, ResourcePropertyDefinition } from "../../../..";
 import { MockOntology } from "../../../../../test/data/api/v2/mockOntology";
 import { PropertyDefinition } from "../../ontologies/property-definition";
 import { EqualsOperator } from "../values/search/comparison-operator";
@@ -45,7 +45,7 @@ CONSTRUCT {
 
         const integerValueLiteral = new IntegerValueLiteral(5);
 
-        const searchIntegerValue = new SearchIntegerValue(hasIntegerProp, integerValueLiteral, new EqualsOperator());
+        const searchIntegerValue = new SearchIntegerValue(hasIntegerProp as ResourcePropertyDefinition, integerValueLiteral, new EqualsOperator());
 
         const searchResource = new SearchResource(anythingThing, [searchIntegerValue]);
 

@@ -1,6 +1,6 @@
 import { Constants } from "../../Constants";
 import { AndExpression, Expression, OrExpression } from "../values/search/expression";
-import { SearchValue } from "../values/search/search-value";
+import { SearchValue, ValueLiteral } from "../values/search/search-value";
 import { SearchResource } from "./search-resource";
 
 export namespace GravsearchGenerator {
@@ -33,24 +33,36 @@ export namespace GravsearchGenerator {
 
                 const propValue = `?propVal${index}`;
 
-                // TODO: make sure it is a non-linking property
-
                 if (prop instanceof SearchValue) {
                     // add statement from resource to value object
                     statements.push(`?mainRes <${prop.property.id}> ${propValue} .`);
 
-                    // add statement from value object to value literal variable
+                    if (!prop.property.isLinkProperty) {
+                        // not a link property
 
-                    const objectType: string  = prop.property.objectType as string;
-                    const propValueLiteral = `${propValue}Literal`;
+                        // add statement from value object to value literal variable
+                        const objectType: string = prop.property.objectType as string;
+                        const propValueLiteral = `${propValue}Literal`;
 
-                    // @ts-ignore
-                    statements.push(`${propValue} <${complexTypeToProp[objectType]}> ${propValueLiteral}`);
+                        // @ts-ignore
+                        statements.push(`${propValue} <${complexTypeToProp[objectType]}> ${propValueLiteral}`);
 
-                    // add to FILTER
-                    // TODO: check that comparison operator is not EXISTS
-                    const comparisonOperator = prop.comparisonOperator.type;
-                    filters.push(`FILTER(${propValueLiteral} ${comparisonOperator} "${prop.valueLiteral!.getValue()}"^^<${prop.valueLiteral!.xsdType}>)`);
+                        // add to FILTER
+                        // TODO: check that comparison operator is not EXISTS
+                        const comparisonOperator = prop.comparisonOperator.type;
+
+                        let valueLiteral: ValueLiteral;
+
+                        if (prop.value !== undefined && prop.value instanceof ValueLiteral) {
+                            valueLiteral = prop.value;
+                        } else {
+                            throw new Error("Value is expected to be a literal.");
+                        }
+
+                        filters.push(`FILTER(${propValueLiteral} ${comparisonOperator} "${valueLiteral.getValue()}"^^<${prop.value!.xsdType}>)`);
+                    } else {
+                        // link property
+                    }
                 } else if (prop instanceof AndExpression) {
                     // handle logical AND
 
