@@ -27,11 +27,13 @@ export namespace GravsearchGenerator {
         const statements: string[] = [];
         const filters: string[] = [];
 
-        // create statements for properties (restrictions)
+        // create statements for non-linking properties (restrictions)
         searchResource.properties.forEach(
             (prop: Expression, index: number) => {
 
                 const propValue = `?propVal${index}`;
+
+                // TODO: make sure it is a non-linking property
 
                 if (prop instanceof SearchValue) {
                     // add statement from resource to value object
