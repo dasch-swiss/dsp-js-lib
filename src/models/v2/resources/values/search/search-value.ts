@@ -6,13 +6,15 @@ export abstract class ValueLiteral {
 
     abstract value: any;
 
-    abstract getLiteral(): string;
+    abstract xsdType: string;
+
+    abstract getValue(): string;
 
 }
 
 export abstract class SearchValue extends Expression {
 
-    property: PropertyDefinition;
+    abstract property: PropertyDefinition;
 
     abstract comparisonOperator: ComparisonOperator;
 

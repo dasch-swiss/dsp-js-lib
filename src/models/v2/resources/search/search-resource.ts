@@ -2,8 +2,6 @@ import { Expression } from "../values/search/expression";
 
 export class SearchResource {
 
-    type?: string;
-
-    valueRestriction: Expression;
+    constructor(public type?: string, public properties: Expression[] = []) {}
 
 }
