@@ -2,6 +2,7 @@ import { IResourceClassAndPropertyDefinitions, ResourcePropertyDefinition } from
 import { MockOntology } from "../../../../../test/data/api/v2/mockOntology";
 import { PropertyDefinition } from "../../ontologies/property-definition";
 import { EqualsOperator } from "../values/search/comparison-operator";
+import { GroupPattern } from "../values/search/group-pattern";
 import { IntegerValueLiteral, SearchIntegerValue } from "../values/search/search-integer-value";
 import { GravsearchGenerator } from "./gravsearch-generator";
 import { SearchResource } from "./search-resource";
@@ -47,11 +48,11 @@ CONSTRUCT {
 
         const searchIntegerValue = new SearchIntegerValue(hasIntegerProp as ResourcePropertyDefinition, integerValueLiteral, new EqualsOperator());
 
-        const searchResource = new SearchResource(anythingThing, [searchIntegerValue]);
+        const searchResource = new SearchResource(anythingThing, [new GroupPattern([searchIntegerValue])]);
 
         const gravsearchQuery = GravsearchGenerator.generateGravsearchQuery(searchResource);
 
-        // console.log(gravsearchQuery);
+        console.log(gravsearchQuery);
 
     });
 

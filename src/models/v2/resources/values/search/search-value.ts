@@ -1,7 +1,7 @@
 import { ResourcePropertyDefinition } from "../../../../..";
 import { SearchResource } from "../../search/search-resource";
 import { ComparisonOperator } from "./comparison-operator";
-import { Expression } from "./expression";
+import { FilterExpression } from "./filter-expression";
 
 export abstract class ValueLiteral {
 
@@ -13,7 +13,7 @@ export abstract class ValueLiteral {
 
 }
 
-export abstract class SearchValue extends Expression {
+export abstract class SearchValue extends FilterExpression {
 
     abstract property: ResourcePropertyDefinition;
 

@@ -1,5 +1,6 @@
 import { Constants } from "../../Constants";
-import { AndExpression, Expression, OrExpression } from "../values/search/expression";
+import { FilterAndExpression, FilterExpression, FilterOrExpression } from "../values/search/filter-expression";
+import { GroupPattern } from "../values/search/group-pattern";
 import { SearchValue, ValueLiteral } from "../values/search/search-value";
 import { SearchResource } from "./search-resource";
 
@@ -29,7 +30,7 @@ export namespace GravsearchGenerator {
 
         // create statements for non-linking properties (restrictions)
         searchResource.properties.forEach(
-            (prop: Expression, index: number) => {
+            (prop: GroupPattern, index: number) => {
 
                 const propValue = `?propVal${index}`;
 
@@ -63,10 +64,10 @@ export namespace GravsearchGenerator {
                     } else {
                         // link property
                     }
-                } else if (prop instanceof AndExpression) {
+                } else if (prop instanceof FilterAndExpression) {
                     // handle logical AND
 
-                } else if (prop instanceof OrExpression) {
+                } else if (prop instanceof FilterOrExpression) {
                     // handle logical OR
 
                 } else {
