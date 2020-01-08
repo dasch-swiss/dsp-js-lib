@@ -26,7 +26,8 @@ import {
     UserCache,
     UserResponse,
     UsersResponse,
-    WriteValueResponse
+    WriteValueResponse,
+    MockResource
 } from "@knora/api";
 
 @Component({
@@ -60,7 +61,11 @@ export class AppComponent implements OnInit {
     this.knoraApiConnection = new KnoraApiConnection(config);
     // console.log(this.knoraApiConnection);
     this.userCache = new UserCache(this.knoraApiConnection);
-    
+
+    const mockThing = MockResource.getTestthing()
+
+    console.log(mockThing[0].label)
+
   }
 
   login() {
