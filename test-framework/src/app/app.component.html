@@ -3,65 +3,69 @@
     <h1>Welcome to knora-api-js-lib-test!</h1>
 
     <section id="login">
-      <h3>Login/Logout</h3>
-      <button class="login" (click)="login()">Login</button><br /><br />
-      <button class="logout" (click)="logout()">Logout</button><br /><br />
-      <div>Status: <span class="status">{{loginStatus}}</span></div>
+        <h3>Login/Logout</h3>
+        <button class="login" (click)="login()">Login</button><br /><br />
+        <button class="logout" (click)="logout()">Logout</button><br /><br />
+        <div>Status: <span class="status">{{loginStatus}}</span></div>
     </section>
 
     <section>
-      <h3>Admin</h3>
-      <button (click)="getUsers()">All users</button> <br /><br />
-      <button (click)="getUser('root@example.com')">Get root user</button> <br /><br />
+        <h3>Admin</h3>
+        <button (click)="getUsers()">All users</button> <br /><br />
+        <button (click)="getUser('http://rdfh.ch/users/root')">Get root user</button> <br /><br />
     </section>
 
     <section id="ontology">
-      <h3>Ontology Cache</h3>
-      <button class="knora-api" (click)="getOntology('http://api.knora.org/ontology/knora-api/v2')">Get system ontology</button> <br /><br />
-      <button class="anything" (click)="getOntology('http://0.0.0.0:3333/ontology/0001/anything/v2')">Get anything ontology</button> <br /><br />
-      <button class="something" (click)="getOntology('http://0.0.0.0:3333/ontology/0001/something/v2')">Get something ontology</button> <br /><br />
+        <h3>Ontology Cache</h3>
+        <button class="knora-api" (click)="getOntology('http://api.knora.org/ontology/knora-api/v2')">Get system ontology</button> <br /><br />
+        <button class="anything" (click)="getOntology('http://0.0.0.0:3333/ontology/0001/anything/v2')">Get anything ontology</button> <br /><br />
+        <button class="something" (click)="getOntology('http://0.0.0.0:3333/ontology/0001/something/v2')">Get something ontology</button> <br /><br />
 
-      <button (click)="getResourceClass('http://0.0.0.0:3333/ontology/0001/anything/v2#Thing')">Get anything Thing Def</button> <br /><br />
-      <div>
-        Ontology Information:
-        <div>Number of ontologies: <span class="ontology">{{ontologies?.size}}</span></div>
-      </div>
+        <button (click)="getResourceClass('http://0.0.0.0:3333/ontology/0001/anything/v2#Thing')">Get anything Thing Def</button> <br /><br />
+        <div>
+            Ontology Information:
+            <div>Number of ontologies: <span class="ontology">{{ontologies?.size}}</span></div>
+        </div>
     </section>
 
     <section id="resource">
-      <h3>Resource</h3>
-      <button (click)="getResource('http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw')">Get anything testding</button> <br /><br />
-      <div>The resource's label: <span class="label">{{resource?.label}}</span> </div> <br/>
+        <h3>Resource</h3>
+        <button class="read" (click)="getResource('http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw')">Get testding</button> <br /><br />
+        <button class="create" (click)="createResource()">Create testding</button> <br /><br />
+        <div>The resource's label: <span class="label">{{resource?.label}}</span> </div> <br/>
+        <button class="update" (click)="updateResourceMetadata()">Update metadata</button> <br /><br />
+        <div>Update status: <span class="status">{{resourceStatus}}</span> </div> <br/>
+        <button class="delete" (click)="deleteResource()">Delete resource</button> <br /><br />
     </section>
 
     <section id="listnode">
-      <h3>ListNode</h3>
-      <button (click)="getListNode('http://rdfh.ch/lists/0001/treeList01')">Get anything list node</button> <br /><br />
-      <div>The list node's label: <span class="label">{{listNode?.label}}</span> </div> <br/>
+        <h3>ListNode</h3>
+        <button (click)="getListNode('http://rdfh.ch/lists/0001/treeList01')">Get anything list node</button> <br /><br />
+        <div>The list node's label: <span class="label">{{listNode?.label}}</span> </div> <br/>
     </section>
 
     <section id="search">
-      <h3>Search</h3>
-      <button class="fulltext" (click)="fulltextSearch('thing')">Fulltext search for a thing</button> <br /><br />
-      <button class="fulltextcount" (click)="fulltextSearchCountQuery('thing')">S. for a thing count query</button> <br /><br />
+        <h3>Search</h3>
+        <button class="fulltext" (click)="fulltextSearch('thing')">Fulltext search for a thing</button> <br /><br />
+        <button class="fulltextcount" (click)="fulltextSearchCountQuery('thing')">S. for a thing count query</button> <br /><br />
 
-      <button class="labelsearch" (click)="labelSearch('thing')">Label search for a thing</button> <br /><br />
+        <button class="labelsearch" (click)="labelSearch('thing')">Label search for a thing</button> <br /><br />
 
-      <button class="extended" (click)="extendedSearch()">Search for things</button> <br /><br />
-      <button class="extendedcount" (click)="extendedSearchCountQuery()">Search for things count</button> <br /><br />
+        <button class="extended" (click)="extendedSearch()">Search for things</button> <br /><br />
+        <button class="extendedcount" (click)="extendedSearchCountQuery()">Search for things count</button> <br /><br />
 
-      <div>Search result: <span class="result">{{searchResult}}</span></div>
-      <div>Search result size: <span class="size">{{size}}</span></div>
+        <div>Search result: <span class="result">{{searchResult}}</span></div>
+        <div>Search result size: <span class="size">{{size}}</span></div>
 
     </section>
 
     <section id="values">
-      <h3>Values</h3>
-      <button class="read" (click)="getValue('http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw', 'dJ1ES8QTQNepFKF5-EAqdg')">Read a value</button> <br /><br />
-      <button class="update" (click)="updateValue(generateUpdateIntValue(2))">Update an int value</button> <br /><br />
-      <button class="create" (click)="createValue(generateCreateIntValue(5))">Create an int value</button> <br /><br />
-      <button class="delete" (click)="deleteValue()">Delete a value</button>
-      <div>Status: <span class="status">{{valueStatus}}</span></div>
+        <h3>Values</h3>
+        <button class="read" (click)="getValue('http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw', 'dJ1ES8QTQNepFKF5-EAqdg')">Read a value</button> <br /><br />
+        <button class="update" (click)="updateValue(generateUpdateIntValue(2))">Update an int value</button> <br /><br />
+        <button class="create" (click)="createValue(generateCreateIntValue(5))">Create an int value</button> <br /><br />
+        <button class="delete" (click)="deleteValue()">Delete a value</button>
+        <div>Status: <span class="status">{{valueStatus}}</span></div>
     </section>
 
 </div>

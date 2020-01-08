@@ -7,6 +7,7 @@ import { Endpoint } from "../../endpoint";
 
 import { AdministrativePermissionResponse } from "../../../models/admin/administrative-permission-response";
 
+
 /**
  * An endpoint for working with Knora permissions.
  */
@@ -17,11 +18,10 @@ export class PermissionsEndpoint extends Endpoint {
      * 
      * @param projectIri The project IRI.
      * @param groupIri The group IRI.
-     * @param permissionType The permission type.
      */
-    getAdministrativePermission(projectIri: string, groupIri: string, permissionType: string): Observable<ApiResponseData<AdministrativePermissionResponse> | ApiResponseError> {
+    getAdministrativePermission(projectIri: string, groupIri: string): Observable<ApiResponseData<AdministrativePermissionResponse> | ApiResponseError> {
     
-        return this.httpGet("/" + encodeURIComponent(projectIri) + "/" + encodeURIComponent(groupIri) + "?permissionType=" + encodeURIComponent(permissionType)).pipe(
+        return this.httpGet("/" + encodeURIComponent(projectIri) + "/" + encodeURIComponent(groupIri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, AdministrativePermissionResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );

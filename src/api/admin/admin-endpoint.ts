@@ -1,10 +1,12 @@
 import { KnoraApiConfig } from "../../knora-api-config";
 import { Endpoint } from "../endpoint";
 
-import { GroupsEndpoint } from "./groups/groups-endpoint";
-import { PermissionsEndpoint } from "./permissions/permissions-endpoint";
-import { ProjectsEndpoint } from "./projects/projects-endpoint";
 import { UsersEndpoint } from "./users/users-endpoint";
+import { GroupsEndpoint } from "./groups/groups-endpoint";
+import { ProjectsEndpoint } from "./projects/projects-endpoint";
+import { PermissionsEndpoint } from "./permissions/permissions-endpoint";
+import { ListsEndpoint } from "./lists/lists-endpoint";
+
 
 /**
  * A client API for administering Knora.
@@ -32,6 +34,12 @@ export class AdminEndpoint extends Endpoint {
     readonly permissionsEndpoint: PermissionsEndpoint;
     
     /**
+     * An endpoint for working with Knora lists.
+     */
+    readonly listsEndpoint: ListsEndpoint;
+    
+
+    /**
      * Constructor.
      * Sets up all endpoints for this endpoint.
      *
@@ -48,5 +56,6 @@ export class AdminEndpoint extends Endpoint {
         this.groupsEndpoint = new GroupsEndpoint(knoraApiConfig, path + "/groups");
         this.projectsEndpoint = new ProjectsEndpoint(knoraApiConfig, path + "/projects");
         this.permissionsEndpoint = new PermissionsEndpoint(knoraApiConfig, path + "/permissions");
+        this.listsEndpoint = new ListsEndpoint(knoraApiConfig, path + "/lists");
     }
 }

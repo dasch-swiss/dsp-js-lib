@@ -1,6 +1,6 @@
 {
   "name": "@knora/api",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "JavaScript library that handles API requests to Knora",
   "main": "index.js",
   "files": [
@@ -16,7 +16,8 @@
     "index.js"
   ],
   "scripts": {
-    "integrate-vs-test-data": "node scripts/integrate-files-v2.js",
+    "integrate-admin-code": "node scripts/integrate-files-admin.js",
+    "integrate-v2-test-data": "node scripts/integrate-files-v2.js",
     "expand-jsonld-test-data": "node scripts/expand-jsonld-test-data-files.js",
     "test": "karma start karma.conf.js",
     "build": "rm -rf build/* && tsc && mkdir -p build/ && cp CHANGELOG.md build/ && cp LICENSE build/ && cp README.md build/ && cp package.json build/",

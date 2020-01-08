@@ -35,6 +35,19 @@ export { UpdateUserRequest } from "./models/admin/update-user-request";
 export { UserResponse } from "./models/admin/user-response";
 export { UsersResponse } from "./models/admin/users-response";
 
+export { List } from "./models/admin/list";
+export { ListInfoResponse } from "./models/admin/list-info-response";
+export { ListNode } from "./models/admin/list-node";
+export { ListNodeInfo } from "./models/admin/list-node-info";
+export { ListNodeInfoResponse } from "./models/admin/list-node-info-response";
+export { ListResponse } from "./models/admin/list-response";
+export { ListsResponse } from "./models/admin/lists-response";
+export { CreateChildNodeRequest } from "./models/admin/create-child-node-request";
+export { CreateListRequest } from "./models/admin/create-list-request";
+export { StoredListNodeInfo } from "./models/admin/stored-list-node-info";
+export { StoredListNode } from "./models/admin/stored-list-node";
+export { UpdateListInfoRequest } from "./models/admin/update-list-info-request";
+
 export { LoginResponse } from "./models/v2/authentication/login-response";
 export { CredentialsResponse } from "./models/v2/authentication/credentials-response";
 export { LogoutResponse } from "./models/v2/authentication/logout-response";
@@ -42,6 +55,7 @@ export { LogoutResponse } from "./models/v2/authentication/logout-response";
 export { StringLiteral } from "./models/admin/string-literal";
 
 export { UserCache } from "./cache/UserCache";
+export { ListAdminCache } from "./cache/ListAdminCache";
 
 export { ApiResponse } from "./models/api-response";
 export { ApiResponseData } from "./models/api-response-data";
@@ -59,9 +73,14 @@ export { StandoffClassDefinition } from "./models/v2/ontologies/standoff-class-d
 export { ReadResource } from "./models/v2/resources/read/read-resource";
 export { CountQueryResponse } from "./models/v2/search/count-query-response";
 export { UpdateResource } from "./models/v2/resources/update/update-resource";
+export { UpdateResourceMetadata } from "./models/v2/resources/update/update-resource-metadata";
+export { UpdateResourceMetadataResponse } from "./models/v2/resources/update/update-resource-metadata-response";
+export { CreateResource } from "./models/v2/resources/create/create-resource";
 export { DeleteValue } from "./models/v2/resources/values/delete/delete-value";
 export { DeleteValueResponse } from "./models/v2/resources/values/delete/delete-value-response";
 export { WriteValueResponse } from "./models/v2/resources/values/write-value-response";
+export { DeleteResource } from "./models/v2/resources/delete/delete-resource";
+export { DeleteResourceResponse } from "./models/v2/resources/delete/delete-resource-response";
 
 export { ReadBooleanValue } from "./models/v2/resources/values/read/read-boolean-value";
 export { ReadColorValue } from "./models/v2/resources/values/read/read-color-value";
@@ -107,6 +126,6 @@ export { CreateListValue } from "./models/v2/resources/values/create/create-list
 export { CreateTextValueAsString, CreateTextValueAsXml } from "./models/v2/resources/values/create/create-text-value";
 export { CreateUriValue } from "./models/v2/resources/values/create/create-uri-value";
 
-export { ListNode } from "./models/v2/lists/list-node";
+export { ListNodeV2 } from "./models/v2/lists/list-node-v2";
 
 export { Constants } from "./models/v2/Constants";

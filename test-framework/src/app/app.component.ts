@@ -1,28 +1,33 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import {
-  ApiResponseData,
-  Constants,
-  CountQueryResponse,
-  CreateIntValue,
-  CreateValue,
-  DeleteValue,
-  DeleteValueResponse,
-  KnoraApiConfig,
-  KnoraApiConnection,
-  ListNode,
-  LoginResponse,
-  ReadOntology,
-  ReadResource,
-  UpdateIntValue,
-  UpdateResource,
-  UpdateValue,
-  UserCache,
-  UsersResponse,
-  WriteValueResponse,
-  UserResponse
-} from '@knora/api';
-import { MockOntology } from "@knora/api";
-
+    ApiResponseData,
+    Constants,
+    CountQueryResponse,
+    CreateBooleanValue,
+    CreateIntValue,
+    CreateResource,
+    CreateValue,
+    DeleteResource,
+    DeleteResourceResponse,
+    DeleteValue,
+    DeleteValueResponse,
+    KnoraApiConfig,
+    KnoraApiConnection,
+    ListNodeV2,
+    LoginResponse,
+    MockOntology,
+    ReadOntology,
+    ReadResource,
+    UpdateIntValue,
+    UpdateResource,
+    UpdateResourceMetadata,
+    UpdateResourceMetadataResponse,
+    UpdateValue,
+    UserCache,
+    UserResponse,
+    UsersResponse,
+    WriteValueResponse
+} from "@knora/api";
 
 @Component({
   selector: 'app-root',
@@ -39,7 +44,7 @@ export class AppComponent implements OnInit {
 
   resource: ReadResource;
 
-  listNode: ListNode;
+  listNode: ListNodeV2;
 
   searchResult: ReadResource[];
   size: number;
@@ -47,6 +52,8 @@ export class AppComponent implements OnInit {
   loginStatus = '';
 
   valueStatus = '';
+
+  resourceStatus = '';
 
   ngOnInit() {
     const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
@@ -61,12 +68,12 @@ export class AppComponent implements OnInit {
   login() {
 
     this.knoraApiConnection.v2.auth.login('username', 'root', 'test').subscribe(
-      (loginResponse: ApiResponseData<LoginResponse>) => {
-        console.log(loginResponse);
-        this.loginStatus = 'logged in';
+        (loginResponse: ApiResponseData<LoginResponse>) => {
+          console.log(loginResponse);
+          this.loginStatus = 'logged in';
 
-      },
-      error => console.error(error)
+        },
+        error => console.error(error)
     );
 
   }
@@ -74,11 +81,11 @@ export class AppComponent implements OnInit {
   logout() {
 
     this.knoraApiConnection.v2.auth.logout().subscribe(
-      logoutRes => {
-        console.log(logoutRes);
-        this.loginStatus = 'logged out';
-      },
-      error => console.error(error)
+        logoutRes => {
+          console.log(logoutRes);
+          this.loginStatus = 'logged out';
+        },
+        error => console.error(error)
     );
 
   }
@@ -86,49 +93,111 @@ export class AppComponent implements OnInit {
   getUsers() {
 
     this.knoraApiConnection.admin.usersEndpoint.getUsers().subscribe(
-      (a: ApiResponseData<UsersResponse>) => console.log(a.body.users),
-      b => console.error(b)
+        (a: ApiResponseData<UsersResponse>) => console.log(a.body.users),
+        b => console.error(b)
     );
 
   }
 
-  getUser(email: string) {
-    this.knoraApiConnection.admin.usersEndpoint.getUser('email', email).subscribe(
-      (a: ApiResponseData<UserResponse>) => console.log(a.body.user),
-      b => console.error(b)
+  getUser(iri: string) {
+    this.userCache.getUser(iri).subscribe(
+        (a: UserResponse) => console.log(a.user),
+        b => console.error(b)
     );
   }
 
   getOntology(iri: string) {
 
     this.knoraApiConnection.v2.ontologyCache.getOntology(iri).subscribe(
-      onto => {
-        console.log('onto ', onto);
-        this.ontologies = onto;
-      }
+        onto => {
+          console.log('onto ', onto);
+          this.ontologies = onto;
+        }
     );
   }
 
   getResourceClass(iri: string) {
 
     this.knoraApiConnection.v2.ontologyCache.getResourceClassDefinition(iri).subscribe(
-      onto => {
-        console.log(onto);
-      }
+        onto => {
+          console.log(onto);
+        }
     );
   }
 
   getResource(iri: string) {
 
     this.knoraApiConnection.v2.res.getResource(iri).subscribe(
-      (res: ReadResource) => {
-        console.log(res);
-        this.resource = res;
+        (res: ReadResource) => {
+          console.log(res);
+          this.resource = res;
 
-      },
-      (error) => {
+        },
+        (error) => {
 
-      }
+        }
+    );
+
+  }
+
+  createResource() {
+
+    const createResource = new CreateResource();
+
+    createResource.label = 'testding';
+
+    createResource.type = 'http://0.0.0.0:3333/ontology/0001/anything/v2#Thing';
+
+    createResource.attachedToProject = 'http://rdfh.ch/projects/0001';
+
+    const boolVal = new CreateBooleanValue();
+    boolVal.bool = true;
+
+    const props = {
+      'http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean': [
+        boolVal
+      ]
+    };
+
+    createResource.properties = props;
+
+    this.knoraApiConnection.v2.res.createResource(createResource).subscribe(
+        (res: ReadResource) => {
+          this.resource = res;
+        }
+    );
+
+  }
+
+  updateResourceMetadata() {
+
+    const updateResourceMetadata = new UpdateResourceMetadata();
+
+    updateResourceMetadata.id = 'http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw';
+
+    updateResourceMetadata.type = 'http://0.0.0.0:3333/ontology/0001/anything/v2#Thing';
+
+    updateResourceMetadata.label = 'Das Ding der Dinge';
+
+    this.knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
+        (res: UpdateResourceMetadataResponse) => {
+          this.resourceStatus = 'OK';
+        }
+    );
+  }
+
+  deleteResource() {
+
+    const deleteResource = new DeleteResource();
+
+    deleteResource.id = this.resource.id;
+
+    deleteResource.type = this.resource.type;
+
+    this.knoraApiConnection.v2.res.deleteResource(deleteResource).subscribe(
+        (res: DeleteResourceResponse) => {
+          this.resourceStatus = 'OK';
+        }
     );
 
   }
@@ -136,44 +205,44 @@ export class AppComponent implements OnInit {
   getListNode(listNodeIri: string) {
 
     this.knoraApiConnection.v2.listNodeCache.getNode(listNodeIri).subscribe(
-      (res: ListNode) => {
-        console.log(res);
+        (res: ListNodeV2) => {
+          console.log(res);
 
-        this.listNode = res;
+          this.listNode = res;
 
-      }
+        }
     );
   }
 
   fulltextSearch(searchTerm: string) {
 
     this.knoraApiConnection.v2.search.doFulltextSearch(searchTerm, 0).subscribe(
-      (res: ReadResource[]) => {
-        console.log(res);
-        this.searchResult = res;
-        this.size = res.length;
-      }
+        (res: ReadResource[]) => {
+          console.log(res);
+          this.searchResult = res;
+          this.size = res.length;
+        }
     );
   }
 
   fulltextSearchCountQuery(searchTerm: string) {
 
     this.knoraApiConnection.v2.search.doFulltextSearchCountQuery(searchTerm, 0).subscribe(
-      (res: CountQueryResponse) => {
-        console.log(res);
-        this.size = res.numberOfResults;
-      }
+        (res: CountQueryResponse) => {
+          console.log(res);
+          this.size = res.numberOfResults;
+        }
     );
   }
 
   labelSearch(searchTerm: string) {
 
     this.knoraApiConnection.v2.search.doSearchByLabel(searchTerm, 0).subscribe(
-      (res: ReadResource[]) => {
-        console.log(res);
-        this.searchResult = res;
-        this.size = res.length;
-      }
+        (res: ReadResource[]) => {
+          console.log(res);
+          this.searchResult = res;
+          this.size = res.length;
+        }
     );
   }
 
@@ -196,11 +265,11 @@ export class AppComponent implements OnInit {
             `;
 
     this.knoraApiConnection.v2.search.doExtendedSearch(gravsearchQuery).subscribe(
-      (res: ReadResource[]) => {
-        console.log(res);
-        this.searchResult = res;
-        this.size = res.length;
-      }
+        (res: ReadResource[]) => {
+          console.log(res);
+          this.searchResult = res;
+          this.size = res.length;
+        }
     );
   }
 
@@ -223,10 +292,10 @@ export class AppComponent implements OnInit {
             `;
 
     this.knoraApiConnection.v2.search.doExtendedSearchCountQuery(gravsearchQuery).subscribe(
-      (res: CountQueryResponse) => {
-        console.log(res);
-        this.size = res.numberOfResults;
-      }
+        (res: CountQueryResponse) => {
+          console.log(res);
+          this.size = res.numberOfResults;
+        }
     );
   }
 
@@ -249,12 +318,12 @@ export class AppComponent implements OnInit {
   updateValue(updateResource: UpdateResource<UpdateValue>) {
 
     this.knoraApiConnection.v2.values.updateValue(updateResource).subscribe((res: WriteValueResponse) => {
-        console.log(res);
-        this.valueStatus = 'OK';
-      },
-      error => {
-        this.valueStatus = '';
-      }
+          console.log(res);
+          this.valueStatus = 'OK';
+        },
+        error => {
+          this.valueStatus = '';
+        }
     );
 
   }
@@ -276,12 +345,12 @@ export class AppComponent implements OnInit {
   createValue(updateResource: UpdateResource<CreateValue>) {
 
     this.knoraApiConnection.v2.values.createValue(updateResource).subscribe((res: WriteValueResponse) => {
-        console.log(res);
-        this.valueStatus = 'OK';
-      },
-      error => {
-        this.valueStatus = '';
-      }
+          console.log(res);
+          this.valueStatus = 'OK';
+        },
+        error => {
+          this.valueStatus = '';
+        }
     );
 
   }
@@ -301,25 +370,25 @@ export class AppComponent implements OnInit {
     updateResource.value = deleteVal;
 
     this.knoraApiConnection.v2.values.deleteValue(updateResource).subscribe((res: DeleteValueResponse) => {
-        console.log(res);
-        this.valueStatus = 'OK';
-      },
-      error => {
-        this.valueStatus = '';
-      }
+          console.log(res);
+          this.valueStatus = 'OK';
+        },
+        error => {
+          this.valueStatus = '';
+        }
     );
   }
 
   getValue(resourceIri: string, valueUuid: string) {
 
     this.knoraApiConnection.v2.values.getValue(resourceIri, valueUuid).subscribe(
-      (res: ReadResource) => {
-        console.log(res);
-        this.valueStatus = 'OK';
-      },
-      error => {
-        this.valueStatus = '';
-      }
+        (res: ReadResource) => {
+          console.log(res);
+          this.valueStatus = 'OK';
+        },
+        error => {
+          this.valueStatus = '';
+        }
     );
 
   }

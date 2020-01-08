@@ -4,10 +4,10 @@ import { of } from "rxjs";
 import { MockList } from "../../test/data/api/v2/mockList";
 import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
-import { ListNode } from "../models/v2/lists/list-node";
-import { ListNodeCache } from "./ListNodeCache";
+import { ListNodeV2 } from "../models/v2/lists/list-node-v2";
+import { ListNodeV2Cache } from "./ListNodeV2Cache";
 
-describe("ListNodeCache", () => {
+describe("ListNodeV2Cache", () => {
 
     const config = new KnoraApiConfig("http", "0.0.0.0", 3333, "", "", true);
     let knoraApiConnection: KnoraApiConnection;
@@ -53,7 +53,7 @@ describe("ListNodeCache", () => {
 
         it("should get a list node from the cache", done => {
 
-            knoraApiConnection.v2.listNodeCache["getItem"]("http://rdfh.ch/lists/0001/treeList01").subscribe((node: ListNode) => {
+            knoraApiConnection.v2.listNodeCache["getItem"]("http://rdfh.ch/lists/0001/treeList01").subscribe((node: ListNodeV2) => {
 
                 expect(node.id).toEqual("http://rdfh.ch/lists/0001/treeList01");
 
@@ -79,7 +79,7 @@ describe("ListNodeCache", () => {
 
         it("should get a list node from the cache several times asynchronously", done => {
 
-            knoraApiConnection.v2.listNodeCache["getItem"]("http://rdfh.ch/lists/0001/treeList01").subscribe((node: ListNode) => {
+            knoraApiConnection.v2.listNodeCache["getItem"]("http://rdfh.ch/lists/0001/treeList01").subscribe((node: ListNodeV2) => {
 
                 expect(node.id).toEqual("http://rdfh.ch/lists/0001/treeList01");
 
@@ -102,7 +102,7 @@ describe("ListNodeCache", () => {
 
             });
 
-            knoraApiConnection.v2.listNodeCache["getItem"]("http://rdfh.ch/lists/0001/treeList01").subscribe((node: ListNode) => {
+            knoraApiConnection.v2.listNodeCache["getItem"]("http://rdfh.ch/lists/0001/treeList01").subscribe((node: ListNodeV2) => {
 
                 expect(node.id).toEqual("http://rdfh.ch/lists/0001/treeList01");
 
@@ -125,7 +125,7 @@ describe("ListNodeCache", () => {
 
             });
 
-            knoraApiConnection.v2.listNodeCache["getItem"]("http://rdfh.ch/lists/0001/treeList01").subscribe((node: ListNode) => {
+            knoraApiConnection.v2.listNodeCache["getItem"]("http://rdfh.ch/lists/0001/treeList01").subscribe((node: ListNodeV2) => {
 
                 expect(node.id).toEqual("http://rdfh.ch/lists/0001/treeList01");
 
@@ -155,7 +155,7 @@ describe("ListNodeCache", () => {
 
         it("should get a list node from the cache", done => {
 
-            knoraApiConnection.v2.listNodeCache.getNode("http://rdfh.ch/lists/0001/treeList01").subscribe((node: ListNode) => {
+            knoraApiConnection.v2.listNodeCache.getNode("http://rdfh.ch/lists/0001/treeList01").subscribe((node: ListNodeV2) => {
 
                 expect(node.id).toEqual("http://rdfh.ch/lists/0001/treeList01");
 

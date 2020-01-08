@@ -1,4 +1,4 @@
-import { ListNodeCache } from "../../cache/ListNodeCache";
+import { ListNodeV2Cache } from "../../cache/ListNodeV2Cache";
 import { OntologyCache } from "../../cache/OntologyCache";
 import { KnoraApiConfig } from "../../knora-api-config";
 import { Endpoint } from "../endpoint";
@@ -36,7 +36,7 @@ export class V2Endpoint extends Endpoint {
 
     readonly ontologyCache: OntologyCache;
 
-    readonly listNodeCache: ListNodeCache;
+    readonly listNodeCache: ListNodeV2Cache;
 
     /**
      * Constructor.
@@ -58,7 +58,7 @@ export class V2Endpoint extends Endpoint {
 
         // Instantiate caches
         this.ontologyCache = new OntologyCache(knoraApiConfig, this);
-        this.listNodeCache = new ListNodeCache(this);
+        this.listNodeCache = new ListNodeV2Cache(this);
     }
 
 }

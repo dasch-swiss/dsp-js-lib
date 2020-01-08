@@ -165,7 +165,7 @@ describe("OntologyCache", () => {
                 resClassDef => {
 
                     expect(resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"] instanceof ResourceClassDefinition).toBeTruthy();
-                    expect(Object.keys(resClassDef.properties).length).toEqual(35);
+                    expect(Object.keys(resClassDef.properties).length).toEqual(37);
 
                     done();
 
