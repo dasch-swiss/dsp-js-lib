@@ -60,9 +60,7 @@ export class AppComponent implements OnInit {
     this.knoraApiConnection = new KnoraApiConnection(config);
     // console.log(this.knoraApiConnection);
     this.userCache = new UserCache(this.knoraApiConnection);
-
-    const onto = MockOntology.mockReadOntology("http://0.0.0.0:3333/ontology/0001/anything/v2");
-    console.log(onto);
+    
   }
 
   login() {
