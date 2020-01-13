@@ -15,7 +15,6 @@ import {
     KnoraApiConnection,
     ListNodeV2,
     LoginResponse,
-    MockOntology,
     ReadOntology,
     ReadResource,
     UpdateIntValue,
@@ -26,232 +25,227 @@ import {
     UserCache,
     UserResponse,
     UsersResponse,
-    WriteValueResponse,
-    MockResource
+    WriteValueResponse
 } from "@knora/api";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: "app-root",
+    templateUrl: "./app.component.html",
+    styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit {
 
-  knoraApiConnection: KnoraApiConnection;
+    knoraApiConnection: KnoraApiConnection;
 
-  userCache: UserCache;
+    userCache: UserCache;
 
-  ontologies: Map<string, ReadOntology>;
+    ontologies: Map<string, ReadOntology>;
 
-  resource: ReadResource;
+    resource: ReadResource;
 
-  listNode: ListNodeV2;
+    listNode: ListNodeV2;
 
-  searchResult: ReadResource[];
-  size: number;
+    searchResult: ReadResource[];
+    size: number;
 
-  loginStatus = '';
+    loginStatus = "";
 
-  valueStatus = '';
+    valueStatus = "";
 
-  resourceStatus = '';
+    resourceStatus = "";
 
-  ngOnInit() {
-    const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
-    this.knoraApiConnection = new KnoraApiConnection(config);
-    // console.log(this.knoraApiConnection);
-    this.userCache = new UserCache(this.knoraApiConnection);
+    ngOnInit() {
+        const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, undefined, true);
+        this.knoraApiConnection = new KnoraApiConnection(config);
+        // console.log(this.knoraApiConnection);
+        this.userCache = new UserCache(this.knoraApiConnection);
 
-    const mockThing = MockResource.getTestthing()
+    }
 
-    console.log(mockThing[0].label)
+    login() {
 
-  }
+        this.knoraApiConnection.v2.auth.login("username", "root", "test").subscribe(
+            (loginResponse: ApiResponseData<LoginResponse>) => {
+                console.log(loginResponse);
+                this.loginStatus = "logged in";
 
-  login() {
+            },
+            error => console.error(error)
+        );
 
-    this.knoraApiConnection.v2.auth.login('username', 'root', 'test').subscribe(
-        (loginResponse: ApiResponseData<LoginResponse>) => {
-          console.log(loginResponse);
-          this.loginStatus = 'logged in';
+    }
 
-        },
-        error => console.error(error)
-    );
+    logout() {
 
-  }
+        this.knoraApiConnection.v2.auth.logout().subscribe(
+            logoutRes => {
+                console.log(logoutRes);
+                this.loginStatus = "logged out";
+            },
+            error => console.error(error)
+        );
 
-  logout() {
+    }
 
-    this.knoraApiConnection.v2.auth.logout().subscribe(
-        logoutRes => {
-          console.log(logoutRes);
-          this.loginStatus = 'logged out';
-        },
-        error => console.error(error)
-    );
+    getUsers() {
 
-  }
+        this.knoraApiConnection.admin.usersEndpoint.getUsers().subscribe(
+            (a: ApiResponseData<UsersResponse>) => console.log(a.body.users),
+            b => console.error(b)
+        );
 
-  getUsers() {
+    }
 
-    this.knoraApiConnection.admin.usersEndpoint.getUsers().subscribe(
-        (a: ApiResponseData<UsersResponse>) => console.log(a.body.users),
-        b => console.error(b)
-    );
+    getUser(iri: string) {
+        this.userCache.getUser(iri).subscribe(
+            (a: UserResponse) => console.log(a.user),
+            b => console.error(b)
+        );
+    }
 
-  }
+    getOntology(iri: string) {
 
-  getUser(iri: string) {
-    this.userCache.getUser(iri).subscribe(
-        (a: UserResponse) => console.log(a.user),
-        b => console.error(b)
-    );
-  }
+        this.knoraApiConnection.v2.ontologyCache.getOntology(iri).subscribe(
+            onto => {
+                console.log("onto ", onto);
+                this.ontologies = onto;
+            }
+        );
+    }
 
-  getOntology(iri: string) {
+    getResourceClass(iri: string) {
 
-    this.knoraApiConnection.v2.ontologyCache.getOntology(iri).subscribe(
-        onto => {
-          console.log('onto ', onto);
-          this.ontologies = onto;
-        }
-    );
-  }
+        this.knoraApiConnection.v2.ontologyCache.getResourceClassDefinition(iri).subscribe(
+            onto => {
+                console.log(onto);
+            }
+        );
+    }
 
-  getResourceClass(iri: string) {
+    getResource(iri: string) {
 
-    this.knoraApiConnection.v2.ontologyCache.getResourceClassDefinition(iri).subscribe(
-        onto => {
-          console.log(onto);
-        }
-    );
-  }
+        this.knoraApiConnection.v2.res.getResource(iri).subscribe(
+            (res: ReadResource) => {
+                console.log(res);
+                this.resource = res;
 
-  getResource(iri: string) {
+            },
+            (error) => {
 
-    this.knoraApiConnection.v2.res.getResource(iri).subscribe(
-        (res: ReadResource) => {
-          console.log(res);
-          this.resource = res;
+            }
+        );
 
-        },
-        (error) => {
+    }
 
-        }
-    );
+    createResource() {
 
-  }
+        const createResource = new CreateResource();
 
-  createResource() {
+        createResource.label = "testding";
 
-    const createResource = new CreateResource();
+        createResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
 
-    createResource.label = 'testding';
+        createResource.attachedToProject = "http://rdfh.ch/projects/0001";
 
-    createResource.type = 'http://0.0.0.0:3333/ontology/0001/anything/v2#Thing';
+        const boolVal = new CreateBooleanValue();
+        boolVal.bool = true;
 
-    createResource.attachedToProject = 'http://rdfh.ch/projects/0001';
+        const props = {
+            "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean": [
+                boolVal
+            ]
+        };
 
-    const boolVal = new CreateBooleanValue();
-    boolVal.bool = true;
+        createResource.properties = props;
 
-    const props = {
-      'http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean': [
-        boolVal
-      ]
-    };
+        this.knoraApiConnection.v2.res.createResource(createResource).subscribe(
+            (res: ReadResource) => {
+                this.resource = res;
+            }
+        );
 
-    createResource.properties = props;
+    }
 
-    this.knoraApiConnection.v2.res.createResource(createResource).subscribe(
-        (res: ReadResource) => {
-          this.resource = res;
-        }
-    );
+    updateResourceMetadata() {
 
-  }
+        const updateResourceMetadata = new UpdateResourceMetadata();
 
-  updateResourceMetadata() {
+        updateResourceMetadata.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
 
-    const updateResourceMetadata = new UpdateResourceMetadata();
+        updateResourceMetadata.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
 
-    updateResourceMetadata.id = 'http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw';
+        updateResourceMetadata.label = "Das Ding der Dinge";
 
-    updateResourceMetadata.type = 'http://0.0.0.0:3333/ontology/0001/anything/v2#Thing';
+        this.knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
+            (res: UpdateResourceMetadataResponse) => {
+                this.resourceStatus = "OK";
+            }
+        );
+    }
 
-    updateResourceMetadata.label = 'Das Ding der Dinge';
+    deleteResource() {
 
-    this.knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
-        (res: UpdateResourceMetadataResponse) => {
-          this.resourceStatus = 'OK';
-        }
-    );
-  }
+        const deleteResource = new DeleteResource();
 
-  deleteResource() {
+        deleteResource.id = this.resource.id;
 
-    const deleteResource = new DeleteResource();
+        deleteResource.type = this.resource.type;
 
-    deleteResource.id = this.resource.id;
+        this.knoraApiConnection.v2.res.deleteResource(deleteResource).subscribe(
+            (res: DeleteResourceResponse) => {
+                this.resourceStatus = "OK";
+            }
+        );
 
-    deleteResource.type = this.resource.type;
+    }
 
-    this.knoraApiConnection.v2.res.deleteResource(deleteResource).subscribe(
-        (res: DeleteResourceResponse) => {
-          this.resourceStatus = 'OK';
-        }
-    );
+    getListNode(listNodeIri: string) {
 
-  }
+        this.knoraApiConnection.v2.listNodeCache.getNode(listNodeIri).subscribe(
+            (res: ListNodeV2) => {
+                console.log(res);
 
-  getListNode(listNodeIri: string) {
+                this.listNode = res;
 
-    this.knoraApiConnection.v2.listNodeCache.getNode(listNodeIri).subscribe(
-        (res: ListNodeV2) => {
-          console.log(res);
+            }
+        );
+    }
 
-          this.listNode = res;
+    fulltextSearch(searchTerm: string) {
 
-        }
-    );
-  }
+        this.knoraApiConnection.v2.search.doFulltextSearch(searchTerm, 0).subscribe(
+            (res: ReadResource[]) => {
+                console.log(res);
+                this.searchResult = res;
+                this.size = res.length;
+            }
+        );
+    }
 
-  fulltextSearch(searchTerm: string) {
+    fulltextSearchCountQuery(searchTerm: string) {
 
-    this.knoraApiConnection.v2.search.doFulltextSearch(searchTerm, 0).subscribe(
-        (res: ReadResource[]) => {
-          console.log(res);
-          this.searchResult = res;
-          this.size = res.length;
-        }
-    );
-  }
+        this.knoraApiConnection.v2.search.doFulltextSearchCountQuery(searchTerm, 0).subscribe(
+            (res: CountQueryResponse) => {
+                console.log(res);
+                this.size = res.numberOfResults;
+            }
+        );
+    }
 
-  fulltextSearchCountQuery(searchTerm: string) {
+    labelSearch(searchTerm: string) {
 
-    this.knoraApiConnection.v2.search.doFulltextSearchCountQuery(searchTerm, 0).subscribe(
-        (res: CountQueryResponse) => {
-          console.log(res);
-          this.size = res.numberOfResults;
-        }
-    );
-  }
+        this.knoraApiConnection.v2.search.doSearchByLabel(searchTerm, 0).subscribe(
+            (res: ReadResource[]) => {
+                console.log(res);
+                this.searchResult = res;
+                this.size = res.length;
+            }
+        );
+    }
 
-  labelSearch(searchTerm: string) {
+    extendedSearch() {
 
-    this.knoraApiConnection.v2.search.doSearchByLabel(searchTerm, 0).subscribe(
-        (res: ReadResource[]) => {
-          console.log(res);
-          this.searchResult = res;
-          this.size = res.length;
-        }
-    );
-  }
-
-  extendedSearch() {
-
-    const gravsearchQuery = `
+        const gravsearchQuery = `
                 PREFIX knora-api: <http://api.knora.org/ontology/knora-api/v2#>
                 CONSTRUCT {
 
@@ -267,18 +261,18 @@ export class AppComponent implements OnInit {
                 OFFSET 0
             `;
 
-    this.knoraApiConnection.v2.search.doExtendedSearch(gravsearchQuery).subscribe(
-        (res: ReadResource[]) => {
-          console.log(res);
-          this.searchResult = res;
-          this.size = res.length;
-        }
-    );
-  }
+        this.knoraApiConnection.v2.search.doExtendedSearch(gravsearchQuery).subscribe(
+            (res: ReadResource[]) => {
+                console.log(res);
+                this.searchResult = res;
+                this.size = res.length;
+            }
+        );
+    }
 
-  extendedSearchCountQuery() {
+    extendedSearchCountQuery() {
 
-    const gravsearchQuery = `
+        const gravsearchQuery = `
                 PREFIX knora-api: <http://api.knora.org/ontology/knora-api/v2#>
                 CONSTRUCT {
 
@@ -294,106 +288,106 @@ export class AppComponent implements OnInit {
                 OFFSET 0
             `;
 
-    this.knoraApiConnection.v2.search.doExtendedSearchCountQuery(gravsearchQuery).subscribe(
-        (res: CountQueryResponse) => {
-          console.log(res);
-          this.size = res.numberOfResults;
-        }
-    );
-  }
+        this.knoraApiConnection.v2.search.doExtendedSearchCountQuery(gravsearchQuery).subscribe(
+            (res: CountQueryResponse) => {
+                console.log(res);
+                this.size = res.numberOfResults;
+            }
+        );
+    }
 
-  generateUpdateIntValue(int: number): UpdateResource<UpdateValue> {
-    const updateIntVal = new UpdateIntValue();
+    generateUpdateIntValue(int: number): UpdateResource<UpdateValue> {
+        const updateIntVal = new UpdateIntValue();
 
-    updateIntVal.id = 'http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg';
-    updateIntVal.int = int;
+        updateIntVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg";
+        updateIntVal.int = int;
 
-    const updateResource: UpdateResource<UpdateValue> = new UpdateResource<UpdateValue>();
+        const updateResource: UpdateResource<UpdateValue> = new UpdateResource<UpdateValue>();
 
-    updateResource.id = 'http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw';
-    updateResource.type = 'http://0.0.0.0:3333/ontology/0001/anything/v2#Thing';
-    updateResource.property = 'http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger';
-    updateResource.value = updateIntVal;
+        updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+        updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+        updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
+        updateResource.value = updateIntVal;
 
-    return updateResource;
-  }
+        return updateResource;
+    }
 
-  updateValue(updateResource: UpdateResource<UpdateValue>) {
+    updateValue(updateResource: UpdateResource<UpdateValue>) {
 
-    this.knoraApiConnection.v2.values.updateValue(updateResource).subscribe((res: WriteValueResponse) => {
-          console.log(res);
-          this.valueStatus = 'OK';
-        },
-        error => {
-          this.valueStatus = '';
-        }
-    );
+        this.knoraApiConnection.v2.values.updateValue(updateResource).subscribe((res: WriteValueResponse) => {
+                console.log(res);
+                this.valueStatus = "OK";
+            },
+            error => {
+                this.valueStatus = "";
+            }
+        );
 
-  }
+    }
 
-  generateCreateIntValue(int: number): UpdateResource<CreateValue> {
-    const createIntVal = new CreateIntValue();
-    createIntVal.int = int;
+    generateCreateIntValue(int: number): UpdateResource<CreateValue> {
+        const createIntVal = new CreateIntValue();
+        createIntVal.int = int;
 
-    const updateResource: UpdateResource<CreateValue> = new UpdateResource<CreateValue>();
+        const updateResource: UpdateResource<CreateValue> = new UpdateResource<CreateValue>();
 
-    updateResource.id = 'http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw';
-    updateResource.type = 'http://0.0.0.0:3333/ontology/0001/anything/v2#Thing';
-    updateResource.property = 'http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger';
-    updateResource.value = createIntVal;
+        updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+        updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+        updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
+        updateResource.value = createIntVal;
 
-    return updateResource;
-  }
+        return updateResource;
+    }
 
-  createValue(updateResource: UpdateResource<CreateValue>) {
+    createValue(updateResource: UpdateResource<CreateValue>) {
 
-    this.knoraApiConnection.v2.values.createValue(updateResource).subscribe((res: WriteValueResponse) => {
-          console.log(res);
-          this.valueStatus = 'OK';
-        },
-        error => {
-          this.valueStatus = '';
-        }
-    );
+        this.knoraApiConnection.v2.values.createValue(updateResource).subscribe((res: WriteValueResponse) => {
+                console.log(res);
+                this.valueStatus = "OK";
+            },
+            error => {
+                this.valueStatus = "";
+            }
+        );
 
-  }
+    }
 
-  deleteValue() {
+    deleteValue() {
 
-    const deleteVal = new DeleteValue();
+        const deleteVal = new DeleteValue();
 
-    deleteVal.id = 'http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/bXMwnrHvQH2DMjOFrGmNzg';
-    deleteVal.type = Constants.DecimalValue;
+        deleteVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/bXMwnrHvQH2DMjOFrGmNzg";
+        deleteVal.type = Constants.DecimalValue;
 
-    const updateResource: UpdateResource<DeleteValue> = new UpdateResource<DeleteValue>();
+        const updateResource: UpdateResource<DeleteValue> = new UpdateResource<DeleteValue>();
 
-    updateResource.id = 'http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw';
-    updateResource.type = 'http://0.0.0.0:3333/ontology/0001/anything/v2#Thing';
-    updateResource.property = 'http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal';
-    updateResource.value = deleteVal;
+        updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+        updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+        updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal";
+        updateResource.value = deleteVal;
 
-    this.knoraApiConnection.v2.values.deleteValue(updateResource).subscribe((res: DeleteValueResponse) => {
-          console.log(res);
-          this.valueStatus = 'OK';
-        },
-        error => {
-          this.valueStatus = '';
-        }
-    );
-  }
+        this.knoraApiConnection.v2.values.deleteValue(updateResource).subscribe((res: DeleteValueResponse) => {
+                console.log(res);
+                this.valueStatus = "OK";
+            },
+            error => {
+                this.valueStatus = "";
+            }
+        );
+    }
 
-  getValue(resourceIri: string, valueUuid: string) {
+    getValue(resourceIri: string, valueUuid: string) {
 
-    this.knoraApiConnection.v2.values.getValue(resourceIri, valueUuid).subscribe(
-        (res: ReadResource) => {
-          console.log(res);
-          this.valueStatus = 'OK';
-        },
-        error => {
-          this.valueStatus = '';
-        }
-    );
+        this.knoraApiConnection.v2.values.getValue(resourceIri, valueUuid).subscribe(
+            (res: ReadResource) => {
+                console.log(res);
+                this.valueStatus = "OK";
+            },
+            error => {
+                this.valueStatus = "";
+            }
+        );
 
-  }
+    }
 
 }
