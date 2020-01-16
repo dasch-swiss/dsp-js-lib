@@ -6,7 +6,7 @@ THIS_FILE := $(lastword $(MAKEFILE_LIST))
 generate-client-code: ## generates client code from Knora
 	curl -o /tmp/ts.zip http://localhost:3333/clientapi/typescript
 	mkdir -p /tmp/ts
-	tar -C /tmp/ts -xf /tmp/ts.zip
+	unzip /tmp/ts.zip -d /tmp/ts
 
 .PHONY: integrate-client-code
 integrate-client-code: ## intregates generated client code
