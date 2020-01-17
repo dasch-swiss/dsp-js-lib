@@ -1,0 +1,28 @@
+name: CI
+
+on: [push]
+
+env:
+  KNORA_GDB_LICENSE: ${{ github.workspace }}/ci/graphdb.license
+
+jobs:
+  test-integration:
+    name: JS Lib Test Integration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: cache node_modules artifacts
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+      - name: install requirements
+        run: sudo apt-get install expect
+      - name: run test-integration
+        run: make test-integration
