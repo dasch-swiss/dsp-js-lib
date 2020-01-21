@@ -1,6 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../Constants";
-import { DateTimeStamp } from "../../custom-converters/date-time-stamp-converter";
+import { DateTimeStampConverter } from "../../custom-converters/date-time-stamp-converter";
 
 @JsonObject("DeleteResource")
 export class DeleteResource {
@@ -11,7 +11,7 @@ export class DeleteResource {
     @JsonProperty("@type", String)
     type: string = "";
 
-    @JsonProperty(Constants.LastModificationDate, DateTimeStamp, true)
+    @JsonProperty(Constants.LastModificationDate, DateTimeStampConverter, true)
     lastModificationDateDate?: string = undefined;
 
     @JsonProperty(Constants.DeleteComment, String, true)
