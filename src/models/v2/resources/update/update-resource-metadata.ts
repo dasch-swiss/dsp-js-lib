@@ -1,6 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../Constants";
-import { DateTimeStamp } from "../../custom-converters/date-time-stamp-converter";
+import { DateTimeStampConverter } from "../../custom-converters/date-time-stamp-converter";
 
 @JsonObject("UpdateResourceMetadata")
 export class UpdateResourceMetadata {
@@ -11,7 +11,7 @@ export class UpdateResourceMetadata {
     @JsonProperty("@type", String)
     type: string = "";
 
-    @JsonProperty(Constants.LastModificationDate, DateTimeStamp, true)
+    @JsonProperty(Constants.LastModificationDate, DateTimeStampConverter, true)
     lastModificationDateDate?: string = undefined;
 
     @JsonProperty(Constants.Label, String, true)
@@ -20,7 +20,7 @@ export class UpdateResourceMetadata {
     @JsonProperty(Constants.HasPermissions, String, true)
     hasPermissions?: string = undefined;
 
-    @JsonProperty(Constants.NewModificationDate, DateTimeStamp, true)
+    @JsonProperty(Constants.NewModificationDate, DateTimeStampConverter, true)
     newModificationDateDate?: string = undefined;
 
 }

@@ -1,5 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
+import { DateTimeStampConverter } from "../custom-converters/date-time-stamp-converter";
 import { IdConverter } from "../custom-converters/id-converter";
 
 @JsonObject("OntologyMetadata")
@@ -14,8 +15,8 @@ export class OntologyMetadata {
     @JsonProperty(Constants.Label, String)
     label: string = "";
 
-    @JsonProperty(Constants.LastModificationDate, String, true)
-    lastModificationDate?: string = undefined; // TODO: adapt this once this is serialized as an object, see https://github.com/dhlab-basel/Knora/issues/1439
+    @JsonProperty(Constants.LastModificationDate, DateTimeStampConverter, true)
+    lastModificationDate?: string = undefined;
 
     @JsonProperty(Constants.AttachedToProject, IdConverter)
     attachedToProject: string = "";
