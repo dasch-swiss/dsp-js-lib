@@ -3,6 +3,8 @@
 THIS_FILE := $(lastword $(MAKEFILE_LIST))
 CURRENT_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
+include vars.mk
+
 .PHONY: npm-install
 npm-install: ## runs 'npm install'
 	@npm install
