@@ -1,6 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../../Constants";
-import { DateTimeStamp } from "../../../custom-converters/date-time-stamp-converter";
+import { DateTimeStampConverter } from "../../../custom-converters/date-time-stamp-converter";
 import { IdConverter } from "../../../custom-converters/id-converter";
 import { UriConverter } from "../../../custom-converters/uri-converter";
 
@@ -22,7 +22,7 @@ export class ReadValue {
     @JsonProperty(Constants.VersionArkUrl, UriConverter)
     versionArkUrl: string = "";
 
-    @JsonProperty(Constants.ValueCreationDate, DateTimeStamp)
+    @JsonProperty(Constants.ValueCreationDate, DateTimeStampConverter)
     valueCreationDate: string = "";
 
     @JsonProperty(Constants.HasPermissions, String)
