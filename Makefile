@@ -22,6 +22,9 @@ knora-stack: local-tmp ## gets and runs the knora-stack
 .PHONY: generate-client-code
 generate-client-code: local-tmp ## generates client code from Knora
 	curl -o $(CURRENT_DIR)/.tmp/ts.zip http://localhost:3333/clientapi/typescript
+	cat "###\n"
+	cat $(CURRENT_DIR)/.tmp/ts.zip
+	cat "###\n"
 	rm -rf $(CURRENT_DIR)/.tmp/ts
 	mkdir $(CURRENT_DIR)/.tmp/ts/
 	unzip $(CURRENT_DIR)/.tmp/ts.zip -d $(CURRENT_DIR)/.tmp/ts/
