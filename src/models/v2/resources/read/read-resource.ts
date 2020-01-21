@@ -1,7 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { IResourceClassAndPropertyDefinitions } from "../../../../cache/OntologyCache";
 import { Constants } from "../../Constants";
-import { DateTimeStamp } from "../../custom-converters/date-time-stamp-converter";
+import { DateTimeStampConverter } from "../../custom-converters/date-time-stamp-converter";
 import { IdConverter } from "../../custom-converters/id-converter";
 import { UriConverter } from "../../custom-converters/uri-converter";
 import { ReadWriteResource } from "../read-write-resource";
@@ -32,10 +32,10 @@ export class ReadResource extends ReadWriteResource {
     @JsonProperty(Constants.VersionArkUrl, UriConverter)
     versionArkUrl: string = "";
 
-    @JsonProperty(Constants.CreationDate, DateTimeStamp)
+    @JsonProperty(Constants.CreationDate, DateTimeStampConverter)
     creationDate: string = "";
 
-    @JsonProperty(Constants.LastModificationDate, DateTimeStamp, true)
+    @JsonProperty(Constants.LastModificationDate, DateTimeStampConverter, true)
     lastModificationDateDate?: string = undefined;
 
     resourceClassLabel?: string;
