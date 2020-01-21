@@ -19,6 +19,11 @@ knora-stack: local-tmp ## gets and runs the knora-stack
 	sleep 15
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-restart-api
 	sleep 15
+	echo "*********************************************************************"
+	echo "*********************************************************************"
+	echo "*********************************************************************"
+	echo "*********************************************************************"
+	echo "*********************************************************************"
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-logs-api-no-follow
 
 .PHONY: generate-client-code
