@@ -1,5 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
+import { DateTimeStampConverter } from "../custom-converters/date-time-stamp-converter";
 import { ClassDefinition } from "./class-definition";
 import { PropertyDefinition } from "./property-definition";
 
@@ -9,8 +10,8 @@ export class ReadOntology {
     @JsonProperty("@id", String)
     id: string = "";
 
-    @JsonProperty(Constants.LastModificationDate, String, true)
-    lastModificationDate?: string = undefined; // TODO: adapt this once this is serialized as an object, see https://github.com/dhlab-basel/Knora/issues/1439
+    @JsonProperty(Constants.LastModificationDate, DateTimeStampConverter, true)
+    lastModificationDate?: string = undefined;
 
     properties: { [index: string]: PropertyDefinition } = {};
     classes: { [index: string]: ClassDefinition } = {};
