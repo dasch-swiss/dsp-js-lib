@@ -4,7 +4,7 @@ on: [push]
 
 env:
   # FIXME: Hardcoded license path not good is ;-)
-  KNORA_GDB_LICENSE: ${{ github.workspace }}/.tmp/knora-stack/ci/graphdb.license
+  KNORA_GDB_LICENSE: ${{ github.workspace }}/.tmp/knora-stack/graphdb/graphdb.license
 
 jobs:
   test-integration:
