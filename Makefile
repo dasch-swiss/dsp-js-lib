@@ -5,14 +5,32 @@ CURRENT_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
 include vars.mk
 
+#################################
+# General targets
+#################################
+
+# Clones the knora-api git repository only if the Makefile is not present, i.e., the repository is not already cloned
+$(CURRENT_DIR)/.tmp/knora-stack/Makefile:
+	@git clone -b wip/add-js-lib-tests-to-ci --single-branch --depth 1 https://github.com/dasch-swiss/knora-api.git $(CURRENT_DIR)/.tmp/knora-stack
+
+#################################
+# Github CI targets
+#################################
+
+.PHONY: ci-prepare-graphdb
+ci-prepare-graphdb: $(CURRENT_DIR)/.tmp/knora-stack/Makefile
+	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack ci-prepare-graphdb
+
+#################################
+# Integration test targets
+#################################
+
 .PHONY: npm-install
 npm-install: ## runs 'npm install'
 	@npm install
 
 .PHONY: knora-stack
-knora-stack: local-tmp ## gets and runs the knora-stack
-	@rm -rf $(CURRENT_DIR)/.tmp/knora-stack
-	@git clone -b wip/add-js-lib-tests-to-ci --single-branch --depth 1 https://github.com/dasch-swiss/knora-api.git $(CURRENT_DIR)/.tmp/knora-stack
+knora-stack: $(CURRENT_DIR)/.tmp/knora-stack/Makefile local-tmp ## runs the knora-stack
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-up
 	sleep 15
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack init-db-test
