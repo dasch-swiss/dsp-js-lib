@@ -27,5 +27,7 @@ jobs:
         run: sudo apt-get install expect
       - name: prepare needed graphdb-se files
         run: make ci-prepare-graphdb
+        env:
+          LICENSE_ENCRYPTION_KEY: ${{ secrets.license_encryption_key }}
       - name: run test-integration
         run: make test-integration
