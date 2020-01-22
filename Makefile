@@ -10,7 +10,7 @@ include vars.mk
 #################################
 
 # Clones the knora-api git repository only if the Makefile is not present, i.e., the repository is not already cloned
-$(CURRENT_DIR)/.tmp/knora-stack/Makefile: local-tmp
+$(CURRENT_DIR)/.tmp/knora-stack/Makefile: clean local-tmp
 	@git clone -b wip/add-js-lib-tests-to-ci --single-branch --depth 1 https://github.com/dasch-swiss/knora-api.git $(CURRENT_DIR)/.tmp/knora-stack
 
 #################################
