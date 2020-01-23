@@ -22,6 +22,7 @@ import {
     CreateTextValueAsString,
     CreateTextValueAsXml
 } from "../../../models/v2/resources/values/create/create-text-value";
+import { CreateTimeValue } from "../../../models/v2/resources/values/create/create-time-value";
 import { CreateUriValue } from "../../../models/v2/resources/values/create/create-uri-value";
 import { CreateValue } from "../../../models/v2/resources/values/create/create-value";
 import { DeleteValue } from "../../../models/v2/resources/values/delete/delete-value";
@@ -1869,6 +1870,44 @@ describe("ValuesEndpoint", () => {
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-geometry-value-request-expanded.json");
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
+        it("should create a time value", done => {
+
+            const createTimeVal = new CreateTimeValue();
+
+            createTimeVal.time = "2019-08-28T15:59:12.725007Z";
+
+            const updateResource = new UpdateResource<CreateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/a-thing";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasTimeStamp";
+            updateResource.value = createTimeVal;
+
+            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0803/021ec18f1735/values/created");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0803/021ec18f1735/values/created",
+                "@type": Constants.TimeValue
+            })));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = require("../../../../test/data/api/v2/values/create-time-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });

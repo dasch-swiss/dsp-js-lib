@@ -109,6 +109,10 @@
       "destination": "./test/data/api/v2/values/create-geoname-value-request.json"
     },
     {
+      "source": "/test-data/v2/values/create-time-value-request.json",
+      "destination": "./test/data/api/v2/values/create-time-value-request.json"
+    },
+    {
       "source": "/test-data/v2/values/create-text-value-with-comment-request.json",
       "destination": "./test/data/api/v2/values/create-text-value-with-comment-request.json"
     },
