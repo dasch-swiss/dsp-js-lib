@@ -272,6 +272,11 @@ describe("ResourcesConversionUtil", () => {
 
                     expect(timeValue instanceof ReadTimeValue).toBeTruthy();
                     expect((timeValue as ReadTimeValue).time).toEqual("2019-08-30T10:45:20.173572Z");
+                    expect((timeValue as ReadTimeValue).strval).toEqual("2019-08-30T10:45:20.173572Z");
+
+                    const timeValueTyped = resSeq[0].getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasTimeStamp", ReadTimeValue)[0];
+                    expect(timeValueTyped instanceof ReadTimeValue).toBeTruthy();
+                    expect((timeValueTyped).time).toEqual("2019-08-30T10:45:20.173572Z");
 
                     done();
                 }
