@@ -58,6 +58,7 @@ import { UpdateUriValue } from "../../../models/v2/resources/values/update/updat
 import { UpdateValue } from "../../../models/v2/resources/values/update/update-value";
 import { UpdateValuePermissions } from "../../../models/v2/resources/values/update/update-value-permissions";
 import { WriteValueResponse } from "../../../models/v2/resources/values/write-value-response";
+import { ReadTimeValue } from "../../../models/v2/resources/values/read/read-time-value";
 
 const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, undefined, true);
 let knoraApiConnection: KnoraApiConnection;
@@ -472,6 +473,35 @@ describe("ValuesEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/hty-ONF8SwKN2RKU7rLKDg");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should read a time value", done => {
+
+            knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "l6DhS5SCT9WhXSoYEZRTRw").subscribe(
+                (res: ReadResource) => {
+                    const geomVal = res.getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasTimeStamp", ReadTimeValue);
+                    expect(geomVal.length).toEqual(1);
+                    expect(geomVal[0].time).toEqual("2019-08-30T10:45:20.173572Z");
+
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+
+                    expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const resource = require("../../../../test/data/api/v2/values/get-time-value-response-expanded.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/l6DhS5SCT9WhXSoYEZRTRw");
 
             expect(request.method).toEqual("GET");
 
