@@ -53,6 +53,7 @@ import {
     UpdateTextValueAsString,
     UpdateTextValueAsXml
 } from "../../../models/v2/resources/values/update/update-text-value";
+import { UpdateTimeValue } from "../../../models/v2/resources/values/update/update-time-value";
 import { UpdateUriValue } from "../../../models/v2/resources/values/update/update-uri-value";
 import { UpdateValue } from "../../../models/v2/resources/values/update/update-value";
 import { UpdateValuePermissions } from "../../../models/v2/resources/values/update/update-value-permissions";
@@ -1120,6 +1121,45 @@ describe("ValuesEndpoint", () => {
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-geoname-value-request-expanded.json");
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
+        it("should update a time value", done => {
+
+            const updateTimeVal = new UpdateTimeValue();
+
+            updateTimeVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/l6DhS5SCT9WhXSoYEZRTRw";
+            updateTimeVal.time = "2019-12-16T09:33:22.082549Z";
+
+            const updateResource = new UpdateResource<UpdateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasTimeStamp";
+            updateResource.value = updateTimeVal;
+
+            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0803/021ec18f1735/values/updated");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0803/021ec18f1735/values/updated",
+                "@type": Constants.TimeValue
+            })));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = require("../../../../test/data/api/v2/values/update-time-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });

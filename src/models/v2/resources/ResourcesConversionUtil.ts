@@ -8,7 +8,7 @@ import { ResourcePropertyDefinition } from "../ontologies/resource-property-defi
 import { CountQueryResponse } from "../search/count-query-response";
 import { ReadResource } from "./read/read-resource";
 
-import { ReadTimeValue } from "./values/read-time-value";
+import { ReadTimeValue } from "./values/read/read-time-value";
 import { ReadUriValue } from "./values/read/read-uri-value";
 import { ReadValue } from "./values/read/read-value";
 import { ReadBooleanValue } from "./values/read/read-boolean-value";

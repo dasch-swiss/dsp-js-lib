@@ -181,6 +181,10 @@
       "destination": "./test/data/api/v2/values/update-geoname-value-request.json"
     },
     {
+      "source": "/test-data/v2/values/update-time-value-request.json",
+      "destination": "./test/data/api/v2/values/update-time-value-request.json"
+    },
+    {
       "source": "/test-data/v2/values/update-text-value-with-comment-request.json",
       "destination": "./test/data/api/v2/values/update-text-value-with-comment-request.json"
     },

@@ -18,7 +18,7 @@ import { ReadIntervalValue } from "./values/read/read-interval-value";
 import { ReadLinkValue } from "./values/read/read-link-value";
 import { ReadListValue } from "./values/read/read-list-value";
 import { ReadTextValueAsString, ReadTextValueAsXml } from "./values/read/read-text-value";
-import { ReadTimeValue } from "./values/read-time-value";
+import { ReadTimeValue } from "./values/read/read-time-value";
 import { ReadUriValue } from "./values/read/read-uri-value";
 
 describe("ResourcesConversionUtil", () => {
