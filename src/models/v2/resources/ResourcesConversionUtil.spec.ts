@@ -87,7 +87,7 @@ describe("ResourcesConversionUtil", () => {
                     expect(resSeq[0].resourceClassLabel).toEqual("Thing");
                     expect(resSeq[0].resourceClassComment).toEqual("'The whole world is full of things, which means there's a real need for someone to go searching for them. And that's exactly what a thing-searcher does.' --Pippi Longstocking");
 
-                    expect(resSeq[0].getNumberOfProperties()).toEqual(14);
+                    expect(resSeq[0].getNumberOfProperties()).toEqual(15);
                     expect(resSeq[0].getNumberOfValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri")).toEqual(1);
 
                     //
@@ -170,6 +170,9 @@ describe("ResourcesConversionUtil", () => {
                         expect(linkedTarget.type).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
                         expect(linkedTarget.label).toEqual("Sierra");
                     }
+
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(2);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
 
                     //
                     // test richtext value
@@ -261,6 +264,15 @@ describe("ResourcesConversionUtil", () => {
                     expect(dateValsDate.month).toEqual(5);
                     expect(dateValsDate.day).toEqual(13);
 
+                    //
+                    // test time value
+                    //
+                    expect(resSeq[0].getNumberOfValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasTimeStamp")).toEqual(1);
+                    const timeValue = resSeq[0].getValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasTimeStamp")[0];
+
+                    expect(timeValue instanceof ReadTimeValue).toBeTruthy();
+                    expect((timeValue as ReadTimeValue).time).toEqual("2019-08-30T10:45:20.173572Z");
+
                     done();
                 }
             );
@@ -329,30 +341,6 @@ describe("ResourcesConversionUtil", () => {
                     expect(resSeq.length).toEqual(2);
 
                     expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(2);
-                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
-
-                    done();
-                }
-            );
-
-        });
-
-        it("parse JSON-LD representing a resource with a time value", done => {
-
-            const resource = require("../../../../test/data/api/v2/resources/thing-with-time-value-expanded.json");
-
-            ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
-                resSeq => {
-
-                    expect(resSeq.length).toEqual(1);
-
-                    expect(resSeq[0].getNumberOfValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasTimeStamp")).toEqual(1);
-                    const timeValue = resSeq[0].getValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasTimeStamp")[0];
-
-                    expect(timeValue instanceof ReadTimeValue).toBeTruthy();
-                    expect((timeValue as ReadTimeValue).time).toEqual("2019-08-30T10:47:20.684093Z");
-
-                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
                     expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
 
                     done();
