@@ -85,7 +85,7 @@ This package provides the following short-hand scripts:
 1. `npm run test`: Runs the project's tests defined in `./karma.conf.js`. The coverage data is saved into the `./coverage/` folder.
 2. `npm run build`: Builds the whole project without testing and puts the files into the `./build/` folder.
 3. `npm run yalc-publish`: Executes 2 and publishes the package to the yalc app store.
-4. `npm run npm-pack`: Executes 1, 2 and packs the `./build/` folder into an NPM tgz package.
+4. `npm run npm-pack`: Executes 1, 2 and packs the `./build/` folder into an NPM tgz package. The package is moved into a `./dist/` folder.
 5. `npm run npm-publish`: Executes 4 and publishes the package to the NPM store (runs in dry-run mode).
 
 > Note: You need to install `yalc` globally by `npm install yalc -g` to use script number 3. In order to publish a package to NPM, you need to be logged in to NPM and you have to update the version in the `package.json`.
