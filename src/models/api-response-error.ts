@@ -51,6 +51,8 @@ export class ApiResponseError extends ApiResponse {
      */
     static fromAjaxError(ajaxError: AjaxError): ApiResponseError {
 
+        // console.warn(ajaxError)
+
         const response = new ApiResponseError();
 
         if (ajaxError.request.method) response.method = ajaxError.request.method;
