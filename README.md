@@ -86,6 +86,7 @@ This package provides the following short-hand scripts:
 2. `npm run build`: Builds the whole project without testing and puts the files into the `./build/` folder.
 3. `npm run yalc-publish`: Executes 2 and publishes the package to the yalc app store.
 4. `npm run npm-pack`: Executes 1, 2 and packs the `./build/` folder into an NPM tgz package.
+5. `npm run npm-publish`: Executes 4 and publishes the package to the NPM store (runs in dry-run mode).
 
 > Note: You need to install `yalc` globally by `npm install yalc -g` to use script number 3. In order to publish a package to NPM, you need to be logged in to NPM and you have to update the version in the `package.json`.
 
@@ -99,9 +100,8 @@ see <https://docs.knora.org> -> internals -> development -> generating client ap
 
 # Publish a new version to NPM
 
-Run `npm run npm-pack` as described above. This produces a tarball in the project root.  
-Then run `npm publish --dry-run knora-api-x.y.z.tgz` from the project root and check the output.
-If everything looks good, run `npm publish knora-api-x.y.z.tgz` to publish the new version. 
+Run `npm run npm-publish` as described above. The command runs `npm publish` in dry-run mode.
+If everything looks good, remove the flag `--dry-run` from `package.json` and run `npm run publish` to publish the new version. 
 
 # Documentation
 
