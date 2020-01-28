@@ -31,27 +31,20 @@ npm-install: ## runs 'npm install'
 
 .PHONY: knora-stack
 knora-stack: $(CURRENT_DIR)/.tmp/knora-stack/Makefile ## runs the knora-stack
+	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-config
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-up
 	sleep 15
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack init-db-test
 	sleep 15
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-restart-api
 	sleep 15
-	echo "*********************************************************************"
-	echo "*********************************************************************"
-	echo "*********************************************************************"
-	echo "*********************************************************************"
-	echo "*********************************************************************"
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-logs-api-no-follow
 
 .PHONY: generate-client-code
 generate-client-code: local-tmp ## generates client code from Knora
 	curl -o $(CURRENT_DIR)/.tmp/ts.zip http://localhost:3333/clientapi/typescript
-	cat "###\n"
-	cat $(CURRENT_DIR)/.tmp/ts.zip
-	cat "###\n"
 	rm -rf $(CURRENT_DIR)/.tmp/ts
-	mkdir $(CURRENT_DIR)/.tmp/ts/
+	mkdir $(CURRENT_DIR)/.tmp/ts
 	unzip $(CURRENT_DIR)/.tmp/ts.zip -d $(CURRENT_DIR)/.tmp/ts/
 
 .PHONY: integrate-client-code
