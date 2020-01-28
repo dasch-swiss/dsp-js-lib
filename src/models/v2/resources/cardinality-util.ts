@@ -4,7 +4,7 @@ import { Cardinality, IHasProperty } from "../../../models/v2/ontologies/class-d
 export namespace CardinalityUtil {
 
     /**
-     * Returns the cardinality for a property from a `ClassDefinition`.
+     * Returns the cardinality for a property from a `ResourceClassDefinition`.
      *
      * @param propertyIri Iri of the property.
      * @param entityInfo class information.
