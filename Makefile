@@ -31,9 +31,10 @@ npm-install: ## runs 'npm install'
 
 .PHONY: knora-stack
 knora-stack: $(CURRENT_DIR)/.tmp/knora-stack/Makefile ## runs the knora-stack
-	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack print-env-file
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-config
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-up
+	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack print-env-file
+	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-config
 	sleep 15
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack init-db-test
 	sleep 15
