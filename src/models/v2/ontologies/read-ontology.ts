@@ -10,6 +10,9 @@ export class ReadOntology {
     @JsonProperty("@id", String)
     id: string = "";
 
+    @JsonProperty(Constants.Label, String)
+    label: string = "";
+
     @JsonProperty(Constants.LastModificationDate, DateTimeStampConverter, true)
     lastModificationDate?: string = undefined;
 
