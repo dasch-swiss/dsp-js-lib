@@ -18,7 +18,8 @@ $(CURRENT_DIR)/.tmp/knora-stack/Makefile: clean local-tmp
 #################################
 
 .PHONY: ci-prepare-graphdb
-ci-prepare-graphdb: $(CURRENT_DIR)/.tmp/knora-stack/Makefile
+ci-prepare-graphdb: clean
+	$(MAKE) -f $(THIS_FILE) $(CURRENT_DIR)/.tmp/knora-stack/Makefile
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack ci-prepare-graphdb
 
 #################################
