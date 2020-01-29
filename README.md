@@ -101,7 +101,7 @@ see <https://docs.knora.org> -> internals -> development -> generating client ap
 # Publish a new version to NPM
 
 Run `npm run npm-publish` as described above. The command runs `npm publish` in dry-run mode.
-If everything looks good, remove the flag `--dry-run` from `package.json` and run `npm run publish` to publish the new version. 
+If everything looks good, remove the flag `--dry-run` from `package.json` and run `npm run npm-publish` to publish the new version. 
 
 # Documentation
 
