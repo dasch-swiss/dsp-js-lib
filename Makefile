@@ -22,12 +22,13 @@ clone-knora-stack:
 ci-test-integration: ## prepares graphdb, starts the knora-stack and then runs the tests
 	@$(MAKE) -f $(THIS_FILE) clean
 	@$(MAKE) -f $(THIS_FILE) local-tmp
+	@$(MAKE) -f $(THIS_FILE) clone-knora-stack
 	@$(MAKE) -f $(THIS_FILE) ci-prepare-graphdb
 	@$(MAKE) -f $(THIS_FILE) knora-stack
 	@$(MAKE) -f $(THIS_FILE) test
 
 .PHONY: ci-prepare-graphdb
-ci-prepare-graphdb: clone-knora-stack
+ci-prepare-graphdb:
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack ci-prepare-graphdb
 
 #################################
@@ -39,7 +40,7 @@ npm-install: ## runs 'npm install'
 	@npm install
 
 .PHONY: knora-stack
-knora-stack: clone-knora-stack ## runs the knora-stack
+knora-stack: ## runs the knora-stack
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-up
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack print-env-file
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-config
@@ -71,6 +72,7 @@ unit-tests: ## runs the unit tests
 test-integration: ## first starts the knora-stack and then runs the tests
 	@$(MAKE) -f $(THIS_FILE) clean
 	@$(MAKE) -f $(THIS_FILE) local-tmp
+	@$(MAKE) -f $(THIS_FILE) clone-knora-stack
 	@$(MAKE) -f $(THIS_FILE) knora-stack
 	@$(MAKE) -f $(THIS_FILE) test
 
