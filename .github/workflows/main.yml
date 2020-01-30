@@ -2,10 +2,6 @@ name: CI
 
 on: [push]
 
-env:
-  # FIXME: Hardcoded license path not good is ;-)
-  KNORA_GDB_LICENSE: ${{ github.workspace }}/.tmp/knora-stack/ci/graphdb.license
-
 jobs:
   test-integration:
     name: JS Lib Test Integration
@@ -16,9 +12,9 @@ jobs:
           fetch-depth: 1
       - name: install requirements
         run: sudo apt-get install expect
-      - name: prepare needed graphdb-se files
-        run: make ci-prepare-graphdb
+      - name: run ci-test-integration
+        run: make ci-test-integration
         env:
           LICENSE_ENCRYPTION_KEY: ${{ secrets.license_encryption_key }}
-      - name: run test-integration
-        run: make test-integration
+          # FIXME: Hardcoded license path not good is ;-)
+          KNORA_GDB_LICENSE: ${{ github.workspace }}/.tmp/knora-stack/ci/graphdb.license
