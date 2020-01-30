@@ -10,6 +10,15 @@ jobs:
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
+      - name: cache node_modules artifacts
+          uses: actions/cache@v1
+          with:
+            path: node_modules
+            key: ${{ runner.OS }}-build-${{ hashFiles('**/package.json') }}
+            restore-keys: |
+              ${{ runner.OS }}-build-${{ env.cache-name }}-
+              ${{ runner.OS }}-build-
+              ${{ runner.OS }}-
       - name: install requirements
         run: sudo apt-get install expect
       - name: run ci-test-integration
