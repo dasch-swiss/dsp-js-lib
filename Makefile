@@ -27,8 +27,7 @@ ci-test-integration: ## prepares graphdb, starts the knora-stack and then runs t
 	@$(MAKE) -f $(THIS_FILE) test
 
 .PHONY: ci-prepare-graphdb
-ci-prepare-graphdb:
-	$(MAKE) -f $(THIS_FILE) $(CURRENT_DIR)/.tmp/knora-stack/Makefile
+ci-prepare-graphdb: clone-knora-stack
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack ci-prepare-graphdb
 
 #################################
