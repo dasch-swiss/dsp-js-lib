@@ -22,12 +22,13 @@ clone-knora-stack:
 ci-test-integration: ## prepares graphdb, starts the knora-stack and then runs the tests
 	@$(MAKE) -f $(THIS_FILE) clean
 	@$(MAKE) -f $(THIS_FILE) local-tmp
+	@$(MAKE) -f $(THIS_FILE) clone-knora-stack
 	@$(MAKE) -f $(THIS_FILE) ci-prepare-graphdb
 	@$(MAKE) -f $(THIS_FILE) knora-stack
 	@$(MAKE) -f $(THIS_FILE) test
 
 .PHONY: ci-prepare-graphdb
-ci-prepare-graphdb: clone-knora-stack
+ci-prepare-graphdb:
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack ci-prepare-graphdb
 
 #################################
@@ -39,7 +40,7 @@ npm-install: ## runs 'npm install'
 	@npm install
 
 .PHONY: knora-stack
-knora-stack: clone-knora-stack ## runs the knora-stack
+knora-stack: ## runs the knora-stack
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-up
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack print-env-file
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-config
@@ -51,16 +52,17 @@ knora-stack: clone-knora-stack ## runs the knora-stack
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-logs-api-no-follow
 
 .PHONY: generate-client-code
-generate-client-code: local-tmp ## generates client code from Knora
+generate-client-code: ## generates client code from Knora
+	@rm -rf $(CURRENT_DIR)/.tmp/typescript
+	mkdir -p $(CURRENT_DIR)/.tmp/typescript
 	curl -o $(CURRENT_DIR)/.tmp/ts.zip http://localhost:3333/clientapi/typescript
-	rm -rf $(CURRENT_DIR)/.tmp/ts
-	mkdir $(CURRENT_DIR)/.tmp/ts
-	unzip $(CURRENT_DIR)/.tmp/ts.zip -d $(CURRENT_DIR)/.tmp/ts/
+	stat $(CURRENT_DIR)/.tmp/ts.zip
+	unzip $(CURRENT_DIR)/.tmp/ts.zip -d $(CURRENT_DIR)/.tmp/typescript
 
 .PHONY: integrate-client-code
 integrate-client-code: ## intregates generated client code
-	npm run integrate-admin-code $(CURRENT_DIR)/.tmp/ts
-	npm run integrate-v2-test-data $(CURRENT_DIR)/.tmp/ts
+	npm run integrate-admin-code $(CURRENT_DIR)/.tmp/typescript
+	npm run integrate-v2-test-data $(CURRENT_DIR)/.tmp/typescript
 	npm run expand-jsonld-test-data
 
 .PHONY: unit-tests
@@ -71,6 +73,7 @@ unit-tests: ## runs the unit tests
 test-integration: ## first starts the knora-stack and then runs the tests
 	@$(MAKE) -f $(THIS_FILE) clean
 	@$(MAKE) -f $(THIS_FILE) local-tmp
+	@$(MAKE) -f $(THIS_FILE) clone-knora-stack
 	@$(MAKE) -f $(THIS_FILE) knora-stack
 	@$(MAKE) -f $(THIS_FILE) test
 
