@@ -74,13 +74,9 @@ knoraApiConnection.v2.auth.login("user", "password").subscribe(
 Our library makes sure that session data (token) is stored within the KnoraApiConnection instance.
 Any subsequent call after a successful login will be performed using the session.
 
-> Remark: All API calls follow the same pattern. 
-You will always need to subscribe to a method that returns an observable and then provide (up to) two anonymous functions.
-The signature of the success function is always `ApiResponseData<TheData> => void`, the signature of the error function is always `ApiResponseError => void`.
-
 ## Test environment for Angular
 
-<https://github.com/dasch-swiss/knora-api-js-lib-test> provides a ready-to-use test environment for Angular developers.
+`./test-framework` provides a ready-to-use test environment for Angular developers. See `./test-framework/README.md` for further instructions.
 
 # Scripts for testing and deployment
 
@@ -90,7 +86,7 @@ This package provides the following short-hand scripts:
 2. `npm run build`: Builds the whole project without testing and puts the files into the `./build/` folder.
 3. `npm run yalc-publish`: Executes 2 and publishes the package to the yalc app store.
 4. `npm run npm-pack`: Executes 1, 2 and packs the `./build/` folder into an NPM tgz package. The package is moved into a `./dist/` folder.
-5. `npm run npm-publish`: Executes 4 and publishes the package to the NPM store.
+5. `npm run npm-publish`: Executes 4 and publishes the package to the NPM store (runs in dry-run mode).
 
 > Note: You need to install `yalc` globally by `npm install yalc -g` to use script number 3. In order to publish a package to NPM, you need to be logged in to NPM and you have to update the version in the `package.json`.
 
@@ -101,6 +97,11 @@ see <https://docs.knora.org> -> internals -> development -> generating client ap
 2. `npm run integrate-v2-test-data <path-to-generated-client-code>`: this scripts integrates JSON-LD test data for Knora API v2.
 3. `npm run expand-jsonld-test-data`: creates versions with expanded prefixes for Knora API v2 JSON-LD test data. 
 see <https://docs.knora.org> -> internals -> development -> generating client apis (use it without `mock=true`).
+
+# Publish a new version to NPM
+
+Run `npm run npm-publish` as described above. The command runs `npm publish` in dry-run mode.
+If everything looks good, remove the flag `--dry-run` from `package.json` and run `npm run npm-publish` to publish the new version. 
 
 # Documentation
 
