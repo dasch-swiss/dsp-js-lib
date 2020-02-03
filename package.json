@@ -1,6 +1,6 @@
 {
   "name": "@knora/api",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "JavaScript library that handles API requests to Knora",
   "main": "index.js",
   "files": [
@@ -19,7 +19,7 @@
     "build": "tsc && mkdir -p build/ && cp CHANGELOG.md build/ && cp LICENSE build/ && cp README.md build/ && cp package.json build/",
     "yalc-publish": "npm run build && yalc publish build/ --push",
     "npm-pack": "npm run test && npm run build && npm pack build/ && mkdir -p dist/ && cp *.tgz dist/ && rm *.tgz",
-    "npm-publish": "npm run npm-pack && npm publish",
+    "npm-publish": "npm run npm-pack && npm publish build/ --dry-run",
     "builddocs": "typedoc --out docs --readme none --name '@knora/api API Documentation' --exclude \"**/*.spec.*\" src/*.ts"
   },
   "repository": {
