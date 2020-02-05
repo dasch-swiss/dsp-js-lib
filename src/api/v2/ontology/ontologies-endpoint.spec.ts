@@ -54,6 +54,7 @@ describe("OntologiesEndpoint", () => {
                 (response: ReadOntology) => {
 
                     expect(response.id).toEqual("http://api.knora.org/ontology/knora-api/v2");
+                    expect(response.label).toEqual("The knora-api ontology in the complex schema");
 
                     expect(response.dependsOnOntologies.size).toEqual(0);
 
@@ -91,6 +92,7 @@ describe("OntologiesEndpoint", () => {
             knoraApiConnection.v2.onto.getOntology("http://0.0.0.0:3333/ontology/0001/anything/v2").subscribe(
                 (response: ReadOntology) => {
                     expect(response.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
+                    expect(response.label).toEqual("The anything ontology");
 
                     expect(response.dependsOnOntologies.size).toEqual(1);
                     expect(response.dependsOnOntologies.has("http://api.knora.org/ontology/knora-api/v2")).toBeTruthy();
@@ -144,6 +146,7 @@ describe("OntologiesEndpoint", () => {
                 (response: ReadOntology) => {
 
                     expect(response.id).toEqual("http://0.0.0.0:3333/ontology/0001/minimal/v2");
+                    expect(response.label).toEqual("A minimal ontology");
 
                     expect(response.dependsOnOntologies.size).toEqual(1);
                     expect(response.dependsOnOntologies.has("http://api.knora.org/ontology/knora-api/v2")).toBeTruthy();
