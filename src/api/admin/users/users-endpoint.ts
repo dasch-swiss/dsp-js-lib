@@ -7,7 +7,6 @@ import { Endpoint } from "../../endpoint";
 
 import { GroupsResponse } from "../../../models/admin/groups-response";
 import { ProjectsResponse } from "../../../models/admin/projects-response";
-import { StoredUser } from "../../../models/admin/stored-user";
 import { UpdateUserRequest } from "../../../models/admin/update-user-request";
 import { User } from "../../../models/admin/user";
 import { UserResponse } from "../../../models/admin/user-response";
@@ -274,11 +273,12 @@ export class UsersEndpoint extends Endpoint {
     /**
      * Updates a user's SystemAdmin membership.
      * 
-     * @param user The user to be updated.
+     * @param iri The IRI of the user to be updated.
+     * @param systemAdmin True if the user should be a system admin
      */
-    updateUserSystemAdminMembership(user: StoredUser): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
+    updateUserSystemAdminMembership(iri: string, systemAdmin: boolean): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
     
-        return this.httpPut("/iri/" + encodeURIComponent(user.id) + "/SystemAdmin", { systemAdmin: user.systemAdmin }).pipe(
+        return this.httpPut("/iri/" + encodeURIComponent(iri) + "/SystemAdmin", { systemAdmin: systemAdmin }).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );

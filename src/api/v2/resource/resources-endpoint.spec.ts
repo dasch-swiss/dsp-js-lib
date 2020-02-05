@@ -24,6 +24,7 @@ import {
     CreateTextValueAsString,
     CreateTextValueAsXml
 } from "../../../models/v2/resources/values/create/create-text-value";
+import { CreateTimeValue } from "../../../models/v2/resources/values/create/create-time-value";
 import { CreateUriValue } from "../../../models/v2/resources/values/create/create-uri-value";
 
 describe("ResourcesEndpoint", () => {
@@ -172,6 +173,9 @@ describe("ResourcesEndpoint", () => {
             const uriVal = new CreateUriValue();
             uriVal.uri = "https://www.knora.org";
 
+            const timeVal = new CreateTimeValue();
+            timeVal.time = "2020-01-24T08:47:10.307068Z";
+
             const props = {
                 "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean": [
                     boolVal
@@ -211,6 +215,9 @@ describe("ResourcesEndpoint", () => {
                 ],
                 "http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri": [
                     uriVal
+                ],
+                "http://0.0.0.0:3333/ontology/0001/anything/v2#hasTimeStamp": [
+                    timeVal
                 ]
             };
 
