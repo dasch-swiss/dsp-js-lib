@@ -618,12 +618,7 @@ describe("UsersEndpoint", () => {
 
         it("should update a user's project admin membership", done => {
 
-            const storedUser = new StoredUser();
-
-            storedUser.id = "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q";
-            storedUser.systemAdmin = true;
-
-            knoraApiConnection.admin.usersEndpoint.updateUserSystemAdminMembership(storedUser).subscribe(
+            knoraApiConnection.admin.usersEndpoint.updateUserSystemAdminMembership("http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q", true).subscribe(
                 (response: ApiResponseData<UserResponse> | ApiResponseError) => {
                 done();
             });
