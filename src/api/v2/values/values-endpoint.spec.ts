@@ -22,6 +22,7 @@ import {
     CreateTextValueAsString,
     CreateTextValueAsXml
 } from "../../../models/v2/resources/values/create/create-text-value";
+import { CreateTimeValue } from "../../../models/v2/resources/values/create/create-time-value";
 import { CreateUriValue } from "../../../models/v2/resources/values/create/create-uri-value";
 import { CreateValue } from "../../../models/v2/resources/values/create/create-value";
 import { DeleteValue } from "../../../models/v2/resources/values/delete/delete-value";
@@ -53,10 +54,12 @@ import {
     UpdateTextValueAsString,
     UpdateTextValueAsXml
 } from "../../../models/v2/resources/values/update/update-text-value";
+import { UpdateTimeValue } from "../../../models/v2/resources/values/update/update-time-value";
 import { UpdateUriValue } from "../../../models/v2/resources/values/update/update-uri-value";
 import { UpdateValue } from "../../../models/v2/resources/values/update/update-value";
 import { UpdateValuePermissions } from "../../../models/v2/resources/values/update/update-value-permissions";
 import { WriteValueResponse } from "../../../models/v2/resources/values/write-value-response";
+import { ReadTimeValue } from "../../../models/v2/resources/values/read/read-time-value";
 
 const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, undefined, true);
 let knoraApiConnection: KnoraApiConnection;
@@ -471,6 +474,35 @@ describe("ValuesEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/hty-ONF8SwKN2RKU7rLKDg");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should read a time value", done => {
+
+            knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "l6DhS5SCT9WhXSoYEZRTRw").subscribe(
+                (res: ReadResource) => {
+                    const geomVal = res.getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasTimeStamp", ReadTimeValue);
+                    expect(geomVal.length).toEqual(1);
+                    expect(geomVal[0].time).toEqual("2019-08-30T10:45:20.173572Z");
+
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+
+                    expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const resource = require("../../../../test/data/api/v2/values/get-time-value-response-expanded.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/l6DhS5SCT9WhXSoYEZRTRw");
 
             expect(request.method).toEqual("GET");
 
@@ -1120,6 +1152,45 @@ describe("ValuesEndpoint", () => {
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-geoname-value-request-expanded.json");
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
+        it("should update a time value", done => {
+
+            const updateTimeVal = new UpdateTimeValue();
+
+            updateTimeVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/l6DhS5SCT9WhXSoYEZRTRw";
+            updateTimeVal.time = "2019-12-16T09:33:22.082549Z";
+
+            const updateResource = new UpdateResource<UpdateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasTimeStamp";
+            updateResource.value = updateTimeVal;
+
+            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0803/021ec18f1735/values/updated");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0803/021ec18f1735/values/updated",
+                "@type": Constants.TimeValue
+            })));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = require("../../../../test/data/api/v2/values/update-time-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });
@@ -1799,6 +1870,44 @@ describe("ValuesEndpoint", () => {
             expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-geometry-value-request-expanded.json");
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
+        it("should create a time value", done => {
+
+            const createTimeVal = new CreateTimeValue();
+
+            createTimeVal.time = "2019-08-28T15:59:12.725007Z";
+
+            const updateResource = new UpdateResource<CreateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/a-thing";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasTimeStamp";
+            updateResource.value = createTimeVal;
+
+            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0803/021ec18f1735/values/created");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                "@id": "http://rdfh.ch/0803/021ec18f1735/values/created",
+                "@type": Constants.TimeValue
+            })));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+            const expectedPayload = require("../../../../test/data/api/v2/values/create-time-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });

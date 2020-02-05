@@ -7,6 +7,10 @@ import { Constants } from "../Constants";
 import { ResourcePropertyDefinition } from "../ontologies/resource-property-definition";
 import { CountQueryResponse } from "../search/count-query-response";
 import { ReadResource } from "./read/read-resource";
+
+import { ReadTimeValue } from "./values/read/read-time-value";
+import { ReadUriValue } from "./values/read/read-uri-value";
+import { ReadValue } from "./values/read/read-value";
 import { ReadBooleanValue } from "./values/read/read-boolean-value";
 import { ReadColorValue } from "./values/read/read-color-value";
 import { ParseReadDateValue, ReadDateValue } from "./values/read/read-date-value";
@@ -24,8 +28,6 @@ import {
     ReadTextValueAsString,
     ReadTextValueAsXml
 } from "./values/read/read-text-value";
-import { ReadUriValue } from "./values/read/read-uri-value";
-import { ReadValue } from "./values/read/read-value";
 
 export namespace ResourcesConversionUtil {
 
@@ -245,170 +247,180 @@ export namespace ResourcesConversionUtil {
      */
     const createValueValue = (propIri: string, valueJsonld: any, entitiyDefs: IResourceClassAndPropertyDefinitions, ontologyCache: OntologyCache, listNodeCache: ListNodeV2Cache, jsonConvert: JsonConvert): Observable<ReadValue> => {
 
-        if (Array.isArray(valueJsonld)) throw new Error("value is expected to be a single object");
+            if (Array.isArray(valueJsonld)) throw new Error("value is expected to be a single object");
 
-        const type = valueJsonld["@type"];
+            const type = valueJsonld["@type"];
 
-        let value: Observable<ReadValue>;
+            let value: Observable<ReadValue>;
 
-        switch (type) {
+            switch (type) {
 
-            case Constants.BooleanValue: {
-                const boolVal = handleSimpleValue(valueJsonld, ReadBooleanValue, jsonConvert);
-                value = boolVal.pipe(map((val: ReadBooleanValue) => {
-                    val.strval = val.bool ? "TRUE" : "FALSE";
-                    return val;
-                }));
-                break;
-            }
+                case Constants.BooleanValue: {
+                    const boolVal = handleSimpleValue(valueJsonld, ReadBooleanValue, jsonConvert);
+                    value = boolVal.pipe(map((val: ReadBooleanValue) => {
+                        val.strval = val.bool ? "TRUE" : "FALSE";
+                        return val;
+                    }));
+                    break;
+                }
 
-            case Constants.ColorValue: {
-                const colorVal = handleSimpleValue(valueJsonld, ReadColorValue, jsonConvert);
-                value = colorVal.pipe(map((val: ReadColorValue) => {
-                    val.strval = val.color;
-                    return val;
-                }));
-                break;
-            }
+                case Constants.ColorValue: {
+                    const colorVal = handleSimpleValue(valueJsonld, ReadColorValue, jsonConvert);
+                    value = colorVal.pipe(map((val: ReadColorValue) => {
+                        val.strval = val.color;
+                        return val;
+                    }));
+                    break;
+                }
 
-            case Constants.DateValue: {
-                const dateVal = handleSimpleValue(valueJsonld, ParseReadDateValue, jsonConvert);
-                value = dateVal.pipe(map(
-                    (val: ParseReadDateValue) => {
-                        return new ReadDateValue(val);
-                    }
-                ));
-                break;
-            }
-
-            case Constants.IntValue: {
-                const intVal = handleSimpleValue(valueJsonld, ReadIntValue, jsonConvert);
-                value = intVal.pipe(map((val: ReadIntValue) => {
-                    val.strval = val.int.toString();
-                    return val;
-                }));
-                break;
-            }
-
-            case Constants.DecimalValue: {
-                const decimalVal = handleSimpleValue(valueJsonld, ReadDecimalValue, jsonConvert);
-                value = decimalVal.pipe(map((val: ReadDecimalValue) => {
-                    val.strval = val.decimal.toString();
-                    return val;
-                }));
-                break;
-            }
-
-            case Constants.IntervalValue: {
-                const intervalVal = handleSimpleValue(valueJsonld, ReadIntervalValue, jsonConvert);
-                value = intervalVal.pipe(map((val: ReadIntervalValue) => {
-                    val.strval = val.start.toString() + " - " + val.end.toString();
-                    return val;
-                }));
-                break;
-            }
-
-            case Constants.ListValue: {
-                const listValue = value = handleSimpleValue(valueJsonld, ReadListValue, jsonConvert);
-                value = listValue.pipe(
-                    mergeMap(
-                        (listVal: ReadListValue) => {
-                            // get referred list node's label
-                            return listNodeCache.getNode(listVal.listNode).pipe(
-                                map(
-                                    listNode => {
-                                        listVal.listNodeLabel = listNode.label;
-                                        listVal.strval = listNode.label;
-                                        return listVal;
-                                    })
-                            );
+                case Constants.DateValue: {
+                    const dateVal = handleSimpleValue(valueJsonld, ParseReadDateValue, jsonConvert);
+                    value = dateVal.pipe(map(
+                        (val: ParseReadDateValue) => {
+                            return new ReadDateValue(val);
                         }
-                    )
-                );
-                break;
+                    ));
+                    break;
+                }
+
+                case Constants.IntValue: {
+                    const intVal = handleSimpleValue(valueJsonld, ReadIntValue, jsonConvert);
+                    value = intVal.pipe(map((val: ReadIntValue) => {
+                        val.strval = val.int.toString();
+                        return val;
+                    }));
+                    break;
+                }
+
+                case Constants.DecimalValue: {
+                    const decimalVal = handleSimpleValue(valueJsonld, ReadDecimalValue, jsonConvert);
+                    value = decimalVal.pipe(map((val: ReadDecimalValue) => {
+                        val.strval = val.decimal.toString();
+                        return val;
+                    }));
+                    break;
+                }
+
+                case Constants.IntervalValue: {
+                    const intervalVal = handleSimpleValue(valueJsonld, ReadIntervalValue, jsonConvert);
+                    value = intervalVal.pipe(map((val: ReadIntervalValue) => {
+                        val.strval = val.start.toString() + " - " + val.end.toString();
+                        return val;
+                    }));
+                    break;
+                }
+
+                case Constants.ListValue: {
+                    const listValue = value = handleSimpleValue(valueJsonld, ReadListValue, jsonConvert);
+                    value = listValue.pipe(
+                        mergeMap(
+                            (listVal: ReadListValue) => {
+                                // get referred list node's label
+                                return listNodeCache.getNode(listVal.listNode).pipe(
+                                    map(
+                                        listNode => {
+                                            listVal.listNodeLabel = listNode.label;
+                                            listVal.strval = listNode.label;
+                                            return listVal;
+                                        })
+                                );
+                            }
+                        )
+                    );
+                    break;
+                }
+
+                case Constants.UriValue: {
+                    const uriVal = handleSimpleValue(valueJsonld, ReadUriValue, jsonConvert);
+                    value = uriVal.pipe(map((val: ReadUriValue) => {
+                        val.strval = val.uri;
+                        return val;
+                    }));
+                    break;
+                }
+
+                case Constants.TextValue: {
+                    const textVal = handleTextValue(valueJsonld, jsonConvert);
+                    value = textVal.pipe(map((val: ReadTextValue) => {
+                        if (val instanceof ReadTextValueAsString) {
+                            val.strval = val.text;
+                        } else if (val instanceof ReadTextValueAsXml) {
+                            val.strval = val.xml;
+                        } else if (val instanceof ReadTextValueAsHtml) {
+                            val.strval = val.html;
+                        } else {
+                            console.error("String representation for a ReadTextValue could not be constructed for: ", type);
+                        }
+                        return val;
+                    }));
+                    break;
+                }
+
+                case Constants.LinkValue: {
+                    const linkVal = handleLinkValue(valueJsonld, ontologyCache, listNodeCache, jsonConvert);
+                    value = linkVal.pipe(map((val: ReadLinkValue) => {
+                        val.strval = val.linkedResourceIri;
+                        return val;
+                    }));
+                    break;
+                }
+
+                case Constants.GeomValue: {
+                    const geomVal = handleSimpleValue(valueJsonld, ParseReadGeomValue, jsonConvert);
+                    value = geomVal.pipe(map(
+                        (geom: ParseReadGeomValue) => {
+                            return new ReadGeomValue(geom);
+                        }
+                    ));
+                    break;
+                }
+
+                case Constants.StillImageFileValue: {
+                    const stillImageVal = handleSimpleValue(valueJsonld, ReadStillImageFileValue, jsonConvert);
+                    value = stillImageVal.pipe(map((val: ReadStillImageFileValue) => {
+                        val.strval = val.fileUrl;
+                        return val;
+                    }));
+                    break;
+                }
+
+                case Constants.TimeValue: {
+                    const timeVal = handleSimpleValue(valueJsonld, ReadTimeValue, jsonConvert);
+                    value = timeVal.pipe(map((val: ReadTimeValue) => {
+                        val.strval = val.time;
+                        return val;
+                    }));
+                    break;
+                }
+
+                case Constants.GeonameValue: {
+                    const geonameVal = handleSimpleValue(valueJsonld, ReadGeonameValue, jsonConvert);
+                    value = geonameVal.pipe(map((val: ReadGeonameValue) => {
+                        val.strval = val.geoname;
+                        return val;
+                    }));
+                    break;
+                }
+
+                default: {
+                    console.error("Unknown value type: ", type);
+                    value = of(jsonConvert.deserialize(valueJsonld, ReadValue) as ReadValue);
+                }
+
             }
 
-            case Constants.UriValue: {
-                const uriVal = handleSimpleValue(valueJsonld, ReadUriValue, jsonConvert);
-                value = uriVal.pipe(map((val: ReadUriValue) => {
-                    val.strval = val.uri;
+            return value.pipe(map(
+                val => {
+                    val.property = propIri;
+                    val.propertyLabel = entitiyDefs.properties[propIri].label;
+                    val.propertyComment = entitiyDefs.properties[propIri].comment;
+
                     return val;
-                }));
-                break;
-            }
-
-            case Constants.TextValue: {
-                const textVal = handleTextValue(valueJsonld, jsonConvert);
-                value = textVal.pipe(map((val: ReadTextValue) => {
-                    if (val instanceof ReadTextValueAsString) {
-                        val.strval = val.text;
-                    } else if (val instanceof ReadTextValueAsXml) {
-                        val.strval = val.xml;
-                    } else if (val instanceof ReadTextValueAsHtml) {
-                        val.strval = val.html;
-                    } else {
-                        console.error("String representation for a ReadTextValue could not be constructed for: ", type);
-                    }
-                    return val;
-                }));
-                break;
-            }
-
-            case Constants.LinkValue: {
-                const linkVal = handleLinkValue(valueJsonld, ontologyCache, listNodeCache, jsonConvert);
-                value = linkVal.pipe(map((val: ReadLinkValue) => {
-                    val.strval = val.linkedResourceIri;
-                    return val;
-                }));
-                break;
-            }
-
-            case Constants.GeomValue: {
-                const geomVal = handleSimpleValue(valueJsonld, ParseReadGeomValue, jsonConvert);
-                value = geomVal.pipe(map(
-                    (geom: ParseReadGeomValue) => {
-                        return new ReadGeomValue(geom);
-                    }
-                ));
-                break;
-            }
-
-            case Constants.StillImageFileValue: {
-                const stillImageVal = handleSimpleValue(valueJsonld, ReadStillImageFileValue, jsonConvert);
-                value = stillImageVal.pipe(map((val: ReadStillImageFileValue) => {
-                    val.strval = val.fileUrl;
-                    return val;
-                }));
-                break;
-            }
-
-            case Constants.GeonameValue: {
-                const geonameVal = handleSimpleValue(valueJsonld, ReadGeonameValue, jsonConvert);
-                value = geonameVal.pipe(map((val: ReadGeonameValue) => {
-                    val.strval = val.geoname;
-                    return val;
-                }));
-                break;
-            }
-
-            default: {
-                console.error("Unknown value type: ", type);
-                value = of(jsonConvert.deserialize(valueJsonld, ReadValue) as ReadValue);
-            }
+                }
+            ));
 
         }
-
-        return value.pipe(map(
-            val => {
-                val.property = propIri;
-                val.propertyLabel = entitiyDefs.properties[propIri].label;
-                val.propertyComment = entitiyDefs.properties[propIri].comment;
-
-                return val;
-            }
-        ));
-
-    };
+    ;
 
     /**
      * Creates a response to a count query.
@@ -424,3 +436,4 @@ export namespace ResourcesConversionUtil {
     };
 
 }
+;

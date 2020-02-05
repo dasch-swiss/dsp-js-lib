@@ -43,6 +43,7 @@ export class Constants {
     static IsRootNode = Constants.KnoraApiV2 + Constants.Delimiter + "isRootNode";
     static HasRootNode = Constants.KnoraApiV2 + Constants.Delimiter + "hasRootNode";
     static HasSubListNode = Constants.KnoraApiV2 + Constants.Delimiter + "hasSubListNode";
+    static TimeValue = Constants.KnoraApiV2 + Constants.Delimiter + "TimeValue";
     static HasStillImageFileValue = Constants.KnoraApiV2 + Constants.Delimiter + "hasStillImageFileValue";
     static HasTextFileValue = Constants.KnoraApiV2 + Constants.Delimiter + "hasTextFileValue";
     static HasMovingImageFileValue = Constants.KnoraApiV2 + Constants.Delimiter + "hasMovingImageFileValue";
@@ -101,6 +102,7 @@ export class Constants {
     static MovingImageFileValueHasFps = Constants.KnoraApiV2 + Constants.Delimiter + "movingImageFileValueHasFps";
     static FileValueHasFilename = Constants.KnoraApiV2 + Constants.Delimiter + "fileValueHasFilename";
     static FileValueAsUrl = Constants.KnoraApiV2 + Constants.Delimiter + "fileValueAsUrl";
+    static TimeValueAsTimeStamp = Constants.KnoraApiV2 + Constants.Delimiter + "timeValueAsTimeStamp";
     static ValueHasComment = Constants.KnoraApiV2 + Constants.Delimiter + "valueHasComment";
     static DeleteComment = Constants.KnoraApiV2 + Constants.Delimiter + "deleteComment";
     static Result = Constants.KnoraApiV2 + Constants.Delimiter + "result";
