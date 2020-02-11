@@ -1,4 +1,5 @@
-import { Cardinality, ResourceClassDefinition } from "../../../index";
+import { Cardinality } from "../../../models/v2/ontologies/class-definition";
+import { ResourceClassDefinition } from "../../../models/v2/ontologies/resource-class-definition";
 import { CardinalityUtil } from "./cardinality-util";
 
 describe("CardinalityUtil", () => {
