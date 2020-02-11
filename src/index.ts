@@ -129,3 +129,7 @@ export { CreateUriValue } from "./models/v2/resources/values/create/create-uri-v
 export { ListNodeV2 } from "./models/v2/lists/list-node-v2";
 
 export { Constants } from "./models/v2/Constants";
+
+// Utils
+export { CardinalityUtil } from "./models/v2/resources/cardinality-util";
+export { PermissionUtil } from "./models/v2/resources/permission-util";
