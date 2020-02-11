@@ -143,7 +143,7 @@ describe('workspace-project App', () => {
 
     const size = page.getEle('div section#search span.size');
 
-    expect(size.getText()).toEqual('19');
+    expect(size.getText()).toEqual('21');
 
   });
 
@@ -157,7 +157,7 @@ describe('workspace-project App', () => {
 
     const size = page.getEle('div section#search span.size');
 
-    expect(size.getText()).toEqual('19');
+    expect(size.getText()).toEqual('21');
 
   });
 
@@ -171,7 +171,7 @@ describe('workspace-project App', () => {
 
     const size = page.getEle('div section#search span.size');
 
-    expect(size.getText()).toEqual('19');
+    expect(size.getText()).toEqual('21');
 
   });
 
@@ -199,7 +199,7 @@ describe('workspace-project App', () => {
 
     const size = page.getEle('div section#search span.size');
 
-    expect(size.getText()).toEqual('46');
+    expect(size.getText()).toEqual('48');
 
   });
 
