@@ -1,5 +1,5 @@
-import { Cardinality, ResourceClassDefinition } from "../../../..";
-import { CardinalityUtil } from "../cardinality-util";
+import { Cardinality, ResourceClassDefinition } from "../../../index";
+import { CardinalityUtil } from "./cardinality-util";
 
 describe("CardinalityUtil", () => {
 
