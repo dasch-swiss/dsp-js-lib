@@ -1,0 +1,17 @@
+{
+  "@id" : "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
+  "@type" : "anything:Thing",
+  "anything:hasTimeStamp" : {
+    "@id" : "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/l6DhS5SCT9WhXSoYEZRTRw",
+    "@type" : "knora-api:TimeValue",
+    "knora-api:timeValueAsTimeStamp" : {
+      "@type" : "xsd:dateTimeStamp",
+      "@value" : "2019-12-16T09:33:22.082549Z"
+    }
+  },
+  "@context" : {
+    "xsd" : "http://www.w3.org/2001/XMLSchema#",
+    "knora-api" : "http://api.knora.org/ontology/knora-api/v2#",
+    "anything" : "http://0.0.0.0:3333/ontology/0001/anything/v2#"
+  }
+}
