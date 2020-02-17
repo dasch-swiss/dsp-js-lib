@@ -2,14 +2,24 @@ name: CI
 
 on: [push]
 
+env:
+  KNORA_GDB_LICENSE: ${{ github.workspace }}/ci/graphdb/UNIBAS_DEV_GRAPHDB_SE_latest-31-12-2020_1cores.license
+
 jobs:
   test-integration:
     name: JS Lib Test Integration
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout source
+        uses: actions/checkout@v1
         with:
           fetch-depth: 1
+      - name: Checkout private ci-assets
+        uses: actions/checkout@v2
+        with:
+          repository: dasch-swiss/dsp-ci-assets
+          token: ${{ secrets.GitHub_PAT }} # `GitHub_PAT` is a secret that contains the PAT.
+          path: ci
       - name: cache node_modules artifacts
         uses: actions/cache@v1
         with:
