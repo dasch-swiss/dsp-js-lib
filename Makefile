@@ -15,23 +15,6 @@ clone-knora-stack:
 	@git clone -b wip/add-js-lib-tests-to-ci --single-branch --depth 1 https://github.com/dasch-swiss/knora-api.git $(CURRENT_DIR)/.tmp/knora-stack
 
 #################################
-# Github CI targets
-#################################
-
-.PHONY: ci-test-integration
-ci-test-integration: ## prepares graphdb, starts the knora-stack and then runs the tests
-	@$(MAKE) -f $(THIS_FILE) clean
-	@$(MAKE) -f $(THIS_FILE) local-tmp
-	@$(MAKE) -f $(THIS_FILE) clone-knora-stack
-	@$(MAKE) -f $(THIS_FILE) ci-prepare-graphdb
-	@$(MAKE) -f $(THIS_FILE) knora-stack
-	@$(MAKE) -f $(THIS_FILE) test
-
-.PHONY: ci-prepare-graphdb
-ci-prepare-graphdb:
-	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack ci-prepare-graphdb
-
-#################################
 # Integration test targets
 #################################
 
@@ -41,7 +24,7 @@ npm-install: ## runs 'npm install'
 
 .PHONY: knora-stack
 knora-stack: ## runs the knora-stack
-	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-up
+	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-without-api
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack print-env-file
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-config
 	sleep 15
