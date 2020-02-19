@@ -39,9 +39,7 @@ generate-client-code: ## generates client code from Knora
 	@rm -rf $(CURRENT_DIR)/.tmp/typescript
 	mkdir -p $(CURRENT_DIR)/.tmp/typescript
 	curl -o $(CURRENT_DIR)/.tmp/ts.zip http://localhost:3333/clientapi/typescript
-	curl -o $(CURRENT_DIR)/.tmp/ts.zip http://localhost:3333/clientapi/typescript
-	ls -lh $(CURRENT_DIR)/.tmp/ts.zip
-	stat $(CURRENT_DIR)/.tmp/ts.zip
+	cat $(CURRENT_DIR)/.tmp/ts.zip
 	unzip $(CURRENT_DIR)/.tmp/ts.zip -d $(CURRENT_DIR)/.tmp/typescript
 
 .PHONY: integrate-client-code
