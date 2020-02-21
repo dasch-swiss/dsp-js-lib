@@ -31,7 +31,7 @@ knora-stack: ## runs the knora-stack
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack init-db-test
 	sleep 15
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-restart-api
-	sleep 15
+	sleep 18
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-logs-api-no-follow
 
 .PHONY: generate-client-code
@@ -39,7 +39,6 @@ generate-client-code: ## downloads generated client code from Knora-API
 	@rm -rf $(CURRENT_DIR)/.tmp/typescript
 	mkdir -p $(CURRENT_DIR)/.tmp/typescript
 	curl -o $(CURRENT_DIR)/.tmp/ts.zip http://localhost:3333/clientapi/typescript
-	cat $(CURRENT_DIR)/.tmp/ts.zip
 	unzip $(CURRENT_DIR)/.tmp/ts.zip -d $(CURRENT_DIR)/.tmp/typescript
 
 .PHONY: integrate-client-code
