@@ -28,7 +28,7 @@ addons:
       - expect
 
 install:
-  - git clone --single-branch --depth 1 https://github.com/dasch-swiss/knora-api.git
+  - git clone -b wip/1595-value-uuid --single-branch --depth 1 https://github.com/dasch-swiss/knora-api.git
   - cd knora-api && make stack-up
   - sleep 15
   - make init-db-test

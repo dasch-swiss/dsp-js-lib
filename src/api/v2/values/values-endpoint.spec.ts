@@ -535,9 +535,11 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
+
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.IntValue
+                "@type": Constants.IntValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -576,7 +578,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.DecimalValue
+                "@type": Constants.DecimalValue,
+                    [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -615,7 +618,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.ColorValue
+                "@type": Constants.ColorValue,
+                    [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -655,7 +659,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.IntervalValue
+                "@type": Constants.IntervalValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -694,7 +699,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.BooleanValue
+                "@type": Constants.BooleanValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -733,7 +739,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.ListValue
+                "@type": Constants.ListValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -772,7 +779,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.LinkValue
+                "@type": Constants.LinkValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -811,7 +819,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.UriValue
+                "@type": Constants.UriValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -850,7 +859,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.TextValue
+                "@type": Constants.TextValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -890,7 +900,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.TextValue
+                "@type": Constants.TextValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -937,7 +948,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.DateValue
+                "@type": Constants.DateValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -982,7 +994,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.DateValue
+                "@type": Constants.DateValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1025,7 +1038,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.DateValue
+                "@type": Constants.DateValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1064,7 +1078,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0803/7bbb8e59b703/values/updated",
-                "@type": Constants.StillImageFileValue
+                "@type": Constants.StillImageFileValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1103,7 +1118,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0803/021ec18f1735/values/updated",
-                "@type": Constants.GeomValue
+                "@type": Constants.GeomValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1142,7 +1158,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0803/021ec18f1735/values/updated",
-                "@type": Constants.GeonameValue
+                "@type": Constants.GeonameValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1181,7 +1198,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0803/021ec18f1735/values/updated",
-                "@type": Constants.TimeValue
+                "@type": Constants.TimeValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1221,7 +1239,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.IntValue
+                "@type": Constants.IntValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1261,7 +1280,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.IntValue
+                "@type": Constants.IntValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1302,7 +1322,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.IntValue
+                "@type": Constants.IntValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1344,7 +1365,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.IntValue
+                "@type": Constants.IntValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1383,7 +1405,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.DecimalValue
+                "@type": Constants.DecimalValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1422,7 +1445,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.ColorValue
+                "@type": Constants.ColorValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1462,7 +1486,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.IntervalValue
+                "@type": Constants.IntervalValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1499,7 +1524,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.BooleanValue
+                "@type": Constants.BooleanValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1537,7 +1563,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.ListValue
+                "@type": Constants.ListValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1575,7 +1602,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.LinkValue
+                "@type": Constants.LinkValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1613,7 +1641,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.UriValue
+                "@type": Constants.UriValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1651,7 +1680,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.TextValue
+                "@type": Constants.TextValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1690,7 +1720,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.TextValue
+                "@type": Constants.TextValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1736,7 +1767,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.DateValue
+                "@type": Constants.DateValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1780,7 +1812,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.DateValue
+                "@type": Constants.DateValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1822,7 +1855,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.DateValue
+                "@type": Constants.DateValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1860,7 +1894,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0803/021ec18f1735/values/created",
-                "@type": Constants.GeomValue
+                "@type": Constants.GeomValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1898,7 +1933,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0803/021ec18f1735/values/created",
-                "@type": Constants.TimeValue
+                "@type": Constants.TimeValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1958,7 +1994,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0803/021ec18f1735/values/created",
-                "@type": Constants.GeonameValue
+                "@type": Constants.GeonameValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1997,7 +2034,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.TextValue
+                "@type": Constants.TextValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -2037,7 +2075,8 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
                 "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.IntValue
+                "@type": Constants.IntValue,
+                [ Constants.ValueHasUUID ]: "uuid"
             })));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
