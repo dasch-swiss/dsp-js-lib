@@ -55,7 +55,7 @@ unit-tests: ## runs the unit tests
 e2e-tests: ## runs the e2e tests
 	sudo npm install yalc -g
 	npm run yalc-publish
-	cd test-framework && yalc remove --all && yalc add @knora/api && npm install && npm run webdriver-update && npm rebuild node-sass && npm run e2e
+	cd test-framework && yalc remove --all && yalc add @knora/api && npm install && npm run webdriver-update && npm run e2e
 	#cd test-framework && npm run build
 	#cd test-framework && docker build .
 
