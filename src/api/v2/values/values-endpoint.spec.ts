@@ -523,9 +523,9 @@ describe("ValuesEndpoint", () => {
         it("should check mocked update value response", () => {
 
             const mockedUpdateIntValueResponse = mockWriteValueResponse(
-                "http://rdfh.ch/0001/cPMwbykQTTCpi8YZxpUx-Q/values/77TpEECAQ3-5rya06cUQZA",
+                "http://rdfh.ch/0001/_GlNQXdYRTyQPhpdh76U1w/values/OGbYaSgNSUCKQtmn9suXlw",
                 Constants.IntValue,
-                "faPj1RCiTEKEEsh8bfDVXQ");
+                "hKOvV-6ZSG-qnOTKHRmlfQ");
 
             const updateIntValueResponse = require("../../../../test/data/api/v2/values/update-int-value-response-expanded.json");
 
