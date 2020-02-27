@@ -51,6 +51,22 @@ integrate-client-code: ## intregates generated client code
 unit-tests: ## runs the unit tests
 	npm test
 
+.PHONY: e2e-tests
+e2e-tests: ## runs the e2e tests
+    yarn global add yalc
+    npm run yalc-publish
+    cd test-framework
+    yalc remove --all && yalc add @knora/api
+    npm install
+    npm run webdriver-update
+    npm run e2e
+    npm run build
+    docker build .
+
+.PHONY: build
+build: ## builds the lib
+	npm run build
+
 .PHONY: test-integration
 test-integration: ## first starts the knora-stack and then runs the tests
 	@$(MAKE) -f $(THIS_FILE) clean
