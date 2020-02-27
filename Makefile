@@ -57,6 +57,7 @@ e2e-tests: ## runs the e2e tests
 	npm run yalc-publish
 	cd test-framework
 	yalc remove --all && yalc add @knora/api
+	pwd
 	npm install
 	npm run webdriver-update
 	npm run e2e
