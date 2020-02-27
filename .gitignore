@@ -31,8 +31,8 @@
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
-
 ############################
 
 /test-framework/node_modules
 /test-framework/.yalc
+/.tmp
