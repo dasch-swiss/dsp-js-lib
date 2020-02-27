@@ -53,6 +53,10 @@
       "destination": "./test/data/api/v2/values/create-int-value-request.json"
     },
     {
+      "source": "/test-data/v2/values/create-value-response.json",
+      "destination": "./test/data/api/v2/values/create-int-value-response.json"
+    },
+    {
       "source": "/test-data/v2/values/create-decimal-value-request.json",
       "destination": "./test/data/api/v2/values/create-decimal-value-request.json"
     },
