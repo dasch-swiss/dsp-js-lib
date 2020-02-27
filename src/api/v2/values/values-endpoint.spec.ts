@@ -69,6 +69,14 @@ let getListNodeFromCacheSpy: jasmine.Spy;
 
 describe("ValuesEndpoint", () => {
 
+    const mockWriteValueResponse = (id: string, type: string, uuid: string): string => {
+        return JSON.stringify({
+            "@id": id,
+            "@type": type,
+            [Constants.ValueHasUUID]: uuid
+        });
+    };
+
     beforeEach(() => {
         jasmine.Ajax.install();
 
@@ -512,6 +520,19 @@ describe("ValuesEndpoint", () => {
 
     describe("Method updateValue", () => {
 
+        it("should check mocked update value response", () => {
+
+            const mockedUpdateIntValueResponse = mockWriteValueResponse(
+                "http://rdfh.ch/0001/_GlNQXdYRTyQPhpdh76U1w/values/OGbYaSgNSUCKQtmn9suXlw",
+                Constants.IntValue,
+                "hKOvV-6ZSG-qnOTKHRmlfQ");
+
+            const updateIntValueResponse = require("../../../../test/data/api/v2/values/update-int-value-response-expanded.json");
+
+            expect(JSON.parse(mockedUpdateIntValueResponse)).toEqual(updateIntValueResponse);
+
+        });
+
         it("should update an integer value", done => {
 
             const updateIntVal = new UpdateIntValue();
@@ -529,16 +550,19 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.type).toEqual(Constants.IntValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.IntValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(
+                mockWriteValueResponse(
+                    "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                    Constants.IntValue,
+                    "uuid")
+            ));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -568,16 +592,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.type).toEqual(Constants.DecimalValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.DecimalValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                Constants.DecimalValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -607,16 +632,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.type).toEqual(Constants.ColorValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.ColorValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                Constants.ColorValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -647,16 +673,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.type).toEqual(Constants.IntervalValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.IntervalValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                Constants.IntervalValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -686,16 +713,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.type).toEqual(Constants.BooleanValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.BooleanValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                Constants.BooleanValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -725,16 +753,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.type).toEqual(Constants.ListValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.ListValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                Constants.ListValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -764,16 +793,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.type).toEqual(Constants.LinkValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.LinkValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                Constants.LinkValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -803,16 +833,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.type).toEqual(Constants.UriValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.UriValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                Constants.UriValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -842,16 +873,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.type).toEqual(Constants.TextValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.TextValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                Constants.TextValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -882,16 +914,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.type).toEqual(Constants.TextValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.TextValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                Constants.TextValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -929,16 +962,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.type).toEqual(Constants.DateValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.DateValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                Constants.DateValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -974,16 +1008,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.type).toEqual(Constants.DateValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.DateValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                Constants.DateValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1017,16 +1052,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.type).toEqual(Constants.DateValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.DateValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                Constants.DateValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1055,17 +1091,18 @@ describe("ValuesEndpoint", () => {
 
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0803/7bbb8e59b703/values/updated");
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.type).toEqual(Constants.StillImageFileValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0803/7bbb8e59b703/values/updated",
-                "@type": Constants.StillImageFileValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                Constants.StillImageFileValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1094,17 +1131,18 @@ describe("ValuesEndpoint", () => {
 
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0803/021ec18f1735/values/updated");
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.type).toEqual(Constants.GeomValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0803/021ec18f1735/values/updated",
-                "@type": Constants.GeomValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                Constants.GeomValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1133,17 +1171,18 @@ describe("ValuesEndpoint", () => {
 
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0803/021ec18f1735/values/updated");
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.type).toEqual(Constants.GeonameValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0803/021ec18f1735/values/updated",
-                "@type": Constants.GeonameValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                Constants.GeonameValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1172,17 +1211,18 @@ describe("ValuesEndpoint", () => {
 
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0803/021ec18f1735/values/updated");
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.type).toEqual(Constants.TimeValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0803/021ec18f1735/values/updated",
-                "@type": Constants.TimeValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                Constants.TimeValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1213,16 +1253,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.type).toEqual(Constants.IntValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.IntValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                Constants.IntValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1253,16 +1294,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.type).toEqual(Constants.IntValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.IntValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                Constants.IntValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1294,16 +1336,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.type).toEqual(Constants.IntValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.IntValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
+                Constants.IntValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1321,6 +1364,19 @@ describe("ValuesEndpoint", () => {
 
     describe("Method createValue", () => {
 
+        it("should check mocked create value response", () => {
+
+            const mockedUpdateIntValueResponse = mockWriteValueResponse(
+                "http://rdfh.ch/0001/_GlNQXdYRTyQPhpdh76U1w/values/OGbYaSgNSUCKQtmn9suXlw",
+                Constants.IntValue,
+                "hKOvV-6ZSG-qnOTKHRmlfQ");
+
+            const updateIntValueResponse = require("../../../../test/data/api/v2/values/create-int-value-response-expanded.json");
+
+            expect(JSON.parse(mockedUpdateIntValueResponse)).toEqual(updateIntValueResponse);
+
+        });
+
         it("should create an integer value", done => {
 
             const createIntVal = new CreateIntValue();
@@ -1336,16 +1392,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    expect(res.type).toEqual(Constants.IntValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.IntValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                Constants.IntValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1375,16 +1432,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    expect(res.type).toEqual(Constants.DecimalValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.DecimalValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                Constants.DecimalValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1414,16 +1472,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    expect(res.type).toEqual(Constants.ColorValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.ColorValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                Constants.ColorValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1454,16 +1513,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    expect(res.type).toEqual(Constants.IntervalValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.IntervalValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                Constants.IntervalValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1491,16 +1551,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    expect(res.type).toEqual(Constants.BooleanValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.BooleanValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                Constants.BooleanValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1529,16 +1590,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    expect(res.type).toEqual(Constants.ListValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.ListValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                Constants.ListValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1567,16 +1629,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    expect(res.type).toEqual(Constants.LinkValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.LinkValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                Constants.LinkValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1604,17 +1667,18 @@ describe("ValuesEndpoint", () => {
 
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated");
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    expect(res.type).toEqual(Constants.UriValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
-                "@type": Constants.UriValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                Constants.UriValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1643,16 +1707,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.createValue(createResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    expect(res.type).toEqual(Constants.TextValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.TextValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                Constants.TextValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1682,16 +1747,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    expect(res.type).toEqual(Constants.TextValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.TextValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                Constants.TextValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1728,16 +1794,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    expect(res.type).toEqual(Constants.DateValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.DateValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                Constants.DateValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1772,16 +1839,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    expect(res.type).toEqual(Constants.DateValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.DateValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                Constants.DateValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1814,16 +1882,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    expect(res.type).toEqual(Constants.DateValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.DateValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                Constants.DateValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1851,17 +1920,18 @@ describe("ValuesEndpoint", () => {
 
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0803/021ec18f1735/values/created");
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    expect(res.type).toEqual(Constants.GeomValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0803/021ec18f1735/values/created",
-                "@type": Constants.GeomValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                Constants.GeomValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1889,17 +1959,18 @@ describe("ValuesEndpoint", () => {
 
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0803/021ec18f1735/values/created");
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    expect(res.type).toEqual(Constants.TimeValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0803/021ec18f1735/values/created",
-                "@type": Constants.TimeValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                Constants.TimeValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1949,17 +2020,18 @@ describe("ValuesEndpoint", () => {
 
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0803/021ec18f1735/values/created");
+                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    expect(res.type).toEqual(Constants.GeonameValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0803/021ec18f1735/values/created",
-                "@type": Constants.GeonameValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                Constants.GeonameValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1989,16 +2061,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    expect(res.type).toEqual(Constants.TextValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.TextValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                Constants.TextValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -2029,16 +2102,17 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
+                    expect(res.type).toEqual(Constants.IntValue);
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                "@type": Constants.IntValue
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                Constants.IntValue,
+                "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
