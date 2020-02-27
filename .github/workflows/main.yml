@@ -10,6 +10,9 @@ jobs:
   test-integration:
     name: JS Lib Test Integration
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [11.x]
     steps:
       - name: Checkout source
         uses: actions/checkout@v1
