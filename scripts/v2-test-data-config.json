@@ -53,6 +53,10 @@
       "destination": "./test/data/api/v2/values/create-int-value-request.json"
     },
     {
+      "source": "/test-data/v2/values/create-value-response.json",
+      "destination": "./test/data/api/v2/values/create-int-value-response.json"
+    },
+    {
       "source": "/test-data/v2/values/create-decimal-value-request.json",
       "destination": "./test/data/api/v2/values/create-decimal-value-request.json"
     },
@@ -123,6 +127,10 @@
     {
       "source": "/test-data/v2/values/update-int-value-request.json",
       "destination": "./test/data/api/v2/values/update-int-value-request.json"
+    },
+    {
+      "source": "/test-data/v2/values/update-value-response.json",
+      "destination": "./test/data/api/v2/values/update-int-value-response.json"
     },
     {
       "source": "/test-data/v2/values/update-decimal-value-request.json",

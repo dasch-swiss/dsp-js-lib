@@ -112,7 +112,7 @@ describe("ResourcesEndpoint", () => {
 
         const createResourceResponse = require("../../../../test/data/api/v2/resources/resource-preview.json");
 
-        /*it("should create a resource with values", done => {
+        xit("should create a resource with values", done => {
 
             const createResource = new CreateResource();
 
@@ -242,7 +242,7 @@ describe("ResourcesEndpoint", () => {
 
             expect(request.data()).toEqual(expectedPayload);
 
-        });*/
+        });
 
         it("create a resource as a specific user", done => {
 
