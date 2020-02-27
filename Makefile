@@ -58,6 +58,7 @@ e2e-tests: ## runs the e2e tests
 	cd test-framework && yalc remove --all && yalc add @knora/api
 	cd test-framework && npm install
 	cd test-framework && npm run webdriver-update
+	cd test-framework && nmap -p 3333 0.0.0.0
 	cd test-framework && npm run e2e
 	cd test-framework && npm run build
 	cd test-framework && docker build .
