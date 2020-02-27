@@ -34,7 +34,7 @@ jobs:
         run: sudo apt-get install expect
       - name: run test-integration
         run: |
-          #make npm-install
-          #make test-integration
-          #make build
+          make npm-install
+          make test-integration
+          make build
           make e2e-tests
