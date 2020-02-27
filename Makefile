@@ -53,7 +53,7 @@ unit-tests: ## runs the unit tests
 
 .PHONY: e2e-tests
 e2e-tests: ## runs the e2e tests
-    yarn global add yalc
+    npm install yalc -g
     npm run yalc-publish
     cd test-framework
     yalc remove --all && yalc add @knora/api
