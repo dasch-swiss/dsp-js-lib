@@ -53,15 +53,15 @@ unit-tests: ## runs the unit tests
 
 .PHONY: e2e-tests
 e2e-tests: ## runs the e2e tests
-    npm install yalc -g
-    npm run yalc-publish
-    cd test-framework
-    yalc remove --all && yalc add @knora/api
-    npm install
-    npm run webdriver-update
-    npm run e2e
-    npm run build
-    docker build .
+	npm install yalc -g
+	npm run yalc-publish
+	cd test-framework
+	yalc remove --all && yalc add @knora/api
+	npm install
+	npm run webdriver-update
+	npm run e2e
+	npm run build
+	docker build .
 
 .PHONY: build
 build: ## builds the lib
