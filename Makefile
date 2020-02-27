@@ -65,7 +65,7 @@ e2e-tests: ## runs the e2e tests
 
 .PHONY: build
 build: ## builds the lib
-	npm run build
+    npm run build
 
 .PHONY: test-integration
 test-integration: ## first starts the knora-stack and then runs the tests
