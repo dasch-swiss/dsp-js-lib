@@ -79,6 +79,8 @@ test: ## run tests
 	@$(MAKE) -f $(THIS_FILE) generate-client-code
 	@$(MAKE) -f $(THIS_FILE) integrate-client-code
 	@$(MAKE) -f $(THIS_FILE) unit-tests
+	@$(MAKE) -f $(THIS_FILE) build
+	@$(MAKE) -f $(THIS_FILE) e2e-tests
 
 .PHONY: local-tmp
 local-tmp:

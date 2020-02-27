@@ -36,5 +36,3 @@ jobs:
         run: |
           make npm-install
           make test-integration
-          make build
-          make e2e-tests
