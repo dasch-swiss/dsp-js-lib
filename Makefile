@@ -12,7 +12,7 @@ include vars.mk
 # Clones the knora-api git repository
 .PHONY: clone-knora-stack
 clone-knora-stack:
-	@git clone -b wip/1595-value-uuid --single-branch --depth 1 https://github.com/dasch-swiss/knora-api.git $(CURRENT_DIR)/.tmp/knora-stack
+	@git clone --single-branch --depth 1 https://github.com/dasch-swiss/knora-api.git $(CURRENT_DIR)/.tmp/knora-stack
 
 #################################
 # Integration test targets
