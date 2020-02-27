@@ -55,13 +55,9 @@ unit-tests: ## runs the unit tests
 e2e-tests: ## runs the e2e tests
 	sudo npm install yalc -g
 	npm run yalc-publish
-	cd test-framework && yalc remove --all && yalc add @knora/api
-	cd test-framework && npm install
-	cd test-framework && npm run webdriver-update
-	cd test-framework && nmap -p 3333 0.0.0.0
-	cd test-framework && npm run e2e
-	cd test-framework && npm run build
-	cd test-framework && docker build .
+	cd test-framework && yalc remove --all && yalc add @knora/api && npm install && npm run webdriver-update && npm run e2e
+	#cd test-framework && npm run build
+	#cd test-framework && docker build .
 
 .PHONY: build
 build: ## builds the lib
