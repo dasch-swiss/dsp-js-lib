@@ -10,6 +10,9 @@ jobs:
   test-integration:
     name: JS Lib Test Integration
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [11.x]
     steps:
       - name: Checkout source
         uses: actions/checkout@v1
@@ -33,6 +36,9 @@ jobs:
       - name: install requirements
         run: sudo apt-get install expect
       - name: run test-integration
-        run: |
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: |
           make npm-install
           make test-integration
