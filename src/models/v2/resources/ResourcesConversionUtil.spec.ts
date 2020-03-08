@@ -284,44 +284,6 @@ describe("ResourcesConversionUtil", () => {
 
         });
 
-        it("parse JSON-LD representing a single page resource", done => {
-
-            const resource = require("../../../../test/data/api/v2/resources/page-expanded.json");
-
-            ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
-                resSeq => {
-
-                    // console.log(resSeq[0].properties);
-
-                    expect(resSeq.length).toEqual(1);
-
-                    done();
-                }
-            );
-
-        });
-
-        it("parse JSON-LD representing two region resources", done => {
-
-            const resource = require("../../../../test/data/api/v2/resources/regions-expanded.json");
-
-            ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
-                resSeq => {
-
-                    expect(resSeq.length).toEqual(2);
-
-                    const geomVal: ReadGeomValue[] = resSeq[0].getValuesAs("http://api.knora.org/ontology/knora-api/v2#hasGeometry", ReadGeomValue);
-
-                    const regGeom = new RegionGeometry("active", "#ff3333", 2, [new Point2D(0.08098591549295775, 0.16741071428571427), new Point2D(0.7394366197183099, 0.7299107142857143)], "rectangle");
-
-                    expect(geomVal[0].geometry).toEqual(regGeom);
-
-                    done();
-                }
-            );
-
-        });
-
         it("parse JSON-LD representing an empty resource", done => {
 
             const emptyResource = {};
