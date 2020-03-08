@@ -43,6 +43,11 @@ generate-test-data: ## downloads generated test data from Knora-API
 
 .PHONY: integrate-test-data
 integrate-test-data: ## intregates generated test data
+	rm -rf test/data/api/admin/*
+	rm -rf test/data/api/v2/lists/*
+	rm -rf test/data/api/v2/ontologies/*
+	rm -rf test/data/api/v2/resources/*
+	rm -rf test/data/api/v2/values/*
 	npm run integrate-admin-test-data $(CURRENT_DIR)/.tmp/typescript/test-data
 	npm run integrate-v2-test-data $(CURRENT_DIR)/.tmp/typescript/test-data
 	npm run expand-jsonld-test-data
