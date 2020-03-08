@@ -58,7 +58,7 @@
   },
   "dependencies": {
     "@types/jsonld": "^1.5.0",
-    "json2typescript": "^1.2.3",
+    "json2typescript": "^1.2.5",
     "jsonld": "^1.8.0",
     "rxjs": "~6.4.0"
   }
