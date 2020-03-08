@@ -135,7 +135,7 @@ describe("ProjectsEndpoint", () => {
                 (response: ApiResponseData<KeywordsResponse>) => {
 
                     // TODO: fix JSON test data
-                    expect(response.body.keywords.length).toEqual(0);
+                    expect(response.body.keywords.length).toEqual(2);
                     // expect(response.body.keywords[0]).toEqual("Basel");
 
                     done();
