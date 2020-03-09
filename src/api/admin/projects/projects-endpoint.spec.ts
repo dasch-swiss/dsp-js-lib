@@ -134,9 +134,8 @@ describe("ProjectsEndpoint", () => {
             knoraApiConnection.admin.projectsEndpoint.getProjectKeywords("http://rdfh.ch/projects/00FF").subscribe(
                 (response: ApiResponseData<KeywordsResponse>) => {
 
-                    // TODO: fix JSON test data
                     expect(response.body.keywords.length).toEqual(2);
-                    // expect(response.body.keywords[0]).toEqual("Basel");
+                    expect(response.body.keywords[0]).toEqual("arbitrary test data");
 
                     done();
                 });
