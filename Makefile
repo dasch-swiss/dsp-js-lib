@@ -31,20 +31,25 @@ knora-stack: ## runs the knora-stack
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack init-db-test
 	sleep 15
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-restart-api
-	sleep 18
+	sleep 35
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-logs-api-no-follow
 
-.PHONY: generate-client-code
-generate-client-code: ## downloads generated client code from Knora-API
+.PHONY: generate-test-data
+generate-test-data: ## downloads generated test data from Knora-API
 	@rm -rf $(CURRENT_DIR)/.tmp/typescript
 	mkdir -p $(CURRENT_DIR)/.tmp/typescript
-	curl -o $(CURRENT_DIR)/.tmp/ts.zip http://localhost:3333/clientapi/typescript
+	curl -o $(CURRENT_DIR)/.tmp/ts.zip http://localhost:3333/clientapitest
 	unzip $(CURRENT_DIR)/.tmp/ts.zip -d $(CURRENT_DIR)/.tmp/typescript
 
-.PHONY: integrate-client-code
-integrate-client-code: ## intregates generated client code
-	npm run integrate-admin-code $(CURRENT_DIR)/.tmp/typescript
-	npm run integrate-v2-test-data $(CURRENT_DIR)/.tmp/typescript
+.PHONY: integrate-test-data
+integrate-test-data: ## intregates generated test data
+	rm -rf test/data/api/admin/*
+	rm -rf test/data/api/v2/lists/*
+	rm -rf test/data/api/v2/ontologies/*
+	rm -rf test/data/api/v2/resources/*
+	rm -rf test/data/api/v2/values/*
+	npm run integrate-admin-test-data $(CURRENT_DIR)/.tmp/typescript/test-data
+	npm run integrate-v2-test-data $(CURRENT_DIR)/.tmp/typescript/test-data
 	npm run expand-jsonld-test-data
 
 .PHONY: unit-tests
@@ -61,8 +66,8 @@ e2e-tests: ## runs the e2e tests
 build: ## builds the lib
 	npm run build
 
-.PHONY: test-integration
-test-integration: ## first starts the knora-stack and then runs the tests
+.PHONY: test-ci
+test-ci: ## first starts the knora-stack and then runs the tests
 	@$(MAKE) -f $(THIS_FILE) clean
 	@$(MAKE) -f $(THIS_FILE) local-tmp
 	@$(MAKE) -f $(THIS_FILE) clone-knora-stack
@@ -71,8 +76,8 @@ test-integration: ## first starts the knora-stack and then runs the tests
 
 .PHONY: test
 test: ## run tests
-	@$(MAKE) -f $(THIS_FILE) generate-client-code
-	@$(MAKE) -f $(THIS_FILE) integrate-client-code
+	@$(MAKE) -f $(THIS_FILE) generate-test-data
+	@$(MAKE) -f $(THIS_FILE) integrate-test-data
 	@$(MAKE) -f $(THIS_FILE) unit-tests
 	@$(MAKE) -f $(THIS_FILE) build
 	@$(MAKE) -f $(THIS_FILE) e2e-tests

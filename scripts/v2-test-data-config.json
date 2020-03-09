@@ -1,315 +1,307 @@
 {
   "generated-test-data": [
     {
-      "source": "/test-data/v2/ontologies/all-ontology-metadata.json",
+      "source": "/v2/ontologies/all-ontology-metadata.json",
       "destination": "./test/data/api/v2/ontologies/all-ontology-metadata.json"
     },
     {
-      "source": "/test-data/v2/ontologies/knora-api-ontology.json",
+      "source": "/v2/ontologies/knora-api-ontology.json",
       "destination": "./test/data/api/v2/ontologies/knora-api-ontology.json"
     },
     {
-      "source": "/test-data/v2/ontologies/anything-ontology.json",
+      "source": "/v2/ontologies/anything-ontology.json",
       "destination": "./test/data/api/v2/ontologies/anything-ontology.json"
     },
     {
-      "source": "/test-data/v2/ontologies//minimal-ontology.json",
+      "source": "/v2/ontologies//minimal-ontology.json",
       "destination": "./test/data/api/v2/ontologies/minimal-ontology.json"
     },
     {
-      "source": "/test-data/v2/ontologies/incunabula-ontology.json",
+      "source": "/v2/ontologies/incunabula-ontology.json",
       "destination": "./test/data/api/v2/ontologies/incunabula-ontology.json"
     },
     {
-      "source": "/test-data/v2/resources/testding.json",
+      "source": "/v2/resources/testding.json",
       "destination": "./test/data/api/v2/resources/testding.json"
     },
     {
-      "source": "/test-data/v2/resources/page.json",
-      "destination": "./test/data/api/v2/resources/page.json"
-    },
-    {
-      "source": "/test-data/v2/search/things.json",
+      "source": "/v2/search/things.json",
       "destination": "./test/data/api/v2/resources/things.json"
     },
     {
-      "source": "/test-data/v2/search/regions.json",
-      "destination": "./test/data/api/v2/resources/regions.json"
-    },
-    {
-      "source": "/test-data/v2/lists/treelist.json",
+      "source": "/v2/lists/treelist.json",
       "destination": "./test/data/api/v2/lists/treelist.json"
     },
     {
-      "source": "/test-data/v2/lists/othertreelist.json",
+      "source": "/v2/lists/othertreelist.json",
       "destination": "./test/data/api/v2/lists/othertreelist.json"
     },
     {
-      "source": "/test-data/v2/lists/listnode.json",
+      "source": "/v2/lists/listnode.json",
       "destination": "./test/data/api/v2/lists/listnode.json"
     },
     {
-      "source": "/test-data/v2/values/create-int-value-request.json",
+      "source": "/v2/values/create-int-value-request.json",
       "destination": "./test/data/api/v2/values/create-int-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/create-value-response.json",
+      "source": "/v2/values/create-value-response.json",
       "destination": "./test/data/api/v2/values/create-int-value-response.json"
     },
     {
-      "source": "/test-data/v2/values/create-decimal-value-request.json",
+      "source": "/v2/values/create-decimal-value-request.json",
       "destination": "./test/data/api/v2/values/create-decimal-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/create-color-value-request.json",
+      "source": "/v2/values/create-color-value-request.json",
       "destination": "./test/data/api/v2/values/create-color-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/create-interval-value-request.json",
+      "source": "/v2/values/create-interval-value-request.json",
       "destination": "./test/data/api/v2/values/create-interval-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/create-boolean-value-request.json",
+      "source": "/v2/values/create-boolean-value-request.json",
       "destination": "./test/data/api/v2/values/create-boolean-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/create-list-value-request.json",
+      "source": "/v2/values/create-list-value-request.json",
       "destination": "./test/data/api/v2/values/create-list-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/create-link-value-request.json",
+      "source": "/v2/values/create-link-value-request.json",
       "destination": "./test/data/api/v2/values/create-link-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/create-uri-value-request.json",
+      "source": "/v2/values/create-uri-value-request.json",
       "destination": "./test/data/api/v2/values/create-uri-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/create-text-value-without-standoff-request.json",
+      "source": "/v2/values/create-text-value-without-standoff-request.json",
       "destination": "./test/data/api/v2/values/create-text-value-without-standoff-request.json"
     },
     {
-      "source": "/test-data/v2/values/create-text-value-with-standoff-request.json",
+      "source": "/v2/values/create-text-value-with-standoff-request.json",
       "destination": "./test/data/api/v2/values/create-text-value-with-standoff-request.json"
     },
     {
-      "source": "/test-data/v2/values/create-date-value-with-day-precision-request.json",
+      "source": "/v2/values/create-date-value-with-day-precision-request.json",
       "destination": "./test/data/api/v2/values/create-date-value-with-day-precision-request.json"
     },
     {
-      "source": "/test-data/v2/values/create-date-value-with-month-precision-request.json",
+      "source": "/v2/values/create-date-value-with-month-precision-request.json",
       "destination": "./test/data/api/v2/values/create-date-value-with-month-precision-request.json"
     },
     {
-      "source": "/test-data/v2/values/create-date-value-with-year-precision-request.json",
+      "source": "/v2/values/create-date-value-with-year-precision-request.json",
       "destination": "./test/data/api/v2/values/create-date-value-with-year-precision-request.json"
     },
     {
-      "source": "/test-data/v2/values/create-geometry-value-request.json",
+      "source": "/v2/values/create-geometry-value-request.json",
       "destination": "./test/data/api/v2/values/create-geometry-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/create-geoname-value-request.json",
+      "source": "/v2/values/create-geoname-value-request.json",
       "destination": "./test/data/api/v2/values/create-geoname-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/create-time-value-request.json",
+      "source": "/v2/values/create-time-value-request.json",
       "destination": "./test/data/api/v2/values/create-time-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/create-text-value-with-comment-request.json",
+      "source": "/v2/values/create-text-value-with-comment-request.json",
       "destination": "./test/data/api/v2/values/create-text-value-with-comment-request.json"
     },
     {
-      "source": "/test-data/v2/values/create-int-value-with-custom-permissions-request.json",
+      "source": "/v2/values/create-int-value-with-custom-permissions-request.json",
       "destination": "./test/data/api/v2/values/create-int-value-with-custom-permissions-request.json"
     },
     {
-      "source": "/test-data/v2/values/update-int-value-request.json",
+      "source": "/v2/values/update-int-value-request.json",
       "destination": "./test/data/api/v2/values/update-int-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/update-value-response.json",
+      "source": "/v2/values/update-value-response.json",
       "destination": "./test/data/api/v2/values/update-int-value-response.json"
     },
     {
-      "source": "/test-data/v2/values/update-decimal-value-request.json",
+      "source": "/v2/values/update-decimal-value-request.json",
       "destination": "./test/data/api/v2/values/update-decimal-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/update-color-value-request.json",
+      "source": "/v2/values/update-color-value-request.json",
       "destination": "./test/data/api/v2/values/update-color-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/update-interval-value-request.json",
+      "source": "/v2/values/update-interval-value-request.json",
       "destination": "./test/data/api/v2/values/update-interval-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/update-boolean-value-request.json",
+      "source": "/v2/values/update-boolean-value-request.json",
       "destination": "./test/data/api/v2/values/update-boolean-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/update-list-value-request.json",
+      "source": "/v2/values/update-list-value-request.json",
       "destination": "./test/data/api/v2/values/update-list-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/update-link-value-request.json",
+      "source": "/v2/values/update-link-value-request.json",
       "destination": "./test/data/api/v2/values/update-link-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/update-uri-value-request.json",
+      "source": "/v2/values/update-uri-value-request.json",
       "destination": "./test/data/api/v2/values/update-uri-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/update-text-value-without-standoff-request.json",
+      "source": "/v2/values/update-text-value-without-standoff-request.json",
       "destination": "./test/data/api/v2/values/update-text-value-without-standoff-request.json"
     },
     {
-      "source": "/test-data/v2/values/update-text-value-with-standoff-request.json",
+      "source": "/v2/values/update-text-value-with-standoff-request.json",
       "destination": "./test/data/api/v2/values/update-text-value-with-standoff-request.json"
     },
     {
-      "source": "/test-data/v2/values/update-date-value-with-day-precision-request.json",
+      "source": "/v2/values/update-date-value-with-day-precision-request.json",
       "destination": "./test/data/api/v2/values/update-date-value-with-day-precision-request.json"
     },
     {
-      "source": "/test-data/v2/values/update-date-value-with-month-precision-request.json",
+      "source": "/v2/values/update-date-value-with-month-precision-request.json",
       "destination": "./test/data/api/v2/values/update-date-value-with-month-precision-request.json"
     },
     {
-      "source": "/test-data/v2/values/update-date-value-with-year-precision-request.json",
+      "source": "/v2/values/update-date-value-with-year-precision-request.json",
       "destination": "./test/data/api/v2/values/update-date-value-with-year-precision-request.json"
     },
     {
-      "source": "/test-data/v2/values/update-still-image-file-value-request.json",
+      "source": "/v2/values/update-still-image-file-value-request.json",
       "destination": "./test/data/api/v2/values/update-still-image-file-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/update-geometry-value-request.json",
+      "source": "/v2/values/update-geometry-value-request.json",
       "destination": "./test/data/api/v2/values/update-geometry-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/update-geoname-value-request.json",
+      "source": "/v2/values/update-geoname-value-request.json",
       "destination": "./test/data/api/v2/values/update-geoname-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/update-time-value-request.json",
+      "source": "/v2/values/update-time-value-request.json",
       "destination": "./test/data/api/v2/values/update-time-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/update-text-value-with-comment-request.json",
+      "source": "/v2/values/update-text-value-with-comment-request.json",
       "destination": "./test/data/api/v2/values/update-text-value-with-comment-request.json"
     },
     {
-      "source": "/test-data/v2/values/update-int-value-with-custom-permissions-request.json",
+      "source": "/v2/values/update-int-value-with-custom-permissions-request.json",
       "destination": "./test/data/api/v2/values/update-int-value-with-custom-permissions-request.json"
     },
     {
-      "source": "/test-data/v2/values/update-int-value-permissions-only-request.json",
+      "source": "/v2/values/update-int-value-permissions-only-request.json",
       "destination": "./test/data/api/v2/values/update-int-value-permissions-only-request.json"
     },
     {
-      "source": "/test-data/v2/values/delete-int-value-request.json",
+      "source": "/v2/values/delete-int-value-request.json",
       "destination": "./test/data/api/v2/values/delete-int-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/delete-link-value-request.json",
+      "source": "/v2/values/delete-link-value-request.json",
       "destination": "./test/data/api/v2/values/delete-link-value-request.json"
     },
     {
-      "source": "/test-data/v2/values/get-int-value-response.json",
+      "source": "/v2/values/get-int-value-response.json",
       "destination": "./test/data/api/v2/values/get-int-value-response.json"
     },
     {
-      "source": "/test-data/v2/values/get-decimal-value-response.json",
+      "source": "/v2/values/get-decimal-value-response.json",
       "destination": "./test/data/api/v2/values/get-decimal-value-response.json"
     },
     {
-      "source": "/test-data/v2/values/get-color-value-response.json",
+      "source": "/v2/values/get-color-value-response.json",
       "destination": "./test/data/api/v2/values/get-color-value-response.json"
     },
     {
-      "source": "/test-data/v2/values/get-interval-value-response.json",
+      "source": "/v2/values/get-interval-value-response.json",
       "destination": "./test/data/api/v2/values/get-interval-value-response.json"
     },
     {
-      "source": "/test-data/v2/values/get-boolean-value-response.json",
+      "source": "/v2/values/get-boolean-value-response.json",
       "destination": "./test/data/api/v2/values/get-boolean-value-response.json"
     },
     {
-      "source": "/test-data/v2/values/get-list-value-response.json",
+      "source": "/v2/values/get-list-value-response.json",
       "destination": "./test/data/api/v2/values/get-list-value-response.json"
     },
     {
-      "source": "/test-data/v2/values/get-link-value-response.json",
+      "source": "/v2/values/get-link-value-response.json",
       "destination": "./test/data/api/v2/values/get-link-value-response.json"
     },
     {
-      "source": "/test-data/v2/values/get-uri-value-response.json",
+      "source": "/v2/values/get-uri-value-response.json",
       "destination": "./test/data/api/v2/values/get-uri-value-response.json"
     },
     {
-      "source": "/test-data/v2/values/get-text-value-without-standoff-response.json",
+      "source": "/v2/values/get-text-value-without-standoff-response.json",
       "destination": "./test/data/api/v2/values/get-text-value-without-standoff-response.json"
     },
     {
-      "source": "/test-data/v2/values/get-text-value-with-standoff-response.json",
+      "source": "/v2/values/get-text-value-with-standoff-response.json",
       "destination": "./test/data/api/v2/values/get-text-value-with-standoff-response.json"
     },
     {
-      "source": "/test-data/v2/values/get-date-value-response.json",
+      "source": "/v2/values/get-date-value-response.json",
       "destination": "./test/data/api/v2/values/get-date-value-response.json"
     },
     {
-      "source": "/test-data/v2/values/get-still-image-file-value-response.json",
+      "source": "/v2/values/get-still-image-file-value-response.json",
       "destination": "./test/data/api/v2/values/get-still-image-file-value-response.json"
     },
     {
-      "source": "/test-data/v2/values/get-geom-value-response.json",
+      "source": "/v2/values/get-geom-value-response.json",
       "destination": "./test/data/api/v2/values/get-geom-value-response.json"
     },
     {
-      "source": "/test-data/v2/values/get-geoname-value-response.json",
+      "source": "/v2/values/get-geoname-value-response.json",
       "destination": "./test/data/api/v2/values/get-geoname-value-response.json"
     },
     {
-      "source": "/test-data/v2/values/get-time-value-response.json",
+      "source": "/v2/values/get-time-value-response.json",
       "destination": "./test/data/api/v2/values/get-time-value-response.json"
     },
     {
-      "source": "/test-data/v2/resources/create-resource-with-values-request.json",
+      "source": "/v2/resources/create-resource-with-values-request.json",
       "destination": "./test/data/api/v2/resources/create-resource-with-values-request.json"
     },
     {
-      "source": "/test-data/v2/resources/create-resource-as-user.json",
+      "source": "/v2/resources/create-resource-as-user.json",
       "destination": "./test/data/api/v2/resources/create-resource-as-user.json"
     },
     {
-      "source": "/test-data/v2/resources/create-resource-with-custom-creation-date.json",
+      "source": "/v2/resources/create-resource-with-custom-creation-date.json",
       "destination": "./test/data/api/v2/resources/create-resource-with-custom-creation-date.json"
     },
     {
-      "source": "/test-data/v2/resources/update-resource-metadata-request.json",
+      "source": "/v2/resources/update-resource-metadata-request.json",
       "destination": "./test/data/api/v2/resources/update-resource-metadata-request.json"
     },
     {
-      "source": "/test-data/v2/resources/delete-resource-request.json",
+      "source": "/v2/resources/delete-resource-request.json",
       "destination": "./test/data/api/v2/resources/delete-resource-request.json"
     },
     {
-      "source": "/test-data/v2/resources/resource-preview.json",
+      "source": "/v2/resources/resource-preview.json",
       "destination": "./test/data/api/v2/resources/resource-preview.json"
     },
     {
-      "source": "/test-data/v2/resources/update-resource-metadata-request-with-last-mod-date.json",
+      "source": "/v2/resources/update-resource-metadata-request-with-last-mod-date.json",
       "destination": "./test/data/api/v2/resources/update-resource-metadata-request-with-last-mod-date.json"
     },
     {
-      "source": "/test-data/v2/resources/update-resource-metadata-response.json",
+      "source": "/v2/resources/update-resource-metadata-response.json",
       "destination": "./test/data/api/v2/resources/update-resource-metadata-response.json"
     },
     {
-      "source": "/test-data/v2/resources/delete-resource-response.json",
+      "source": "/v2/resources/delete-resource-response.json",
       "destination": "./test/data/api/v2/resources/delete-resource-response.json"
     }
   ]
