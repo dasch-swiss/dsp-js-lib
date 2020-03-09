@@ -41,4 +41,4 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: |
           make npm-install
-          make test-integration
+          make test-ci

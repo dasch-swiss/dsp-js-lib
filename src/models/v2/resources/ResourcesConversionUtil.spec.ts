@@ -12,6 +12,7 @@ import { ReadBooleanValue } from "./values/read/read-boolean-value";
 import { ReadColorValue } from "./values/read/read-color-value";
 import { KnoraDate, Precision, ReadDateValue } from "./values/read/read-date-value";
 import { ReadDecimalValue } from "./values/read/read-decimal-value";
+import { ReadStillImageFileValue } from "./values/read/read-file-value";
 import { Point2D, ReadGeomValue, RegionGeometry } from "./values/read/read-geom-value";
 import { ReadIntValue } from "./values/read/read-int-value";
 import { ReadIntervalValue } from "./values/read/read-interval-value";
@@ -265,6 +266,21 @@ describe("ResourcesConversionUtil", () => {
                     expect(dateValsDate.day).toEqual(13);
 
                     //
+                    // test geometry value
+                    //
+                    expect(resSeq[0].getNumberOfValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeometry")).toEqual(1);
+                    const geomValue = resSeq[0].getValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeometry")[0];
+
+                    expect(geomValue instanceof ReadGeomValue).toBeTruthy();
+                    expect((geomValue as ReadGeomValue).geometry.type).toEqual("rectangle");
+                    expect((geomValue as ReadGeomValue).geometry.lineWidth).toEqual(2);
+                    expect((geomValue as ReadGeomValue).geometry.lineColor).toEqual("#ff3333");
+                    expect((geomValue as ReadGeomValue).geometry.points.length).toEqual(2);
+                    expect((geomValue as ReadGeomValue).geometry.points[0]).toEqual(new Point2D( 0.08098591549295775, 0.16741071428571427));
+                    expect((geomValue as ReadGeomValue).geometry.points[1]).toEqual(new Point2D( 0.7394366197183099, 0.7299107142857143));
+
+
+                    //
                     // test time value
                     //
                     expect(resSeq[0].getNumberOfValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasTimeStamp")).toEqual(1);
@@ -284,42 +300,27 @@ describe("ResourcesConversionUtil", () => {
 
         });
 
-        it("parse JSON-LD representing a single page resource", done => {
-
-            const resource = require("../../../../test/data/api/v2/resources/page-expanded.json");
+        it("parse JSON-lD representing a resource with a StillImageRepresentation", done => {
+            const resource = require("../../../../test/data/api/v2/values/get-still-image-file-value-response-expanded.json");
 
             ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
-                resSeq => {
+                (res: ReadResource[]) => {
+                    expect(res.length).toEqual(1);
 
-                    // console.log(resSeq[0].properties);
+                    expect(res[0].getNumberOfValues("http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue")).toEqual(1);
+                    const stillImageFileValue = res[0].getValues("http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue")[0];
 
-                    expect(resSeq.length).toEqual(1);
+                    expect(stillImageFileValue instanceof ReadStillImageFileValue).toBeTruthy();
+
+                    expect((stillImageFileValue as ReadStillImageFileValue).dimX).toEqual(512);
+                    expect((stillImageFileValue as ReadStillImageFileValue).dimY).toEqual(256);
+                    expect((stillImageFileValue as ReadStillImageFileValue).iiifBaseUrl).toEqual("http://0.0.0.0:1024/0001");
+                    expect((stillImageFileValue as ReadStillImageFileValue).filename).toEqual("B1D0OkEgfFp-Cew2Seur7Wi.jp2");
+                    expect((stillImageFileValue as ReadStillImageFileValue).fileUrl).toEqual("http://0.0.0.0:1024/0001/B1D0OkEgfFp-Cew2Seur7Wi.jp2/full/512,256/0/default.jpg");
 
                     done();
                 }
             );
-
-        });
-
-        it("parse JSON-LD representing two region resources", done => {
-
-            const resource = require("../../../../test/data/api/v2/resources/regions-expanded.json");
-
-            ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
-                resSeq => {
-
-                    expect(resSeq.length).toEqual(2);
-
-                    const geomVal: ReadGeomValue[] = resSeq[0].getValuesAs("http://api.knora.org/ontology/knora-api/v2#hasGeometry", ReadGeomValue);
-
-                    const regGeom = new RegionGeometry("active", "#ff3333", 2, [new Point2D(0.08098591549295775, 0.16741071428571427), new Point2D(0.7394366197183099, 0.7299107142857143)], "rectangle");
-
-                    expect(geomVal[0].geometry).toEqual(regGeom);
-
-                    done();
-                }
-            );
-
         });
 
         it("parse JSON-LD representing an empty resource", done => {
