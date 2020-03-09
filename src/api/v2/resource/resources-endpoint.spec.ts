@@ -112,7 +112,7 @@ describe("ResourcesEndpoint", () => {
 
         const createResourceResponse = require("../../../../test/data/api/v2/resources/resource-preview.json");
 
-        xit("should create a resource with values", done => {
+        it("should create a resource with values", done => {
 
             const createResource = new CreateResource();
 
@@ -239,6 +239,9 @@ describe("ResourcesEndpoint", () => {
             expect(request.method).toEqual("POST");
 
             const expectedPayload = require("../../../../test/data/api/v2/resources/create-resource-with-values-request-expanded.json");
+
+            // TODO: remove this once https://github.com/dasch-swiss/knora-api-js-lib/issues/126 is done
+            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal"]["http://api.knora.org/ontology/knora-api/v2#decimalValueAsDecimal"]["@value"] = "1.5";
 
             expect(request.data()).toEqual(expectedPayload);
 
