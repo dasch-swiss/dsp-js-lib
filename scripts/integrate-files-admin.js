@@ -16,8 +16,6 @@ if (process.argv.length !== 3) {
     }
 }
 
-fs.copySync(pathToGeneratedCode + "/api/admin", "./src/api/admin");
-fs.copySync(pathToGeneratedCode + "/models/admin", "./src/models/admin");
-fs.copySync(pathToGeneratedCode + "/test-data/admin", "./test/data/api/admin");
+fs.copySync(pathToGeneratedCode + "/admin", "./test/data/api/admin");
 
 

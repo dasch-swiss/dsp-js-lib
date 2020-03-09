@@ -20,7 +20,7 @@
     "@type" : "knora-api:DecimalValue",
     "knora-api:decimalValueAsDecimal" : {
       "@type" : "xsd:decimal",
-      "@value" : "1.5"
+      "@value" : "100000000000000.000000000000001"
     }
   },
   "anything:hasGeometry" : {
