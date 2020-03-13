@@ -87,6 +87,21 @@ export class ReadResource extends ReadWriteResource {
     }
 
     /**
+     * Given the IRI of a property pointing to a link value,
+     * returns the corresponding link property IRI.
+     *
+     * @param linkValueProperty IRI of the link value property.
+     */
+    getLinkPropertyIriFromLinkValuePropertyIri(linkValueProperty: string) {
+        if (linkValueProperty.endsWith("Value")) {
+            // remove "Value" from the end of the string and return the Iri
+            return linkValueProperty.substring(0, linkValueProperty.length - 5);
+        } else {
+            throw new Error(`${linkValueProperty} is not a valid link value property IRI`);
+        }
+    }
+
+    /**
      * Gets all the values for a given resource property.
      *
      * @param property the IRI of the property.

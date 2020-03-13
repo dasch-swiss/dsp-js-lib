@@ -172,6 +172,9 @@ describe("ResourcesConversionUtil", () => {
                         expect(linkedTarget.label).toEqual("Sierra");
                     }
 
+                    // determine the link property from the link value property
+                    expect(resSeq[0].getLinkPropertyIriFromLinkValuePropertyIri("http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue")).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThing");
+
                     expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(2);
                     expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
 
