@@ -1,4 +1,5 @@
 import { JsonObject, JsonProperty } from "json2typescript";
+import { ResourcePropertyDefinition } from "../../../..";
 import { IResourceClassAndPropertyDefinitions } from "../../../../cache/OntologyCache";
 import { Constants } from "../../Constants";
 import { DateTimeStampConverter } from "../../custom-converters/date-time-stamp-converter";
@@ -93,9 +94,20 @@ export class ReadResource extends ReadWriteResource {
      * @param linkValueProperty IRI of the link value property.
      */
     getLinkPropertyIriFromLinkValuePropertyIri(linkValueProperty: string) {
-        if (linkValueProperty.endsWith("Value")) {
+        if (this.entityInfo.properties[linkValueProperty] !== undefined
+            && this.entityInfo.properties[linkValueProperty] instanceof ResourcePropertyDefinition
+            && (this.entityInfo.properties[linkValueProperty] as ResourcePropertyDefinition).isLinkValueProperty
+            && linkValueProperty.endsWith("Value")) {
             // remove "Value" from the end of the string and return the Iri
-            return linkValueProperty.substring(0, linkValueProperty.length - 5);
+            const linkPropIri = linkValueProperty.substring(0, linkValueProperty.length - 5);
+
+            if (this.entityInfo.properties[linkPropIri] !== undefined
+                && this.entityInfo.properties[linkPropIri] instanceof ResourcePropertyDefinition
+                && (this.entityInfo.properties[linkPropIri] as ResourcePropertyDefinition).isLinkProperty) {
+                return linkPropIri;
+            } else {
+                return new Error(`Could not determine link property IRI for ${linkValueProperty}`);
+            }
         } else {
             throw new Error(`${linkValueProperty} is not a valid link value property IRI`);
         }
