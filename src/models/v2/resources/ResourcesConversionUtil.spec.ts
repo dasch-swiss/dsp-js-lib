@@ -172,6 +172,9 @@ describe("ResourcesConversionUtil", () => {
                         expect(linkedTarget.label).toEqual("Sierra");
                     }
 
+                    // determine the link property from the link value property
+                    expect(resSeq[0].getLinkPropertyIriFromLinkValuePropertyIri("http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue")).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThing");
+
                     expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(2);
                     expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
 
@@ -298,6 +301,22 @@ describe("ResourcesConversionUtil", () => {
                 }
             );
 
+        });
+
+        it("attempt to determine a link property IRI from a non link value property IRI", done => {
+
+            const resource = require("../../../../test/data/api/v2/resources/testding-expanded.json");
+
+            ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
+                resSeq => {
+
+                    expect(
+                        () => {
+                            resSeq[0].getLinkPropertyIriFromLinkValuePropertyIri("http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThing");
+                        }).toThrow(new Error("http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThing is not a valid link value property IRI"));
+
+                    done();
+                });
         });
 
         it("parse JSON-lD representing a resource with a StillImageRepresentation", done => {
