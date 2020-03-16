@@ -1,5 +1,4 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-import { ResourcePropertyDefinition } from "../../../..";
 import { IResourceClassAndPropertyDefinitions } from "../../../../cache/OntologyCache";
 import { Constants } from "../../Constants";
 import { DateTimeStampConverter } from "../../custom-converters/date-time-stamp-converter";
@@ -8,6 +7,7 @@ import { UriConverter } from "../../custom-converters/uri-converter";
 import { ReadWriteResource } from "../read-write-resource";
 import { TypeGuard } from "../type-guard";
 import { ReadValue } from "../values/read/read-value";
+import { ResourcePropertyDefinition } from "../../ontologies/resource-property-definition";
 
 @JsonObject("ReadResource")
 export class ReadResource extends ReadWriteResource {
