@@ -68,6 +68,7 @@ export { IResourceClassAndPropertyDefinitions } from "./cache/OntologyCache";
 export { ClassDefinition, IHasProperty, Cardinality } from "./models/v2/ontologies/class-definition";
 export { SystemPropertyDefinition } from "./models/v2/ontologies/system-property-definition";
 export { ResourcePropertyDefinition } from "./models/v2/ontologies/resource-property-definition";
+export { PropertyDefinition } from "./models/v2/ontologies/property-definition";
 export { ResourceClassDefinition } from "./models/v2/ontologies/resource-class-definition";
 export { StandoffClassDefinition } from "./models/v2/ontologies/standoff-class-definition";
 export { ReadResource } from "./models/v2/resources/read/read-resource";
