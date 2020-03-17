@@ -93,7 +93,7 @@ export class ReadResource extends ReadWriteResource {
      *
      * @param linkValueProperty IRI of the link value property.
      */
-    getLinkPropertyIriFromLinkValuePropertyIri(linkValueProperty: string) {
+    getLinkPropertyIriFromLinkValuePropertyIri(linkValueProperty: string): string {
         if (this.entityInfo.properties[linkValueProperty] !== undefined
             && this.entityInfo.properties[linkValueProperty] instanceof ResourcePropertyDefinition
             && (this.entityInfo.properties[linkValueProperty] as ResourcePropertyDefinition).isLinkValueProperty
@@ -106,7 +106,7 @@ export class ReadResource extends ReadWriteResource {
                 && (this.entityInfo.properties[linkPropIri] as ResourcePropertyDefinition).isLinkProperty) {
                 return linkPropIri;
             } else {
-                return new Error(`Could not determine link property IRI for ${linkValueProperty}`);
+                throw new Error(`Could not determine link property IRI for ${linkValueProperty}`);
             }
         } else {
             throw new Error(`${linkValueProperty} is not a valid link value property IRI`);
