@@ -380,8 +380,6 @@ describe("ResourcesConversionUtil", () => {
 
             const resource = require("../../../../test/data/api/v2/resources/things-with-paging-expanded.json");
 
-            console.log(resource)
-
             ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
                 (resSeq: ReadResourceSequence) => {
                     expect(resSeq.resources.length).toEqual(23);
