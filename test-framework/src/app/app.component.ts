@@ -1,32 +1,32 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import {
-  ApiResponseData,
-  Constants,
-  CountQueryResponse,
-  CreateBooleanValue,
-  CreateIntValue,
-  CreateResource,
-  CreateValue,
-  DeleteValue,
-  DeleteValueResponse,
-  KnoraApiConfig,
-  KnoraApiConnection,
-  ListNodeV2,
-  LoginResponse,
-  ReadOntology,
-  ReadResource,
-  UpdateIntValue,
-  UpdateResource,
-  UpdateValue,
-  UserCache,
-  UserResponse,
-  UsersResponse,
-  WriteValueResponse
-} from '@knora/api';
-import {UpdateResourceMetadata} from '../../.yalc/@knora/api/src/models/v2/resources/update/update-resource-metadata';
-import {UpdateResourceMetadataResponse} from '../../.yalc/@knora/api/src/models/v2/resources/update/update-resource-metadata-response';
-import {DeleteResource} from '../../.yalc/@knora/api/src/models/v2/resources/delete/delete-resource';
-
+    ApiResponseData,
+    Constants,
+    CountQueryResponse,
+    CreateBooleanValue,
+    CreateIntValue,
+    CreateResource,
+    CreateValue,
+    DeleteResource,
+    DeleteValue,
+    DeleteValueResponse,
+    KnoraApiConfig,
+    KnoraApiConnection,
+    ListNodeV2,
+    LoginResponse,
+    ReadOntology,
+    ReadResource,
+    ReadResourceSequence,
+    UpdateIntValue,
+    UpdateResource,
+    UpdateResourceMetadata,
+    UpdateResourceMetadataResponse,
+    UpdateValue,
+    UserCache,
+    UserResponse,
+    UsersResponse,
+    WriteValueResponse
+} from "@knora/api";
 
 @Component({
   selector: 'app-root',
@@ -213,10 +213,9 @@ export class AppComponent implements OnInit {
   fulltextSearch(searchTerm: string) {
 
     this.knoraApiConnection.v2.search.doFulltextSearch(searchTerm, 0).subscribe(
-        (res: ReadResource[]) => {
-          console.log(res);
-          this.searchResult = res;
-          this.size = res.length;
+        (res: ReadResourceSequence) => {
+          this.searchResult = res.resources;
+          this.size = res.resources.length;
         }
     );
   }
@@ -234,10 +233,10 @@ export class AppComponent implements OnInit {
   labelSearch(searchTerm: string) {
 
     this.knoraApiConnection.v2.search.doSearchByLabel(searchTerm, 0).subscribe(
-        (res: ReadResource[]) => {
+        (res: ReadResourceSequence) => {
           console.log(res);
-          this.searchResult = res;
-          this.size = res.length;
+          this.searchResult = res.resources;
+          this.size = res.resources.length;
         }
     );
   }
@@ -261,10 +260,10 @@ export class AppComponent implements OnInit {
             `;
 
     this.knoraApiConnection.v2.search.doExtendedSearch(gravsearchQuery).subscribe(
-        (res: ReadResource[]) => {
+        (res: ReadResourceSequence) => {
           console.log(res);
-          this.searchResult = res;
-          this.size = res.length;
+          this.searchResult = res.resources;
+          this.size = res.resources.length;
         }
     );
   }

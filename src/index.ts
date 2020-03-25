@@ -71,10 +71,15 @@ export { ResourcePropertyDefinition } from "./models/v2/ontologies/resource-prop
 export { PropertyDefinition } from "./models/v2/ontologies/property-definition";
 export { ResourceClassDefinition } from "./models/v2/ontologies/resource-class-definition";
 export { StandoffClassDefinition } from "./models/v2/ontologies/standoff-class-definition";
+export { ReadResourceSequence } from "./models/v2/resources/read/read-resource-sequence";
 export { ReadResource } from "./models/v2/resources/read/read-resource";
 export { CountQueryResponse } from "./models/v2/search/count-query-response";
 export { UpdateResource } from "./models/v2/resources/update/update-resource";
+export { UpdateResourceMetadata } from "./models/v2/resources/update/update-resource-metadata";
+export { UpdateResourceMetadataResponse } from "./models/v2/resources/update/update-resource-metadata-response";
 export { CreateResource } from "./models/v2/resources/create/create-resource";
+export { DeleteResource } from "./models/v2/resources/delete/delete-resource";
+export { DeleteResourceResponse } from "./models/v2/resources/delete/delete-resource-response";
 export { DeleteValue } from "./models/v2/resources/values/delete/delete-value";
 export { DeleteValueResponse } from "./models/v2/resources/values/delete/delete-value-response";
 export { WriteValueResponse } from "./models/v2/resources/values/write-value-response";
@@ -94,7 +99,7 @@ export {
 } from "./models/v2/resources/values/read/read-text-value";
 export { ReadUriValue } from "./models/v2/resources/values/read/read-uri-value";
 export { ReadTimeValue } from "./models/v2/resources/values/read/read-time-value";
-export { ReadGeonameValue } from './models/v2/resources/values/read/read-geoname-value';
+export { ReadGeonameValue } from "./models/v2/resources/values/read/read-geoname-value";
 export { ReadValue } from "./models/v2/resources/values/read/read-value";
 
 export { UpdateValue } from "./models/v2/resources/values/update/update-value";
@@ -111,7 +116,7 @@ export { UpdateListValue } from "./models/v2/resources/values/update/update-list
 export { UpdateTextValueAsString, UpdateTextValueAsXml } from "./models/v2/resources/values/update/update-text-value";
 export { UpdateUriValue } from "./models/v2/resources/values/update/update-uri-value";
 export { UpdateTimeValue } from "./models/v2/resources/values/update/update-time-value";
-export { UpdateGeonameValue } from './models/v2/resources/values/update/update-geoname-value';
+export { UpdateGeonameValue } from "./models/v2/resources/values/update/update-geoname-value";
 
 export { CreateValue } from "./models/v2/resources/values/create/create-value";
 export { CreateBooleanValue } from "./models/v2/resources/values/create/create-boolean-value";
@@ -127,7 +132,7 @@ export { CreateListValue } from "./models/v2/resources/values/create/create-list
 export { CreateTextValueAsString, CreateTextValueAsXml } from "./models/v2/resources/values/create/create-text-value";
 export { CreateUriValue } from "./models/v2/resources/values/create/create-uri-value";
 export { CreateTimeValue } from "./models/v2/resources/values/create/create-time-value";
-export { CreateGeonameValue } from './models/v2/resources/values/create/create-geoname-value';
+export { CreateGeonameValue } from "./models/v2/resources/values/create/create-geoname-value";
 
 export { ListNodeV2 } from "./models/v2/lists/list-node-v2";
 
