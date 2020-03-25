@@ -4,6 +4,7 @@ import { catchError, map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { ReadResource } from "../../../models/v2/resources/read/read-resource";
+import { ReadResourceSequence } from "../../../models/v2/resources/read/read-resource-sequence";
 import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { UpdateResource } from "../../../models/v2/resources/update/update-resource";
 import { CreateFileValue } from "../../../models/v2/resources/values/create/create-file-value";
@@ -44,7 +45,7 @@ export class ValuesEndpoint extends Endpoint {
                 // console.log(JSON.stringify(jsonldobj));
                 return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
             }),
-            map(resources => resources[0]),
+            map((resources: ReadResourceSequence) => resources.resources[0]),
             catchError(error => {
                 return this.handleError(error);
             })

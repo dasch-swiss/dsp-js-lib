@@ -7,6 +7,7 @@ import { CreateResource } from "../../../models/v2/resources/create/create-resou
 import { DeleteResource } from "../../../models/v2/resources/delete/delete-resource";
 import { DeleteResourceResponse } from "../../../models/v2/resources/delete/delete-resource-response";
 import { ReadResource } from "../../../models/v2/resources/read/read-resource";
+import { ReadResourceSequence } from "../../../models/v2/resources/read/read-resource-sequence";
 import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { UpdateResourceMetadata } from "../../../models/v2/resources/update/update-resource-metadata";
 import { UpdateResourceMetadataResponse } from "../../../models/v2/resources/update/update-resource-metadata-response";
@@ -30,7 +31,7 @@ export class ResourcesEndpoint extends Endpoint {
      *
      * @param resourceIris Iris of the resources to get.
      */
-    getResources(resourceIris: string[]): Observable<ReadResource[] | ApiResponseError> {
+    getResources(resourceIris: string[]): Observable<ReadResourceSequence | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         // make URL containing resource Iris as segments
@@ -63,7 +64,7 @@ export class ResourcesEndpoint extends Endpoint {
      */
     getResource(resourceIri: string): Observable<ReadResource | ApiResponseError> {
         return this.getResources([resourceIri]).pipe(
-            map((resources: ReadResource[]) => resources[0]),
+            map((resources: ReadResourceSequence) => resources.resources[0]),
             catchError(error => {
                 return this.handleError(error);
             })
@@ -110,7 +111,7 @@ export class ResourcesEndpoint extends Endpoint {
                 // console.log(JSON.stringify(jsonldobj));
                 return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
             }),
-            map((resources: ReadResource[]) => resources[0]),
+            map((resources: ReadResourceSequence) => resources.resources[0]),
             catchError(error => {
                 return this.handleError(error);
             })

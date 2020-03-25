@@ -7,7 +7,7 @@ import { Constants } from "../Constants";
 import { ResourcePropertyDefinition } from "../ontologies/resource-property-definition";
 import { CountQueryResponse } from "../search/count-query-response";
 import { ReadResource } from "./read/read-resource";
-
+import { ReadResourceSequence } from "./read/read-resource-sequence";
 import { ReadTimeValue } from "./values/read/read-time-value";
 import { ReadUriValue } from "./values/read/read-uri-value";
 import { ReadValue } from "./values/read/read-value";
@@ -41,18 +41,26 @@ export namespace ResourcesConversionUtil {
      * @param listNodeCache instance of ListNodeCache to be used.
      * @param jsonConvert instance of JsonConvert to be used.
      */
-    export const createReadResourceSequence = (resourcesJsonld: object, ontologyCache: OntologyCache, listNodeCache: ListNodeV2Cache, jsonConvert: JsonConvert): Observable<ReadResource[]> => {
+    export const createReadResourceSequence = (resourcesJsonld: object, ontologyCache: OntologyCache, listNodeCache: ListNodeV2Cache, jsonConvert: JsonConvert): Observable<ReadResourceSequence> => {
 
         if (resourcesJsonld.hasOwnProperty("@graph")) {
             // sequence of resources
             return forkJoin((resourcesJsonld as { [index: string]: object[] })["@graph"]
-                .map((res: { [index: string]: object[] | string }) => createReadResource(res, ontologyCache, listNodeCache, jsonConvert)));
+                .map((res: { [index: string]: object[] | string }) => createReadResource(res, ontologyCache, listNodeCache, jsonConvert))).pipe(
+                    map((resources: ReadResource[]) => {
+                        return new ReadResourceSequence(resources);
+                    })
+            );
         } else {
             //  one or no resource
             if (Object.keys(resourcesJsonld).length === 0) {
-                return of([]);
+                return of(new ReadResourceSequence([]));
             } else {
-                return forkJoin([createReadResource(resourcesJsonld as { [index: string]: object[] | string }, ontologyCache, listNodeCache, jsonConvert)]);
+                return forkJoin([createReadResource(resourcesJsonld as { [index: string]: object[] | string }, ontologyCache, listNodeCache, jsonConvert)]).pipe(
+                    map((resources: ReadResource[]) => {
+                        return new ReadResourceSequence(resources);
+                    })
+                );
             }
         }
     };

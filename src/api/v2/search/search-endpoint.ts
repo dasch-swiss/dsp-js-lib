@@ -4,6 +4,7 @@ import { catchError, map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { ReadResource } from "../../../models/v2/resources/read/read-resource";
+import { ReadResourceSequence } from "../../../models/v2/resources/read/read-resource-sequence";
 import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { CountQueryResponse } from "../../../models/v2/search/count-query-response";
 import { Endpoint } from "../../endpoint";
@@ -122,7 +123,7 @@ export class SearchEndpoint extends Endpoint {
      * @param offset offset to be used for paging, zero-based.
      * @param params parameters for fulltext search, if any.
      */
-    doFulltextSearch(searchTerm: string, offset = 0, params?: IFulltextSearchParams): Observable<ReadResource[] | ApiResponseError> {
+    doFulltextSearch(searchTerm: string, offset = 0, params?: IFulltextSearchParams): Observable<ReadResourceSequence | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         return this.httpGet("/search/" + encodeURIComponent(searchTerm) + SearchEndpoint.encodeFulltextParams(offset, params)).pipe(
@@ -172,7 +173,7 @@ export class SearchEndpoint extends Endpoint {
      *
      * @param gravsearchQuery the given Gravsearch query.
      */
-    doExtendedSearch(gravsearchQuery: string): Observable<ReadResource[] | ApiResponseError> {
+    doExtendedSearch(gravsearchQuery: string): Observable<ReadResourceSequence | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         // TODO: check if content-type have to be set to text/plain
@@ -224,7 +225,7 @@ export class SearchEndpoint extends Endpoint {
      * @param offset offset to be used for paging, zero-based.
      * @param params parameters for fulltext search, if any.
      */
-    doSearchByLabel(searchTerm: string, offset = 0, params?: ILabelSearchParams): Observable<ReadResource[] | ApiResponseError> {
+    doSearchByLabel(searchTerm: string, offset = 0, params?: ILabelSearchParams): Observable<ReadResourceSequence | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         return this.httpGet("/searchbylabel/" + encodeURIComponent(searchTerm) + SearchEndpoint.encodeLabelParams(offset, params)).pipe(
