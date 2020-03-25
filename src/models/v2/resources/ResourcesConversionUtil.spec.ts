@@ -365,8 +365,29 @@ describe("ResourcesConversionUtil", () => {
             ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
                 resSeq => {
                     expect(resSeq.resources.length).toEqual(2);
+                    expect(resSeq.mayHaveMoreResults).toEqual(false);
 
                     expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(2);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+
+                    done();
+                }
+            );
+
+        });
+
+        it("parse JSON-LD representing several resources with paging information", done => {
+
+            const resource = require("../../../../test/data/api/v2/resources/things-with-paging-expanded.json");
+
+            console.log(resource)
+
+            ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
+                (resSeq: ReadResourceSequence) => {
+                    expect(resSeq.resources.length).toEqual(23);
+                    expect(resSeq.mayHaveMoreResults).toEqual(true);
+
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(23);
                     expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
 
                     done();

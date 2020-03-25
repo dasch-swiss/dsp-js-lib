@@ -48,7 +48,13 @@ export namespace ResourcesConversionUtil {
             return forkJoin((resourcesJsonld as { [index: string]: object[] })["@graph"]
                 .map((res: { [index: string]: object[] | string }) => createReadResource(res, ontologyCache, listNodeCache, jsonConvert))).pipe(
                     map((resources: ReadResource[]) => {
-                        return new ReadResourceSequence(resources);
+                        // check for mayHaveMoreResults
+                        if (resourcesJsonld.hasOwnProperty(Constants.MayHaveMoreResults)) {
+                            // presence of knora-api:mayHaveMoreResults implicitly means true
+                            return new ReadResourceSequence(resources, true);
+                        } else {
+                            return new ReadResourceSequence(resources);
+                        }
                     })
             );
         } else {
@@ -56,6 +62,7 @@ export namespace ResourcesConversionUtil {
             if (Object.keys(resourcesJsonld).length === 0) {
                 return of(new ReadResourceSequence([]));
             } else {
+                // TODO: Is a check for knora-api:mayHaveMoreResults necessary?
                 return forkJoin([createReadResource(resourcesJsonld as { [index: string]: object[] | string }, ontologyCache, listNodeCache, jsonConvert)]).pipe(
                     map((resources: ReadResource[]) => {
                         return new ReadResourceSequence(resources);
