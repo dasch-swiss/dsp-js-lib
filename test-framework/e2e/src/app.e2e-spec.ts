@@ -1,6 +1,16 @@
 import {AppPage} from './app.po';
 import {browser, logging} from 'protractor';
 
+/**
+ * Attempts to convert a string to a number.
+ *
+ * @param numStr string to be converted to a number.
+ */
+const convertTextToNumber = (numStr): number => {
+  if (isNaN(numStr)) throw new Error(`${numStr} cannot be converted to a number`);
+  return Number(numStr);
+}
+
 describe('workspace-project App', () => {
   let page: AppPage;
 
@@ -143,7 +153,7 @@ describe('workspace-project App', () => {
 
     const size = page.getEle('div section#search span.size');
 
-    expect(size.getText()).toEqual('21');
+    expect(size.getText().then(convertTextToNumber)).toBeGreaterThan(0);
 
   });
 
@@ -157,7 +167,7 @@ describe('workspace-project App', () => {
 
     const size = page.getEle('div section#search span.size');
 
-    expect(size.getText()).toEqual('21');
+    expect(size.getText().then(convertTextToNumber)).toBeGreaterThan(0);
 
   });
 
@@ -171,7 +181,7 @@ describe('workspace-project App', () => {
 
     const size = page.getEle('div section#search span.size');
 
-    expect(size.getText()).toEqual('21');
+    expect(size.getText().then(convertTextToNumber)).toBeGreaterThan(0);
 
   });
 
@@ -185,7 +195,7 @@ describe('workspace-project App', () => {
 
     const size = page.getEle('div section#search span.size');
 
-    expect(size.getText()).toEqual('25');
+    expect(size.getText().then(convertTextToNumber)).toBeGreaterThan(0);
 
   });
 
@@ -199,7 +209,7 @@ describe('workspace-project App', () => {
 
     const size = page.getEle('div section#search span.size');
 
-    expect(size.getText()).toEqual('48');
+    expect(size.getText().then(convertTextToNumber)).toBeGreaterThan(0);
 
   });
 
