@@ -11,5 +11,11 @@
   "include": [
     "../src",
     "../node_modules/api2js"
+  ],
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts",
+    "../node_modules/api2js/test",
+    "environments/environment.prod.ts"
   ]
 }
