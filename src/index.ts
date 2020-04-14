@@ -127,7 +127,7 @@ export { CreateListValue } from "./models/v2/resources/values/create/create-list
 export { CreateTextValueAsString, CreateTextValueAsXml } from "./models/v2/resources/values/create/create-text-value";
 export { CreateUriValue } from "./models/v2/resources/values/create/create-uri-value";
 export { CreateTimeValue } from "./models/v2/resources/values/create/create-time-value";
-export { CreateGeonameValue } from './models/v2/resources/values/create/create-geoname-value';
+export { CreateGeonameValue } from "./models/v2/resources/values/create/create-geoname-value";
 
 export { ListNodeV2 } from "./models/v2/lists/list-node-v2";
 
