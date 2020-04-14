@@ -1,9 +1,10 @@
-import { JsonProperty } from "json2typescript";
+import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../../Constants";
 import { DecimalConverter } from "../../../custom-converters/decimal-converter";
 import { IBaseIntervalValue } from "../type-specific-interfaces/base-interval-value";
 import { CreateValue } from "./create-value";
 
+@JsonObject("CreateIntervalValue")
 export class CreateIntervalValue extends CreateValue implements IBaseIntervalValue {
 
     @JsonProperty(Constants.IntervalValueHasStart, DecimalConverter)

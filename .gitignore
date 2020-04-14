@@ -35,4 +35,5 @@
 
 /test-framework/node_modules
 /test-framework/.yalc
+/test-framework/dist
 /.tmp
