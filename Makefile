@@ -21,6 +21,7 @@ clone-knora-stack:
 .PHONY: npm-install
 npm-install: ## runs 'npm install'
 	@npm install
+	@npm run peer-deps
 
 .PHONY: knora-stack
 knora-stack: ## runs the knora-stack
