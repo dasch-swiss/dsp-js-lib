@@ -1,8 +1,7 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { Observable, throwError } from "rxjs";
-import { ajax, AjaxResponse } from "rxjs/ajax";
-import { AjaxError } from "rxjs/internal/observable/dom/AjaxObservable";
+import { ajax, AjaxError, AjaxResponse } from "rxjs/ajax";
 
 import { KnoraApiConfig } from "../knora-api-config";
 import { ApiResponseError } from "../models/api-response-error";
