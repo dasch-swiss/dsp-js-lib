@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod=true --buildOptimizer=true --progress=true",
+    "build-app": "ng build --prod=true --buildOptimizer=true --progress=true",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e --prod=true --protractor-config=./e2e/protractor.conf.js --webdriver-update=false",

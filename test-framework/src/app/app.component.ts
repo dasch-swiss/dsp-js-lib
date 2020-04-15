@@ -26,7 +26,7 @@ import {
 import {UpdateResourceMetadata} from '../../.yalc/@knora/api/src/models/v2/resources/update/update-resource-metadata';
 import {UpdateResourceMetadataResponse} from '../../.yalc/@knora/api/src/models/v2/resources/update/update-resource-metadata-response';
 import {DeleteResource} from '../../.yalc/@knora/api/src/models/v2/resources/delete/delete-resource';
-
+import {map} from 'rxjs/operators'
 
 @Component({
   selector: 'app-root',
@@ -123,7 +123,13 @@ export class AppComponent implements OnInit {
 
   getResource(iri: string) {
 
-    this.knoraApiConnection.v2.res.getResource(iri).subscribe(
+    this.knoraApiConnection.v2.res.getResource(iri).pipe(
+        map(
+            (res) => {
+                console.log('test');
+                return res;
+            })
+    ).subscribe(
         (res: ReadResource) => {
           console.log(res);
           this.resource = res;
