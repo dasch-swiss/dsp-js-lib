@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e --prod=true --protractor-config=./e2e/protractor.conf.js --webdriver-update=false",
-    "webdriver-update": "webdriver-manager update --standalone false --gecko false --versions.chrome 2.37"
+    "webdriver-update": "webdriver-manager update --standalone false --gecko false --versions.chrome 2.37",
+    "yalc-add": "yalc remove --all && yalc add @knora/api"
   },
   "private": true,
   "dependencies": {
@@ -20,11 +21,11 @@
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
-    "@knora/api": "file:.yalc/@knora/api",
     "core-js": "^2.5.4",
     "rxjs": "^6.4.0",
     "tslib": "^1.9.0",
-    "zone.js": "~0.8.26"
+    "zone.js": "~0.8.26",
+    "@knora/api": "file:.yalc/@knora/api"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.12.0",
