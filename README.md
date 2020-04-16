@@ -99,6 +99,15 @@ see <https://docs.knora.org> -> Internals -> Development -> Generating Client Te
 3. `npm run expand-jsonld-test-data`: creates versions with expanded prefixes for Knora API v2 JSON-LD test data. 
 see <https://docs.knora.org> -> internals -> development -> generating client apis (use it without `mock=true`).
 
+# Dependencies and Peer Dependencies
+
+This library depends on `RxJS`, `jsonld`, and `json2typescript`. `jsonld` and `json2typescript` are only used internally and listed as dependencies.
+
+`RxJS` is listed as a peer dependency and **not** installed with `nmp install`. It can be installed with `npm run peer-deps`.
+`RxJS`'s `Observable` is used in this library's public API 
+and has to be compatible with whatever version of `RxJS` is used in the productive environment, e.g. an Angular application.
+This library works with `RxJS` as of version 6. See `rxjs.md` for details. 
+
 # Publish a new version to NPM
 
 Run `npm run npm-publish` as described above. The command runs `npm publish` in dry-run mode.
