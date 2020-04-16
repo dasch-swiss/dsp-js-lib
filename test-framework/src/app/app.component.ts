@@ -27,6 +27,8 @@ import {
   DeleteResource
 } from '@knora/api';
 
+import {map} from 'rxjs/operators'
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
