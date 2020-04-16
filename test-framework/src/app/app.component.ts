@@ -126,8 +126,7 @@ export class AppComponent implements OnInit {
 
     this.knoraApiConnection.v2.res.getResource(iri).pipe(
         map(
-            (res) => {
-                console.log('test');
+            (res) => { // make sure RxJS versions (Observable) are compatible
                 return res;
             })
     ).subscribe(
