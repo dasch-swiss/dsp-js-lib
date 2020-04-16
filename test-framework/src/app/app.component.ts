@@ -21,11 +21,11 @@ import {
   UserCache,
   UserResponse,
   UsersResponse,
-  WriteValueResponse
+  WriteValueResponse,
+  UpdateResourceMetadata,
+  UpdateResourceMetadataResponse,
+  DeleteResource
 } from '@knora/api';
-import {UpdateResourceMetadata} from '../../.yalc/@knora/api/src/models/v2/resources/update/update-resource-metadata';
-import {UpdateResourceMetadataResponse} from '../../.yalc/@knora/api/src/models/v2/resources/update/update-resource-metadata-response';
-import {DeleteResource} from '../../.yalc/@knora/api/src/models/v2/resources/delete/delete-resource';
 
 
 @Component({
