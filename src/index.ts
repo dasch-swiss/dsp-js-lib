@@ -77,11 +77,11 @@ export { UpdateResource } from "./models/v2/resources/update/update-resource";
 export { UpdateResourceMetadata } from "./models/v2/resources/update/update-resource-metadata";
 export { UpdateResourceMetadataResponse } from "./models/v2/resources/update/update-resource-metadata-response";
 export { CreateResource } from "./models/v2/resources/create/create-resource";
+export { DeleteResource } from "./models/v2/resources/delete/delete-resource";
+export { DeleteResourceResponse } from "./models/v2/resources/delete/delete-resource-response";
 export { DeleteValue } from "./models/v2/resources/values/delete/delete-value";
 export { DeleteValueResponse } from "./models/v2/resources/values/delete/delete-value-response";
 export { WriteValueResponse } from "./models/v2/resources/values/write-value-response";
-export { DeleteResource } from "./models/v2/resources/delete/delete-resource";
-export { DeleteResourceResponse } from "./models/v2/resources/delete/delete-resource-response";
 
 export { ReadBooleanValue } from "./models/v2/resources/values/read/read-boolean-value";
 export { ReadColorValue } from "./models/v2/resources/values/read/read-color-value";
