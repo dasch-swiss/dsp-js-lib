@@ -98,7 +98,7 @@ export {
 } from "./models/v2/resources/values/read/read-text-value";
 export { ReadUriValue } from "./models/v2/resources/values/read/read-uri-value";
 export { ReadTimeValue } from "./models/v2/resources/values/read/read-time-value";
-export { ReadGeonameValue } from './models/v2/resources/values/read/read-geoname-value';
+export { ReadGeonameValue } from "./models/v2/resources/values/read/read-geoname-value";
 export { ReadValue } from "./models/v2/resources/values/read/read-value";
 
 export { UpdateValue } from "./models/v2/resources/values/update/update-value";
@@ -115,7 +115,7 @@ export { UpdateListValue } from "./models/v2/resources/values/update/update-list
 export { UpdateTextValueAsString, UpdateTextValueAsXml } from "./models/v2/resources/values/update/update-text-value";
 export { UpdateUriValue } from "./models/v2/resources/values/update/update-uri-value";
 export { UpdateTimeValue } from "./models/v2/resources/values/update/update-time-value";
-export { UpdateGeonameValue } from './models/v2/resources/values/update/update-geoname-value';
+export { UpdateGeonameValue } from "./models/v2/resources/values/update/update-geoname-value";
 
 export { CreateValue } from "./models/v2/resources/values/create/create-value";
 export { CreateBooleanValue } from "./models/v2/resources/values/create/create-boolean-value";
