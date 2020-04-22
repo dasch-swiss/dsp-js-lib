@@ -27,6 +27,7 @@ import {
   DeleteResource
 } from '@knora/api';
 
+import {map} from 'rxjs/operators'
 
 @Component({
   selector: 'app-root',
@@ -123,7 +124,12 @@ export class AppComponent implements OnInit {
 
   getResource(iri: string) {
 
-    this.knoraApiConnection.v2.res.getResource(iri).subscribe(
+    this.knoraApiConnection.v2.res.getResource(iri).pipe(
+        map(
+            (res) => { // make sure RxJS versions (Observable) are compatible
+                return res;
+            })
+    ).subscribe(
         (res: ReadResource) => {
           console.log(res);
           this.resource = res;

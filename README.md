@@ -82,11 +82,12 @@ Any subsequent call after a successful login will be performed using the session
 
 This package provides the following short-hand scripts:
 
-1. `npm run test`: Runs the project's tests defined in `./karma.conf.js`. The coverage data is saved into the `./coverage/` folder.
-2. `npm run build`: Builds the whole project without testing and puts the files into the `./build/` folder.
-3. `npm run yalc-publish`: Executes 2 and publishes the package to the yalc app store.
-4. `npm run npm-pack`: Executes 1, 2 and packs the `./build/` folder into an NPM tgz package. The package is moved into a `./dist/` folder.
-5. `npm run npm-publish`: Executes 4 and publishes the package to the NPM store (runs in dry-run mode).
+1. `npm run peer-deps`: Installs the project's peer dependencies. Peer dependencies are not installed with `npm install`, but have to be met before building or running the tests. 
+2. `npm run test`: Runs the project's tests defined in `./karma.conf.js`. The coverage data is saved into the `./coverage/` folder.
+3. `npm run build`: Builds the whole project without testing and puts the files into the `./build/` folder.
+4. `npm run yalc-publish`: Executes 2 and publishes the package to the yalc app store.
+5. `npm run npm-pack`: Executes 1, 2 and packs the `./build/` folder into an NPM tgz package. The package is moved into a `./dist/` folder.
+6. `npm run npm-publish`: Executes 4 and publishes the package to the NPM store (runs in dry-run mode).
 
 > Note: You need to install `yalc` globally by `npm install yalc -g` to use script number 3. In order to publish a package to NPM, you need to be logged in to NPM and you have to update the version in the `package.json`.
 
@@ -97,6 +98,15 @@ see <https://docs.knora.org> -> Internals -> Development -> Generating Client Te
 2. `npm run integrate-v2-test-data <path-to-generated-client-code>`: this scripts integrates JSON-LD test data for Knora API v2.
 3. `npm run expand-jsonld-test-data`: creates versions with expanded prefixes for Knora API v2 JSON-LD test data. 
 see <https://docs.knora.org> -> internals -> development -> generating client apis (use it without `mock=true`).
+
+# Dependencies and Peer Dependencies
+
+This library depends on `RxJS`, `jsonld`, and `json2typescript`. `jsonld` and `json2typescript` are only used internally and listed as dependencies.
+
+`RxJS` is listed as a peer dependency and **not** installed with `nmp install`. It can be installed with `npm run peer-deps`.
+`RxJS`'s `Observable` is used in this library's public API 
+and has to be compatible with whatever version of `RxJS` is used in the productive environment, e.g. an Angular application.
+This library works with `RxJS` as of version 6. See `rxjs.md` for details. 
 
 # Publish a new version to NPM
 

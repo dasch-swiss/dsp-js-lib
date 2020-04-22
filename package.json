@@ -20,7 +20,8 @@
     "yalc-publish": "npm run build && yalc publish build/ --push",
     "npm-pack": "npm run test && npm run build && npm pack build/ && mkdir -p dist/ && cp *.tgz dist/ && rm *.tgz",
     "npm-publish": "npm run npm-pack && npm publish build/ --dry-run",
-    "builddocs": "typedoc --out docs --readme none --name '@knora/api API Documentation' --exclude \"**/*.spec.*\" src/*.ts"
+    "builddocs": "typedoc --out docs --readme none --name '@knora/api API Documentation' --exclude \"**/*.spec.*\" src/*.ts",
+    "peer-deps": "npm i rxjs@6.x --no-save"
   },
   "repository": {
     "type": "git",
@@ -53,13 +54,15 @@
     "karma-typescript": "^4.1.1",
     "phantomjs-prebuilt": "^2.1.16",
     "tslint": "^5.20.0",
-    "typedoc": "^0.15.0",
-    "typescript": "~3.6.3"
+    "typescript": "~3.6.3",
+    "typedoc": "^0.15.0"
   },
   "dependencies": {
     "@types/jsonld": "^1.5.0",
     "json2typescript": "1.4.1",
-    "jsonld": "^1.8.0",
-    "rxjs": "~6.5.5"
+    "jsonld": "^1.8.0"
+  },
+  "peerDependencies": {
+    "rxjs": "6.x"
   }
 }
