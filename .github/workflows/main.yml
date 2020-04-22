@@ -14,6 +14,13 @@ jobs:
       matrix:
         node-version: [11.x]
     steps:
+      - name: Disk Free
+        run: |
+          sudo df -i
+          sudo df -h
+          sudo du -sh /var/lib/docker
+          sudo docker system prune --all --force --volumes
+          sudo df -h
       - name: Checkout source
         uses: actions/checkout@v1
         with:
