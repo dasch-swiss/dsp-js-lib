@@ -2,6 +2,20 @@
 export { KnoraApiConnection } from "./knora-api-connection";
 export { KnoraApiConfig } from "./knora-api-config";
 
+// Admin Endpoints
+export { GroupsEndpoint } from "./api/admin/groups/groups-endpoint";
+export { PermissionsEndpoint } from "./api/admin/permissions/permissions-endpoint";
+export { ProjectsEndpoint } from "./api/admin/projects/projects-endpoint";
+export { UsersEndpoint } from "./api/admin/users/users-endpoint";
+
+// V2 Endpoints
+export { AuthenticationEndpoint } from "./api/v2/authentication/authentication-endpoint";
+export { OntologiesEndpoint } from "./api/v2/ontology/ontologies-endpoint";
+export { ResourcesEndpoint } from "./api/v2/resource/resources-endpoint";
+export { ValuesEndpoint } from "./api/v2/values/values-endpoint";
+export { SearchEndpoint } from "./api/v2/search/search-endpoint";
+export { ListsEndpoint } from "./api/v2/list/lists-endpoint";
+
 // Classes
 export { Group } from "./models/admin/group";
 export { ReadGroup } from "./models/admin/read-group";
