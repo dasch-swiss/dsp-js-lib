@@ -11,7 +11,7 @@ import { AdministrativePermissionResponse } from "../../../models/admin/administ
 /**
  * An endpoint for working with Knora permissions.
  */
-export class PermissionsEndpoint extends Endpoint {
+export class PermissionsEndpointAdmin extends Endpoint {
     
     /**
      * Gets the administrative permission for a project and group.

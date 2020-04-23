@@ -7,7 +7,7 @@ import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ReadResource } from "../../../models/v2/resources/read/read-resource";
 import { ReadResourceSequence } from "../../../models/v2/resources/read/read-resource-sequence";
 import { CountQueryResponse } from "../../../models/v2/search/count-query-response";
-import { SearchEndpoint } from "./search-endpoint";
+import { SearchEndpointV2 } from "./search-endpoint-v2";
 
 describe("SearchEndpoint", () => {
 
@@ -45,26 +45,26 @@ describe("SearchEndpoint", () => {
 
         it("should handle parameters correctly", () => {
 
-            expect(SearchEndpoint["encodeFulltextParams"](0)).toEqual("?offset=0");
+            expect(SearchEndpointV2["encodeFulltextParams"](0)).toEqual("?offset=0");
 
-            expect(SearchEndpoint["encodeFulltextParams"](1)).toEqual("?offset=1");
+            expect(SearchEndpointV2["encodeFulltextParams"](1)).toEqual("?offset=1");
 
-            expect(SearchEndpoint["encodeFulltextParams"](0, {limitToProject: "http://rdfh.ch/projects/0001"}))
+            expect(SearchEndpointV2["encodeFulltextParams"](0, {limitToProject: "http://rdfh.ch/projects/0001"}))
                 .toEqual("?offset=0&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
 
-            expect(SearchEndpoint["encodeFulltextParams"](0, {limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"}))
+            expect(SearchEndpointV2["encodeFulltextParams"](0, {limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"}))
                 .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing");
 
-            expect(SearchEndpoint["encodeFulltextParams"](0, {limitToStandoffClass: "http://api.knora.org/ontology/standoff/v2#StandoffParagraphTag"}))
+            expect(SearchEndpointV2["encodeFulltextParams"](0, {limitToStandoffClass: "http://api.knora.org/ontology/standoff/v2#StandoffParagraphTag"}))
                 .toEqual("?offset=0&limitToStandoffClass=http%3A%2F%2Fapi.knora.org%2Fontology%2Fstandoff%2Fv2%23StandoffParagraphTag");
 
-            expect(SearchEndpoint["encodeFulltextParams"](0, {
+            expect(SearchEndpointV2["encodeFulltextParams"](0, {
                 limitToProject: "http://rdfh.ch/projects/0001",
                 limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
             }))
                 .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
 
-            expect(SearchEndpoint["encodeFulltextParams"](0, {
+            expect(SearchEndpointV2["encodeFulltextParams"](0, {
                 limitToProject: "http://rdfh.ch/projects/0001",
                 limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
                 limitToStandoffClass: "http://api.knora.org/ontology/standoff/v2#StandoffParagraphTag"
@@ -294,17 +294,17 @@ describe("SearchEndpoint", () => {
 
         it("should handle parameters correctly", () => {
 
-            expect(SearchEndpoint["encodeLabelParams"](0)).toEqual("?offset=0");
+            expect(SearchEndpointV2["encodeLabelParams"](0)).toEqual("?offset=0");
 
-            expect(SearchEndpoint["encodeLabelParams"](1)).toEqual("?offset=1");
+            expect(SearchEndpointV2["encodeLabelParams"](1)).toEqual("?offset=1");
 
-            expect(SearchEndpoint["encodeLabelParams"](0, {limitToProject: "http://rdfh.ch/projects/0001"}))
+            expect(SearchEndpointV2["encodeLabelParams"](0, {limitToProject: "http://rdfh.ch/projects/0001"}))
                 .toEqual("?offset=0&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
 
-            expect(SearchEndpoint["encodeLabelParams"](0, {limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"}))
+            expect(SearchEndpointV2["encodeLabelParams"](0, {limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"}))
                 .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing");
 
-            expect(SearchEndpoint["encodeLabelParams"](0, {
+            expect(SearchEndpointV2["encodeLabelParams"](0, {
                 limitToProject: "http://rdfh.ch/projects/0001",
                 limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
             }))

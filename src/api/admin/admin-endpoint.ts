@@ -1,11 +1,11 @@
 import { KnoraApiConfig } from "../../knora-api-config";
 import { Endpoint } from "../endpoint";
 
-import { UsersEndpoint } from "./users/users-endpoint";
-import { GroupsEndpoint } from "./groups/groups-endpoint";
-import { ProjectsEndpoint } from "./projects/projects-endpoint";
-import { PermissionsEndpoint } from "./permissions/permissions-endpoint";
-import { ListsEndpoint } from "./lists/lists-endpoint";
+import { UsersEndpointAdmin } from "./users/users-endpoint-admin";
+import { GroupsEndpointAdmin } from "./groups/groups-endpoint-admin";
+import { ProjectsEndpointAdmin } from "./projects/projects-endpoint-admin";
+import { PermissionsEndpointAdmin } from "./permissions/permissions-endpoint-admin";
+import { ListsEndpointAdmin } from "./lists/lists-endpoint-admin";
 
 
 /**
@@ -16,27 +16,27 @@ export class AdminEndpoint extends Endpoint {
     /**
      * An endpoint for working with Knora users.
      */
-    readonly usersEndpoint: UsersEndpoint;
+    readonly usersEndpoint: UsersEndpointAdmin;
     
     /**
      * An endpoint for working with Knora groups.
      */
-    readonly groupsEndpoint: GroupsEndpoint;
+    readonly groupsEndpoint: GroupsEndpointAdmin;
     
     /**
      * An endpoint for working with Knora projects.
      */
-    readonly projectsEndpoint: ProjectsEndpoint;
+    readonly projectsEndpoint: ProjectsEndpointAdmin;
     
     /**
      * An endpoint for working with Knora permissions.
      */
-    readonly permissionsEndpoint: PermissionsEndpoint;
+    readonly permissionsEndpoint: PermissionsEndpointAdmin;
     
     /**
      * An endpoint for working with Knora lists.
      */
-    readonly listsEndpoint: ListsEndpoint;
+    readonly listsEndpoint: ListsEndpointAdmin;
     
 
     /**
@@ -52,10 +52,10 @@ export class AdminEndpoint extends Endpoint {
 
         // Instantiate the endpoints
         
-        this.usersEndpoint = new UsersEndpoint(knoraApiConfig, path + "/users");
-        this.groupsEndpoint = new GroupsEndpoint(knoraApiConfig, path + "/groups");
-        this.projectsEndpoint = new ProjectsEndpoint(knoraApiConfig, path + "/projects");
-        this.permissionsEndpoint = new PermissionsEndpoint(knoraApiConfig, path + "/permissions");
-        this.listsEndpoint = new ListsEndpoint(knoraApiConfig, path + "/lists");
+        this.usersEndpoint = new UsersEndpointAdmin(knoraApiConfig, path + "/users");
+        this.groupsEndpoint = new GroupsEndpointAdmin(knoraApiConfig, path + "/groups");
+        this.projectsEndpoint = new ProjectsEndpointAdmin(knoraApiConfig, path + "/projects");
+        this.permissionsEndpoint = new PermissionsEndpointAdmin(knoraApiConfig, path + "/permissions");
+        this.listsEndpoint = new ListsEndpointAdmin(knoraApiConfig, path + "/lists");
     }
 }

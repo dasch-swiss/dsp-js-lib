@@ -21,6 +21,7 @@ clone-knora-stack:
 .PHONY: npm-install
 npm-install: ## runs 'npm install'
 	@npm install
+	@npm run peer-deps
 
 .PHONY: knora-stack
 knora-stack: ## runs the knora-stack
@@ -60,7 +61,7 @@ unit-tests: ## runs the unit tests
 e2e-tests: ## runs the e2e tests
 	sudo npm install yalc -g
 	npm run yalc-publish
-	cd test-framework && yalc remove --all && yalc add @knora/api && npm install && npm run webdriver-update && npm run e2e && npm run build && docker build .
+	cd test-framework && yalc remove --all && yalc add @knora/api && npm install && npm run webdriver-update && npm run e2e && npm run build-app && docker build .
 
 .PHONY: build
 build: ## builds the lib

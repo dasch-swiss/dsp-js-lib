@@ -2,6 +2,25 @@
 export { KnoraApiConnection } from "./knora-api-connection";
 export { KnoraApiConfig } from "./knora-api-config";
 
+// Admin Endpoints
+export { GroupsEndpointAdmin } from "./api/admin/groups/groups-endpoint-admin";
+export { ListsEndpointAdmin } from "./api/admin/lists/lists-endpoint-admin";
+export { PermissionsEndpointAdmin } from "./api/admin/permissions/permissions-endpoint-admin";
+export { ProjectsEndpointAdmin } from "./api/admin/projects/projects-endpoint-admin";
+export { UsersEndpointAdmin } from "./api/admin/users/users-endpoint-admin";
+
+// V2 Endpoints
+export { AuthenticationEndpointV2 } from "./api/v2/authentication/authentication-endpoint-v2";
+export { ListsEndpointV2 } from "./api/v2/list/lists-endpoint-v2";
+export { OntologiesEndpointV2 } from "./api/v2/ontology/ontologies-endpoint-v2";
+export { ResourcesEndpointV2 } from "./api/v2/resource/resources-endpoint-v2";
+export { SearchEndpointV2 } from "./api/v2/search/search-endpoint-v2";
+export { ValuesEndpointV2 } from "./api/v2/values/values-endpoint-v2";
+
+// Caches
+export { UserCache } from "./cache/UserCache";
+export { ListAdminCache } from "./cache/ListAdminCache";
+
 // Classes
 export { Group } from "./models/admin/group";
 export { ReadGroup } from "./models/admin/read-group";
@@ -53,9 +72,6 @@ export { CredentialsResponse } from "./models/v2/authentication/credentials-resp
 export { LogoutResponse } from "./models/v2/authentication/logout-response";
 
 export { StringLiteral } from "./models/admin/string-literal";
-
-export { UserCache } from "./cache/UserCache";
-export { ListAdminCache } from "./cache/ListAdminCache";
 
 export { ApiResponse } from "./models/api-response";
 export { ApiResponseData } from "./models/api-response-data";
