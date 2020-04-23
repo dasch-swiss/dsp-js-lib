@@ -16,7 +16,7 @@ import { UsersResponse } from "../../../models/admin/users-response";
 /**
  * An endpoint for working with Knora users.
  */
-export class UsersEndpoint extends Endpoint {
+export class UsersEndpointAdmin extends Endpoint {
     
     /**
      * Returns a list of all users.
