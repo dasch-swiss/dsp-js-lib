@@ -2,12 +2,12 @@ import { ListNodeV2Cache } from "../../cache/ListNodeV2Cache";
 import { OntologyCache } from "../../cache/OntologyCache";
 import { KnoraApiConfig } from "../../knora-api-config";
 import { Endpoint } from "../endpoint";
-import { AuthenticationEndpoint } from "./authentication/authentication-endpoint";
-import { ListsEndpoint } from "./list/lists-endpoint";
-import { OntologiesEndpoint } from "./ontology/ontologies-endpoint";
-import { ResourcesEndpoint } from "./resource/resources-endpoint";
-import { SearchEndpoint } from "./search/search-endpoint";
-import { ValuesEndpoint } from "./values/values-endpoint";
+import { AuthenticationEndpointV2 } from "./authentication/authentication-endpoint-v2";
+import { ListsEndpointV2 } from "./list/lists-endpoint-v2";
+import { OntologiesEndpointV2 } from "./ontology/ontologies-endpoint-v2";
+import { ResourcesEndpointV2 } from "./resource/resources-endpoint-v2";
+import { SearchEndpointV2 } from "./search/search-endpoint-v2";
+import { ValuesEndpointV2 } from "./values/values-endpoint-v2";
 
 /**
  * Defines the V2 endpoint of the Knora API.
@@ -22,17 +22,17 @@ export class V2Endpoint extends Endpoint {
 
     static readonly PATH_VALUES = "/values";
 
-    readonly auth: AuthenticationEndpoint;
+    readonly auth: AuthenticationEndpointV2;
 
-    readonly onto: OntologiesEndpoint;
+    readonly onto: OntologiesEndpointV2;
 
-    readonly res: ResourcesEndpoint;
+    readonly res: ResourcesEndpointV2;
 
-    readonly values: ValuesEndpoint;
+    readonly values: ValuesEndpointV2;
 
-    readonly list: ListsEndpoint;
+    readonly list: ListsEndpointV2;
 
-    readonly search: SearchEndpoint;
+    readonly search: SearchEndpointV2;
 
     readonly ontologyCache: OntologyCache;
 
@@ -49,12 +49,12 @@ export class V2Endpoint extends Endpoint {
         super(knoraApiConfig, path);
 
         // Instantiate the endpoints
-        this.auth = new AuthenticationEndpoint(knoraApiConfig, path + V2Endpoint.PATH_AUTHENTICATION);
-        this.onto = new OntologiesEndpoint(knoraApiConfig, path + V2Endpoint.PATH_ONTOLOGIES);
-        this.res = new ResourcesEndpoint(knoraApiConfig, path + V2Endpoint.PATH_RESOURCES, this);
-        this.values = new ValuesEndpoint(knoraApiConfig, path + V2Endpoint.PATH_VALUES, this);
-        this.list = new ListsEndpoint(knoraApiConfig, path);
-        this.search = new SearchEndpoint(knoraApiConfig, path, this);
+        this.auth = new AuthenticationEndpointV2(knoraApiConfig, path + V2Endpoint.PATH_AUTHENTICATION);
+        this.onto = new OntologiesEndpointV2(knoraApiConfig, path + V2Endpoint.PATH_ONTOLOGIES);
+        this.res = new ResourcesEndpointV2(knoraApiConfig, path + V2Endpoint.PATH_RESOURCES, this);
+        this.values = new ValuesEndpointV2(knoraApiConfig, path + V2Endpoint.PATH_VALUES, this);
+        this.list = new ListsEndpointV2(knoraApiConfig, path);
+        this.search = new SearchEndpointV2(knoraApiConfig, path, this);
 
         // Instantiate caches
         this.ontologyCache = new OntologyCache(knoraApiConfig, this);

@@ -54,7 +54,7 @@ export interface ILabelSearchParams {
 /**
  * Handles requests to the search route of the Knora API.
  */
-export class SearchEndpoint extends Endpoint {
+export class SearchEndpointV2 extends Endpoint {
 
     constructor(protected readonly knoraApiConfig: KnoraApiConfig, protected readonly path: string, private readonly v2Endpoint: V2Endpoint) {
         super(knoraApiConfig, path);
@@ -125,7 +125,7 @@ export class SearchEndpoint extends Endpoint {
     doFulltextSearch(searchTerm: string, offset = 0, params?: IFulltextSearchParams): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
-        return this.httpGet("/search/" + encodeURIComponent(searchTerm) + SearchEndpoint.encodeFulltextParams(offset, params)).pipe(
+        return this.httpGet("/search/" + encodeURIComponent(searchTerm) + SearchEndpointV2.encodeFulltextParams(offset, params)).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
@@ -151,7 +151,7 @@ export class SearchEndpoint extends Endpoint {
     doFulltextSearchCountQuery(searchTerm: string, offset = 0, params?: IFulltextSearchParams): Observable<CountQueryResponse | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
-        return this.httpGet("/search/count/" + encodeURIComponent(searchTerm) + SearchEndpoint.encodeFulltextParams(offset, params)).pipe(
+        return this.httpGet("/search/count/" + encodeURIComponent(searchTerm) + SearchEndpointV2.encodeFulltextParams(offset, params)).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
@@ -227,7 +227,7 @@ export class SearchEndpoint extends Endpoint {
     doSearchByLabel(searchTerm: string, offset = 0, params?: ILabelSearchParams): Observable<ReadResource[] | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
-        return this.httpGet("/searchbylabel/" + encodeURIComponent(searchTerm) + SearchEndpoint.encodeLabelParams(offset, params)).pipe(
+        return this.httpGet("/searchbylabel/" + encodeURIComponent(searchTerm) + SearchEndpointV2.encodeLabelParams(offset, params)).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
