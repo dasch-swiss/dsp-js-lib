@@ -17,7 +17,7 @@ import { UpdateProjectRequest } from "../../../models/admin/update-project-reque
 /**
  * An endpoint for working with Knora projects.
  */
-export class ProjectsEndpoint extends Endpoint {
+export class ProjectsEndpointAdmin extends Endpoint {
     
     /**
      * Returns a list of all projects.

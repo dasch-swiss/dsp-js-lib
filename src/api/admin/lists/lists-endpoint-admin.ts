@@ -17,7 +17,7 @@ import { UpdateListInfoRequest } from "../../../models/admin/update-list-info-re
 /**
  * An endpoint for working with Knora lists.
  */
-export class ListsEndpoint extends Endpoint {
+export class ListsEndpointAdmin extends Endpoint {
     
     /**
      * Returns a list of lists.
