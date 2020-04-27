@@ -4,13 +4,11 @@
     "outDir": "../out-tsc/app",
     "types": []
   },
-  "include": [
-    "../src",
-    "../node_modules/api2js"
+  "files": [
+    "main.ts",
+    "polyfills.ts"
   ],
-  "exclude": [
-    "test.ts",
-    "**/*.spec.ts",
-    "../node_modules/api2js/test"
+  "include": [
+    "src/**/*.d.ts"
   ]
 }
