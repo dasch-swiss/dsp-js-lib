@@ -21,3 +21,11 @@ tsconf.exclude.splice(indexOfTest, 1);
 fs.writeJsonSync('./tsconfig.json', tsconf);
 
 // add exports to index.ts
+const indexFd = fs.openSync('index.ts', 'a' );
+
+fs.writeSync(indexFd, 'export { MockOntology } from "./test/data/api/v2/mockOntology";\n');
+fs.writeSync(indexFd, 'export { MockList } from "./test/data/api/v2/mockList";\n');
+fs.writeSync(indexFd, 'export { MockResource } from "./test/data/api/v2/mock-resource";\n');
+
+fs.closeSync(indexFd);
+
