@@ -1,6 +1,7 @@
 "use strict";
 
 const fs = require('fs-extra');
+const testExports = require('./mock-exports.json')
 
 // adapt package.json
 const pack = fs.readJsonSync('./package.json');
@@ -20,12 +21,14 @@ const indexOfTest = tsconf.exclude.indexOf('test')
 tsconf.exclude.splice(indexOfTest, 1);
 fs.writeJsonSync('./tsconfig.json', tsconf);
 
-// add exports to index.ts
-const indexFd = fs.openSync('index.ts', 'a' );
+// add exports for mock files to index.ts
+const indexFd = fs.openSync('index.ts', 'a');
 
-fs.writeSync(indexFd, 'export { MockOntology } from "./test/data/api/v2/mockOntology";\n');
-fs.writeSync(indexFd, 'export { MockList } from "./test/data/api/v2/mockList";\n');
-fs.writeSync(indexFd, 'export { MockResource } from "./test/data/api/v2/mock-resource";\n');
+testExports.forEach(
+    (exp => {
+        fs.writeSync(indexFd, exp);
+    })
+);
 
 fs.closeSync(indexFd);
 
