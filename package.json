@@ -1,6 +1,6 @@
 {
   "name": "@knora/api",
-  "version": "1.0.1-rc.0",
+  "version": "1.0.0",
   "description": "JavaScript library that handles API requests to Knora",
   "main": "index.js",
   "files": [
