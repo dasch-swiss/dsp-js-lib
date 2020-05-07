@@ -25,7 +25,8 @@ import {
     UserCache,
     UserResponse,
     UsersResponse,
-    WriteValueResponse
+    WriteValueResponse,
+    DeleteResourceResponse
 } from "@knora/api";
 
 import { map } from "rxjs/operators";
@@ -198,7 +199,7 @@ export class AppComponent implements OnInit {
     deleteResource.type = this.resource.type;
 
     this.knoraApiConnection.v2.res.deleteResource(deleteResource).subscribe(
-        (res: DeleteValueResponse) => {
+        (res: DeleteResourceResponse) => {
           this.resourceStatus = 'OK';
         }
     );

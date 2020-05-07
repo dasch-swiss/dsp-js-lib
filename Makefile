@@ -40,6 +40,7 @@ generate-test-data: ## downloads generated test data from Knora-API
 	@rm -rf $(CURRENT_DIR)/.tmp/typescript
 	mkdir -p $(CURRENT_DIR)/.tmp/typescript
 	curl -o $(CURRENT_DIR)/.tmp/ts.zip http://localhost:3333/clientapitest
+	sleep 30
 	unzip $(CURRENT_DIR)/.tmp/ts.zip -d $(CURRENT_DIR)/.tmp/typescript
 
 .PHONY: integrate-test-data
