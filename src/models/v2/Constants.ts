@@ -18,6 +18,7 @@ export class Constants {
 
     static XMLToStandoffMapping: string = Constants.KnoraApiV2 + Constants.Delimiter + "XMLToStandoffMapping";
     static Resource = Constants.KnoraApiV2 + Constants.Delimiter + "Resource";
+    static MayHaveMoreResults = Constants.KnoraApiV2 + Constants.Delimiter + "mayHaveMoreResults";
     static ResourceIcon = Constants.KnoraApiV2 + Constants.Delimiter + "ResourceIcon";
     static ForbiddenResource = Constants.KnoraApiV2 + Constants.Delimiter + "ForbiddenResource";
     static BooleanValue = Constants.KnoraApiV2 + Constants.Delimiter + "BooleanValue";

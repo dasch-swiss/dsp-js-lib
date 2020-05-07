@@ -5,6 +5,7 @@ import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ReadResource } from "../../../models/v2/resources/read/read-resource";
+import { ReadResourceSequence } from "../../../models/v2/resources/read/read-resource-sequence";
 import { CountQueryResponse } from "../../../models/v2/search/count-query-response";
 import { SearchEndpointV2 } from "./search-endpoint-v2";
 
@@ -74,9 +75,9 @@ describe("SearchEndpoint", () => {
 
         it("should do a fulltext search with a simple search term", done => {
 
-            knoraApiConnection.v2.search.doFulltextSearch("thing", 0).subscribe((response: ReadResource[]) => {
+            knoraApiConnection.v2.search.doFulltextSearch("thing", 0).subscribe((response: ReadResourceSequence) => {
 
-                expect(response.length).toEqual(2);
+                expect(response.resources.length).toEqual(2);
 
                 done();
             });
@@ -95,9 +96,9 @@ describe("SearchEndpoint", () => {
 
         it("should do a fulltext search with a simple search term using offset 1", done => {
 
-            knoraApiConnection.v2.search.doFulltextSearch("thing", 1).subscribe((response: ReadResource[]) => {
+            knoraApiConnection.v2.search.doFulltextSearch("thing", 1).subscribe((response: ReadResourceSequence) => {
 
-                expect(response.length).toEqual(2);
+                expect(response.resources.length).toEqual(2);
 
                 done();
             });
@@ -116,9 +117,9 @@ describe("SearchEndpoint", () => {
 
         it("should do a fulltext search with a simple search term restricting the search to a specific resource class", done => {
 
-            knoraApiConnection.v2.search.doFulltextSearch("thing", 1, {limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"}).subscribe((response: ReadResource[]) => {
+            knoraApiConnection.v2.search.doFulltextSearch("thing", 1, {limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"}).subscribe((response: ReadResourceSequence) => {
 
-                expect(response.length).toEqual(2);
+                expect(response.resources.length).toEqual(2);
 
                 done();
             });
@@ -138,9 +139,9 @@ describe("SearchEndpoint", () => {
 
         it("should do a fulltext search with a simple search term restricting the search to a specific project", done => {
 
-            knoraApiConnection.v2.search.doFulltextSearch("thing", 1, {limitToProject: "http://rdfh.ch/projects/0001"}).subscribe((response: ReadResource[]) => {
+            knoraApiConnection.v2.search.doFulltextSearch("thing", 1, {limitToProject: "http://rdfh.ch/projects/0001"}).subscribe((response: ReadResourceSequence) => {
 
-                expect(response.length).toEqual(2);
+                expect(response.resources.length).toEqual(2);
 
                 done();
             });
@@ -160,9 +161,9 @@ describe("SearchEndpoint", () => {
 
         it("should do a fulltext search with a simple search term restricting the search to a specific standoff class", done => {
 
-            knoraApiConnection.v2.search.doFulltextSearch("thing", 1, {limitToStandoffClass: "http://api.knora.org/ontology/standoff/v2#StandoffParagraphTag"}).subscribe((response: ReadResource[]) => {
+            knoraApiConnection.v2.search.doFulltextSearch("thing", 1, {limitToStandoffClass: "http://api.knora.org/ontology/standoff/v2#StandoffParagraphTag"}).subscribe((response: ReadResourceSequence) => {
 
-                expect(response.length).toEqual(2);
+                expect(response.resources.length).toEqual(2);
 
                 done();
             });
@@ -223,9 +224,9 @@ describe("SearchEndpoint", () => {
                 OFFSET 0
             `;
 
-            knoraApiConnection.v2.search.doExtendedSearch(gravsearchQuery).subscribe((response: ReadResource[]) => {
+            knoraApiConnection.v2.search.doExtendedSearch(gravsearchQuery).subscribe((response: ReadResourceSequence) => {
 
-                expect(response.length).toEqual(2);
+                expect(response.resources.length).toEqual(2);
 
                 done();
             });
@@ -313,9 +314,9 @@ describe("SearchEndpoint", () => {
 
         it("should do a label search with a simple search term", done => {
 
-            knoraApiConnection.v2.search.doSearchByLabel("thing", 0).subscribe((response: ReadResource[]) => {
+            knoraApiConnection.v2.search.doSearchByLabel("thing", 0).subscribe((response: ReadResourceSequence) => {
 
-                expect(response.length).toEqual(2);
+                expect(response.resources.length).toEqual(2);
 
                 done();
             });
@@ -334,9 +335,9 @@ describe("SearchEndpoint", () => {
 
         it("should do a label search with a simple search term using offset 1", done => {
 
-            knoraApiConnection.v2.search.doSearchByLabel("thing", 1).subscribe((response: ReadResource[]) => {
+            knoraApiConnection.v2.search.doSearchByLabel("thing", 1).subscribe((response: ReadResourceSequence) => {
 
-                expect(response.length).toEqual(2);
+                expect(response.resources.length).toEqual(2);
 
                 done();
             });
@@ -355,9 +356,9 @@ describe("SearchEndpoint", () => {
 
         it("should do a label search with a simple search term restricting the search to a specific resource class", done => {
 
-            knoraApiConnection.v2.search.doSearchByLabel("thing", 1, {limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"}).subscribe((response: ReadResource[]) => {
+            knoraApiConnection.v2.search.doSearchByLabel("thing", 1, {limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"}).subscribe((response: ReadResourceSequence) => {
 
-                expect(response.length).toEqual(2);
+                expect(response.resources.length).toEqual(2);
 
                 done();
             });
@@ -377,9 +378,9 @@ describe("SearchEndpoint", () => {
 
         it("should do a label search with a simple search term restricting the search to a specific project", done => {
 
-            knoraApiConnection.v2.search.doSearchByLabel("thing", 1, {limitToProject: "http://rdfh.ch/projects/0001"}).subscribe((response: ReadResource[]) => {
+            knoraApiConnection.v2.search.doSearchByLabel("thing", 1, {limitToProject: "http://rdfh.ch/projects/0001"}).subscribe((response: ReadResourceSequence) => {
 
-                expect(response.length).toEqual(2);
+                expect(response.resources.length).toEqual(2);
 
                 done();
             });

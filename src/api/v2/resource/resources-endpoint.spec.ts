@@ -8,6 +8,7 @@ import { CreateResource } from "../../../models/v2/resources/create/create-resou
 import { DeleteResource } from "../../../models/v2/resources/delete/delete-resource";
 import { DeleteResourceResponse } from "../../../models/v2/resources/delete/delete-resource-response";
 import { ReadResource } from "../../../models/v2/resources/read/read-resource";
+import { ReadResourceSequence } from "../../../models/v2/resources/read/read-resource-sequence";
 import { UpdateResourceMetadata } from "../../../models/v2/resources/update/update-resource-metadata";
 import { UpdateResourceMetadataResponse } from "../../../models/v2/resources/update/update-resource-metadata-response";
 import { CreateBooleanValue } from "../../../models/v2/resources/values/create/create-boolean-value";
@@ -87,9 +88,9 @@ describe("ResourcesEndpoint", () => {
 
         it("should return several resource", done => {
 
-            knoraApiConnection.v2.res.getResources(["http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "http://rdfh.ch/0001/uqmMo72OQ2K2xe7mkIytlg"]).subscribe((response: ReadResource[]) => {
+            knoraApiConnection.v2.res.getResources(["http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "http://rdfh.ch/0001/uqmMo72OQ2K2xe7mkIytlg"]).subscribe((response: ReadResourceSequence) => {
 
-                expect(response.length).toEqual(2);
+                expect(response.resources.length).toEqual(2);
 
                 done();
             });

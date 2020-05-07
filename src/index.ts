@@ -87,6 +87,7 @@ export { ResourcePropertyDefinition } from "./models/v2/ontologies/resource-prop
 export { PropertyDefinition } from "./models/v2/ontologies/property-definition";
 export { ResourceClassDefinition } from "./models/v2/ontologies/resource-class-definition";
 export { StandoffClassDefinition } from "./models/v2/ontologies/standoff-class-definition";
+export { ReadResourceSequence } from "./models/v2/resources/read/read-resource-sequence";
 export { ReadResource } from "./models/v2/resources/read/read-resource";
 export { CountQueryResponse } from "./models/v2/search/count-query-response";
 export { UpdateResource } from "./models/v2/resources/update/update-resource";
