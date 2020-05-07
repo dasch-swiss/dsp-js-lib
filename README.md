@@ -98,6 +98,8 @@ see <https://docs.knora.org> -> Internals -> Development -> Generating Client Te
 2. `npm run integrate-v2-test-data <path-to-generated-client-code>`: this scripts integrates JSON-LD test data for Knora API v2.
 3. `npm run expand-jsonld-test-data`: creates versions with expanded prefixes for Knora API v2 JSON-LD test data. 
 see <https://docs.knora.org> -> internals -> development -> generating client apis (use it without `mock=true`).
+4. `npm run prepare-dev-publication`: prepares a dev version of the library for publication. 
+The dev versions contains mocks that produce tests data without a connection to Knora. The mocks are configured in `scripts/mock-exports.json`.
 
 # Dependencies and Peer Dependencies
 
