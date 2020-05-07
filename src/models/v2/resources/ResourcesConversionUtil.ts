@@ -62,7 +62,6 @@ export namespace ResourcesConversionUtil {
             if (Object.keys(resourcesJsonld).length === 0) {
                 return of(new ReadResourceSequence([]));
             } else {
-                // TODO: Is a check for knora-api:mayHaveMoreResults necessary?
                 return forkJoin([createReadResource(resourcesJsonld as { [index: string]: object[] | string }, ontologyCache, listNodeCache, jsonConvert)]).pipe(
                     map((resources: ReadResource[]) => {
                         return new ReadResourceSequence(resources);
