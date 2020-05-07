@@ -17,7 +17,7 @@
 - add missing classes to public API ([#174](https://github.com/dasch-swiss/knora-api-js-lib/pull/174))
 - make RxJS a peer dependency ([#176](https://github.com/dasch-swiss/knora-api-js-lib/pull/176))
 - add delete resource response to public API ([#178](https://github.com/dasch-swiss/knora-api-js-lib/pull/178))
-- use consistent naming convention for v2 and admin endpoints ([#178](https://github.com/dasch-swiss/knora-api-js-lib/pull/179))
+- use consistent naming convention for v2 and admin endpoints ([#179](https://github.com/dasch-swiss/knora-api-js-lib/pull/179))
 
 ### Breaking Changes
 - return multiple resources as `ReadResourceSequence` (instead of ReadResource[]) with a flag indicating whether there could be more results ([#169](https://github.com/dasch-swiss/knora-api-js-lib/pull/169))
