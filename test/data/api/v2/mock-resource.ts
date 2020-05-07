@@ -1,7 +1,8 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { Observable, of } from "rxjs";
-import { ReadResourceSequence } from "../../../../src/models/v2/resources/read/read-resource-sequence";
+import { map } from "rxjs/operators";
+import { ReadResource } from "../../../../src/models/v2/resources/read/read-resource";
 import { V2Endpoint } from "../../../../src/api/v2/v2-endpoint";
 import { ListNodeV2Cache } from "../../../../src/cache/ListNodeV2Cache";
 import { OntologyCache } from "../../../../src/cache/OntologyCache";
@@ -10,6 +11,7 @@ import { ResourcesConversionUtil } from "../../../../src/models/v2/resources/Res
 import testthing from "../v2/resources/testding-expanded.json";
 import { MockList } from "./mockList";
 import { MockOntology } from "./mockOntology";
+import { ReadResourceSequence } from "../../../../src/models/v2/resources/read/read-resource-sequence";
 
 export namespace MockResource {
 
@@ -20,7 +22,7 @@ export namespace MockResource {
         PropertyMatchingRule.CASE_STRICT
     );
 
-    export const getTestthing = (): Observable<ReadResourceSequence> => {
+    export const getTestthing = (): Observable<ReadResource> => {
 
         const config = new KnoraApiConfig("http", "");
 
@@ -47,7 +49,13 @@ export namespace MockResource {
 
         };
 
-        return ResourcesConversionUtil.createReadResourceSequence(testthing, ontoCache, listNodeCache, jsonConvert);
+        const resSeq: Observable<ReadResourceSequence> = ResourcesConversionUtil.createReadResourceSequence(testthing, ontoCache, listNodeCache, jsonConvert);
+
+        return resSeq.pipe(
+            map(
+                (seq: ReadResourceSequence) => seq.resources[0]
+            )
+        );
 
     };
 
