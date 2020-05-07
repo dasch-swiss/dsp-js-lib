@@ -1,11 +1,11 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { Observable, of } from "rxjs";
+import { ReadResourceSequence } from "../../../../src/models/v2/resources/read/read-resource-sequence";
 import { V2Endpoint } from "../../../../src/api/v2/v2-endpoint";
 import { ListNodeV2Cache } from "../../../../src/cache/ListNodeV2Cache";
 import { OntologyCache } from "../../../../src/cache/OntologyCache";
 import { KnoraApiConfig } from "../../../../src/knora-api-config";
-import { ReadResource } from "../../../../src/models/v2/resources/read/read-resource";
 import { ResourcesConversionUtil } from "../../../../src/models/v2/resources/ResourcesConversionUtil";
 import testthing from "../v2/resources/testding-expanded.json";
 import { MockList } from "./mockList";
@@ -20,7 +20,7 @@ export namespace MockResource {
         PropertyMatchingRule.CASE_STRICT
     );
 
-    export const getTestthing = (): Observable<ReadResource[]> => {
+    export const getTestthing = (): Observable<ReadResourceSequence> => {
 
         const config = new KnoraApiConfig("http", "");
 
