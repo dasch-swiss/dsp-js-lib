@@ -22,7 +22,7 @@ tsconf.exclude.splice(indexOfTest, 1);
 fs.writeJsonSync('./tsconfig.json', tsconf);
 
 // add exports for mock files to index.ts
-const indexFd = fs.openSync('index.ts', 'a');
+const indexFd = fs.openSync('./index.ts', 'a');
 
 testExports.forEach(
     (exp => {
