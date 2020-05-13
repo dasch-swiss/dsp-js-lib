@@ -159,12 +159,13 @@ describe("OntologyCache", () => {
 
     describe("Method getResourceClass()", () => {
 
-        it("should get the definition of a resource class and its properties", done => {
+            it("should get the definition of a resource class and its properties", done => {
 
             knoraApiConnection.v2.ontologyCache.getResourceClassDefinition("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing").subscribe(
                 resClassDef => {
 
                     expect(resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"] instanceof ResourceClassDefinition).toBeTruthy();
+                    expect(resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].propertiesList.length).toEqual(38);
                     expect(Object.keys(resClassDef.properties).length).toEqual(38);
 
                     done();
