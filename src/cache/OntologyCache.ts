@@ -114,13 +114,6 @@ export class OntologyCache extends GenericCache<ReadOntology> {
                     requestedEntityDefs.classes[resourceClassIri]
                         = mainOnto.classes[resourceClassIri];
 
-                    // filter out non Knora properties
-                    requestedEntityDefs.classes[resourceClassIri].propertiesList = requestedEntityDefs.classes[resourceClassIri].propertiesList.filter(
-                        (hasProp: IHasProperty) => {
-                            return OntologyConversionUtil.getOntologyIriFromEntityIri(hasProp.propertyIndex, this.knoraApiConfig).length === 1;
-                        }
-                    );
-
                     mainOnto.classes[resourceClassIri].propertiesList.forEach(
                         (prop: IHasProperty) => {
 
@@ -132,6 +125,7 @@ export class OntologyCache extends GenericCache<ReadOntology> {
                                 const fromOnto = ontosMap.get(fromOntoIri[0]);
 
                                 if (fromOnto === undefined) throw new Error("Expected ontology not found");
+
                                 requestedEntityDefs.properties[prop.propertyIndex] = fromOnto.properties[prop.propertyIndex];
 
                             }
