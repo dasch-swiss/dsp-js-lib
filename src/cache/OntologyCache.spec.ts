@@ -1,5 +1,6 @@
 import { of } from "rxjs";
 import { MockOntology } from "../../test/data/api/v2/mockOntology";
+import { MockOntologyAssertions } from "../../test/data/api/v2/mock-ontology-assertions";
 import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { ReadOntology } from "../models/v2/ontologies/read-ontology";
@@ -165,8 +166,12 @@ describe("OntologyCache", () => {
                 resClassDef => {
 
                     expect(resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"] instanceof ResourceClassDefinition).toBeTruthy();
+
                     expect(resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].propertiesList.length).toEqual(38);
+                    expect(resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].propertiesList.length).toEqual(MockOntologyAssertions.propertiesAnythingThing.length);
+
                     expect(Object.keys(resClassDef.properties).length).toEqual(38);
+                    expect(Object.keys(resClassDef.properties).length).toEqual(MockOntologyAssertions.propertiesAnythingThing.length);
 
                     done();
 
