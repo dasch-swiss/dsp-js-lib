@@ -318,11 +318,19 @@ describe("ResourcesConversionUtil", () => {
 
             ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
                 (resSeq: ReadResourceSequence) => {
-                    //console.log(resSeq.resources[0]);
-                    console.log(resSeq.resources[0].getPropertyDefinitions(SystemPropertyDefinition));
+                    const systemProps = resSeq.resources[0].getPropertyDefinitions(SystemPropertyDefinition);
+
+                    expect(systemProps.length).toEqual(13);
+                    expect(systemProps.length).toEqual(MockOntologyAssertions.systemPropertyIndexesAnythingThing.length);
+                    expect(systemProps.map(prop => prop.id).sort()).toEqual(MockOntologyAssertions.systemPropertyIndexesAnythingThing.sort());
+
+                    const resourceProps = resSeq.resources[0].getPropertyDefinitions(ResourcePropertyDefinition);
+                    expect(resourceProps.length).toEqual(25);
+                    expect(resourceProps.length).toEqual(MockOntologyAssertions.resourcePropertyIndexesAnythingThing.length);
+                    expect(resourceProps.map(prop => prop.id).sort()).toEqual(MockOntologyAssertions.resourcePropertyIndexesAnythingThing.sort());
+
                     done();
                 });
-
 
         });
 

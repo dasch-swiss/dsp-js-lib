@@ -114,6 +114,11 @@ export class ReadResource extends ReadWriteResource {
         }
     }
 
+    /**
+     * Gets property definitions from the resource's entity info.
+     *
+     * @param type restriction to a certain property definition type, if any.
+     */
     getPropertyDefinitions<T extends PropertyDefinition>(type?: TypeGuard.Constructor<T>): PropertyDefinition[] {
 
         const propIndexes = Object.keys(this.entityInfo.properties);
@@ -122,8 +127,10 @@ export class ReadResource extends ReadWriteResource {
         propIndexes.forEach((propIndex: string) => {
             const curPropDef = this.entityInfo.properties[propIndex];
             if (type === undefined) {
+                // no type restriction given
                 propDefs.push(curPropDef);
             } else if (TypeGuard.typeGuard(curPropDef, type)) {
+                // property def conforms to type restriction
                 propDefs.push(curPropDef);
             }
         });
