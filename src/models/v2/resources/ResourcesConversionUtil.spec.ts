@@ -3,6 +3,7 @@ import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-c
 import { of } from "rxjs";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
+import { MockOntologyAssertions } from "../../../../test/data/api/v2/mock-ontology-assertions";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ReadResource } from "./read/read-resource";
@@ -72,6 +73,12 @@ describe("ResourcesConversionUtil", () => {
                 (resSeq: ReadResourceSequence) => {
 
                     expect(resSeq.resources.length).toEqual(1);
+
+                    // make sure that mocked ontology cache works as expected
+                    expect(resSeq.resources[0].entityInfo.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].propertiesList.length).toEqual(MockOntologyAssertions.propertyIndexesAnythingThing.length);
+                    expect(resSeq.resources[0].entityInfo.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].propertiesList.map(prop => prop.propertyIndex).sort()).toEqual(MockOntologyAssertions.propertyIndexesAnythingThing.sort());
+                    expect(Object.keys(resSeq.resources[0].entityInfo.properties).length).toEqual(MockOntologyAssertions.propertyIndexesAnythingThing.length);
+                    expect(Object.keys(resSeq.resources[0].entityInfo.properties).sort()).toEqual(MockOntologyAssertions.propertyIndexesAnythingThing.sort());
 
                     expect(resSeq.resources[0].id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw");
                     expect(resSeq.resources[0].type).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
