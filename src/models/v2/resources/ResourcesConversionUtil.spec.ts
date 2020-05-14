@@ -305,14 +305,14 @@ describe("ResourcesConversionUtil", () => {
 
         });
 
-        fit("parse JSON-LD representing a single resource", done => {
+        it("get property definitions by type from entity info", done => {
 
             const resource = require("../../../../test/data/api/v2/resources/testding-expanded.json");
 
             ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
                 (resSeq: ReadResourceSequence) => {
                     //console.log(resSeq.resources[0]);
-                    console.log(resSeq.resources[0].getPropertyDefinitions(ResourcePropertyDefinition));
+                    console.log(resSeq.resources[0].getPropertyDefinitions(SystemPropertyDefinition));
                     done();
                 });
 

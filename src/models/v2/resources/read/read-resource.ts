@@ -1,5 +1,4 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-import { PropertyDefinition } from "../../../..";
 import { IResourceClassAndPropertyDefinitions } from "../../../../cache/OntologyCache";
 import { Constants } from "../../Constants";
 import { DateTimeStampConverter } from "../../custom-converters/date-time-stamp-converter";
@@ -9,6 +8,7 @@ import { ReadWriteResource } from "../read-write-resource";
 import { TypeGuard } from "../type-guard";
 import { ReadValue } from "../values/read/read-value";
 import { ResourcePropertyDefinition } from "../../ontologies/resource-property-definition";
+import { PropertyDefinition } from "../../ontologies/property-definition";
 
 @JsonObject("ReadResource")
 export class ReadResource extends ReadWriteResource {
@@ -115,6 +115,7 @@ export class ReadResource extends ReadWriteResource {
     }
 
     getPropertyDefinitions<T extends PropertyDefinition>(type?: TypeGuard.Constructor<T>): PropertyDefinition[] {
+
         const propIndexes = Object.keys(this.entityInfo.properties);
         const propDefs: PropertyDefinition[] = [];
 
