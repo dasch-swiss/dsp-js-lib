@@ -1,6 +1,8 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { IResourceClassAndPropertyDefinitions } from "../../../../src/cache/OntologyCache";
+import { Constants } from "../../../../src/models/v2/Constants";
+import { IHasProperty } from "../../../../src/models/v2/ontologies/class-definition";
 import { OntologyConversionUtil } from "../../../../src/models/v2/ontologies/OntologyConversionUtil";
 import { ReadOntology } from "../../../../src/models/v2/ontologies/read-ontology";
 import { ResourceClassDefinition } from "../../../../src/models/v2/ontologies/resource-class-definition";
@@ -87,7 +89,6 @@ export namespace MockOntology {
         const knoraApiOntology: any = knoraApiOntologyExpanded;
         const incunabulaOntology: any = incunabulaOntologyExpanded;
 
-
         const knoraApiEntities = (knoraApiOntology as { [index: string]: object[] })["@graph"];
         const anythingEntities = (anythingOntology as { [index: string]: object[] })["@graph"];
         const incunabulaEntities = (incunabulaOntology as { [index: string]: object[] })["@graph"];
@@ -101,6 +102,13 @@ export namespace MockOntology {
             .forEach((resClass: ResourceClassDefinition) => {
                 entityMock.classes[resClass.id] = resClass;
             });
+
+        entityMock.classes[resClassIri].propertiesList = entityMock.classes[resClassIri].propertiesList.filter(
+            (prop: IHasProperty) => {
+                // exclude rdfs:label
+                return prop.propertyIndex !== Constants.Label;
+            }
+        );
 
         // properties of anything Thing
         const props: string[]
