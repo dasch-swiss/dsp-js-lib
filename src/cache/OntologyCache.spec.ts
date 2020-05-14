@@ -1,6 +1,6 @@
 import { of } from "rxjs";
-import { MockOntology } from "../../test/data/api/v2/mockOntology";
 import { MockOntologyAssertions } from "../../test/data/api/v2/mock-ontology-assertions";
+import { MockOntology } from "../../test/data/api/v2/mockOntology";
 import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { ReadOntology } from "../models/v2/ontologies/read-ontology";
@@ -160,7 +160,7 @@ describe("OntologyCache", () => {
 
     describe("Method getResourceClass()", () => {
 
-            it("should get the definition of a resource class and its properties", done => {
+        it("should get the definition of a resource class and its properties", done => {
 
             knoraApiConnection.v2.ontologyCache.getResourceClassDefinition("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing").subscribe(
                 resClassDef => {
