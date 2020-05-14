@@ -1,4 +1,5 @@
 import { JsonObject, JsonProperty } from "json2typescript";
+import { PropertyDefinition } from "../../../..";
 import { IResourceClassAndPropertyDefinitions } from "../../../../cache/OntologyCache";
 import { Constants } from "../../Constants";
 import { DateTimeStampConverter } from "../../custom-converters/date-time-stamp-converter";
@@ -111,6 +112,22 @@ export class ReadResource extends ReadWriteResource {
         } else {
             throw new Error(`${linkValueProperty} is not a valid link value property IRI`);
         }
+    }
+
+    getPropertyDefinitions<T extends PropertyDefinition>(type?: TypeGuard.Constructor<T>): PropertyDefinition[] {
+        const propIndexes = Object.keys(this.entityInfo.properties);
+        const propDefs: PropertyDefinition[] = [];
+
+        propIndexes.forEach((propIndex: string) => {
+            const curPropDef = this.entityInfo.properties[propIndex];
+            if (type === undefined) {
+                propDefs.push(curPropDef);
+            } else if (TypeGuard.typeGuard(curPropDef, type)) {
+                propDefs.push(curPropDef);
+            }
+        });
+
+        return propDefs;
     }
 
     /**

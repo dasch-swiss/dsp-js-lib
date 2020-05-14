@@ -1,6 +1,7 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { of } from "rxjs";
+import { PropertyDefinition, ResourcePropertyDefinition, SystemPropertyDefinition } from "../../..";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { KnoraApiConfig } from "../../../knora-api-config";
@@ -301,6 +302,20 @@ describe("ResourcesConversionUtil", () => {
                     done();
                 }
             );
+
+        });
+
+        fit("parse JSON-LD representing a single resource", done => {
+
+            const resource = require("../../../../test/data/api/v2/resources/testding-expanded.json");
+
+            ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
+                (resSeq: ReadResourceSequence) => {
+                    //console.log(resSeq.resources[0]);
+                    console.log(resSeq.resources[0].getPropertyDefinitions(ResourcePropertyDefinition));
+                    done();
+                });
+
 
         });
 
