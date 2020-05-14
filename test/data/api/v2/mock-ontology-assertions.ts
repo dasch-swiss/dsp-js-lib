@@ -4,7 +4,7 @@
  */
 export class MockOntologyAssertions {
 
-    static propertiesAnythingThing = [
+    static propertyIndexesAnythingThing = [
         "http://api.knora.org/ontology/knora-api/v2#arkUrl",
         "http://api.knora.org/ontology/knora-api/v2#attachedToProject",
         "http://api.knora.org/ontology/knora-api/v2#attachedToUser",

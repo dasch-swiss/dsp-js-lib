@@ -74,9 +74,11 @@ describe("ResourcesConversionUtil", () => {
 
                     expect(resSeq.resources.length).toEqual(1);
 
-                    // make sure that mocked cache works as expected
-                    expect(resSeq.resources[0].entityInfo.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].propertiesList.length).toEqual(MockOntologyAssertions.propertiesAnythingThing.length);
-                    expect(Object.keys(resSeq.resources[0].entityInfo.properties).length).toEqual(MockOntologyAssertions.propertiesAnythingThing.length);
+                    // make sure that mocked ontology cache works as expected
+                    expect(resSeq.resources[0].entityInfo.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].propertiesList.length).toEqual(MockOntologyAssertions.propertyIndexesAnythingThing.length);
+                    expect(resSeq.resources[0].entityInfo.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].propertiesList.map(prop => prop.propertyIndex).sort()).toEqual(MockOntologyAssertions.propertyIndexesAnythingThing.sort());
+                    expect(Object.keys(resSeq.resources[0].entityInfo.properties).length).toEqual(MockOntologyAssertions.propertyIndexesAnythingThing.length);
+                    expect(Object.keys(resSeq.resources[0].entityInfo.properties).sort()).toEqual(MockOntologyAssertions.propertyIndexesAnythingThing.sort());
 
                     expect(resSeq.resources[0].id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw");
                     expect(resSeq.resources[0].type).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
