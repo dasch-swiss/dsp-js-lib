@@ -40,7 +40,7 @@ generate-test-data: ## downloads generated test data from Knora-API
 	@rm -rf $(CURRENT_DIR)/.tmp/typescript
 	mkdir -p $(CURRENT_DIR)/.tmp/typescript
 	sleep 240
-	curl -o $(CURRENT_DIR)/.tmp/ts.zip http://localhost:3333/clientapitest
+	curl --fail --retry 5 --retry-connrefused -w http_code -o $(CURRENT_DIR)/.tmp/ts.zip http://localhost:3333/clientapitest
 	sleep 120
 	unzip $(CURRENT_DIR)/.tmp/ts.zip -d $(CURRENT_DIR)/.tmp/typescript
 
