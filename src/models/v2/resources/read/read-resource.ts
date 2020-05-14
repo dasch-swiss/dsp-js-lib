@@ -4,11 +4,11 @@ import { Constants } from "../../Constants";
 import { DateTimeStampConverter } from "../../custom-converters/date-time-stamp-converter";
 import { IdConverter } from "../../custom-converters/id-converter";
 import { UriConverter } from "../../custom-converters/uri-converter";
+import { PropertyDefinition } from "../../ontologies/property-definition";
+import { ResourcePropertyDefinition } from "../../ontologies/resource-property-definition";
 import { ReadWriteResource } from "../read-write-resource";
 import { TypeGuard } from "../type-guard";
 import { ReadValue } from "../values/read/read-value";
-import { ResourcePropertyDefinition } from "../../ontologies/resource-property-definition";
-import { PropertyDefinition } from "../../ontologies/property-definition";
 
 @JsonObject("ReadResource")
 export class ReadResource extends ReadWriteResource {
@@ -115,27 +115,27 @@ export class ReadResource extends ReadWriteResource {
     }
 
     /**
-     * Gets property definitions from the resource's entity info.
-     *
-     * @param type restriction to a certain property definition type, if any.
+     * Gets all property definitions from the resource's entity info.
      */
-    getPropertyDefinitions<T extends PropertyDefinition>(type?: TypeGuard.Constructor<T>): PropertyDefinition[] {
-
+    getAllPropertyDefinitions(): PropertyDefinition[] {
         const propIndexes = Object.keys(this.entityInfo.properties);
-        const propDefs: PropertyDefinition[] = [];
 
-        propIndexes.forEach((propIndex: string) => {
-            const curPropDef = this.entityInfo.properties[propIndex];
-            if (type === undefined) {
-                // no type restriction given
-                propDefs.push(curPropDef);
-            } else if (TypeGuard.typeGuard(curPropDef, type)) {
-                // property def conforms to type restriction
-                propDefs.push(curPropDef);
-            }
+        return propIndexes.map((propIndex: string) => {
+            return this.entityInfo.properties[propIndex];
         });
+    }
 
-        return propDefs;
+    /**
+     * Gets property definitions restricted by type from the resource's entity info.
+     *
+     * @param type restriction to a certain property definition type.
+     */
+    getPropertyDefinitionsByType<T extends PropertyDefinition>(type: TypeGuard.Constructor<T>): T[] {
+
+        return this.getAllPropertyDefinitions().filter(
+            (prop: PropertyDefinition) => {
+                return TypeGuard.typeGuard(prop, type);
+            }) as T[];
     }
 
     /**

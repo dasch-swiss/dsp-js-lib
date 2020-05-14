@@ -312,22 +312,42 @@ describe("ResourcesConversionUtil", () => {
 
         });
 
+        it("get all property definitions from entity info", done => {
+
+            const resource = require("../../../../test/data/api/v2/resources/testding-expanded.json");
+
+            ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
+                (resSeq: ReadResourceSequence) => {
+                    const props: PropertyDefinition[] = resSeq.resources[0].getAllPropertyDefinitions();
+
+                    expect(props.length).toEqual(38);
+                    expect(props.length).toEqual(MockOntologyAssertions.propertyIndexesAnythingThing.length);
+                    expect(props.map(prop => prop.id).sort()).toEqual(MockOntologyAssertions.propertyIndexesAnythingThing.sort());
+                    expect(props[0] instanceof PropertyDefinition).toBe(true);
+
+                    done();
+                });
+
+        });
+
         it("get property definitions by type from entity info", done => {
 
             const resource = require("../../../../test/data/api/v2/resources/testding-expanded.json");
 
             ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
                 (resSeq: ReadResourceSequence) => {
-                    const systemProps = resSeq.resources[0].getPropertyDefinitions(SystemPropertyDefinition);
+                    const systemProps: SystemPropertyDefinition[] = resSeq.resources[0].getPropertyDefinitionsByType(SystemPropertyDefinition);
 
                     expect(systemProps.length).toEqual(13);
                     expect(systemProps.length).toEqual(MockOntologyAssertions.systemPropertyIndexesAnythingThing.length);
                     expect(systemProps.map(prop => prop.id).sort()).toEqual(MockOntologyAssertions.systemPropertyIndexesAnythingThing.sort());
+                    expect(systemProps[0] instanceof SystemPropertyDefinition).toBe(true);
 
-                    const resourceProps = resSeq.resources[0].getPropertyDefinitions(ResourcePropertyDefinition);
+                    const resourceProps: ResourcePropertyDefinition[] = resSeq.resources[0].getPropertyDefinitionsByType(ResourcePropertyDefinition);
                     expect(resourceProps.length).toEqual(25);
                     expect(resourceProps.length).toEqual(MockOntologyAssertions.resourcePropertyIndexesAnythingThing.length);
                     expect(resourceProps.map(prop => prop.id).sort()).toEqual(MockOntologyAssertions.resourcePropertyIndexesAnythingThing.sort());
+                    expect(resourceProps[0] instanceof ResourcePropertyDefinition).toBe(true);
 
                     done();
                 });
