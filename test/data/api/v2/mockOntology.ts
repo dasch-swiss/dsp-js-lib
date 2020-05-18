@@ -1,6 +1,9 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
-import { IResourceClassAndPropertyDefinitions } from "../../../../src/cache/OntologyCache";
+import {
+    ResourceClassDefinitionWithPropertyDefinition,
+    IResourceClassAndPropertyDefinitions, IHasPropertyWithPropertyDefinition
+} from "../../../../src/cache/OntologyCache";
 import { Constants } from "../../../../src/models/v2/Constants";
 import { IHasProperty } from "../../../../src/models/v2/ontologies/class-definition";
 import { OntologyConversionUtil } from "../../../../src/models/v2/ontologies/OntologyConversionUtil";
@@ -85,6 +88,8 @@ export namespace MockOntology {
             properties: {}
         };
 
+        const tmpClasses: { [index: string]: ResourceClassDefinition } = {};
+
         const anythingOntology: any = anythingOntologyExpanded;
         const knoraApiOntology: any = knoraApiOntologyExpanded;
         const incunabulaOntology: any = incunabulaOntologyExpanded;
@@ -100,10 +105,10 @@ export namespace MockOntology {
             .map(resclassJsonld => OntologyConversionUtil.convertEntity(resclassJsonld, ResourceClassDefinition, jsonConvert))
             .filter(resclassDef => resclassDef.id === resClassIri)
             .forEach((resClass: ResourceClassDefinition) => {
-                entityMock.classes[resClass.id] = resClass;
+                tmpClasses[resClass.id] = resClass;
             });
 
-        entityMock.classes[resClassIri].propertiesList = entityMock.classes[resClassIri].propertiesList.filter(
+        tmpClasses[resClassIri].propertiesList = tmpClasses[resClassIri].propertiesList.filter(
             (prop: IHasProperty) => {
                 // exclude rdfs:label
                 return prop.propertyIndex !== Constants.Label;
@@ -112,7 +117,7 @@ export namespace MockOntology {
 
         // properties of anything Thing
         const props: string[]
-            = entityMock.classes[resClassIri].propertiesList.map(prop => prop.propertyIndex);
+            = tmpClasses[resClassIri].propertiesList.map(prop => prop.propertyIndex);
 
         // Convert resource properties (properties pointing to Knora values)
         entities.filter(OntologyConversionUtil.filterResourcePropertyDefinitions)
@@ -131,6 +136,23 @@ export namespace MockOntology {
             .forEach((prop: SystemPropertyDefinition) => {
                 entityMock.properties[prop.id] = prop;
             });
+
+        entityMock.classes[resClassIri] = new ResourceClassDefinitionWithPropertyDefinition();
+        entityMock.classes[resClassIri].id = tmpClasses[resClassIri].id;
+        entityMock.classes[resClassIri].comment = tmpClasses[resClassIri].comment;
+        entityMock.classes[resClassIri].label = tmpClasses[resClassIri].label;
+        entityMock.classes[resClassIri].subClassOf = tmpClasses[resClassIri].subClassOf;
+        entityMock.classes[resClassIri].propertiesList = tmpClasses[resClassIri].propertiesList.map((prop: IHasProperty) => {
+                const conv: IHasPropertyWithPropertyDefinition = {
+                    propertyIndex: prop.propertyIndex,
+                    cardinality: prop.cardinality,
+                    guiOrder: prop.guiOrder,
+                    isInherited: prop.isInherited,
+                    propertyDefinition: entityMock.properties[prop.propertyIndex]
+                };
+                return conv;
+            }
+        );
 
         return entityMock;
 

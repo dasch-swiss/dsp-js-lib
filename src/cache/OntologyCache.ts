@@ -2,11 +2,23 @@ import { AsyncSubject, forkJoin, Observable, of } from "rxjs";
 import { map, mergeMap } from "rxjs/operators";
 import { V2Endpoint } from "../api/v2/v2-endpoint";
 import { KnoraApiConfig } from "../knora-api-config";
-import { ClassDefinition, IHasProperty } from "../models/v2/ontologies/class-definition";
+import { IHasProperty } from "../models/v2/ontologies/class-definition";
 import { OntologyConversionUtil } from "../models/v2/ontologies/OntologyConversionUtil";
 import { PropertyDefinition } from "../models/v2/ontologies/property-definition";
 import { ReadOntology } from "../models/v2/ontologies/read-ontology";
 import { GenericCache } from "./GenericCache";
+import { ResourceClassDefinition } from "../models/v2/ontologies/resource-class-definition";
+
+export class ResourceClassDefinitionWithPropertyDefinition extends ResourceClassDefinition {
+
+    propertiesList: IHasPropertyWithPropertyDefinition[];
+
+}
+
+export interface IHasPropertyWithPropertyDefinition extends IHasProperty {
+
+    propertyDefinition: PropertyDefinition;
+}
 
 /**
  * Represents resource class definitions
@@ -17,7 +29,7 @@ export interface IResourceClassAndPropertyDefinitions {
     /**
      * Resource class definitions and their cardinalities.
      */
-    classes: { [index: string]: ClassDefinition };
+    classes: { [index: string]: ResourceClassDefinitionWithPropertyDefinition };
 
     /**
      * Property definitions referred to in cardinalities.
@@ -100,28 +112,30 @@ export class OntologyCache extends GenericCache<ReadOntology> {
         return ontology.pipe(
             map(ontosMap => {
 
+                const mainOnto = ontosMap.get(ontoIri[0]);
+
+                if (mainOnto === undefined) throw new Error("Expected ontology not found");
+
                 const requestedEntityDefs: IResourceClassAndPropertyDefinitions = {
                     classes: {},
                     properties: {}
                 };
 
-                const mainOnto = ontosMap.get(ontoIri[0]);
+                if (mainOnto.classes.hasOwnProperty(resourceClassIri) && mainOnto.classes[resourceClassIri] instanceof ResourceClassDefinition) {
 
-                if (mainOnto === undefined) throw new Error("Expected ontology not found");
+                    const tmpClasses: { [index: string]: ResourceClassDefinition } = {};
 
-                if (mainOnto.classes.hasOwnProperty(resourceClassIri)) {
-
-                    requestedEntityDefs.classes[resourceClassIri]
-                        = mainOnto.classes[resourceClassIri];
+                    tmpClasses[resourceClassIri]
+                        = mainOnto.classes[resourceClassIri] as ResourceClassDefinition;
 
                     // filter out non Knora properties
-                    requestedEntityDefs.classes[resourceClassIri].propertiesList = requestedEntityDefs.classes[resourceClassIri].propertiesList.filter(
+                    tmpClasses[resourceClassIri].propertiesList = tmpClasses[resourceClassIri].propertiesList.filter(
                         (hasProp: IHasProperty) => {
                             return OntologyConversionUtil.getOntologyIriFromEntityIri(hasProp.propertyIndex, this.knoraApiConfig).length === 1;
                         }
                     );
 
-                    requestedEntityDefs.classes[resourceClassIri].propertiesList.forEach(
+                    tmpClasses[resourceClassIri].propertiesList.forEach(
                         (prop: IHasProperty) => {
 
                             // prop could refer to entities in the ontology the requested resource class belongs to
@@ -136,7 +150,23 @@ export class OntologyCache extends GenericCache<ReadOntology> {
                                 requestedEntityDefs.properties[prop.propertyIndex] = fromOnto.properties[prop.propertyIndex];
 
                             }
+                        }
+                    );
 
+                    requestedEntityDefs.classes[resourceClassIri] = new ResourceClassDefinitionWithPropertyDefinition();
+                    requestedEntityDefs.classes[resourceClassIri].id = tmpClasses[resourceClassIri].id;
+                    requestedEntityDefs.classes[resourceClassIri].comment = tmpClasses[resourceClassIri].comment;
+                    requestedEntityDefs.classes[resourceClassIri].label = tmpClasses[resourceClassIri].label;
+                    requestedEntityDefs.classes[resourceClassIri].subClassOf = tmpClasses[resourceClassIri].subClassOf;
+                    requestedEntityDefs.classes[resourceClassIri].propertiesList = tmpClasses[resourceClassIri].propertiesList.map((prop: IHasProperty) => {
+                            const conv: IHasPropertyWithPropertyDefinition = {
+                                propertyIndex: prop.propertyIndex,
+                                cardinality: prop.cardinality,
+                                guiOrder: prop.guiOrder,
+                                isInherited: prop.isInherited,
+                                propertyDefinition: requestedEntityDefs.properties[prop.propertyIndex]
+                            };
+                            return conv;
                         }
                     );
 

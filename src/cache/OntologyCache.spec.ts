@@ -5,6 +5,7 @@ import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { ReadOntology } from "../models/v2/ontologies/read-ontology";
 import { ResourceClassDefinition } from "../models/v2/ontologies/resource-class-definition";
+import { ResourceClassDefinitionWithPropertyDefinition } from "./OntologyCache";
 
 describe("OntologyCache", () => {
 
@@ -165,7 +166,7 @@ describe("OntologyCache", () => {
             knoraApiConnection.v2.ontologyCache.getResourceClassDefinition("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing").subscribe(
                 resClassDef => {
 
-                    expect(resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"] instanceof ResourceClassDefinition).toBeTruthy();
+                    expect(resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"] instanceof ResourceClassDefinitionWithPropertyDefinition).toBeTruthy();
 
                     expect(resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].propertiesList.length).toEqual(38);
                     expect(resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].propertiesList.map(prop => prop.propertyIndex).sort()).toEqual(MockOntologyAssertions.propertyIndexesAnythingThing.sort());
