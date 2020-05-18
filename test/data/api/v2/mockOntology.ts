@@ -137,12 +137,7 @@ export namespace MockOntology {
                 entityMock.properties[prop.id] = prop;
             });
 
-        entityMock.classes[resClassIri] = new ResourceClassDefinitionWithPropertyDefinition();
-        entityMock.classes[resClassIri].id = tmpClasses[resClassIri].id;
-        entityMock.classes[resClassIri].comment = tmpClasses[resClassIri].comment;
-        entityMock.classes[resClassIri].label = tmpClasses[resClassIri].label;
-        entityMock.classes[resClassIri].subClassOf = tmpClasses[resClassIri].subClassOf;
-        entityMock.classes[resClassIri].propertiesList = tmpClasses[resClassIri].propertiesList.map((prop: IHasProperty) => {
+        const propertiesList = tmpClasses[resClassIri].propertiesList.map((prop: IHasProperty) => {
                 const conv: IHasPropertyWithPropertyDefinition = {
                     propertyIndex: prop.propertyIndex,
                     cardinality: prop.cardinality,
@@ -153,6 +148,8 @@ export namespace MockOntology {
                 return conv;
             }
         );
+
+        entityMock.classes[resClassIri] = new ResourceClassDefinitionWithPropertyDefinition(tmpClasses[resClassIri], propertiesList);
 
         return entityMock;
 

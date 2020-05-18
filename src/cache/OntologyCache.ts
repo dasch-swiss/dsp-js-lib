@@ -13,6 +13,20 @@ export class ResourceClassDefinitionWithPropertyDefinition extends ResourceClass
 
     propertiesList: IHasPropertyWithPropertyDefinition[];
 
+    constructor(resClassDef: ResourceClassDefinition, propertiesList: IHasPropertyWithPropertyDefinition[]) {
+        super();
+
+        this.propertiesList = propertiesList;
+
+        if (resClassDef !== undefined) {
+            this.id = resClassDef.id;
+            this.label = resClassDef.label;
+            this.comment = resClassDef.comment;
+            this.subClassOf = resClassDef.subClassOf;
+        }
+
+    }
+
 }
 
 export interface IHasPropertyWithPropertyDefinition extends IHasProperty {
@@ -153,12 +167,7 @@ export class OntologyCache extends GenericCache<ReadOntology> {
                         }
                     );
 
-                    requestedEntityDefs.classes[resourceClassIri] = new ResourceClassDefinitionWithPropertyDefinition();
-                    requestedEntityDefs.classes[resourceClassIri].id = tmpClasses[resourceClassIri].id;
-                    requestedEntityDefs.classes[resourceClassIri].comment = tmpClasses[resourceClassIri].comment;
-                    requestedEntityDefs.classes[resourceClassIri].label = tmpClasses[resourceClassIri].label;
-                    requestedEntityDefs.classes[resourceClassIri].subClassOf = tmpClasses[resourceClassIri].subClassOf;
-                    requestedEntityDefs.classes[resourceClassIri].propertiesList = tmpClasses[resourceClassIri].propertiesList.map((prop: IHasProperty) => {
+                    const propertiesList = tmpClasses[resourceClassIri].propertiesList.map((prop: IHasProperty) => {
                             const conv: IHasPropertyWithPropertyDefinition = {
                                 propertyIndex: prop.propertyIndex,
                                 cardinality: prop.cardinality,
@@ -169,6 +178,9 @@ export class OntologyCache extends GenericCache<ReadOntology> {
                             return conv;
                         }
                     );
+
+                    requestedEntityDefs.classes[resourceClassIri] = new ResourceClassDefinitionWithPropertyDefinition(tmpClasses[resourceClassIri], propertiesList);
+
 
                 }
 

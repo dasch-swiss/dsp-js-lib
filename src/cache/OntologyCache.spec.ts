@@ -167,6 +167,8 @@ describe("OntologyCache", () => {
                 resClassDef => {
 
                     expect(resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"] instanceof ResourceClassDefinitionWithPropertyDefinition).toBeTruthy();
+                    const thingDef: ResourceClassDefinitionWithPropertyDefinition = resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"];
+                    expect(thingDef.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
 
                     expect(resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].propertiesList.length).toEqual(38);
                     expect(resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].propertiesList.map(prop => prop.propertyIndex).sort()).toEqual(MockOntologyAssertions.propertyIndexesAnythingThing.sort());
