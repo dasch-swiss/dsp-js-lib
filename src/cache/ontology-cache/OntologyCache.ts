@@ -7,8 +7,8 @@ import { OntologyConversionUtil } from "../../models/v2/ontologies/OntologyConve
 import { ReadOntology } from "../../models/v2/ontologies/read-ontology";
 import { ResourceClassDefinition } from "../../models/v2/ontologies/resource-class-definition";
 import { GenericCache } from "../GenericCache";
+import { IResourceClassAndPropertyDefinitions } from "./resource-class-and-property-definitions";
 import {
-    IResourceClassAndPropertyDefinitions,
     ResourceClassDefinitionWithPropertyDefinition
 } from "./resource-class-definition-with-property-definition";
 

@@ -50,20 +50,3 @@ export interface IHasPropertyWithPropertyDefinition extends IHasProperty {
 
     propertyDefinition: PropertyDefinition;
 }
-
-/**
- * Represents resource class definitions
- * and property definitions the resource classes have cardinalities for.
- */
-export interface IResourceClassAndPropertyDefinitions {
-
-    /**
-     * Resource class definitions and their cardinalities.
-     */
-    classes: { [index: string]: ResourceClassDefinitionWithPropertyDefinition };
-
-    /**
-     * Property definitions referred to in cardinalities.
-     */
-    properties: { [index: string]: PropertyDefinition };
-}

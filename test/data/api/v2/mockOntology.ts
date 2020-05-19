@@ -1,7 +1,7 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+import { IResourceClassAndPropertyDefinitions } from "../../../../src/cache/ontology-cache/resource-class-and-property-definitions";
 import {
-    IResourceClassAndPropertyDefinitions,
     ResourceClassDefinitionWithPropertyDefinition
 } from "../../../../src/cache/ontology-cache/resource-class-definition-with-property-definition";
 import { Constants } from "../../../../src/models/v2/Constants";

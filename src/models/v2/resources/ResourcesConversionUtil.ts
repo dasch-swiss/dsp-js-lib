@@ -3,7 +3,6 @@ import { forkJoin, Observable, of } from "rxjs";
 import { map, mergeMap } from "rxjs/operators";
 import { ListNodeV2Cache } from "../../../cache/ListNodeV2Cache";
 import { OntologyCache } from "../../../cache/ontology-cache/OntologyCache";
-import { IResourceClassAndPropertyDefinitions } from "../../../cache/ontology-cache/resource-class-definition-with-property-definition";
 import { Constants } from "../Constants";
 import { ResourcePropertyDefinition } from "../ontologies/resource-property-definition";
 import { CountQueryResponse } from "../search/count-query-response";
@@ -29,6 +28,7 @@ import {
 import { ReadTimeValue } from "./values/read/read-time-value";
 import { ReadUriValue } from "./values/read/read-uri-value";
 import { ReadValue } from "./values/read/read-value";
+import { IResourceClassAndPropertyDefinitions } from "../../../cache/ontology-cache/resource-class-and-property-definitions";
 
 export namespace ResourcesConversionUtil {
 
