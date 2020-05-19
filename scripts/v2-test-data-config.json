@@ -26,11 +26,15 @@
     },
     {
       "source": "/v2/search/things.json",
-      "destination": "./test/data/api/v2/resources/things.json"
+      "destination": "./test/data/api/v2/search/things.json"
     },
     {
       "source": "/v2/search/things-with-paging.json",
-      "destination": "./test/data/api/v2/resources/things-with-paging.json"
+      "destination": "./test/data/api/v2/search/things-with-paging.json"
+    },
+    {
+      "source": "/v2/search/thing-links.json",
+      "destination": "./test/data/api/v2/search/thing-links.json"
     },
     {
       "source": "/v2/lists/treelist.json",
@@ -50,7 +54,7 @@
     },
     {
       "source": "/v2/values/create-value-response.json",
-      "destination": "./test/data/api/v2/values/create-int-value-response.json"
+      "destination": "./test/data/api/v2/values/create-value-response.json"
     },
     {
       "source": "/v2/values/create-decimal-value-request.json",
@@ -126,7 +130,7 @@
     },
     {
       "source": "/v2/values/update-value-response.json",
-      "destination": "./test/data/api/v2/values/update-int-value-response.json"
+      "destination": "./test/data/api/v2/values/update-value-response.json"
     },
     {
       "source": "/v2/values/update-decimal-value-request.json",
@@ -307,6 +311,18 @@
     {
       "source": "/v2/resources/delete-resource-response.json",
       "destination": "./test/data/api/v2/resources/delete-resource-response.json"
+    },
+    {
+      "source": "/v2/resources/erase-resource-request.json",
+      "destination": "./test/data/api/v2/resources/erase-resource-request.json"
+    },
+    {
+      "source": "/v2/resources/resource-graph.json",
+      "destination": "./test/data/api/v2/resources/resource-graph.json"
+    },
+    {
+      "source": "/v2/resources/thing-with-picture.json",
+      "destination": "./test/data/api/v2/resources/thing-with-picture.json"
     }
   ]
 }
