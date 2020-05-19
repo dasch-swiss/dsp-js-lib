@@ -1,5 +1,5 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-import { IResourceClassAndPropertyDefinitions } from "../../../../cache/OntologyCache";
+import { IResourceClassAndPropertyDefinitions } from "../../../..";
 import { Constants } from "../../Constants";
 import { DateTimeStampConverter } from "../../custom-converters/date-time-stamp-converter";
 import { IdConverter } from "../../custom-converters/id-converter";

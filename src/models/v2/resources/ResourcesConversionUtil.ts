@@ -2,15 +2,13 @@ import { JsonConvert } from "json2typescript";
 import { forkJoin, Observable, of } from "rxjs";
 import { map, mergeMap } from "rxjs/operators";
 import { ListNodeV2Cache } from "../../../cache/ListNodeV2Cache";
-import { IResourceClassAndPropertyDefinitions, OntologyCache } from "../../../cache/OntologyCache";
+import { OntologyCache } from "../../../cache/ontology-cache/OntologyCache";
+import { IResourceClassAndPropertyDefinitions } from "../../../cache/ontology-cache/resource-class-definition-with-property-definition";
 import { Constants } from "../Constants";
 import { ResourcePropertyDefinition } from "../ontologies/resource-property-definition";
 import { CountQueryResponse } from "../search/count-query-response";
 import { ReadResource } from "./read/read-resource";
 import { ReadResourceSequence } from "./read/read-resource-sequence";
-import { ReadTimeValue } from "./values/read/read-time-value";
-import { ReadUriValue } from "./values/read/read-uri-value";
-import { ReadValue } from "./values/read/read-value";
 import { ReadBooleanValue } from "./values/read/read-boolean-value";
 import { ReadColorValue } from "./values/read/read-color-value";
 import { ParseReadDateValue, ReadDateValue } from "./values/read/read-date-value";
@@ -28,6 +26,9 @@ import {
     ReadTextValueAsString,
     ReadTextValueAsXml
 } from "./values/read/read-text-value";
+import { ReadTimeValue } from "./values/read/read-time-value";
+import { ReadUriValue } from "./values/read/read-uri-value";
+import { ReadValue } from "./values/read/read-value";
 
 export namespace ResourcesConversionUtil {
 

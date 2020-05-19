@@ -1,11 +1,11 @@
 import { of } from "rxjs";
-import { MockOntologyAssertions } from "../../test/data/api/v2/mock-ontology-assertions";
-import { MockOntology } from "../../test/data/api/v2/mockOntology";
-import { KnoraApiConfig } from "../knora-api-config";
-import { KnoraApiConnection } from "../knora-api-connection";
-import { ReadOntology } from "../models/v2/ontologies/read-ontology";
-import { ResourceClassDefinition } from "../models/v2/ontologies/resource-class-definition";
-import { ResourceClassDefinitionWithPropertyDefinition } from "./OntologyCache";
+import { MockOntologyAssertions } from "../../../test/data/api/v2/mock-ontology-assertions";
+import { MockOntology } from "../../../test/data/api/v2/mockOntology";
+import { KnoraApiConfig } from "../../knora-api-config";
+import { KnoraApiConnection } from "../../knora-api-connection";
+import { ReadOntology } from "../../models/v2/ontologies/read-ontology";
+import { ResourceClassDefinition } from "../../models/v2/ontologies/resource-class-definition";
+import { ResourceClassDefinitionWithPropertyDefinition } from "./resource-class-definition-with-property-definition";
 
 describe("OntologyCache", () => {
 
