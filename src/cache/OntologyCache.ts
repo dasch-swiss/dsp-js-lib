@@ -6,29 +6,53 @@ import { IHasProperty } from "../models/v2/ontologies/class-definition";
 import { OntologyConversionUtil } from "../models/v2/ontologies/OntologyConversionUtil";
 import { PropertyDefinition } from "../models/v2/ontologies/property-definition";
 import { ReadOntology } from "../models/v2/ontologies/read-ontology";
-import { GenericCache } from "./GenericCache";
 import { ResourceClassDefinition } from "../models/v2/ontologies/resource-class-definition";
+import { GenericCache } from "./GenericCache";
 
+/**
+ * Represents a resource class definition containing all property definitions it has cardinalities for.
+ */
 export class ResourceClassDefinitionWithPropertyDefinition extends ResourceClassDefinition {
 
     propertiesList: IHasPropertyWithPropertyDefinition[];
 
-    constructor(resClassDef: ResourceClassDefinition, propertiesList: IHasPropertyWithPropertyDefinition[]) {
+    /**
+     * Create an instance from a given `ResourceClassDefinition`.
+     *
+     * @param resClassDef instance of `ResourceClassDefinition`.
+     * @param propertyDefinitions object containing all `PropertyDefinition`
+     *                            the resource class definition has cardinalities for.
+     */
+    constructor(resClassDef: ResourceClassDefinition, propertyDefinitions: { [index: string]: PropertyDefinition }) {
         super();
 
-        this.propertiesList = propertiesList;
+        this.id = resClassDef.id;
+        this.label = resClassDef.label;
+        this.comment = resClassDef.comment;
+        this.subClassOf = resClassDef.subClassOf;
 
-        if (resClassDef !== undefined) {
-            this.id = resClassDef.id;
-            this.label = resClassDef.label;
-            this.comment = resClassDef.comment;
-            this.subClassOf = resClassDef.subClassOf;
-        }
+        // add property definition to properties list's items
+        this.propertiesList = resClassDef.propertiesList.map((prop: IHasProperty) => {
 
+            if (propertyDefinitions[prop.propertyIndex] === undefined) {
+                throw Error(`Expected key ${prop.propertyIndex} in property definitions.`);
+            }
+
+            const propInfo: IHasPropertyWithPropertyDefinition = {
+                propertyIndex: prop.propertyIndex,
+                cardinality: prop.cardinality,
+                guiOrder: prop.guiOrder,
+                isInherited: prop.isInherited,
+                propertyDefinition: propertyDefinitions[prop.propertyIndex]
+            };
+            return propInfo;
+        });
     }
-
 }
 
+/**
+ * Represents a property defined on a resource class including the property definition.
+ */
 export interface IHasPropertyWithPropertyDefinition extends IHasProperty {
 
     propertyDefinition: PropertyDefinition;
@@ -167,20 +191,8 @@ export class OntologyCache extends GenericCache<ReadOntology> {
                         }
                     );
 
-                    const propertiesList = tmpClasses[resourceClassIri].propertiesList.map((prop: IHasProperty) => {
-                            const conv: IHasPropertyWithPropertyDefinition = {
-                                propertyIndex: prop.propertyIndex,
-                                cardinality: prop.cardinality,
-                                guiOrder: prop.guiOrder,
-                                isInherited: prop.isInherited,
-                                propertyDefinition: requestedEntityDefs.properties[prop.propertyIndex]
-                            };
-                            return conv;
-                        }
-                    );
-
-                    requestedEntityDefs.classes[resourceClassIri] = new ResourceClassDefinitionWithPropertyDefinition(tmpClasses[resourceClassIri], propertiesList);
-
+                    requestedEntityDefs.classes[resourceClassIri]
+                        = new ResourceClassDefinitionWithPropertyDefinition(tmpClasses[resourceClassIri], requestedEntityDefs.properties);
 
                 }
 
