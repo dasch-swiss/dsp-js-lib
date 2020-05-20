@@ -115,30 +115,6 @@ export class ReadResource extends ReadWriteResource {
     }
 
     /**
-     * Gets all property definitions from the resource's entity info.
-     */
-    getAllPropertyDefinitions(): PropertyDefinition[] {
-        const propIndexes = Object.keys(this.entityInfo.properties);
-
-        return propIndexes.map((propIndex: string) => {
-            return this.entityInfo.properties[propIndex];
-        });
-    }
-
-    /**
-     * Gets property definitions restricted by type from the resource's entity info.
-     *
-     * @param type restriction to a certain property definition type.
-     */
-    getPropertyDefinitionsByType<T extends PropertyDefinition>(type: TypeGuard.Constructor<T>): T[] {
-
-        return this.getAllPropertyDefinitions().filter(
-            (prop: PropertyDefinition) => {
-                return TypeGuard.typeGuard(prop, type);
-            }) as T[];
-    }
-
-    /**
      * Gets all the values for a given resource property.
      *
      * @param property the IRI of the property.
