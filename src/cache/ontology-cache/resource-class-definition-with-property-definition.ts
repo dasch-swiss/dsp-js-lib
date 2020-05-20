@@ -1,6 +1,8 @@
 import { IHasProperty } from "../../models/v2/ontologies/class-definition";
 import { PropertyDefinition } from "../../models/v2/ontologies/property-definition";
 import { ResourceClassDefinition } from "../../models/v2/ontologies/resource-class-definition";
+import { ResourcePropertyDefinition } from "../../models/v2/ontologies/resource-property-definition";
+import { SystemPropertyDefinition } from "../../models/v2/ontologies/system-property-definition";
 
 /**
  * Represents a resource class definition containing all property definitions it has cardinalities for.
@@ -39,6 +41,24 @@ export class ResourceClassDefinitionWithPropertyDefinition extends ResourceClass
                 propertyDefinition: propertyDefinitions[prop.propertyIndex]
             };
             return propInfo;
+        });
+    }
+
+    /**
+     * Gets the resource properties from properties list.
+     */
+    resourcePropertiesList(): IHasPropertyWithPropertyDefinition[] {
+        return this.propertiesList.filter(prop => {
+            return prop.propertyDefinition instanceof ResourcePropertyDefinition;
+        });
+    }
+
+    /**
+     * Gets the system properties from properties list.
+     */
+    systemPropertiesList(): IHasPropertyWithPropertyDefinition[] {
+        return this.propertiesList.filter(prop => {
+            return prop.propertyDefinition instanceof SystemPropertyDefinition;
         });
     }
 }
