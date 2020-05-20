@@ -47,7 +47,7 @@ export class ResourceClassDefinitionWithPropertyDefinition extends ResourceClass
     /**
      * Gets the resource properties from properties list.
      */
-    resourcePropertiesList(): IHasPropertyWithPropertyDefinition[] {
+    getResourcePropertiesList(): IHasPropertyWithPropertyDefinition[] {
         return this.propertiesList.filter(prop => {
             return prop.propertyDefinition instanceof ResourcePropertyDefinition;
         });
@@ -56,7 +56,7 @@ export class ResourceClassDefinitionWithPropertyDefinition extends ResourceClass
     /**
      * Gets the system properties from properties list.
      */
-    systemPropertiesList(): IHasPropertyWithPropertyDefinition[] {
+    getSystemPropertiesList(): IHasPropertyWithPropertyDefinition[] {
         return this.propertiesList.filter(prop => {
             return prop.propertyDefinition instanceof SystemPropertyDefinition;
         });
