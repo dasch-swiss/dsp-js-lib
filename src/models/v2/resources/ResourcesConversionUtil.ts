@@ -28,7 +28,7 @@ import {
 import { ReadTimeValue } from "./values/read/read-time-value";
 import { ReadUriValue } from "./values/read/read-uri-value";
 import { ReadValue } from "./values/read/read-value";
-import { IResourceClassAndPropertyDefinitions } from "../../../cache/ontology-cache/resource-class-and-property-definitions";
+import { ResourceClassAndPropertyDefinitions } from "../../../cache/ontology-cache/resource-class-and-property-definitions";
 
 export namespace ResourcesConversionUtil {
 
@@ -87,7 +87,7 @@ export namespace ResourcesConversionUtil {
         const resource = jsonConvert.deserialize(resourceJsonld, ReadResource) as ReadResource;
 
         return ontologyCache.getResourceClassDefinition(resource.type).pipe(mergeMap(
-            (entitiyDefs: IResourceClassAndPropertyDefinitions) => {
+            (entitiyDefs: ResourceClassAndPropertyDefinitions) => {
 
                 const resourceProps: string[] = Object.keys(resourceJsonld)
                     .filter((propIri: string) => {
@@ -260,7 +260,7 @@ export namespace ResourcesConversionUtil {
      * @param listNodeCache instance of ListNodeCache to be used.
      * @param jsonConvert instance of JsonConvert to be used.
      */
-    const createValueValue = (propIri: string, valueJsonld: any, entitiyDefs: IResourceClassAndPropertyDefinitions, ontologyCache: OntologyCache, listNodeCache: ListNodeV2Cache, jsonConvert: JsonConvert): Observable<ReadValue> => {
+    const createValueValue = (propIri: string, valueJsonld: any, entitiyDefs: ResourceClassAndPropertyDefinitions, ontologyCache: OntologyCache, listNodeCache: ListNodeV2Cache, jsonConvert: JsonConvert): Observable<ReadValue> => {
 
             if (Array.isArray(valueJsonld)) throw new Error("value is expected to be a single object");
 

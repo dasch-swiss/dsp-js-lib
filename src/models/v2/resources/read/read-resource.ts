@@ -8,7 +8,7 @@ import { ResourcePropertyDefinition } from "../../ontologies/resource-property-d
 import { ReadWriteResource } from "../read-write-resource";
 import { TypeGuard } from "../type-guard";
 import { ReadValue } from "../values/read/read-value";
-import { IResourceClassAndPropertyDefinitions } from "../../../../cache/ontology-cache/resource-class-and-property-definitions";
+import { ResourceClassAndPropertyDefinitions } from "../../../../cache/ontology-cache/resource-class-and-property-definitions";
 
 @JsonObject("ReadResource")
 export class ReadResource extends ReadWriteResource {
@@ -44,7 +44,7 @@ export class ReadResource extends ReadWriteResource {
 
     resourceClassComment?: string;
 
-    entityInfo: IResourceClassAndPropertyDefinitions;
+    entityInfo: ResourceClassAndPropertyDefinitions;
 
     properties: { [index: string]: ReadValue[] } = {};
 

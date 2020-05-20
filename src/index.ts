@@ -83,7 +83,7 @@ export {
     ResourceClassDefinitionWithPropertyDefinition,
     IHasPropertyWithPropertyDefinition
 } from "./cache/ontology-cache/resource-class-definition-with-property-definition";
-export { IResourceClassAndPropertyDefinitions } from "./cache/ontology-cache/resource-class-and-property-definitions";
+export { ResourceClassAndPropertyDefinitions } from "./cache/ontology-cache/resource-class-and-property-definitions";
 export { ClassDefinition, IHasProperty, Cardinality } from "./models/v2/ontologies/class-definition";
 export { SystemPropertyDefinition } from "./models/v2/ontologies/system-property-definition";
 export { ResourcePropertyDefinition } from "./models/v2/ontologies/resource-property-definition";

@@ -5,7 +5,7 @@ import { ResourceClassDefinitionWithPropertyDefinition } from "./resource-class-
  * Represents resource class definitions
  * and property definitions the resource classes have cardinalities for.
  */
-export interface IResourceClassAndPropertyDefinitions {
+export class ResourceClassAndPropertyDefinitions {
 
     /**
      * Resource class definitions and their cardinalities.
@@ -16,4 +16,10 @@ export interface IResourceClassAndPropertyDefinitions {
      * Property definitions referred to in cardinalities.
      */
     properties: { [index: string]: PropertyDefinition };
+
+    constructor(resClassDefs: { [index: string]: ResourceClassDefinitionWithPropertyDefinition }, propDefs: { [index: string]: PropertyDefinition }) {
+
+        this.classes = resClassDefs;
+        this.properties = propDefs;
+    }
 }

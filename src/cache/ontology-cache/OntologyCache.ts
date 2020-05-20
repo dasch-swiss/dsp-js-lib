@@ -4,13 +4,12 @@ import { V2Endpoint } from "../../api/v2/v2-endpoint";
 import { KnoraApiConfig } from "../../knora-api-config";
 import { IHasProperty } from "../../models/v2/ontologies/class-definition";
 import { OntologyConversionUtil } from "../../models/v2/ontologies/OntologyConversionUtil";
+import { PropertyDefinition } from "../../models/v2/ontologies/property-definition";
 import { ReadOntology } from "../../models/v2/ontologies/read-ontology";
 import { ResourceClassDefinition } from "../../models/v2/ontologies/resource-class-definition";
 import { GenericCache } from "../GenericCache";
-import { IResourceClassAndPropertyDefinitions } from "./resource-class-and-property-definitions";
-import {
-    ResourceClassDefinitionWithPropertyDefinition
-} from "./resource-class-definition-with-property-definition";
+import { ResourceClassAndPropertyDefinitions } from "./resource-class-and-property-definitions";
+import { ResourceClassDefinitionWithPropertyDefinition } from "./resource-class-definition-with-property-definition";
 
 /**
  * Caches ontologies obtained from Knora and handles direct dependencies between ontologies.
@@ -77,7 +76,7 @@ export class OntologyCache extends GenericCache<ReadOntology> {
      *
      * @param resourceClassIri
      */
-    getResourceClassDefinition(resourceClassIri: string): Observable<IResourceClassAndPropertyDefinitions> {
+    getResourceClassDefinition(resourceClassIri: string): Observable<ResourceClassAndPropertyDefinitions> {
         const ontoIri = OntologyConversionUtil.getOntologyIriFromEntityIri(resourceClassIri, this.knoraApiConfig);
 
         if (ontoIri.length !== 1) throw Error("Invalid resource class Iri " + resourceClassIri);
@@ -91,14 +90,11 @@ export class OntologyCache extends GenericCache<ReadOntology> {
 
                 if (mainOnto === undefined) throw new Error("Expected ontology not found");
 
-                const requestedEntityDefs: IResourceClassAndPropertyDefinitions = {
-                    classes: {},
-                    properties: {}
-                };
-
                 if (mainOnto.classes.hasOwnProperty(resourceClassIri) && mainOnto.classes[resourceClassIri] instanceof ResourceClassDefinition) {
 
                     const tmpClasses: { [index: string]: ResourceClassDefinition } = {};
+
+                    const tmpProps: { [index: string]: PropertyDefinition } = {};
 
                     tmpClasses[resourceClassIri]
                         = mainOnto.classes[resourceClassIri] as ResourceClassDefinition;
@@ -122,18 +118,24 @@ export class OntologyCache extends GenericCache<ReadOntology> {
                                 const fromOnto = ontosMap.get(fromOntoIri[0]);
 
                                 if (fromOnto === undefined) throw new Error("Expected ontology not found");
-                                requestedEntityDefs.properties[prop.propertyIndex] = fromOnto.properties[prop.propertyIndex];
+                                tmpProps[prop.propertyIndex] = fromOnto.properties[prop.propertyIndex];
 
                             }
                         }
                     );
 
-                    requestedEntityDefs.classes[resourceClassIri]
-                        = new ResourceClassDefinitionWithPropertyDefinition(tmpClasses[resourceClassIri], requestedEntityDefs.properties);
+                    return new ResourceClassAndPropertyDefinitions(
+                        {[resourceClassIri]: new ResourceClassDefinitionWithPropertyDefinition(tmpClasses[resourceClassIri], tmpProps)},
+                        tmpProps
+                        );
 
+                } else {
+                    // resource class not found
+                    // TODO: Should an error be thrown?
+                    return new ResourceClassAndPropertyDefinitions({}, {});
                 }
 
-                return requestedEntityDefs;
+
             })
         );
 

@@ -1,6 +1,6 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
-import { IResourceClassAndPropertyDefinitions } from "../../../../src/cache/ontology-cache/resource-class-and-property-definitions";
+import { ResourceClassAndPropertyDefinitions } from "../../../../src/cache/ontology-cache/resource-class-and-property-definitions";
 import {
     ResourceClassDefinitionWithPropertyDefinition
 } from "../../../../src/cache/ontology-cache/resource-class-definition-with-property-definition";
@@ -15,6 +15,7 @@ import { SystemPropertyDefinition } from "../../../../src/models/v2/ontologies/s
 import anythingOntologyExpanded from "../v2/ontologies/anything-ontology-expanded.json";
 import incunabulaOntologyExpanded from "../v2/ontologies/incunabula-ontology-expanded.json";
 import knoraApiOntologyExpanded from "../v2/ontologies/knora-api-ontology-expanded.json";
+import { PropertyDefinition } from "../../../../src/models/v2/ontologies/property-definition";
 
 export namespace MockOntology {
 
@@ -81,14 +82,11 @@ export namespace MockOntology {
 
     };
 
-    export const mockIResourceClassAndPropertyDefinitions = (resClassIri: string): IResourceClassAndPropertyDefinitions => {
-
-        const entityMock: IResourceClassAndPropertyDefinitions = {
-            classes: {},
-            properties: {}
-        };
+    export const mockIResourceClassAndPropertyDefinitions = (resClassIri: string): ResourceClassAndPropertyDefinitions => {
 
         const tmpClasses: { [index: string]: ResourceClassDefinition } = {};
+
+        const tmpProps: { [index: string]: PropertyDefinition } = {};
 
         const anythingOntology: any = anythingOntologyExpanded;
         const knoraApiOntology: any = knoraApiOntologyExpanded;
@@ -125,7 +123,7 @@ export namespace MockOntology {
                 return OntologyConversionUtil.convertEntity(propertyJsonld, ResourcePropertyDefinition, jsonConvert);
             }).filter(propertyDef => props.indexOf(propertyDef.id) !== -1)
             .forEach((prop: ResourcePropertyDefinition) => {
-                entityMock.properties[prop.id] = prop;
+                tmpProps[prop.id] = prop;
             });
 
         // Convert system properties (properties not pointing to Knora values)
@@ -134,13 +132,13 @@ export namespace MockOntology {
                 return OntologyConversionUtil.convertEntity(propertyJsonld, SystemPropertyDefinition, jsonConvert);
             }).filter(propertyDef => props.indexOf(propertyDef.id) !== -1)
             .forEach((prop: SystemPropertyDefinition) => {
-                entityMock.properties[prop.id] = prop;
+                tmpProps[prop.id] = prop;
             });
 
-        entityMock.classes[resClassIri]
-            = new ResourceClassDefinitionWithPropertyDefinition(tmpClasses[resClassIri], entityMock.properties);
-
-        return entityMock;
+        return new ResourceClassAndPropertyDefinitions(
+            {[resClassIri]: new ResourceClassDefinitionWithPropertyDefinition(tmpClasses[resClassIri], tmpProps)},
+            tmpProps
+        );
 
     };
 
