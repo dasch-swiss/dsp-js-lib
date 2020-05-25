@@ -105,7 +105,7 @@ This package provides the following short-hand scripts:
 
 For further development with Knora, the following scripts can be used:
 
-1. `npm run integrate-admin-test-data <path-to-generated-client-code`: integrates generated test data for the Knora Admin API, 
+1. `npm run integrate-admin-test-data <path-to-generated-client-code>`: integrates generated test data for the Knora Admin API, 
 see <https://docs.knora.org> -> Internals -> Development -> Generating Client Test Data.
 2. `npm run integrate-v2-test-data <path-to-generated-client-code>`: integrates JSON-LD test data for Knora API v2,
 see <https://docs.knora.org> -> Internals -> Development -> Generating Client Test Data.
