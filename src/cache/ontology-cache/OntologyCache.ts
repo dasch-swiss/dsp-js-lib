@@ -1,29 +1,15 @@
 import { AsyncSubject, forkJoin, Observable, of } from "rxjs";
 import { map, mergeMap } from "rxjs/operators";
-import { V2Endpoint } from "../api/v2/v2-endpoint";
-import { KnoraApiConfig } from "../knora-api-config";
-import { ClassDefinition, IHasProperty } from "../models/v2/ontologies/class-definition";
-import { OntologyConversionUtil } from "../models/v2/ontologies/OntologyConversionUtil";
-import { PropertyDefinition } from "../models/v2/ontologies/property-definition";
-import { ReadOntology } from "../models/v2/ontologies/read-ontology";
-import { GenericCache } from "./GenericCache";
-
-/**
- * Represents resource class definitions
- * and property definitions the resource classes have cardinalities for.
- */
-export interface IResourceClassAndPropertyDefinitions {
-
-    /**
-     * Resource class definitions and their cardinalities.
-     */
-    classes: { [index: string]: ClassDefinition };
-
-    /**
-     * Property definitions referred to in cardinalities.
-     */
-    properties: { [index: string]: PropertyDefinition };
-}
+import { V2Endpoint } from "../../api/v2/v2-endpoint";
+import { KnoraApiConfig } from "../../knora-api-config";
+import { IHasProperty } from "../../models/v2/ontologies/class-definition";
+import { OntologyConversionUtil } from "../../models/v2/ontologies/OntologyConversionUtil";
+import { PropertyDefinition } from "../../models/v2/ontologies/property-definition";
+import { ReadOntology } from "../../models/v2/ontologies/read-ontology";
+import { ResourceClassDefinition } from "../../models/v2/ontologies/resource-class-definition";
+import { GenericCache } from "../GenericCache";
+import { ResourceClassAndPropertyDefinitions } from "./resource-class-and-property-definitions";
+import { ResourceClassDefinitionWithPropertyDefinition } from "./resource-class-definition-with-property-definition";
 
 /**
  * Caches ontologies obtained from Knora and handles direct dependencies between ontologies.
@@ -90,7 +76,7 @@ export class OntologyCache extends GenericCache<ReadOntology> {
      *
      * @param resourceClassIri
      */
-    getResourceClassDefinition(resourceClassIri: string): Observable<IResourceClassAndPropertyDefinitions> {
+    getResourceClassDefinition(resourceClassIri: string): Observable<ResourceClassAndPropertyDefinitions> {
         const ontoIri = OntologyConversionUtil.getOntologyIriFromEntityIri(resourceClassIri, this.knoraApiConfig);
 
         if (ontoIri.length !== 1) throw Error("Invalid resource class Iri " + resourceClassIri);
@@ -100,28 +86,27 @@ export class OntologyCache extends GenericCache<ReadOntology> {
         return ontology.pipe(
             map(ontosMap => {
 
-                const requestedEntityDefs: IResourceClassAndPropertyDefinitions = {
-                    classes: {},
-                    properties: {}
-                };
-
                 const mainOnto = ontosMap.get(ontoIri[0]);
 
                 if (mainOnto === undefined) throw new Error("Expected ontology not found");
 
-                if (mainOnto.classes.hasOwnProperty(resourceClassIri)) {
+                if (mainOnto.classes.hasOwnProperty(resourceClassIri) && mainOnto.classes[resourceClassIri] instanceof ResourceClassDefinition) {
 
-                    requestedEntityDefs.classes[resourceClassIri]
-                        = mainOnto.classes[resourceClassIri];
+                    const tmpClasses: { [index: string]: ResourceClassDefinition } = {};
+
+                    const tmpProps: { [index: string]: PropertyDefinition } = {};
+
+                    tmpClasses[resourceClassIri]
+                        = mainOnto.classes[resourceClassIri] as ResourceClassDefinition;
 
                     // filter out non Knora properties
-                    requestedEntityDefs.classes[resourceClassIri].propertiesList = requestedEntityDefs.classes[resourceClassIri].propertiesList.filter(
+                    tmpClasses[resourceClassIri].propertiesList = tmpClasses[resourceClassIri].propertiesList.filter(
                         (hasProp: IHasProperty) => {
                             return OntologyConversionUtil.getOntologyIriFromEntityIri(hasProp.propertyIndex, this.knoraApiConfig).length === 1;
                         }
                     );
 
-                    requestedEntityDefs.classes[resourceClassIri].propertiesList.forEach(
+                    tmpClasses[resourceClassIri].propertiesList.forEach(
                         (prop: IHasProperty) => {
 
                             // prop could refer to entities in the ontology the requested resource class belongs to
@@ -133,16 +118,24 @@ export class OntologyCache extends GenericCache<ReadOntology> {
                                 const fromOnto = ontosMap.get(fromOntoIri[0]);
 
                                 if (fromOnto === undefined) throw new Error("Expected ontology not found");
-                                requestedEntityDefs.properties[prop.propertyIndex] = fromOnto.properties[prop.propertyIndex];
+                                tmpProps[prop.propertyIndex] = fromOnto.properties[prop.propertyIndex];
 
                             }
-
                         }
                     );
 
+                    return new ResourceClassAndPropertyDefinitions(
+                        {[resourceClassIri]: new ResourceClassDefinitionWithPropertyDefinition(tmpClasses[resourceClassIri], tmpProps)},
+                        tmpProps
+                        );
+
+                } else {
+                    // resource class not found
+                    // TODO: Should an error be thrown?
+                    return new ResourceClassAndPropertyDefinitions({}, {});
                 }
 
-                return requestedEntityDefs;
+
             })
         );
 
