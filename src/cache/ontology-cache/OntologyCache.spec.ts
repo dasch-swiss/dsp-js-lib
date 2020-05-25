@@ -1,10 +1,16 @@
 import { of } from "rxjs";
-import { MockOntologyAssertions } from "../../test/data/api/v2/mock-ontology-assertions";
-import { MockOntology } from "../../test/data/api/v2/mockOntology";
-import { KnoraApiConfig } from "../knora-api-config";
-import { KnoraApiConnection } from "../knora-api-connection";
-import { ReadOntology } from "../models/v2/ontologies/read-ontology";
-import { ResourceClassDefinition } from "../models/v2/ontologies/resource-class-definition";
+import { MockOntologyAssertions } from "../../../test/data/api/v2/mock-ontology-assertions";
+import { MockOntology } from "../../../test/data/api/v2/mockOntology";
+import { KnoraApiConfig } from "../../knora-api-config";
+import { KnoraApiConnection } from "../../knora-api-connection";
+import { ReadOntology } from "../../models/v2/ontologies/read-ontology";
+import {
+    IHasPropertyWithPropertyDefinition,
+    ResourceClassDefinitionWithPropertyDefinition
+} from "./resource-class-definition-with-property-definition";
+import { PropertyDefinition } from "../../models/v2/ontologies/property-definition";
+import { SystemPropertyDefinition } from "../../models/v2/ontologies/system-property-definition";
+import { ResourcePropertyDefinition } from "../../models/v2/ontologies/resource-property-definition";
 
 describe("OntologyCache", () => {
 
@@ -165,7 +171,9 @@ describe("OntologyCache", () => {
             knoraApiConnection.v2.ontologyCache.getResourceClassDefinition("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing").subscribe(
                 resClassDef => {
 
-                    expect(resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"] instanceof ResourceClassDefinition).toBeTruthy();
+                    expect(resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"] instanceof ResourceClassDefinitionWithPropertyDefinition).toBeTruthy();
+                    const thingDef: ResourceClassDefinitionWithPropertyDefinition = resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"];
+                    expect(thingDef.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
 
                     expect(resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].propertiesList.length).toEqual(38);
                     expect(resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].propertiesList.map(prop => prop.propertyIndex).sort()).toEqual(MockOntologyAssertions.propertyIndexesAnythingThing.sort());
@@ -179,6 +187,63 @@ describe("OntologyCache", () => {
 
                 }
             );
+
+        });
+
+        it("get all property definitions as an array", done => {
+
+            knoraApiConnection.v2.ontologyCache.getResourceClassDefinition("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing").subscribe(
+                resClassDef => {
+                    const props: PropertyDefinition[] = resClassDef.getAllPropertyDefinitions();
+
+                    expect(props.length).toEqual(38);
+                    expect(props.length).toEqual(MockOntologyAssertions.propertyIndexesAnythingThing.length);
+                    expect(props.map(prop => prop.id).sort()).toEqual(MockOntologyAssertions.propertyIndexesAnythingThing.sort());
+                    expect(props[0] instanceof PropertyDefinition).toBe(true);
+
+                    done();
+                });
+
+        });
+
+        it("get property definitions as an array filtered by type", done => {
+
+            knoraApiConnection.v2.ontologyCache.getResourceClassDefinition("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing").subscribe(
+                resClassDef => {
+                    const systemProps: SystemPropertyDefinition[] = resClassDef.getPropertyDefinitionsByType(SystemPropertyDefinition);
+
+                    expect(systemProps.length).toEqual(13);
+                    expect(systemProps.length).toEqual(MockOntologyAssertions.systemPropertyIndexesAnythingThing.length);
+                    expect(systemProps.map(prop => prop.id).sort()).toEqual(MockOntologyAssertions.systemPropertyIndexesAnythingThing.sort());
+                    expect(systemProps[0] instanceof SystemPropertyDefinition).toBe(true);
+
+                    const resourceProps: ResourcePropertyDefinition[] = resClassDef.getPropertyDefinitionsByType(ResourcePropertyDefinition);
+                    expect(resourceProps.length).toEqual(25);
+                    expect(resourceProps.length).toEqual(MockOntologyAssertions.resourcePropertyIndexesAnythingThing.length);
+                    expect(resourceProps.map(prop => prop.id).sort()).toEqual(MockOntologyAssertions.resourcePropertyIndexesAnythingThing.sort());
+                    expect(resourceProps[0] instanceof ResourcePropertyDefinition).toBe(true);
+
+                    done();
+                });
+
+        });
+
+        it("get property list filtered by type", done => {
+
+            knoraApiConnection.v2.ontologyCache.getResourceClassDefinition("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing").subscribe(
+                resClassDef => {
+                    const systemPropList: IHasPropertyWithPropertyDefinition[] = resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].getSystemPropertiesList();
+                    expect(systemPropList.length).toEqual(13);
+                    expect(systemPropList.length).toEqual(MockOntologyAssertions.systemPropertyIndexesAnythingThing.length);
+                    expect(systemPropList.map(prop => prop.propertyIndex).sort()).toEqual(MockOntologyAssertions.systemPropertyIndexesAnythingThing.sort());
+
+                    const resourcePropList: IHasPropertyWithPropertyDefinition[] = resClassDef.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].getResourcePropertiesList();
+                    expect(resourcePropList.length).toEqual(25);
+                    expect(resourcePropList.length).toEqual(MockOntologyAssertions.resourcePropertyIndexesAnythingThing.length);
+                    expect(resourcePropList.map(prop => prop.propertyIndex).sort()).toEqual(MockOntologyAssertions.resourcePropertyIndexesAnythingThing.sort());
+
+                    done();
+                });
 
         });
 

@@ -131,7 +131,13 @@ Caching is necessary to avoid making redundant calls to the Knora API and proces
 
 #### Ontology Cache
 
-`OntologyCache` is an implementation of `GenericCache` for `ReadOntology`. `OntologyCache` does not only handle the caching of single ontologies but also has a method that combines information from different ontologies, e.g., a resource class definition that has cardinalities for properties form other ontologies.
+`OntologyCache` is an implementation of `GenericCache` for `ReadOntology`.
+`OntologyCache` does not only handle the caching of single ontologies, but provides additional functionality:
+- `getOntology(ontologyIri: string): Observable<Map<string, ReadOntology>>`: requests an ontology including its dependencies
+- `getResourceClassDefinition(resourceClassIri: string): Observable<ResourceClassAndPropertyDefinitions>`: 
+requests a resource class definition with all its property definitions that could come from different ontologies.
+`getResourceClassDefinition` internally calls `getOntology` to get the ontology the requested resource class belongs to. 
+`getOntology` returns a map containing the requested ontology and all its dependencies. From that `getResourceClassDefinition` can construct a complete response.
 
 #### List Node v2 Cache
 

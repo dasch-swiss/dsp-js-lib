@@ -1,5 +1,5 @@
 import { ListNodeV2Cache } from "../../cache/ListNodeV2Cache";
-import { OntologyCache } from "../../cache/OntologyCache";
+import { OntologyCache } from "../../cache/ontology-cache/OntologyCache";
 import { KnoraApiConfig } from "../../knora-api-config";
 import { Endpoint } from "../endpoint";
 import { AuthenticationEndpointV2 } from "./authentication/authentication-endpoint-v2";
