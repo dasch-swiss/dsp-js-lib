@@ -1,3 +1,14 @@
+# 1.0.0-rc.1
+
+### Features
+- improve access to property definitions and add convenience methods ([#185](https://github.com/dasch-swiss/knora-api-js-lib/pull/185))
+
+### Bug Fixes
+- make handling of third-party property definitions consistent ([#183](https://github.com/dasch-swiss/knora-api-js-lib/pull/183))
+
+### Breaking Changes
+- `IResourceClassAndPropertyDefinitions` was renamed to `ResourceClassAndPropertyDefinitions`
+
 # 1.0.0-rc.0
 
 ### Features
