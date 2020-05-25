@@ -24,6 +24,7 @@ export enum Cardinality {
 
 /**
  * Represents a property defined on a resource class.
+ * Contains only the property's IRI, not the definition itself.
  */
 export interface IHasProperty {
     /**
