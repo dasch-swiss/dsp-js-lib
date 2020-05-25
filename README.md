@@ -6,8 +6,8 @@
 
 # Purpose of this project
 
-This JavaScript library allows a developer to implement the Knora API without knowing technical details about it.
-We published this library as `@knora/api` on NPM for easy integration into JavaScript projects.
+This TypeScript library allows a developer to connect to the Knora API without knowing technical details about it.
+We published this library as `@knora/api` on NPM for easy integration into TypeScript/JavaScript projects.
 The library is developed in TypeScript and declaration files are part of the package to allow for integration with other TypeScript projects.
 
 # Changelog
@@ -18,7 +18,7 @@ See file `CHANGLELOG.md`.
 
 ## Requirements
 
-This library has been written to be used in any JavaScript project.
+This library has been written to be used in any TypeScript/JavaScript project.
 It may be integrated with any JavaScript framework/library of your choice, such as Angular, React, Vue.js, and more.
 
 We recommend to install this library through NPM. This will make sure that all dependencies are installed.
@@ -29,7 +29,19 @@ All HTTP requests to Knora are performed using an `Observable` through the RxJS 
 
 ## Installation
 
-Run `npm install @knora/api --save` in the root directory of your project.
+Run `npm install @knora/api --save` in the root directory of your project. 
+Make sure to install the lib's peer dependencies, see below.
+
+## Dependencies and Peer Dependencies
+
+This library depends on `RxJS`, `jsonld`, and `json2typescript`. `jsonld` and `json2typescript` are only used internally and listed as dependencies.
+
+`RxJS` is listed as a peer dependency and **not** installed with `npm install`. 
+It can be installed with `npm run peer-deps` when you are working on this project.
+`RxJS`'s `Observable` is used in this library's public API 
+and has to be compatible with whatever version of `RxJS` is used in the productive environment, e.g. an Angular application.
+This library works with `RxJS`'s major version defined in `package.json` . See `rxjs.md` for details. 
+
 
 ## Starting example
 
@@ -107,19 +119,12 @@ If you need a local version of this lib that contains the mocks, do the followin
    - `npm run prepare-dev-publication` to prepare a dev version.
    - `npm run yalc-publish` to publish a local build containing the mocks.
 
-# Dependencies and Peer Dependencies
-
-This library depends on `RxJS`, `jsonld`, and `json2typescript`. `jsonld` and `json2typescript` are only used internally and listed as dependencies.
-
-`RxJS` is listed as a peer dependency and **not** installed with `nmp install`. It can be installed with `npm run peer-deps`.
-`RxJS`'s `Observable` is used in this library's public API 
-and has to be compatible with whatever version of `RxJS` is used in the productive environment, e.g. an Angular application.
-This library works with `RxJS`'s major version defined in `package.json` . See `rxjs.md` for details. 
-
 # Publish a new version to NPM
 
 Run `npm run npm-publish` as described above. The command runs `npm publish` in dry-run mode.
 If everything looks good, remove the flag `--dry-run` from `package.json` and run `npm run npm-publish` to publish the new version. 
+
+Release Candidates contain mocked data. `npm run prepare-dev-publication` has to be run before building. 
 
 # Documentation
 
