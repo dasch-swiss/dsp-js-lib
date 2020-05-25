@@ -79,8 +79,11 @@ export { ApiResponseError } from "./models/api-response-error";
 
 export { ReadOntology } from "./models/v2/ontologies/read-ontology";
 export { OntologyMetadata, OntologiesMetadata } from "./models/v2/ontologies/ontology-metadata";
-
-export { IResourceClassAndPropertyDefinitions } from "./cache/OntologyCache";
+export {
+    ResourceClassDefinitionWithPropertyDefinition,
+    IHasPropertyWithPropertyDefinition
+} from "./cache/ontology-cache/resource-class-definition-with-property-definition";
+export { ResourceClassAndPropertyDefinitions } from "./cache/ontology-cache/resource-class-and-property-definitions";
 export { ClassDefinition, IHasProperty, Cardinality } from "./models/v2/ontologies/class-definition";
 export { SystemPropertyDefinition } from "./models/v2/ontologies/system-property-definition";
 export { ResourcePropertyDefinition } from "./models/v2/ontologies/resource-property-definition";

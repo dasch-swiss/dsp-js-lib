@@ -1,6 +1,7 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { of } from "rxjs";
+import { MockOntologyAssertions } from "../../../../test/data/api/v2/mock-ontology-assertions";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { KnoraApiConfig } from "../../../knora-api-config";
@@ -14,7 +15,7 @@ import { ReadColorValue } from "./values/read/read-color-value";
 import { KnoraDate, Precision, ReadDateValue } from "./values/read/read-date-value";
 import { ReadDecimalValue } from "./values/read/read-decimal-value";
 import { ReadStillImageFileValue } from "./values/read/read-file-value";
-import { Point2D, ReadGeomValue, RegionGeometry } from "./values/read/read-geom-value";
+import { Point2D, ReadGeomValue } from "./values/read/read-geom-value";
 import { ReadIntValue } from "./values/read/read-int-value";
 import { ReadIntervalValue } from "./values/read/read-interval-value";
 import { ReadLinkValue } from "./values/read/read-link-value";
@@ -72,6 +73,12 @@ describe("ResourcesConversionUtil", () => {
                 (resSeq: ReadResourceSequence) => {
 
                     expect(resSeq.resources.length).toEqual(1);
+
+                    // make sure that mocked ontology cache works as expected
+                    expect(resSeq.resources[0].entityInfo.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].propertiesList.length).toEqual(MockOntologyAssertions.propertyIndexesAnythingThing.length);
+                    expect(resSeq.resources[0].entityInfo.classes["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"].propertiesList.map(prop => prop.propertyIndex).sort()).toEqual(MockOntologyAssertions.propertyIndexesAnythingThing.sort());
+                    expect(Object.keys(resSeq.resources[0].entityInfo.properties).length).toEqual(MockOntologyAssertions.propertyIndexesAnythingThing.length);
+                    expect(Object.keys(resSeq.resources[0].entityInfo.properties).sort()).toEqual(MockOntologyAssertions.propertyIndexesAnythingThing.sort());
 
                     expect(resSeq.resources[0].id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw");
                     expect(resSeq.resources[0].type).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
@@ -282,7 +289,6 @@ describe("ResourcesConversionUtil", () => {
                     expect((geomValue as ReadGeomValue).geometry.points.length).toEqual(2);
                     expect((geomValue as ReadGeomValue).geometry.points[0]).toEqual(new Point2D( 0.08098591549295775, 0.16741071428571427));
                     expect((geomValue as ReadGeomValue).geometry.points[1]).toEqual(new Point2D( 0.7394366197183099, 0.7299107142857143));
-
 
                     //
                     // test time value

@@ -131,10 +131,33 @@ Caching is necessary to avoid making redundant calls to the Knora API and proces
 
 #### Ontology Cache
 
-`OntologyCache` is an implementation of `GenericCache` for `ReadOntology`. `OntologyCache` does not only handle the caching of single ontologies but also has a method that combines information from different ontologies, e.g., a resource class definition that has cardinalities for properties form other ontologies.
+`OntologyCache` is an implementation of `GenericCache` for `ReadOntology`.
+`OntologyCache` does not only handle the caching of single ontologies, but provides additional functionality:
+- `getOntology(ontologyIri: string): Observable<Map<string, ReadOntology>>`: requests an ontology including its dependencies
+- `getResourceClassDefinition(resourceClassIri: string): Observable<ResourceClassAndPropertyDefinitions>`: 
+requests a resource class definition with all its property definitions that could come from different ontologies.
+`getResourceClassDefinition` internally calls `getOntology` to get the ontology the requested resource class belongs to. 
+`getOntology` returns a map containing the requested ontology and all its dependencies. From that `getResourceClassDefinition` can construct a complete response.
 
 #### List Node v2 Cache
 
 `ListNodeV2Cache` caches v2 list nodes. As an optimization, the entire list is regarded as a dependency of any given list node and requested. Like this, all list nodes can be fetched with one request and written to the cache.
 
-````
+### Tests
+
+Component have their own spec files defining unit tests.
+Since this library relies on Knora API,
+static test data is generated from Knora API and integrated automatically.
+
+Actual calls to the Knora API in production are mocked with `jasmine.Ajax`.
+The data is read from the static test data files and passed to `jasmine.Ajax`,
+so the component under test can react to it.
+
+If a component A depends on a component B, then B has to be mocked during the test using a `jasmine.Spy`.
+The behavior of component B is simulated and a fake response is returned.
+Mocking components turned out to be quite complex for the `OntologyCache`. 
+Therefore, the mock has been made a stand-alone testing component called `MockOntology` that can be reused.
+It can also be used to generate static test data in software projects using this library.
+
+Since `MockOntology` is complex, some global assertions are made to guarantee that the mock behaves as the actual component.
+These assertions are defined in `MockOntologyAssertions`.
