@@ -7,7 +7,8 @@
 - make handling of third-party property definitions consistent ([#183](https://github.com/dasch-swiss/knora-api-js-lib/pull/183))
 
 ### Breaking Changes
-- `IResourceClassAndPropertyDefinitions` was renamed to `ResourceClassAndPropertyDefinitions`
+- `IResourceClassAndPropertyDefinitions` was renamed to `ResourceClassAndPropertyDefinitions` ([#185](https://github.com/dasch-swiss/knora-api-js-lib/pull/185)):
+  adapt usage when accessing entity info on `ReadResource` or using `OntologyCache.getResourceClassDefinition`.
 
 # 1.0.0-rc.0
 
