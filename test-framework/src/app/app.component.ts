@@ -26,20 +26,10 @@ import {
     UserResponse,
     UsersResponse,
     WriteValueResponse,
-    DeleteResourceResponse,
-    IHasPropertyWithPropertyDefinition,
-    PropertyDefinition,
-    ReadValue,
-    SystemPropertyDefinition
+    DeleteResourceResponse
 } from "@knora/api";
 
 import { map } from "rxjs/operators";
-
-export interface PropertyInfoValues {
-    guiDef: IHasPropertyWithPropertyDefinition;
-    propDef: PropertyDefinition;
-    values: ReadValue[];
-}
 
 @Component({
   selector: 'app-root',
@@ -145,22 +135,6 @@ export class AppComponent implements OnInit {
         (res: ReadResource) => {
           console.log(res);
           this.resource = res;
-
-          const resPropInfoVals = this.resource.entityInfo.classes[this.resource.type].getResourcePropertiesList().map(
-              (prop: IHasPropertyWithPropertyDefinition) => {
-                  return {
-                      propDef: prop.propertyDefinition,
-                      guiDef: prop,
-                      values: this.resource.getValues(prop.propertyIndex)
-                  } as PropertyInfoValues
-              }
-          );
-
-          console.log(resPropInfoVals);
-
-          const systemPropDefs = this.resource.entityInfo.getPropertyDefinitionsByType(SystemPropertyDefinition);
-
-          console.log(systemPropDefs);
 
         },
         (error) => {
