@@ -168,4 +168,33 @@ describe("OntologiesEndpoint", () => {
 
     });
 
+    describe("Method getOntologiesByProjectIri", () => {
+
+        it("should return all ontologies from 'anything' project", done => {
+
+            knoraApiConnection.v2.onto.getOntologiesByProjectIri("http://rdfh.ch/projects/0001").subscribe(
+                (response: OntologiesMetadata) => {
+
+                    expect(response.ontologies.length).toEqual(3);
+                    expect(response.ontologies[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
+                    expect(response.ontologies[1].id).toEqual("http://0.0.0.0:3333/ontology/0001/minimal/v2");
+                    expect(response.ontologies[2].id).toEqual("http://0.0.0.0:3333/ontology/0001/something/v2");
+                    done();
+
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const ontoMetadata = require("../../../../test/data/api/v2/ontologies/anything-ontology-metadata.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(ontoMetadata)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/metadata/" + encodeURIComponent("http://rdfh.ch/projects/0001"));
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
 });
