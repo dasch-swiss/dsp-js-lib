@@ -29,7 +29,7 @@ export class ResourceClassDefinitionWithPropertyDefinition extends ResourceClass
         // add property definition to properties list's items
         this.propertiesList = resClassDef.propertiesList.map((prop: IHasProperty) => {
 
-            if (propertyDefinitions[prop.propertyIndex] === undefined) {
+            if (!propertyDefinitions.hasOwnProperty(prop.propertyIndex)) {
                 throw Error(`Expected key ${prop.propertyIndex} in property definitions.`);
             }
 
@@ -64,7 +64,8 @@ export class ResourceClassDefinitionWithPropertyDefinition extends ResourceClass
 }
 
 /**
- * Represents a property defined on a resource class including the property definition.
+ * Represents a property defined on a resource class
+ * including the property definition.
  */
 export interface IHasPropertyWithPropertyDefinition extends IHasProperty {
 
