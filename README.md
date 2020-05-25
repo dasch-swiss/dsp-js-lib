@@ -101,7 +101,7 @@ This package provides the following short-hand scripts:
 5. `npm run npm-pack`: Executes 1, 2 and packs the `./build/` folder into an NPM tgz package. The package is moved into a `./dist/` folder.
 6. `npm run npm-publish`: Executes 4 and publishes the package to the NPM store (runs in dry-run mode).
 
-> Note: You need to install `yalc` globally by `npm install yalc -g` to use script number 4.
+> Note: You need to install [`yalc`](<https://www.npmjs.com/package/yalc>) globally by `npm install yalc -g` to use script number 4.
 
 For further development with Knora, the following scripts can be used:
 
