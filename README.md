@@ -6,8 +6,8 @@
 
 # Purpose of this project
 
-This JavaScript library allows a developer to implement the Knora API without knowing technical details about it.
-We published this library as `@knora/api` on NPM for easy integration into JavaScript projects.
+This TypeScript library allows a developer to connect to the Knora API without knowing technical details about it.
+We published this library as `@knora/api` on NPM for easy integration into TypeScript/JavaScript projects.
 The library is developed in TypeScript and declaration files are part of the package to allow for integration with other TypeScript projects.
 
 # Changelog
@@ -18,7 +18,7 @@ See file `CHANGLELOG.md`.
 
 ## Requirements
 
-This library has been written to be used in any JavaScript project.
+This library has been written to be used in any TypeScript/JavaScript project.
 It may be integrated with any JavaScript framework/library of your choice, such as Angular, React, Vue.js, and more.
 
 We recommend to install this library through NPM. This will make sure that all dependencies are installed.
@@ -29,7 +29,19 @@ All HTTP requests to Knora are performed using an `Observable` through the RxJS 
 
 ## Installation
 
-Run `npm install @knora/api --save` in the root directory of your project.
+Run `npm install @knora/api --save` in the root directory of your project. 
+Make sure to install the lib's peer dependencies, see below.
+
+## Dependencies and Peer Dependencies
+
+This library depends on `RxJS`, `jsonld`, and `json2typescript`. `jsonld` and `json2typescript` are only used internally and listed as dependencies.
+
+`RxJS` is listed as a peer dependency and **not** installed with `npm install`. 
+It can be installed with `npm run peer-deps` when you are working on this project.
+`RxJS`'s `Observable` is used in this library's public API 
+and has to be compatible with whatever version of `RxJS` is used in the productive environment, e.g. an Angular application.
+This library works with `RxJS`'s major version defined in `package.json` . See `rxjs.md` for details. 
+
 
 ## Starting example
 
@@ -89,31 +101,30 @@ This package provides the following short-hand scripts:
 5. `npm run npm-pack`: Executes 1, 2 and packs the `./build/` folder into an NPM tgz package. The package is moved into a `./dist/` folder.
 6. `npm run npm-publish`: Executes 4 and publishes the package to the NPM store (runs in dry-run mode).
 
-> Note: You need to install `yalc` globally by `npm install yalc -g` to use script number 3. In order to publish a package to NPM, you need to be logged in to NPM and you have to update the version in the `package.json`.
+> Note: You need to install [`yalc`](<https://www.npmjs.com/package/yalc>) globally by `npm install yalc -g` to use script number 4.
 
-For further development with Knora the following scripts can be used:
+For further development with Knora, the following scripts can be used:
 
-1. `npm run integrate-admin-test-data <path-to-generated-client-code`: integrate generated test data for the Knora Admin API, 
+1. `npm run integrate-admin-test-data <path-to-generated-client-code>`: integrates generated test data for the Knora Admin API, 
 see <https://docs.knora.org> -> Internals -> Development -> Generating Client Test Data.
-2. `npm run integrate-v2-test-data <path-to-generated-client-code>`: this scripts integrates JSON-LD test data for Knora API v2.
+2. `npm run integrate-v2-test-data <path-to-generated-client-code>`: integrates JSON-LD test data for Knora API v2,
+see <https://docs.knora.org> -> Internals -> Development -> Generating Client Test Data.
+The test data files have to be added to `scripts/v2-test-data-config.json`: `source` refers to their location in the Knora test data directory structure, 
+`destination` refers to their location in this repo. The test data files are copied when running the script.
 3. `npm run expand-jsonld-test-data`: creates versions with expanded prefixes for Knora API v2 JSON-LD test data. 
-see <https://docs.knora.org> -> internals -> development -> generating client apis (use it without `mock=true`).
 4. `npm run prepare-dev-publication`: prepares a dev version of the library for publication. 
-The dev versions contains mocks that produce tests data without a connection to Knora. The mocks are configured in `scripts/mock-exports.json`.
-
-# Dependencies and Peer Dependencies
-
-This library depends on `RxJS`, `jsonld`, and `json2typescript`. `jsonld` and `json2typescript` are only used internally and listed as dependencies.
-
-`RxJS` is listed as a peer dependency and **not** installed with `nmp install`. It can be installed with `npm run peer-deps`.
-`RxJS`'s `Observable` is used in this library's public API 
-and has to be compatible with whatever version of `RxJS` is used in the productive environment, e.g. an Angular application.
-This library works with `RxJS` as of version 6. See `rxjs.md` for details. 
+The dev versions contains mocks that produce tests data without a connection to Knora.
+The mocks are configured in `scripts/mock-exports.json`.
+If you need a local version of this lib that contains the mocks, do the following:
+   - `npm run prepare-dev-publication` to prepare a dev version.
+   - `npm run yalc-publish` to publish a local build containing the mocks.
 
 # Publish a new version to NPM
 
 Run `npm run npm-publish` as described above. The command runs `npm publish` in dry-run mode.
 If everything looks good, remove the flag `--dry-run` from `package.json` and run `npm run npm-publish` to publish the new version. 
+
+Release Candidates contain mocked data. `npm run prepare-dev-publication` has to be run before building. 
 
 # Documentation
 
