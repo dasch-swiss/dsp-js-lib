@@ -4,23 +4,10 @@
  */
 export class MockOntologyAssertions {
 
-    static propertyIndexesAnythingThing = [
-        "http://api.knora.org/ontology/knora-api/v2#arkUrl",
-        "http://api.knora.org/ontology/knora-api/v2#attachedToProject",
-        "http://api.knora.org/ontology/knora-api/v2#attachedToUser",
-        "http://api.knora.org/ontology/knora-api/v2#creationDate",
-        "http://api.knora.org/ontology/knora-api/v2#deleteComment",
-        "http://api.knora.org/ontology/knora-api/v2#deleteDate",
-        "http://api.knora.org/ontology/knora-api/v2#deletedBy",
-        "http://api.knora.org/ontology/knora-api/v2#hasIncomingLinkValue",
-        "http://api.knora.org/ontology/knora-api/v2#hasPermissions",
+    static resourcePropertyIndexesAnythingThing = [
         "http://api.knora.org/ontology/knora-api/v2#hasStandoffLinkTo",
         "http://api.knora.org/ontology/knora-api/v2#hasStandoffLinkToValue",
-        "http://api.knora.org/ontology/knora-api/v2#isDeleted",
-        "http://api.knora.org/ontology/knora-api/v2#lastModificationDate",
-        "http://api.knora.org/ontology/knora-api/v2#userHasPermission",
-        "http://api.knora.org/ontology/knora-api/v2#versionArkUrl",
-        "http://api.knora.org/ontology/knora-api/v2#versionDate",
+        "http://api.knora.org/ontology/knora-api/v2#hasIncomingLinkValue",
         "http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem",
         "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherListItem",
         "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThing",
@@ -44,5 +31,25 @@ export class MockOntologyAssertions {
         "http://0.0.0.0:3333/ontology/0001/anything/v2#isPartOfOtherThing",
         "http://0.0.0.0:3333/ontology/0001/anything/v2#isPartOfOtherThingValue"
     ];
+
+    static systemPropertyIndexesAnythingThing = [
+        "http://api.knora.org/ontology/knora-api/v2#arkUrl",
+        "http://api.knora.org/ontology/knora-api/v2#attachedToProject",
+        "http://api.knora.org/ontology/knora-api/v2#attachedToUser",
+        "http://api.knora.org/ontology/knora-api/v2#creationDate",
+        "http://api.knora.org/ontology/knora-api/v2#deleteComment",
+        "http://api.knora.org/ontology/knora-api/v2#deleteDate",
+        "http://api.knora.org/ontology/knora-api/v2#deletedBy",
+        "http://api.knora.org/ontology/knora-api/v2#hasPermissions",
+        "http://api.knora.org/ontology/knora-api/v2#isDeleted",
+        "http://api.knora.org/ontology/knora-api/v2#lastModificationDate",
+        "http://api.knora.org/ontology/knora-api/v2#userHasPermission",
+        "http://api.knora.org/ontology/knora-api/v2#versionArkUrl",
+        "http://api.knora.org/ontology/knora-api/v2#versionDate",
+    ];
+
+    static propertyIndexesAnythingThing
+        = MockOntologyAssertions.systemPropertyIndexesAnythingThing.concat(MockOntologyAssertions.resourcePropertyIndexesAnythingThing)
+
 
 }

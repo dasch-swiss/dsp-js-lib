@@ -5,7 +5,7 @@ import { map } from "rxjs/operators";
 import { ReadResource } from "../../../../src/models/v2/resources/read/read-resource";
 import { V2Endpoint } from "../../../../src/api/v2/v2-endpoint";
 import { ListNodeV2Cache } from "../../../../src/cache/ListNodeV2Cache";
-import { OntologyCache } from "../../../../src/cache/OntologyCache";
+import { OntologyCache } from "../../../../src/cache/ontology-cache/OntologyCache";
 import { KnoraApiConfig } from "../../../../src/knora-api-config";
 import { ResourcesConversionUtil } from "../../../../src/models/v2/resources/ResourcesConversionUtil";
 import testthing from "../v2/resources/testding-expanded.json";
