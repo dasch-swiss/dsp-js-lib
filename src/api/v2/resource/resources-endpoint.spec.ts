@@ -97,7 +97,7 @@ describe("ResourcesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const resource = require("../../../../test/data/api/v2/search/things.json");
+            const resource = require("../../../../test/data/api/v2/resources/things.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
