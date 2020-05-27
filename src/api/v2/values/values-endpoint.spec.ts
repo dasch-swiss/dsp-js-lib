@@ -527,7 +527,7 @@ describe("ValuesEndpoint", () => {
                 Constants.IntValue,
                 "hKOvV-6ZSG-qnOTKHRmlfQ");
 
-            const updateIntValueResponse = require("../../../../test/data/api/v2/values/update-value-response-expanded.json");
+            const updateIntValueResponse = require("../../../../test/data/api/v2/values/update-int-value-response-expanded.json");
 
             expect(JSON.parse(mockedUpdateIntValueResponse)).toEqual(updateIntValueResponse);
 
@@ -1371,7 +1371,7 @@ describe("ValuesEndpoint", () => {
                 Constants.IntValue,
                 "hKOvV-6ZSG-qnOTKHRmlfQ");
 
-            const updateIntValueResponse = require("../../../../test/data/api/v2/values/create-value-response-expanded.json");
+            const updateIntValueResponse = require("../../../../test/data/api/v2/values/create-int-value-response-expanded.json");
 
             expect(JSON.parse(mockedUpdateIntValueResponse)).toEqual(updateIntValueResponse);
 
