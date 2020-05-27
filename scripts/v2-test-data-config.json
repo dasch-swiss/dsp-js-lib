@@ -305,12 +305,12 @@
       "destination": "./test/data/api/v2/resources/thing-with-picture.json"
     },
     {
-      "source": "/v2/ontologies/add-cardinalities-to-class-nothing.json",
-      "destination": "./test/data/api/v2/ontologies/add-cardinalities-to-class-nothing.json"
+      "source": "/v2/ontologies/add-cardinalities-to-class-nothing-request.json",
+      "destination": "./test/data/api/v2/ontologies/add-cardinalities-to-class-nothing-request.json"
     },
     {
-      "source": "/v2/ontologies/all-ontology-metadata.json",
-      "destination": "./test/data/api/v2/ontologies/all-ontology-metadata.json"
+      "source": "/v2/ontologies/all-ontology-metadata-response.json",
+      "destination": "./test/data/api/v2/ontologies/all-ontology-metadata-response.json"
     },
     {
       "source": "/v2/ontologies/anything-ontology.json",
@@ -325,72 +325,72 @@
       "destination": "./test/data/api/v2/ontologies/change-class-label-request.json"
     },
     {
-      "source": "/v2/ontologies/change-property-comment.json",
-      "destination": "./test/data/api/v2/ontologies/change-property-comment.json"
+      "source": "/v2/ontologies/change-property-comment-request.json",
+      "destination": "./test/data/api/v2/ontologies/change-property-comment-request.json"
     },
     {
-      "source": "/v2/ontologies/change-property-label.json",
-      "destination": "./test/data/api/v2/ontologies/change-property-label.json"
+      "source": "/v2/ontologies/change-property-label-request.json",
+      "destination": "./test/data/api/v2/ontologies/change-property-label-request.json"
     },
     {
-      "source": "/v2/ontologies/create-class-with-cardinalities.json",
-      "destination": "./test/data/api/v2/ontologies/create-class-with-cardinalities.json"
+      "source": "/v2/ontologies/create-class-with-cardinalities-request.json",
+      "destination": "./test/data/api/v2/ontologies/create-class-with-cardinalities-request.json"
     },
     {
-      "source": "/v2/ontologies/create-class-without-cardinalities.json",
-      "destination": "./test/data/api/v2/ontologies/create-class-without-cardinalities.json"
+      "source": "/v2/ontologies/create-class-without-cardinalities-request.json",
+      "destination": "./test/data/api/v2/ontologies/create-class-without-cardinalities-request.json"
     },
     {
-      "source": "/v2/ontologies/create-empty-foo-ontology.json",
-      "destination": "./test/data/api/v2/ontologies/create-empty-foo-ontology.json"
+      "source": "/v2/ontologies/create-empty-foo-ontology-request.json",
+      "destination": "./test/data/api/v2/ontologies/create-empty-foo-ontology-request.json"
     },
     {
-      "source": "/v2/ontologies/create-property-hasName.json",
-      "destination": "./test/data/api/v2/ontologies/create-property-hasName.json"
+      "source": "/v2/ontologies/create-property-hasName-request.json",
+      "destination": "./test/data/api/v2/ontologies/create-property-hasName-request.json"
     },
     {
-      "source": "/v2/ontologies/get-class-anything-thing.json",
-      "destination": "./test/data/api/v2/ontologies/get-class-anything-thing.json"
+      "source": "/v2/ontologies/get-class-anything-thing-response.json",
+      "destination": "./test/data/api/v2/ontologies/get-class-anything-thing-response.json"
     },
     {
-      "source": "/v2/ontologies/get-class-image-bild.json",
-      "destination": "./test/data/api/v2/ontologies/get-class-image-bild.json"
+      "source": "/v2/ontologies/get-class-image-bild-response.json",
+      "destination": "./test/data/api/v2/ontologies/get-class-image-bild-response.json"
     },
     {
-      "source": "/v2/ontologies/get-class-incunabula-book.json",
-      "destination": "./test/data/api/v2/ontologies/get-class-incunabula-book.json"
+      "source": "/v2/ontologies/get-class-incunabula-book-response.json",
+      "destination": "./test/data/api/v2/ontologies/get-class-incunabula-book-response.json"
     },
     {
-      "source": "/v2/ontologies/get-class-incunabula-page.json",
-      "destination": "./test/data/api/v2/ontologies/get-class-incunabula-page.json"
+      "source": "/v2/ontologies/get-class-incunabula-page-response.json",
+      "destination": "./test/data/api/v2/ontologies/get-class-incunabula-page-response.json"
     },
     {
-      "source": "/v2/ontologies/get-ontologies-project-anything.json",
-      "destination": "./test/data/api/v2/ontologies/get-ontologies-project-anything.json"
+      "source": "/v2/ontologies/get-ontologies-project-anything-response.json",
+      "destination": "./test/data/api/v2/ontologies/get-ontologies-project-anything-response.json"
     },
     {
-      "source": "/v2/ontologies/get-ontologies-project-beol.json",
-      "destination": "./test/data/api/v2/ontologies/get-ontologies-project-beol.json"
+      "source": "/v2/ontologies/get-ontologies-project-beol-response.json",
+      "destination": "./test/data/api/v2/ontologies/get-ontologies-project-beol-response.json"
     },
     {
-      "source": "/v2/ontologies/get-ontologies-project-incunabula.json",
-      "destination": "./test/data/api/v2/ontologies/get-ontologies-project-incunabula.json"
+      "source": "/v2/ontologies/get-ontologies-project-incunabula-response.json",
+      "destination": "./test/data/api/v2/ontologies/get-ontologies-project-incunabula-response.json"
     },
     {
-      "source": "/v2/ontologies/get-property-DateValue.json",
-      "destination": "./test/data/api/v2/ontologies/get-property-DateValue.json"
+      "source": "/v2/ontologies/get-property-DateValue-response.json",
+      "destination": "./test/data/api/v2/ontologies/get-property-DateValue-response.json"
     },
     {
-      "source": "/v2/ontologies/get-property-linkvalue.json",
-      "destination": "./test/data/api/v2/ontologies/get-property-linkvalue.json"
+      "source": "/v2/ontologies/get-property-linkvalue-response.json",
+      "destination": "./test/data/api/v2/ontologies/get-property-linkvalue-response.json"
     },
     {
-      "source": "/v2/ontologies/get-property-listValue.json",
-      "destination": "./test/data/api/v2/ontologies/get-property-listValue.json"
+      "source": "/v2/ontologies/get-property-listValue-response.json",
+      "destination": "./test/data/api/v2/ontologies/get-property-listValue-response.json"
     },
     {
-      "source": "/v2/ontologies/get-property-textValue.json",
-      "destination": "./test/data/api/v2/ontologies/get-property-textValue.json"
+      "source": "/v2/ontologies/get-property-textValue-response.json",
+      "destination": "./test/data/api/v2/ontologies/get-property-textValue-response.json"
     },
     {
       "source": "/v2/ontologies/incunabula-ontology.json",
@@ -405,16 +405,16 @@
       "destination": "./test/data/api/v2/ontologies/minimal-ontology.json"
     },
     {
-      "source": "/v2/ontologies/remove-class-cardinalities.json",
-      "destination": "./test/data/api/v2/ontologies/remove-class-cardinalities.json"
+      "source": "/v2/ontologies/remove-class-cardinalities-request.json",
+      "destination": "./test/data/api/v2/ontologies/remove-class-cardinalities-request.json"
     },
     {
-      "source": "/v2/ontologies/remove-property-cardinality.json",
-      "destination": "./test/data/api/v2/ontologies/remove-property-cardinality.json"
+      "source": "/v2/ontologies/remove-property-cardinality-request.json",
+      "destination": "./test/data/api/v2/ontologies/remove-property-cardinality-request.json"
     },
     {
-      "source": "/v2/ontologies/replace-class-cardinalities.json",
-      "destination": "./test/data/api/v2/ontologies/replace-class-cardinalities.json"
+      "source": "/v2/ontologies/replace-class-cardinalities-request.json",
+      "destination": "./test/data/api/v2/ontologies/replace-class-cardinalities-request.json"
     },
     {
       "source": "/v2/ontologies/update-ontology-metadata-request.json",
