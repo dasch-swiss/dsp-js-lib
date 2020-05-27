@@ -366,7 +366,7 @@ describe("ResourcesConversionUtil", () => {
 
         it("parse JSON-LD representing several resources", done => {
 
-            const resource = require("../../../../test/data/api/v2/resources/things-expanded.json");
+            const resource = require("../../../../test/data/api/v2/search/things-expanded.json");
 
             ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
                 resSeq => {
@@ -384,7 +384,7 @@ describe("ResourcesConversionUtil", () => {
 
         it("parse JSON-LD representing several resources with paging information", done => {
 
-            const resource = require("../../../../test/data/api/v2/resources/things-with-paging-expanded.json");
+            const resource = require("../../../../test/data/api/v2/search/things-with-paging-expanded.json");
 
             ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
                 (resSeq: ReadResourceSequence) => {
