@@ -51,9 +51,12 @@ integrate-test-data: ## intregates generated test data
 	rm -rf test/data/api/v2/ontologies/*
 	rm -rf test/data/api/v2/resources/*
 	rm -rf test/data/api/v2/values/*
+	git status
 	npm run integrate-admin-test-data $(CURRENT_DIR)/.tmp/typescript/test-data
 	npm run integrate-v2-test-data $(CURRENT_DIR)/.tmp/typescript/test-data
 	npm run expand-jsonld-test-data
+	git status
+	git diff
 
 .PHONY: unit-tests
 unit-tests: ## runs the unit tests
