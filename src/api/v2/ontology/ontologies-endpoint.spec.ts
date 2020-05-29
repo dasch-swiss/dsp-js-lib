@@ -185,7 +185,7 @@ describe("OntologiesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const ontoMetadata = require("../../../../test/data/api/v2/ontologies/anything-ontology-metadata.json");
+            const ontoMetadata = require("../../../../test/data/api/v2/ontologies/get-ontologies-project-anything.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(ontoMetadata)));
 
