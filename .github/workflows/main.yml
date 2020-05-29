@@ -31,7 +31,7 @@ jobs:
           repository: dasch-swiss/dsp-ci-assets
           token: ${{ secrets.GitHub_PAT }} # `GitHub_PAT` is a secret that contains the PAT.
           path: ci
-      - name: cache node_modules artifacts
+      - name: Cache node_modules artifacts
         uses: actions/cache@v1
         with:
           path: node_modules
@@ -40,12 +40,13 @@ jobs:
             ${{ runner.OS }}-build-${{ env.cache-name }}-
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
-      - name: install requirements
+      - name: Install requirements
         run: sudo apt-get install expect
-      - name: run test-integration
+      - name: Run test-integration
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: |
-          make npm-install
-          make test-ci
+      - name: Install dependencies
+        run: make npm-install
+      - name: Start knora-stack and run the tests
+        run: make test-ci
