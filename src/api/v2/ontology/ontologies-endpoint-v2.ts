@@ -58,4 +58,23 @@ export class OntologiesEndpointV2 extends Endpoint {
         );
     }
 
+    /**
+     * Requests metadata about all ontologies from specific project
+     *
+     * @param projectIri the IRI of the project
+     */
+    getOntologiesByProjectIri(projectIri: string): Observable<OntologiesMetadata | ApiResponseError> {
+
+        return this.httpGet("/metadata/" + encodeURIComponent(projectIri)).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, OntologiesMetadata);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+    }
+
 }
