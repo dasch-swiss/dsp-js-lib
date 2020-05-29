@@ -57,7 +57,7 @@ integrate-test-data: ## intregates generated test data
 
 .PHONY: unit-tests
 unit-tests: ## runs the unit tests
-	npm test
+	npm run test
 
 .PHONY: e2e-tests
 e2e-tests: ## runs the e2e tests
