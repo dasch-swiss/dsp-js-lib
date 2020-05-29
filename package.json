@@ -1,5 +1,5 @@
 {
-  "name": "@knora/api",
+  "name": "@dasch-swiss/dsp-js",
   "version": "1.0.0-rc.1",
   "description": "JavaScript library that handles API requests to Knora",
   "main": "index.js",
@@ -21,7 +21,7 @@
     "npm-pack": "npm run test && npm run build && npm pack build/ && mkdir -p dist/ && cp *.tgz dist/ && rm *.tgz",
     "npm-publish": "npm run npm-pack && npm publish --tag rc build/ --dry-run",
     "prepare-dev-publication": "node scripts/prepare-dev-publication.js",
-    "builddocs": "typedoc --out docs --readme none --name '@knora/api API Documentation' --exclude \"**/*.spec.*\" src/*.ts",
+    "builddocs": "typedoc --out docs --readme none --name '@dasch-swiss/dsp-js API Documentation' --exclude \"**/*.spec.*\" src/*.ts",
     "peer-deps": "npm i rxjs@6.x --no-save"
   },
   "repository": {
@@ -38,9 +38,9 @@
   "author": "Data & Service Center for the Humanities DaSCH, University of Basel",
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/dhlab-basel/knora-api-js-lib/issues"
+    "url": "https://github.com/dasch-swiss/knora-api-js-lib/issues"
   },
-  "homepage": "https://github.com/dhlab-basel/knora-api-js-lib#readme",
+  "homepage": "https://github.com/dasch-swiss/knora-api-js-lib#readme",
   "devDependencies": {
     "@types/jasmine": "^3.4.0",
     "@types/jasmine-ajax": "^3.3.0",

@@ -1,8 +1,8 @@
 {
   "version": "v1",
   "packages": {
-    "@knora/api": {
-      "signature": "9d5a6b186e76fb44da8dd3e373a64de8",
+    "@dasch-swiss/dsp-js": {
+      "signature": "17bdb1f04814af17883b052a4aed2ef0",
       "file": true
     }
   }
