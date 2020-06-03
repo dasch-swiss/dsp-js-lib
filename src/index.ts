@@ -79,6 +79,10 @@ export { ApiResponseError } from "./models/api-response-error";
 
 export { ReadOntology } from "./models/v2/ontologies/read-ontology";
 export { OntologyMetadata, OntologiesMetadata } from "./models/v2/ontologies/ontology-metadata";
+export { CreateOntology } from "./models/v2/ontologies/create/create-ontology";
+export { CreateResourceClass } from "./models/v2/ontologies/create/create-resource-class";
+export { CreateResourceProperty } from "./models/v2/ontologies/create/create-resource-property";
+
 export {
     ResourceClassDefinitionWithPropertyDefinition,
     IHasPropertyWithPropertyDefinition
