@@ -18,7 +18,6 @@ define update-version
 	([ $${ans:-N} == Y ]) && \
 	git add package.json && \
 	git add package-lock.json && \
-	git add $(LIB_DIR)/package.json && \
 	git commit -m "release($(1)): $$NEXT_VERSION" && \
 	git push
 endef
