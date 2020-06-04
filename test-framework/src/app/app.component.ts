@@ -58,7 +58,7 @@ export class AppComponent implements OnInit {
   resourceStatus = '';
 
   ngOnInit() {
-    const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
+    const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, false);
     this.knoraApiConnection = new KnoraApiConnection(config);
     // console.log(this.knoraApiConnection);
     this.userCache = new UserCache(this.knoraApiConnection);
@@ -138,7 +138,7 @@ export class AppComponent implements OnInit {
 
         },
         (error) => {
-
+            console.log('error', error);
         }
     );
 
