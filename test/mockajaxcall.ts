@@ -28,4 +28,18 @@ export namespace MockAjaxCall {
 
     };
 
+    /**
+     * Mocks a unsuccessful 404 Not Found response to an Ajax call.
+     *
+     * @param mockData mocked data to be returned in the successful response's body.
+     */
+    export const mockNotFoundResponse = (mockData: string) => {
+
+        return {
+            status: 404,
+            responseText: mockData
+        };
+
+    };
+
 }

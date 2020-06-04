@@ -53,8 +53,10 @@ export class ApiResponseError extends ApiResponse {
 
         const response = new ApiResponseError();
 
-        if (ajaxError.request.method) response.method = ajaxError.request.method;
-        if (ajaxError.request.url) response.url = ajaxError.request.url;
+        if (ajaxError.request) {
+            if (ajaxError.request.method) response.method = ajaxError.request.method;
+            if (ajaxError.request.url) response.url = ajaxError.request.url;
+        }
         if (ajaxError.xhr) response.status = ajaxError.xhr.status;
 
         response.error = ajaxError;

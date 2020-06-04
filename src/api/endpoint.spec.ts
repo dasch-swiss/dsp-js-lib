@@ -39,6 +39,33 @@ describe("Test class Endpoint", () => {
 
     });
 
+    it("should perform an unsuccessful GET request", done => {
+
+        const config = new KnoraApiConfig("http", "localhost", 3333);
+
+        const endpoint = new Endpoint(config, "/test");
+
+        endpoint["httpGet"]().subscribe(
+            (response: AjaxResponse) => {
+            },
+            err => {
+                expect(err instanceof Error).toBeTruthy();
+                expect(err.status).toEqual(404);
+                done();
+            });
+
+        const request: JasmineAjaxRequest = jasmine.Ajax.requests.mostRecent();
+
+        request.responseError(MockAjaxCall.mockNotFoundResponse("Not found"));
+
+        expect(request.url).toBe("http://localhost:3333/test");
+
+        expect(request.method).toEqual("GET");
+
+        expect(request.requestHeaders).toEqual({});
+
+    });
+
     it("should perform a GET request providing a path segment", done => {
 
         const config = new KnoraApiConfig("http", "localhost", 3333);
