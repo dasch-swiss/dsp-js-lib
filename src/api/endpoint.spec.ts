@@ -56,7 +56,7 @@ describe("Test class Endpoint", () => {
 
         const request: JasmineAjaxRequest = jasmine.Ajax.requests.mostRecent();
 
-        request.responseError(MockAjaxCall.mockNotFoundResponse("Not found"));
+        request.respondWith(MockAjaxCall.mockNotFoundResponse(JSON.stringify({msg: "Not Found"})));
 
         expect(request.url).toBe("http://localhost:3333/test");
 
@@ -137,6 +137,36 @@ describe("Test class Endpoint", () => {
         const request = jasmine.Ajax.requests.mostRecent();
 
         request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
+
+        expect(request.url).toBe("http://localhost:3333/test");
+
+        expect(request.method).toEqual("POST");
+
+        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+        expect(request.data()).toEqual({mydata: "data"});
+
+    });
+
+    it("should perform an unsuccessful POST request", done => {
+
+        const config = new KnoraApiConfig("http", "localhost", 3333);
+
+        const endpoint = new Endpoint(config, "/test");
+
+        endpoint["httpPost"]("", {mydata: "data"}).subscribe(
+            (response: AjaxResponse) => {
+
+            },
+            err => {
+                expect(err instanceof Error).toBeTruthy();
+                expect(err.status).toEqual(404);
+                done();
+            });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockNotFoundResponse(JSON.stringify({msg: "Not Found"})));
 
         expect(request.url).toBe("http://localhost:3333/test");
 
@@ -237,6 +267,35 @@ describe("Test class Endpoint", () => {
 
     });
 
+    it("should perform an an unsuccessful PUT request", done => {
+
+        const config = new KnoraApiConfig("http", "localhost", 3333);
+
+        const endpoint = new Endpoint(config, "/test");
+
+        endpoint["httpPut"]("", {mydata: "data"}).subscribe(
+            (response: AjaxResponse) => {
+            },
+            err => {
+                expect(err instanceof Error).toBeTruthy();
+                expect(err.status).toEqual(404);
+                done();
+            });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockNotFoundResponse(JSON.stringify({msg: "Not Found"})));
+
+        expect(request.url).toBe("http://localhost:3333/test");
+
+        expect(request.method).toEqual("PUT");
+
+        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+
+        expect(request.data()).toEqual({mydata: "data"});
+
+    });
+
     it("should perform a PUT request providing a path segment", done => {
 
         const config = new KnoraApiConfig("http", "localhost", 3333);
@@ -315,6 +374,33 @@ describe("Test class Endpoint", () => {
         const request = jasmine.Ajax.requests.mostRecent();
 
         request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
+
+        expect(request.url).toBe("http://localhost:3333/test");
+
+        expect(request.method).toEqual("DELETE");
+
+        expect(request.requestHeaders).toEqual({});
+
+    });
+
+    it("should perform an unsuccessful DELETE request", done => {
+
+        const config = new KnoraApiConfig("http", "localhost", 3333);
+
+        const endpoint = new Endpoint(config, "/test");
+
+        endpoint["httpDelete"]().subscribe(
+            (response: AjaxResponse) => {
+            },
+            err => {
+                expect(err instanceof Error).toBeTruthy();
+                expect(err.status).toEqual(404);
+                done();
+            });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockNotFoundResponse(JSON.stringify({msg: "Not Found"})));
 
         expect(request.url).toBe("http://localhost:3333/test");
 
