@@ -1,4 +1,5 @@
 import { of } from "rxjs";
+import { AjaxError } from "rxjs/ajax";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
@@ -27,10 +28,11 @@ import {
 } from "../../../models/v2/resources/values/create/create-text-value";
 import { CreateTimeValue } from "../../../models/v2/resources/values/create/create-time-value";
 import { CreateUriValue } from "../../../models/v2/resources/values/create/create-uri-value";
+import { ApiResponseError } from "../../../models/api-response-error";
 
 describe("ResourcesEndpoint", () => {
 
-    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, "", true);
+    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, "", false);
     let knoraApiConnection: KnoraApiConnection;
 
     let getResourceClassDefinitionFromCacheSpy: jasmine.Spy;
@@ -79,6 +81,28 @@ describe("ResourcesEndpoint", () => {
             const resource = require("../../../../test/data/api/v2/resources/testding.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/resources/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should unsucessfully attempt to get a resource", done => {
+
+            knoraApiConnection.v2.res.getResource("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw").subscribe(
+                (response: ReadResource) => {
+                },
+                (err: ApiResponseError) => {
+                    expect(err instanceof ApiResponseError).toBeTruthy();
+                    expect(err.status).toEqual(404);
+                    expect(err.error instanceof AjaxError).toBeTruthy();
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockNotFoundResponse(JSON.stringify({})));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/resources/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw");
 
