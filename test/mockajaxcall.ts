@@ -42,4 +42,18 @@ export namespace MockAjaxCall {
 
     };
 
+    /**
+     * Mocks a unsuccessful 400 Bad Request response to an Ajax call.
+     *
+     * @param mockData mocked data to be returned in the successful response's body.
+     */
+    export const mockBadRequestResponse = (mockData: string) => {
+
+        return {
+            status: 400,
+            responseText: mockData
+        };
+
+    };
+
 }
