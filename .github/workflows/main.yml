@@ -62,11 +62,16 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: npm install
-        run: npm run peer-deps
+        run: |
+          npm install
+          npm run peer-deps
       - name: Test
         run: npm run test
       - name: Build
         run: npm run build
       - name: Pack
-        run: npm pack build/ && mkdir -p dist/ && cp *.tgz dist/ && rm *.tgz"
+        run: |
+          npm pack build/
+          mkdir -p dist/
+          cp *.tgz dist/
+          rm *.tgz"
