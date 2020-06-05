@@ -57,11 +57,11 @@ jobs:
     needs: [test-integration]
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout and install deps
-        uses: actions/checkout@v2
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
         run: npm install
         run: npm run peer-deps
       - name: Test
