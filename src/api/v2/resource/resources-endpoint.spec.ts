@@ -32,7 +32,7 @@ import { CreateUriValue } from "../../../models/v2/resources/values/create/creat
 
 describe("ResourcesEndpoint", () => {
 
-    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, "", false);
+    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, "", true);
     let knoraApiConnection: KnoraApiConnection;
 
     let getResourceClassDefinitionFromCacheSpy: jasmine.Spy;
@@ -102,7 +102,7 @@ describe("ResourcesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockNotFoundResponse(JSON.stringify({})));
+            request.respondWith(MockAjaxCall.mockNotFoundResponse());
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/resources/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw");
 
@@ -146,7 +146,7 @@ describe("ResourcesEndpoint", () => {
 
             const resource = require("../../../../test/data/api/v2/resources/things.json");
 
-            request.respondWith(MockAjaxCall.mockNotFoundResponse(JSON.stringify({})));
+            request.respondWith(MockAjaxCall.mockNotFoundResponse());
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/resources/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/http%3A%2F%2Frdfh.ch%2F0001%2FuqmMo72OQ2K2xe7mkIytlg");
 
@@ -312,7 +312,7 @@ describe("ResourcesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockBadRequestResponse(JSON.stringify({})));
+            request.respondWith(MockAjaxCall.mockBadRequestResponse());
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/resources");
 
@@ -491,7 +491,7 @@ describe("ResourcesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockBadRequestResponse(JSON.stringify({})));
+            request.respondWith(MockAjaxCall.mockBadRequestResponse());
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/resources");
 
@@ -590,7 +590,7 @@ describe("ResourcesEndpoint", () => {
 
         });
 
-        it("should unsueccesfully attempt to delete a resource", done => {
+        it("should unsuccessfully attempt to delete a resource", done => {
 
             const deleteResource = new DeleteResource();
 
@@ -607,7 +607,7 @@ describe("ResourcesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockBadRequestResponse(JSON.stringify({})));
+            request.respondWith(MockAjaxCall.mockBadRequestResponse());
 
         });
 

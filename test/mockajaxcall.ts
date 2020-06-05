@@ -19,7 +19,7 @@ export namespace MockAjaxCall {
      *
      * @param mockData mocked data to be returned in the successful response's body.
      */
-    export const mockNotAuthorizedResponse = (mockData: string) => {
+    export const mockNotAuthorizedResponse = (mockData: string = JSON.stringify({})) => {
 
         return {
             status: 401,
@@ -33,7 +33,7 @@ export namespace MockAjaxCall {
      *
      * @param mockData mocked data to be returned in the successful response's body.
      */
-    export const mockNotFoundResponse = (mockData: string) => {
+    export const mockNotFoundResponse = (mockData: string = JSON.stringify({})) => {
 
         return {
             status: 404,
@@ -47,7 +47,7 @@ export namespace MockAjaxCall {
      *
      * @param mockData mocked data to be returned in the successful response's body.
      */
-    export const mockBadRequestResponse = (mockData: string) => {
+    export const mockBadRequestResponse = (mockData: string = JSON.stringify({})) => {
 
         return {
             status: 400,
