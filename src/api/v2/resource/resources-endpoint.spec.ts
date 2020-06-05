@@ -609,6 +609,10 @@ describe("ResourcesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockBadRequestResponse());
 
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/resources/delete");
+
+            expect(request.method).toEqual("POST");
+
         });
 
     });
