@@ -1,6 +1,9 @@
 name: CI
 
-on: [push]
+on:
+  push:
+  release:
+    types: [published]
 
 env:
   KNORA_GDB_LICENSE: ${{ github.workspace }}/ci/graphdb/UNIBAS_DEV_GRAPHDB_SE_latest-31-12-2020_1cores.license
@@ -49,3 +52,21 @@ jobs:
       - run: |
           make npm-install
           make test-ci
+  build:
+    name: Build package
+    needs: [test-integration]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout and install deps
+        uses: actions/checkout@v2
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+        run: npm install
+        run: npm run peer-deps
+      - name: Test
+        run: npm run test
+      - name: Build
+        run: npm run build
+      - name: Pack
+        run: npm pack build/ && mkdir -p dist/ && cp *.tgz dist/ && rm *.tgz"
