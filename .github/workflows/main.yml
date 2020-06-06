@@ -69,9 +69,7 @@ jobs:
         run: npm run test
       - name: Build
         run: npm run build
-      - name: Pack
-        run: |
-          npm pack build/
-          mkdir -p dist/
-          cp *.tgz dist/
-          rm *.tgz
+      - name: Publish on npm (dry run)
+        run: npm publish build/ --access public --dry-run
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_DASCHBOT}}
