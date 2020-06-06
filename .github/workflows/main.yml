@@ -53,9 +53,10 @@ jobs:
           make npm-install
           make test-ci
   build:
-    name: Build package
+    name: Build package and publish (on release only)
     needs: [test-integration]
     runs-on: ubuntu-latest
+    if: github.event_name == 'release' && startsWith(github.ref, 'refs/tags')
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
