@@ -49,12 +49,19 @@ export class ApiResponseError extends ApiResponse {
     /**
      * Create an instance from an AjaxError.
      */
-    static fromAjaxError(ajaxError: AjaxError): ApiResponseError {
+    static fromAjaxError(ajaxError: AjaxError | ApiResponseError): ApiResponseError {
+
+        // check if the error is already a ApiResponseError
+        if (ajaxError instanceof ApiResponseError) {
+            return ajaxError;
+        }
 
         const response = new ApiResponseError();
 
-        if (ajaxError.request.method) response.method = ajaxError.request.method;
-        if (ajaxError.request.url) response.url = ajaxError.request.url;
+        if (ajaxError.request) {
+            if (ajaxError.request.method) response.method = ajaxError.request.method;
+            if (ajaxError.request.url) response.url = ajaxError.request.url;
+        }
         if (ajaxError.xhr) response.status = ajaxError.xhr.status;
 
         response.error = ajaxError;
