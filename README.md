@@ -131,7 +131,7 @@ If you need a local version of this lib that contains the mocks, do the followin
 
 ## Publish a new version to NPM
 
-A new version will be published on each github release. It's part of Github actions' workflow. Please follow the steps below to prepare next release:
+A new version will be published with each github release it's part of Github actions' workflow. Please follow the steps below to prepare the next release:
 
 - Create new branch from master called e.g. `prerelease/v1.0.0-rc.2` or `release/v2.0.0`
 - Run one of the corresponding make commands:
