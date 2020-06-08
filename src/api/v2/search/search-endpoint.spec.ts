@@ -1,13 +1,14 @@
 import { of } from "rxjs";
+import { AjaxError } from "rxjs/ajax";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
-import { ReadResource } from "../../../models/v2/resources/read/read-resource";
 import { ReadResourceSequence } from "../../../models/v2/resources/read/read-resource-sequence";
 import { CountQueryResponse } from "../../../models/v2/search/count-query-response";
 import { SearchEndpointV2 } from "./search-endpoint-v2";
+import { ApiResponseError } from "../../../models/api-response-error";
 
 describe("SearchEndpoint", () => {
 
@@ -87,6 +88,29 @@ describe("SearchEndpoint", () => {
             const resource = require("../../../../test/data/api/v2/resources/things.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/search/thing?offset=0");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should unsuccessfully attempt to do a fulltext search with a simple search term", done => {
+
+            knoraApiConnection.v2.search.doFulltextSearch("thing", 0).subscribe(
+                (response: ReadResourceSequence) => {
+                },
+                (err: ApiResponseError) => {
+                    expect(err instanceof ApiResponseError).toBeTruthy();
+                    expect(err.status).toEqual(400);
+                    expect(err.error instanceof AjaxError).toBeTruthy();
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockBadRequestResponse());
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/search/thing?offset=0");
 
@@ -206,7 +230,7 @@ describe("SearchEndpoint", () => {
 
     describe("Extended search", () => {
 
-        it("perform an extended search", done => {
+        it("should perform an extended search", done => {
 
             const gravsearchQuery = `
                 PREFIX knora-api: <http://api.knora.org/ontology/knora-api/v2#>
@@ -247,7 +271,48 @@ describe("SearchEndpoint", () => {
 
         });
 
-        it("perform an extended search count query", done => {
+        it("should unsuccessfully attempt to perform an extended search", done => {
+
+            const gravsearchQuery = `
+                PREFIX knora-api: <http://api.knora.org/ontology/knora-api/v2#>
+                CONSTRUCT {
+
+                    ?mainRes knora-api:isMainResource true .
+
+                } WHERE {
+
+                    ?mainRes a knora-api:Resource .
+
+                    ?mainRes a <http://0.0.0.0:3333/ontology/0001/anything/v2#Thing> .
+                }
+
+                OFFSET 0
+            `;
+
+            knoraApiConnection.v2.search.doExtendedSearch(gravsearchQuery).subscribe(
+                (response: ReadResourceSequence) => {
+                },
+                (err: ApiResponseError) => {
+                    expect(err instanceof ApiResponseError).toBeTruthy();
+                    expect(err.status).toEqual(400);
+                    expect(err.error instanceof AjaxError).toBeTruthy();
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockBadRequestResponse());
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchextended");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/sparql-query; charset=utf-8"});
+
+            expect(request.params).toEqual(gravsearchQuery);
+        });
+
+        it("should perform an extended search count query", done => {
 
             const gravsearchQuery = `
                 PREFIX knora-api: <http://api.knora.org/ontology/knora-api/v2#>
@@ -277,6 +342,48 @@ describe("SearchEndpoint", () => {
             const resource = require("../../../../test/data/api/v2/search/count-query-result.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchextended/count");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.requestHeaders).toEqual({"Content-Type": "application/sparql-query; charset=utf-8"});
+
+            expect(request.params).toEqual(gravsearchQuery);
+
+        });
+
+        it("should unsuccessfully attempt perform an extended search count query", done => {
+
+            const gravsearchQuery = `
+                PREFIX knora-api: <http://api.knora.org/ontology/knora-api/v2#>
+                CONSTRUCT {
+
+                    ?mainRes knora-api:isMainResource true .
+
+                } WHERE {
+
+                    ?mainRes a knora-api:Resource .
+
+                    ?mainRes a <http://0.0.0.0:3333/ontology/0001/anything/v2#Thing> .
+                }
+
+                OFFSET 0
+            `;
+
+            knoraApiConnection.v2.search.doExtendedSearchCountQuery(gravsearchQuery).subscribe(
+                (response: CountQueryResponse) => {
+                },
+                (err: ApiResponseError) => {
+                    expect(err instanceof ApiResponseError).toBeTruthy();
+                    expect(err.status).toEqual(400);
+                    expect(err.error instanceof AjaxError).toBeTruthy();
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockBadRequestResponse());
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/searchextended/count");
 
@@ -326,6 +433,28 @@ describe("SearchEndpoint", () => {
             const resource = require("../../../../test/data/api/v2/resources/things.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchbylabel/thing?offset=0");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should unsuccessfully attempt to do a label search", done => {
+
+            knoraApiConnection.v2.search.doSearchByLabel("thing", 0).subscribe(
+                (response: ReadResourceSequence) => {
+                },
+                (err: ApiResponseError) => {
+                    expect(err instanceof ApiResponseError).toBeTruthy();
+                    expect(err.status).toEqual(400);
+                    expect(err.error instanceof AjaxError).toBeTruthy();
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockBadRequestResponse());
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/searchbylabel/thing?offset=0");
 
