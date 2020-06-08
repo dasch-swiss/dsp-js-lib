@@ -1,9 +1,11 @@
 import { of } from "rxjs";
+import { AjaxError } from "rxjs/ajax";
 import { MockList } from "../../../../test/data/api/v2/mockList";
 import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
+import { ApiResponseError } from "../../../models/api-response-error";
 import { CreateResource } from "../../../models/v2/resources/create/create-resource";
 import { DeleteResource } from "../../../models/v2/resources/delete/delete-resource";
 import { DeleteResourceResponse } from "../../../models/v2/resources/delete/delete-resource-response";
@@ -86,6 +88,28 @@ describe("ResourcesEndpoint", () => {
 
         });
 
+        it("should unsuccessfully attempt to get a resource", done => {
+
+            knoraApiConnection.v2.res.getResource("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw").subscribe(
+                (response: ReadResource) => {
+                },
+                (err: ApiResponseError) => {
+                    expect(err instanceof ApiResponseError).toBeTruthy();
+                    expect(err.status).toEqual(404);
+                    expect(err.error instanceof AjaxError).toBeTruthy();
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockNotFoundResponse());
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/resources/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
         it("should return several resource", done => {
 
             knoraApiConnection.v2.res.getResources(["http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "http://rdfh.ch/0001/uqmMo72OQ2K2xe7mkIytlg"]).subscribe((response: ReadResourceSequence) => {
@@ -100,6 +124,29 @@ describe("ResourcesEndpoint", () => {
             const resource = require("../../../../test/data/api/v2/resources/things.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/resources/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/http%3A%2F%2Frdfh.ch%2F0001%2FuqmMo72OQ2K2xe7mkIytlg");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should unsuccessfully attempt to several resource", done => {
+
+            knoraApiConnection.v2.res.getResources(["http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "http://rdfh.ch/0001/uqmMo72OQ2K2xe7mkIytlg"]).subscribe(
+                (response: ReadResourceSequence) => {
+                }, (err: ApiResponseError) => {
+                    expect(err instanceof ApiResponseError).toBeTruthy();
+                    expect(err.status).toEqual(404);
+                    expect(err.error instanceof AjaxError).toBeTruthy();
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const resource = require("../../../../test/data/api/v2/resources/things.json");
+
+            request.respondWith(MockAjaxCall.mockNotFoundResponse());
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/resources/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/http%3A%2F%2Frdfh.ch%2F0001%2FuqmMo72OQ2K2xe7mkIytlg");
 
@@ -245,6 +292,31 @@ describe("ResourcesEndpoint", () => {
             expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal"]["http://api.knora.org/ontology/knora-api/v2#decimalValueAsDecimal"]["@value"] = "1.5";
 
             expect(request.data()).toEqual(expectedPayload);
+
+        });
+
+        it("should unsuccessfully attempt to create a resource with values", done => {
+
+            const createResource = new CreateResource();
+
+            knoraApiConnection.v2.res.createResource(createResource).subscribe(
+                (res: ReadResource) => {
+                },
+                (err: ApiResponseError) => {
+                    expect(err instanceof ApiResponseError).toBeTruthy();
+                    expect(err.status).toEqual(400);
+                    expect(err.error instanceof AjaxError).toBeTruthy();
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockBadRequestResponse());
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/resources");
+
+            expect(request.method).toEqual("POST");
 
         });
 
@@ -400,6 +472,33 @@ describe("ResourcesEndpoint", () => {
 
         });
 
+        it("should unsuccessfully attempt to update a resource's label", done => {
+
+            const updateResourceMetadata = new UpdateResourceMetadata();
+
+            updateResourceMetadata.label = "test thing with modified label";
+
+            knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
+                (res: UpdateResourceMetadataResponse) => {
+                },
+                (err: ApiResponseError) => {
+                    expect(err instanceof ApiResponseError).toBeTruthy();
+                    expect(err.status).toEqual(400);
+                    expect(err.error instanceof AjaxError).toBeTruthy();
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockBadRequestResponse());
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/resources");
+
+            expect(request.method).toEqual("PUT");
+
+        });
+
         it("should update a resource's label submitting the last modification date", done => {
 
             const updateResourceMetadata = new UpdateResourceMetadata();
@@ -488,6 +587,31 @@ describe("ResourcesEndpoint", () => {
             const expectedPayload = require("../../../../test/data/api/v2/resources/delete-resource-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
+
+        });
+
+        it("should unsuccessfully attempt to delete a resource", done => {
+
+            const deleteResource = new DeleteResource();
+
+            knoraApiConnection.v2.res.deleteResource(deleteResource).subscribe(
+                (res: DeleteResourceResponse) => {
+                },
+                (err: ApiResponseError) => {
+                    expect(err instanceof ApiResponseError).toBeTruthy();
+                    expect(err.status).toEqual(400);
+                    expect(err.error instanceof AjaxError).toBeTruthy();
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockBadRequestResponse());
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/resources/delete");
+
+            expect(request.method).toEqual("POST");
 
         });
 
