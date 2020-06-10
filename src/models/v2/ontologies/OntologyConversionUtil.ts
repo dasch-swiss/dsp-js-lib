@@ -23,8 +23,11 @@ export namespace OntologyConversionUtil {
 
         const ontologyIri: string[] = [];
 
+        // set `http` regardless of  knoraApiConfig.apiProtocol
+        // include port only when running locally
         let projectEntityBase = "http://" + knoraApiConfig.apiHost;
-        if (knoraApiConfig.apiPort !== null) {
+        if (knoraApiConfig.apiPort !== null &&
+             (knoraApiConfig.apiHost === "localhost" || knoraApiConfig.apiHost === "0.0.0.0")) {
             projectEntityBase = projectEntityBase + ":" + knoraApiConfig.apiPort;
         }
         projectEntityBase = projectEntityBase + "/ontology/";
