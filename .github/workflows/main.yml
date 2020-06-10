@@ -1,6 +1,9 @@
 name: CI
 
-on: [push]
+on:
+  push:
+  release:
+    types: [published]
 
 env:
   KNORA_GDB_LICENSE: ${{ github.workspace }}/ci/graphdb/UNIBAS_DEV_GRAPHDB_SE_latest-31-12-2020_1cores.license
@@ -49,3 +52,30 @@ jobs:
       - run: |
           make npm-install
           make test-ci
+  build:
+    name: Build package and publish (on release only)
+    needs: [test-integration]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release' && startsWith(github.ref, 'refs/tags')
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: |
+          npm install
+          npm run peer-deps
+      - name: Test
+        run: npm run test
+      - name: Prepare dev publication
+        run: npm run prepare-dev-publication
+      - name: Build
+        run: npm run build
+      - name: Publish on npm (dry run)
+        run: npm publish build/ --access public --dry-run
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_DASCHBOT}}
+      - uses: lakto/gren-action@v1.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
