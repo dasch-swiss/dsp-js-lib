@@ -73,7 +73,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Publish on npm (dry run)
-        run: npm publish build/ --access public --dry-run
+        run: npm publish build/ --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_DASCHBOT}}
       - uses: lakto/gren-action@v1.1.0
