@@ -75,12 +75,12 @@ jobs:
         run: npm run build
       - if: "github.event.release.prerelease"
         name: Publish prerelease to npm
-        run: npm publish --tag rc build/ --access public
+        run: npm publish --tag rc build/ --access public --dry-run
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_DASCHBOT}}
       - if: "!github.event.release.prerelease"
         name: Publish release to npm
-        run: npm publish build/ --access public
+        run: npm publish build/ --access public --dry-run
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_DASCHBOT}}
       - uses: lakto/gren-action@v1.1.0
