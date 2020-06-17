@@ -1,6 +1,6 @@
 # DSP-JS-LIB &mdash; A library to easily connect to Knora/DSP API
 
-[![npm version](https://badge.fury.io/js/%40dasch-swiss%2Fdsp-js.svg)](https://badge.fury.io/js/%40dasch-swiss%2Fdsp-js)
+[![npm version](https://badge.fury.io/js/%40dasch-swiss%2Fdsp-js.svg)](https://www.npmjs.com/package/@dasch-swiss/dsp-js)
 [![CI](https://github.com/dasch-swiss/knora-api-js-lib/workflows/CI/badge.svg)](https://github.com/dasch-swiss/knora-api-js-lib/actions?query=workflow%3ACI)
 [![npm downloads](https://img.shields.io/npm/dt/@dasch-swiss/dsp-js.svg?style=flat)](https://www.npmjs.com/package/@dasch-swiss/dsp-js)
 [![minzipped size](https://img.shields.io/bundlephobia/minzip/@dasch-swiss/dsp-js.svg?style=flat)](https://www.npmjs.com/package/@dasch-swiss/dsp-js)
