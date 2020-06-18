@@ -46,6 +46,8 @@ export class AppComponent implements OnInit {
 
   ontologies: Map<string, ReadOntology>;
 
+  createdOntology: CreateOntologyResponse;
+
   resource: ReadResource;
 
   listNode: ListNodeV2;
@@ -120,11 +122,11 @@ export class AppComponent implements OnInit {
   createOntology() {
       const newOnto = new CreateOntology();
       newOnto.label = "The foo ontology";
-      newOnto.name = "fooiieee";
+      newOnto.name = "foo";
       newOnto.projectIri = "http://rdfh.ch/projects/00FF";
 
-      this.knoraApiConnection.v2.onto.createOntology(newOnto).subscribe(ontoCreationRes => {
-          console.log(ontoCreationRes);
+      this.knoraApiConnection.v2.onto.createOntology(newOnto).subscribe((ontoCreationRes: CreateOntologyResponse ) => {
+          this.createdOntology = ontoCreationRes;
       });
   }
 

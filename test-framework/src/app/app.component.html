@@ -31,6 +31,10 @@
     <section id="ontologyendpoint">
         <h3>OntologyEndpoint</h3>
         <button class="create" (click)="createOntology()">Create an ontology</button>
+        <div>
+            <div>Ontology Creation Response:
+                <span class="ontologyendpoint">{{createdOntology?.label}}</span></div>
+        </div>
     </section>
 
     <section id="resource">

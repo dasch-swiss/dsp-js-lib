@@ -93,6 +93,26 @@ describe('workspace-project App', () => {
 
   });
 
+  it('create an ontology', () => {
+
+    page.navigateTo();
+
+    const loginButton = page.getEle('div section#login button.login');
+
+    loginButton.click();
+
+    const loginStatus = page.getEle('div section#login span.status');
+
+    const button = page.getEle('div section#ontologyendpoint button.create');
+
+    button.click();
+
+    const size = page.getEle('div section#ontologyendpoint span.ontologyendpoint');
+
+    expect(size.getText()).toEqual('The foo ontology');
+
+  });
+
   it('request a resource', () => {
 
     page.navigateTo();
