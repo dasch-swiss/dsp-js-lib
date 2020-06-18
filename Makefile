@@ -74,7 +74,6 @@ integrate-test-data: ## integrates generated test data
 	npm run integrate-admin-test-data $(CURRENT_DIR)/.tmp/typescript/test-data
 	npm run integrate-v2-test-data $(CURRENT_DIR)/.tmp/typescript/test-data
 	npm run expand-jsonld-test-data
-	@git status
 
 .PHONY: unit-tests
 unit-tests: ## runs the unit tests
