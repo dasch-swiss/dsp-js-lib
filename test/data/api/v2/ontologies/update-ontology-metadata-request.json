@@ -4,7 +4,7 @@
   "rdfs:label": "The modified foo ontology",
   "knora-api:lastModificationDate": {
     "@type" : "xsd:dateTimeStamp",
-    "@value" : "2020-05-27T03:37:42.357Z"
+    "@value" : "2020-06-18T09:56:43.526623Z"
   },
   "@context": {
     "xsd" :  "http://www.w3.org/2001/XMLSchema#",
