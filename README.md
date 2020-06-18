@@ -1,19 +1,10 @@
-# @dasch-swiss/dsp-ui
+# DSP-JS-LIB &mdash; A library to easily connect to Knora/DSP API
 
-<!-- TODO: uncomment the following badges before next release
-[![npm (scoped)](https://img.shields.io/npm/v/@dasch-swiss/dsp-js)](https://www.npmjs.com/package/@dasch-swiss/dsp-js)
+[![npm version](https://badge.fury.io/js/%40dasch-swiss%2Fdsp-js.svg)](https://www.npmjs.com/package/@dasch-swiss/dsp-js)
 [![CI](https://github.com/dasch-swiss/knora-api-js-lib/workflows/CI/badge.svg)](https://github.com/dasch-swiss/knora-api-js-lib/actions?query=workflow%3ACI)
 [![npm downloads](https://img.shields.io/npm/dt/@dasch-swiss/dsp-js.svg?style=flat)](https://www.npmjs.com/package/@dasch-swiss/dsp-js)
 [![minzipped size](https://img.shields.io/bundlephobia/minzip/@dasch-swiss/dsp-js.svg?style=flat)](https://www.npmjs.com/package/@dasch-swiss/dsp-js)
 [![license](https://img.shields.io/npm/l/@dasch-swiss/dsp-js.svg?style=flat)](https://www.npmjs.com/package/@dasch-swiss/dsp-js)
--->
-
- <!-- TODO: remove the following badges with the next release -->
-[![npm](https://img.shields.io/npm/v/@knora/api.svg)](https://www.npmjs.com/package/@knora/api)
-![downloads](https://img.shields.io/npm/dt/@knora/api.svg?style=flat)
-![minzipped size](https://img.shields.io/bundlephobia/minzip/@knora/api.svg?style=flat)
-![license](https://img.shields.io/npm/l/@knora/api.svg?style=flat)
-[![Build Status](https://travis-ci.org/dasch-swiss/knora-api-js-lib.svg?branch=master)](https://travis-ci.org/dasch-swiss/knora-api-js-lib)
 
 ## Purpose of this project
 

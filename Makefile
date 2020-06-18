@@ -61,13 +61,16 @@ generate-test-data: ## downloads generated test data from Knora-API
 	sleep 120
 	unzip $(CURRENT_DIR)/.tmp/ts.zip -d $(CURRENT_DIR)/.tmp/typescript
 
-.PHONY: integrate-test-data
-integrate-test-data: ## intregates generated test data
+.PHONY: delete-test-data
+delete-test-data: ## delete static test data before integration
 	rm -rf test/data/api/admin/*
 	rm -rf test/data/api/v2/lists/*
 	rm -rf test/data/api/v2/ontologies/*
 	rm -rf test/data/api/v2/resources/*
 	rm -rf test/data/api/v2/values/*
+
+.PHONY: integrate-test-data
+integrate-test-data: ## integrates generated test data
 	npm run integrate-admin-test-data $(CURRENT_DIR)/.tmp/typescript/test-data
 	npm run integrate-v2-test-data $(CURRENT_DIR)/.tmp/typescript/test-data
 	npm run expand-jsonld-test-data
@@ -97,6 +100,7 @@ test-ci: ## first starts the knora-stack and then runs the tests
 
 .PHONY: test
 test: ## run tests
+	@$(MAKE) -f $(THIS_FILE) delete-test-data
 	@$(MAKE) -f $(THIS_FILE) generate-test-data
 	@$(MAKE) -f $(THIS_FILE) integrate-test-data
 	@$(MAKE) -f $(THIS_FILE) unit-tests
