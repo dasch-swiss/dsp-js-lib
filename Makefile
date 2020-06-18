@@ -63,7 +63,11 @@ generate-test-data: ## downloads generated test data from Knora-API
 
 .PHONY: delete-test-data
 delete-test-data: ## delete static test data before integration
-	rm -rf test/data/api/admin/*
+	rm -rf test/data/api/admin/groups/*
+	rm -rf test/data/api/admin/lists/*
+	rm -rf test/data/api/admin/permissions/*
+	rm -rf test/data/api/admin/projects/*
+	rm -rf test/data/api/admin/users/*
 	rm -rf test/data/api/v2/lists/*
 	rm -rf test/data/api/v2/ontologies/*
 	rm -rf test/data/api/v2/resources/*
