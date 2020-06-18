@@ -67,7 +67,8 @@ export class AppComponent implements OnInit {
 
     console.log(MockOntology.mockReadOntology("http://0.0.0.0:3333/ontology/0001/anything/v2"));
     console.log(MockOntology.mockOntologiesMetadata())
-    console.log(MockProjects.mockProjects());
+    console.log(MockProjects.mockProjects().body.projects);
+    console.log(MockProjects.mockProject().body.project);
   }
 
   login() {

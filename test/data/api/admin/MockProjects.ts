@@ -3,8 +3,10 @@ import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-c
 import { AjaxResponse } from "rxjs/ajax";
 import { ApiResponseData } from "../../../../src/models/api-response-data";
 import { ProjectsResponse } from "../../../../src/models/admin/projects-response";
+import { ProjectResponse } from "../../../../src/models/admin/project-response";
 
 import projects from "./projects/get-projects-response.json";
+import project from "./projects/get-project-response.json";
 
 export namespace MockProjects {
 
@@ -21,5 +23,13 @@ export namespace MockProjects {
         const projectsRes = jsonConvert.serializeObject(projects, ProjectsResponse);
         responseData.body = projectsRes;
         return responseData as ApiResponseData<ProjectsResponse>;
+    };
+
+    export const mockProject = (): ApiResponseData<ProjectResponse> => {
+        const responseData = ApiResponseData.fromAjaxResponse(new AjaxResponse({} as any, {} as any, {}));
+
+        const projectRes = jsonConvert.serializeObject(project, ProjectResponse);
+        responseData.body = projectRes;
+        return responseData as ApiResponseData<ProjectResponse>;
     };
 }
