@@ -29,17 +29,6 @@
     },
     "rdfs:label" : "The something ontology"
   }, {
-    "@id" : "http://0.0.0.0:3333/ontology/00FF/foo/v2",
-    "@type" : "owl:Ontology",
-    "knora-api:attachedToProject" : {
-      "@id" : "http://rdfh.ch/projects/00FF"
-    },
-    "knora-api:lastModificationDate" : {
-      "@type" : "xsd:dateTimeStamp",
-      "@value" : "2020-06-18T09:42:41.506895Z"
-    },
-    "rdfs:label" : "The foo ontology"
-  }, {
     "@id" : "http://0.0.0.0:3333/ontology/00FF/images/v2",
     "@type" : "owl:Ontology",
     "knora-api:attachedToProject" : {
@@ -88,6 +77,13 @@
       "@id" : "http://rdfh.ch/projects/0804"
     },
     "rdfs:label" : "The dokubib ontology"
+  }, {
+    "@id" : "http://0.0.0.0:3333/ontology/08AE/webern/v2",
+    "@type" : "owl:Ontology",
+    "knora-api:attachedToProject" : {
+      "@id" : "http://rdfh.ch/projects/08AE"
+    },
+    "rdfs:label" : "The Anton Webern project ontology"
   }, {
     "@id" : "http://api.knora.org/ontology/knora-admin/v2",
     "@type" : "owl:Ontology",
