@@ -1,9 +1,10 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../Constants";
+import { DateTimeStampConverter } from "../../custom-converters/date-time-stamp-converter";
 import { IdConverter } from "../../custom-converters/id-converter";
 
-@JsonObject("CreateOntology")
-export class CreateOntology {
+@JsonObject("CreateOntologyResponse")
+export class CreateOntologyResponse {
 
     @JsonProperty(Constants.AttachedToProject, IdConverter)
     projectIri: string = "";
@@ -11,7 +12,7 @@ export class CreateOntology {
     @JsonProperty(Constants.Label, String)
     label: string = "";
 
-    @JsonProperty(Constants.OntologyName, String)
-    name: string = "";
+    @JsonProperty(Constants.LastModificationDate, DateTimeStampConverter)
+    lastModificationDate: string = "";
 
 }

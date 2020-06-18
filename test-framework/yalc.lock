@@ -2,7 +2,7 @@
   "version": "v1",
   "packages": {
     "@dasch-swiss/dsp-js": {
-      "signature": "17bdb1f04814af17883b052a4aed2ef0",
+      "signature": "5307eb7530f2eb06476c8732f98419f1",
       "file": true
     }
   }

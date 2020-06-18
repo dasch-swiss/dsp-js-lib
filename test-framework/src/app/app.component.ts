@@ -30,6 +30,8 @@ import {
 } from "@dasch-swiss/dsp-js";
 
 import { map } from "rxjs/operators";
+import { CreateOntology } from "../../../src";
+import { CreateOntologyResponse } from "../../../src/models/v2/ontologies/create/create-ontology-response";
 
 @Component({
   selector: 'app-root',
@@ -113,6 +115,17 @@ export class AppComponent implements OnInit {
           this.ontologies = onto;
         }
     );
+  }
+
+  createOntology() {
+      const newOnto = new CreateOntology();
+      newOnto.label = "The foo ontology";
+      newOnto.name = "fooiieee";
+      newOnto.projectIri = "http://rdfh.ch/projects/00FF";
+
+      this.knoraApiConnection.v2.onto.createOntology(newOnto).subscribe(ontoCreationRes => {
+          console.log(ontoCreationRes);
+      });
   }
 
   getResourceClass(iri: string) {

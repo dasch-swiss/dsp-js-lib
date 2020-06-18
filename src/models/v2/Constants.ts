@@ -13,6 +13,8 @@ export class Constants {
     static IsEditable = Constants.KnoraApiV2 + Constants.Delimiter + "isEditable";
     static IsInherited = Constants.KnoraApiV2 + Constants.Delimiter + "isInherited";
     static CanBeInstantiated = Constants.KnoraApiV2 + Constants.Delimiter + "canBeInstantiated";
+    static OntologyName = Constants.KnoraApiV2 + Constants.Delimiter + "ontologyName";
+
 
     static StandoffOntology: string = Constants.KnoraApi + "/ontology/standoff/v2";
 

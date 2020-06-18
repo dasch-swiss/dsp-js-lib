@@ -6,6 +6,7 @@ import { StringLiteral } from "../../../models/admin/string-literal";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { Constants } from "../../../models/v2/Constants";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
+import { CreateOntologyResponse } from "../../../models/v2/ontologies/create/create-ontology-response";
 import { CreateResourceClass } from "../../../models/v2/ontologies/create/create-resource-class";
 import { CreateResourceProperty } from "../../../models/v2/ontologies/create/create-resource-property";
 import { OntologiesMetadata } from "../../../models/v2/ontologies/ontology-metadata";
@@ -93,26 +94,16 @@ export class OntologiesEndpointV2 extends Endpoint {
     // POST
     // ------------------------------------------------------------------------
 
-    createOntology(ontologyData: CreateOntology): Observable<OntologiesMetadata | ApiResponseError> {
+    createOntology(ontologyData: CreateOntology): Observable<CreateOntologyResponse | ApiResponseError> {
 
-        const ontology = {
-            "knora-api:ontologyName": ontologyData.name.toLowerCase(),
-            "knora-api:attachedToProject": {
-                "@id": ontologyData.projectIri,
-            },
-            "rdfs:label": ontologyData.label,
-            "@context": {
-                "rdfs": Constants.Rdfs + Constants.Delimiter,
-                "knora-api": Constants.KnoraApiV2 + Constants.Delimiter
-            }
-        };
+        const onto = this.jsonConvert.serializeObject(ontologyData);
 
-        return this.httpPost("", ontology).pipe(
+        return this.httpPost("", onto).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(jsonldobj => {
-                return this.jsonConvert.deserializeObject(jsonldobj, OntologiesMetadata);
+                return this.jsonConvert.deserializeObject(jsonldobj, CreateOntologyResponse);
             }),
             catchError(error => this.handleError(error))
         );

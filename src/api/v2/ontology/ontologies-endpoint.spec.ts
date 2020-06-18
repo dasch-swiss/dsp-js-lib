@@ -1,6 +1,8 @@
+import { CreateOntology } from "../../..";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
+import { CreateOntologyResponse } from "../../../models/v2/ontologies/create/create-ontology-response";
 import { OntologiesMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { ReadOntology } from "../../../models/v2/ontologies/read-ontology";
 import { ResourceClassDefinition } from "../../../models/v2/ontologies/resource-class-definition";
@@ -191,6 +193,37 @@ describe("OntologiesEndpoint", () => {
             expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/metadata/http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
 
             expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
+    describe("Method createOntology", () => {
+
+        it("should create a new ontology", () => {
+
+            const newOnto = new CreateOntology();
+            newOnto.label = "The foo ontology";
+            newOnto.name = "foo";
+            newOnto.projectIri = "http://rdfh.ch/projects/00FF";
+
+            knoraApiConnection.v2.onto.createOntology(newOnto).subscribe((ontoCreationRes: CreateOntologyResponse) => {
+                console.log(ontoCreationRes);
+            });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const ontoCreationResponse = require("../../../../test/data/api/v2/ontologies/create-empty-foo-ontology-expanded.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(ontoCreationResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies");
+
+            expect(request.method).toEqual("POST");
+
+            const expectedPayload = require("../../../../test/data/api/v2/ontologies/create-empty-foo-ontology-request-expanded.json");
+
+            expect(request.data()).toEqual(expectedPayload);
 
         });
 
