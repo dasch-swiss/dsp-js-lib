@@ -200,7 +200,7 @@ describe("OntologiesEndpoint", () => {
 
     describe("Method createOntology", () => {
 
-        it("should create a new ontology", () => {
+        it("should create a new ontology", done => {
 
             const newOnto = new CreateOntology();
             newOnto.label = "The foo ontology";
@@ -208,7 +208,8 @@ describe("OntologiesEndpoint", () => {
             newOnto.projectIri = "http://rdfh.ch/projects/00FF";
 
             knoraApiConnection.v2.onto.createOntology(newOnto).subscribe((ontoCreationRes: CreateOntologyResponse) => {
-                console.log(ontoCreationRes);
+                expect(ontoCreationRes.label).toEqual("The foo ontology");
+                done();
             });
 
             const request = jasmine.Ajax.requests.mostRecent();
