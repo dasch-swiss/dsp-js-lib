@@ -6,6 +6,9 @@
 /docs
 .DS_Store
 
+# Do not add package-lock.json of the test app to git because it could lead to problems when some dependency version change in the lib and is not adapted here.
+test-framework/package-lock.json
+
 ############################
 # PhpStorm/WebStorm ignore #
 ############################

@@ -5,6 +5,23 @@ CURRENT_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
 include vars.mk
 
+define update-version
+	# update version: first as dry-run.
+	# The user has to confirm the update.
+	# If everything is fine, it will commit and push the updated packages
+	CURRENT_VERSION=`node -pe "require('./package.json').version"` && \
+	npm version $(1) --preid=$(2) --git-tag-version=false --commit-hooks=false && \
+	NEXT_VERSION=`node -pe "require('./package.json').version"` && \
+	echo "This will update from $$CURRENT_VERSION to $$NEXT_VERSION ($(1)). Do you want to continue? [Y/n]" && \
+	read ans && \
+	([ $${ans:-N} != Y ] && npm version $$CURRENT_VERSION --git-tag-version=false --commit-hooks=false && exit 1) || \
+	([ $${ans:-N} == Y ]) && \
+	git add package.json && \
+	git add package-lock.json && \
+	git commit -m "release($(1)): $$NEXT_VERSION" && \
+	git push
+endef
+
 #################################
 # General targets
 #################################
@@ -44,13 +61,16 @@ generate-test-data: ## downloads generated test data from Knora-API
 	sleep 120
 	unzip $(CURRENT_DIR)/.tmp/ts.zip -d $(CURRENT_DIR)/.tmp/typescript
 
-.PHONY: integrate-test-data
-integrate-test-data: ## intregates generated test data
+.PHONY: delete-test-data
+delete-test-data: ## delete static test data before integration
 	rm -rf test/data/api/admin/*
 	rm -rf test/data/api/v2/lists/*
 	rm -rf test/data/api/v2/ontologies/*
 	rm -rf test/data/api/v2/resources/*
 	rm -rf test/data/api/v2/values/*
+
+.PHONY: integrate-test-data
+integrate-test-data: ## integrates generated test data
 	npm run integrate-admin-test-data $(CURRENT_DIR)/.tmp/typescript/test-data
 	npm run integrate-v2-test-data $(CURRENT_DIR)/.tmp/typescript/test-data
 	npm run expand-jsonld-test-data
@@ -79,6 +99,7 @@ test-ci: ## first starts the knora-stack and then runs the tests
 
 .PHONY: test
 test: ## run tests
+	@$(MAKE) -f $(THIS_FILE) delete-test-data
 	@$(MAKE) -f $(THIS_FILE) generate-test-data
 	@$(MAKE) -f $(THIS_FILE) integrate-test-data
 	@$(MAKE) -f $(THIS_FILE) unit-tests
@@ -92,6 +113,34 @@ local-tmp:
 .PHONY: clean
 clean:
 	@rm -rf $(CURRENT_DIR)/.tmp
+
+.PHONY: next-release-candidate
+next-release-candidate: ## updates version to next release candidate e.g. from 3.0.0-rc.0 to 3.0.0-rc.1 or from 3.0.0 to 3.0.1-rc.0
+	@$(call update-version,prerelease,rc)
+
+.PHONY: release-patch
+release-patch: ## updates version to next PATCH version e.g. from 3.0.0 to 3.0.1
+	@$(call update-version,patch)
+
+.PHONY: prerelease-patch
+prerelease-patch: ## updates version to next PATCH as release-candidate e.g. from 3.0.1 to 3.0.2-rc.0
+	@$(call update-version,prepatch,rc)
+
+.PHONY: release-minor
+release-minor: ## updates version to next MINOR version e.g. from 3.0.0 to 3.1.0
+	@$(call update-version,minor)
+
+.PHONY: prerelease-minor
+prerelease-minor: ## updates version to next MINOR as release-candidate e.g. from 3.1.0 to 3.2.0-rc.0
+	@$(call update-version,preminor,rc)
+
+.PHONY: release-major
+release-major: ## updates version to next MAJOR version e.g. from 3.0.0 to 4.0.0
+	@$(call update-version,major)
+
+.PHONY: prerelease-major
+prerelease-major: ## updates version to next MAJOR as release candidate e.g. from 4.0.0 to 5.0.0-rc.0
+	@$(call update-version,premajor,rc)
 
 .PHONY: help
 help: ## this help

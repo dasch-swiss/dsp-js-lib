@@ -1,19 +1,10 @@
-# @dasch-swiss/dsp-ui
+# DSP-JS-LIB &mdash; A library to easily connect to Knora/DSP API
 
-<!-- TODO: uncomment the following badges before next release
-[![npm (scoped)](https://img.shields.io/npm/v/@dasch-swiss/dsp-js)](https://www.npmjs.com/package/@dasch-swiss/dsp-js)
+[![npm version](https://badge.fury.io/js/%40dasch-swiss%2Fdsp-js.svg)](https://www.npmjs.com/package/@dasch-swiss/dsp-js)
 [![CI](https://github.com/dasch-swiss/knora-api-js-lib/workflows/CI/badge.svg)](https://github.com/dasch-swiss/knora-api-js-lib/actions?query=workflow%3ACI)
 [![npm downloads](https://img.shields.io/npm/dt/@dasch-swiss/dsp-js.svg?style=flat)](https://www.npmjs.com/package/@dasch-swiss/dsp-js)
 [![minzipped size](https://img.shields.io/bundlephobia/minzip/@dasch-swiss/dsp-js.svg?style=flat)](https://www.npmjs.com/package/@dasch-swiss/dsp-js)
 [![license](https://img.shields.io/npm/l/@dasch-swiss/dsp-js.svg?style=flat)](https://www.npmjs.com/package/@dasch-swiss/dsp-js)
--->
-
- <!-- TODO: remove the following badges with the next release -->
-[![npm](https://img.shields.io/npm/v/@knora/api.svg)](https://www.npmjs.com/package/@knora/api)
-![downloads](https://img.shields.io/npm/dt/@knora/api.svg?style=flat)
-![minzipped size](https://img.shields.io/bundlephobia/minzip/@knora/api.svg?style=flat)
-![license](https://img.shields.io/npm/l/@knora/api.svg?style=flat)
-[![Build Status](https://travis-ci.org/dasch-swiss/knora-api-js-lib.svg?branch=master)](https://travis-ci.org/dasch-swiss/knora-api-js-lib)
 
 ## Purpose of this project
 
@@ -131,10 +122,25 @@ If you need a local version of this lib that contains the mocks, do the followin
 
 ## Publish a new version to NPM
 
-Run `npm run npm-publish` as described above. The command runs `npm publish` in dry-run mode.
-If everything looks good, remove the flag `--dry-run` from `package.json` and run `npm run npm-publish` to publish the new version.
+A new version will be published with each github release as it's part of Github actions' workflow. Please follow the steps below to prepare the next release:
 
-Release Candidates contain mocked data. `npm run prepare-dev-publication` has to be run before building.
+- Create new branch from master called e.g. `prerelease/v1.0.0-rc.2` or `release/v2.0.0`
+- Run one of the corresponding make commands:
+  - `next-release-candidate`         updates version to next release candidate e.g. from 3.0.0-rc.0 to 3.0.0-rc.1 or from 3.0.0 to 3.0.1-rc.0
+  - `prerelease-major`               updates version to next MAJOR as release candidate e.g. from 4.0.0 to 5.0.0-rc.0
+  - `prerelease-minor`               updates version to next MINOR as release-candidate e.g. from 3.1.0 to 3.2.0-rc.0
+  - `prerelease-patch`               updates version to next PATCH as release-candidate e.g. from 3.0.1 to 3.0.2-rc.0
+  - `release-major`                  updates version to next MAJOR version e.g. from 3.0.0 to 4.0.0
+  - `release-minor`                  updates version to next MINOR version e.g. from 3.0.0 to 3.1.0
+  - `release-patch`                  updates version to next PATCH version e.g. from 3.0.0 to 3.0.1
+- The make command will commit and push to github
+- Update README and CHANGELOG if necessary and commit the changes
+- Create new pull request and merge into master
+- Draft new release on Github. This will build, test and publish the new package on npm. Additional it creates / overrides release notes on Github.
+
+New package will be available on <https://www.npmjs.com/package/@dasch-swiss/dsp-js>
+
+At the moment (2020-06) all releases contain mocked data.
 
 ## Documentation
 

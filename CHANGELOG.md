@@ -1,3 +1,18 @@
+# 1.0.0-rc.2
+
+#### Breaking changes:
+
+- [#191](https://github.com/dasch-swiss/knora-api-js-lib/pull/191) Rename package
+
+#### Bug Fixes:
+
+- [#196](https://github.com/dasch-swiss/knora-api-js-lib/pull/196) ontology IRI: ignore port if not running on localhost
+- [#194](https://github.com/dasch-swiss/knora-api-js-lib/pull/194) Fix bug ApiResonseError
+
+**Compatibility**
+
+This release is compatible with knora-api v13.0.0-rc.4
+
 # 1.0.0-rc.1
 
 ### Features
