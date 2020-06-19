@@ -67,15 +67,37 @@ let knoraApiConnection: KnoraApiConnection;
 let getResourceClassDefinitionFromCacheSpy: jasmine.Spy;
 let getListNodeFromCacheSpy: jasmine.Spy;
 
-describe("ValuesEndpoint", () => {
+namespace WriteValueMocks {
 
-    const mockWriteValueResponse = (id: string, type: string, uuid: string): string => {
-        return JSON.stringify({
+    const mockWriteValueResponse = (id: string, type: string, uuid: string, creationDate?: string): string => {
+        const res: { [index: string]: string | object } = {
             "@id": id,
             "@type": type,
             [Constants.ValueHasUUID]: uuid
-        });
+        };
+
+        if (creationDate !== undefined) {
+            res[Constants.ValueCreationDate] = {
+                "@type" : "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
+                "@value" : creationDate
+            };
+        }
+
+        return JSON.stringify(res);
     };
+
+    export const mockUpdateValueResponse = (id: string, type: string, uuid: string): string => {
+        return mockWriteValueResponse(id, type, uuid);
+    };
+
+    export const mockCreateValueResponse = (id: string, type: string, uuid: string, creationDate: string): string => {
+        return mockWriteValueResponse(id, type, uuid, creationDate);
+    };
+
+}
+
+describe("ValuesEndpoint", () => {
+
 
     beforeEach(() => {
         jasmine.Ajax.install();
@@ -522,7 +544,7 @@ describe("ValuesEndpoint", () => {
 
         it("should check mocked update value response", () => {
 
-            const mockedUpdateIntValueResponse = mockWriteValueResponse(
+            const mockedUpdateIntValueResponse = WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/_GlNQXdYRTyQPhpdh76U1w/values/OGbYaSgNSUCKQtmn9suXlw",
                 Constants.IntValue,
                 "hKOvV-6ZSG-qnOTKHRmlfQ");
@@ -558,7 +580,7 @@ describe("ValuesEndpoint", () => {
             const request = jasmine.Ajax.requests.mostRecent();
 
             request.respondWith(MockAjaxCall.mockResponse(
-                mockWriteValueResponse(
+                WriteValueMocks.mockUpdateValueResponse(
                     "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                     Constants.IntValue,
                     "uuid")
@@ -599,7 +621,7 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 Constants.DecimalValue,
                 "uuid")));
@@ -639,7 +661,7 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 Constants.ColorValue,
                 "uuid")));
@@ -680,7 +702,7 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 Constants.IntervalValue,
                 "uuid")));
@@ -720,7 +742,7 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 Constants.BooleanValue,
                 "uuid")));
@@ -760,7 +782,7 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 Constants.ListValue,
                 "uuid")));
@@ -800,7 +822,7 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 Constants.LinkValue,
                 "uuid")));
@@ -840,7 +862,7 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 Constants.UriValue,
                 "uuid")));
@@ -880,7 +902,7 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 Constants.TextValue,
                 "uuid")));
@@ -921,7 +943,7 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 Constants.TextValue,
                 "uuid")));
@@ -969,7 +991,7 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 Constants.DateValue,
                 "uuid")));
@@ -1015,7 +1037,7 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 Constants.DateValue,
                 "uuid")));
@@ -1059,7 +1081,7 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 Constants.DateValue,
                 "uuid")));
@@ -1099,7 +1121,7 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 Constants.StillImageFileValue,
                 "uuid")));
@@ -1139,7 +1161,7 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 Constants.GeomValue,
                 "uuid")));
@@ -1179,7 +1201,7 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 Constants.GeonameValue,
                 "uuid")));
@@ -1219,7 +1241,7 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 Constants.TimeValue,
                 "uuid")));
@@ -1260,7 +1282,7 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 Constants.IntValue,
                 "uuid")));
@@ -1301,7 +1323,7 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 Constants.IntValue,
                 "uuid")));
@@ -1343,7 +1365,7 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/updated",
                 Constants.IntValue,
                 "uuid")));
@@ -1366,10 +1388,11 @@ describe("ValuesEndpoint", () => {
 
         it("should check mocked create value response", () => {
 
-            const mockedUpdateIntValueResponse = mockWriteValueResponse(
+            const mockedUpdateIntValueResponse = WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/_GlNQXdYRTyQPhpdh76U1w/values/OGbYaSgNSUCKQtmn9suXlw",
                 Constants.IntValue,
-                "hKOvV-6ZSG-qnOTKHRmlfQ");
+                "hKOvV-6ZSG-qnOTKHRmlfQ",
+                "2019-01-09T15:45:54.502951Z");
 
             const updateIntValueResponse = require("../../../../test/data/api/v2/values/create-int-value-response-expanded.json");
 
@@ -1399,10 +1422,11 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 Constants.IntValue,
-                "uuid")));
+                "uuid",
+                "2019-01-09T15:45:54.502951Z")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1439,10 +1463,11 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 Constants.DecimalValue,
-                "uuid")));
+                "uuid",
+                "2019-01-09T15:45:54.502951Z")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1479,10 +1504,11 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 Constants.ColorValue,
-                "uuid")));
+                "uuid",
+                "2019-01-09T15:45:54.502951Z")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1520,10 +1546,11 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 Constants.IntervalValue,
-                "uuid")));
+                "uuid",
+                "2019-01-09T15:45:54.502951Z")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1558,10 +1585,11 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 Constants.BooleanValue,
-                "uuid")));
+                "uuid",
+                "2019-01-09T15:45:54.502951Z")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1597,10 +1625,11 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 Constants.ListValue,
-                "uuid")));
+                "uuid",
+                "2019-01-09T15:45:54.502951Z")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1636,10 +1665,11 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 Constants.LinkValue,
-                "uuid")));
+                "uuid",
+                "2019-01-09T15:45:54.502951Z")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1675,10 +1705,11 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 Constants.UriValue,
-                "uuid")));
+                "uuid",
+                "2019-01-09T15:45:54.502951Z")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1714,10 +1745,11 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 Constants.TextValue,
-                "uuid")));
+                "uuid",
+                "2019-01-09T15:45:54.502951Z")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1754,10 +1786,11 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 Constants.TextValue,
-                "uuid")));
+                "uuid",
+                "2019-01-09T15:45:54.502951Z")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1801,10 +1834,11 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 Constants.DateValue,
-                "uuid")));
+                "uuid",
+                "2019-01-09T15:45:54.502951Z")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1846,10 +1880,11 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 Constants.DateValue,
-                "uuid")));
+                "uuid",
+                "2019-01-09T15:45:54.502951Z")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1889,10 +1924,11 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 Constants.DateValue,
-                "uuid")));
+                "uuid",
+                "2019-01-09T15:45:54.502951Z")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1928,10 +1964,11 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 Constants.GeomValue,
-                "uuid")));
+                "uuid",
+                "2019-01-09T15:45:54.502951Z")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -1967,10 +2004,11 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 Constants.TimeValue,
-                "uuid")));
+                "uuid",
+                "2019-01-09T15:45:54.502951Z")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -2028,10 +2066,11 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 Constants.GeonameValue,
-                "uuid")));
+                "uuid",
+                "2019-01-09T15:45:54.502951Z")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -2068,10 +2107,11 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 Constants.TextValue,
-                "uuid")));
+                "uuid",
+                "2019-01-09T15:45:54.502951Z")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
@@ -2109,10 +2149,11 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(mockWriteValueResponse(
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
                 Constants.IntValue,
-                "uuid")));
+                "uuid",
+                "2019-01-09T15:45:54.502951Z")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
 
