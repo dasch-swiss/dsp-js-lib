@@ -93,6 +93,21 @@ describe('workspace-project App', () => {
 
   });
 
+
+  it('request the anything project ontologies', () => {
+
+    page.navigateTo();
+
+    const button = page.getEle('div section#ontologyendpoint button.get');
+
+    button.click();
+
+    const size = page.getEle('div section#ontologyendpoint span.ontology');
+
+    expect(size.getText()).toEqual('3 ontologies');
+
+  });
+
   it('request a resource', () => {
 
     page.navigateTo();

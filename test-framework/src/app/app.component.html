@@ -28,6 +28,14 @@
         </div>
     </section>
 
+    <section id="ontologyendpoint">
+        <h3>OntologyEndpoint</h3>
+        <button class="get" (click)="getOntologiesByProjectIri('http://rdfh.ch/projects/0001')">Get anything project ontologies</button>
+        <div>
+            Anything project has<br><span class="ontology">{{projectOntologies?.ontologies.length | i18nPlural: itemPluralMapping['ontology']}}</span>
+        </div>
+    </section>
+
     <section id="resource">
         <h3>Resource</h3>
         <button class="read" (click)="getResource('http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw')">Get testding</button> <br /><br />

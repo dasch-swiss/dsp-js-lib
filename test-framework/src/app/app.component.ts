@@ -26,7 +26,9 @@ import {
     UserResponse,
     UsersResponse,
     WriteValueResponse,
-    DeleteResourceResponse
+    DeleteResourceResponse,
+    OntologiesMetadata,
+    ApiResponseError
 } from "@dasch-swiss/dsp-js";
 
 import { map } from "rxjs/operators";
@@ -43,6 +45,7 @@ export class AppComponent implements OnInit {
   userCache: UserCache;
 
   ontologies: Map<string, ReadOntology>;
+  projectOntologies: OntologiesMetadata;
 
   resource: ReadResource;
 
@@ -56,6 +59,13 @@ export class AppComponent implements OnInit {
   valueStatus = '';
 
   resourceStatus = '';
+
+  itemPluralMapping = {
+    ontology: {
+      '=1': '1 ontology',
+      other: '# ontologies'
+    }
+  };
 
   ngOnInit() {
     const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
@@ -113,6 +123,18 @@ export class AppComponent implements OnInit {
           this.ontologies = onto;
         }
     );
+  }
+
+  getOntologiesByProjectIri(iri: string) {
+    this.knoraApiConnection.v2.onto.getOntologiesByProjectIri(iri).subscribe(
+      (response: OntologiesMetadata) => {
+        console.log('project ontologies ', response);
+        this.projectOntologies = response;
+      },
+      (error: ApiResponseError) => {
+        console.error('project ontologies error', error);
+      }
+    )
   }
 
   getResourceClass(iri: string) {
