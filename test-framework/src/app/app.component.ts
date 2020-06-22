@@ -26,7 +26,9 @@ import {
     UserResponse,
     UsersResponse,
     WriteValueResponse,
-    DeleteResourceResponse
+    DeleteResourceResponse,
+    MockOntology,
+    MockProjects
 } from "@dasch-swiss/dsp-js";
 
 import { map } from "rxjs/operators";
