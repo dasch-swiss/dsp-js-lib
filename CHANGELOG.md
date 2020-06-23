@@ -1,11 +1,31 @@
-# 1.0.0-rc.2
+# Changelog
 
-#### Breaking changes:
+## v1.0.0-rc.4
+
+### Enhancements
+
+- [#203](https://github.com/dasch-swiss/knora-api-js-lib/pull/203) Sync Test Data
+- [#199](https://github.com/dasch-swiss/knora-api-js-lib/pull/199) Mock Ontology Data
+
+---
+
+## v1.0.0-rc.3
+
+### Enhancements
+
+- [#200](https://github.com/dasch-swiss/knora-api-js-lib/pull/200) Readme and workflow fix
+
+---
+
+## v1.0.0-rc.2
+
+### Breaking changes
 
 - [#191](https://github.com/dasch-swiss/knora-api-js-lib/pull/191) Rename package
 
-#### Bug Fixes:
+#### Bug Fixes
 
+- [#198](https://github.com/dasch-swiss/knora-api-js-lib/pull/198) Bug fix in npm publishing process
 - [#196](https://github.com/dasch-swiss/knora-api-js-lib/pull/196) ontology IRI: ignore port if not running on localhost
 - [#194](https://github.com/dasch-swiss/knora-api-js-lib/pull/194) Fix bug ApiResonseError
 
@@ -13,21 +33,33 @@
 
 This release is compatible with knora-api v13.0.0-rc.4
 
-# 1.0.0-rc.1
+---
+
+## v1.0.0-rc.1
 
 ### Features
+
 - improve access to property definitions and add convenience methods ([#185](https://github.com/dasch-swiss/knora-api-js-lib/pull/185))
 
 ### Bug Fixes
+
 - make handling of third-party property definitions consistent ([#183](https://github.com/dasch-swiss/knora-api-js-lib/pull/183))
 
 ### Breaking Changes
+
 - `IResourceClassAndPropertyDefinitions` was renamed to `ResourceClassAndPropertyDefinitions` ([#185](https://github.com/dasch-swiss/knora-api-js-lib/pull/185)):
   adapt usage when accessing entity info on `ReadResource` or using `OntologyCache.getResourceClassDefinition`.
 
-# 1.0.0-rc.0
+**Compatibility**
+
+This release is compatible with knora-api v13.0.0-rc.3
+
+---
+
+## v1.0.0-rc.0
 
 ### Features
+
 - add support for time value ([#59](https://github.com/dasch-swiss/knora-api-js-lib/pull/59))
 - add util for handling of cardinalities ([#144](https://github.com/dasch-swiss/knora-api-js-lib/pull/144))
 - add util for handling of permissions ([#142](https://github.com/dasch-swiss/knora-api-js-lib/pull/142))
@@ -35,6 +67,7 @@ This release is compatible with knora-api v13.0.0-rc.4
 - add util to determine link prop from link value prop ([#163](https://github.com/dasch-swiss/knora-api-js-lib/pull/163))
 
 ### Bug Fixes
+
 - add time value to public API ([#150](https://github.com/dasch-swiss/knora-api-js-lib/pull/150))
 - add geoname value to public API ([#158](https://github.com/dasch-swiss/knora-api-js-lib/pull/158))
 - add property definition to public API ([#166](https://github.com/dasch-swiss/knora-api-js-lib/pull/166))
@@ -47,4 +80,30 @@ This release is compatible with knora-api v13.0.0-rc.4
 - use consistent naming convention for v2 and admin endpoints ([#179](https://github.com/dasch-swiss/knora-api-js-lib/pull/179))
 
 ### Breaking Changes
+
 - return multiple resources as `ReadResourceSequence` (instead of ReadResource[]) with a flag indicating whether there could be more results ([#169](https://github.com/dasch-swiss/knora-api-js-lib/pull/169))
+
+### Compatibility
+
+This release is compatible with knora-api v13.0.0-PR1.
+
+---
+
+## v0.2.0
+
+**Breaking Knora API Changes**
+
+- Breaking change in format of knora-api:lastModificationDate [#47](https://github.com/dasch-swiss/knora-api-js-lib/issues/47)
+
+**Enhancement**
+
+- Missing label in ReadOntology [#139](https://github.com/dasch-swiss/knora-api-js-lib/issues/139)
+
+**Compatibility**
+
+This release is compatible with knora-api [v12.0.0](https://github.com/dasch-swiss/knora-api/releases/tag/v12.0.0)
+
+---
+
+## 0.1.0
+Basic implementation of admin and v2 endpoints.
