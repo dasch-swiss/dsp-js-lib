@@ -2,5 +2,6 @@
   "export { MockOntology } from \"./test/data/api/v2/mockOntology\";\n",
   "export { MockList } from \"./test/data/api/v2/mockList\";\n",
   "export { MockResource } from \"./test/data/api/v2/mock-resource\";\n",
-  "export { MockProjects } from \"./test/data/api/admin/mockProjects\";\n"
+  "export { MockProjects } from \"./test/data/api/admin/mockProjects\";\n",
+  "export { MockUsers } from \"./test/data/api/admin/mockUsers\";\n"
 ]
