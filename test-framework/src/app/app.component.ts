@@ -26,7 +26,10 @@ import {
     UserResponse,
     UsersResponse,
     WriteValueResponse,
-    DeleteResourceResponse
+    DeleteResourceResponse,
+    MockOntology,
+    MockProjects,
+    MockUsers
 } from "@dasch-swiss/dsp-js";
 
 import { map } from "rxjs/operators";
@@ -62,6 +65,7 @@ export class AppComponent implements OnInit {
     this.knoraApiConnection = new KnoraApiConnection(config);
     // console.log(this.knoraApiConnection);
     this.userCache = new UserCache(this.knoraApiConnection);
+
   }
 
   login() {

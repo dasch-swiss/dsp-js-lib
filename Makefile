@@ -63,7 +63,11 @@ generate-test-data: ## downloads generated test data from Knora-API
 
 .PHONY: delete-test-data
 delete-test-data: ## delete static test data before integration
-	rm -rf test/data/api/admin/*
+	rm -rf test/data/api/admin/groups/*
+	rm -rf test/data/api/admin/lists/*
+	rm -rf test/data/api/admin/permissions/*
+	rm -rf test/data/api/admin/projects/*
+	rm -rf test/data/api/admin/users/*
 	rm -rf test/data/api/v2/lists/*
 	rm -rf test/data/api/v2/ontologies/*
 	rm -rf test/data/api/v2/resources/*
@@ -82,6 +86,7 @@ unit-tests: ## runs the unit tests
 .PHONY: e2e-tests
 e2e-tests: ## runs the e2e tests
 	sudo npm install yalc -g
+	npm run prepare-dev-publication
 	npm run yalc-publish
 	cd test-framework && yalc remove --all && yalc add @dasch-swiss/dsp-js && npm install && npm run webdriver-update && npm run e2e && npm run build-app && docker build .
 
