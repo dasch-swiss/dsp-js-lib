@@ -108,15 +108,15 @@ describe('workspace-project App', () => {
 
   });
 
-  it('request the image project ontologies', () => {
+  it('request the dokubib project ontologies', () => {
 
     page.navigateTo();
 
-    const button = page.getEle('div section#ontologyendpoint button.image');
+    const button = page.getEle('div section#ontologyendpoint button.dokubib');
 
     button.click();
 
-    const size = page.getEle('div section#ontologyendpoint span.image');
+    const size = page.getEle('div section#ontologyendpoint span.dokubib');
 
     expect(size.getText()).toEqual('1 ontology');
 

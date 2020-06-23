@@ -30,13 +30,13 @@
 
     <section id="ontologyendpoint">
         <h3>OntologyEndpoint</h3>
-        <button class="anything" (click)="getOntologiesByProjectIri('http://rdfh.ch/projects/0001')">Get anything project ontologies</button>
+        <button class="anything" (click)="getAnythingOntologies()">Get anything project ontologies</button>
         <div>
-            Anything project has<br><span class="anything">{{projectOntologies?.ontologies.length | i18nPlural: itemPluralMapping['ontology']}}</span>
+            Anything project has<br><span class="anything">{{anythingOntologies?.length | i18nPlural: itemPluralMapping['ontology']}}</span>
         </div>        
-        <button class="image" (click)="getOntologiesByProjectIri('http://rdfh.ch/projects/00FF')">Get image project ontologies</button>
+        <button class="dokubib" (click)="getDokubibOntologies()">Get dokubib project ontologies</button>
         <div>
-            Image project has<br><span class="image">{{projectOntologies?.ontologies.length | i18nPlural: itemPluralMapping['ontology']}}</span>
+            Dokubib project has<br><span class="dokubib">{{dokubibOntologies?.length | i18nPlural: itemPluralMapping['ontology']}}</span>
         </div>
     </section>
 

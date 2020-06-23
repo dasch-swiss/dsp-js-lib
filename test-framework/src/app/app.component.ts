@@ -28,10 +28,12 @@ import {
     WriteValueResponse,
     DeleteResourceResponse,
     OntologiesMetadata,
-    ApiResponseError
+    ApiResponseError,
+    OntologyMetadata
 } from "@dasch-swiss/dsp-js";
 
 import { map } from "rxjs/operators";
+import { ReadOntologySequence } from '@dasch-swiss/dsp-js/src/models/v2/ontologies/read-ontology-sequence';
 
 @Component({
   selector: 'app-root',
@@ -45,7 +47,8 @@ export class AppComponent implements OnInit {
   userCache: UserCache;
 
   ontologies: Map<string, ReadOntology>;
-  projectOntologies: OntologiesMetadata;
+  anythingOntologies: OntologyMetadata[];
+  dokubibOntologies: OntologyMetadata[];
 
   resource: ReadResource;
 
@@ -125,17 +128,29 @@ export class AppComponent implements OnInit {
     );
   }
 
-  getOntologiesByProjectIri(iri: string) {
-    this.knoraApiConnection.v2.onto.getOntologiesByProjectIri(iri).subscribe(
-      (response: OntologiesMetadata) => {
-        console.log('project ontologies ', response);
-        this.projectOntologies = response;
+  getAnythingOntologies() {
+    this.knoraApiConnection.v2.onto.getOntologiesByProjectIri('http://rdfh.ch/projects/0001').subscribe(
+      (response: OntologyMetadata[]) => {
+        console.log('anythingOntologies ', response);
+        this.anythingOntologies = response;
       },
       (error: ApiResponseError) => {
         console.error('project ontologies error', error);
       }
     )
   }
+  getDokubibOntologies() {
+    this.knoraApiConnection.v2.onto.getOntologiesByProjectIri('http://rdfh.ch/projects/0804').subscribe(
+      (response: OntologyMetadata[]) => {
+        console.log('dokubibOntologies ', response);
+        this.dokubibOntologies = response;
+      },
+      (error: ApiResponseError) => {
+        console.error('project ontologies error', error);
+      }
+    )
+  }
+
 
   getResourceClass(iri: string) {
 
