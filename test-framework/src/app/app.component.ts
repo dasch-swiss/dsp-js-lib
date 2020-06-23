@@ -27,9 +27,8 @@ import {
     UsersResponse,
     WriteValueResponse,
     DeleteResourceResponse,
-    OntologiesMetadata,
     ApiResponseError,
-    OntologyMetadata
+    OntologyMetadata,
     MockOntology,
     MockProjects,
     MockUsers
