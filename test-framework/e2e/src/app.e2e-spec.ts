@@ -98,13 +98,27 @@ describe('workspace-project App', () => {
 
     page.navigateTo();
 
-    const button = page.getEle('div section#ontologyendpoint button.get');
+    const button = page.getEle('div section#ontologyendpoint button.anything');
 
     button.click();
 
-    const size = page.getEle('div section#ontologyendpoint span.ontology');
+    const size = page.getEle('div section#ontologyendpoint span.anything');
 
     expect(size.getText()).toEqual('3 ontologies');
+
+  });
+
+  it('request the image project ontologies', () => {
+
+    page.navigateTo();
+
+    const button = page.getEle('div section#ontologyendpoint button.image');
+
+    button.click();
+
+    const size = page.getEle('div section#ontologyendpoint span.image');
+
+    expect(size.getText()).toEqual('1 ontology');
 
   });
 
