@@ -2,7 +2,7 @@ import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { ApiResponseError } from "../../../models/api-response-error";
-import { OntologiesMetadata } from "../../../models/v2/ontologies/ontology-metadata";
+import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { OntologyConversionUtil } from "../../../models/v2/ontologies/OntologyConversionUtil";
 import { ReadOntology } from "../../../models/v2/ontologies/read-ontology";
 import { Endpoint } from "../../endpoint";
@@ -63,19 +63,27 @@ export class OntologiesEndpointV2 extends Endpoint {
       *
       * @param projectIri the IRI of the project
       */
-     getOntologiesByProjectIri(projectIri: string): Observable<OntologiesMetadata | ApiResponseError> {
+     getOntologiesByProjectIri(projectIri: string): Observable<OntologyMetadata[] | ApiResponseError> {
 
         return this.httpGet("/metadata/" + encodeURIComponent(projectIri)).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
-                // if not a @graph convert into graph and use as above
-                return this.jsonConvert.deserializeObject(jsonldobj, OntologiesMetadata);
+                // console.log('jsonldobj', jsonldobj)
+                // return OntologyConversionUtil.concatOntologyMetadata(jsonldobj, this.jsonConvert);
+                if (jsonldobj.hasOwnProperty("@graph")) {
+                    return (this.jsonConvert.deserializeObject(jsonldobj, OntologiesMetadata).ontologies as OntologyMetadata[]);
+                } else {
+                    return ([this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata)]  as OntologyMetadata[]);
+                }
             }),
             catchError(error => {
                 return this.handleError(error);
             })
         );
+
     }
 
 }
