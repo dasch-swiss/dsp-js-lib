@@ -6,6 +6,7 @@
 
 - [#203](https://github.com/dasch-swiss/knora-api-js-lib/pull/203) Sync Test Data
 - [#199](https://github.com/dasch-swiss/knora-api-js-lib/pull/199) Mock Ontology Data
+- [#206](https://github.com/dasch-swiss/knora-api-js-lib/pull/206) Mock User Data
 
 ---
 
