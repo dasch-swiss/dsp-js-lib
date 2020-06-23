@@ -69,6 +69,7 @@ export class OntologiesEndpointV2 extends Endpoint {
             mergeMap((ajaxResponse: AjaxResponse) => {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
+                // if not a @graph convert into graph and use as above
                 return this.jsonConvert.deserializeObject(jsonldobj, OntologiesMetadata);
             }),
             catchError(error => {

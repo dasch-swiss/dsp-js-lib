@@ -1,4 +1,6 @@
 import { JsonConvert } from "json2typescript";
+import { forkJoin, Observable, of } from "rxjs";
+import { map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { Constants } from "../Constants";
 import { IHasProperty } from "./class-definition";
@@ -8,6 +10,7 @@ import { ResourceClassDefinition } from "./resource-class-definition";
 import { ResourcePropertyDefinition } from "./resource-property-definition";
 import { StandoffClassDefinition } from "./standoff-class-definition";
 import { SystemPropertyDefinition } from "./system-property-definition";
+import { ReadOntologySequence } from "./read-ontology-sequence";
 
 export namespace OntologyConversionUtil {
 
@@ -219,4 +222,39 @@ export namespace OntologyConversionUtil {
 
     };
 
+    /**
+     * Given a JSON-LD representing zero, one or more ontologies, converts it to an array of ReadOntology.
+     *
+     * JSON-LD is expected to have expanded prefixes (processed by jsonld processor).
+     *
+     * @param ontologiesJsonld a JSON-LD object with expanded prefixes representing zero, one or more ontologies.
+     * @param jsonConvert instance of JsonConvert to be used.
+     */
+    export const createReadOntologySequence = (ontologiesJsonld: object, jsonConvert: JsonConvert, knoraApiConfig: KnoraApiConfig): Observable<ReadOntologySequence> => {
+
+        if (ontologiesJsonld.hasOwnProperty("@graph")) {
+            // sequence of resources
+            return forkJoin((ontologiesJsonld as { [index: string]: object[] })["@graph"]
+                .map((onto: { [index: string]: object[] | string }) => convertOntology(onto, jsonConvert, knoraApiConfig))).pipe(
+                    map((ontologies: ReadOntology[]) => {
+                        return new ReadOntologySequence(ontologies);
+                    })
+            );
+        } else {
+            //  one or no ontology
+            if (Object.keys(ontologiesJsonld).length === 0) {
+                return of(new ReadOntologySequence([]));
+            } else {
+                // return OntologyConversionUtil.convertOntology(jsonldobj, this.jsonConvert, this.knoraApiConfig);
+                return forkJoin([convertOntology(ontologiesJsonld as { [index: string]: object[] | string }, jsonConvert, knoraApiConfig)]).pipe(
+                    map((resources: ReadOntology[]) => {
+                        return new ReadOntologySequence(resources);
+                    })
+                );
+            }
+        }
+    };
 }
+
+
+// 
