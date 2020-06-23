@@ -102,9 +102,9 @@ describe('workspace-project App', () => {
 
     button.click();
 
-    const size = page.getEle('div section#ontologyendpoint span.anything');
+    const result = page.getEle('div section#ontologyendpoint span.anything');
 
-    expect(size.getText()).toEqual('3 ontologies');
+    expect(result.getText()).toEqual('3 ontologies');
 
   });
 
@@ -116,9 +116,9 @@ describe('workspace-project App', () => {
 
     button.click();
 
-    const size = page.getEle('div section#ontologyendpoint span.dokubib');
+    const result = page.getEle('div section#ontologyendpoint span.dokubib');
 
-    expect(size.getText()).toEqual('1 ontology');
+    expect(result.getText()).toEqual('1 ontology');
 
   });
 
