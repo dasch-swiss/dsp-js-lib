@@ -71,8 +71,6 @@ export class OntologiesEndpointV2 extends Endpoint {
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
-                // console.log('jsonldobj', jsonldobj)
-                // return OntologyConversionUtil.concatOntologyMetadata(jsonldobj, this.jsonConvert);
                 if (jsonldobj.hasOwnProperty("@graph")) {
                     return (this.jsonConvert.deserializeObject(jsonldobj, OntologiesMetadata).ontologies as OntologyMetadata[]);
                 } else {

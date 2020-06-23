@@ -35,7 +35,6 @@ import {
 } from "@dasch-swiss/dsp-js";
 
 import { map } from "rxjs/operators";
-import { ReadOntologySequence } from '@dasch-swiss/dsp-js/src/models/v2/ontologies/read-ontology-sequence';
 
 @Component({
   selector: 'app-root',
