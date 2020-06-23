@@ -66,9 +66,6 @@ export class AppComponent implements OnInit {
     // console.log(this.knoraApiConnection);
     this.userCache = new UserCache(this.knoraApiConnection);
 
-    console.log(MockUsers.mockUser());
-    console.log(MockUsers.mockUsers());
-
   }
 
   login() {
