@@ -8,6 +8,7 @@ import { ResourceClassDefinition } from "./resource-class-definition";
 import { ResourcePropertyDefinition } from "./resource-property-definition";
 import { StandoffClassDefinition } from "./standoff-class-definition";
 import { SystemPropertyDefinition } from "./system-property-definition";
+import { OntologiesMetadata, OntologyMetadata } from "./ontology-metadata";
 
 export namespace OntologyConversionUtil {
 
@@ -218,5 +219,18 @@ export namespace OntologyConversionUtil {
         return ontology;
 
     };
+
+    export const convertOntologiesList = (ontologiesJsonld: object, jsonConvert: JsonConvert): OntologiesMetadata => {
+        
+        let ontologies: OntologiesMetadata = new OntologiesMetadata();
+
+        if (ontologiesJsonld.hasOwnProperty("@graph")) {
+            ontologies = jsonConvert.deserializeObject(ontologiesJsonld, OntologiesMetadata);
+        } else {
+            ontologies.ontologies = [jsonConvert.deserializeObject(ontologiesJsonld, OntologyMetadata)];
+        }
+
+        return ontologies;
+    }
 
 }

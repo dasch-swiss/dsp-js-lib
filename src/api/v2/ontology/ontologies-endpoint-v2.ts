@@ -27,7 +27,7 @@ export class OntologiesEndpointV2 extends Endpoint {
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
-                return this.jsonConvert.deserializeObject(jsonldobj, OntologiesMetadata);
+                return OntologyConversionUtil.convertOntologiesList(jsonldobj, this.jsonConvert);
             }),
             catchError(error => {
                 return this.handleError(error);
@@ -72,13 +72,7 @@ export class OntologiesEndpointV2 extends Endpoint {
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
-                if (jsonldobj.hasOwnProperty("@graph")) {
-                    return (this.jsonConvert.deserializeObject(jsonldobj, OntologiesMetadata) as OntologiesMetadata);
-                } else {
-                    const ontos: OntologiesMetadata = new OntologiesMetadata();
-                    ontos.ontologies = [this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata)]
-                    return ontos;
-                }
+                return OntologyConversionUtil.convertOntologiesList(jsonldobj, this.jsonConvert);
             }),
             catchError(error => {
                 return this.handleError(error);
