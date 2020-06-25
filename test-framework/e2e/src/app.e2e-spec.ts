@@ -98,11 +98,11 @@ describe('workspace-project App', () => {
 
     page.navigateTo();
 
-    const button = page.getEle('div section#ontologyendpoint button.anything');
+    const button = page.getEle('div section#ontologymetadata button.anything');
 
     button.click();
 
-    const result = page.getEle('div section#ontologyendpoint span.anything');
+    const result = page.getEle('div section#ontologymetadata span.anything');
 
     expect(result.getText()).toEqual('3 ontologies');
 
@@ -112,11 +112,11 @@ describe('workspace-project App', () => {
 
     page.navigateTo();
 
-    const button = page.getEle('div section#ontologyendpoint button.dokubib');
+    const button = page.getEle('div section#ontologymetadata button.dokubib');
 
     button.click();
 
-    const result = page.getEle('div section#ontologyendpoint span.dokubib');
+    const result = page.getEle('div section#ontologymetadata span.dokubib');
 
     expect(result.getText()).toEqual('1 ontology');
 

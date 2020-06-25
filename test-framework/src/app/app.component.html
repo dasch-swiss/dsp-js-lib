@@ -28,15 +28,15 @@
         </div>
     </section>
 
-    <section id="ontologyendpoint">
-        <h3>OntologyEndpoint</h3>
+    <section id="ontologymetadata">
+        <h3>Project specific ontologies</h3>
         <button class="anything" (click)="getAnythingOntologies()">Get anything project ontologies</button>
         <div>
-            Anything project has<br><span class="anything">{{anythingOntologies?.length | i18nPlural: itemPluralMapping['ontology']}}</span>
+            Anything project has<br><span class="anything">{{anythingOntologies?.ontologies.length | i18nPlural: itemPluralMapping['ontology']}}</span>
         </div>        
         <button class="dokubib" (click)="getDokubibOntologies()">Get dokubib project ontologies</button>
         <div>
-            Dokubib project has<br><span class="dokubib">{{dokubibOntologies?.length | i18nPlural: itemPluralMapping['ontology']}}</span>
+            Dokubib project has<br><span class="dokubib">{{dokubibOntologies?.ontologies.length | i18nPlural: itemPluralMapping['ontology']}}</span>
         </div>
     </section>
 
