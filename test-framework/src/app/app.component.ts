@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import {
     ApiResponseData,
+    ApiResponseError,
     Constants,
     CountQueryResponse,
     CreateBooleanValue,
@@ -14,6 +15,7 @@ import {
     KnoraApiConnection,
     ListNodeV2,
     LoginResponse,
+    OntologiesMetadata,
     ReadOntology,
     ReadResource,
     ReadResourceSequence,
@@ -27,11 +29,10 @@ import {
     UsersResponse,
     WriteValueResponse,
     DeleteResourceResponse,
-    ApiResponseError,
     OntologyMetadata,
     MockOntology,
     MockProjects,
-    MockUsers
+    MockUsers,
 } from "@dasch-swiss/dsp-js";
 
 import { map } from "rxjs/operators";
@@ -48,8 +49,8 @@ export class AppComponent implements OnInit {
   userCache: UserCache;
 
   ontologies: Map<string, ReadOntology>;
-  anythingOntologies: OntologyMetadata[];
-  dokubibOntologies: OntologyMetadata[];
+  anythingOntologies: OntologiesMetadata;
+  dokubibOntologies: OntologiesMetadata;
 
   resource: ReadResource;
 
@@ -132,7 +133,7 @@ export class AppComponent implements OnInit {
 
   getAnythingOntologies() {
     this.knoraApiConnection.v2.onto.getOntologiesByProjectIri('http://rdfh.ch/projects/0001').subscribe(
-      (response: OntologyMetadata[]) => {
+      (response: OntologiesMetadata) => {
         console.log('anythingOntologies ', response);
         this.anythingOntologies = response;
       },
@@ -143,7 +144,7 @@ export class AppComponent implements OnInit {
   }
   getDokubibOntologies() {
     this.knoraApiConnection.v2.onto.getOntologiesByProjectIri('http://rdfh.ch/projects/0804').subscribe(
-      (response: OntologyMetadata[]) => {
+      (response: OntologiesMetadata) => {
         console.log('dokubibOntologies ', response);
         this.dokubibOntologies = response;
       },

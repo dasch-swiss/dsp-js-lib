@@ -62,8 +62,9 @@ export class OntologiesEndpointV2 extends Endpoint {
       * Requests metadata about all ontologies from specific project
       *
       * @param projectIri the IRI of the project
+      * @return OntologiesMetadata or an error 
       */
-     getOntologiesByProjectIri(projectIri: string): Observable<OntologyMetadata[] | ApiResponseError> {
+     getOntologiesByProjectIri(projectIri: string): Observable<OntologiesMetadata | ApiResponseError> {
 
         return this.httpGet("/metadata/" + encodeURIComponent(projectIri)).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
@@ -72,9 +73,11 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 if (jsonldobj.hasOwnProperty("@graph")) {
-                    return (this.jsonConvert.deserializeObject(jsonldobj, OntologiesMetadata).ontologies as OntologyMetadata[]);
+                    return (this.jsonConvert.deserializeObject(jsonldobj, OntologiesMetadata) as OntologiesMetadata);
                 } else {
-                    return ([this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata)]  as OntologyMetadata[]);
+                    const ontos: OntologiesMetadata = new OntologiesMetadata();
+                    ontos.ontologies = [this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata)]
+                    return ontos;
                 }
             }),
             catchError(error => {
