@@ -33,6 +33,7 @@ import {
     MockOntology,
     MockProjects,
     MockUsers,
+    CreateOntology,
 } from "@dasch-swiss/dsp-js";
 
 import { map } from "rxjs/operators";
@@ -51,6 +52,7 @@ export class AppComponent implements OnInit {
   ontologies: Map<string, ReadOntology>;
   anythingOntologies: OntologiesMetadata;
   dokubibOntologies: OntologiesMetadata;
+  ontology: OntologyMetadata;
 
   resource: ReadResource;
 
@@ -154,6 +156,18 @@ export class AppComponent implements OnInit {
     )
   }
 
+  createOntology() {
+    const createOntology = new CreateOntology();
+    createOntology.label = 'Second Test Ontology';
+    createOntology.name = 'CapitalTestOnto';
+    createOntology.attachedToProject = 'http://rdfh.ch/projects/0001';
+    this.knoraApiConnection.v2.onto.createOntology(createOntology).subscribe(
+      (onto: OntologyMetadata) => {
+        this.ontology = onto;
+        console.log('new ontology created', this.ontology);
+      }
+  );
+  }
 
   getResourceClass(iri: string) {
 

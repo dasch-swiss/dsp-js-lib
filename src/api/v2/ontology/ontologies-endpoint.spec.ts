@@ -7,7 +7,7 @@ import { ResourceClassDefinition } from "../../../models/v2/ontologies/resource-
 import { ResourcePropertyDefinition } from "../../../models/v2/ontologies/resource-property-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
 
-describe("OntologiesEndpoint", () => {
+fdescribe("OntologiesEndpoint", () => {
 
     const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, undefined, true);
     const knoraApiConnection = new KnoraApiConnection(config);

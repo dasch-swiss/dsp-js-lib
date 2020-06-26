@@ -55,11 +55,11 @@ describe('workspace-project App', () => {
 
     page.navigateTo();
 
-    const button = page.getEle('div section#ontology button.knora-api');
+    const button = page.getEle('div section#ontologycache button.knora-api');
 
     button.click();
 
-    const size = page.getEle('div section#ontology span.ontology');
+    const size = page.getEle('div section#ontologycache span.ontology');
 
     expect(size.getText()).toEqual('1');
 
@@ -69,11 +69,11 @@ describe('workspace-project App', () => {
 
     page.navigateTo();
 
-    const button = page.getEle('div section#ontology button.anything');
+    const button = page.getEle('div section#ontologycache button.anything');
 
     button.click();
 
-    const size = page.getEle('div section#ontology span.ontology');
+    const size = page.getEle('div section#ontologycache span.ontology');
 
     expect(size.getText()).toEqual('2');
 
@@ -83,11 +83,11 @@ describe('workspace-project App', () => {
 
     page.navigateTo();
 
-    const button = page.getEle('div section#ontology button.something');
+    const button = page.getEle('div section#ontologycache button.something');
 
     button.click();
 
-    const size = page.getEle('div section#ontology span.ontology');
+    const size = page.getEle('div section#ontologycache span.ontology');
 
     expect(size.getText()).toEqual('3');
 
