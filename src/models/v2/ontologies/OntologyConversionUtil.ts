@@ -8,6 +8,7 @@ import { ResourceClassDefinition } from "./resource-class-definition";
 import { ResourcePropertyDefinition } from "./resource-property-definition";
 import { StandoffClassDefinition } from "./standoff-class-definition";
 import { SystemPropertyDefinition } from "./system-property-definition";
+import { OntologiesMetadata, OntologyMetadata } from "./ontology-metadata";
 
 export namespace OntologyConversionUtil {
 
@@ -217,6 +218,24 @@ export namespace OntologyConversionUtil {
 
         return ontology;
 
+    };
+
+    /**
+     * Converts a list of ontolgies or a single ontology serialized as JSON-LD to an instance of `OntologiesMetadata`
+     * 
+     * @param ontologiesJsonld 
+     * @param jsonConvert 
+     */
+    export const convertOntologiesList = (ontologiesJsonld: object, jsonConvert: JsonConvert): OntologiesMetadata => {
+        
+        
+        if (ontologiesJsonld.hasOwnProperty("@graph")) {
+            return jsonConvert.deserializeObject(ontologiesJsonld, OntologiesMetadata);
+        } else {
+            const ontologies: OntologiesMetadata = new OntologiesMetadata();
+            ontologies.ontologies = [jsonConvert.deserializeObject(ontologiesJsonld, OntologyMetadata)];
+            return ontologies;
+        }
     };
 
 }

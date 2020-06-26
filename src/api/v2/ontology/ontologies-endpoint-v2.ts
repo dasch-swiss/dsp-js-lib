@@ -2,7 +2,7 @@ import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { ApiResponseError } from "../../../models/api-response-error";
-import { OntologiesMetadata } from "../../../models/v2/ontologies/ontology-metadata";
+import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { OntologyConversionUtil } from "../../../models/v2/ontologies/OntologyConversionUtil";
 import { ReadOntology } from "../../../models/v2/ontologies/read-ontology";
 import { Endpoint } from "../../endpoint";
@@ -27,7 +27,7 @@ export class OntologiesEndpointV2 extends Endpoint {
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
-                return this.jsonConvert.deserializeObject(jsonldobj, OntologiesMetadata);
+                return OntologyConversionUtil.convertOntologiesList(jsonldobj, this.jsonConvert);
             }),
             catchError(error => {
                 return this.handleError(error);
@@ -56,6 +56,29 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return this.handleError(error);
             })
         );
+    }
+
+    /**
+      * Requests metadata about all ontologies from a specific project
+      *
+      * @param projectIri the IRI of the project
+      * @return OntologiesMetadata or an error 
+      */
+     getOntologiesByProjectIri(projectIri: string): Observable<OntologiesMetadata | ApiResponseError> {
+
+        return this.httpGet("/metadata/" + encodeURIComponent(projectIri)).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return OntologyConversionUtil.convertOntologiesList(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
     }
 
 }

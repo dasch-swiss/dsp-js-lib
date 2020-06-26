@@ -93,6 +93,35 @@ describe('workspace-project App', () => {
 
   });
 
+
+  it('request the anything project ontologies', () => {
+
+    page.navigateTo();
+
+    const button = page.getEle('div section#ontologymetadata button.anything');
+
+    button.click();
+
+    const result = page.getEle('div section#ontologymetadata span.anything');
+
+    expect(result.getText()).toEqual('3 ontologies');
+
+  });
+
+  it('request the dokubib project ontologies', () => {
+
+    page.navigateTo();
+
+    const button = page.getEle('div section#ontologymetadata button.dokubib');
+
+    button.click();
+
+    const result = page.getEle('div section#ontologymetadata span.dokubib');
+
+    expect(result.getText()).toEqual('1 ontology');
+
+  });
+
   it('request a resource', () => {
 
     page.navigateTo();
