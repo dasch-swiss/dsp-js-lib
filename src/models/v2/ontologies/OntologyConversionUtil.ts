@@ -236,7 +236,6 @@ export namespace OntologyConversionUtil {
             ontologies.ontologies = [jsonConvert.deserializeObject(ontologiesJsonld, OntologyMetadata)];
             return ontologies;
         }
-
-    }
+    };
 
 }
