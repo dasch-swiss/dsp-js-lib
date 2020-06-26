@@ -220,17 +220,23 @@ export namespace OntologyConversionUtil {
 
     };
 
+    /**
+     * Converts a list of ontolgies or a single ontology serialized as JSON-LD to an instance of `OntologiesMetadata`
+     * 
+     * @param ontologiesJsonld 
+     * @param jsonConvert 
+     */
     export const convertOntologiesList = (ontologiesJsonld: object, jsonConvert: JsonConvert): OntologiesMetadata => {
         
-        let ontologies: OntologiesMetadata = new OntologiesMetadata();
-
+        
         if (ontologiesJsonld.hasOwnProperty("@graph")) {
-            ontologies = jsonConvert.deserializeObject(ontologiesJsonld, OntologiesMetadata);
+            return jsonConvert.deserializeObject(ontologiesJsonld, OntologiesMetadata);
         } else {
+            const ontologies: OntologiesMetadata = new OntologiesMetadata();
             ontologies.ontologies = [jsonConvert.deserializeObject(ontologiesJsonld, OntologyMetadata)];
+            return ontologies;
         }
 
-        return ontologies;
     }
 
 }

@@ -59,7 +59,7 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
-      * Requests metadata about all ontologies from specific project
+      * Requests metadata about all ontologies from a specific project
       *
       * @param projectIri the IRI of the project
       * @return OntologiesMetadata or an error 
