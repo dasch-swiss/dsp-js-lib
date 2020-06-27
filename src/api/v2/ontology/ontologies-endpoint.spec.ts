@@ -6,6 +6,7 @@ import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
 import { ResourceClassDefinition } from "../../../models/v2/ontologies/resource-class-definition";
 import { ResourcePropertyDefinition } from "../../../models/v2/ontologies/resource-property-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
+import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
 
 fdescribe("OntologiesEndpoint", () => {
 
@@ -218,10 +219,37 @@ fdescribe("OntologiesEndpoint", () => {
 
     });
 
-    // describe("Create and delete ontology", () => {
-    //     it("should create a new ontology")
+    fdescribe("Create and delete ontology", () => {
+        it("should create a new ontology", done => {
 
-    // });
+            const createOntologyResponse = require("../../../../test/data/api/v2/ontologies/create-empty-foo-ontology-response.json");
+
+            const newOntology: CreateOntology = new CreateOntology();
+            newOntology.attachedToProject = "http://rdfh.ch/projects/00FF";
+            newOntology.label = "The foo ontology";
+            newOntology.name = "foo";
+
+            knoraApiConnection.v2.onto.createOntology(newOntology).subscribe(
+                (response: OntologyMetadata) => {
+                    expect(response.id).toBe("http://0.0.0.0:3333/ontology/00FF/foo/v2");
+                    done();
+                }
+            )
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createOntologyResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies");
+
+            expect(request.method).toEqual("POST");
+
+            const expectedPayload = require("../../../../test/data/api/v2/ontologies/create-empty-foo-ontology-request-expanded.json");
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
+    });
 
 
 });
