@@ -101,10 +101,10 @@ describe('workspace-project App', () => {
 
     button.click();
 
-    setTimeout(() => {
-      const result = page.getEle('div section#ontologymetadata span.anything');
-      expect(result.getText()).toEqual('3 ontologies');
-    }, 1500);
+
+    const result = page.getEle('div section#ontologymetadata span.anything');
+    expect(result.getText()).toEqual('3 ontologies');
+
 
   });
 
@@ -116,15 +116,19 @@ describe('workspace-project App', () => {
 
     button.click();
 
-    setTimeout(() => {
-      const result = page.getEle('div section#ontologymetadata span.dokubib');
-      expect(result.getText()).toEqual('1 ontology');
-    }, 1500);
-
+    const result = page.getEle('div section#ontologymetadata span.dokubib');
+    expect(result.getText()).toEqual('1 ontology');
 
   });
 
   it('create new "testonto" ontology in anything project', () => {
+    const loginButton = page.getEle('div section#login button.login');
+
+    loginButton.click();
+
+    const loginStatus = page.getEle('div section#login span.status');
+
+    expect(loginStatus.getText()).toEqual('logged in');
 
     page.navigateTo();
 
@@ -134,19 +138,26 @@ describe('workspace-project App', () => {
 
     const result = page.getEle('div section#ontology span.label');
     console.log('CREATE', result);
-    
+
     expect(result.getText()).toEqual('Test Ontology');
-    
+
   });
-  
+
   it('delete "testonto" ontology', () => {
-    
+    const loginButton = page.getEle('div section#login button.login');
+
+    loginButton.click();
+
+    const loginStatus = page.getEle('div section#login span.status');
+
+    expect(loginStatus.getText()).toEqual('logged in');
+
     page.navigateTo();
-    
+
     const button = page.getEle('div section#ontology button.delete');
-    
+
     button.click();
-    
+
     const result = page.getEle('div section#ontology div.response');
     console.log('DELETE', result);
 
