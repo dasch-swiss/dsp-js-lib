@@ -124,7 +124,7 @@ export class OntologiesEndpointV2 extends Endpoint {
 
 
         // HTTP DELETE to http://host/v2/ontologies/ONTOLOGY_IRI?lastModificationDate=ONTOLOGY_LAST_MODIFICATION_DATE
-        const path = "/" + ontology.id + "?lastModificationDate=" + ontology.lastModificationDateDate;
+        const path = "/" + encodeURIComponent(ontology.id) + "?lastModificationDate=" + ontology.lastModificationDateDate;
 
         return this.httpDelete(path).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
