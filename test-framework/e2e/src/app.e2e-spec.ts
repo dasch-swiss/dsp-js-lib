@@ -121,50 +121,6 @@ describe('workspace-project App', () => {
 
   });
 
-  it('create new "testonto" ontology in anything project', () => {
-    const loginButton = page.getEle('div section#login button.login');
-
-    loginButton.click();
-
-    const loginStatus = page.getEle('div section#login span.status');
-
-    expect(loginStatus.getText()).toEqual('logged in');
-
-    page.navigateTo();
-
-    const button = page.getEle('div section#ontology button.create');
-
-    button.click();
-
-    const result = page.getEle('div section#ontology span.label');
-    console.log('CREATE', result);
-
-    expect(result.getText()).toEqual('Test Ontology');
-
-  });
-
-  it('delete "testonto" ontology', () => {
-    const loginButton = page.getEle('div section#login button.login');
-
-    loginButton.click();
-
-    const loginStatus = page.getEle('div section#login span.status');
-
-    expect(loginStatus.getText()).toEqual('logged in');
-
-    page.navigateTo();
-
-    const button = page.getEle('div section#ontology button.delete');
-
-    button.click();
-
-    const result = page.getEle('div section#ontology div.response');
-    console.log('DELETE', result);
-
-    expect(result.getText()).toEqual('Ontology http://0.0.0.0:3333/ontology/0001/testonto/v2 has been deleted');
-
-  });
-
   it('request a resource', () => {
 
     page.navigateTo();
