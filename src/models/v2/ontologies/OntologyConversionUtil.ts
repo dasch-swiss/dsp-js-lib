@@ -3,7 +3,7 @@ import { KnoraApiConfig } from "../../../knora-api-config";
 import { Constants } from "../Constants";
 import { IHasProperty } from "./class-definition";
 import { EntityDefinition } from "./EntityDefinition";
-import { ReadOntology } from "./read-ontology";
+import { ReadOntology } from "./read/read-ontology";
 import { ResourceClassDefinition } from "./resource-class-definition";
 import { ResourcePropertyDefinition } from "./resource-property-definition";
 import { StandoffClassDefinition } from "./standoff-class-definition";
