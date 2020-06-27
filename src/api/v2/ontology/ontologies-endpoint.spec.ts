@@ -1,7 +1,7 @@
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
-import { OntologiesMetadata } from "../../../models/v2/ontologies/ontology-metadata";
+import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { ReadOntology } from "../../../models/v2/ontologies/read-ontology";
 import { ResourceClassDefinition } from "../../../models/v2/ontologies/resource-class-definition";
 import { ResourcePropertyDefinition } from "../../../models/v2/ontologies/resource-property-definition";
@@ -167,5 +167,56 @@ describe("OntologiesEndpoint", () => {
         });
 
     });
+
+    describe("Method getOntologiesByProjectIri", () => {
+
+        it("should return all ontologies from 'anything' project", done => {
+
+            knoraApiConnection.v2.onto.getOntologiesByProjectIri("http://rdfh.ch/projects/0001").subscribe(
+                (response: OntologiesMetadata) => {
+                    expect(response.ontologies.length).toEqual(3);
+                    expect(response.ontologies[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
+                    expect(response.ontologies[1].id).toEqual("http://0.0.0.0:3333/ontology/0001/minimal/v2");
+                    expect(response.ontologies[2].id).toEqual("http://0.0.0.0:3333/ontology/0001/something/v2");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const ontoMetadata = require("../../../../test/data/api/v2/ontologies/get-ontologies-project-anything-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(ontoMetadata)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/metadata/http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should return all ontologies from 'incunabula' project", done => {
+
+            knoraApiConnection.v2.onto.getOntologiesByProjectIri("http://rdfh.ch/projects/0803").subscribe(
+                (response: OntologiesMetadata) => {
+                    expect(response.ontologies.length).toEqual(1);
+                    expect(response.ontologies[0].id).toEqual("http://0.0.0.0:3333/ontology/0803/incunabula/v2");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const ontoMetadata = require("../../../../test/data/api/v2/ontologies/get-ontologies-project-incunabula-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(ontoMetadata)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/metadata/http%3A%2F%2Frdfh.ch%2Fprojects%2F0803");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
 
 });

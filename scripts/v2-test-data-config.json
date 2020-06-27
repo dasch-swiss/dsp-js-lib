@@ -21,6 +21,14 @@
       "destination": "./test/data/api/v2/ontologies/incunabula-ontology.json"
     },
     {
+      "source": "/v2/ontologies/get-ontologies-project-anything-response.json",
+      "destination": "./test/data/api/v2/ontologies/get-ontologies-project-anything-response.json"
+    },
+    {
+      "source": "/v2/ontologies/get-ontologies-project-incunabula-response.json",
+      "destination": "./test/data/api/v2/ontologies/get-ontologies-project-incunabula-response.json"
+    },
+    {
       "source": "/v2/resources/testding.json",
       "destination": "./test/data/api/v2/resources/testding.json"
     },

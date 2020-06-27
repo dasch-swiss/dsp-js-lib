@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import {
     ApiResponseData,
+    ApiResponseError,
     Constants,
     CountQueryResponse,
     CreateBooleanValue,
@@ -14,6 +15,7 @@ import {
     KnoraApiConnection,
     ListNodeV2,
     LoginResponse,
+    OntologiesMetadata,
     ReadOntology,
     ReadResource,
     ReadResourceSequence,
@@ -27,9 +29,10 @@ import {
     UsersResponse,
     WriteValueResponse,
     DeleteResourceResponse,
+    OntologyMetadata,
     MockOntology,
     MockProjects,
-    MockUsers
+    MockUsers,
 } from "@dasch-swiss/dsp-js";
 
 import { map } from "rxjs/operators";
@@ -46,6 +49,8 @@ export class AppComponent implements OnInit {
   userCache: UserCache;
 
   ontologies: Map<string, ReadOntology>;
+  anythingOntologies: OntologiesMetadata;
+  dokubibOntologies: OntologiesMetadata;
 
   resource: ReadResource;
 
@@ -59,6 +64,13 @@ export class AppComponent implements OnInit {
   valueStatus = '';
 
   resourceStatus = '';
+
+  itemPluralMapping = {
+    ontology: {
+      '=1': '1 ontology',
+      other: '# ontologies'
+    }
+  };
 
   ngOnInit() {
     const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
@@ -118,6 +130,30 @@ export class AppComponent implements OnInit {
         }
     );
   }
+
+  getAnythingOntologies() {
+    this.knoraApiConnection.v2.onto.getOntologiesByProjectIri('http://rdfh.ch/projects/0001').subscribe(
+      (response: OntologiesMetadata) => {
+        console.log('anythingOntologies ', response);
+        this.anythingOntologies = response;
+      },
+      (error: ApiResponseError) => {
+        console.error('project ontologies error', error);
+      }
+    )
+  }
+  getDokubibOntologies() {
+    this.knoraApiConnection.v2.onto.getOntologiesByProjectIri('http://rdfh.ch/projects/0804').subscribe(
+      (response: OntologiesMetadata) => {
+        console.log('dokubibOntologies ', response);
+        this.dokubibOntologies = response;
+      },
+      (error: ApiResponseError) => {
+        console.error('project ontologies error', error);
+      }
+    )
+  }
+
 
   getResourceClass(iri: string) {
 

@@ -6,9 +6,6 @@
 /docs
 .DS_Store
 
-# Do not add package-lock.json of the test app to git because it could lead to problems when some dependency version change in the lib and is not adapted here.
-test-framework/package-lock.json
-
 ############################
 # PhpStorm/WebStorm ignore #
 ############################
@@ -37,7 +34,10 @@ test-framework/package-lock.json
 .idea/**/dbnavigator.xml
 ############################
 
-/test-framework/node_modules
-/test-framework/.yalc
-/test-framework/dist
+# Do not add package-lock.json of the test app to git because it could lead to problems when some dependency version change in the lib and is not adapted here.
+test-framework/package-lock.json
+test-framework/yalc.lock
+test-framework/dist
+test-framework/node_modules
+test-framework/.yalc
 /.tmp
