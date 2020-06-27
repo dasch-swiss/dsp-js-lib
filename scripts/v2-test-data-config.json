@@ -29,6 +29,10 @@
       "destination": "./test/data/api/v2/ontologies/get-ontologies-project-incunabula-response.json"
     },
     {
+      "source": "/v2/ontologies/create-empty-foo-ontology-request.json",
+      "destination": "./test/data/api/v2/ontologies/create-empty-foo-ontology-request.json"
+    },
+    {
       "source": "/v2/resources/testding.json",
       "destination": "./test/data/api/v2/resources/testding.json"
     },
