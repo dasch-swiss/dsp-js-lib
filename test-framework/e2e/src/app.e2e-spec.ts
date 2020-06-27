@@ -93,7 +93,6 @@ describe('workspace-project App', () => {
 
   });
 
-
   it('request the anything project ontologies', () => {
 
     page.navigateTo();
@@ -119,6 +118,34 @@ describe('workspace-project App', () => {
     const result = page.getEle('div section#ontologymetadata span.dokubib');
 
     expect(result.getText()).toEqual('1 ontology');
+
+  });
+
+  it('create new "testonto" ontology in anything project', () => {
+
+    page.navigateTo();
+
+    const button = page.getEle('div section#ontology button.create');
+
+    button.click();
+
+    const result = page.getEle('div section#ontology span.label');
+
+    expect(result.getText()).toEqual('Test Ontology');
+
+  });
+
+  it('delete "testonto" ontology', () => {
+
+    page.navigateTo();
+
+    const button = page.getEle('div section#ontology button.delete');
+
+    button.click();
+
+    const result = page.getEle('div section#ontology div.response');
+
+    expect(result.getText()).toEqual('Ontology http://0.0.0.0:3333/ontology/0001/testonto/v2 has been deleted');
 
   });
 
