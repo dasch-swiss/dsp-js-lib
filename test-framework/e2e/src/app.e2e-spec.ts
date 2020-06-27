@@ -101,9 +101,10 @@ describe('workspace-project App', () => {
 
     button.click();
 
-    const result = page.getEle('div section#ontologymetadata span.anything');
-
-    expect(result.getText()).toEqual('3 ontologies');
+    setTimeout(() => {
+      const result = page.getEle('div section#ontologymetadata span.anything');
+      expect(result.getText()).toEqual('3 ontologies');
+    }, 1500);
 
   });
 
@@ -115,9 +116,11 @@ describe('workspace-project App', () => {
 
     button.click();
 
-    const result = page.getEle('div section#ontologymetadata span.dokubib');
+    setTimeout(() => {
+      const result = page.getEle('div section#ontologymetadata span.dokubib');
+      expect(result.getText()).toEqual('1 ontology');
+    }, 1500);
 
-    expect(result.getText()).toEqual('1 ontology');
 
   });
 
@@ -130,20 +133,22 @@ describe('workspace-project App', () => {
     button.click();
 
     const result = page.getEle('div section#ontology span.label');
-
+    console.log('CREATE', result);
+    
     expect(result.getText()).toEqual('Test Ontology');
-
+    
   });
-
+  
   it('delete "testonto" ontology', () => {
-
+    
     page.navigateTo();
-
+    
     const button = page.getEle('div section#ontology button.delete');
-
+    
     button.click();
-
+    
     const result = page.getEle('div section#ontology div.response');
+    console.log('DELETE', result);
 
     expect(result.getText()).toEqual('Ontology http://0.0.0.0:3333/ontology/0001/testonto/v2 has been deleted');
 

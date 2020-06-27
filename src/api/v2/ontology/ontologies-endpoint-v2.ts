@@ -93,8 +93,6 @@ export class OntologiesEndpointV2 extends Endpoint {
 
         const onto = this.jsonConvert.serializeObject(ontology);
 
-        console.log(onto);
-
         return this.httpPost("", onto).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
@@ -102,7 +100,6 @@ export class OntologiesEndpointV2 extends Endpoint {
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
-                // console.log(JSON.stringify(jsonldobj));
                 // return OntologyConversionUtil.convertOntologiesList(jsonldobj, this.jsonConvert);
                 return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
             }),

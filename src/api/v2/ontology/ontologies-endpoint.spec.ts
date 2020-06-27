@@ -218,5 +218,10 @@ fdescribe("OntologiesEndpoint", () => {
 
     });
 
+    // describe("Create and delete ontology", () => {
+    //     it("should create a new ontology")
+
+    // });
+
 
 });

@@ -180,7 +180,7 @@ export class AppComponent implements OnInit {
     deleteOntology.lastModificationDateDate = this.ontology.lastModificationDate;
     this.knoraApiConnection.v2.onto.deleteOntology(deleteOntology).subscribe(
       (response: DeleteOntologyResponse) => {
-        console.log(response);
+        console.log('ontology deleted', response);
         this.message = response.result;
       }
     )
