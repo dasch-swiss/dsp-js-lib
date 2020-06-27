@@ -2,7 +2,7 @@ import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
-import { ReadOntology } from "../../../models/v2/ontologies/read-ontology";
+import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
 import { ResourceClassDefinition } from "../../../models/v2/ontologies/resource-class-definition";
 import { ResourcePropertyDefinition } from "../../../models/v2/ontologies/resource-property-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";

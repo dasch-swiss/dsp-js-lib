@@ -4,7 +4,7 @@ import { catchError, map, mergeMap } from "rxjs/operators";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { OntologyConversionUtil } from "../../../models/v2/ontologies/OntologyConversionUtil";
-import { ReadOntology } from "../../../models/v2/ontologies/read-ontology";
+import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
 import { Endpoint } from "../../endpoint";
 
