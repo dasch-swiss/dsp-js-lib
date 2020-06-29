@@ -1,0 +1,11 @@
+{
+    "projectIri": "http://rdfh.ch/projects/3333",
+    "shortname": "newprojectWithIri",
+    "shortcode": "3333",
+    "longname": "new project with a custom IRI",
+    "description": [{"value": "a project created with a custom IRI", "language": "en"}],
+    "keywords": ["projectIRI"],
+    "logo": "/fu/bar/baz.jpg",
+    "status": true,
+    "selfjoin": false
+}
