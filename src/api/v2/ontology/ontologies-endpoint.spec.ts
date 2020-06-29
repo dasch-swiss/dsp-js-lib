@@ -8,7 +8,7 @@ import { ResourcePropertyDefinition } from "../../../models/v2/ontologies/resour
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
 
-fdescribe("OntologiesEndpoint", () => {
+describe("OntologiesEndpoint", () => {
 
     const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, undefined, true);
     const knoraApiConnection = new KnoraApiConnection(config);
@@ -219,7 +219,7 @@ fdescribe("OntologiesEndpoint", () => {
 
     });
 
-    fdescribe("Create and delete ontology", () => {
+    describe("Create and delete ontology", () => {
         it("should create a new ontology", done => {
 
             const createOntologyResponse = require("../../../../test/data/api/v2/ontologies/create-empty-foo-ontology-response.json");
