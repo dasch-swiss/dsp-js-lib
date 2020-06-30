@@ -12,7 +12,7 @@ export class DeleteResource {
     type: string = "";
 
     @JsonProperty(Constants.LastModificationDate, DateTimeStampConverter, true)
-    lastModificationDateDate?: string = undefined;
+    lastModificationDate?: string = undefined;
 
     @JsonProperty(Constants.DeleteComment, String, true)
     deleteComment?: string = undefined;

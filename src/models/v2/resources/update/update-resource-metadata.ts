@@ -12,7 +12,7 @@ export class UpdateResourceMetadata {
     type: string = "";
 
     @JsonProperty(Constants.LastModificationDate, DateTimeStampConverter, true)
-    lastModificationDateDate?: string = undefined;
+    lastModificationDate?: string = undefined;
 
     @JsonProperty(Constants.Label, String, true)
     label?: string = undefined;
@@ -21,6 +21,6 @@ export class UpdateResourceMetadata {
     hasPermissions?: string = undefined;
 
     @JsonProperty(Constants.NewModificationDate, DateTimeStampConverter, true)
-    newModificationDateDate?: string = undefined;
+    newModificationDate?: string = undefined;
 
 }

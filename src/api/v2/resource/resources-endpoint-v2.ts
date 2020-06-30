@@ -126,9 +126,9 @@ export class ResourcesEndpointV2 extends Endpoint {
      */
     updateResourceMetadata(resourceMetadata: UpdateResourceMetadata): Observable<UpdateResourceMetadataResponse | ApiResponseError> {
 
-        // check that at least one of the following properties is updated: label, hasPermissions, newModificationDateDate
-        if (resourceMetadata.label === undefined && resourceMetadata.hasPermissions === undefined && resourceMetadata.newModificationDateDate === undefined) {
-            throw new Error("At least one of the following properties has to be updated: label, hasPermissions, newModificationDateDate");
+        // check that at least one of the following properties is updated: label, hasPermissions, newModificationDate
+        if (resourceMetadata.label === undefined && resourceMetadata.hasPermissions === undefined && resourceMetadata.newModificationDate === undefined) {
+            throw new Error("At least one of the following properties has to be updated: label, hasPermissions, newModificationDate");
         }
 
         const res = this.jsonConvert.serializeObject(resourceMetadata);
