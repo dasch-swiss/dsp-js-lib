@@ -101,10 +101,8 @@ describe('workspace-project App', () => {
 
     button.click();
 
-
     const result = page.getEle('div section#ontologymetadata span.anything');
     expect(result.getText()).toEqual('3 ontologies');
-
 
   });
 
@@ -120,6 +118,63 @@ describe('workspace-project App', () => {
     expect(result.getText()).toEqual('1 ontology');
 
   });
+
+  it('create new "testonto" ontology in anything project', () => {
+    const loginButton = page.getEle('div section#login button.login');
+
+    loginButton.click();
+
+    const loginStatus = page.getEle('div section#login span.status');
+
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    page.navigateTo();
+
+    const button = page.getEle('div section#ontologyeditor button.create');
+
+    button.click();
+
+    const label = page.getEle('div section#ontologyeditor span.label');
+    console.log('Created: ', label.getText());
+
+    expect(label.getText()).toEqual('Test Ontology');
+
+  });
+
+  it('get "testonto" ontology', () => {
+    page.navigateTo();
+
+    const getButton = page.getEle('div section#ontologyeditor button.read');
+    getButton.click();
+
+    const label = page.getEle('div section#ontologyeditor span.read-label');
+    console.log('Read: ', label.getText());
+
+    expect(label.getText()).toEqual('Test Ontology');
+
+  });
+
+  // it('delete "testonto" ontology', () => {
+  //   const loginButton = page.getEle('div section#login button.login');
+
+  //   loginButton.click();
+
+  //   const loginStatus = page.getEle('div section#login span.status');
+
+  //   expect(loginStatus.getText()).toEqual('logged in');
+
+  //   page.navigateTo();
+
+  //   const button = page.getEle('div section#ontologyeditor button.delete');
+
+  //   button.click();
+
+  //   const msg = page.getEle('div section#ontologyeditor span.status');
+  //   console.log('Deleted: ', msg.getText());
+
+  //   expect(msg.getText()).toEqual('Ontology http://0.0.0.0:3333/ontology/0001/testonto/v2 has been deleted');
+
+  // });
 
   it('request a resource', () => {
 

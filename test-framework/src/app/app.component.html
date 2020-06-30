@@ -40,12 +40,15 @@
         </div>
     </section>
 
-    <section id="ontology">
+    <section id="ontologyeditor">
         <h3>Ontology</h3>
+        <button class="read" (click)="getTestOnto('http://0.0.0.0:3333/ontology/0001/testonto/v2')">Get testonto</button> <br /><br />
+        <div>The ontology's label: <span class="read-label">{{ontology?.label}}</span> </div> <br />
+        <button class="readCache" (click)="getOntology('http://0.0.0.0:3333/ontology/0001/testonto/v2')">Get testonto from cache</button> <br /><br />
         <button class="create" (click)="createOntology()">Create testonto</button> <br /><br />
-        <div>The ontology's label: <span class="label">{{ontology?.label}}</span> </div> <br/>
+        <div>The ontology's label: <span class="label">{{ontologyMeta?.label}}</span> </div> <br />
         <button class="delete" (click)="deleteOntology()">Delete testonto</button>
-        <div class="response">{{message}}</div> <br/>
+        <div>Status: <span class="status">{{message}}</span></div> <br />
     </section>
 
     <section id="resource">

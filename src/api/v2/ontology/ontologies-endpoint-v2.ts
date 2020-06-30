@@ -117,11 +117,8 @@ export class OntologiesEndpointV2 extends Endpoint {
      */
     deleteOntology(ontology: DeleteOntology): Observable<DeleteOntologyResponse | ApiResponseError> {
 
-        // const onto = this.jsonConvert.serializeObject(ontology);
-
-
         // HTTP DELETE to http://host/v2/ontologies/ONTOLOGY_IRI?lastModificationDate=ONTOLOGY_LAST_MODIFICATION_DATE
-        const path = "/" + encodeURIComponent(ontology.id) + "?lastModificationDate=" + ontology.lastModificationDateDate;
+        const path = "/" + encodeURIComponent(ontology.id) + "?lastModificationDate=" + ontology.lastModificationDate;
 
         return this.httpDelete(path).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {

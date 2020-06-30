@@ -54,7 +54,8 @@ export class AppComponent implements OnInit {
   ontologies: Map<string, ReadOntology>;
   anythingOntologies: OntologiesMetadata;
   dokubibOntologies: OntologiesMetadata;
-  ontology: OntologyMetadata;
+  ontologyMeta: OntologyMetadata;
+  ontology: ReadOntology;
 
   // reusable response message
   message: string;
@@ -168,20 +169,30 @@ export class AppComponent implements OnInit {
     createOntology.attachedToProject = 'http://rdfh.ch/projects/0001';
     this.knoraApiConnection.v2.onto.createOntology(createOntology).subscribe(
       (onto: OntologyMetadata) => {
-        this.ontology = onto;
-        console.log('new ontology created', this.ontology);
+        this.ontologyMeta = onto;
+        console.log('new ontology created', onto);
       }
     );
   }
 
+  getTestOnto(iri: string) {
+    this.knoraApiConnection.v2.onto.getOntology(iri).subscribe(
+      (onto: ReadOntology) => {
+        this.ontology = onto;
+        console.log('get testonto ', onto);
+      }
+    )
+  }
+
   deleteOntology() {
+    // 2020-06-30T08:52:10.532394Z
     const deleteOntology = new DeleteOntology();
     deleteOntology.id = this.ontology.id;
-    deleteOntology.lastModificationDateDate = this.ontology.lastModificationDate;
+    deleteOntology.lastModificationDate = this.ontology.lastModificationDate;
     this.knoraApiConnection.v2.onto.deleteOntology(deleteOntology).subscribe(
       (response: DeleteOntologyResponse) => {
-        console.log('ontology deleted', response);
         this.message = response.result;
+        console.log('ontology deleted', response);
       }
     )
   }
