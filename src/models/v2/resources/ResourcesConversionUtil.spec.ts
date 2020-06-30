@@ -91,7 +91,7 @@ describe("ResourcesConversionUtil", () => {
                     expect(resSeq.resources[0].arkUrl).toEqual("http://0.0.0.0:3336/ark:/72163/1/0001/H6gBWUuJSuuO=CilHV8kQwk");
                     expect(resSeq.resources[0].versionArkUrl).toEqual("http://0.0.0.0:3336/ark:/72163/1/0001/H6gBWUuJSuuO=CilHV8kQwk.20180528T155203897Z");
                     expect(resSeq.resources[0].creationDate).toEqual("2018-05-28T15:52:03.897Z");
-                    expect(resSeq.resources[0].lastModificationDateDate).toBeUndefined();
+                    expect(resSeq.resources[0].lastModificationDate).toBeUndefined();
 
                     expect(resSeq.resources[0].resourceClassLabel).toEqual("Thing");
                     expect(resSeq.resources[0].resourceClassComment).toEqual("'The whole world is full of things, which means there's a real need for someone to go searching for them. And that's exactly what a thing-searcher does.' --Pippi Longstocking");

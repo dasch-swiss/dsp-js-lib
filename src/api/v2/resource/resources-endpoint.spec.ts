@@ -449,7 +449,7 @@ describe("ResourcesEndpoint", () => {
 
             updateResourceMetadata.hasPermissions = "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:ProjectMember";
 
-            updateResourceMetadata.newModificationDateDate = "2019-12-12T10:23:25.836924Z";
+            updateResourceMetadata.newModificationDate = "2019-12-12T10:23:25.836924Z";
 
             knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
                 (res: UpdateResourceMetadataResponse) => {
@@ -511,9 +511,9 @@ describe("ResourcesEndpoint", () => {
 
             updateResourceMetadata.hasPermissions = "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:ProjectMember";
 
-            updateResourceMetadata.lastModificationDateDate = "2019-02-13T09:05:10Z";
+            updateResourceMetadata.lastModificationDate = "2019-02-13T09:05:10Z";
 
-            updateResourceMetadata.newModificationDateDate = "2019-12-12T10:23:25.836924Z";
+            updateResourceMetadata.newModificationDate = "2019-12-12T10:23:25.836924Z";
 
             knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
                 (res: UpdateResourceMetadataResponse) => {
@@ -547,7 +547,7 @@ describe("ResourcesEndpoint", () => {
             expect(
                 () => {
                     knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata);
-                }).toThrow(new Error("At least one of the following properties has to be updated: label, hasPermissions, newModificationDateDate"));
+                }).toThrow(new Error("At least one of the following properties has to be updated: label, hasPermissions, newModificationDate"));
 
         });
 
@@ -565,7 +565,7 @@ describe("ResourcesEndpoint", () => {
 
             deleteResource.deleteComment = "This resource is too boring.";
 
-            deleteResource.lastModificationDateDate = "2019-12-12T10:23:25.836924Z";
+            deleteResource.lastModificationDate = "2019-12-12T10:23:25.836924Z";
 
             knoraApiConnection.v2.res.deleteResource(deleteResource).subscribe(
                 (res: DeleteResourceResponse) => {

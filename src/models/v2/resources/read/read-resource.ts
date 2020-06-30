@@ -38,7 +38,7 @@ export class ReadResource extends ReadWriteResource {
     creationDate: string = "";
 
     @JsonProperty(Constants.LastModificationDate, DateTimeStampConverter, true)
-    lastModificationDateDate?: string = undefined;
+    lastModificationDate?: string = undefined;
 
     resourceClassLabel?: string;
 
