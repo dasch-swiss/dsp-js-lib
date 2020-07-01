@@ -120,61 +120,44 @@ describe('workspace-project App', () => {
   });
 
   it('create new "testonto" ontology in anything project', () => {
-    const loginButton = page.getEle('div section#login button.login');
-
-    loginButton.click();
-
-    const loginStatus = page.getEle('div section#login span.status');
-
-    expect(loginStatus.getText()).toEqual('logged in');
 
     page.navigateTo();
 
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // create testonto
     const button = page.getEle('div section#ontologyeditor button.create');
-
     button.click();
-
     const label = page.getEle('div section#ontologyeditor span.label');
-    console.log('Created: ', label.getText());
-
     expect(label.getText()).toEqual('Test Ontology');
 
   });
 
-  it('get "testonto" ontology', () => {
+  it('delete "testonto" ontology', () => {
+    
     page.navigateTo();
 
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto
     const getButton = page.getEle('div section#ontologyeditor button.read');
     getButton.click();
 
-    const label = page.getEle('div section#ontologyeditor span.read-label');
-    console.log('Read: ', label.getText());
-
-    expect(label.getText()).toEqual('Test Ontology');
+    // delete testonto
+    const button = page.getEle('div section#ontologyeditor button.delete');
+    button.click();
+    const msg = page.getEle('div section#ontologyeditor span.status');
+    expect(msg.getText()).toEqual('Ontology http://0.0.0.0:3333/ontology/0001/testonto/v2 has been deleted');
 
   });
-
-  // it('delete "testonto" ontology', () => {
-  //   const loginButton = page.getEle('div section#login button.login');
-
-  //   loginButton.click();
-
-  //   const loginStatus = page.getEle('div section#login span.status');
-
-  //   expect(loginStatus.getText()).toEqual('logged in');
-
-  //   page.navigateTo();
-
-  //   const button = page.getEle('div section#ontologyeditor button.delete');
-
-  //   button.click();
-
-  //   const msg = page.getEle('div section#ontologyeditor span.status');
-  //   console.log('Deleted: ', msg.getText());
-
-  //   expect(msg.getText()).toEqual('Ontology http://0.0.0.0:3333/ontology/0001/testonto/v2 has been deleted');
-
-  // });
 
   it('request a resource', () => {
 
