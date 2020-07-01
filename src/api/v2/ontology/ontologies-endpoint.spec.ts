@@ -251,34 +251,37 @@ describe("OntologiesEndpoint", () => {
             expect(request.data()).toEqual(expectedPayload);
         });
 
-        // it("should delete an ontology", done => {
+        /*
+        // TODO: reactivate as soon the test-data contains a delete-foo-ontology-response.json
+        it("should delete an ontology", done => {
 
-            // const deleteOntology = new DeleteOntology();
+            const deleteOntology = new DeleteOntology();
 
-            // deleteOntology.id = "http://0.0.0.0:3333/ontology/00FF/foo/v2";
+            deleteOntology.id = "http://0.0.0.0:3333/ontology/00FF/foo/v2";
 
-            // deleteOntology.lastModificationDate = "2020-06-29T13:33:46.059576Z";
+            deleteOntology.lastModificationDate = "2020-06-29T13:33:46.059576Z";
 
-            // knoraApiConnection.v2.onto.deleteOntology(deleteOntology).subscribe(
-            //     (res: DeleteOntologyResponse) => {
-            //         expect(res.result).toEqual("Ontology http://0.0.0.0:3333/ontology/0001/testonto/v2 has been deleted");
-            //         done();
-            //     }
-            // );
+            knoraApiConnection.v2.onto.deleteOntology(deleteOntology).subscribe(
+                (res: DeleteOntologyResponse) => {
+                    expect(res.result).toEqual("Ontology http://0.0.0.0:3333/ontology/0001/testonto/v2 has been deleted");
+                    done();
+                }
+            );
 
-            // const request = jasmine.Ajax.requests.mostRecent();
+            const request = jasmine.Ajax.requests.mostRecent();
 
-            // const deleteOntoResponse = require("../../../../test/data/api/v2/ontologies/delete-foo-ontology-response.json");
+            const deleteOntoResponse = require("../../../../test/data/api/v2/ontologies/delete-foo-ontology-response.json");
 
-            // request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteOntoResponse)));
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteOntoResponse)));
 
-            // const path = "http://0.0.0.0:3333/v2/ontologies/" + encodeURIComponent(deleteOntology.id) + "?lastModificationDate=" + deleteOntology.lastModificationDate;
+            const path = "http://0.0.0.0:3333/v2/ontologies/" + encodeURIComponent(deleteOntology.id) + "?lastModificationDate=" + deleteOntology.lastModificationDate;
 
-            // expect(request.url).toBe(path);
+            expect(request.url).toBe(path);
 
-            // expect(request.method).toEqual("DELETE");
+            expect(request.method).toEqual("DELETE");
 
-        // });
+        });
+        */
 
     });
 
