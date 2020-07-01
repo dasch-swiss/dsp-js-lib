@@ -2,6 +2,7 @@ import { AsyncSubject, forkJoin, Observable, of } from "rxjs";
 import { map, mergeMap } from "rxjs/operators";
 import { V2Endpoint } from "../../api/v2/v2-endpoint";
 import { KnoraApiConfig } from "../../knora-api-config";
+import { ApiResponseError } from "../../models/api-response-error";
 import { IHasProperty } from "../../models/v2/ontologies/class-definition";
 import { OntologyConversionUtil } from "../../models/v2/ontologies/OntologyConversionUtil";
 import { PropertyDefinition } from "../../models/v2/ontologies/property-definition";
@@ -127,7 +128,7 @@ export class OntologyCache extends GenericCache<ReadOntology> {
                     return new ResourceClassAndPropertyDefinitions(
                         {[resourceClassIri]: new ResourceClassDefinitionWithPropertyDefinition(tmpClasses[resourceClassIri], tmpProps)},
                         tmpProps
-                        );
+                    );
 
                 } else {
                     // resource class not found
@@ -135,15 +136,20 @@ export class OntologyCache extends GenericCache<ReadOntology> {
                     return new ResourceClassAndPropertyDefinitions({}, {});
                 }
 
-
             })
         );
 
     }
 
-    protected requestItemFromKnora(key: string, isDependency: boolean): Observable<ReadOntology[]> {
+    protected requestItemFromKnora(key: string, isDependency: boolean): Observable<ReadOntology[] | ApiResponseError> {
         return this.v2Endpoint.onto.getOntology(key).pipe(
-            map((onto: ReadOntology) => [onto])
+            map((onto: ReadOntology | ApiResponseError) => {
+                if (onto instanceof ReadOntology) {
+                    return [onto];
+                } else {
+                    throw onto;
+                }
+            })
         );
     }
 
