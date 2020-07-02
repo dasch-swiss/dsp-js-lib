@@ -94,22 +94,22 @@ e2e-tests: ## runs the e2e tests
 build: ## builds the lib
 	npm run build
 
-.PHONY: test-ci
-test-ci: ## first starts the knora-stack and then runs the tests
+.PHONY: prepare-test-ci
+prepare-test-ci: ## clean up test environment and starts the knora-stack
 	@$(MAKE) -f $(THIS_FILE) clean
 	@$(MAKE) -f $(THIS_FILE) local-tmp
 	@$(MAKE) -f $(THIS_FILE) clone-knora-stack
 	@$(MAKE) -f $(THIS_FILE) knora-stack
-	@$(MAKE) -f $(THIS_FILE) test
+	# @$(MAKE) -f $(THIS_FILE) test
 
-.PHONY: test
-test: ## run tests
+.PHONY: prepare-test-data
+prepare-test-data: ## prepares test data from knora-api
 	@$(MAKE) -f $(THIS_FILE) delete-test-data
 	@$(MAKE) -f $(THIS_FILE) generate-test-data
 	@$(MAKE) -f $(THIS_FILE) integrate-test-data
-	@$(MAKE) -f $(THIS_FILE) unit-tests
-	@$(MAKE) -f $(THIS_FILE) build
-	@$(MAKE) -f $(THIS_FILE) e2e-tests
+	# @$(MAKE) -f $(THIS_FILE) unit-tests
+	# @$(MAKE) -f $(THIS_FILE) build
+	# @$(MAKE) -f $(THIS_FILE) e2e-tests
 
 .PHONY: local-tmp
 local-tmp:
