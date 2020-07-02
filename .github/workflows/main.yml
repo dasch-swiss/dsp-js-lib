@@ -45,7 +45,7 @@ jobs:
             ${{ runner.OS }}-
       - name: Install requirements
         run: sudo apt-get install expect
-      - name: run test-integration
+      - name: Run test-integration
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
