@@ -251,6 +251,7 @@ describe("OntologiesEndpoint", () => {
 
         /*
         // TODO: reactivate as soon the test-data contains a delete-foo-ontology-response.json
+        // after knora-api rc.7
         it("should delete an ontology", done => {
 
             const deleteOntology = new DeleteOntology();

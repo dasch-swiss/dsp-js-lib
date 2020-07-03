@@ -100,7 +100,6 @@ export class OntologiesEndpointV2 extends Endpoint {
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
-                // return OntologyConversionUtil.convertOntologiesList(jsonldobj, this.jsonConvert);
                 return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
             }),
             // map((ontology: OntologyMetadata) => ontology),
@@ -117,7 +116,6 @@ export class OntologiesEndpointV2 extends Endpoint {
      */
     deleteOntology(ontology: DeleteOntology): Observable<DeleteOntologyResponse | ApiResponseError> {
 
-        // HTTP DELETE to http://host/v2/ontologies/ONTOLOGY_IRI?lastModificationDate=ONTOLOGY_LAST_MODIFICATION_DATE
         const path = "/" + encodeURIComponent(ontology.id) + "?lastModificationDate=" + ontology.lastModificationDate;
 
         return this.httpDelete(path).pipe(
@@ -134,6 +132,5 @@ export class OntologiesEndpointV2 extends Endpoint {
         );
 
     }
-
 
 }
