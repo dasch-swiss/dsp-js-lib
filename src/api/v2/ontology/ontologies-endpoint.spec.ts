@@ -7,8 +7,6 @@ import { ResourceClassDefinition } from "../../../models/v2/ontologies/resource-
 import { ResourcePropertyDefinition } from "../../../models/v2/ontologies/resource-property-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
-import { DeleteOntology } from "../../../models/v2/ontologies/delete/delete-ontology";
-import { DeleteOntologyResponse } from "../../../models/v2/ontologies/delete/delete-ontology-response";
 
 describe("OntologiesEndpoint", () => {
 
@@ -29,7 +27,7 @@ describe("OntologiesEndpoint", () => {
 
             knoraApiConnection.v2.onto.getOntologiesMetadata().subscribe(
                 (response: OntologiesMetadata) => {
-                    expect(response.ontologies.length).toEqual(15);
+                    expect(response.ontologies.length).toEqual(14);
                     expect(response.ontologies[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
                     done();
                 }
