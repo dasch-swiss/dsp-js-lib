@@ -27,7 +27,7 @@ describe("OntologiesEndpoint", () => {
 
             knoraApiConnection.v2.onto.getOntologiesMetadata().subscribe(
                 (response: OntologiesMetadata) => {
-                    expect(response.ontologies.length).toEqual(14);
+                    expect(response.ontologies.length).toEqual(15);
                     expect(response.ontologies[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
                     done();
                 }
