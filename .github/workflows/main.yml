@@ -34,7 +34,7 @@ jobs:
           repository: dasch-swiss/dsp-ci-assets
           token: ${{ secrets.GitHub_PAT }} # `GitHub_PAT` is a secret that contains the PAT.
           path: ci
-      - name: cache node_modules artifacts
+      - name: Cache node_modules artifacts
         uses: actions/cache@v1
         with:
           path: node_modules
@@ -43,15 +43,25 @@ jobs:
             ${{ runner.OS }}-build-${{ env.cache-name }}-
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
-      - name: install requirements
+      - name: Install requirements
         run: sudo apt-get install expect
-      - name: run test-integration
+      - name: Run test-integration
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: |
-          make npm-install
-          make test-ci
+      - name: Install dependencies
+        run: make npm-install
+      - name: Prepare test environment
+        run: make prepare-test-ci
+      - name: Generate test-data
+        run: make prepare-test-data
+      - name: Run unit tests
+        run: make unit-tests
+      - name: Build lib
+        run: make build
+      - name: Run e2e tests
+        run: make e2e-tests
+
   build:
     name: Build package and publish (on release only)
     needs: [test-integration]
