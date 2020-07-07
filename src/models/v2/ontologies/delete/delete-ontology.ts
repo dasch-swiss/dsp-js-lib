@@ -9,6 +9,6 @@ export class DeleteOntology {
     id: string = "";
 
     @JsonProperty(Constants.LastModificationDate, DateTimeStampConverter, true)
-    lastModificationDate?: string = undefined;
+    lastModificationDate: string;
 
 }
