@@ -41,10 +41,11 @@ module.exports = function(config) {
                     "dom",
                     "es6"
                 ],
-                "module": "commonjs",
+                "module": "es6",
                 "noImplicitAny": true,
                 "removeComments": false,
                 "resolveJsonModule": true,
+                "moduleResolution": "node",
                 "sourceMap": true,
                 "strictNullChecks": true,
                 "target": "es5"
