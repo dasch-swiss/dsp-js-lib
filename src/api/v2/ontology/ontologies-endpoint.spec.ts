@@ -253,6 +253,8 @@ describe("OntologiesEndpoint", () => {
 
     });
 
+    // TODO: reactivate as soon the test-data contains a delete-foo-ontology-response.json (knora-api rc.8???)
+    /*
     describe("Delete ontology", () => {
         it("should delete an ontology", done => {
 
@@ -271,13 +273,11 @@ describe("OntologiesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            // TODO: reactivate as soon the test-data contains a delete-foo-ontology-response.json
-            // after knora-api rc.8
-            // const deleteOntoResponse = require("../../../../test/data/api/v2/ontologies/delete-foo-ontology-response.json");
+            const deleteOntoResponse = require("../../../../test/data/api/v2/ontologies/delete-foo-ontology-response.json");
 
-            // request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteOntoResponse)));
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteOntoResponse)));
 
-            const path = "http://0.0.0.0:3333/v2/ontologies/" + encodeURIComponent(deleteOntology.id) + "?lastModificationDate=" + deleteOntology.lastModificationDate;
+            const path = "http://0.0.0.0:3333/v2/ontologies/" + encodeURIComponent(deleteOntology.id) + "?lastModificationDate=" + encodeURIComponent(deleteOntology.lastModificationDate);
 
             expect(request.url).toBe(path);
 
@@ -286,6 +286,6 @@ describe("OntologiesEndpoint", () => {
         });
 
     });
-
+    */
 
 });
