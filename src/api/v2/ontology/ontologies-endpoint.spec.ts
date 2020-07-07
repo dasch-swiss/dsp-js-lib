@@ -224,8 +224,6 @@ describe("OntologiesEndpoint", () => {
     describe("Create ontology", () => {
         it("should create a new ontology", done => {
 
-            const createOntologyResponse = require("../../../../test/data/api/v2/ontologies/create-empty-foo-ontology-response.json");
-
             const newOntology: CreateOntology = new CreateOntology();
             newOntology.attachedToProject = "http://rdfh.ch/projects/00FF";
             newOntology.label = "The foo ontology";
@@ -239,6 +237,8 @@ describe("OntologiesEndpoint", () => {
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
+
+            const createOntologyResponse = require("../../../../test/data/api/v2/ontologies/create-empty-foo-ontology-response.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createOntologyResponse)));
 
