@@ -254,7 +254,7 @@ describe("OntologiesEndpoint", () => {
     });
 
     // TODO: reactivate as soon the test-data contains a delete-foo-ontology-response.json (knora-api rc.8???)
-    /*
+
     describe("Delete ontology", () => {
         it("should delete an ontology", done => {
 
@@ -266,7 +266,7 @@ describe("OntologiesEndpoint", () => {
 
             knoraApiConnection.v2.onto.deleteOntology(deleteOntology).subscribe(
                 (res: DeleteOntologyResponse) => {
-                    expect(res.result).toEqual("Ontology http://0.0.0.0:3333/ontology/0001/testonto/v2 has been deleted");
+                    expect(res.result).toEqual("Ontology http://0.0.0.0:3333/ontology/00FF/foo/v2 has been deleted");
                     done();
                 }
             );
@@ -286,6 +286,5 @@ describe("OntologiesEndpoint", () => {
         });
 
     });
-    */
 
 });
