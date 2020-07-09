@@ -275,8 +275,7 @@ describe("OntologiesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteOntoResponse)));
 
-            const path = "http://0.0.0.0:3333/v2/ontologies/" + encodeURIComponent(deleteOntology.id) + "?lastModificationDate=" + encodeURIComponent(deleteOntology.lastModificationDate);
-
+            const path = "http://0.0.0.0:3333/v2/ontologies/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F00FF%2Ffoo%2Fv2?lastModificationDate=2020-06-29T13%3A33%3A46.059576Z";
             expect(request.url).toBe(path);
 
             expect(request.method).toEqual("DELETE");
