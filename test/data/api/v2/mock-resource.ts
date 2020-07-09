@@ -9,7 +9,7 @@ import { OntologyCache } from "../../../../src/cache/ontology-cache/OntologyCach
 import { KnoraApiConfig } from "../../../../src/knora-api-config";
 import { ResourcesConversionUtil } from "../../../../src/models/v2/resources/ResourcesConversionUtil";
 import testthing from "../v2/resources/testding-expanded.json";
-import { MockList } from "./mockList";
+import { MockList } from "./mock-list";
 import { MockOntology } from "./mockOntology";
 import { ReadResourceSequence } from "../../../../src/models/v2/resources/read/read-resource-sequence";
 
