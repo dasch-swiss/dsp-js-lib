@@ -29,7 +29,7 @@ endef
 # Clones the knora-api git repository
 .PHONY: clone-knora-stack
 clone-knora-stack:
-	@git clone --branch v13.0.0-rc.5 --single-branch --depth 1 https://github.com/dasch-swiss/knora-api.git $(CURRENT_DIR)/.tmp/knora-stack
+	@git clone --branch v13.0.0-rc.8 --single-branch --depth 1 https://github.com/dasch-swiss/knora-api.git $(CURRENT_DIR)/.tmp/knora-stack
 
 #################################
 # Integration test targets
@@ -42,14 +42,8 @@ npm-install: ## runs 'npm install'
 
 .PHONY: knora-stack
 knora-stack: ## runs the knora-stack
-	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-without-api
-	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack print-env-file
-	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-config
-	sleep 15
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack init-db-test
-	sleep 15
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-restart-api
-	sleep 35
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-logs-api-no-follow
 
 .PHONY: generate-test-data
