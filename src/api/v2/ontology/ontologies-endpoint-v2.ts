@@ -95,7 +95,6 @@ export class OntologiesEndpointV2 extends Endpoint {
 
         return this.httpPost("", onto).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
-                // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -120,7 +119,6 @@ export class OntologiesEndpointV2 extends Endpoint {
 
         return this.httpDelete(path).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
-                // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
