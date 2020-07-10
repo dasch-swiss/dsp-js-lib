@@ -5,7 +5,7 @@ import { KnoraApiConfig } from "../../knora-api-config";
 import { IHasProperty } from "../../models/v2/ontologies/class-definition";
 import { OntologyConversionUtil } from "../../models/v2/ontologies/OntologyConversionUtil";
 import { PropertyDefinition } from "../../models/v2/ontologies/property-definition";
-import { ReadOntology } from "../../models/v2/ontologies/read-ontology";
+import { ReadOntology } from "../../models/v2/ontologies/read/read-ontology";
 import { ResourceClassDefinition } from "../../models/v2/ontologies/resource-class-definition";
 import { GenericCache } from "../GenericCache";
 import { ResourceClassAndPropertyDefinitions } from "./resource-class-and-property-definitions";
