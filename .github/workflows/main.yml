@@ -5,10 +5,6 @@ on:
   release:
     types: [published]
 
-env:
-  KNORA_GDB_LICENSE: ${{ github.workspace }}/ci/graphdb/UNIBAS_DEV_GRAPHDB_SE_latest-31-12-2020_1cores.license
-  GRAPHDB_HEAP_SIZE: 4G
-
 jobs:
   test-integration:
     name: JS Lib Test Integration
