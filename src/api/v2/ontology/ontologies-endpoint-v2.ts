@@ -101,7 +101,6 @@ export class OntologiesEndpointV2 extends Endpoint {
             }), map((jsonldobj: object) => {
                 return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
             }),
-            // map((ontology: OntologyMetadata) => ontology),
             catchError(error => {
                 return this.handleError(error);
             })
