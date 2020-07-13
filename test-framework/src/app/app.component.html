@@ -42,11 +42,15 @@
 
     <section id="ontologyeditor">
         <h3>Ontology</h3>
-        <button class="read" (click)="getTestOnto('http://0.0.0.0:3333/ontology/0001/testonto/v2')">Get testonto</button> <br /><br />
-        <div>The ontology's label: <span class="read-label">{{ontology?.label}}</span> </div> <br />
-        <button class="readCache" (click)="getOntology('http://0.0.0.0:3333/ontology/0001/testonto/v2')">Get testonto from cache</button> <br /><br />
         <button class="create" (click)="createOntology()">Create testonto</button> <br /><br />
         <div>The ontology's label: <span class="label">{{ontologyMeta?.label}}</span> </div> <br />
+        <button class="read" (click)="getTestOnto('http://0.0.0.0:3333/ontology/0001/testonto/v2')">Get testonto</button> <br /><br />
+        <div>The ontology's label: <span class="read-label">{{ontology?.label}}</span> </div> <br />
+
+        <h4>Resource Class</h4>
+        <button classe="add-res-class" (click)="createResourceClass()">Add resource class</button>
+        <button classe="delete-res-class" (click)="deleteResourceClass()">Delete resource class</button>
+
         <button class="delete" (click)="deleteOntology()">Delete testonto</button>
         <div>Status: <span class="status">{{message}}</span></div> <br />
     </section>
