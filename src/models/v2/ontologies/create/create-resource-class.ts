@@ -2,9 +2,8 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { StringLiteral } from "../../../admin/string-literal";
 import { Constants } from "../../Constants";
 import { DateTimeStampConverter } from "../../custom-converters/date-time-stamp-converter";
-import { IdConverter } from "../../custom-converters/id-converter";
-import { UpdateOntology } from "../update-ontology";
 import { SubClassOfConverter } from "../../custom-converters/subclass-of-converter";
+import { UpdateOntology } from "../update-ontology";
 
 // Resource class data to send to the method creataResourceClass
 @JsonObject("CreateResourceClass")
