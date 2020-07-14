@@ -59,7 +59,7 @@ export namespace MockResource {
 
     };
 
-    export const getTesthings = (length = 25): Observable<ReadResourceSequence> => {
+    export const getTesthings = (length = 25, mayHaveMoreResults = false): Observable<ReadResourceSequence> => {
 
         const resources: Array<Observable<ReadResource>> = new Array(length).fill(0).map(
             () => {
@@ -70,7 +70,7 @@ export namespace MockResource {
         return forkJoin(resources).pipe(
             map(
                 (res: ReadResource[]) => {
-                    return new ReadResourceSequence(res);
+                    return new ReadResourceSequence(res, mayHaveMoreResults);
                 }
             )
         );
