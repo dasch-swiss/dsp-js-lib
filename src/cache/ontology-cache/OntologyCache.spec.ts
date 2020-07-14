@@ -1,6 +1,6 @@
 import { of } from "rxjs";
 import { MockOntologyAssertions } from "../../../test/data/api/v2/mock-ontology-assertions";
-import { MockOntology } from "../../../test/data/api/v2/mockOntology";
+import { MockOntology } from "../../../test/data/api/v2/mock-ontology";
 import { KnoraApiConfig } from "../../knora-api-config";
 import { KnoraApiConnection } from "../../knora-api-connection";
 import { ReadOntology } from "../../models/v2/ontologies/read/read-ontology";
