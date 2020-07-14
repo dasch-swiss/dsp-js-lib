@@ -4,15 +4,14 @@
 
 ### Enhancements
 
+- [#204](https://github.com/dasch-swiss/dsp-js-lib/pull/204) Get ontologies by project iri
 - [#208](https://github.com/dasch-swiss/dsp-js-lib/pull/208) Create and delete ontology
 - [#209](https://github.com/dasch-swiss/dsp-js-lib/pull/209) fix: Replace DateDate by Date
 - [#215](https://github.com/dasch-swiss/dsp-js-lib/pull/215) Mock Resources Data
 
-
 ### Compatibility
 
 - [#211](https://github.com/dasch-swiss/dsp-js-lib/pull/211) Use knora-api 13.0.0-rc.8
-
 
 ## v1.0.0-rc.4
 
