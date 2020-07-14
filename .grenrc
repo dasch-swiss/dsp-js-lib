@@ -20,7 +20,7 @@
         "Bug Fixes:": ["bug"],
         "Documentation:": ["documentation"],
         "Styling:": ["styling"],
-        "Dependencies:" ["dependencies"]
+        "Dependencies:": ["dependencies"],
         "Other:": ["chore", "refactor"]
     }
 }
