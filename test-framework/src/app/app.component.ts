@@ -33,6 +33,9 @@ import {
     MockOntology,
     MockProjects,
     MockUsers,
+    CreateOntology,
+    DeleteOntologyResponse,
+    DeleteOntology,
 } from "@dasch-swiss/dsp-js";
 
 import { map } from "rxjs/operators";
@@ -51,6 +54,11 @@ export class AppComponent implements OnInit {
   ontologies: Map<string, ReadOntology>;
   anythingOntologies: OntologiesMetadata;
   dokubibOntologies: OntologiesMetadata;
+  ontologyMeta: OntologyMetadata;
+  ontology: ReadOntology;
+
+  // reusable response message
+  message: string;
 
   resource: ReadResource;
 
@@ -154,6 +162,40 @@ export class AppComponent implements OnInit {
     )
   }
 
+  createOntology() {
+    const createOntology = new CreateOntology();
+    createOntology.label = 'Test Ontology';
+    createOntology.name = 'testonto';
+    createOntology.attachedToProject = 'http://rdfh.ch/projects/0001';
+    this.knoraApiConnection.v2.onto.createOntology(createOntology).subscribe(
+      (onto: OntologyMetadata) => {
+        this.ontologyMeta = onto;
+        console.log('new ontology created', onto);
+      }
+    );
+  }
+
+  getTestOnto(iri: string) {
+    this.knoraApiConnection.v2.onto.getOntology(iri).subscribe(
+      (onto: ReadOntology) => {
+        this.ontology = onto;
+        console.log('get testonto ', onto);
+      }
+    )
+  }
+
+  deleteOntology() {
+    // 2020-06-30T08:52:10.532394Z
+    const deleteOntology = new DeleteOntology();
+    deleteOntology.id = this.ontology.id;
+    deleteOntology.lastModificationDate = this.ontology.lastModificationDate;
+    this.knoraApiConnection.v2.onto.deleteOntology(deleteOntology).subscribe(
+      (response: DeleteOntologyResponse) => {
+        this.message = response.result;
+        console.log('ontology deleted', response);
+      }
+    )
+  }
 
   getResourceClass(iri: string) {
 

@@ -7,7 +7,7 @@ import { Constants } from "../../../../src/models/v2/Constants";
 import { IHasProperty } from "../../../../src/models/v2/ontologies/class-definition";
 import { OntologyConversionUtil } from "../../../../src/models/v2/ontologies/OntologyConversionUtil";
 import { PropertyDefinition } from "../../../../src/models/v2/ontologies/property-definition";
-import { ReadOntology } from "../../../../src/models/v2/ontologies/read-ontology";
+import { ReadOntology } from "../../../../src/models/v2/ontologies/read/read-ontology";
 import { ResourceClassDefinition } from "../../../../src/models/v2/ontologies/resource-class-definition";
 import { ResourcePropertyDefinition } from "../../../../src/models/v2/ontologies/resource-property-definition";
 import { StandoffClassDefinition } from "../../../../src/models/v2/ontologies/standoff-class-definition";

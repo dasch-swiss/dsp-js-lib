@@ -4,15 +4,16 @@ import { MockOntologyAssertions } from "../../../test/data/api/v2/mock-ontology-
 import { MockOntology } from "../../../test/data/api/v2/mockOntology";
 import { KnoraApiConfig } from "../../knora-api-config";
 import { KnoraApiConnection } from "../../knora-api-connection";
-import { PropertyDefinition } from "../../models/v2/ontologies/property-definition";
-import { ReadOntology } from "../../models/v2/ontologies/read-ontology";
-import { ResourcePropertyDefinition } from "../../models/v2/ontologies/resource-property-definition";
-import { SystemPropertyDefinition } from "../../models/v2/ontologies/system-property-definition";
+import { ReadOntology } from "../../models/v2/ontologies/read/read-ontology";
 import {
     IHasPropertyWithPropertyDefinition,
     ResourceClassDefinitionWithPropertyDefinition
 } from "./resource-class-definition-with-property-definition";
+import { PropertyDefinition } from "../../models/v2/ontologies/property-definition";
+import { SystemPropertyDefinition } from "../../models/v2/ontologies/system-property-definition";
+import { ResourcePropertyDefinition } from "../../models/v2/ontologies/resource-property-definition";
 import { ApiResponseError } from "../../models/api-response-error";
+
 
 describe("OntologyCache", () => {
 
