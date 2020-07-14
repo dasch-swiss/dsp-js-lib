@@ -1,8 +1,8 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-import { Constants } from "../Constants";
-import { DateTimeStampConverter } from "../custom-converters/date-time-stamp-converter";
-import { ClassDefinition } from "./class-definition";
-import { PropertyDefinition } from "./property-definition";
+import { Constants } from "../../Constants";
+import { DateTimeStampConverter } from "../../custom-converters/date-time-stamp-converter";
+import { ClassDefinition } from "../class-definition";
+import { PropertyDefinition } from "../property-definition";
 
 @JsonObject("ReadOntology")
 export class ReadOntology {

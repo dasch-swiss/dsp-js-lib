@@ -55,11 +55,11 @@ describe('workspace-project App', () => {
 
     page.navigateTo();
 
-    const button = page.getEle('div section#ontology button.knora-api');
+    const button = page.getEle('div section#ontologycache button.knora-api');
 
     button.click();
 
-    const size = page.getEle('div section#ontology span.ontology');
+    const size = page.getEle('div section#ontologycache span.ontology');
 
     expect(size.getText()).toEqual('1');
 
@@ -69,11 +69,11 @@ describe('workspace-project App', () => {
 
     page.navigateTo();
 
-    const button = page.getEle('div section#ontology button.anything');
+    const button = page.getEle('div section#ontologycache button.anything');
 
     button.click();
 
-    const size = page.getEle('div section#ontology span.ontology');
+    const size = page.getEle('div section#ontologycache span.ontology');
 
     expect(size.getText()).toEqual('2');
 
@@ -83,16 +83,15 @@ describe('workspace-project App', () => {
 
     page.navigateTo();
 
-    const button = page.getEle('div section#ontology button.something');
+    const button = page.getEle('div section#ontologycache button.something');
 
     button.click();
 
-    const size = page.getEle('div section#ontology span.ontology');
+    const size = page.getEle('div section#ontologycache span.ontology');
 
     expect(size.getText()).toEqual('3');
 
   });
-
 
   it('request the anything project ontologies', () => {
 
@@ -103,7 +102,6 @@ describe('workspace-project App', () => {
     button.click();
 
     const result = page.getEle('div section#ontologymetadata span.anything');
-
     expect(result.getText()).toEqual('3 ontologies');
 
   });
@@ -117,8 +115,47 @@ describe('workspace-project App', () => {
     button.click();
 
     const result = page.getEle('div section#ontologymetadata span.dokubib');
-
     expect(result.getText()).toEqual('1 ontology');
+
+  });
+
+  it('create new "testonto" ontology in anything project', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // create testonto
+    const button = page.getEle('div section#ontologyeditor button.create');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.label');
+    expect(label.getText()).toEqual('Test Ontology');
+
+  });
+
+  it('delete "testonto" ontology', () => {
+    
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto
+    const getButton = page.getEle('div section#ontologyeditor button.read');
+    getButton.click();
+
+    // delete testonto
+    const button = page.getEle('div section#ontologyeditor button.delete');
+    button.click();
+    const msg = page.getEle('div section#ontologyeditor span.status');
+    expect(msg.getText()).toEqual('Ontology http://0.0.0.0:3333/ontology/0001/testonto/v2 has been deleted');
 
   });
 
