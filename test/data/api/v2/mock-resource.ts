@@ -1,6 +1,6 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
-import { Observable, of } from "rxjs";
+import { Observable, of, forkJoin } from "rxjs";
 import { map } from "rxjs/operators";
 import { ReadResource } from "../../../../src/models/v2/resources/read/read-resource";
 import { V2Endpoint } from "../../../../src/api/v2/v2-endpoint";
@@ -9,8 +9,8 @@ import { OntologyCache } from "../../../../src/cache/ontology-cache/OntologyCach
 import { KnoraApiConfig } from "../../../../src/knora-api-config";
 import { ResourcesConversionUtil } from "../../../../src/models/v2/resources/ResourcesConversionUtil";
 import testthing from "../v2/resources/testding-expanded.json";
-import { MockList } from "./mockList";
-import { MockOntology } from "./mockOntology";
+import { MockList } from "./mock-list";
+import { MockOntology } from "./mock-ontology";
 import { ReadResourceSequence } from "../../../../src/models/v2/resources/read/read-resource-sequence";
 
 export namespace MockResource {
@@ -54,6 +54,24 @@ export namespace MockResource {
         return resSeq.pipe(
             map(
                 (seq: ReadResourceSequence) => seq.resources[0]
+            )
+        );
+
+    };
+
+    export const getTesthings = (length = 25, mayHaveMoreResults = false): Observable<ReadResourceSequence> => {
+
+        const resources: Array<Observable<ReadResource>> = new Array(length).fill(0).map(
+            () => {
+                return getTestthing();
+            }
+        );
+
+        return forkJoin(resources).pipe(
+            map(
+                (res: ReadResource[]) => {
+                    return new ReadResourceSequence(res, mayHaveMoreResults);
+                }
             )
         );
 
