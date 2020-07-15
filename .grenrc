@@ -16,10 +16,11 @@
     },
     "groupBy": {
         "Breaking changes:": ["breaking/api", "breaking"],
-        "Enhancements:": ["enhancement"],
+        "Enhancements:": ["enhancement", "feature"],
         "Bug Fixes:": ["bug"],
         "Documentation:": ["documentation"],
         "Styling:": ["styling"],
+        "Dependencies:": ["dependencies"],
         "Other:": ["chore", "refactor"]
     }
 }
