@@ -4,6 +4,7 @@ import { Constants } from "../../Constants";
 import { DateTimeStampConverter } from "../../custom-converters/date-time-stamp-converter";
 import { SubClassOfConverter } from "../../custom-converters/subclass-of-converter";
 import { UpdateOntology } from "../update-ontology";
+import { StringLiteralJsonLd } from "../../string-literal-json-ld";
 
 // Resource class data to send to the method creataResourceClass
 @JsonObject("CreateResourceClass")
@@ -34,11 +35,11 @@ export class ResourceClass {
     @JsonProperty("@type", String, true)
     type: string = Constants.Class;
 
-    @JsonProperty(Constants.Label, [StringLiteral])
-    label?: StringLiteral[] = [];
+    @JsonProperty(Constants.Label, [StringLiteralJsonLd])
+    label: StringLiteralJsonLd[] = [];
 
-    @JsonProperty(Constants.Comment, [StringLiteral])
-    comment?: StringLiteral[] = [];
+    @JsonProperty(Constants.Comment, [StringLiteralJsonLd])
+    comment: StringLiteralJsonLd[] = [];
 
     @JsonProperty(Constants.SubClassOf, SubClassOfConverter)
     subClassOf: string[] = [];
