@@ -5,6 +5,24 @@ import { DateTimeStampConverter } from "../../custom-converters/date-time-stamp-
 import { SubClassOfConverter } from "../../custom-converters/subclass-of-converter";
 import { UpdateOntology } from "../update-ontology";
 import { StringLiteralJsonLd } from "../../string-literal-json-ld";
+import { IdConverter } from "../../custom-converters/id-converter";
+
+@JsonObject("ResourceClassProperty") 
+export class ResourceClassProperty {
+
+    @JsonProperty("@type", String)
+    type: string = "";
+
+    @JsonProperty("cardinality", String)
+    cardinality: string = "";
+
+    @JsonProperty(Constants.OnProperty, IdConverter)
+    onProperty: string = "";
+
+    @JsonProperty(Constants.GuiOrder, Number)
+    guiOrder: number = 0;
+   
+}
 
 // Resource class data to send to the method creataResourceClass
 @JsonObject("CreateResourceClass")
@@ -24,6 +42,9 @@ export class CreateResourceClass {
 
     @JsonProperty("subClassOf", [String])
     subClassOf: string[] = [];
+
+    @JsonProperty("properties", [ResourceClassProperty])
+    properties: ResourceClassProperty[] = [];
 }
 
 // Resource class data as part of CreateResourceClassPayload
@@ -65,7 +86,7 @@ export class CreateResourceClassPayload {
     lastModificationDate: string;
 
     @JsonProperty("@graph", [ResourceClass])
-    resClasses: ResourceClass[] = [];
+    resClass: ResourceClass[] = [];
 }
 
 

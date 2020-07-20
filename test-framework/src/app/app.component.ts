@@ -224,6 +224,9 @@ export class AppComponent implements OnInit {
                 }
             ]
         newResClass.subClassOf = [Constants.Resource];
+        // newResClass.properties = [{
+
+        // }]
 
         this.knoraApiConnection.v2.onto.createResourceClass(newResClass).subscribe(
             (response: ResourceClassDefinition) => {
