@@ -5,7 +5,6 @@ import { ApiResponseError } from "../../../models/api-response-error";
 import { Constants } from "../../../models/v2/Constants";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
 import { CreateResourceClass, CreateResourceClassPayload } from "../../../models/v2/ontologies/create/create-resource-class";
-import { DeleteOntology } from "../../../models/v2/ontologies/delete/delete-ontology";
 import { DeleteOntologyResponse } from "../../../models/v2/ontologies/delete/delete-ontology-response";
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { OntologyConversionUtil } from "../../../models/v2/ontologies/OntologyConversionUtil";
@@ -116,7 +115,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param ontology the ontology to be deleted.
      */
-    deleteOntology(ontology: DeleteOntology): Observable<DeleteOntologyResponse | ApiResponseError> {
+    deleteOntology(ontology: UpdateOntology): Observable<DeleteOntologyResponse | ApiResponseError> {
 
         const path = "/" + encodeURIComponent(ontology.id) + "?lastModificationDate=" + encodeURIComponent(ontology.lastModificationDate);
 
@@ -147,9 +146,9 @@ export class OntologiesEndpointV2 extends Endpoint {
             type: Constants.Class
         }]
 
-        data.properties.forEach(prop => {
-            newResClass.resClass[0].subClassOf[0]
-        })
+        // data.properties.forEach(prop => {
+        //     newResClass.resClass[0].subClassOf[0]
+        // })
         
         const resClass = this.jsonConvert.serializeObject(newResClass);
         console.log('resClass', resClass);
@@ -160,6 +159,9 @@ export class OntologiesEndpointV2 extends Endpoint {
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
+
+                console.log((jsonldobj as any)['@graph'][0]);
+
                 return this.jsonConvert.deserializeObject(jsonldobj, ResourceClassDefinition);
             }),
             catchError(error => {

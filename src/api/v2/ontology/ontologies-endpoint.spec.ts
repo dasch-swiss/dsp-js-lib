@@ -7,8 +7,8 @@ import { ResourceClassDefinition } from "../../../models/v2/ontologies/resource-
 import { ResourcePropertyDefinition } from "../../../models/v2/ontologies/resource-property-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
-import { DeleteOntology } from "../../../models/v2/ontologies/delete/delete-ontology";
 import { DeleteOntologyResponse } from "../../../models/v2/ontologies/delete/delete-ontology-response";
+import { UpdateOntology } from "../../../models/v2/ontologies/update-ontology";
 
 describe("OntologiesEndpoint", () => {
 
@@ -256,13 +256,13 @@ describe("OntologiesEndpoint", () => {
     describe("Delete ontology", () => {
         it("should delete an ontology", done => {
 
-            const deleteOntology = new DeleteOntology();
+            const ontoInfo = new UpdateOntology();
 
-            deleteOntology.id = "http://0.0.0.0:3333/ontology/00FF/foo/v2";
+            ontoInfo.id = "http://0.0.0.0:3333/ontology/00FF/foo/v2";
 
-            deleteOntology.lastModificationDate = "2020-06-29T13:33:46.059576Z";
+            ontoInfo.lastModificationDate = "2020-06-29T13:33:46.059576Z";
 
-            knoraApiConnection.v2.onto.deleteOntology(deleteOntology).subscribe(
+            knoraApiConnection.v2.onto.deleteOntology(ontoInfo).subscribe(
                 (res: DeleteOntologyResponse) => {
                     expect(res.result).toEqual("Ontology http://0.0.0.0:3333/ontology/00FF/foo/v2 has been deleted");
                     done();

@@ -78,7 +78,7 @@ export { ApiResponseData } from "./models/api-response-data";
 export { ApiResponseError } from "./models/api-response-error";
 
 export { CreateOntology } from "./models/v2/ontologies/create/create-ontology";
-export { DeleteOntology } from "./models/v2/ontologies/delete/delete-ontology";
+export { UpdateOntology } from "./models/v2/ontologies/update-ontology";
 export { DeleteOntologyResponse } from "./models/v2/ontologies/delete/delete-ontology-response";
 export { ReadOntology } from "./models/v2/ontologies/read/read-ontology";
 export { OntologyMetadata, OntologiesMetadata } from "./models/v2/ontologies/ontology-metadata";

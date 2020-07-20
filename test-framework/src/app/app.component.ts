@@ -35,7 +35,6 @@ import {
     MockUsers,
     CreateOntology,
     DeleteOntologyResponse,
-    DeleteOntology,
     ResourceClassDefinition,
 } from "@dasch-swiss/dsp-js";
 
@@ -190,7 +189,7 @@ export class AppComponent implements OnInit {
 
     deleteOntology() {
         // 2020-06-30T08:52:10.532394Z
-        const deleteOntology = new DeleteOntology();
+        const deleteOntology = new UpdateOntology();
         deleteOntology.id = this.ontology.id;
         deleteOntology.lastModificationDate = this.ontology.lastModificationDate;
         this.knoraApiConnection.v2.onto.deleteOntology(deleteOntology).subscribe(
