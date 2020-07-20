@@ -139,13 +139,17 @@ export class OntologiesEndpointV2 extends Endpoint {
         const newResClass = new CreateResourceClassPayload();
         newResClass.id = data.ontology.id;
         newResClass.lastModificationDate = data.ontology.lastModificationDate;
-        newResClass.resClasses = [{
+        newResClass.resClass = [{
             id: data.ontology.id + Constants.Delimiter + data.name,
             label: data.labels,
             comment: data.comments,
             subClassOf: data.subClassOf,
             type: Constants.Class
         }]
+
+        data.properties.forEach(prop => {
+            newResClass.resClass[0].subClassOf[0]
+        })
         
         const resClass = this.jsonConvert.serializeObject(newResClass);
         console.log('resClass', resClass);
