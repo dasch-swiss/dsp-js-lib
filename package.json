@@ -45,8 +45,8 @@
   "homepage": "https://github.com/dasch-swiss/knora-api-js-lib#readme",
   "devDependencies": {
     "@bazel/bazelisk": "latest",
-    "@bazel/ibazel": "latest",
     "@bazel/buildifier": "latest",
+    "@bazel/ibazel": "latest",
     "@bazel/typescript": "^2.0.0",
     "@types/jasmine": "^3.4.0",
     "@types/jasmine-ajax": "^3.3.0",

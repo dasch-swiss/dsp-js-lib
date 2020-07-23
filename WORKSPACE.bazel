@@ -1,6 +1,5 @@
 workspace(
     name = "io_dasch_dsp_js_lib",
-    managed_directories = {"@npm": ["node_modules"]},
 )
 
 #
@@ -17,29 +16,16 @@ http_archive(
     urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/2.0.0/rules_nodejs-2.0.0.tar.gz"],
 )
 
-
 #
-# install nodejs, npm, and yarn
-#
-load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories")
-
-#
-# NOTE: this rule installs nodejs, npm, and yarn, but does
-# NOT install npm dependencies into the node_modules folder.
-# One must still run the package manager to do this.
-#
-node_repositories(package_json = ["//:package.json"])
-
-
-#
-# yarn is preferred. see: https://bazelbuild.github.io/rules_nodejs/install.html#using-bazel-managed-dependencies
-#
+# load methods into workspace
+# 
 load("@build_bazel_rules_nodejs//:index.bzl", "yarn_install")
 
 #
 # install dependencies into @npm workspace.
 # node_modules is managed by bazel and updated automatically on
 # changes to package.json or package-lock.json
+# yarn is preferred. see: https://bazelbuild.github.io/rules_nodejs/install.html#using-bazel-managed-dependencies
 #
 yarn_install(
     # Name this npm so that Bazel Label references look like @npm//package
@@ -47,3 +33,12 @@ yarn_install(
     package_json = "//:package.json",
     yarn_lock = "//:yarn.lock",
 )
+
+# Install all Bazel dependencies needed for npm packages that supply Bazel rules
+load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
+
+install_bazel_dependencies()
+
+load("@npm_bazel_typescript//:index.bzl", "ts_setup_workspace")
+
+ts_setup_workspace()
