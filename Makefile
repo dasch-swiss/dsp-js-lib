@@ -29,7 +29,7 @@ endef
 # Clones the knora-api git repository
 .PHONY: clone-knora-stack
 clone-knora-stack:
-	@git clone --branch v13.0.0-rc.8 --single-branch --depth 1 https://github.com/dasch-swiss/knora-api.git $(CURRENT_DIR)/.tmp/knora-stack
+	@git clone --branch v13.0.0-rc.10 --single-branch --depth 1 https://github.com/dasch-swiss/knora-api.git $(CURRENT_DIR)/.tmp/knora-stack
 
 #################################
 # Integration test targets
@@ -43,14 +43,13 @@ npm-install: ## runs 'npm install'
 .PHONY: knora-stack
 knora-stack: ## runs the knora-stack
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack init-db-test
-	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-restart-api
+	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-up
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-logs-api-no-follow
 
 .PHONY: generate-test-data
 generate-test-data: ## downloads generated test data from Knora-API
 	@rm -rf $(CURRENT_DIR)/.tmp/typescript
 	mkdir -p $(CURRENT_DIR)/.tmp/typescript
-	sleep 240
 	curl --fail --retry 5 --retry-connrefused -w http_code -o $(CURRENT_DIR)/.tmp/ts.zip http://localhost:3333/clientapitest
 	sleep 120
 	unzip $(CURRENT_DIR)/.tmp/ts.zip -d $(CURRENT_DIR)/.tmp/typescript
@@ -100,6 +99,9 @@ prepare-test-data: ## prepares test data from knora-api
 	@$(MAKE) -f $(THIS_FILE) delete-test-data
 	@$(MAKE) -f $(THIS_FILE) generate-test-data
 	@$(MAKE) -f $(THIS_FILE) integrate-test-data
+
+.PHONY: test
+test: npm-install prepare-test-ci prepare-test-ci prepare-test-data unit-tests build e2e-tests ## runs all preparations and tests
 
 .PHONY: local-tmp
 local-tmp:
