@@ -42,7 +42,7 @@ jobs:
       - name: Install requirements
         run: |
           sudo apt-get install expect
-          npm install --global @bazel/bazelisk
+          sudo npm install --global @bazel/bazelisk
       - name: Run test-integration
         uses: actions/setup-node@v1
         with:
@@ -73,7 +73,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - name: Install dependencies
         run: |
-          npm install --global @bazel/bazelisk
+          sudo npm install --global @bazel/bazelisk
           npm install
           npm run peer-deps
       - name: Test
