@@ -140,8 +140,5 @@
       }
     }
   },
-  "defaultProject": "knora-api-js-lib-test",
-  "cli": {
-    "analytics": "9c3200c6-dc0a-41e3-b74e-8aea4f1f7f5a"
-  }
+  "defaultProject": "knora-api-js-lib-test"
 }
