@@ -101,7 +101,7 @@ prepare-test-data: ## prepares test data from knora-api
 	@$(MAKE) -f $(THIS_FILE) integrate-test-data
 
 .PHONY: test
-test: npm-install prepare-test-ci prepare-test-ci prepare-test-data unit-tests build e2e-tests ## runs all preparations and tests
+test: npm-install prepare-test-ci prepare-test-data unit-tests build e2e-tests ## runs all preparations and tests
 
 .PHONY: local-tmp
 local-tmp:
