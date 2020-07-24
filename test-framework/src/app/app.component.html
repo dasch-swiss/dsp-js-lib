@@ -48,8 +48,10 @@
         <div>The ontology's label: <span class="read-label">{{ontology?.label}}</span> </div> <br />
 
         <h4>Resource Class</h4>
-        <button classe="add-res-class" (click)="createResourceClass()">Add resource class</button>
-        <button classe="delete-res-class" (click)="deleteResourceClass()">Delete resource class</button>
+        <button class="add-res-class" (click)="createResourceClass()">Add resource class</button><br><br>
+        <button class="get-res-class" (click)="getResourceClass('http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass')">Get resource class</button><br><br>
+        
+        <button class="delete-res-class" (click)="deleteResourceClass()">Delete resource class</button><br><br>
 
         <button class="delete" (click)="deleteOntology()">Delete testonto</button>
         <div>Status: <span class="status">{{message}}</span></div> <br />

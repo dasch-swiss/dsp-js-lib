@@ -159,10 +159,7 @@ export class OntologiesEndpointV2 extends Endpoint {
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
-
-                console.log((jsonldobj as any)['@graph'][0]);
-
-                return this.jsonConvert.deserializeObject(jsonldobj, ResourceClassDefinition);
+                return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
             }),
             catchError(error => {
                 return this.handleError(error);

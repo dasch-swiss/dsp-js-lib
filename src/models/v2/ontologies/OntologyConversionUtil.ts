@@ -227,8 +227,7 @@ export namespace OntologyConversionUtil {
      * @param jsonConvert 
      */
     export const convertOntologiesList = (ontologiesJsonld: object, jsonConvert: JsonConvert): OntologiesMetadata => {
-        
-        
+
         if (ontologiesJsonld.hasOwnProperty("@graph")) {
             return jsonConvert.deserializeObject(ontologiesJsonld, OntologiesMetadata);
         } else {
@@ -237,5 +236,20 @@ export namespace OntologyConversionUtil {
             return ontologies;
         }
     };
+
+    /**
+     * Converts the response from createResourceClass serialized as JSON-LD to an instance of `ResourceClassDefinition`
+     * 
+     * @param  resClassJsonld
+     * @param  jsonConvert
+     * @returns ResourceClassDefinition
+     */
+    export const convertResourceClassResponse = (resClassJsonld: object, jsonConvert: JsonConvert): ResourceClassDefinition => {
+        if (resClassJsonld.hasOwnProperty("@graph")) {
+            return jsonConvert.deserializeObject((resClassJsonld as any)['@graph'][0], ResourceClassDefinition);
+        } else {
+            return jsonConvert.deserializeObject(resClassJsonld, ResourceClassDefinition);
+        }
+    }
 
 }
