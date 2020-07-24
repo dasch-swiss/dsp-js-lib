@@ -24,11 +24,11 @@
     "npm-publish": "npm run npm-pack && npm publish --tag rc build/ --dry-run",
     "prepare-dev-publication": "node scripts/prepare-dev-publication.js",
     "builddocs": "typedoc --out docs --readme none --name '@dasch-swiss/dsp-js API Documentation' --exclude \"**/*.spec.*\" src/*.ts",
-    "peer-deps": "npm i rxjs@6.x --no-save"
+    "peer-deps": "npm install rxjs@6.x --no-save"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com:dasch-swiss/knora-api-js-lib.git"
+    "url": "git+ssh://git@github.com:dasch-swiss/dsp-js-lib.git"
   },
   "keywords": [
     "typescript",
@@ -47,6 +47,7 @@
     "@bazel/bazelisk": "latest",
     "@bazel/buildifier": "latest",
     "@bazel/ibazel": "latest",
+    "@bazel/karma": "^2.0.1",
     "@bazel/typescript": "^2.0.0",
     "@types/jasmine": "^3.4.0",
     "@types/jasmine-ajax": "^3.3.0",
@@ -55,11 +56,16 @@
     "jasmine-ajax": "^4.0.0",
     "karma": "^5.0.9",
     "karma-chrome-launcher": "^3.1.0",
+    "karma-firefox-launcher": "^1.3.0",
     "karma-jasmine": "^2.0.1",
     "karma-jasmine-ajax": "^0.1.13",
     "karma-mocha-reporter": "^2.2.5",
+    "karma-requirejs": "^1.1.0",
+    "karma-sourcemap-loader": "^0.3.7",
     "karma-typescript": "^5.0.3",
     "phantomjs-prebuilt": "^2.1.16",
+    "requirejs": "^2.3.6",
+    "rxjs": "6.x",
     "tslint": "^5.20.0",
     "typedoc": "^0.15.0",
     "typescript": "~3.6.3"

@@ -98,9 +98,9 @@ This package provides the following short-hand scripts:
 1. `npm run peer-deps`: Installs the project's peer dependencies. Peer dependencies are not installed with `npm install`, but have to be met before building or running the tests.
 2. `npm run test`: Runs the project's tests defined in `./karma.conf.js`. The coverage data is saved into the `./coverage/` folder.
 3. `npm run build`: Builds the whole project without testing and puts the files into the `./build/` folder.
-4. `npm run yalc-publish`: Executes 2 and publishes the package to the yalc app store.
-5. `npm run npm-pack`: Executes 1, 2 and packs the `./build/` folder into an NPM tgz package. The package is moved into a `./dist/` folder.
-6. `npm run npm-publish`: Executes 4 and publishes the package to the NPM store (runs in dry-run mode).
+4. `npm run yalc-publish`: Executes 3 and publishes the package to the yalc app store.
+5. `npm run npm-pack`: Executes 2, 3 and packs the `./build/` folder into an NPM tgz package. The package is moved into a `./dist/` folder.
+6. `npm run npm-publish`: Executes 5 and publishes the package to the NPM store (runs in dry-run mode).
 
 > Note: You need to install [`yalc`](<https://www.npmjs.com/package/yalc>) globally by `npm install yalc -g` to use script number 4.
 

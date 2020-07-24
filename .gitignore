@@ -42,4 +42,4 @@ test-framework/node_modules
 test-framework/.yalc
 /.tmp
 /.ijwb
-bazel-*
+bazel-out
