@@ -35,12 +35,12 @@ import {
     MockUsers,
     CreateOntology,
     DeleteOntologyResponse,
-    ResourceClassDefinition,
+    UpdateOntology,
+    ResourceClassDefinitionWithAllLanguages,
+    CreateResourceClass,
 } from "@dasch-swiss/dsp-js";
 
 import { map } from "rxjs/operators";
-import { CreateResourceClass } from '@dasch-swiss/dsp-js/src/models/v2/ontologies/create/create-resource-class';
-import { UpdateOntology } from '@dasch-swiss/dsp-js/src/models/v2/ontologies/update-ontology';
 
 @Component({
     selector: 'app-root',
@@ -58,7 +58,7 @@ export class AppComponent implements OnInit {
     dokubibOntologies: OntologiesMetadata;
     ontologyMeta: OntologyMetadata;
     ontology: ReadOntology;
-    resClass: ResourceClassDefinition;
+    resClass: ResourceClassDefinitionWithAllLanguages;
 
     // reusable response message
     message: string;
@@ -228,7 +228,7 @@ export class AppComponent implements OnInit {
         // }]
 
         this.knoraApiConnection.v2.onto.createResourceClass(newResClass).subscribe(
-            (response: ResourceClassDefinition) => {
+            (response: ResourceClassDefinitionWithAllLanguages) => {
                 console.log('new resource class created', response);
                 this.resClass = response;
             }

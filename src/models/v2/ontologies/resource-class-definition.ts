@@ -4,6 +4,8 @@ import { HasCardinalityForPropertyConverter } from "../custom-converters/has-car
 import { SubClassOfConverter } from "../custom-converters/subclass-of-converter";
 import { StringLiteralJsonLd } from "../string-literal-json-ld";
 import { ClassDefinition, IHasProperty } from "./class-definition";
+import { StringLiteralToStringConverter } from "../custom-converters/string-literal-to-string-converter";
+import { StringLiteralToStringLiteralArrayConverter } from "../custom-converters/string-literal-to-string-literal-array-converter";
 
 @JsonObject("ResourceClassDefinition")
 export class ResourceClassDefinition extends ClassDefinition {
@@ -29,15 +31,15 @@ export class ResourceClassDefinition extends ClassDefinition {
 @JsonObject("ResourceClassDefinitionWithAllLanguages")
 export class ResourceClassDefinitionWithAllLanguages extends ResourceClassDefinition {
 
-    @JsonProperty(Constants.Comment, String, true) // TODO: use custom converter: convert string literal or array of string literals to string or undefined
+    @JsonProperty(Constants.Comment, StringLiteralToStringConverter, true)
     comment?: string = undefined;
 
-    @JsonProperty(Constants.Comment, [StringLiteralJsonLd], true) // TODO: use custom converter: convert string literal or array of string literals to an array of string literals
-    comments: [] = [];
+    @JsonProperty(Constants.Comment, StringLiteralToStringLiteralArrayConverter, true)
+    comments: StringLiteralJsonLd[] = [];
 
-    @JsonProperty(Constants.Label, String, true) // TODO: use custom converter: convert string literal or array of string literals to string or undefined
+    @JsonProperty(Constants.Label, StringLiteralToStringConverter, true)
     label?: string = undefined;
 
-    @JsonProperty(Constants.Label, [StringLiteralJsonLd]) // TODO: use custom converter: convert string literal or array of string literals to an array of string literals
-    labels: [] = [];
+    @JsonProperty(Constants.Label, StringLiteralToStringLiteralArrayConverter, true)
+    labels: StringLiteralJsonLd[] = [];
 }

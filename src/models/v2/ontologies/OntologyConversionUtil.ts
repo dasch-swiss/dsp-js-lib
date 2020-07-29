@@ -4,7 +4,7 @@ import { Constants } from "../Constants";
 import { IHasProperty } from "./class-definition";
 import { EntityDefinition } from "./EntityDefinition";
 import { ReadOntology } from "./read/read-ontology";
-import { ResourceClassDefinition } from "./resource-class-definition";
+import { ResourceClassDefinition, ResourceClassDefinitionWithAllLanguages } from "./resource-class-definition";
 import { ResourcePropertyDefinition } from "./resource-property-definition";
 import { StandoffClassDefinition } from "./standoff-class-definition";
 import { SystemPropertyDefinition } from "./system-property-definition";
@@ -244,11 +244,11 @@ export namespace OntologyConversionUtil {
      * @param  jsonConvert
      * @returns ResourceClassDefinition
      */
-    export const convertResourceClassResponse = (resClassJsonld: object, jsonConvert: JsonConvert): ResourceClassDefinition => {
+    export const convertResourceClassResponse = (resClassJsonld: object, jsonConvert: JsonConvert): ResourceClassDefinitionWithAllLanguages => {
         if (resClassJsonld.hasOwnProperty("@graph")) {
-            return jsonConvert.deserializeObject((resClassJsonld as any)['@graph'][0], ResourceClassDefinition);
+            return jsonConvert.deserializeObject((resClassJsonld as any)['@graph'][0], ResourceClassDefinitionWithAllLanguages);
         } else {
-            return jsonConvert.deserializeObject(resClassJsonld, ResourceClassDefinition);
+            return jsonConvert.deserializeObject(resClassJsonld, ResourceClassDefinitionWithAllLanguages);
         }
     }
 

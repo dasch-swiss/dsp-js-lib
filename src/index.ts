@@ -80,6 +80,7 @@ export { ApiResponseError } from "./models/api-response-error";
 export { CreateOntology } from "./models/v2/ontologies/create/create-ontology";
 export { UpdateOntology } from "./models/v2/ontologies/update-ontology";
 export { DeleteOntologyResponse } from "./models/v2/ontologies/delete/delete-ontology-response";
+export { CreateResourceClass } from "./models/v2/ontologies/create/create-resource-class";
 export { ReadOntology } from "./models/v2/ontologies/read/read-ontology";
 export { OntologyMetadata, OntologiesMetadata } from "./models/v2/ontologies/ontology-metadata";
 export {
@@ -91,7 +92,7 @@ export { ClassDefinition, IHasProperty, Cardinality } from "./models/v2/ontologi
 export { SystemPropertyDefinition } from "./models/v2/ontologies/system-property-definition";
 export { ResourcePropertyDefinition } from "./models/v2/ontologies/resource-property-definition";
 export { PropertyDefinition } from "./models/v2/ontologies/property-definition";
-export { ResourceClassDefinition } from "./models/v2/ontologies/resource-class-definition";
+export { ResourceClassDefinition, ResourceClassDefinitionWithAllLanguages } from "./models/v2/ontologies/resource-class-definition";
 export { StandoffClassDefinition } from "./models/v2/ontologies/standoff-class-definition";
 export { ReadResourceSequence } from "./models/v2/resources/read/read-resource-sequence";
 export { ReadResource } from "./models/v2/resources/read/read-resource";

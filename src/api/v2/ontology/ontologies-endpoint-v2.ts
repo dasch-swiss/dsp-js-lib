@@ -9,7 +9,7 @@ import { DeleteOntologyResponse } from "../../../models/v2/ontologies/delete/del
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { OntologyConversionUtil } from "../../../models/v2/ontologies/OntologyConversionUtil";
 import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
-import { ResourceClassDefinition } from "../../../models/v2/ontologies/resource-class-definition";
+import { ResourceClassDefinition, ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-class-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update-ontology";
 import { Endpoint } from "../../endpoint";
 
@@ -133,7 +133,7 @@ export class OntologiesEndpointV2 extends Endpoint {
 
     }
 
-    createResourceClass(data: CreateResourceClass): Observable<ResourceClassDefinition | ApiResponseError> {
+    createResourceClass(data: CreateResourceClass): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
         
         const newResClass = new CreateResourceClassPayload();
         newResClass.id = data.ontology.id;
