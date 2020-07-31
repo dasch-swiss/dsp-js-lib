@@ -239,7 +239,8 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.onto.deleteResourceClass(deleteResClass).subscribe(
             (response: OntologyMetadata) => {
-                console.warn('res class deleted', response);
+                this.message = 'res class has been deleted';
+                console.log('res class deleted', response);
             },
             (error: ApiResponseError) => {
                 console.error(error);
