@@ -255,6 +255,37 @@ describe("OntologiesEndpoint", () => {
 
     });
 
+    describe("Method deleteOntology", () => {
+        it("should delete an ontology", done => {
+
+            const ontoInfo = new UpdateOntology();
+
+            ontoInfo.id = "http://0.0.0.0:3333/ontology/00FF/foo/v2";
+
+            ontoInfo.lastModificationDate = "2020-06-29T13:33:46.059576Z";
+
+            knoraApiConnection.v2.onto.deleteOntology(ontoInfo).subscribe(
+                (res: DeleteOntologyResponse) => {
+                    expect(res.result).toEqual("Ontology http://0.0.0.0:3333/ontology/00FF/foo/v2 has been deleted");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const deleteOntoResponse = require("../../../../test/data/api/v2/ontologies/delete-foo-ontology-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteOntoResponse)));
+
+            const path = "http://0.0.0.0:3333/v2/ontologies/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F00FF%2Ffoo%2Fv2?lastModificationDate=2020-06-29T13%3A33%3A46.059576Z";
+            expect(request.url).toBe(path);
+
+            expect(request.method).toEqual("DELETE");
+
+        });
+
+    });
+
     describe("Method createResourceClass", () => {
         it("should create a new res class and add it to anything ontology", done => {
 
@@ -305,29 +336,29 @@ describe("OntologiesEndpoint", () => {
     });
 
 
-    describe("Method deleteOntology", () => {
-        it("should delete an ontology", done => {
+    describe("Method deleteResourceClass", () => {
+        it("should delete a resource class", done => {
 
-            const ontoInfo = new UpdateOntology();
+            const resclass = new UpdateOntology();
 
-            ontoInfo.id = "http://0.0.0.0:3333/ontology/00FF/foo/v2";
+            resclass.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
 
-            ontoInfo.lastModificationDate = "2020-06-29T13:33:46.059576Z";
+            resclass.lastModificationDate = "2017-12-19T15:23:42.166Z";
 
-            knoraApiConnection.v2.onto.deleteOntology(ontoInfo).subscribe(
-                (res: DeleteOntologyResponse) => {
-                    expect(res.result).toEqual("Ontology http://0.0.0.0:3333/ontology/00FF/foo/v2 has been deleted");
+            knoraApiConnection.v2.onto.deleteResourceClass(resclass).subscribe(
+                (res: OntologyMetadata) => {
+                    expect(res.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const deleteOntoResponse = require("../../../../test/data/api/v2/ontologies/delete-foo-ontology-response.json");
+            const deleteResClassResponse = require("../../../../test/data/api/v2/ontologies/anything-ontology.json");
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteOntoResponse)));
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteResClassResponse)));
 
-            const path = "http://0.0.0.0:3333/v2/ontologies/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F00FF%2Ffoo%2Fv2?lastModificationDate=2020-06-29T13%3A33%3A46.059576Z";
+            const path = "http://0.0.0.0:3333/v2/ontologies/classes/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Nothing?lastModificationDate=2017-12-19T15%3A23%3A42.166Z";
             expect(request.url).toBe(path);
 
             expect(request.method).toEqual("DELETE");
