@@ -24,7 +24,7 @@ export class ResourceClassProperty {
    
 }
 
-// Resource class data to send to the method creataResourceClass
+// Resource class data to be used in creataResourceClass method
 @JsonObject("CreateResourceClass")
 export class CreateResourceClass {
 
@@ -42,9 +42,6 @@ export class CreateResourceClass {
 
     @JsonProperty("subClassOf", [String])
     subClassOf: string[] = [];
-
-    @JsonProperty("properties", [ResourceClassProperty])
-    properties: ResourceClassProperty[] = [];
 }
 
 // Resource class data as part of CreateResourceClassPayload
@@ -64,8 +61,6 @@ export class ResourceClass {
 
     @JsonProperty(Constants.SubClassOf, SubClassOfConverter)
     subClassOf: string[] = [];
-
-    // @JsonProperty(Constants.Cardinality)
 }
 
 

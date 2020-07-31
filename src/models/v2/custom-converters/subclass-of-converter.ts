@@ -3,8 +3,8 @@ import { CustomConverterUtils } from "../../../util/utils";
 
 @JsonConverter
 export class SubClassOfConverter implements JsonCustomConvert<string[]> {
+    
     serialize(subclasses: string[]): any {
-        // TODO: not sure if it's correct. I have to update case 1: (subclasses.length > 1)
         if (subclasses.length > 1) {
             const subClassOf: any = [];
             subclasses.forEach(item => {

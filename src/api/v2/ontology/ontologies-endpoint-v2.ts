@@ -132,28 +132,28 @@ export class OntologiesEndpointV2 extends Endpoint {
         );
 
     }
-
-    createResourceClass(data: CreateResourceClass): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+    /**
+     * Create a resource class without cardinalities
+     * 
+     * @param  resClass The resource class to be created
+     */
+    createResourceClass(resClass: CreateResourceClass): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
         
         const newResClass = new CreateResourceClassPayload();
-        newResClass.id = data.ontology.id;
-        newResClass.lastModificationDate = data.ontology.lastModificationDate;
+        newResClass.id = resClass.ontology.id;
+        newResClass.lastModificationDate = resClass.ontology.lastModificationDate;
         newResClass.resClass = [{
-            id: data.ontology.id + Constants.Delimiter + data.name,
-            label: data.labels,
-            comment: data.comments,
-            subClassOf: data.subClassOf,
+            id: resClass.ontology.id + Constants.Delimiter + resClass.name,
+            label: resClass.labels,
+            comment: resClass.comments,
+            subClassOf: resClass.subClassOf,
             type: Constants.Class
         }]
-
-        // data.properties.forEach(prop => {
-        //     newResClass.resClass[0].subClassOf[0]
-        // })
         
-        const resClass = this.jsonConvert.serializeObject(newResClass);
-        console.log('resClass', resClass);
+        const resClassPayload = this.jsonConvert.serializeObject(newResClass);
+        console.log('resClassPayload', resClassPayload);
 
-        return this.httpPost("/classes", resClass).pipe(
+        return this.httpPost("/classes", resClassPayload).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
