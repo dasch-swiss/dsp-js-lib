@@ -4,8 +4,9 @@ import { Constants } from "../../Constants";
 import { DateTimeStampConverter } from "../../custom-converters/date-time-stamp-converter";
 import { SubClassOfConverter } from "../../custom-converters/subclass-of-converter";
 import { UpdateOntology } from "../update-ontology";
-import { StringLiteralJsonLd } from "../../string-literal-json-ld";
+import { StringLiteralV2 } from "../../string-literal-v2";
 import { IdConverter } from "../../custom-converters/id-converter";
+import { StringLiteralToStringLiteralArrayConverter } from "../../custom-converters/string-literal-to-string-literal-array-converter";
 
 @JsonObject("ResourceClassProperty") 
 export class ResourceClassProperty {
@@ -53,11 +54,11 @@ export class ResourceClass {
     @JsonProperty("@type", String, true)
     type: string = Constants.Class;
 
-    @JsonProperty(Constants.Label, [StringLiteralJsonLd])
-    label: StringLiteralJsonLd[] = [];
+    @JsonProperty(Constants.Label, StringLiteralToStringLiteralArrayConverter)
+    label: StringLiteralV2[] = [];
 
-    @JsonProperty(Constants.Comment, [StringLiteralJsonLd])
-    comment: StringLiteralJsonLd[] = [];
+    @JsonProperty(Constants.Comment, StringLiteralToStringLiteralArrayConverter)
+    comment: StringLiteralV2[] = [];
 
     @JsonProperty(Constants.SubClassOf, SubClassOfConverter)
     subClassOf: string[] = [];
@@ -68,17 +69,16 @@ export class ResourceClass {
 @JsonObject("CreateResourceClassPayload")
 export class CreateResourceClassPayload {
 
-    /**
-     * Ontology iri
-     */
+    // ontology's iri
     @JsonProperty("@id", String)
     id: string = "";
 
-    @JsonProperty("@type", String, true)
-    type: string = Constants.Ontology;
-
-    @JsonProperty(Constants.LastModificationDate, DateTimeStampConverter, true)
+    // ontology's last modification data
+    @JsonProperty(Constants.LastModificationDate, DateTimeStampConverter)
     lastModificationDate: string;
+
+    @JsonProperty("@type", String)
+    type: string = Constants.Ontology;
 
     @JsonProperty("@graph", [ResourceClass])
     resClass: ResourceClass[] = [];

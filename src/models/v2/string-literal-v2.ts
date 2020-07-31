@@ -3,8 +3,8 @@ import { JsonObject, JsonProperty } from "json2typescript";
 /**
  * A string with an optional language tag.
  */
-@JsonObject("StringLiteralJsonLd")
-export class StringLiteralJsonLd {
+@JsonObject("StringLiteralV2")
+export class StringLiteralV2 {
 
     /**
      * The language of a string literal.

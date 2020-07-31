@@ -4,7 +4,7 @@ import { catchError, map, mergeMap } from "rxjs/operators";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { Constants } from "../../../models/v2/Constants";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
-import { CreateResourceClass, CreateResourceClassPayload } from "../../../models/v2/ontologies/create/create-resource-class";
+import { CreateResourceClass, CreateResourceClassPayload, ResourceClass } from "../../../models/v2/ontologies/create/create-resource-class";
 import { DeleteOntologyResponse } from "../../../models/v2/ontologies/delete/delete-ontology-response";
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { OntologyConversionUtil } from "../../../models/v2/ontologies/OntologyConversionUtil";
@@ -138,7 +138,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      * @param  resClass The resource class to be created
      */
     createResourceClass(resClass: CreateResourceClass): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
-        
+
         const newResClass = new CreateResourceClassPayload();
         newResClass.id = resClass.ontology.id;
         newResClass.lastModificationDate = resClass.ontology.lastModificationDate;
@@ -148,10 +148,9 @@ export class OntologiesEndpointV2 extends Endpoint {
             comment: resClass.comments,
             subClassOf: resClass.subClassOf,
             type: Constants.Class
-        }]
+        }];
         
         const resClassPayload = this.jsonConvert.serializeObject(newResClass);
-        console.log('resClassPayload', resClassPayload);
 
         return this.httpPost("/classes", resClassPayload).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {

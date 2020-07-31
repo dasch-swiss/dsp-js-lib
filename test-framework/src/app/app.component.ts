@@ -216,12 +216,12 @@ export class AppComponent implements OnInit {
                 value: "Test Class"
             }
         ],
-            newResClass.comments = [
-                {
-                    language: "en",
-                    value: "Just an example of a new resource class"
-                }
-            ]
+        newResClass.comments = [
+            {
+                language: "en",
+                value: "Just an example of a new resource class"
+            }
+        ]
         newResClass.subClassOf = [Constants.Resource];
 
         this.knoraApiConnection.v2.onto.createResourceClass(newResClass).subscribe(
