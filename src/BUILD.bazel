@@ -22,11 +22,11 @@ ts_library(
         ["**/*.spec.ts"],
     ),
     deps = [
-        ":js_lib_library",
+        # ":js_lib_library",
         "@npm//@types/long",
         "@npm//long",
         # "@npm//rxjs/ajax",
-        "@npm//json2typescript",
+        # "@npm//json2typescript",
     ],
 )
 
@@ -35,6 +35,6 @@ karma_web_test(
     srcs = [":js_lib_test_library"],
     config_file = "//:karma.conf.js",
     deps = [
-        ":js_lib"
+        # ":js_lib_library"
     ]
 )
