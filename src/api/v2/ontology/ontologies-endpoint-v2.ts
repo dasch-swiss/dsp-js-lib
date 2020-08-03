@@ -4,12 +4,12 @@ import { catchError, map, mergeMap } from "rxjs/operators";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { Constants } from "../../../models/v2/Constants";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
-import { CreateResourceClass, CreateResourceClassPayload, ResourceClass } from "../../../models/v2/ontologies/create/create-resource-class";
+import { CreateResourceClass, CreateResourceClassPayload } from "../../../models/v2/ontologies/create/create-resource-class";
 import { DeleteOntologyResponse } from "../../../models/v2/ontologies/delete/delete-ontology-response";
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { OntologyConversionUtil } from "../../../models/v2/ontologies/OntologyConversionUtil";
 import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
-import { ResourceClassDefinition, ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-class-definition";
+import { ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-class-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update-ontology";
 import { Endpoint } from "../../endpoint";
 
@@ -70,7 +70,7 @@ export class OntologiesEndpointV2 extends Endpoint {
       * @param projectIri the IRI of the project
       * @return OntologiesMetadata or an error 
       */
-     getOntologiesByProjectIri(projectIri: string): Observable<OntologiesMetadata | ApiResponseError> {
+    getOntologiesByProjectIri(projectIri: string): Observable<OntologiesMetadata | ApiResponseError> {
 
         return this.httpGet("/metadata/" + encodeURIComponent(projectIri)).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
@@ -149,7 +149,7 @@ export class OntologiesEndpointV2 extends Endpoint {
             subClassOf: resClass.subClassOf,
             type: Constants.Class
         }];
-        
+
         const resClassPayload = this.jsonConvert.serializeObject(newResClass);
 
         return this.httpPost("/classes", resClassPayload).pipe(
