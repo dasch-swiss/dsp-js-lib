@@ -10,7 +10,6 @@ import { ResourceClassDefinition, ResourceClassDefinitionWithAllLanguages } from
 import { ResourcePropertyDefinition } from "../../../models/v2/ontologies/resource-property-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update-ontology";
-import { StringLiteralV2 } from "../../../models/v2/string-literal-v2";
 
 describe("OntologiesEndpoint", () => {
 

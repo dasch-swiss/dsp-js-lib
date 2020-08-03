@@ -2,11 +2,11 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { StringLiteral } from "../../../admin/string-literal";
 import { Constants } from "../../Constants";
 import { DateTimeStampConverter } from "../../custom-converters/date-time-stamp-converter";
-import { SubClassOfConverter } from "../../custom-converters/subclass-of-converter";
-import { UpdateOntology } from "../update-ontology";
-import { StringLiteralV2 } from "../../string-literal-v2";
 import { IdConverter } from "../../custom-converters/id-converter";
 import { StringLiteralToStringLiteralArrayConverter } from "../../custom-converters/string-literal-to-string-literal-array-converter";
+import { SubClassOfConverter } from "../../custom-converters/subclass-of-converter";
+import { StringLiteralV2 } from "../../string-literal-v2";
+import { UpdateOntology } from "../update-ontology";
 
 @JsonObject("ResourceClassProperty") 
 export class ResourceClassProperty {

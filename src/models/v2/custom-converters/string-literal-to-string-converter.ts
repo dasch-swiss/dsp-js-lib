@@ -1,6 +1,6 @@
-import { StringLiteralV2 } from "../string-literal-v2";
-import { JsonConverter, JsonCustomConvert, JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
+import { JsonConvert, JsonConverter, JsonCustomConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+import { StringLiteralV2 } from "../string-literal-v2";
 
 @JsonConverter
 export class StringLiteralToStringConverter implements JsonCustomConvert<string> {

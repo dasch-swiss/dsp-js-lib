@@ -3,12 +3,12 @@ import { KnoraApiConfig } from "../../../knora-api-config";
 import { Constants } from "../Constants";
 import { IHasProperty } from "./class-definition";
 import { EntityDefinition } from "./EntityDefinition";
+import { OntologiesMetadata, OntologyMetadata } from "./ontology-metadata";
 import { ReadOntology } from "./read/read-ontology";
 import { ResourceClassDefinition, ResourceClassDefinitionWithAllLanguages } from "./resource-class-definition";
 import { ResourcePropertyDefinition } from "./resource-property-definition";
 import { StandoffClassDefinition } from "./standoff-class-definition";
 import { SystemPropertyDefinition } from "./system-property-definition";
-import { OntologiesMetadata, OntologyMetadata } from "./ontology-metadata";
 
 export namespace OntologyConversionUtil {
 
