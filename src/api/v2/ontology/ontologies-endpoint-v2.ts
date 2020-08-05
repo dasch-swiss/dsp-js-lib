@@ -4,7 +4,8 @@ import { catchError, map, mergeMap } from "rxjs/operators";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { Constants } from "../../../models/v2/Constants";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
-import { CreateResourceClass, CreateResourceClassPayload } from "../../../models/v2/ontologies/create/create-resource-class";
+import { CreateResourceClass } from "../../../models/v2/ontologies/create/create-resource-class";
+import { CreateResourceClassPayload, NewResourceClass } from "../../../models/v2/ontologies/create/create-resource-class-payload";
 import { DeleteOntologyResponse } from "../../../models/v2/ontologies/delete/delete-ontology-response";
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { OntologyConversionUtil } from "../../../models/v2/ontologies/OntologyConversionUtil";
@@ -132,6 +133,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         );
 
     }
+
     /**
      * Create a resource class without cardinalities
      * 
@@ -139,20 +141,25 @@ export class OntologiesEndpointV2 extends Endpoint {
      */
     createResourceClass(resClass: CreateResourceClass): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
 
-        const newResClass = new CreateResourceClassPayload();
-        newResClass.id = resClass.ontology.id;
-        newResClass.lastModificationDate = resClass.ontology.lastModificationDate;
-        newResClass.resClass = [{
-            id: resClass.ontology.id + Constants.Delimiter + resClass.name,
-            label: resClass.labels,
-            comment: resClass.comments,
-            subClassOf: resClass.subClassOf,
-            type: Constants.Class
-        }];
+        const resClassPayload = new CreateResourceClassPayload();
 
-        const resClassPayload = this.jsonConvert.serializeObject(newResClass);
+        // prepare ontology data for payload
+        resClassPayload.id = resClass.ontology.id;
+        resClassPayload.lastModificationDate = resClass.ontology.lastModificationDate;
 
-        return this.httpPost("/classes", resClassPayload).pipe(
+        // prepare new res class object for payload
+        const newResClass = new NewResourceClass();
+        newResClass.id = resClass.ontology.id + Constants.Delimiter + resClass.name;
+        newResClass.label = resClass.labels;
+        newResClass.comment = resClass.comments;
+        newResClass.subClassOf = resClass.subClassOf;
+        newResClass.type = Constants.Class;
+
+        resClassPayload.resClass = [newResClass];
+
+        const payload = this.jsonConvert.serializeObject(resClassPayload);
+
+        return this.httpPost("/classes", payload).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -166,9 +173,14 @@ export class OntologiesEndpointV2 extends Endpoint {
         );
     }
 
-    deleteResourceClass(data: UpdateOntology): Observable<OntologyMetadata | ApiResponseError> {
+    /**
+     * Delete resource class
+     *
+     * @param  updateOntology
+     */
+    deleteResourceClass(updateOntology: UpdateOntology): Observable<OntologyMetadata | ApiResponseError> {
 
-        const path = "/classes/" + encodeURIComponent(data.id) + "?lastModificationDate=" + encodeURIComponent(data.lastModificationDate);
+        const path = "/classes/" + encodeURIComponent(updateOntology.id) + "?lastModificationDate=" + encodeURIComponent(updateOntology.lastModificationDate);
 
         return this.httpDelete(path).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
