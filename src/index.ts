@@ -167,3 +167,5 @@ export { PermissionUtil } from "./models/v2/resources/permission-util";
 
 // Interfaces
 export { IPermissions } from "./interfaces/models/admin/i-permissions";
+export { IFulltextSearchParams } from "./interfaces/models/v2/i-fulltext-search-params";
+export { ILabelSearchParams } from "./interfaces/models/v2/i-label-search-params";
