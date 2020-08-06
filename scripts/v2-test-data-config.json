@@ -41,6 +41,14 @@
       "destination": "./test/data/api/v2/ontologies/delete-foo-ontology-response.json"
     },
     {
+      "source": "/v2/ontologies/create-class-without-cardinalities-request.json",
+      "destination": "./test/data/api/v2/ontologies/create-class-without-cardinalities-request.json"
+    },
+    {
+      "source": "/v2/ontologies/create-class-without-cardinalities-response.json",
+      "destination": "./test/data/api/v2/ontologies/create-class-without-cardinalities-response.json"
+    },
+    {
       "source": "/v2/resources/testding.json",
       "destination": "./test/data/api/v2/resources/testding.json"
     },
