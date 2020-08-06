@@ -37,7 +37,7 @@ import {
     DeleteOntologyResponse,
     UpdateOntology,
     ResourceClassDefinitionWithAllLanguages,
-    CreateResourceClass,
+    CreateResourceClass
 } from "@dasch-swiss/dsp-js";
 
 import { map } from "rxjs/operators";
