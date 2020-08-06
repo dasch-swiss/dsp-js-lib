@@ -164,3 +164,6 @@ export { Constants } from "./models/v2/Constants";
 // Utils
 export { CardinalityUtil } from "./models/v2/resources/cardinality-util";
 export { PermissionUtil } from "./models/v2/resources/permission-util";
+
+// Interfaces
+export { IPermissions } from "./interfaces/models/admin/i-permissions";
