@@ -123,6 +123,7 @@ export class Constants {
     static GuiElement = Constants.SalsahGui + Constants.Delimiter + "guiElement";
 
     static Owl = "http://www.w3.org/2002/07/owl";
+    static Ontology = Constants.Owl + Constants.Delimiter + "Ontology";
     static Class = Constants.Owl + Constants.Delimiter + "Class";
     static Restriction = Constants.Owl + Constants.Delimiter + "Restriction";
     static MaxCardinality = Constants.Owl + Constants.Delimiter + "maxCardinality";

@@ -2,12 +2,16 @@ import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { ApiResponseError } from "../../../models/api-response-error";
+import { Constants } from "../../../models/v2/Constants";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
-import { DeleteOntology } from "../../../models/v2/ontologies/delete/delete-ontology";
+import { CreateResourceClass } from "../../../models/v2/ontologies/create/create-resource-class";
+import { CreateResourceClassPayload, NewResourceClass } from "../../../models/v2/ontologies/create/create-resource-class-payload";
 import { DeleteOntologyResponse } from "../../../models/v2/ontologies/delete/delete-ontology-response";
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { OntologyConversionUtil } from "../../../models/v2/ontologies/OntologyConversionUtil";
 import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
+import { ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-class-definition";
+import { UpdateOntology } from "../../../models/v2/ontologies/update-ontology";
 import { Endpoint } from "../../endpoint";
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
@@ -67,7 +71,7 @@ export class OntologiesEndpointV2 extends Endpoint {
       * @param projectIri the IRI of the project
       * @return OntologiesMetadata or an error 
       */
-     getOntologiesByProjectIri(projectIri: string): Observable<OntologiesMetadata | ApiResponseError> {
+    getOntologiesByProjectIri(projectIri: string): Observable<OntologiesMetadata | ApiResponseError> {
 
         return this.httpGet("/metadata/" + encodeURIComponent(projectIri)).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
@@ -112,7 +116,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param ontology the ontology to be deleted.
      */
-    deleteOntology(ontology: DeleteOntology): Observable<DeleteOntologyResponse | ApiResponseError> {
+    deleteOntology(ontology: UpdateOntology): Observable<DeleteOntologyResponse | ApiResponseError> {
 
         const path = "/" + encodeURIComponent(ontology.id) + "?lastModificationDate=" + encodeURIComponent(ontology.lastModificationDate);
 
@@ -124,6 +128,68 @@ export class OntologiesEndpointV2 extends Endpoint {
             }),
             map(jsonldobj => {
                 return this.jsonConvert.deserializeObject(jsonldobj, DeleteOntologyResponse);
+            }),
+            catchError(error => this.handleError(error))
+        );
+
+    }
+
+    /**
+     * Create a resource class without cardinalities
+     * 
+     * @param  resClass The resource class to be created
+     */
+    createResourceClass(resClass: CreateResourceClass): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+
+        const resClassPayload = new CreateResourceClassPayload();
+
+        // prepare ontology data for payload
+        resClassPayload.id = resClass.ontology.id;
+        resClassPayload.lastModificationDate = resClass.ontology.lastModificationDate;
+
+        // prepare new res class object for payload
+        const newResClass = new NewResourceClass();
+        newResClass.id = resClass.ontology.id + Constants.Delimiter + resClass.name;
+        newResClass.label = resClass.labels;
+        newResClass.comment = resClass.comments;
+        newResClass.subClassOf = resClass.subClassOf;
+        newResClass.type = Constants.Class;
+
+        resClassPayload.resClass = [newResClass];
+
+        const payload = this.jsonConvert.serializeObject(resClassPayload);
+
+        return this.httpPost("/classes", payload).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+    }
+
+    /**
+     * Delete resource class
+     *
+     * @param  updateOntology
+     */
+    deleteResourceClass(updateOntology: UpdateOntology): Observable<OntologyMetadata | ApiResponseError> {
+
+        const path = "/classes/" + encodeURIComponent(updateOntology.id) + "?lastModificationDate=" + encodeURIComponent(updateOntology.lastModificationDate);
+
+        return this.httpDelete(path).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }),
+            map(jsonldobj => {
+                return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
             }),
             catchError(error => this.handleError(error))
         );
