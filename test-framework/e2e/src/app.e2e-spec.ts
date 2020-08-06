@@ -130,10 +130,54 @@ describe('workspace-project App', () => {
     expect(loginStatus.getText()).toEqual('logged in');
 
     // create testonto
-    const button = page.getEle('div section#ontologyeditor button.create');
+    const button = page.getEle('div section#ontologyeditor button.create-onto');
     button.click();
     const label = page.getEle('div section#ontologyeditor span.label');
     expect(label.getText()).toEqual('Test Ontology');
+
+  });
+  // TODO: create res class / update following example
+  it('create new "testclass" resource class in testonto of anything project', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // create res class
+    const button = page.getEle('div section#ontologyeditor button.create-res-class');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.res-class-label');
+    expect(label.getText()).toEqual('Test Klasse');
+
+  });
+
+  it('delete "testclass" resource class', () => {
+    
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // delete testclass
+    const button = page.getEle('div section#ontologyeditor button.delete-res-class');
+    button.click();
+    const msg = page.getEle('div section#ontologyeditor span.status');
+    expect(msg.getText()).toEqual('res class has been deleted');
 
   });
 
@@ -147,12 +191,12 @@ describe('workspace-project App', () => {
     const loginStatus = page.getEle('div section#login span.status');
     expect(loginStatus.getText()).toEqual('logged in');
 
-    // get testonto
-    const getButton = page.getEle('div section#ontologyeditor button.read');
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
     getButton.click();
 
     // delete testonto
-    const button = page.getEle('div section#ontologyeditor button.delete');
+    const button = page.getEle('div section#ontologyeditor button.delete-onto');
     button.click();
     const msg = page.getEle('div section#ontologyeditor span.status');
     expect(msg.getText()).toEqual('Ontology http://0.0.0.0:3333/ontology/0001/testonto/v2 has been deleted');
