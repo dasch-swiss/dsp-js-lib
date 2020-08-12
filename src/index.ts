@@ -157,6 +157,8 @@ export { CreateUriValue } from "./models/v2/resources/values/create/create-uri-v
 export { CreateTimeValue } from "./models/v2/resources/values/create/create-time-value";
 export { CreateGeonameValue } from "./models/v2/resources/values/create/create-geoname-value";
 
+export { BaseValue } from "./models/v2/resources/values/base-value";
+
 export { ListNodeV2 } from "./models/v2/lists/list-node-v2";
 
 export { Constants } from "./models/v2/Constants";
