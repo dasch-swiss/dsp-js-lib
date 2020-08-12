@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.0.0-rc.7 (12/08/2020)
+
+### Enhancements
+
+- [#227](https://github.com/dasch-swiss/dsp-js-lib/pull/227) Export BaseValue
+
+---
+
 ## v1.0.0-rc.6 (06/08/2020)
 
 ### Enhancements
