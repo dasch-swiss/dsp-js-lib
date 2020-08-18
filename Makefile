@@ -29,7 +29,7 @@ endef
 # Clones the knora-api git repository
 .PHONY: clone-knora-stack
 clone-knora-stack:
-	@git clone --branch v13.0.0-rc.11 --single-branch --depth 1 https://github.com/dasch-swiss/knora-api.git $(CURRENT_DIR)/.tmp/knora-stack
+	@git clone --branch v13.0.0-rc.12 --single-branch --depth 1 https://github.com/dasch-swiss/knora-api.git $(CURRENT_DIR)/.tmp/knora-stack
 
 #################################
 # Integration test targets

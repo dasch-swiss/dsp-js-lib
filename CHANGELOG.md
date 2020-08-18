@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.0.0-rc.9 (18/08/2020)
+
+### Dependencies
+
+- This release is compatible with knora-api v13.0.0-rc.12
+
 ## v1.0.0-rc.8 (18/08/2020)
 
 ### Enhancements
