@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.0.0-rc.8 (18/08/2020)
+
+### Enhancements
+
+- [#229](https://github.com/dasch-swiss/dsp-js-lib/pull/229) Mock minimal ontology
+
 ## v1.0.0-rc.7 (12/08/2020)
 
 ### Enhancements
