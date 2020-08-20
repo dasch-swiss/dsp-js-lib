@@ -110,6 +110,8 @@ export class Constants {
 
     static OntologyName = Constants.KnoraApiV2 + Constants.Delimiter + "ontologyName";
 
+    static Region = Constants.KnoraApiV2 + Constants.Delimiter + "Region";
+
     static KnoraAdmin = "http://www.knora.org/ontology/knora-admin";
     static DefaultSharedOntologyIRI: string = Constants.KnoraAdmin + Constants.Delimiter + "DefaultSharedOntologiesProject";
     static SystemProjectIRI: string = Constants.KnoraAdmin + Constants.Delimiter + "SystemProject";
