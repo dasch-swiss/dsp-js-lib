@@ -6,7 +6,7 @@ export namespace CustomConverterUtils {
 
 }
 
-export class Utils {
+export namespace FilterUtils {
 
     /**
      * Lambda function eliminating duplicates in a collection to be passed to [[filter]].
@@ -14,9 +14,9 @@ export class Utils {
      * @param elem element of an Array that is currently being looked at.
      * @param index current elements index.
      * @param self reference to the whole Array.
-     * @returns {boolean true if the same element does not already exist in the Array.
+     * @returns true if the same element does not already exist in the Array.
      */
-    static filterOutDuplicates = (elem: any, index: number, self: any) => {
+    export const filterOutDuplicates = (elem: any, index: number, self: any) => {
 
         // https://stackoverflow.com/questions/16747798/delete-duplicate-elements-from-an-array
         // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter?v=example
@@ -26,5 +26,5 @@ export class Utils {
         // for all other elements, false is returned
         return index === self.indexOf(elem);
 
-    }
+    };
 }
