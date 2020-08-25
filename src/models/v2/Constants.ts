@@ -154,4 +154,7 @@ export class Constants {
 
     static SchemaNumberOfItems = "http://schema.org/numberOfItems";
 
+    static SalsahLink: string = "salsah-link"; // class on an HTML <a> element that indicates a link to a Knora resource
+    static RefMarker: string = "ref-marker"; // class on an HTML element that refers to another element in the same document
+
 }
