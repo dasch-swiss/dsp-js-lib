@@ -20,6 +20,7 @@ export class Constants {
     static Resource = Constants.KnoraApiV2 + Constants.Delimiter + "Resource";
     static MayHaveMoreResults = Constants.KnoraApiV2 + Constants.Delimiter + "mayHaveMoreResults";
     static ResourceIcon = Constants.KnoraApiV2 + Constants.Delimiter + "ResourceIcon";
+    static Region = Constants.KnoraApiV2 + Constants.Delimiter + "Region";
     static ForbiddenResource = Constants.KnoraApiV2 + Constants.Delimiter + "ForbiddenResource";
     static BooleanValue = Constants.KnoraApiV2 + Constants.Delimiter + "BooleanValue";
     static ColorValue = Constants.KnoraApiV2 + Constants.Delimiter + "ColorValue";
@@ -109,8 +110,6 @@ export class Constants {
     static Result = Constants.KnoraApiV2 + Constants.Delimiter + "result";
 
     static OntologyName = Constants.KnoraApiV2 + Constants.Delimiter + "ontologyName";
-
-    static Region = Constants.KnoraApiV2 + Constants.Delimiter + "Region";
 
     static KnoraAdmin = "http://www.knora.org/ontology/knora-admin";
     static DefaultSharedOntologyIRI: string = Constants.KnoraAdmin + Constants.Delimiter + "DefaultSharedOntologiesProject";

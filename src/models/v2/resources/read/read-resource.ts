@@ -52,12 +52,6 @@ export class ReadResource extends ReadWriteResource {
 
     outgoingReferences: ReadResource[] = [];
 
-    incomingRegions: ReadResource[] = [];
-
-    incomingStillImageRepresentations: ReadResource[] = [];
-
-    stillImageRepresentationsToDisplay: ReadResource[] = [];
-
     /**
      * Gets number of resource properties for this resource.
      * Each resource property is counted once,
