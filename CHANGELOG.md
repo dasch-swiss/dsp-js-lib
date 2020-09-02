@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.0.0-rc.10 (02/09/2020)
+
+### Enhancements
+
+- [#232](https://github.com/dasch-swiss/dsp-js-lib/pull/232) Add missing declarations
+
 ## v1.0.0-rc.9 (18/08/2020)
 
 ### Dependencies
