@@ -20,6 +20,7 @@ export class Constants {
     static Resource = Constants.KnoraApiV2 + Constants.Delimiter + "Resource";
     static MayHaveMoreResults = Constants.KnoraApiV2 + Constants.Delimiter + "mayHaveMoreResults";
     static ResourceIcon = Constants.KnoraApiV2 + Constants.Delimiter + "ResourceIcon";
+    static Region = Constants.KnoraApiV2 + Constants.Delimiter + "Region";
     static ForbiddenResource = Constants.KnoraApiV2 + Constants.Delimiter + "ForbiddenResource";
     static BooleanValue = Constants.KnoraApiV2 + Constants.Delimiter + "BooleanValue";
     static ColorValue = Constants.KnoraApiV2 + Constants.Delimiter + "ColorValue";
@@ -152,5 +153,8 @@ export class Constants {
     static dateTimeStamp = Constants.Xsd + Constants.Delimiter + "dateTimeStamp";
 
     static SchemaNumberOfItems = "http://schema.org/numberOfItems";
+
+    static SalsahLink: string = "salsah-link"; // class on an HTML <a> element that indicates a link to a Knora resource
+    static RefMarker: string = "ref-marker"; // class on an HTML element that refers to another element in the same document
 
 }
