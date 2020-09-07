@@ -374,7 +374,11 @@ export namespace ResourcesConversionUtil {
                 case Constants.LinkValue: {
                     const linkVal = handleLinkValue(valueJsonld, ontologyCache, listNodeCache, jsonConvert);
                     value = linkVal.pipe(map((val: ReadLinkValue) => {
-                        val.strval = val.linkedResourceIri;
+                        if (val.linkedResource !== undefined) {
+                            val.strval = val.linkedResource.label;
+                        } else {
+                            val.strval = val.linkedResourceIri;
+                        }
                         return val;
                     }));
                     break;

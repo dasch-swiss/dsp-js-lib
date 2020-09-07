@@ -40,7 +40,9 @@ jobs:
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
       - name: Install requirements
-        run: sudo apt-get install expect
+        run: |
+          sudo apt-get install expect
+          sudo npm install --global @bazel/bazelisk
       - name: Run test-integration
         uses: actions/setup-node@v1
         with:
@@ -71,6 +73,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - name: Install dependencies
         run: |
+          sudo npm install --global @bazel/bazelisk
           npm install
           npm run peer-deps
       - name: Test
@@ -89,6 +92,17 @@ jobs:
         run: npm publish build/ --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_DASCHBOT}}
-      - uses: lakto/gren-action@v1.1.0
+      - if: "github.event.release.prerelease"
+        name: Update release notes
+        uses: lakto/gren-action@v2.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          options: '--override --prerelease'
+      - if: "!github.event.release.prerelease"
+        name: Update release notes
+        uses: lakto/gren-action@v2.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          options: '--override'

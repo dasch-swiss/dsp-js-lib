@@ -3,12 +3,12 @@ import { KnoraApiConfig } from "../../../knora-api-config";
 import { Constants } from "../Constants";
 import { IHasProperty } from "./class-definition";
 import { EntityDefinition } from "./EntityDefinition";
+import { OntologiesMetadata, OntologyMetadata } from "./ontology-metadata";
 import { ReadOntology } from "./read/read-ontology";
-import { ResourceClassDefinition } from "./resource-class-definition";
+import { ResourceClassDefinition, ResourceClassDefinitionWithAllLanguages } from "./resource-class-definition";
 import { ResourcePropertyDefinition } from "./resource-property-definition";
 import { StandoffClassDefinition } from "./standoff-class-definition";
 import { SystemPropertyDefinition } from "./system-property-definition";
-import { OntologiesMetadata, OntologyMetadata } from "./ontology-metadata";
 
 export namespace OntologyConversionUtil {
 
@@ -227,8 +227,7 @@ export namespace OntologyConversionUtil {
      * @param jsonConvert 
      */
     export const convertOntologiesList = (ontologiesJsonld: object, jsonConvert: JsonConvert): OntologiesMetadata => {
-        
-        
+
         if (ontologiesJsonld.hasOwnProperty("@graph")) {
             return jsonConvert.deserializeObject(ontologiesJsonld, OntologiesMetadata);
         } else {
@@ -237,5 +236,20 @@ export namespace OntologyConversionUtil {
             return ontologies;
         }
     };
+
+    /**
+     * Converts the response from createResourceClass serialized as JSON-LD to an instance of `ResourceClassDefinition`
+     * 
+     * @param  resClassJsonld
+     * @param  jsonConvert
+     * @returns ResourceClassDefinition
+     */
+    export const convertResourceClassResponse = (resClassJsonld: object, jsonConvert: JsonConvert): ResourceClassDefinitionWithAllLanguages => {
+        if (resClassJsonld.hasOwnProperty("@graph")) {
+            return jsonConvert.deserializeObject((resClassJsonld as any)['@graph'][0], ResourceClassDefinitionWithAllLanguages);
+        } else {
+            return jsonConvert.deserializeObject(resClassJsonld, ResourceClassDefinitionWithAllLanguages);
+        }
+    }
 
 }
