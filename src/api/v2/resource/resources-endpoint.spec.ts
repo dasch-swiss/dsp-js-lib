@@ -1,7 +1,7 @@
 import { of } from "rxjs";
 import { AjaxError } from "rxjs/ajax";
-import { MockList } from "../../../../test/data/api/v2/mockList";
-import { MockOntology } from "../../../../test/data/api/v2/mockOntology";
+import { MockList } from "../../../../test/data/api/v2/mock-list";
+import { MockOntology } from "../../../../test/data/api/v2/mock-ontology";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";

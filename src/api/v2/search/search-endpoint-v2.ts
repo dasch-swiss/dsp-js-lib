@@ -1,9 +1,10 @@
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
+import { IFulltextSearchParams } from "../../../interfaces/models/v2/i-fulltext-search-params";
+import { ILabelSearchParams } from "../../../interfaces/models/v2/i-label-search-params";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { ApiResponseError } from "../../../models/api-response-error";
-import { ReadResource } from "../../../models/v2/resources/read/read-resource";
 import { ReadResourceSequence } from "../../../models/v2/resources/read/read-resource-sequence";
 import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { CountQueryResponse } from "../../../models/v2/search/count-query-response";
@@ -12,45 +13,6 @@ import { V2Endpoint } from "../v2-endpoint";
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require("jsonld/dist/jsonld.js");
-
-/**
- * Params for fulltext search.
- */
-export interface IFulltextSearchParams {
-
-    /**
-     * Iri of resource class the fulltext search is restricted to, if any.
-     */
-    limitToResourceClass?: string;
-
-    /**
-     * Iri of the project the fulltext search is restricted to, if any.
-     */
-    limitToProject?: string;
-
-    /**
-     * Iri of standoff class the fulltext search is restricted to, if any.
-     */
-    limitToStandoffClass?: string;
-
-}
-
-/**
- * Params for search by label
- */
-export interface ILabelSearchParams {
-
-    /**
-     * Iri of the project the search by label is restricted to, if any.
-     */
-    limitToResourceClass?: string;
-
-    /**
-     * Iri of the project the search by label is restricted to, if any.
-     */
-    limitToProject?: string;
-
-}
 
 /**
  * Handles requests to the search route of the Knora API.

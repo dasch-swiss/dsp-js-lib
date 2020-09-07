@@ -1,14 +1,15 @@
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
+import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
+import { CreateResourceClass } from "../../../models/v2/ontologies/create/create-resource-class";
+import { DeleteOntologyResponse } from "../../../models/v2/ontologies/delete/delete-ontology-response";
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
-import { ResourceClassDefinition } from "../../../models/v2/ontologies/resource-class-definition";
+import { ResourceClassDefinition, ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-class-definition";
 import { ResourcePropertyDefinition } from "../../../models/v2/ontologies/resource-property-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
-import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
-import { DeleteOntology } from "../../../models/v2/ontologies/delete/delete-ontology";
-import { DeleteOntologyResponse } from "../../../models/v2/ontologies/delete/delete-ontology-response";
+import { UpdateOntology } from "../../../models/v2/ontologies/update-ontology";
 
 describe("OntologiesEndpoint", () => {
 
@@ -221,7 +222,7 @@ describe("OntologiesEndpoint", () => {
 
     });
 
-    describe("Create ontology", () => {
+    describe("Method createOntology", () => {
         it("should create a new ontology", done => {
 
             const newOntology: CreateOntology = new CreateOntology();
@@ -253,16 +254,16 @@ describe("OntologiesEndpoint", () => {
 
     });
 
-    describe("Delete ontology", () => {
+    describe("Method deleteOntology", () => {
         it("should delete an ontology", done => {
 
-            const deleteOntology = new DeleteOntology();
+            const ontoInfo = new UpdateOntology();
 
-            deleteOntology.id = "http://0.0.0.0:3333/ontology/00FF/foo/v2";
+            ontoInfo.id = "http://0.0.0.0:3333/ontology/00FF/foo/v2";
 
-            deleteOntology.lastModificationDate = "2020-06-29T13:33:46.059576Z";
+            ontoInfo.lastModificationDate = "2020-06-29T13:33:46.059576Z";
 
-            knoraApiConnection.v2.onto.deleteOntology(deleteOntology).subscribe(
+            knoraApiConnection.v2.onto.deleteOntology(ontoInfo).subscribe(
                 (res: DeleteOntologyResponse) => {
                     expect(res.result).toEqual("Ontology http://0.0.0.0:3333/ontology/00FF/foo/v2 has been deleted");
                     done();
@@ -284,4 +285,84 @@ describe("OntologiesEndpoint", () => {
 
     });
 
+    describe("Method createResourceClass", () => {
+        it("should create a new res class and add it to anything ontology", done => {
+
+            const newResClass = new CreateResourceClass();
+
+            newResClass.ontology = {
+                id: "http://0.0.0.0:3333/ontology/0001/anything/v2",
+                lastModificationDate: "2017-12-19T15:23:42.166Z"
+            };
+            newResClass.name = "Nothing";
+            newResClass.comments = [
+                {
+                    language: "en",
+                    value: "Represents nothing"
+                }
+            ];
+
+            newResClass.labels = [
+                {
+                    language: "en",
+                    value: "nothing"
+                }
+            ];
+            newResClass.subClassOf = ["http://api.knora.org/ontology/knora-api/v2#Resource"];
+
+            knoraApiConnection.v2.onto.createResourceClass(newResClass).subscribe(
+                (response: ResourceClassDefinitionWithAllLanguages) => {
+                    // console.log('new resource class created', response);
+                    expect(response.id).toBe("http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const createResClassResponse = require("../../../../test/data/api/v2/ontologies/create-class-without-cardinalities-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createResClassResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/classes");
+
+            expect(request.method).toEqual("POST");
+
+            const expectedPayload = require("../../../../test/data/api/v2/ontologies/create-class-without-cardinalities-request-expanded.json");
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
+    });
+
+
+    describe("Method deleteResourceClass", () => {
+        it("should delete a resource class", done => {
+
+            const resclass = new UpdateOntology();
+
+            resclass.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
+
+            resclass.lastModificationDate = "2017-12-19T15:23:42.166Z";
+
+            knoraApiConnection.v2.onto.deleteResourceClass(resclass).subscribe(
+                (res: OntologyMetadata) => {
+                    expect(res.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const deleteResClassResponse = require("../../../../test/data/api/v2/ontologies/anything-ontology.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteResClassResponse)));
+
+            const path = "http://0.0.0.0:3333/v2/ontologies/classes/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Nothing?lastModificationDate=2017-12-19T15%3A23%3A42.166Z";
+            expect(request.url).toBe(path);
+
+            expect(request.method).toEqual("DELETE");
+
+        });
+
+    });
 });
