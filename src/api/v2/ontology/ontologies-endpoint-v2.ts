@@ -13,6 +13,8 @@ import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
 import { ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-class-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update-ontology";
 import { Endpoint } from "../../endpoint";
+import { CreateResourceProperty } from "../../../models/v2/ontologies/create/create-resource-property";
+import { CreateResourcePropertyPayload, NewResourceProperty } from "../../../models/v2/ontologies/create/create-resource-property-payload";
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require("jsonld/dist/jsonld.js");
@@ -176,11 +178,73 @@ export class OntologiesEndpointV2 extends Endpoint {
     /**
      * Delete resource class
      *
-     * @param  updateOntology
+     * @param  updateOntology with class IRI
      */
     deleteResourceClass(updateOntology: UpdateOntology): Observable<OntologyMetadata | ApiResponseError> {
 
         const path = "/classes/" + encodeURIComponent(updateOntology.id) + "?lastModificationDate=" + encodeURIComponent(updateOntology.lastModificationDate);
+
+        return this.httpDelete(path).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }),
+            map(jsonldobj => {
+                return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
+            }),
+            catchError(error => this.handleError(error))
+        );
+
+    }
+
+    /**
+     * Create a resource property
+     * 
+     * @param  resProp The resource property to be created
+     */
+    createResourceProperty(resProp: CreateResourceProperty): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+        const resPropPayload = new CreateResourcePropertyPayload();
+
+        // prepare ontology data for payload
+        resPropPayload.id = resProp.ontology.id;
+        resPropPayload.lastModificationDate = resProp.ontology.lastModificationDate;
+
+        // prepare new res class object for payload
+        const newResProperty = new NewResourceProperty();
+        newResProperty.id = resProp.ontology.id + Constants.Delimiter + resProp.name;
+        newResProperty.label = resProp.labels;
+        newResProperty.comment = resProp.comments;
+        newResProperty.subPropertyOf = resProp.subPropertyOf;
+        newResProperty.type = Constants.ObjectProperty;
+
+        resPropPayload.resProperty = [newResProperty];
+
+        const payload = this.jsonConvert.serializeObject(resPropPayload);
+
+        return this.httpPost("/properties", payload).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+    }
+
+
+    /**
+     * Delete resource property
+     *
+     * @param  updateOntology with property IRI
+     */
+    deleteResourceProperty(updateOntology: UpdateOntology): Observable<OntologyMetadata | ApiResponseError> {
+
+        const path = "/properties/" + encodeURIComponent(updateOntology.id) + "?lastModificationDate=" + encodeURIComponent(updateOntology.lastModificationDate);
 
         return this.httpDelete(path).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
