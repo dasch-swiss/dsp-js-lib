@@ -25,7 +25,7 @@ export class NewResourceProperty {
     @JsonProperty(Constants.Label, StringLiteralToStringLiteralArrayConverter)
     label: StringLiteralV2[] = [];
 
-    @JsonProperty(Constants.Comment, StringLiteralToStringLiteralArrayConverter)
+    @JsonProperty(Constants.Comment, StringLiteralToStringLiteralArrayConverter, true)
     comment: StringLiteralV2[] = [];
 
     @JsonProperty(Constants.SubPropertyOf, SubClassOfConverter)

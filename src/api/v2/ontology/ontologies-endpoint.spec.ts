@@ -7,9 +7,11 @@ import { DeleteOntologyResponse } from "../../../models/v2/ontologies/delete/del
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
 import { ResourceClassDefinition, ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-class-definition";
-import { ResourcePropertyDefinition } from "../../../models/v2/ontologies/resource-property-definition";
+import { ResourcePropertyDefinition, ResourcePropertyDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-property-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update-ontology";
+import { CreateResourceProperty } from "../../../models/v2/ontologies/create/create-resource-property";
+import { Constants } from "../../../models/v2/Constants";
 
 describe("OntologiesEndpoint", () => {
 
@@ -365,4 +367,98 @@ describe("OntologiesEndpoint", () => {
         });
 
     });
+
+    /* TODO: NO TEST DATA available for create-property-response
+    describe("Method createResourceProperty", () => {
+        it("should create a new res property and add it to anything ontology", done => {
+
+            const newResProp = new CreateResourceProperty();
+
+            newResProp.ontology = {
+                id: "http://0.0.0.0:3333/ontology/00FF/images/v2",
+                lastModificationDate: "2017-12-19T15:23:42.166Z"
+            };
+            newResProp.name = "titel";
+
+            newResProp.labels = [
+                {
+                    language: "en",
+                    value: "Title"
+                }
+            ];
+
+            // newResProp.comments = [
+            //     {
+            //         language: "en",
+            //         value: "Comment"
+            //     }
+            // ];
+
+            newResProp.subPropertyOf = [Constants.HasValue];
+
+            newResProp.objectType = Constants.ListValue;
+            newResProp.subjectType = "http://0.0.0.0:3333/ontology/00FF/images/v2#bild";
+
+            newResProp.guiElement = "http://api.knora.org/ontology/salsah-gui/v2#List";
+            newResProp.guiAttributes = ["hlist=<http://rdfh.ch/lists/00FF/73d0ec0302>"];
+
+
+            knoraApiConnection.v2.onto.createResourceProperty(newResProp).subscribe(
+                (response: ResourcePropertyDefinitionWithAllLanguages) => {
+                    console.warn('new resource property created', response);
+                    expect(response.id).toBe("http://0.0.0.0:3333/ontology/00FF/images/v2#titel");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const createResPropResponse = require("../../../../test/data/api/v2/ontologies/get-property-textValue-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createResPropResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/properties");
+
+            expect(request.method).toEqual("POST");
+
+            // const expectedPayload = require("../../../../test/data/api/v2/ontologies/create-class-without-cardinalities-request-expanded.json");
+            // expect(request.data()).toEqual(expectedPayload);
+        });
+
+    });
+    */
+
+    /* TODO: NO TEST DATA available for delete-property-response
+    describe("Method deleteResourceProperty", () => {
+        it("should delete a resource property", done => {
+
+            const resprop = new UpdateOntology();
+
+            resprop.id = "http://0.0.0.0:3333/ontology/00FF/images/v2#titel";
+
+            resprop.lastModificationDate = "2017-12-19T15:23:42.166Z";
+
+            knoraApiConnection.v2.onto.deleteResourceProperty(resprop).subscribe(
+                (res: OntologyMetadata) => {
+                    expect(res.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const deleteOntoResponse = require("../../../../test/data/api/v2/ontologies/anything-ontology.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteOntoResponse)));
+
+            const path = "http://0.0.0.0:3333/v2/ontologies/properties/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F00FF%2Fimages%2Fv2%23titel?lastModificationDate=2017-12-19T15%3A23%3A42.166Z";
+            expect(request.url).toBe(path);
+
+            expect(request.method).toEqual("DELETE");
+
+        });
+
+    });
+    */
+
 });
