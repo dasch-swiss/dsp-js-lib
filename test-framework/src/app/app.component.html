@@ -47,16 +47,25 @@
         <button class="read-onto" (click)="getTestOnto('http://0.0.0.0:3333/ontology/0001/testonto/v2')">Get testonto</button> <br /><br />
         <div>The ontology's label: <span class="read-label">{{ontology?.label}}</span> </div> <br />
 
+        <p>Before clicking on the following resource class or property action buttons, you should click each time on <strong>Get testonto</strong> button above. Because lastModification time is always needed.</p>
+        
         <h4>Resource Class</h4>
-        <p>Before clicking on the following resource class action buttons, you should click each time on <strong>Get testonto</strong> button above. Because lastModification time is always needed.</p>
         <button class="create-res-class" (click)="createResourceClass()">Create resource class</button><br><br>
         <div><span *ngIf="resClass">Res class created:&nbsp;</span><span class="res-class-label">{{resClass?.label}}</span> </div> <br />
 
         <button class="get-res-class" (click)="getResourceClass('http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass')">Get resource class</button><br><br>
-        
-        <button class="delete-res-class" (click)="deleteResourceClass()">Delete resource class</button><br><br>
-        <button class="delete-onto" (click)="deleteOntology()">Delete testonto</button>
 
+        <button class="delete-res-class" (click)="deleteResourceClass()">Delete resource class</button><br><br>
+
+        <h4>Resource Property</h4>
+        <button class="create-res-prop" (click)="createResourceProperty()">Create resource property</button><br><br>
+        <!-- <div><span *ngIf="resProp">Res property created:&nbsp;</span><span class="res-prop-label">{{resProp?.label}}</span> </div> <br /> -->
+
+        <!-- <button class="get-res-class" (click)="getResourceClass('http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass')">Get resource class</button><br><br> -->
+        
+        <button class="delete-res-prop" (click)="deleteResourceProperty()">Delete resource property</button><br><br>
+     
+        <button class="delete-onto" (click)="deleteOntology()">Delete testonto</button>
         <div>Delete status: <span class="status">{{message}}</span></div> <br />
     </section>
 

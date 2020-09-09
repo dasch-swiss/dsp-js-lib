@@ -15,6 +15,7 @@ import { UpdateOntology } from "../../../models/v2/ontologies/update-ontology";
 import { Endpoint } from "../../endpoint";
 import { CreateResourceProperty } from "../../../models/v2/ontologies/create/create-resource-property";
 import { CreateResourcePropertyPayload, NewResourceProperty } from "../../../models/v2/ontologies/create/create-resource-property-payload";
+import { ResourcePropertyDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-property-definition";
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require("jsonld/dist/jsonld.js");
@@ -67,12 +68,13 @@ export class OntologiesEndpointV2 extends Endpoint {
         );
     }
 
+
     /**
-      * Requests metadata about all ontologies from a specific project
-      *
-      * @param projectIri the IRI of the project
-      * @return OntologiesMetadata or an error 
-      */
+     * Requests metadata about all ontologies from a specific project
+     *
+     * @param projectIri the IRI of the project
+     * @return OntologiesMetadata or an error 
+     */
     getOntologiesByProjectIri(projectIri: string): Observable<OntologiesMetadata | ApiResponseError> {
 
         return this.httpGet("/metadata/" + encodeURIComponent(projectIri)).pipe(
@@ -203,7 +205,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      * 
      * @param  resProp The resource property to be created
      */
-    createResourceProperty(resProp: CreateResourceProperty): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+    createResourceProperty(resProp: CreateResourceProperty): Observable<ResourcePropertyDefinitionWithAllLanguages | ApiResponseError> {
         const resPropPayload = new CreateResourcePropertyPayload();
 
         // prepare ontology data for payload
@@ -218,9 +220,20 @@ export class OntologiesEndpointV2 extends Endpoint {
         newResProperty.subPropertyOf = resProp.subPropertyOf;
         newResProperty.type = Constants.ObjectProperty;
 
+        newResProperty.subjectType = resProp.subjectType;
+        newResProperty.objectType = resProp.objectType;
+
+        if (resProp.guiElement) {
+            newResProperty.guiElement = resProp.guiElement;
+        }
+        if (resProp.guiAttributes) {
+            newResProperty.guiAttributes = resProp.guiAttributes;
+        }
         resPropPayload.resProperty = [newResProperty];
 
         const payload = this.jsonConvert.serializeObject(resPropPayload);
+
+        console.log('create res prop payload: ', payload);
 
         return this.httpPost("/properties", payload).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
@@ -228,7 +241,7 @@ export class OntologiesEndpointV2 extends Endpoint {
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
-                return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
+                return OntologyConversionUtil.convertResourcePropertyResponse(jsonldobj, this.jsonConvert);
             }),
             catchError(error => {
                 return this.handleError(error);

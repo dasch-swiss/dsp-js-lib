@@ -10,7 +10,7 @@ export class CreateResourceProperty {
     ontology: UpdateOntology = new UpdateOntology();
 
     @JsonProperty("subjectType", IdConverter, true)
-    subjectType: string = "";
+    subjectType?: string = undefined;
 
     @JsonProperty("objectType", IdConverter)
     objectType: string = "";
@@ -28,9 +28,9 @@ export class CreateResourceProperty {
     subPropertyOf: string[] = [];
 
     @JsonProperty("guiElement", IdConverter, true)
-    guiElement: string = "";
+    guiElement?: string = undefined;
 
     @JsonProperty("guiAttributes", [String], true)
-    guiAttributes: string[] = [];
+    guiAttributes?: string[] = [];
 
 }

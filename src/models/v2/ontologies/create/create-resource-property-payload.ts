@@ -16,10 +16,10 @@ export class NewResourceProperty {
     @JsonProperty("@type", String, true)
     type: string = Constants.ObjectProperty;
 
-    @JsonProperty("subjectType", IdConverter, true)
-    subjectType: string = "";
+    @JsonProperty(Constants.SubjectType, IdConverter, true)
+    subjectType?: string = undefined;
 
-    @JsonProperty("objectType", IdConverter)
+    @JsonProperty(Constants.ObjectType, IdConverter)
     objectType: string = "";
 
     @JsonProperty(Constants.Label, StringLiteralToStringLiteralArrayConverter)
@@ -31,11 +31,11 @@ export class NewResourceProperty {
     @JsonProperty(Constants.SubPropertyOf, SubClassOfConverter)
     subPropertyOf: string[] = [];
 
-    @JsonProperty(Constants.SalsahGui, IdConverter, true)
-    guiElement: string = "";
+    @JsonProperty(Constants.GuiElement, IdConverter, true)
+    guiElement?: string = undefined;
 
-    @JsonProperty("guiAttributes", [String], true)
-    guiAttributes: string[] = [];
+    @JsonProperty(Constants.GuiAttribute, [String], true)
+    guiAttributes?: string[] = [];
 
 }
 

@@ -41,6 +41,8 @@ import {
 } from "@dasch-swiss/dsp-js";
 
 import { map } from "rxjs/operators";
+import { CreateResourceProperty } from '@dasch-swiss/dsp-js/src/models/v2/ontologies/create/create-resource-property';
+import { ResourcePropertyDefinitionWithAllLanguages } from '@dasch-swiss/dsp-js/src/models/v2/ontologies/resource-property-definition';
 
 @Component({
     selector: 'app-root',
@@ -216,12 +218,12 @@ export class AppComponent implements OnInit {
                 value: "Test Class"
             }
         ],
-        newResClass.comments = [
-            {
-                language: "en",
-                value: "Just an example of a new resource class"
-            }
-        ]
+            newResClass.comments = [
+                {
+                    language: "en",
+                    value: "Just an example of a new resource class"
+                }
+            ]
         newResClass.subClassOf = [Constants.Resource];
 
         this.knoraApiConnection.v2.onto.createResourceClass(newResClass).subscribe(
@@ -241,6 +243,63 @@ export class AppComponent implements OnInit {
             (response: OntologyMetadata) => {
                 this.message = 'res class has been deleted';
                 console.log('res class deleted', response);
+            },
+            (error: ApiResponseError) => {
+                console.error(error);
+            }
+        )
+
+    }
+
+
+    createResourceProperty() {
+        const newResProp = new CreateResourceProperty();
+        newResProp.ontology = {
+            id: this.ontology.id,
+            lastModificationDate: this.ontology.lastModificationDate
+        };
+        newResProp.name = "testprop";
+        newResProp.labels = [
+            {
+                language: "de",
+                value: "Test Eigenschaft"
+            }, {
+                language: "en",
+                value: "Test Property"
+            }
+        ],
+            newResProp.comments = [
+                {
+                    language: "en",
+                    value: "Just an example of a new resource property"
+                }
+            ]
+        newResProp.subPropertyOf = [Constants.HasValue];
+        newResProp.objectType = Constants.TextValue;
+        newResProp.subjectType = "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass";
+
+        newResProp.guiElement = "http://api.knora.org/ontology/salsah-gui/v2#SimpleText";
+        newResProp.guiAttributes = [
+            "maxlength=100",
+            "size=80"
+        ];
+
+        this.knoraApiConnection.v2.onto.createResourceProperty(newResProp).subscribe(
+            (response: ResourcePropertyDefinitionWithAllLanguages) => {
+                console.log('new resource property created', response);
+            }
+        );
+    }
+
+    deleteResourceProperty() {
+        const deleteResProp: UpdateOntology = new UpdateOntology();
+        deleteResProp.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#testprop";
+        deleteResProp.lastModificationDate = this.ontology.lastModificationDate;
+
+        this.knoraApiConnection.v2.onto.deleteResourceProperty(deleteResProp).subscribe(
+            (response: OntologyMetadata) => {
+                this.message = 'res property has been deleted';
+                console.log('res property deleted', response);
             },
             (error: ApiResponseError) => {
                 console.error(error);
