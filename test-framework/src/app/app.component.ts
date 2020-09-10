@@ -217,13 +217,13 @@ export class AppComponent implements OnInit {
                 language: "en",
                 value: "Test Class"
             }
-        ],
-            newResClass.comments = [
-                {
-                    language: "en",
-                    value: "Just an example of a new resource class"
-                }
-            ]
+        ];
+        newResClass.comments = [
+            {
+                language: "en",
+                value: "Just an example of a new resource class"
+            }
+        ];
         newResClass.subClassOf = [Constants.Resource];
 
         this.knoraApiConnection.v2.onto.createResourceClass(newResClass).subscribe(
@@ -267,13 +267,7 @@ export class AppComponent implements OnInit {
                 language: "en",
                 value: "Test Property"
             }
-        ],
-        newResProp.comments = [
-            {
-                language: "en",
-                value: "Just an example of a new resource property"
-            }
-        ]
+        ];
         newResProp.subPropertyOf = [Constants.HasValue];
         newResProp.objectType = Constants.TextValue;
         newResProp.subjectType = "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass";

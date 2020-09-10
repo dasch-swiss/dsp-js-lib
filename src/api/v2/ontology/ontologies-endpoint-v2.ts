@@ -155,7 +155,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         const newResClass = new NewResourceClass();
         newResClass.id = resClass.ontology.id + Constants.Delimiter + resClass.name;
         newResClass.label = resClass.labels;
-        newResClass.comment = resClass.comments;
+        newResClass.comment = (resClass.comments.length ? resClass.comments : resClass.labels);
         newResClass.subClassOf = resClass.subClassOf;
         newResClass.type = Constants.Class;
 
@@ -206,6 +206,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      * @param  resProp The resource property to be created
      */
     createResourceProperty(resProp: CreateResourceProperty): Observable<ResourcePropertyDefinitionWithAllLanguages | ApiResponseError> {
+        
         const resPropPayload = new CreateResourcePropertyPayload();
 
         // prepare ontology data for payload
@@ -216,19 +217,20 @@ export class OntologiesEndpointV2 extends Endpoint {
         const newResProperty = new NewResourceProperty();
         newResProperty.id = resProp.ontology.id + Constants.Delimiter + resProp.name;
         newResProperty.label = resProp.labels;
-        newResProperty.comment = resProp.comments;
+        newResProperty.comment = (resProp.comments.length ? resProp.comments : resProp.labels);
         newResProperty.subPropertyOf = resProp.subPropertyOf;
         newResProperty.type = Constants.ObjectProperty;
 
         newResProperty.subjectType = resProp.subjectType;
         newResProperty.objectType = resProp.objectType;
-
+        
         if (resProp.guiElement) {
             newResProperty.guiElement = resProp.guiElement;
         }
         if (resProp.guiAttributes) {
             newResProperty.guiAttributes = resProp.guiAttributes;
         }
+        
         resPropPayload.resProperty = [newResProperty];
 
         const payload = this.jsonConvert.serializeObject(resPropPayload);
