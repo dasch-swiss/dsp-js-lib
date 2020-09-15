@@ -367,66 +367,74 @@ describe("OntologiesEndpoint", () => {
         });
 
     });
-
-    /* TODO: NO TEST DATA available for create-property-response
+    
     describe("Method createResourceProperty", () => {
-        it("should create a new res property and add it to anything ontology", done => {
+        it("should create a new res property as supPropertyOf 'hasValue'", done => {
 
             const newResProp = new CreateResourceProperty();
 
             newResProp.ontology = {
-                id: "http://0.0.0.0:3333/ontology/00FF/images/v2",
+                id: "http://0.0.0.0:3333/ontology/0001/anything/v2",
                 lastModificationDate: "2017-12-19T15:23:42.166Z"
             };
-            newResProp.name = "titel";
+            newResProp.name = "hasName";
 
             newResProp.labels = [
                 {
                     language: "en",
-                    value: "Title"
+                    value: "has name"
+                },
+                {
+                    language: "de",
+                    value: "hat Namen"
                 }
             ];
 
-            // newResProp.comments = [
-            //     {
-            //         language: "en",
-            //         value: "Comment"
-            //     }
-            // ];
+            newResProp.comments = [
+                {
+                    language: "en",
+                    value: "The name of a Thing"
+                },
+                {
+                    language: "de",
+                    value: "Der Name eines Dinges"
+                }
+            ];
 
-            newResProp.subPropertyOf = [Constants.HasValue];
+            newResProp.subPropertyOf = [Constants.HasValue, "http://schema.org/name"];
 
-            newResProp.objectType = Constants.ListValue;
-            newResProp.subjectType = "http://0.0.0.0:3333/ontology/00FF/images/v2#bild";
+            newResProp.objectType = Constants.TextValue;
+            newResProp.subjectType = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
 
-            newResProp.guiElement = "http://api.knora.org/ontology/salsah-gui/v2#List";
-            newResProp.guiAttributes = ["hlist=<http://rdfh.ch/lists/00FF/73d0ec0302>"];
+            newResProp.guiElement = "http://api.knora.org/ontology/salsah-gui/v2#SimpleText";
+            newResProp.guiAttributes = ["size=80", "maxlength=100"];
 
+            console.log("NEW RES PROP ----------------", newResProp);
 
             knoraApiConnection.v2.onto.createResourceProperty(newResProp).subscribe(
                 (response: ResourcePropertyDefinitionWithAllLanguages) => {
                     console.warn('new resource property created', response);
-                    expect(response.id).toBe("http://0.0.0.0:3333/ontology/00FF/images/v2#titel");
+                    expect(response.id).toBe("http://0.0.0.0:3333/ontology/0001/anything/v2#hasName");
                     done();
                 }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const createResPropResponse = require("../../../../test/data/api/v2/ontologies/get-property-textValue-response.json");
+            const expectedPayload = require("../../../../test/data/api/v2/ontologies/create-value-property-request.json");
+            // expect(request.data()).toEqual(expectedPayload);
 
+            const createResPropResponse = require("../../../../test/data/api/v2/ontologies/create-value-property-response.json");
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createResPropResponse)));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/properties");
 
             expect(request.method).toEqual("POST");
 
-            // const expectedPayload = require("../../../../test/data/api/v2/ontologies/create-class-without-cardinalities-request-expanded.json");
-            // expect(request.data()).toEqual(expectedPayload);
         });
 
     });
-    */
+    
 
     /* TODO: NO TEST DATA available for delete-property-response
     describe("Method deleteResourceProperty", () => {

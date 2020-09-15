@@ -254,29 +254,42 @@ export class AppComponent implements OnInit {
 
     createResourceProperty() {
         const newResProp = new CreateResourceProperty();
+
         newResProp.ontology = {
-            id: this.ontology.id,
-            lastModificationDate: this.ontology.lastModificationDate
+            id: "http://0.0.0.0:3333/ontology/0001/anything/v2",
+            lastModificationDate: "2020-09-14T15:29:03.194356Z"
         };
-        newResProp.name = "testprop";
+        newResProp.name = "hasName";
+
         newResProp.labels = [
             {
-                language: "de",
-                value: "Test Eigenschaft"
-            }, {
                 language: "en",
-                value: "Test Property"
+                value: "has name"
+            },
+            {
+                language: "de",
+                value: "hat Namen"
             }
         ];
-        newResProp.subPropertyOf = [Constants.HasValue];
+
+        newResProp.comments = [
+            {
+                language: "en",
+                value: "The name of a Thing"
+            },
+            {
+                language: "de",
+                value: "Der Name eines Dinges"
+            }
+        ];
+
+        newResProp.subPropertyOf = [Constants.HasValue, "http://schema.org/name"];
+
         newResProp.objectType = Constants.TextValue;
-        newResProp.subjectType = "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass";
+        newResProp.subjectType = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
 
         newResProp.guiElement = "http://api.knora.org/ontology/salsah-gui/v2#SimpleText";
-        newResProp.guiAttributes = [
-            "maxlength=100",
-            "size=80"
-        ];
+        newResProp.guiAttributes = ["size=80", "maxlength=100"];
 
         this.knoraApiConnection.v2.onto.createResourceProperty(newResProp).subscribe(
             (response: ResourcePropertyDefinitionWithAllLanguages) => {
@@ -287,8 +300,9 @@ export class AppComponent implements OnInit {
 
     deleteResourceProperty() {
         const deleteResProp: UpdateOntology = new UpdateOntology();
-        deleteResProp.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#testprop";
-        deleteResProp.lastModificationDate = this.ontology.lastModificationDate;
+        deleteResProp.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasName";
+        deleteResProp.lastModificationDate = "2020-09-14T15:29:48.544437Z";
+        // this.ontology.lastModificationDate;
 
         this.knoraApiConnection.v2.onto.deleteResourceProperty(deleteResProp).subscribe(
             (response: OntologyMetadata) => {
