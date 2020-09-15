@@ -4,7 +4,7 @@
 
 ### Dependencies
 
-- [#234](https://github.com/dasch-swiss/dsp-js-lib/pull/234) This release is compatible with knora-api v13.0.0-rc.15
+- [#234](https://github.com/dasch-swiss/dsp-js-lib/pull/234) Knora): Use rc.15
 
 ## v1.0.0-rc.10 (02/09/2020)
 
