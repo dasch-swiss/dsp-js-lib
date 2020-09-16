@@ -12,6 +12,7 @@ import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-p
 import { UpdateOntology } from "../../../models/v2/ontologies/update-ontology";
 import { CreateResourceProperty } from "../../../models/v2/ontologies/create/create-resource-property";
 import { Constants } from "../../../models/v2/Constants";
+import { StringLiteral } from "../../../models/admin/string-literal";
 
 describe("OntologiesEndpoint", () => {
 
@@ -373,40 +374,56 @@ describe("OntologiesEndpoint", () => {
 
             const newResProp = new CreateResourceProperty();
 
-            newResProp.ontology = {
-                id: "http://0.0.0.0:3333/ontology/0001/anything/v2",
-                lastModificationDate: "2017-12-19T15:23:42.166Z"
-            };
+            const onto = new UpdateOntology();
+
+            onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
+            onto.lastModificationDate = "2017-12-19T15:23:42.166Z";
+
+            newResProp.ontology = onto;
+
             newResProp.name = "hasName";
 
+            const label1 = new StringLiteral();
+
+            label1.language = "en";
+            label1.value = "has name";
+
+            const label2 = new StringLiteral();
+
+            label2.language = "de";
+            label2.value = "hat Namen";
+
             newResProp.labels = [
-                {
-                    language: "en",
-                    value: "has name"
-                },
-                {
-                    language: "de",
-                    value: "hat Namen"
-                }
+                label1,
+                label2
             ];
+
+            const comment1 = new StringLiteral();
+
+            comment1.language = "en";
+            comment1.value = "The name of a Thing";
+
+            const comment2 = new StringLiteral();
+
+            comment2.language = "de";
+            comment2.value = "Der Name eines Dinges";
 
             newResProp.comments = [
-                {
-                    language: "en",
-                    value: "The name of a Thing"
-                },
-                {
-                    language: "de",
-                    value: "Der Name eines Dinges"
-                }
+                comment1,
+                comment2
             ];
 
-            newResProp.subPropertyOf = [Constants.HasValue, "http://schema.org/name"];
+            newResProp.subPropertyOf = [
+                Constants.HasValue,
+                "http://schema.org/name"
+            ];
 
             newResProp.objectType = Constants.TextValue;
+
             newResProp.subjectType = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
 
             newResProp.guiElement = "http://api.knora.org/ontology/salsah-gui/v2#SimpleText";
+
             newResProp.guiAttributes = ["size=80", "maxlength=100"];
 
             knoraApiConnection.v2.onto.createResourceProperty(newResProp).subscribe(

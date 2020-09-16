@@ -14,7 +14,7 @@ import { ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/onto
 import { UpdateOntology } from "../../../models/v2/ontologies/update-ontology";
 import { Endpoint } from "../../endpoint";
 import { CreateResourceProperty } from "../../../models/v2/ontologies/create/create-resource-property";
-import { CreateResourcePropertyPayload, NewResourceProperty } from "../../../models/v2/ontologies/create/create-resource-property-payload";
+import { CreateResourcePropertyPayload, NewResourcePropertyPayload } from "../../../models/v2/ontologies/create/create-resource-property-payload";
 import { ResourcePropertyDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-property-definition";
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
@@ -214,8 +214,10 @@ export class OntologiesEndpointV2 extends Endpoint {
         resPropPayload.lastModificationDate = resProp.ontology.lastModificationDate;
 
         // prepare new res class object for payload
-        const newResProperty = new NewResourceProperty();
+        const newResProperty = new NewResourcePropertyPayload();
+
         newResProperty.id = resProp.ontology.id + Constants.Delimiter + resProp.name;
+
         newResProperty.label = resProp.labels;
         newResProperty.comment = (resProp.comments.length ? resProp.comments : resProp.labels);
         newResProperty.subPropertyOf = resProp.subPropertyOf;
@@ -248,7 +250,6 @@ export class OntologiesEndpointV2 extends Endpoint {
             })
         );
     }
-
 
     /**
      * Delete resource property

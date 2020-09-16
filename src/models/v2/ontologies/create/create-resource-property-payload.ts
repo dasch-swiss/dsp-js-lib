@@ -8,8 +8,8 @@ import { IdConverter } from "../../custom-converters/id-converter";
 
 
 // Resource property data as part of CreateResourcePropertyPayload
-@JsonObject("NewResourceProperty")
-export class NewResourceProperty {
+@JsonObject("NewResourcePropertyPayload")
+export class NewResourcePropertyPayload {
     @JsonProperty("@id", String)
     id: string = "";
 
@@ -54,6 +54,6 @@ export class CreateResourcePropertyPayload {
     @JsonProperty("@type", String)
     type: string = Constants.Ontology;
 
-    @JsonProperty("@graph", [NewResourceProperty])
-    resProperty: NewResourceProperty[] = [];
+    @JsonProperty("@graph", [NewResourcePropertyPayload])
+    resProperty: NewResourcePropertyPayload[] = [];
 }
