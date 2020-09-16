@@ -235,8 +235,6 @@ export class OntologiesEndpointV2 extends Endpoint {
 
         const payload = this.jsonConvert.serializeObject(resPropPayload);
 
-        console.log('create res prop payload: ', payload);
-
         return this.httpPost("/properties", payload).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // TODO: @rosenth Adapt context object

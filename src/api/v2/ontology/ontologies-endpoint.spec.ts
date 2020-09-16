@@ -409,11 +409,8 @@ describe("OntologiesEndpoint", () => {
             newResProp.guiElement = "http://api.knora.org/ontology/salsah-gui/v2#SimpleText";
             newResProp.guiAttributes = ["size=80", "maxlength=100"];
 
-            console.log("NEW RES PROP ----------------", newResProp);
-
             knoraApiConnection.v2.onto.createResourceProperty(newResProp).subscribe(
                 (response: ResourcePropertyDefinitionWithAllLanguages) => {
-                    console.warn('new resource property created', response);
                     expect(response.id).toBe("http://0.0.0.0:3333/ontology/0001/anything/v2#hasName");
                     done();
                 }
@@ -421,8 +418,8 @@ describe("OntologiesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const expectedPayload = require("../../../../test/data/api/v2/ontologies/create-value-property-request.json");
-            // expect(request.data()).toEqual(expectedPayload);
+            const expectedPayload = require("../../../../test/data/api/v2/ontologies/create-value-property-request-expanded.json");
+            expect(request.data()).toEqual(expectedPayload);
 
             const createResPropResponse = require("../../../../test/data/api/v2/ontologies/create-value-property-response.json");
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createResPropResponse)));
