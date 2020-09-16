@@ -6,7 +6,6 @@ import { SubClassOfConverter } from "../../custom-converters/subclass-of-convert
 import { StringLiteralV2 } from "../../string-literal-v2";
 import { IdConverter } from "../../custom-converters/id-converter";
 
-
 // Resource property data as part of CreateResourcePropertyPayload
 @JsonObject("NewResourcePropertyPayload")
 export class NewResourcePropertyPayload {
@@ -35,7 +34,7 @@ export class NewResourcePropertyPayload {
     guiElement?: string = undefined;
 
     @JsonProperty(Constants.GuiAttribute, [String], true)
-    guiAttributes?: string[] = [];
+    guiAttributes?: string[] = undefined;
 
 }
 

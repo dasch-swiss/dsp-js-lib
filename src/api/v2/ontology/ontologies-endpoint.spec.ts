@@ -337,7 +337,6 @@ describe("OntologiesEndpoint", () => {
 
     });
 
-
     describe("Method deleteResourceClass", () => {
         it("should delete a resource class", done => {
 
@@ -370,6 +369,7 @@ describe("OntologiesEndpoint", () => {
     });
     
     describe("Method createResourceProperty", () => {
+
         it("should create a new res property as supPropertyOf 'hasValue'", done => {
 
             const newResProp = new CreateResourceProperty();
@@ -439,6 +439,66 @@ describe("OntologiesEndpoint", () => {
             expect(request.data()).toEqual(expectedPayload);
 
             const createResPropResponse = require("../../../../test/data/api/v2/ontologies/create-value-property-response.json");
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createResPropResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/properties");
+
+            expect(request.method).toEqual("POST");
+
+        });
+
+        it("should create a new res property as supPropertyOf 'hasLinkTo'", done => {
+
+            const newResProp = new CreateResourceProperty();
+
+            const onto = new UpdateOntology();
+
+            onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
+            onto.lastModificationDate = "2017-12-19T15:23:42.166Z";
+
+            newResProp.ontology = onto;
+
+            newResProp.name = "hasOtherNothing";
+
+            const label1 = new StringLiteral();
+
+            label1.language = "en";
+            label1.value = "has nothingness";
+
+            newResProp.labels = [
+                label1
+            ];
+
+            const comment1 = new StringLiteral();
+
+            comment1.language = "en";
+            comment1.value = "Refers to the other Nothing of a Nothing";
+
+            newResProp.comments = [
+                comment1
+            ];
+
+            newResProp.subPropertyOf = [
+                Constants.HasLinkTo
+            ];
+
+            newResProp.objectType = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
+
+            newResProp.subjectType = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
+
+            knoraApiConnection.v2.onto.createResourceProperty(newResProp).subscribe(
+                (response: ResourcePropertyDefinitionWithAllLanguages) => {
+                    expect(response.id).toBe("http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherNothing");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const expectedPayload = require("../../../../test/data/api/v2/ontologies/create-link-property-request-expanded.json");
+            expect(request.data()).toEqual(expectedPayload);
+
+            const createResPropResponse = require("../../../../test/data/api/v2/ontologies/create-link-property-response.json");
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createResPropResponse)));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/properties");

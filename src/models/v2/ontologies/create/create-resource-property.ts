@@ -31,6 +31,6 @@ export class CreateResourceProperty {
     guiElement?: string = undefined;
 
     @JsonProperty("guiAttributes", [String], true)
-    guiAttributes?: string[] = [];
+    guiAttributes?: string[] = undefined;
 
 }
