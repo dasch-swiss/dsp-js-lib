@@ -46,6 +46,11 @@ export interface IHasProperty {
      * Indicates if the property has been inherited from a super class.
      */
     isInherited: boolean;
+
+    /**
+     * Iri of the resource class the property is defined on.
+     */
+    resourceClass?: string;
 }
 
 /**

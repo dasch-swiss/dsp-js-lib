@@ -1,18 +1,26 @@
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
+import { StringLiteral } from "../../../models/admin/string-literal";
+import { Constants } from "../../../models/v2/Constants";
+import { AddCardinalityToResourceClass } from "../../../models/v2/ontologies/create/add-cardinality-to-resource-class";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
 import { CreateResourceClass } from "../../../models/v2/ontologies/create/create-resource-class";
+import { CreateResourceProperty } from "../../../models/v2/ontologies/create/create-resource-property";
 import { DeleteOntologyResponse } from "../../../models/v2/ontologies/delete/delete-ontology-response";
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
-import { ResourceClassDefinition, ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-class-definition";
-import { ResourcePropertyDefinition, ResourcePropertyDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-property-definition";
+import {
+    ResourceClassDefinition,
+    ResourceClassDefinitionWithAllLanguages
+} from "../../../models/v2/ontologies/resource-class-definition";
+import {
+    ResourcePropertyDefinition,
+    ResourcePropertyDefinitionWithAllLanguages
+} from "../../../models/v2/ontologies/resource-property-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update-ontology";
-import { CreateResourceProperty } from "../../../models/v2/ontologies/create/create-resource-property";
-import { Constants } from "../../../models/v2/Constants";
-import { StringLiteral } from "../../../models/admin/string-literal";
+import { Cardinality } from "../../../models/v2/ontologies/class-definition";
 
 describe("OntologiesEndpoint", () => {
 
@@ -367,7 +375,7 @@ describe("OntologiesEndpoint", () => {
         });
 
     });
-    
+
     describe("Method createResourceProperty", () => {
 
         it("should create a new res property as supPropertyOf 'hasValue'", done => {
@@ -508,7 +516,6 @@ describe("OntologiesEndpoint", () => {
         });
 
     });
-    
 
     /* TODO: NO TEST DATA available for delete-property-response
     describe("Method deleteResourceProperty", () => {
@@ -542,5 +549,47 @@ describe("OntologiesEndpoint", () => {
 
     });
     */
+
+    describe("Method addCardinalityToResourceClass", () => {
+
+        it("should add a max cardinality 1 to a resource class", done => {
+
+            const addCard = new AddCardinalityToResourceClass();
+
+            addCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
+
+            addCard.lastModificationDate = "2017-12-19T15:23:42.166Z";
+
+            addCard.cardinalities = [
+                {
+                    propertyIndex: "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherNothing",
+                    cardinality: Cardinality._0_1,
+                    isInherited: false,
+                    resourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing"
+                }
+            ];
+
+            knoraApiConnection.v2.onto.addCardinalityToResourceClass(addCard).subscribe(
+                (res: ResourceClassDefinitionWithAllLanguages) => {
+                    expect(res.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const expectedPayload = require("../../../../test/data/api/v2/ontologies/add-cardinalities-to-class-nothing-request-expanded.json");
+            expect(request.data()).toEqual(expectedPayload);
+
+            const createCardResponse = require("../../../../test/data/api/v2/ontologies/add-cardinalities-to-class-nothing-response.json");
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createCardResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/cardinalities");
+
+            expect(request.method).toEqual("POST");
+
+        });
+
+    });
 
 });

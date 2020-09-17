@@ -38,6 +38,7 @@ export class ResourceClassDefinitionWithPropertyDefinition extends ResourceClass
                 cardinality: prop.cardinality,
                 guiOrder: prop.guiOrder,
                 isInherited: prop.isInherited,
+                resourceClass: prop.resourceClass,
                 propertyDefinition: propertyDefinitions[prop.propertyIndex]
             };
             return propInfo;

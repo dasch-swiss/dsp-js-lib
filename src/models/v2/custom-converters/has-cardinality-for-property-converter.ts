@@ -1,11 +1,48 @@
 import { JsonConverter, JsonCustomConvert } from "json2typescript";
+import { CustomConverterUtils } from "../../../util/utils";
 import { Constants } from "../Constants";
 import { Cardinality, IHasProperty } from "../ontologies/class-definition";
-import { CustomConverterUtils } from "../../../util/utils";
 
 @JsonConverter
 export class HasCardinalityForPropertyConverter implements JsonCustomConvert<IHasProperty[]> {
-    serialize(hasProperties: IHasProperty[]): any {
+    serialize(cardinalities: IHasProperty[]): any {
+
+        if (cardinalities.length === 0) {
+            throw new Error("At least one cardinality must be defined");
+        }
+
+        return cardinalities.map(
+            card => {
+                const cardEle: { [index: string]: number | string | object } = {};
+
+                cardEle["@type"] = Constants.Restriction;
+                cardEle[Constants.OnProperty] = {
+                    "@id": card.propertyIndex
+                };
+
+                if (card.cardinality === Cardinality._0_1) {
+                    cardEle[Constants.MaxCardinality] = 1;
+                } else if (card.cardinality === Cardinality._0_n) {
+                    cardEle[Constants.MinCardinality] = 0;
+                } else if (card.cardinality === Cardinality._1_n) {
+                    cardEle[Constants.MinCardinality] = 1;
+                } else if (card.cardinality === Cardinality._1) {
+                    cardEle[Constants.Cardinality] = 1;
+                } else {
+                    throw new Error("Invalid cardinalirty: " + card.cardinality);
+                }
+
+                const cardObj: { [index: string]: string | object } = {
+                    "@id": card.resourceClass as string,
+                    "@type": Constants.Class
+                };
+
+                cardObj[Constants.SubClassOf] = cardEle;
+
+                return cardObj;
+            }
+        );
+
     }
 
     deserialize(items: any): IHasProperty[] {
