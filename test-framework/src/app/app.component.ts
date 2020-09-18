@@ -34,14 +34,14 @@ import {
     UserCache,
     UserResponse,
     UsersResponse,
-    WriteValueResponse
+    WriteValueResponse,
+    Cardinality,
+    AddCardinalityToResourceClass
 } from "@dasch-swiss/dsp-js";
 import { CreateResourceProperty } from "@dasch-swiss/dsp-js/src/models/v2/ontologies/create/create-resource-property";
 import { ResourcePropertyDefinitionWithAllLanguages } from "@dasch-swiss/dsp-js/src/models/v2/ontologies/resource-property-definition";
 
 import { map } from "rxjs/operators";
-import { AddCardinalityToResourceClass } from "../../../src/models/v2/ontologies/create/add-cardinality-to-resource-class";
-import { Cardinality } from '../../../src/models/v2/ontologies/class-definition';
 
 @Component({
     selector: 'app-root',
