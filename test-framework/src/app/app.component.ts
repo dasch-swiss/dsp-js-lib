@@ -6,9 +6,13 @@ import {
     CountQueryResponse,
     CreateBooleanValue,
     CreateIntValue,
+    CreateOntology,
     CreateResource,
+    CreateResourceClass,
     CreateValue,
+    DeleteOntologyResponse,
     DeleteResource,
+    DeleteResourceResponse,
     DeleteValue,
     DeleteValueResponse,
     KnoraApiConfig,
@@ -16,10 +20,13 @@ import {
     ListNodeV2,
     LoginResponse,
     OntologiesMetadata,
+    OntologyMetadata,
     ReadOntology,
     ReadResource,
     ReadResourceSequence,
+    ResourceClassDefinitionWithAllLanguages,
     UpdateIntValue,
+    UpdateOntology,
     UpdateResource,
     UpdateResourceMetadata,
     UpdateResourceMetadataResponse,
@@ -27,22 +34,14 @@ import {
     UserCache,
     UserResponse,
     UsersResponse,
-    WriteValueResponse,
-    DeleteResourceResponse,
-    OntologyMetadata,
-    MockOntology,
-    MockProjects,
-    MockUsers,
-    CreateOntology,
-    DeleteOntologyResponse,
-    UpdateOntology,
-    ResourceClassDefinitionWithAllLanguages,
-    CreateResourceClass
+    WriteValueResponse
 } from "@dasch-swiss/dsp-js";
+import { CreateResourceProperty } from "@dasch-swiss/dsp-js/src/models/v2/ontologies/create/create-resource-property";
+import { ResourcePropertyDefinitionWithAllLanguages } from "@dasch-swiss/dsp-js/src/models/v2/ontologies/resource-property-definition";
 
 import { map } from "rxjs/operators";
-import { CreateResourceProperty } from '@dasch-swiss/dsp-js/src/models/v2/ontologies/create/create-resource-property';
-import { ResourcePropertyDefinitionWithAllLanguages } from '@dasch-swiss/dsp-js/src/models/v2/ontologies/resource-property-definition';
+import { AddCardinalityToResourceClass } from "../../../src/models/v2/ontologies/create/add-cardinality-to-resource-class";
+import { Cardinality } from '../../../src/models/v2/ontologies/class-definition';
 
 @Component({
     selector: 'app-root',
@@ -257,8 +256,9 @@ export class AppComponent implements OnInit {
 
         newResProp.ontology = {
             id: "http://0.0.0.0:3333/ontology/0001/anything/v2",
-            lastModificationDate: "2020-09-14T15:29:03.194356Z"
+            lastModificationDate: this.ontology.lastModificationDate
         };
+
         newResProp.name = "hasName";
 
         newResProp.labels = [
@@ -286,7 +286,7 @@ export class AppComponent implements OnInit {
         newResProp.subPropertyOf = [Constants.HasValue, "http://schema.org/name"];
 
         newResProp.objectType = Constants.TextValue;
-        newResProp.subjectType = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+        // newResProp.subjectType = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
 
         newResProp.guiElement = "http://api.knora.org/ontology/salsah-gui/v2#SimpleText";
         newResProp.guiAttributes = ["size=80", "maxlength=100"];
@@ -301,8 +301,7 @@ export class AppComponent implements OnInit {
     deleteResourceProperty() {
         const deleteResProp: UpdateOntology = new UpdateOntology();
         deleteResProp.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasName";
-        deleteResProp.lastModificationDate = "2020-09-14T15:29:48.544437Z";
-        // this.ontology.lastModificationDate;
+        deleteResProp.lastModificationDate = this.ontology.lastModificationDate;
 
         this.knoraApiConnection.v2.onto.deleteResourceProperty(deleteResProp).subscribe(
             (response: OntologyMetadata) => {
@@ -315,6 +314,30 @@ export class AppComponent implements OnInit {
         )
 
     }
+
+    addCardinality() {
+
+        const addCard = new AddCardinalityToResourceClass();
+
+        addCard.lastModificationDate = this.ontology.lastModificationDate;
+
+        addCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
+
+        addCard.cardinalities = [
+            {
+                propertyIndex: "http://0.0.0.0:3333/ontology/0001/anything/v2#hasName",
+                cardinality: Cardinality._0_1,
+                resourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#testclass"
+            }
+        ];
+
+        this.knoraApiConnection.v2.onto.addCardinalityToResourceClass(addCard).subscribe(
+          res => console.log(res)
+        );
+
+
+    }
+
 
     getResourceClass(iri: string) {
 

@@ -53,10 +53,9 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
-     * Requests an ontology from Knora and converts it to a `ReadOntology`.
+     * Requests an ontology from Knora.
      *
      * @param ontologyIri the IRI of the ontology to be requested.
-     * @return the ontology or an error.
      */
     getOntology(ontologyIri: string): Observable<ReadOntology | ApiResponseError> {
 
@@ -76,10 +75,9 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
-     * Requests metadata about all ontologies from a specific project
+     * Requests metadata about all ontologies from a specific project.
      *
-     * @param projectIri the IRI of the project
-     * @return OntologiesMetadata or an error
+     * @param projectIri the IRI of the project.
      */
     getOntologiesByProjectIri(projectIri: string): Observable<OntologiesMetadata | ApiResponseError> {
 
@@ -145,9 +143,9 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
-     * Create a resource class without cardinalities
+     * Creates a resource class without cardinalities.
      *
-     * @param  resClass The resource class to be created
+     * @param  resClass The resource class to be created.
      */
     createResourceClass(resClass: CreateResourceClass): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
 
@@ -184,9 +182,9 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
-     * Delete resource class
+     * Deletes a resource class
      *
-     * @param  updateOntology with class IRI
+     * @param  updateOntology with class IRI.
      */
     deleteResourceClass(updateOntology: UpdateOntology): Observable<OntologyMetadata | ApiResponseError> {
 
@@ -207,9 +205,9 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
-     * Create a resource property
+     * Creates a resource property
      *
-     * @param  resProp The resource property to be created
+     * @param  resProp the resource property to be created.
      */
     createResourceProperty(resProp: CreateResourceProperty): Observable<ResourcePropertyDefinitionWithAllLanguages | ApiResponseError> {
 
@@ -258,9 +256,9 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
-     * Delete resource property
+     * Deletes a resource property.
      *
-     * @param  updateOntology with property IRI
+     * @param  updateOntology with property IRI.
      */
     deleteResourceProperty(updateOntology: UpdateOntology): Observable<OntologyMetadata | ApiResponseError> {
 
@@ -279,6 +277,11 @@ export class OntologiesEndpointV2 extends Endpoint {
         );
     }
 
+    /**
+     * Adds cardinalities for properties to a resource class.
+     *
+     * @param addCardinalityToResourceClass the cardinailities to be added.
+     */
     addCardinalityToResourceClass(addCardinalityToResourceClass: AddCardinalityToResourceClass): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
 
         return this.httpPost("/cardinalities", this.jsonConvert.serializeObject(addCardinalityToResourceClass)).pipe(
