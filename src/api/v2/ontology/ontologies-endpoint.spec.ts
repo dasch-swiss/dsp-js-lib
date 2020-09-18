@@ -564,7 +564,6 @@ describe("OntologiesEndpoint", () => {
                 {
                     propertyIndex: "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherNothing",
                     cardinality: Cardinality._0_1,
-                    isInherited: false,
                     resourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing"
                 }
             ];

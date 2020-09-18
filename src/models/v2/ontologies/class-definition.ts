@@ -44,11 +44,13 @@ export interface IHasProperty {
 
     /**
      * Indicates if the property has been inherited from a super class.
+     * Only present when reading from Knora.
      */
-    isInherited: boolean;
+    isInherited?: boolean;
 
     /**
      * Iri of the resource class the property is defined on.
+     * Only present when writing to Knora.
      */
     resourceClass?: string;
 }

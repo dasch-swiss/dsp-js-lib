@@ -8,7 +8,7 @@ export class SubClassOfConverter implements JsonCustomConvert<string[]> {
         if (subclasses.length > 1) {
             const subClassOf: any = [];
             subclasses.forEach(item => {
-                subClassOf.push({ "@id": item })
+                subClassOf.push({ "@id": item });
             });
             return subClassOf;
 
