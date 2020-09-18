@@ -29,7 +29,7 @@ export class HasCardinalityForPropertyConverter implements JsonCustomConvert<IHa
                 } else if (card.cardinality === Cardinality._1) {
                     cardEle[Constants.Cardinality] = 1;
                 } else {
-                    throw new Error("Invalid cardinalirty: " + card.cardinality);
+                    throw new Error("Invalid cardinality: " + card.cardinality);
                 }
 
                 const cardObj: { [index: string]: string | object } = {
