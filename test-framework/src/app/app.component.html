@@ -45,7 +45,7 @@
         <button class="create-onto" (click)="createOntology()">Create testonto</button> <br /><br />
         <div><span *ngIf="ontologyMeta">Ontology created:&nbsp;</span><span class="label">{{ontologyMeta?.label}}</span> </div> <br />
         <button class="read-onto" (click)="getTestOnto('http://0.0.0.0:3333/ontology/0001/testonto/v2')">Get testonto</button> <br /><br />
-        <button class="read-onto" (click)="getTestOnto('http://0.0.0.0:3333/ontology/0001/anything/v2')">Get anything onto</button> <br /><br />
+        <button class="read-onto2" (click)="getTestOnto('http://0.0.0.0:3333/ontology/0001/anything/v2')">Get anything onto</button> <br /><br />
         <div>The ontology's label: <span class="read-label">{{ontology?.label}}</span> </div> <br />
 
         <p>Before clicking on the following resource class or property action buttons, you should click each time on <strong>Get testonto</strong> button above. Because lastModification time is always needed.</p>
