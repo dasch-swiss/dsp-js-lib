@@ -1,6 +1,6 @@
 # Changelog
 
-## Next release candidate
+## v1.0.0-rc.12 (22/09/2020)
 
 #### Dependencies
 
