@@ -61,6 +61,7 @@ export class AppComponent implements OnInit {
     ontology: ReadOntology;
     resClass: ResourceClassDefinitionWithAllLanguages;
     property: ResourcePropertyDefinitionWithAllLanguages;
+    addCard: ResourceClassDefinitionWithAllLanguages;
 
     // reusable response message
     message: string;
@@ -334,7 +335,10 @@ export class AppComponent implements OnInit {
         ];
 
         this.knoraApiConnection.v2.onto.addCardinalityToResourceClass(addCard).subscribe(
-          res => console.log(res)
+            (res: ResourceClassDefinitionWithAllLanguages) => {
+            this.addCard = res;
+            console.log('added card: ', res)
+          }
         );
 
 

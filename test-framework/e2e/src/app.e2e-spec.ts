@@ -181,6 +181,29 @@ describe('workspace-project App', () => {
     expect(label.getText()).toEqual('has name');
   });
 
+  it('add a cardinality to a resource class in testonto', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // add cardinality
+    const button = page.getEle('div section#ontologyeditor button.add-card-to-res-prop');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.res-card-added');
+
+    expect(label.getText()).toEqual('Test Klasse');
+
+  });
+
   it('delete "testclass" resource class', () => {
     
     page.navigateTo();

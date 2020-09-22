@@ -66,7 +66,8 @@
         <button class="delete-res-prop" (click)="deleteResourceProperty()">Delete resource property</button><br><br>
 
         <button class="add-card-to-res-prop" (click)="addCardinality()">Add Cardinality to resource</button><br><br>
-     
+        <div><span *ngIf="property">Cardinality added:&nbsp;</span><span class="res-card-added">{{addCard?.label}}</span> </div> <br />
+
         <button class="delete-onto" (click)="deleteOntology()">Delete testonto</button>
         <div>Delete status: <span class="status">{{message}}</span></div> <br />
     </section>
