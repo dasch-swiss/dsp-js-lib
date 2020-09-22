@@ -517,7 +517,6 @@ describe("OntologiesEndpoint", () => {
 
     });
 
-    /* TODO: NO TEST DATA available for delete-property-response
     describe("Method deleteResourceProperty", () => {
         it("should delete a resource property", done => {
 
@@ -548,7 +547,6 @@ describe("OntologiesEndpoint", () => {
         });
 
     });
-    */
 
     describe("Method addCardinalityToResourceClass", () => {
 

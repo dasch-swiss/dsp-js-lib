@@ -255,7 +255,7 @@ export class AppComponent implements OnInit {
         const newResProp = new CreateResourceProperty();
 
         newResProp.ontology = {
-            id: "http://0.0.0.0:3333/ontology/0001/anything/v2",
+            id: this.ontology.id,
             lastModificationDate: this.ontology.lastModificationDate
         };
 
@@ -300,7 +300,7 @@ export class AppComponent implements OnInit {
 
     deleteResourceProperty() {
         const deleteResProp: UpdateOntology = new UpdateOntology();
-        deleteResProp.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasName";
+        deleteResProp.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName";
         deleteResProp.lastModificationDate = this.ontology.lastModificationDate;
 
         this.knoraApiConnection.v2.onto.deleteResourceProperty(deleteResProp).subscribe(
@@ -321,13 +321,13 @@ export class AppComponent implements OnInit {
 
         addCard.lastModificationDate = this.ontology.lastModificationDate;
 
-        addCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
+        addCard.id = this.ontology.id;
 
         addCard.cardinalities = [
             {
-                propertyIndex: "http://0.0.0.0:3333/ontology/0001/anything/v2#hasName",
+                propertyIndex: "http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName",
                 cardinality: Cardinality._0_1,
-                resourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#testclass"
+                resourceClass: "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass"
             }
         ];
 
