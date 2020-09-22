@@ -226,6 +226,29 @@ describe('workspace-project App', () => {
 
   });
 
+  it('delete "has name" property', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // delete property
+    const button = page.getEle('div section#ontologyeditor button.delete-res-prop');
+    button.click();
+    const msg = page.getEle('div section#ontologyeditor span.status');
+    expect(msg.getText()).toEqual('res property has been deleted');
+
+
+  });
+
   it('delete "testonto" ontology', () => {
     
     page.navigateTo();
