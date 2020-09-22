@@ -41,11 +41,11 @@ describe("PermissionsEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const permissionsResponse = require("../../../../test/data/api/admin/permissions/get-administrative-permission-response.json");
+            const permissionsResponse = require("../../../../test/data/api/admin/permissions/get-administrative-permission-for-project-group-response.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionsResponse)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF/http%3A%2F%2Fwww.knora.org%2Fontology%2Fknora-admin%23ProjectMember");
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/ap/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF/http%3A%2F%2Fwww.knora.org%2Fontology%2Fknora-admin%23ProjectMember");
 
             expect(request.method).toEqual("GET");
 
