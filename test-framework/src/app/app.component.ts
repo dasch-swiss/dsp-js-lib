@@ -60,6 +60,7 @@ export class AppComponent implements OnInit {
     ontologyMeta: OntologyMetadata;
     ontology: ReadOntology;
     resClass: ResourceClassDefinitionWithAllLanguages;
+    property: ResourcePropertyDefinitionWithAllLanguages;
 
     // reusable response message
     message: string;
@@ -293,6 +294,7 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.onto.createResourceProperty(newResProp).subscribe(
             (response: ResourcePropertyDefinitionWithAllLanguages) => {
+                this.property = response;
                 console.log('new resource property created', response);
             }
         );

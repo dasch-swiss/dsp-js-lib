@@ -159,6 +159,28 @@ describe('workspace-project App', () => {
 
   });
 
+  it('create a new property in testonto of the anything project', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // create property
+    const button = page.getEle('div section#ontologyeditor button.create-res-prop');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.res-prop-label');
+
+    expect(label.getText()).toEqual('has name');
+  });
+
   it('delete "testclass" resource class', () => {
     
     page.navigateTo();
