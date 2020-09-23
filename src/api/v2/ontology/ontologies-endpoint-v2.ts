@@ -15,13 +15,14 @@ import {
     CreateResourcePropertyPayload,
     NewResourcePropertyPayload
 } from "../../../models/v2/ontologies/create/create-resource-property-payload";
+import { DeleteOntology } from "../../../models/v2/ontologies/delete/delete-ontology";
 import { DeleteOntologyResponse } from "../../../models/v2/ontologies/delete/delete-ontology-response";
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { OntologyConversionUtil } from "../../../models/v2/ontologies/OntologyConversionUtil";
 import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
 import { ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-class-definition";
 import { ResourcePropertyDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-property-definition";
-import { UpdateOntology } from "../../../models/v2/ontologies/update-ontology";
+import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
 import { Endpoint } from "../../endpoint";
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
@@ -37,7 +38,6 @@ export class OntologiesEndpointV2 extends Endpoint {
      */
     getOntologiesMetadata(): Observable<OntologiesMetadata | ApiResponseError> {
 
-        // TODO: Do not hard-code the URL and http call params, generate this from Knora
         return this.httpGet("/metadata").pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // TODO: @rosenth Adapt context object
@@ -124,7 +124,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param ontology the ontology to be deleted.
      */
-    deleteOntology(ontology: UpdateOntology): Observable<DeleteOntologyResponse | ApiResponseError> {
+    deleteOntology(ontology: DeleteOntology): Observable<DeleteOntologyResponse | ApiResponseError> {
 
         const path = "/" + encodeURIComponent(ontology.id) + "?lastModificationDate=" + encodeURIComponent(ontology.lastModificationDate);
 

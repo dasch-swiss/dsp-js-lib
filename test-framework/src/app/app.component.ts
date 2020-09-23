@@ -36,7 +36,8 @@ import {
     UsersResponse,
     WriteValueResponse,
     Cardinality,
-    AddCardinalityToResourceClass
+    AddCardinalityToResourceClass,
+    DeleteOntology
 } from "@dasch-swiss/dsp-js";
 import { CreateResourceProperty } from "@dasch-swiss/dsp-js/src/models/v2/ontologies/create/create-resource-property";
 import { ResourcePropertyDefinitionWithAllLanguages } from "@dasch-swiss/dsp-js/src/models/v2/ontologies/resource-property-definition";
@@ -191,10 +192,10 @@ export class AppComponent implements OnInit {
     }
 
     deleteOntology() {
-        // 2020-06-30T08:52:10.532394Z
-        const deleteOntology = new UpdateOntology();
+        const deleteOntology = new DeleteOntology();
         deleteOntology.id = this.ontology.id;
         deleteOntology.lastModificationDate = this.ontology.lastModificationDate;
+
         this.knoraApiConnection.v2.onto.deleteOntology(deleteOntology).subscribe(
             (response: DeleteOntologyResponse) => {
                 this.message = response.result;

@@ -1,7 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { StringLiteral } from "../../../admin/string-literal";
 import { IdConverter } from "../../custom-converters/id-converter";
-import { UpdateOntology } from "../update-ontology";
+import { UpdateOntology } from "../update/update-ontology";
 
 @JsonObject("CreateResourceProperty")
 export class CreateResourceProperty {

@@ -78,7 +78,8 @@ export { ApiResponseData } from "./models/api-response-data";
 export { ApiResponseError } from "./models/api-response-error";
 
 export { CreateOntology } from "./models/v2/ontologies/create/create-ontology";
-export { UpdateOntology } from "./models/v2/ontologies/update-ontology";
+export { UpdateOntology } from "./models/v2/ontologies/update/update-ontology";
+export { DeleteOntology } from "./models/v2/ontologies/delete/delete-ontology";
 export { DeleteOntologyResponse } from "./models/v2/ontologies/delete/delete-ontology-response";
 export { CreateResourceClass } from "./models/v2/ontologies/create/create-resource-class";
 export { ReadOntology } from "./models/v2/ontologies/read/read-ontology";

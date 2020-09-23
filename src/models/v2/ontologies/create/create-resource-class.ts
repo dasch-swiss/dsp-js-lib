@@ -1,6 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { StringLiteral } from "../../../admin/string-literal";
-import { UpdateOntology } from "../update-ontology";
+import { UpdateOntology } from "../update/update-ontology";
 
 // Resource class data to be used in createResourceClass method
 @JsonObject("CreateResourceClass")

@@ -19,8 +19,9 @@ import {
     ResourcePropertyDefinitionWithAllLanguages
 } from "../../../models/v2/ontologies/resource-property-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
-import { UpdateOntology } from "../../../models/v2/ontologies/update-ontology";
+import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
 import { Cardinality } from "../../../models/v2/ontologies/class-definition";
+import { DeleteOntology } from "../../../models/v2/ontologies/delete/delete-ontology";
 
 describe("OntologiesEndpoint", () => {
 
@@ -268,7 +269,7 @@ describe("OntologiesEndpoint", () => {
     describe("Method deleteOntology", () => {
         it("should delete an ontology", done => {
 
-            const ontoInfo = new UpdateOntology();
+            const ontoInfo = new DeleteOntology();
 
             ontoInfo.id = "http://0.0.0.0:3333/ontology/00FF/foo/v2";
 
