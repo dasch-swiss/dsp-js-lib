@@ -1,0 +1,45 @@
+{
+  "@graph" : [ {
+    "@id" : "anything:hasOtherNothing",
+    "@type" : "owl:ObjectProperty",
+    "knora-api:isEditable" : true,
+    "knora-api:isLinkProperty" : true,
+    "knora-api:isResourceProperty" : true,
+    "knora-api:objectType" : {
+      "@id" : "anything:Nothing"
+    },
+    "knora-api:subjectType" : {
+      "@id" : "anything:Nothing"
+    },
+    "rdfs:comment" : {
+      "@language" : "en",
+      "@value" : "Refers to the other Nothing of a Nothing"
+    },
+    "rdfs:label" : {
+      "@language" : "en",
+      "@value" : "has nothingness"
+    },
+    "rdfs:subPropertyOf" : {
+      "@id" : "knora-api:hasLinkTo"
+    }
+  } ],
+  "@id" : "http://0.0.0.0:3333/ontology/0001/anything/v2",
+  "@type" : "owl:Ontology",
+  "knora-api:attachedToProject" : {
+    "@id" : "http://rdfh.ch/projects/0001"
+  },
+  "knora-api:lastModificationDate" : {
+    "@type" : "xsd:dateTimeStamp",
+    "@value" : "2020-09-10T09:28:51.537917Z"
+  },
+  "rdfs:label" : "The anything ontology",
+  "@context" : {
+    "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "knora-api" : "http://api.knora.org/ontology/knora-api/v2#",
+    "owl" : "http://www.w3.org/2002/07/owl#",
+    "salsah-gui" : "http://api.knora.org/ontology/salsah-gui/v2#",
+    "rdfs" : "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd" : "http://www.w3.org/2001/XMLSchema#",
+    "anything" : "http://0.0.0.0:3333/ontology/0001/anything/v2#"
+  }
+}

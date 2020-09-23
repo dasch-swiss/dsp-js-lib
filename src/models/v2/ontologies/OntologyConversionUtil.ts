@@ -6,7 +6,7 @@ import { EntityDefinition } from "./EntityDefinition";
 import { OntologiesMetadata, OntologyMetadata } from "./ontology-metadata";
 import { ReadOntology } from "./read/read-ontology";
 import { ResourceClassDefinition, ResourceClassDefinitionWithAllLanguages } from "./resource-class-definition";
-import { ResourcePropertyDefinition } from "./resource-property-definition";
+import { ResourcePropertyDefinition, ResourcePropertyDefinitionWithAllLanguages } from "./resource-property-definition";
 import { StandoffClassDefinition } from "./standoff-class-definition";
 import { SystemPropertyDefinition } from "./system-property-definition";
 
@@ -242,13 +242,27 @@ export namespace OntologyConversionUtil {
      * 
      * @param  resClassJsonld
      * @param  jsonConvert
-     * @returns ResourceClassDefinition
+     * @returns ResourceClassDefinitionWithAllLanguages
      */
     export const convertResourceClassResponse = (resClassJsonld: object, jsonConvert: JsonConvert): ResourceClassDefinitionWithAllLanguages => {
         if (resClassJsonld.hasOwnProperty("@graph")) {
             return jsonConvert.deserializeObject((resClassJsonld as any)['@graph'][0], ResourceClassDefinitionWithAllLanguages);
         } else {
             return jsonConvert.deserializeObject(resClassJsonld, ResourceClassDefinitionWithAllLanguages);
+        }
+    }
+    /**
+     * Converts the response from createResourceProperty serialized as JSON-LD to an instance of `ResourcePropertyDefinition`
+     * 
+     * @param  resPropJsonld
+     * @param  jsonConvert
+     * @returns ResourcePropertyDefinitionWithAllLanguages
+     */
+    export const convertResourcePropertyResponse = (resPropJsonld: object, jsonConvert: JsonConvert): ResourcePropertyDefinitionWithAllLanguages => {
+        if (resPropJsonld.hasOwnProperty("@graph")) {
+            return jsonConvert.deserializeObject((resPropJsonld as any)['@graph'][0], ResourcePropertyDefinitionWithAllLanguages);
+        } else {
+            return jsonConvert.deserializeObject(resPropJsonld, ResourcePropertyDefinitionWithAllLanguages);
         }
     }
 

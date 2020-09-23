@@ -6,9 +6,13 @@ import {
     CountQueryResponse,
     CreateBooleanValue,
     CreateIntValue,
+    CreateOntology,
     CreateResource,
+    CreateResourceClass,
     CreateValue,
+    DeleteOntologyResponse,
     DeleteResource,
+    DeleteResourceResponse,
     DeleteValue,
     DeleteValueResponse,
     KnoraApiConfig,
@@ -16,10 +20,13 @@ import {
     ListNodeV2,
     LoginResponse,
     OntologiesMetadata,
+    OntologyMetadata,
     ReadOntology,
     ReadResource,
     ReadResourceSequence,
+    ResourceClassDefinitionWithAllLanguages,
     UpdateIntValue,
+    UpdateOntology,
     UpdateResource,
     UpdateResourceMetadata,
     UpdateResourceMetadataResponse,
@@ -28,17 +35,11 @@ import {
     UserResponse,
     UsersResponse,
     WriteValueResponse,
-    DeleteResourceResponse,
-    OntologyMetadata,
-    MockOntology,
-    MockProjects,
-    MockUsers,
-    CreateOntology,
-    DeleteOntologyResponse,
-    UpdateOntology,
-    ResourceClassDefinitionWithAllLanguages,
-    CreateResourceClass
+    Cardinality,
+    AddCardinalityToResourceClass
 } from "@dasch-swiss/dsp-js";
+import { CreateResourceProperty } from "@dasch-swiss/dsp-js/src/models/v2/ontologies/create/create-resource-property";
+import { ResourcePropertyDefinitionWithAllLanguages } from "@dasch-swiss/dsp-js/src/models/v2/ontologies/resource-property-definition";
 
 import { map } from "rxjs/operators";
 
@@ -59,6 +60,8 @@ export class AppComponent implements OnInit {
     ontologyMeta: OntologyMetadata;
     ontology: ReadOntology;
     resClass: ResourceClassDefinitionWithAllLanguages;
+    property: ResourcePropertyDefinitionWithAllLanguages;
+    addCard: ResourceClassDefinitionWithAllLanguages;
 
     // reusable response message
     message: string;
@@ -215,13 +218,13 @@ export class AppComponent implements OnInit {
                 language: "en",
                 value: "Test Class"
             }
-        ],
+        ];
         newResClass.comments = [
             {
                 language: "en",
                 value: "Just an example of a new resource class"
             }
-        ]
+        ];
         newResClass.subClassOf = [Constants.Resource];
 
         this.knoraApiConnection.v2.onto.createResourceClass(newResClass).subscribe(
@@ -248,6 +251,99 @@ export class AppComponent implements OnInit {
         )
 
     }
+
+
+    createResourceProperty() {
+        const newResProp = new CreateResourceProperty();
+
+        newResProp.ontology = {
+            id: this.ontology.id,
+            lastModificationDate: this.ontology.lastModificationDate
+        };
+
+        newResProp.name = "hasName";
+
+        newResProp.labels = [
+            {
+                language: "en",
+                value: "has name"
+            },
+            {
+                language: "de",
+                value: "hat Namen"
+            }
+        ];
+
+        newResProp.comments = [
+            {
+                language: "en",
+                value: "The name of a Thing"
+            },
+            {
+                language: "de",
+                value: "Der Name eines Dinges"
+            }
+        ];
+
+        newResProp.subPropertyOf = [Constants.HasValue, "http://schema.org/name"];
+
+        newResProp.objectType = Constants.TextValue;
+        // newResProp.subjectType = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+
+        newResProp.guiElement = "http://api.knora.org/ontology/salsah-gui/v2#SimpleText";
+        newResProp.guiAttributes = ["size=80", "maxlength=100"];
+
+        this.knoraApiConnection.v2.onto.createResourceProperty(newResProp).subscribe(
+            (response: ResourcePropertyDefinitionWithAllLanguages) => {
+                this.property = response;
+                console.log('new resource property created', response);
+            }
+        );
+    }
+
+    deleteResourceProperty() {
+        const deleteResProp: UpdateOntology = new UpdateOntology();
+        deleteResProp.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName";
+        deleteResProp.lastModificationDate = this.ontology.lastModificationDate;
+
+        this.knoraApiConnection.v2.onto.deleteResourceProperty(deleteResProp).subscribe(
+            (response: OntologyMetadata) => {
+                this.message = 'res property has been deleted';
+                console.log('res property deleted', response);
+            },
+            (error: ApiResponseError) => {
+                console.error(error);
+            }
+        )
+
+    }
+
+    addCardinality() {
+
+        const addCard = new AddCardinalityToResourceClass();
+
+        addCard.lastModificationDate = this.ontology.lastModificationDate;
+
+        addCard.id = this.ontology.id;
+
+        addCard.cardinalities = [
+            {
+                propertyIndex: "http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName",
+                cardinality: Cardinality._0_1,
+                resourceClass: "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass"
+            }
+        ];
+
+        this.knoraApiConnection.v2.onto.addCardinalityToResourceClass(addCard).subscribe(
+            (res: ResourceClassDefinitionWithAllLanguages) => {
+            this.addCard = res;
+            console.log('added card: ', res)
+          }
+        );
+
+
+    }
+
 
     getResourceClass(iri: string) {
 

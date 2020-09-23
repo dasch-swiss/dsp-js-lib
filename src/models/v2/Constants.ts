@@ -22,6 +22,8 @@ export class Constants {
     static ResourceIcon = Constants.KnoraApiV2 + Constants.Delimiter + "ResourceIcon";
     static Region = Constants.KnoraApiV2 + Constants.Delimiter + "Region";
     static ForbiddenResource = Constants.KnoraApiV2 + Constants.Delimiter + "ForbiddenResource";
+    static HasValue = Constants.KnoraApiV2 + Constants.Delimiter + "hasValue";
+    static HasLinkTo = Constants.KnoraApiV2 + Constants.Delimiter + "hasLinkTo";
     static BooleanValue = Constants.KnoraApiV2 + Constants.Delimiter + "BooleanValue";
     static ColorValue = Constants.KnoraApiV2 + Constants.Delimiter + "ColorValue";
     static GeonameValue = Constants.KnoraApiV2 + Constants.Delimiter + "GeonameValue";
