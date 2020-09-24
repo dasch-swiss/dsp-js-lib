@@ -260,12 +260,14 @@ export class AppComponent implements OnInit {
 
 
     createResourceProperty() {
+        const onto = new UpdateOntology<object>();
+
+        onto.id = this.ontology.id;
+        onto.lastModificationDate = this.ontology.lastModificationDate;
+
         const newResProp = new CreateResourceProperty();
 
-        newResProp.ontology = {
-            id: this.ontology.id,
-            lastModificationDate: this.ontology.lastModificationDate
-        };
+        newResProp.ontology = onto;
 
         newResProp.name = "hasName";
 
