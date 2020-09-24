@@ -298,6 +298,7 @@ describe("OntologiesEndpoint", () => {
     });
 
     describe("Method createResourceClass", () => {
+
         it("should create a new res class and add it to anything ontology", done => {
 
             const onto = new UpdateOntology<CreateResourceClass>();
@@ -385,14 +386,12 @@ describe("OntologiesEndpoint", () => {
 
         it("should create a new res property as supPropertyOf 'hasValue'", done => {
 
-            const newResProp = new CreateResourceProperty();
-
-            const onto = new UpdateOntology();
+            const onto = new UpdateOntology<CreateResourceProperty>();
 
             onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
             onto.lastModificationDate = "2017-12-19T15:23:42.166Z";
 
-            newResProp.ontology = onto;
+            const newResProp = new CreateResourceProperty();
 
             newResProp.name = "hasName";
 
@@ -439,7 +438,9 @@ describe("OntologiesEndpoint", () => {
 
             newResProp.guiAttributes = ["size=80", "maxlength=100"];
 
-            knoraApiConnection.v2.onto.createResourceProperty(newResProp).subscribe(
+            onto.entity = newResProp;
+
+            knoraApiConnection.v2.onto.createResourceProperty(onto).subscribe(
                 (response: ResourcePropertyDefinitionWithAllLanguages) => {
                     expect(response.id).toBe("http://0.0.0.0:3333/ontology/0001/anything/v2#hasName");
                     done();
@@ -462,14 +463,12 @@ describe("OntologiesEndpoint", () => {
 
         it("should create a new res property as supPropertyOf 'hasLinkTo'", done => {
 
-            const newResProp = new CreateResourceProperty();
-
-            const onto = new UpdateOntology();
+            const onto = new UpdateOntology<CreateResourceProperty>();
 
             onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
             onto.lastModificationDate = "2017-12-19T15:23:42.166Z";
 
-            newResProp.ontology = onto;
+            const newResProp = new CreateResourceProperty();
 
             newResProp.name = "hasOtherNothing";
 
@@ -499,7 +498,9 @@ describe("OntologiesEndpoint", () => {
 
             newResProp.subjectType = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
 
-            knoraApiConnection.v2.onto.createResourceProperty(newResProp).subscribe(
+            onto.entity = newResProp;
+
+            knoraApiConnection.v2.onto.createResourceProperty(onto).subscribe(
                 (response: ResourcePropertyDefinitionWithAllLanguages) => {
                     expect(response.id).toBe("http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherNothing");
                     done();

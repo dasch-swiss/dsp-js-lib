@@ -260,14 +260,12 @@ export class AppComponent implements OnInit {
 
 
     createResourceProperty() {
-        const onto = new UpdateOntology<object>();
+        const onto = new UpdateOntology<CreateResourceProperty>();
 
         onto.id = this.ontology.id;
         onto.lastModificationDate = this.ontology.lastModificationDate;
 
         const newResProp = new CreateResourceProperty();
-
-        newResProp.ontology = onto;
 
         newResProp.name = "hasName";
 
@@ -301,7 +299,9 @@ export class AppComponent implements OnInit {
         newResProp.guiElement = "http://api.knora.org/ontology/salsah-gui/v2#SimpleText";
         newResProp.guiAttributes = ["size=80", "maxlength=100"];
 
-        this.knoraApiConnection.v2.onto.createResourceProperty(newResProp).subscribe(
+        onto.entity = newResProp;
+
+        this.knoraApiConnection.v2.onto.createResourceProperty(onto).subscribe(
             (response: ResourcePropertyDefinitionWithAllLanguages) => {
                 this.property = response;
                 console.log('new resource property created', response);

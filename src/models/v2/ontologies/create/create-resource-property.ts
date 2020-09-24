@@ -6,9 +6,6 @@ import { UpdateOntology } from "../update/update-ontology";
 @JsonObject("CreateResourceProperty")
 export class CreateResourceProperty {
 
-    @JsonProperty("ontology", UpdateOntology)
-    ontology: UpdateOntology = new UpdateOntology();
-
     @JsonProperty("subjectType", IdConverter, true)
     subjectType?: string = undefined;
 

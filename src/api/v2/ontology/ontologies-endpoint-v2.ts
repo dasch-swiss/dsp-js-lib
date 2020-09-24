@@ -209,32 +209,32 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param  resProp the resource property to be created.
      */
-    createResourceProperty(resProp: CreateResourceProperty): Observable<ResourcePropertyDefinitionWithAllLanguages | ApiResponseError> {
+    createResourceProperty(resProp: UpdateOntology<CreateResourceProperty>): Observable<ResourcePropertyDefinitionWithAllLanguages | ApiResponseError> {
 
         const resPropPayload = new CreateResourcePropertyPayload();
 
         // prepare ontology data for payload
-        resPropPayload.id = resProp.ontology.id;
-        resPropPayload.lastModificationDate = resProp.ontology.lastModificationDate;
+        resPropPayload.id = resProp.id;
+        resPropPayload.lastModificationDate = resProp.lastModificationDate;
 
         // prepare new res class object for payload
         const newResProperty = new NewResourcePropertyPayload();
 
-        newResProperty.id = resProp.ontology.id + Constants.Delimiter + resProp.name;
+        newResProperty.id = resProp.id + Constants.Delimiter + resProp.entity.name;
 
-        newResProperty.label = resProp.labels;
-        newResProperty.comment = (resProp.comments.length ? resProp.comments : resProp.labels);
-        newResProperty.subPropertyOf = resProp.subPropertyOf;
+        newResProperty.label = resProp.entity.labels;
+        newResProperty.comment = (resProp.entity.comments.length ? resProp.entity.comments : resProp.entity.labels);
+        newResProperty.subPropertyOf = resProp.entity.subPropertyOf;
         newResProperty.type = Constants.ObjectProperty;
 
-        newResProperty.subjectType = resProp.subjectType;
-        newResProperty.objectType = resProp.objectType;
+        newResProperty.subjectType = resProp.entity.subjectType;
+        newResProperty.objectType = resProp.entity.objectType;
 
-        if (resProp.guiElement) {
-            newResProperty.guiElement = resProp.guiElement;
+        if (resProp.entity.guiElement) {
+            newResProperty.guiElement = resProp.entity.guiElement;
         }
-        if (resProp.guiAttributes) {
-            newResProperty.guiAttributes = resProp.guiAttributes;
+        if (resProp.entity.guiAttributes) {
+            newResProperty.guiAttributes = resProp.entity.guiAttributes;
         }
 
         resPropPayload.resProperty = [newResProperty];
