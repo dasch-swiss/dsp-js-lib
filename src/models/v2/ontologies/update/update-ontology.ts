@@ -9,6 +9,8 @@ import { UpdateDeleteOntology } from "../update-delete-ontology";
  *   - resource property: res prop id and lastModificationDate
  */
 @JsonObject("UpdateOntology")
-export class UpdateOntology extends UpdateDeleteOntology {
+export class UpdateOntology<T = object> extends UpdateDeleteOntology {
+
+    entity: T;
 
 }

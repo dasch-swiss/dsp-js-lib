@@ -147,20 +147,20 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param  resClass The resource class to be created.
      */
-    createResourceClass(resClass: CreateResourceClass): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+    createResourceClass(resClass: UpdateOntology<CreateResourceClass>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
 
         const resClassPayload = new CreateResourceClassPayload();
 
         // prepare ontology data for payload
-        resClassPayload.id = resClass.ontology.id;
-        resClassPayload.lastModificationDate = resClass.ontology.lastModificationDate;
+        resClassPayload.id = resClass.id;
+        resClassPayload.lastModificationDate = resClass.lastModificationDate;
 
         // prepare new res class object for payload
         const newResClass = new NewResourceClass();
-        newResClass.id = resClass.ontology.id + Constants.Delimiter + resClass.name;
-        newResClass.label = resClass.labels;
-        newResClass.comment = (resClass.comments.length ? resClass.comments : resClass.labels);
-        newResClass.subClassOf = resClass.subClassOf;
+        newResClass.id = resClass.id + Constants.Delimiter + resClass.entity.name;
+        newResClass.label = resClass.entity.labels;
+        newResClass.comment = (resClass.entity.comments.length ? resClass.entity.comments : resClass.entity.labels);
+        newResClass.subClassOf = resClass.entity.subClassOf;
         newResClass.type = Constants.Class;
 
         resClassPayload.resClass = [newResClass];

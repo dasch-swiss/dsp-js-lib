@@ -300,12 +300,13 @@ describe("OntologiesEndpoint", () => {
     describe("Method createResourceClass", () => {
         it("should create a new res class and add it to anything ontology", done => {
 
+            const onto = new UpdateOntology<CreateResourceClass>();
+
+            onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
+            onto.lastModificationDate = "2017-12-19T15:23:42.166Z";
+
             const newResClass = new CreateResourceClass();
 
-            newResClass.ontology = {
-                id: "http://0.0.0.0:3333/ontology/0001/anything/v2",
-                lastModificationDate: "2017-12-19T15:23:42.166Z"
-            };
             newResClass.name = "Nothing";
             newResClass.comments = [
                 {
@@ -320,9 +321,12 @@ describe("OntologiesEndpoint", () => {
                     value: "nothing"
                 }
             ];
+
             newResClass.subClassOf = ["http://api.knora.org/ontology/knora-api/v2#Resource"];
 
-            knoraApiConnection.v2.onto.createResourceClass(newResClass).subscribe(
+            onto.entity = newResClass;
+
+            knoraApiConnection.v2.onto.createResourceClass(onto).subscribe(
                 (response: ResourceClassDefinitionWithAllLanguages) => {
                     // console.log('new resource class created', response);
                     expect(response.id).toBe("http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing");

@@ -205,11 +205,14 @@ export class AppComponent implements OnInit {
     }
 
     createResourceClass() {
+
+        const onto = new UpdateOntology<CreateResourceClass>();
+
+        onto.id = this.ontology.id;
+        onto.lastModificationDate = this.ontology.lastModificationDate;
+
         const newResClass = new CreateResourceClass();
-        newResClass.ontology = {
-            id: this.ontology.id,
-            lastModificationDate: this.ontology.lastModificationDate
-        };
+
         newResClass.name = "testclass";
         newResClass.labels = [
             {
@@ -228,7 +231,9 @@ export class AppComponent implements OnInit {
         ];
         newResClass.subClassOf = [Constants.Resource];
 
-        this.knoraApiConnection.v2.onto.createResourceClass(newResClass).subscribe(
+        onto.entity = newResClass;
+
+        this.knoraApiConnection.v2.onto.createResourceClass(onto).subscribe(
             (response: ResourceClassDefinitionWithAllLanguages) => {
                 console.log('new resource class created', response);
                 this.resClass = response;
