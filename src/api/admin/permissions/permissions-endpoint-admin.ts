@@ -21,7 +21,7 @@ export class PermissionsEndpointAdmin extends Endpoint {
      */
     getAdministrativePermission(projectIri: string, groupIri: string): Observable<ApiResponseData<AdministrativePermissionResponse> | ApiResponseError> {
     
-        return this.httpGet("/" + encodeURIComponent(projectIri) + "/" + encodeURIComponent(groupIri)).pipe(
+        return this.httpGet("/ap/" + encodeURIComponent(projectIri) + "/" + encodeURIComponent(groupIri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, AdministrativePermissionResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
