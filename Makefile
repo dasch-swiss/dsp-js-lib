@@ -81,7 +81,7 @@ e2e-tests: ## runs the e2e tests
 	sudo npm install yalc -g
 	npm run prepare-dev-publication
 	npm run yalc-publish
-	cd test-framework && yalc remove --all && yalc add @dasch-swiss/dsp-js && npm install && npm run webdriver-update && npm run e2e && npm run build-app && docker build .
+	cd test-framework && yalc add @dasch-swiss/dsp-js && npm install && npm run webdriver-update && npm run e2e && npm run build-app && docker build .
 
 .PHONY: build
 build: ## builds the lib
