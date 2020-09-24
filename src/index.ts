@@ -82,6 +82,7 @@ export { UpdateOntology } from "./models/v2/ontologies/update-ontology";
 export { DeleteOntologyResponse } from "./models/v2/ontologies/delete/delete-ontology-response";
 export { CreateResourceClass } from "./models/v2/ontologies/create/create-resource-class";
 export { ReadOntology } from "./models/v2/ontologies/read/read-ontology";
+export { AddCardinalityToResourceClass } from "./models/v2/ontologies/create/add-cardinality-to-resource-class";
 export { OntologyMetadata, OntologiesMetadata } from "./models/v2/ontologies/ontology-metadata";
 export {
     ResourceClassDefinitionWithPropertyDefinition,

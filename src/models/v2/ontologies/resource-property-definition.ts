@@ -4,6 +4,9 @@ import { GuiAttributeConverter } from "../custom-converters/gui-attribute-conver
 import { IdConverter } from "../custom-converters/id-converter";
 import { SubPropertyOfConverter } from "../custom-converters/subproperty-of-converter";
 import { PropertyDefinition } from "./property-definition";
+import { StringLiteralToStringConverter } from "../custom-converters/string-literal-to-string-converter";
+import { StringLiteralV2 } from "../string-literal-v2";
+import { StringLiteralToStringLiteralArrayConverter } from "../custom-converters/string-literal-to-string-literal-array-converter";
 
 @JsonObject("ResourcePropertyDefinition")
 export class ResourcePropertyDefinition extends PropertyDefinition {
@@ -39,4 +42,20 @@ export class ResourcePropertyDefinition extends PropertyDefinition {
 
     @JsonProperty(Constants.GuiAttribute, GuiAttributeConverter, true)
     guiAttributes: string[] = [];
+}
+
+@JsonObject("ResourcePropertyDefinitionWithAllLanguages")
+export class ResourcePropertyDefinitionWithAllLanguages extends ResourcePropertyDefinition {
+
+    @JsonProperty(Constants.Comment, StringLiteralToStringConverter, true)
+    comment?: string = undefined;
+
+    @JsonProperty(Constants.Comment, StringLiteralToStringLiteralArrayConverter, true)
+    comments: StringLiteralV2[] = [];
+
+    @JsonProperty(Constants.Label, StringLiteralToStringConverter, true)
+    label?: string = undefined;
+
+    @JsonProperty(Constants.Label, StringLiteralToStringLiteralArrayConverter, true)
+    labels: StringLiteralV2[] = [];
 }
