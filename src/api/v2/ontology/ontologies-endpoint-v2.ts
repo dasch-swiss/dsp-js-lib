@@ -3,7 +3,7 @@ import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { Constants } from "../../../models/v2/Constants";
-import { AddCardinalityToResourceClass } from "../../../models/v2/ontologies/create/add-cardinality-to-resource-class";
+import { UpdateOntologyResourceClassCardinality } from "../../../models/v2/ontologies/update/update-ontology-resource-class-cardinality";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
 import { CreateResourceClass } from "../../../models/v2/ontologies/create/create-resource-class";
 import {
@@ -284,7 +284,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param addCardinalityToResourceClass the cardinailities to be added.
      */
-    addCardinalityToResourceClass(addCardinalityToResourceClass: AddCardinalityToResourceClass): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+    addCardinalityToResourceClass(addCardinalityToResourceClass: UpdateOntologyResourceClassCardinality): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
 
         return this.httpPost("/cardinalities", this.jsonConvert.serializeObject(addCardinalityToResourceClass)).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {

@@ -36,10 +36,10 @@ import {
     UsersResponse,
     WriteValueResponse,
     Cardinality,
-    AddCardinalityToResourceClass,
     DeleteOntology,
     DeleteResourceClass,
-    DeleteResourceProperty
+    DeleteResourceProperty,
+    UpdateOntologyResourceClassCardinality
 } from "@dasch-swiss/dsp-js";
 import { CreateResourceProperty } from "@dasch-swiss/dsp-js/src/models/v2/ontologies/create/create-resource-property";
 import { ResourcePropertyDefinitionWithAllLanguages } from "@dasch-swiss/dsp-js/src/models/v2/ontologies/resource-property-definition";
@@ -332,7 +332,7 @@ export class AppComponent implements OnInit {
 
     addCardinality() {
 
-        const addCard = new AddCardinalityToResourceClass();
+        const addCard = new UpdateOntologyResourceClassCardinality();
 
         addCard.lastModificationDate = this.ontology.lastModificationDate;
 

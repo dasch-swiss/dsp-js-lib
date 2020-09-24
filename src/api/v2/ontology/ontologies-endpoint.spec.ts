@@ -3,7 +3,7 @@ import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { StringLiteral } from "../../../models/admin/string-literal";
 import { Constants } from "../../../models/v2/Constants";
-import { AddCardinalityToResourceClass } from "../../../models/v2/ontologies/create/add-cardinality-to-resource-class";
+import { UpdateOntologyResourceClassCardinality } from "../../../models/v2/ontologies/update/update-ontology-resource-class-cardinality";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
 import { CreateResourceClass } from "../../../models/v2/ontologies/create/create-resource-class";
 import { CreateResourceProperty } from "../../../models/v2/ontologies/create/create-resource-property";
@@ -23,6 +23,7 @@ import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-p
 import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
 import { Cardinality } from "../../../models/v2/ontologies/class-definition";
 import { DeleteOntology } from "../../../models/v2/ontologies/delete/delete-ontology";
+import { DeleteResourceProperty } from "../../../models/v2/ontologies/delete/delete-resource-property";
 
 describe("OntologiesEndpoint", () => {
 
@@ -526,9 +527,10 @@ describe("OntologiesEndpoint", () => {
     });
 
     describe("Method deleteResourceProperty", () => {
+
         it("should delete a resource property", done => {
 
-            const resprop = new UpdateOntology();
+            const resprop = new DeleteResourceProperty();
 
             resprop.id = "http://0.0.0.0:3333/ontology/00FF/images/v2#titel";
 
@@ -560,7 +562,7 @@ describe("OntologiesEndpoint", () => {
 
         it("should add a max cardinality 1 to a resource class", done => {
 
-            const addCard = new AddCardinalityToResourceClass();
+            const addCard = new UpdateOntologyResourceClassCardinality();
 
             addCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
 

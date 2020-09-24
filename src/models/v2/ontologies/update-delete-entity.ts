@@ -5,7 +5,7 @@ import { DateTimeStampConverter } from "../custom-converters/date-time-stamp-con
 @JsonObject("UpdateDeleteEntity")
 export abstract class UpdateDeleteEntity {
 
-    @JsonProperty("id", String)
+    @JsonProperty("@id", String)
     id: string = "";
 
     @JsonProperty(Constants.LastModificationDate, DateTimeStampConverter, true)
