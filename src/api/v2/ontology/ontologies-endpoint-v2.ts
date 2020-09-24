@@ -17,6 +17,8 @@ import {
 } from "../../../models/v2/ontologies/create/create-resource-property-payload";
 import { DeleteOntology } from "../../../models/v2/ontologies/delete/delete-ontology";
 import { DeleteOntologyResponse } from "../../../models/v2/ontologies/delete/delete-ontology-response";
+import { DeleteResourceClass } from "../../../models/v2/ontologies/delete/delete-resource-class";
+import { DeleteResourceProperty } from "../../../models/v2/ontologies/delete/delete-resource-property";
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { OntologyConversionUtil } from "../../../models/v2/ontologies/OntologyConversionUtil";
 import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
@@ -182,13 +184,13 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
-     * Deletes a resource class
+     * Deletes a resource class.
      *
-     * @param  updateOntology with class IRI.
+     * @param  deleteResourceClass with class IRI.
      */
-    deleteResourceClass(updateOntology: UpdateOntology): Observable<OntologyMetadata | ApiResponseError> {
+    deleteResourceClass(deleteResourceClass: DeleteResourceClass): Observable<OntologyMetadata | ApiResponseError> {
 
-        const path = "/classes/" + encodeURIComponent(updateOntology.id) + "?lastModificationDate=" + encodeURIComponent(updateOntology.lastModificationDate);
+        const path = "/classes/" + encodeURIComponent(deleteResourceClass.id) + "?lastModificationDate=" + encodeURIComponent(deleteResourceClass.lastModificationDate);
 
         return this.httpDelete(path).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
@@ -205,36 +207,36 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
-     * Creates a resource property
+     * Creates a resource property.
      *
-     * @param  resProp the resource property to be created.
+     * @param  resourceProperty the resource property to be created.
      */
-    createResourceProperty(resProp: UpdateOntology<CreateResourceProperty>): Observable<ResourcePropertyDefinitionWithAllLanguages | ApiResponseError> {
+    createResourceProperty(resourceProperty: UpdateOntology<CreateResourceProperty>): Observable<ResourcePropertyDefinitionWithAllLanguages | ApiResponseError> {
 
         const resPropPayload = new CreateResourcePropertyPayload();
 
         // prepare ontology data for payload
-        resPropPayload.id = resProp.id;
-        resPropPayload.lastModificationDate = resProp.lastModificationDate;
+        resPropPayload.id = resourceProperty.id;
+        resPropPayload.lastModificationDate = resourceProperty.lastModificationDate;
 
         // prepare new res class object for payload
         const newResProperty = new NewResourcePropertyPayload();
 
-        newResProperty.id = resProp.id + Constants.Delimiter + resProp.entity.name;
+        newResProperty.id = resourceProperty.id + Constants.Delimiter + resourceProperty.entity.name;
 
-        newResProperty.label = resProp.entity.labels;
-        newResProperty.comment = (resProp.entity.comments.length ? resProp.entity.comments : resProp.entity.labels);
-        newResProperty.subPropertyOf = resProp.entity.subPropertyOf;
+        newResProperty.label = resourceProperty.entity.labels;
+        newResProperty.comment = (resourceProperty.entity.comments.length ? resourceProperty.entity.comments : resourceProperty.entity.labels);
+        newResProperty.subPropertyOf = resourceProperty.entity.subPropertyOf;
         newResProperty.type = Constants.ObjectProperty;
 
-        newResProperty.subjectType = resProp.entity.subjectType;
-        newResProperty.objectType = resProp.entity.objectType;
+        newResProperty.subjectType = resourceProperty.entity.subjectType;
+        newResProperty.objectType = resourceProperty.entity.objectType;
 
-        if (resProp.entity.guiElement) {
-            newResProperty.guiElement = resProp.entity.guiElement;
+        if (resourceProperty.entity.guiElement) {
+            newResProperty.guiElement = resourceProperty.entity.guiElement;
         }
-        if (resProp.entity.guiAttributes) {
-            newResProperty.guiAttributes = resProp.entity.guiAttributes;
+        if (resourceProperty.entity.guiAttributes) {
+            newResProperty.guiAttributes = resourceProperty.entity.guiAttributes;
         }
 
         resPropPayload.resProperty = [newResProperty];
@@ -258,11 +260,11 @@ export class OntologiesEndpointV2 extends Endpoint {
     /**
      * Deletes a resource property.
      *
-     * @param  updateOntology with property IRI.
+     * @param  deleteResourceProperty with property IRI.
      */
-    deleteResourceProperty(updateOntology: UpdateOntology): Observable<OntologyMetadata | ApiResponseError> {
+    deleteResourceProperty(deleteResourceProperty: DeleteResourceProperty): Observable<OntologyMetadata | ApiResponseError> {
 
-        const path = "/properties/" + encodeURIComponent(updateOntology.id) + "?lastModificationDate=" + encodeURIComponent(updateOntology.lastModificationDate);
+        const path = "/properties/" + encodeURIComponent(deleteResourceProperty.id) + "?lastModificationDate=" + encodeURIComponent(deleteResourceProperty.lastModificationDate);
 
         return this.httpDelete(path).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {

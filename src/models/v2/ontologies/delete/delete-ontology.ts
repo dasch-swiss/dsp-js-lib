@@ -1,7 +1,7 @@
 import { JsonObject } from "json2typescript";
-import { UpdateDeleteOntology } from "../update-delete-ontology";
+import { UpdateDeleteEntity } from "../update-delete-entity";
 
 @JsonObject("DeleteOntology")
-export class DeleteOntology extends UpdateDeleteOntology {
+export class DeleteOntology extends UpdateDeleteEntity {
 
 }

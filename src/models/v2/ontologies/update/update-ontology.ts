@@ -1,15 +1,10 @@
 import { JsonObject } from "json2typescript";
-import { UpdateDeleteOntology } from "../update-delete-ontology";
+import { CreateResourceClass } from "../../../..";
+import { CreateResourceProperty } from "../create/create-resource-property";
+import { UpdateDeleteEntity } from "../update-delete-entity";
 
-/**
- * UpdateOntology class can be used whenever the ontology,
- * a resource class or a resource property has to be updated (incl. delete).
- * It can be used to update
- *   - resource class: res class id and lastModificationDate
- *   - resource property: res prop id and lastModificationDate
- */
 @JsonObject("UpdateOntology")
-export class UpdateOntology<T = object> extends UpdateDeleteOntology {
+export class UpdateOntology<T extends CreateResourceClass | CreateResourceProperty> extends UpdateDeleteEntity {
 
     entity: T;
 

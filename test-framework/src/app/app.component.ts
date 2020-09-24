@@ -37,7 +37,9 @@ import {
     WriteValueResponse,
     Cardinality,
     AddCardinalityToResourceClass,
-    DeleteOntology
+    DeleteOntology,
+    DeleteResourceClass,
+    DeleteResourceProperty
 } from "@dasch-swiss/dsp-js";
 import { CreateResourceProperty } from "@dasch-swiss/dsp-js/src/models/v2/ontologies/create/create-resource-property";
 import { ResourcePropertyDefinitionWithAllLanguages } from "@dasch-swiss/dsp-js/src/models/v2/ontologies/resource-property-definition";
@@ -242,7 +244,8 @@ export class AppComponent implements OnInit {
     }
 
     deleteResourceClass() {
-        const deleteResClass: UpdateOntology = new UpdateOntology();
+
+        const deleteResClass: DeleteResourceClass = new DeleteResourceClass();
         deleteResClass.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass";
         deleteResClass.lastModificationDate = this.ontology.lastModificationDate;
 
@@ -310,7 +313,8 @@ export class AppComponent implements OnInit {
     }
 
     deleteResourceProperty() {
-        const deleteResProp: UpdateOntology = new UpdateOntology();
+
+        const deleteResProp: DeleteResourceProperty = new DeleteResourceProperty();
         deleteResProp.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName";
         deleteResProp.lastModificationDate = this.ontology.lastModificationDate;
 

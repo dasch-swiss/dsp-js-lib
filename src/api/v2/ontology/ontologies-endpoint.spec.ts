@@ -8,6 +8,7 @@ import { CreateOntology } from "../../../models/v2/ontologies/create/create-onto
 import { CreateResourceClass } from "../../../models/v2/ontologies/create/create-resource-class";
 import { CreateResourceProperty } from "../../../models/v2/ontologies/create/create-resource-property";
 import { DeleteOntologyResponse } from "../../../models/v2/ontologies/delete/delete-ontology-response";
+import { DeleteResourceClass } from "../../../models/v2/ontologies/delete/delete-resource-class";
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
 import {
@@ -352,9 +353,10 @@ describe("OntologiesEndpoint", () => {
     });
 
     describe("Method deleteResourceClass", () => {
+
         it("should delete a resource class", done => {
 
-            const resclass = new UpdateOntology();
+            const resclass = new DeleteResourceClass();
 
             resclass.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
 

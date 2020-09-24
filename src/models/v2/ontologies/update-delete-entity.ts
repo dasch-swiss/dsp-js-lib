@@ -2,8 +2,8 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
 import { DateTimeStampConverter } from "../custom-converters/date-time-stamp-converter";
 
-@JsonObject("UpdateDeleteOntology")
-export abstract class UpdateDeleteOntology {
+@JsonObject("UpdateDeleteEntity")
+export abstract class UpdateDeleteEntity {
 
     @JsonProperty("id", String)
     id: string = "";
