@@ -272,7 +272,7 @@ export class AppComponent implements OnInit {
 
         newResProp.name = "hasName";
 
-        newResProp.labels = [
+        newResProp.label = [
             {
                 language: "en",
                 value: "has name"
@@ -283,7 +283,7 @@ export class AppComponent implements OnInit {
             }
         ];
 
-        newResProp.comments = [
+        newResProp.comment = [
             {
                 language: "en",
                 value: "The name of a Thing"

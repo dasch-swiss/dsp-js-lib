@@ -408,7 +408,7 @@ describe("OntologiesEndpoint", () => {
             label2.language = "de";
             label2.value = "hat Namen";
 
-            newResProp.labels = [
+            newResProp.label = [
                 label1,
                 label2
             ];
@@ -423,7 +423,7 @@ describe("OntologiesEndpoint", () => {
             comment2.language = "de";
             comment2.value = "Der Name eines Dinges";
 
-            newResProp.comments = [
+            newResProp.comment = [
                 comment1,
                 comment2
             ];
@@ -480,7 +480,7 @@ describe("OntologiesEndpoint", () => {
             label1.language = "en";
             label1.value = "has nothingness";
 
-            newResProp.labels = [
+            newResProp.label = [
                 label1
             ];
 
@@ -489,7 +489,7 @@ describe("OntologiesEndpoint", () => {
             comment1.language = "en";
             comment1.value = "Refers to the other Nothing of a Nothing";
 
-            newResProp.comments = [
+            newResProp.comment = [
                 comment1
             ];
 
