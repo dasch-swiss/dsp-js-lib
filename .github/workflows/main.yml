@@ -62,11 +62,26 @@ jobs:
   
   test-publish-process:
     name: Test publish process (dry-run)
-    needs: [test-integration]
     runs-on: ubuntu-latest
     env:
       dist-directory: ./build/
     steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+          registry-url: https://registry.npmjs.org/
+      - name: Install dependencies
+        run: |
+          sudo npm install --global @bazel/bazelisk
+          npm install
+          npm run peer-deps
+      - name: Test
+        run: npm run test
+      - name: Prepare dev publication
+        run: npm run prepare-dev-publication
+      - name: Build
+        run: npm run build
       - name: Update version
         run: cd ${{env.dist-directory}} && npm version 99.99.99 --git-tag-version=false --commit-hooks=false
       - name: Publish pre-release to npm
