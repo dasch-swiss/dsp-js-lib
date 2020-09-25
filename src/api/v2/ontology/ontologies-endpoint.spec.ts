@@ -311,14 +311,14 @@ describe("OntologiesEndpoint", () => {
             const newResClass = new CreateResourceClass();
 
             newResClass.name = "Nothing";
-            newResClass.comments = [
+            newResClass.comment = [
                 {
                     language: "en",
                     value: "Represents nothing"
                 }
             ];
 
-            newResClass.labels = [
+            newResClass.label = [
                 {
                     language: "en",
                     value: "nothing"
@@ -327,7 +327,7 @@ describe("OntologiesEndpoint", () => {
 
             newResClass.subClassOf = ["http://api.knora.org/ontology/knora-api/v2#Resource"];
 
-            onto.entity = newResClass;
+            onto.entities = [newResClass];
 
             knoraApiConnection.v2.onto.createResourceClass(onto).subscribe(
                 (response: ResourceClassDefinitionWithAllLanguages) => {
@@ -441,7 +441,7 @@ describe("OntologiesEndpoint", () => {
 
             newResProp.guiAttributes = ["size=80", "maxlength=100"];
 
-            onto.entity = newResProp;
+            onto.entities = [newResProp];
 
             knoraApiConnection.v2.onto.createResourceProperty(onto).subscribe(
                 (response: ResourcePropertyDefinitionWithAllLanguages) => {
@@ -501,7 +501,7 @@ describe("OntologiesEndpoint", () => {
 
             newResProp.subjectType = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
 
-            onto.entity = newResProp;
+            onto.entities = [newResProp];
 
             knoraApiConnection.v2.onto.createResourceProperty(onto).subscribe(
                 (response: ResourcePropertyDefinitionWithAllLanguages) => {

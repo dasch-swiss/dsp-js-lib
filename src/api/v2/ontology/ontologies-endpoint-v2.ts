@@ -7,9 +7,8 @@ import { UpdateOntologyResourceClassCardinality } from "../../../models/v2/ontol
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
 import { CreateResourceClass } from "../../../models/v2/ontologies/create/create-resource-class";
 import {
-    CreateResourceClassPayload,
-    NewResourceClass
-} from "../../../models/v2/ontologies/create/create-resource-class-payload";
+    CreateResourceClassPayload
+} from "../../../models/v2/ontologies/create/create-resource-class";
 import { CreateResourceProperty } from "../../../models/v2/ontologies/create/create-resource-property";
 import {
     CreateResourcePropertyPayload,
@@ -147,29 +146,31 @@ export class OntologiesEndpointV2 extends Endpoint {
     /**
      * Creates a resource class without cardinalities.
      *
-     * @param  resClass The resource class to be created.
+     * @param  resourceClasses The resource class to be created.
      */
-    createResourceClass(resClass: UpdateOntology<CreateResourceClass>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+    createResourceClass(resourceClasses: UpdateOntology<CreateResourceClass>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
 
-        const resClassPayload = new CreateResourceClassPayload();
+        const resClassesPay: CreateResourceClassPayload[] = resourceClasses.entities.map(
+            (entity: CreateResourceClass) => {
 
-        // prepare ontology data for payload
-        resClassPayload.id = resClass.id;
-        resClassPayload.lastModificationDate = resClass.lastModificationDate;
+                const resClassPay = new CreateResourceClassPayload();
 
-        // prepare new res class object for payload
-        const newResClass = new NewResourceClass();
-        newResClass.id = resClass.id + Constants.Delimiter + resClass.entity.name;
-        newResClass.label = resClass.entity.labels;
-        newResClass.comment = (resClass.entity.comments.length ? resClass.entity.comments : resClass.entity.labels);
-        newResClass.subClassOf = resClass.entity.subClassOf;
-        newResClass.type = Constants.Class;
+                resClassPay.id = resourceClasses.id + Constants.Delimiter + entity.name;
+                resClassPay.label = entity.label;
+                resClassPay.comment = (entity.comment.length ? entity.comment : entity.label);
+                resClassPay.subClassOf = entity.subClassOf;
+                resClassPay.type = Constants.Class;
 
-        resClassPayload.resClass = [newResClass];
+                return resClassPay;
 
-        const payload = this.jsonConvert.serializeObject(resClassPayload);
+            }
+        );
 
-        return this.httpPost("/classes", payload).pipe(
+        const ontoPayload = this.jsonConvert.serializeObject(resourceClasses);
+
+        ontoPayload["@graph"] = this.jsonConvert.serializeArray(resClassesPay);
+
+        return this.httpPost("/classes", ontoPayload).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -222,21 +223,21 @@ export class OntologiesEndpointV2 extends Endpoint {
         // prepare new res class object for payload
         const newResProperty = new NewResourcePropertyPayload();
 
-        newResProperty.id = resourceProperty.id + Constants.Delimiter + resourceProperty.entity.name;
+        newResProperty.id = resourceProperty.id + Constants.Delimiter + resourceProperty.entities[0].name;
 
-        newResProperty.label = resourceProperty.entity.labels;
-        newResProperty.comment = (resourceProperty.entity.comments.length ? resourceProperty.entity.comments : resourceProperty.entity.labels);
-        newResProperty.subPropertyOf = resourceProperty.entity.subPropertyOf;
+        newResProperty.label = resourceProperty.entities[0].labels;
+        newResProperty.comment = (resourceProperty.entities[0].comments.length ? resourceProperty.entities[0].comments : resourceProperty.entities[0].labels);
+        newResProperty.subPropertyOf = resourceProperty.entities[0].subPropertyOf;
         newResProperty.type = Constants.ObjectProperty;
 
-        newResProperty.subjectType = resourceProperty.entity.subjectType;
-        newResProperty.objectType = resourceProperty.entity.objectType;
+        newResProperty.subjectType = resourceProperty.entities[0].subjectType;
+        newResProperty.objectType = resourceProperty.entities[0].objectType;
 
-        if (resourceProperty.entity.guiElement) {
-            newResProperty.guiElement = resourceProperty.entity.guiElement;
+        if (resourceProperty.entities[0].guiElement) {
+            newResProperty.guiElement = resourceProperty.entities[0].guiElement;
         }
-        if (resourceProperty.entity.guiAttributes) {
-            newResProperty.guiAttributes = resourceProperty.entity.guiAttributes;
+        if (resourceProperty.entities[0].guiAttributes) {
+            newResProperty.guiAttributes = resourceProperty.entities[0].guiAttributes;
         }
 
         resPropPayload.resProperty = [newResProperty];

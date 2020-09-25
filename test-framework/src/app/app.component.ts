@@ -216,7 +216,7 @@ export class AppComponent implements OnInit {
         const newResClass = new CreateResourceClass();
 
         newResClass.name = "testclass";
-        newResClass.labels = [
+        newResClass.label = [
             {
                 language: "de",
                 value: "Test Klasse"
@@ -225,7 +225,7 @@ export class AppComponent implements OnInit {
                 value: "Test Class"
             }
         ];
-        newResClass.comments = [
+        newResClass.comment = [
             {
                 language: "en",
                 value: "Just an example of a new resource class"
@@ -233,7 +233,7 @@ export class AppComponent implements OnInit {
         ];
         newResClass.subClassOf = [Constants.Resource];
 
-        onto.entity = newResClass;
+        onto.entities = [newResClass];
 
         this.knoraApiConnection.v2.onto.createResourceClass(onto).subscribe(
             (response: ResourceClassDefinitionWithAllLanguages) => {
@@ -302,7 +302,7 @@ export class AppComponent implements OnInit {
         newResProp.guiElement = "http://api.knora.org/ontology/salsah-gui/v2#SimpleText";
         newResProp.guiAttributes = ["size=80", "maxlength=100"];
 
-        onto.entity = newResProp;
+        onto.entities = [newResProp];
 
         this.knoraApiConnection.v2.onto.createResourceProperty(onto).subscribe(
             (response: ResourcePropertyDefinitionWithAllLanguages) => {
