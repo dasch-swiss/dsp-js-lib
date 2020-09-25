@@ -274,8 +274,6 @@ export class OntologiesEndpointV2 extends Endpoint {
 
         ontoPayload["@graph"] = this.jsonConvert.serializeArray(resPropsPay);
 
-        console.log(JSON.stringify(resPropsPay));
-
         return this.httpPost("/properties", ontoPayload).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // TODO: @rosenth Adapt context object
