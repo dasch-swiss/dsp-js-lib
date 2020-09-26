@@ -59,35 +59,6 @@ jobs:
         run: make build
       - name: Run e2e tests
         run: make e2e-tests
-  
-  test-publish-process:
-    name: Test publish process (dry-run)
-    runs-on: ubuntu-latest
-    env:
-      dist-directory: ./build/
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-          registry-url: https://registry.npmjs.org/
-      - name: Install dependencies
-        run: |
-          sudo npm install --global @bazel/bazelisk
-          npm install
-          npm run peer-deps
-      - name: Test
-        run: npm run test
-      - name: Prepare dev publication
-        run: npm run prepare-dev-publication
-      - name: Build
-        run: npm run build
-      - name: Update version
-        run: cd ${{env.dist-directory}} && npm version --from-git --git-tag-version=false --commit-hooks=false
-      - name: Publish pre-release to npm
-        run: npm publish --tag rc ${{env.dist-directory}} --dry-run
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_DASCHBOT}}
 
   update_release_draft:
     name: Update next release draft
@@ -131,11 +102,11 @@ jobs:
         run: cd ${{env.dist-directory}} && npm version ${{steps.previoustag.outputs.tag}} --git-tag-version=false --commit-hooks=false
       - if: "github.event.release.prerelease"
         name: Publish pre-release to npm
-        run: npm publish --tag rc build/ --access public
+        run: npm publish ${{env.dist-directory}} --tag rc --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_DASCHBOT}}
       - if: "!github.event.release.prerelease"
         name: Publish release to npm
-        run: npm publish build/ --access public
+        run: npm publish ${{env.dist-directory}} --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_DASCHBOT}}
