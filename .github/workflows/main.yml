@@ -85,7 +85,7 @@ jobs:
       - name: Update version
         run: cd ${{env.dist-directory}} && npm version --from-git --git-tag-version=false --commit-hooks=false
       - name: Publish pre-release to npm
-        run: npm publish --tag rc build/ --dry-run
+        run: npm publish --tag rc ${{env.dist-directory}} --dry-run
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_DASCHBOT}}
 
