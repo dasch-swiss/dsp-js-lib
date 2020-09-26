@@ -83,7 +83,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Update version
-        run: cd ${{env.dist-directory}} && npm version 99.99.99 --git-tag-version=false --commit-hooks=false
+        run: cd ${{env.dist-directory}} && npm version --from-git --git-tag-version=false --commit-hooks=false
       - name: Publish pre-release to npm
         run: npm publish --tag rc build/ --dry-run
         env:
