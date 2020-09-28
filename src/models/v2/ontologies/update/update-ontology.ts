@@ -10,6 +10,6 @@ export class UpdateOntology<T extends CreateResourceClass | CreateResourceProper
     @JsonProperty("@type", String)
     type: string = Constants.Ontology;
 
-    entities: T[];
+    entity: T;
 
 }

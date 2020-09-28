@@ -3,14 +3,13 @@ import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { Constants } from "../../../models/v2/Constants";
-import { UpdateOntologyResourceClassCardinality } from "../../../models/v2/ontologies/update/update-ontology-resource-class-cardinality";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
-import { CreateResourceClass } from "../../../models/v2/ontologies/create/create-resource-class";
 import {
+    CreateResourceClass,
     CreateResourceClassPayload
 } from "../../../models/v2/ontologies/create/create-resource-class";
-import { CreateResourceProperty } from "../../../models/v2/ontologies/create/create-resource-property";
 import {
+    CreateResourceProperty,
     CreateResourcePropertyPayload
 } from "../../../models/v2/ontologies/create/create-resource-property";
 import { DeleteOntology } from "../../../models/v2/ontologies/delete/delete-ontology";
@@ -23,6 +22,7 @@ import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
 import { ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-class-definition";
 import { ResourcePropertyDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-property-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
+import { UpdateOntologyResourceClassCardinality } from "../../../models/v2/ontologies/update/update-ontology-resource-class-cardinality";
 import { Endpoint } from "../../endpoint";
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
@@ -149,25 +149,17 @@ export class OntologiesEndpointV2 extends Endpoint {
      */
     createResourceClass(resourceClasses: UpdateOntology<CreateResourceClass>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
 
-        const resClassesPay: CreateResourceClassPayload[] = resourceClasses.entities.map(
-            (entity: CreateResourceClass) => {
+        const resClassPay = new CreateResourceClassPayload();
 
-                const resClassPay = new CreateResourceClassPayload();
-
-                resClassPay.id = resourceClasses.id + Constants.Delimiter + entity.name;
-                resClassPay.label = entity.label;
-                resClassPay.comment = (entity.comment.length ? entity.comment : entity.label);
-                resClassPay.subClassOf = entity.subClassOf;
-                resClassPay.type = Constants.Class;
-
-                return resClassPay;
-
-            }
-        );
+        resClassPay.id = resourceClasses.id + Constants.Delimiter + resourceClasses.entity.name;
+        resClassPay.label = resourceClasses.entity.label;
+        resClassPay.comment = (resourceClasses.entity.comment.length ? resourceClasses.entity.comment : resourceClasses.entity.label);
+        resClassPay.subClassOf = resourceClasses.entity.subClassOf;
+        resClassPay.type = Constants.Class;
 
         const ontoPayload = this.jsonConvert.serializeObject(resourceClasses);
 
-        ontoPayload["@graph"] = this.jsonConvert.serializeArray(resClassesPay);
+        ontoPayload["@graph"] = [this.jsonConvert.serializeObject(resClassPay)];
 
         return this.httpPost("/classes", ontoPayload).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
@@ -212,36 +204,28 @@ export class OntologiesEndpointV2 extends Endpoint {
      * @param  resourceProperties the resource property to be created.
      */
     createResourceProperty(resourceProperties: UpdateOntology<CreateResourceProperty>): Observable<ResourcePropertyDefinitionWithAllLanguages | ApiResponseError> {
-        
-        const resPropsPay: CreateResourcePropertyPayload[] = resourceProperties.entities.map(
-            (entity: CreateResourceProperty) => {
 
-                const resPropPay = new CreateResourcePropertyPayload();
+        const resPropPay = new CreateResourcePropertyPayload();
 
-                resPropPay.id = resourceProperties.id + Constants.Delimiter + entity.name;
+        resPropPay.id = resourceProperties.id + Constants.Delimiter + resourceProperties.entity.name;
 
-                resPropPay.label = entity.label;
-                resPropPay.comment = (entity.comment.length ? entity.comment : entity.label);
-                resPropPay.subPropertyOf = entity.subPropertyOf;
+        resPropPay.label = resourceProperties.entity.label;
+        resPropPay.comment = (resourceProperties.entity.comment.length ? resourceProperties.entity.comment : resourceProperties.entity.label);
+        resPropPay.subPropertyOf = resourceProperties.entity.subPropertyOf;
 
-                resPropPay.subjectType = entity.subjectType;
-                resPropPay.objectType = entity.objectType;
+        resPropPay.subjectType = resourceProperties.entity.subjectType;
+        resPropPay.objectType = resourceProperties.entity.objectType;
 
-                if (entity.guiElement) {
-                    resPropPay.guiElement = entity.guiElement;
-                }
-                if (entity.guiAttributes) {
-                    resPropPay.guiAttributes = entity.guiAttributes;
-                }
-
-                return resPropPay;
-
-            }
-        );
+        if (resourceProperties.entity.guiElement) {
+            resPropPay.guiElement = resourceProperties.entity.guiElement;
+        }
+        if (resourceProperties.entity.guiAttributes) {
+            resPropPay.guiAttributes = resourceProperties.entity.guiAttributes;
+        }
 
         const ontoPayload = this.jsonConvert.serializeObject(resourceProperties);
 
-        ontoPayload["@graph"] = this.jsonConvert.serializeArray(resPropsPay);
+        ontoPayload["@graph"] = [this.jsonConvert.serializeObject(resPropPay)];
 
         return this.httpPost("/properties", ontoPayload).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
