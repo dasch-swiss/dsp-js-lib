@@ -1,7 +1,6 @@
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
-import { StringLiteral } from "../../../models/admin/string-literal";
 import { Constants } from "../../../models/v2/Constants";
 import { UpdateOntologyResourceClassCardinality } from "../../../models/v2/ontologies/update/update-ontology-resource-class-cardinality";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
@@ -24,6 +23,7 @@ import { UpdateOntology } from "../../../models/v2/ontologies/update/update-onto
 import { Cardinality } from "../../../models/v2/ontologies/class-definition";
 import { DeleteOntology } from "../../../models/v2/ontologies/delete/delete-ontology";
 import { DeleteResourceProperty } from "../../../models/v2/ontologies/delete/delete-resource-property";
+import { StringLiteralV2 } from "../../../models/v2/string-literal-v2";
 
 describe("OntologiesEndpoint", () => {
 
@@ -311,19 +311,20 @@ describe("OntologiesEndpoint", () => {
             const newResClass = new CreateResourceClass();
 
             newResClass.name = "Nothing";
-            newResClass.comment = [
-                {
-                    language: "en",
-                    value: "Represents nothing"
-                }
-            ];
 
-            newResClass.label = [
-                {
-                    language: "en",
-                    value: "nothing"
-                }
-            ];
+            const comment = new StringLiteralV2();
+
+            comment.language = "en";
+            comment.value =  "Represents nothing";
+
+            newResClass.comment = [comment];
+
+            const label = new StringLiteralV2();
+
+            label.language = "en";
+            label.value = "nothing";
+
+            newResClass.label = [label];
 
             newResClass.subClassOf = ["http://api.knora.org/ontology/knora-api/v2#Resource"];
 
@@ -398,12 +399,12 @@ describe("OntologiesEndpoint", () => {
 
             newResProp.name = "hasName";
 
-            const label1 = new StringLiteral();
+            const label1 = new StringLiteralV2();
 
             label1.language = "en";
             label1.value = "has name";
 
-            const label2 = new StringLiteral();
+            const label2 = new StringLiteralV2();
 
             label2.language = "de";
             label2.value = "hat Namen";
@@ -413,12 +414,12 @@ describe("OntologiesEndpoint", () => {
                 label2
             ];
 
-            const comment1 = new StringLiteral();
+            const comment1 = new StringLiteralV2();
 
             comment1.language = "en";
             comment1.value = "The name of a Thing";
 
-            const comment2 = new StringLiteral();
+            const comment2 = new StringLiteralV2();
 
             comment2.language = "de";
             comment2.value = "Der Name eines Dinges";
@@ -475,7 +476,7 @@ describe("OntologiesEndpoint", () => {
 
             newResProp.name = "hasOtherNothing";
 
-            const label1 = new StringLiteral();
+            const label1 = new StringLiteralV2();
 
             label1.language = "en";
             label1.value = "has nothingness";
@@ -484,7 +485,7 @@ describe("OntologiesEndpoint", () => {
                 label1
             ];
 
-            const comment1 = new StringLiteral();
+            const comment1 = new StringLiteralV2();
 
             comment1.language = "en";
             comment1.value = "Refers to the other Nothing of a Nothing";
