@@ -2,7 +2,7 @@
 
 ## v1.0.0-rc.12 (22/09/2020)
 
-#### Breaking changes
+#### Dependencies
 
 - [#237](https://github.com/dasch-swiss/dsp-js-lib/pull/237) DSP-671 Update dsp-api rc.16
 
