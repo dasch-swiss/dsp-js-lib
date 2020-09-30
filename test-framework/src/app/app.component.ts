@@ -39,7 +39,9 @@ import {
     DeleteOntology,
     DeleteResourceClass,
     DeleteResourceProperty,
-    UpdateOntologyResourceClassCardinality
+    UpdateOntologyResourceClassCardinality,
+    CreatePermission,
+    CreateAdministrativePermission
 } from "@dasch-swiss/dsp-js";
 import { CreateResourceProperty } from "@dasch-swiss/dsp-js/src/models/v2/ontologies/create/create-resource-property";
 import { ResourcePropertyDefinitionWithAllLanguages } from "@dasch-swiss/dsp-js/src/models/v2/ontologies/resource-property-definition";
@@ -136,6 +138,30 @@ export class AppComponent implements OnInit {
             (a: UserResponse) => console.log(a.user),
             b => console.error(b)
         );
+    }
+
+    createAdministrativePermission() {
+
+        const permission = new CreatePermission();
+        permission.name = "ProjectAdminGroupAllPermission";
+        permission.additionalInformation = null;
+        permission.permissionCode = null;
+
+        const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
+        const projectIri = "http://rdfh.ch/projects/0001";
+
+        const adminPermission = new CreateAdministrativePermission();
+        adminPermission.forGroup = groupIri;
+        adminPermission.forProject = projectIri;
+
+        adminPermission.hasPermissions = [permission];
+
+        // console.log(this.knoraApiConnection.admin.jsonConvert.serializeObject(permission))
+
+        this.knoraApiConnection.admin.permissionsEndpoint.createAdministrativePermission(adminPermission).subscribe(
+            res => console.log(res)
+        )
+
     }
 
     getOntology(iri: string) {
