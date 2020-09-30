@@ -1,5 +1,4 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-import { NullablePropertyConverter } from "./custom-converters/nullable-property-converter";
 
 /**
  * Creation of a permission.
@@ -10,7 +9,7 @@ export class CreatePermission {
     /**
      * An IRI representing additional information about the permission.
      */
-    @JsonProperty("additionalInformation", NullablePropertyConverter)
+    @JsonProperty("additionalInformation")
     additionalInformation: string | null = null;
 
     /**
@@ -22,7 +21,7 @@ export class CreatePermission {
     /**
      * A permission's numeric permission code.
      */
-    @JsonProperty("permissionCode", NullablePropertyConverter)
+    @JsonProperty("permissionCode")
     permissionCode: number | null = null;
 
 }
