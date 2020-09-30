@@ -32,9 +32,11 @@ export { GroupsResponse } from "./models/admin/groups-response";
 export { MembersResponse } from "./models/admin/members-response";
 
 export { AdministrativePermission } from "./models/admin/administrative-permission";
+export { CreateAdministrativePermission } from "./models/admin/create-administrative-permission";
 export { StoredAdministrativePermission } from "./models/admin/stored-administrative-permission";
 export { AdministrativePermissionResponse } from "./models/admin/administrative-permission-response";
 export { Permission } from "./models/admin/permission";
+export { CreatePermission } from "./models/admin/create-permission";
 export { Permissions } from "./models/admin/permissions";
 
 export { Project } from "./models/admin/project";

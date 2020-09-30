@@ -1,10 +1,12 @@
 import { AdministrativePermissionsResponse } from "../../../models/admin/administrative-permissions-response";
+import { CreatePermission } from "../../../models/admin/create-permission";
 import { ApiResponseData } from "../../../models/api-response-data";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { AdministrativePermissionResponse } from "../../../models/admin/administrative-permission-response";
 import { Permission } from "../../../models/admin/permission";
+import { CreateAdministrativePermission } from "../../../models/admin/create-administrative-permission";
 
 describe("PermissionsEndpoint", () => {
 
@@ -85,6 +87,53 @@ describe("PermissionsEndpoint", () => {
 
             expect(request.method).toEqual("GET");
 
+        });
+
+    });
+
+    describe("Method createAdministrativePermission", () => {
+
+        it("should create an administrative permission", done => {
+
+            const permission = new CreatePermission();
+            permission.name = "ProjectAdminGroupAllPermission";
+            permission.permissionCode = null;
+            permission.additionalInformation = null;
+
+            const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
+            const projectIri = "http://rdfh.ch/projects/0001";
+
+            const adminPermission = new CreateAdministrativePermission();
+            adminPermission.forGroup = groupIri;
+            adminPermission.forProject = projectIri;
+
+            adminPermission.hasPermissions = [permission];
+
+            knoraApiConnection.admin.permissionsEndpoint.createAdministrativePermission(adminPermission).subscribe(
+                (response: ApiResponseData<AdministrativePermissionResponse>) => {
+
+                    expect(response.body.administrative_permission.forGroup).toEqual("http://rdfh.ch/groups/0001/thing-searcher");
+                    expect(response.body.administrative_permission.forProject).toEqual("http://rdfh.ch/projects/0001");
+                    expect(response.body.administrative_permission.hasPermissions.length).toEqual(1);
+                    expect(response.body.administrative_permission.hasPermissions[0].name).toEqual("ProjectAdminGroupAllPermission");
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const permissionCreationResponse = require("../../../../test/data/api/admin/permissions/create-administrative-permission-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionCreationResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/ap");
+
+            expect(request.method).toEqual("POST");
+
+            const payload = require("../../../../test/data/api/admin/permissions/create-administrative-permission-request.json");
+
+            expect(request.data()).toEqual(payload);
         });
 
     });
