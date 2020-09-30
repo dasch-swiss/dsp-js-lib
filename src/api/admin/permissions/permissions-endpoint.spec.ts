@@ -1,3 +1,4 @@
+import { AdministrativePermissionsResponse } from "../../../models/admin/administrative-permissions-response";
 import { ApiResponseData } from "../../../models/api-response-data";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
@@ -18,9 +19,44 @@ describe("PermissionsEndpoint", () => {
         jasmine.Ajax.uninstall();
     });
 
+    describe("Method getAdministrativePermissions", () => {
+
+        it("should return all administrative permissions", done => {
+
+            const projectIri = "http://rdfh.ch/projects/00FF";
+
+            knoraApiConnection.admin.permissionsEndpoint.getAdministrativePermissions(projectIri).subscribe(
+                (response: ApiResponseData<AdministrativePermissionsResponse>) => {
+
+                    expect(response.body.administrative_permissions.length).toEqual(3);
+
+                    expect(response.body.administrative_permissions[0].hasPermissions.length).toEqual(1);
+
+                    const permissions = new Permission();
+                    permissions.name = "ProjectResourceCreateAllPermission";
+
+                    expect(response.body.administrative_permissions[0].hasPermissions[0]).toEqual(permissions);
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const permissionsResponse = require("../../../../test/data/api/admin/permissions/get-administrative-permissions-for-project-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionsResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/ap/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
     describe("Method getAdministrativePermission", () => {
 
-        it("should return the administrative permissions", done => {
+        it("should return an administrative permission", done => {
 
             const projectIri = "http://rdfh.ch/projects/00FF";
 
@@ -41,9 +77,9 @@ describe("PermissionsEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const permissionsResponse = require("../../../../test/data/api/admin/permissions/get-administrative-permission-for-project-group-response.json");
+            const permissionResponse = require("../../../../test/data/api/admin/permissions/get-administrative-permission-for-project-group-response.json");
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionsResponse)));
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionResponse)));
 
             expect(request.url).toBe("http://localhost:3333/admin/permissions/ap/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF/http%3A%2F%2Fwww.knora.org%2Fontology%2Fknora-admin%23ProjectMember");
 
