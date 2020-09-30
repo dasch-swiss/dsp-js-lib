@@ -47,6 +47,8 @@ export { ProjectsResponse } from "./models/admin/projects-response";
 export { ProjectResponse } from "./models/admin/project-response";
 export { ProjectRestrictedViewSettings } from "./models/admin/project-restricted-view-settings";
 export { ProjectRestrictedViewSettingsResponse } from "./models/admin/project-restricted-view-settings-response";
+export { ProjectPermissionsResponse } from "./models/admin/project-permissions-response";
+export { ProjectPermission } from "./models/admin/project-permission";
 export { KeywordsResponse } from "./models/admin/keywords-response";
 
 export { User } from "./models/admin/user";

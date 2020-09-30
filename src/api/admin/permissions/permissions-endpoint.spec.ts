@@ -7,6 +7,7 @@ import { KnoraApiConnection } from "../../../knora-api-connection";
 import { AdministrativePermissionResponse } from "../../../models/admin/administrative-permission-response";
 import { Permission } from "../../../models/admin/permission";
 import { CreateAdministrativePermission } from "../../../models/admin/create-administrative-permission";
+import { ProjectPermissionsResponse } from "../../../models/admin/project-permissions-response";
 
 describe("PermissionsEndpoint", () => {
 
@@ -19,6 +20,37 @@ describe("PermissionsEndpoint", () => {
 
     afterEach(() => {
         jasmine.Ajax.uninstall();
+    });
+
+    describe("Method getPermissions", () => {
+
+        it("should return all permissions", done => {
+
+            const projectIri = "http://rdfh.ch/projects/00FF";
+
+            knoraApiConnection.admin.permissionsEndpoint.getPermissions(projectIri).subscribe(
+                (response: ApiResponseData<ProjectPermissionsResponse>) => {
+
+                    expect(response.body.permissions.length).toEqual(6);
+
+                    expect(response.body.permissions[0].id).toEqual("http://rdfh.ch/permissions/00FF/a3");
+                    expect(response.body.permissions[0].permissionType).toEqual("http://www.knora.org/ontology/knora-admin#AdministrativePermission");
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const projectPermissionsResponse = require("../../../../test/data/api/admin/permissions/get-permissions-for-project-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projectPermissionsResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
     });
 
     describe("Method getAdministrativePermissions", () => {
