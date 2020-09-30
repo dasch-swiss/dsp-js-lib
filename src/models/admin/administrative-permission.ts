@@ -9,6 +9,12 @@ import { Permission } from "./permission";
 export class AdministrativePermission {
 
     /**
+     * The administrative permission's iri.
+     */
+    @JsonProperty("iri", String)
+    id: string = "";
+
+    /**
      * The group that the permission applies to.
      */
     @JsonProperty("forGroup", String, true)
