@@ -51,6 +51,25 @@ describe('workspace-project App', () => {
 
   });
 
+  it('request a project\'s permissions', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#permissions button.get-permissions');
+    button.click();
+
+    const label = page.getEle('div#permissions span.status');
+    expect(label.getText()).toEqual('Permission status: getPermissions ok');
+
+  });
+
   it('request the knora-api system ontology', () => {
 
     page.navigateTo();

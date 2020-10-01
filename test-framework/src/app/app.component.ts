@@ -68,6 +68,7 @@ export class AppComponent implements OnInit {
     resClass: ResourceClassDefinitionWithAllLanguages;
     property: ResourcePropertyDefinitionWithAllLanguages;
     addCard: ResourceClassDefinitionWithAllLanguages;
+    permissionStatus: string;
 
     // reusable response message
     message: string;
@@ -145,6 +146,7 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.admin.permissionsEndpoint.getPermissions("http://rdfh.ch/projects/0001").subscribe(
             response => {
+                this.permissionStatus = "getPermissions ok";
                 console.log(response);
             },
             err => console.error("Error:", err)
@@ -155,6 +157,7 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.admin.permissionsEndpoint.getAdministrativePermission("http://rdfh.ch/projects/0001", "http://www.knora.org/ontology/knora-admin#ProjectMember").subscribe(
             response => {
+                this.permissionStatus = "getAdministrativePermission ok";
                 console.log(response);
             },
             err => console.error("Error:", err)
@@ -166,6 +169,7 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.admin.permissionsEndpoint.getAdministrativePermissions("http://rdfh.ch/projects/0001").subscribe(
             response => {
+                this.permissionStatus = "getAdministrativePermissions ok";
                 console.log(response);
             },
             err => console.error("Error:", err)
@@ -192,7 +196,11 @@ export class AppComponent implements OnInit {
         // console.log(this.knoraApiConnection.admin.jsonConvert.serializeObject(permission))
 
         this.knoraApiConnection.admin.permissionsEndpoint.createAdministrativePermission(adminPermission).subscribe(
-            res => console.log(res)
+            res => {
+                this.permissionStatus = "createAdministrativePermission ok";
+                console.log(res);
+            },
+            err => console.error(err)
         )
 
     }
@@ -202,7 +210,10 @@ export class AppComponent implements OnInit {
         const projectIri = "http://rdfh.ch/projects/0001";
 
         this.knoraApiConnection.admin.permissionsEndpoint.getDefaultObjectAccessPermissions(projectIri).subscribe(
-            res => console.log(res),
+            res => {
+                this.permissionStatus = "getDefaultObjectAccessPermissions ok";
+                console.log(res);
+            },
             err => console.error("Error:", err)
         );
     }
@@ -224,7 +235,10 @@ export class AppComponent implements OnInit {
         adminPermission.hasPermissions = [permission];
 
         this.knoraApiConnection.admin.permissionsEndpoint.createDefaultObjectAccessPermission(adminPermission).subscribe(
-            res => console.log(res),
+            res => {
+                this.permissionStatus = "createDefaultObjectAccessPermission ok";
+                console.log(res);
+            },
             err => console.error("Error:", err)
         );
 

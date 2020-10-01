@@ -9,16 +9,23 @@
         <div>Status: <span class="status">{{loginStatus}}</span></div>
     </section>
 
-    <section>
+    <section id="admin">
         <h3>Admin</h3>
-        <button (click)="getUsers()">All users</button> <br /><br />
-        <button (click)="getUser('http://rdfh.ch/users/root')">Get root user</button> <br /><br />
-        <button (click)="getPermissions()">Get permissions belonging to a project</button> <br /><br />
-        <button (click)="getAdministrativePermission()">Get administrative permission for a project and group</button> <br /><br />
-        <button (click)="getAdministrativePermissions()">Get administrative permissions for a project</button> <br /><br />
-        <button (click)="createAdministrativePermission()">Create an administrative Permission</button> <br /><br />
-        <button (click)="getDefaultObjectAccessPermissions()">Get default object access permissions for a project</button> <br /><br />
-        <button (click)="createDefaultObjectAccessPermission()">Create default object access permission for a project</button> <br /><br />
+        <div>
+            <h4>Users</h4>
+            <button (click)="getUsers()">All users</button> <br /><br />
+            <button (click)="getUser('http://rdfh.ch/users/root')">Get root user</button> <br /><br />
+        </div>
+        <div id="permissions">
+            <h4>Permissions</h4>
+            <button class="get-permissions" (click)="getPermissions()">Get permissions belonging to a project</button> <br /><br />
+            <button (click)="getAdministrativePermission()">Get administrative permission for a project and group</button> <br /><br />
+            <button (click)="getAdministrativePermissions()">Get administrative permissions for a project</button> <br /><br />
+            <button (click)="createAdministrativePermission()">Create an administrative Permission</button> <br /><br />
+            <button (click)="getDefaultObjectAccessPermissions()">Get default object access permissions for a project</button> <br /><br />
+            <button (click)="createDefaultObjectAccessPermission()">Create default object access permission for a project</button> <br /><br />
+            <span *ngIf="permissionStatus" class="status">Permission status: {{permissionStatus}}</span>
+        </div>
     </section>
 
     <section id="ontologycache">
