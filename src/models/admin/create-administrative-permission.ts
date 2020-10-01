@@ -16,8 +16,8 @@ export class CreateAdministrativePermission {
     /**
      * The group that the permission applies to.
      */
-    @JsonProperty("forGroup", String)
-    forGroup: string = "";
+    @JsonProperty("forGroup")
+    forGroup: string | null = null;
 
     /**
      * The project that the permission applies to.

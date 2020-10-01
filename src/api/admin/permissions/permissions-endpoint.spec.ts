@@ -1,5 +1,6 @@
 import { AdministrativePermissionsResponse } from "../../../models/admin/administrative-permissions-response";
 import { CreatePermission } from "../../../models/admin/create-permission";
+import { DefaultObjectAccessPermissionResponse } from "../../../models/admin/default-object-access-permission-response";
 import { DefaultObjectAccessPermissionsResponse } from "../../../models/admin/default-object-access-permissions-response";
 import { ApiResponseData } from "../../../models/api-response-data";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
@@ -9,6 +10,7 @@ import { AdministrativePermissionResponse } from "../../../models/admin/administ
 import { Permission } from "../../../models/admin/permission";
 import { CreateAdministrativePermission } from "../../../models/admin/create-administrative-permission";
 import { ProjectPermissionsResponse } from "../../../models/admin/project-permissions-response";
+import { CreateDefaultObjectAccessPermission } from "../../../models/admin/create-default-object-access-permission";
 
 describe("PermissionsEndpoint", () => {
 
@@ -246,6 +248,94 @@ describe("PermissionsEndpoint", () => {
 
             expect(request.method).toEqual("GET");
 
+        });
+
+    });
+
+    describe("Method createDefaultObjectAccessPermission", () => {
+
+        it("should create an  default object access permission", done => {
+
+            const permission = new CreatePermission();
+            permission.name = "D";
+            permission.permissionCode = 7;
+            permission.additionalInformation = "http://www.knora.org/ontology/knora-admin#ProjectMember";
+
+            const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
+            const projectIri = "http://rdfh.ch/projects/0001";
+
+            const adminPermission = new CreateDefaultObjectAccessPermission();
+            adminPermission.forGroup = groupIri;
+            adminPermission.forProject = projectIri;
+
+            adminPermission.hasPermissions = [permission];
+
+            knoraApiConnection.admin.permissionsEndpoint.createDefaultObjectAccessPermission(adminPermission).subscribe(
+                (response: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
+
+                    expect(response.body.defaultObjectAccessPermission.forGroup).toEqual("http://rdfh.ch/groups/0001/thing-searcher");
+                    expect(response.body.defaultObjectAccessPermission.forProject).toEqual("http://rdfh.ch/projects/0001");
+                    expect(response.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/0001/v4uUcwD7S5-rfus1uaq1ZQ");
+                    expect(response.body.defaultObjectAccessPermission.hasPermissions.length).toBe(1);
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const permissionCreationResponse = require("../../../../test/data/api/admin/permissions/create-defaultObjectAccess-permission-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionCreationResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/doap");
+
+            expect(request.method).toEqual("POST");
+
+            const payload = require("../../../../test/data/api/admin/permissions/create-defaultObjectAccess-permission-request.json");
+
+            expect(request.data()).toEqual(payload);
+        });
+
+        it("should create an  default object access permission with a custom Iri", done => {
+
+            const permission = new CreatePermission();
+            permission.name = "D";
+            permission.permissionCode = 7;
+            permission.additionalInformation = "http://www.knora.org/ontology/knora-admin#ProjectMember";
+
+            const projectIri = "http://rdfh.ch/projects/00FF";
+
+            const adminPermission = new CreateDefaultObjectAccessPermission();
+            adminPermission.forProject = projectIri;
+            adminPermission.forResourceClass = "http://www.knora.org/ontology/00FF/images#bild";
+            adminPermission.id = "http://rdfh.ch/permissions/00FF/DOAP-with-customIri";
+            adminPermission.hasPermissions = [permission];
+
+            knoraApiConnection.admin.permissionsEndpoint.createDefaultObjectAccessPermission(adminPermission).subscribe(
+                (response: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
+
+                    expect(response.body.defaultObjectAccessPermission.forProject).toEqual("http://rdfh.ch/projects/00FF");
+                    expect(response.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/00FF/DOAP-with-customIri");
+                    expect(response.body.defaultObjectAccessPermission.hasPermissions.length).toBe(1);
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const permissionCreationResponse = require("../../../../test/data/api/admin/permissions/create-defaultObjectAccess-permission-withCustomIRI-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionCreationResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/doap");
+
+            expect(request.method).toEqual("POST");
+
+            const payload = require("../../../../test/data/api/admin/permissions/create-defaultObjectAccess-permission-withCustomIRI-request.json");
+
+            expect(request.data()).toEqual(payload);
         });
 
     });

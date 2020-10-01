@@ -52,6 +52,8 @@ export { ProjectRestrictedViewSettingsResponse } from "./models/admin/project-re
 export { ProjectPermissionsResponse } from "./models/admin/project-permissions-response";
 export { ProjectPermission } from "./models/admin/project-permission";
 export { DefaultObjectAccessPermissionsResponse } from "./models/admin/default-object-access-permissions-response";
+export { DefaultObjectAccessPermissionResponse } from "./models/admin/default-object-access-permission-response";
+export { CreateDefaultObjectAccessPermission } from "./models/admin/create-default-object-access-permission";
 export { KeywordsResponse } from "./models/admin/keywords-response";
 
 export { User } from "./models/admin/user";
