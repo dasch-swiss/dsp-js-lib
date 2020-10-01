@@ -41,10 +41,10 @@ import {
     DeleteResourceProperty,
     UpdateOntologyResourceClassCardinality,
     CreatePermission,
-    CreateAdministrativePermission
+    CreateAdministrativePermission,
+    ResourcePropertyDefinitionWithAllLanguages,
+    CreateResourceProperty
 } from "@dasch-swiss/dsp-js";
-import { CreateResourceProperty } from "@dasch-swiss/dsp-js/src/models/v2/ontologies/create/create-resource-property";
-import { ResourcePropertyDefinitionWithAllLanguages } from "@dasch-swiss/dsp-js/src/models/v2/ontologies/resource-property-definition";
 
 import { map } from "rxjs/operators";
 
