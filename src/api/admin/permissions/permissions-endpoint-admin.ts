@@ -2,14 +2,14 @@ import { Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { AdministrativePermissionResponse } from "../../../models/admin/administrative-permission-response";
 import { AdministrativePermissionsResponse } from "../../../models/admin/administrative-permissions-response";
+import { CreateAdministrativePermission } from "../../../models/admin/create-administrative-permission";
+import { CreateDefaultObjectAccessPermission } from "../../../models/admin/create-default-object-access-permission";
 import { DefaultObjectAccessPermissionResponse } from "../../../models/admin/default-object-access-permission-response";
+import { DefaultObjectAccessPermissionsResponse } from "../../../models/admin/default-object-access-permissions-response";
 import { ProjectPermissionsResponse } from "../../../models/admin/project-permissions-response";
 import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
-import { CreateAdministrativePermission } from "../../../models/admin/create-administrative-permission";
 import { Endpoint } from "../../endpoint";
-import { DefaultObjectAccessPermissionsResponse } from "../../../models/admin/default-object-access-permissions-response";
-import { CreateDefaultObjectAccessPermission } from "../../../models/admin/create-default-object-access-permission";
 
 /**
  * An endpoint for working with Knora permissions.
@@ -81,6 +81,11 @@ export class PermissionsEndpointAdmin extends Endpoint {
 
     }
 
+    /**
+     * Creates a default object access permission.
+     *
+     * @param defaultObjectAccessPermission the permission to be created.
+     */
     createDefaultObjectAccessPermission(defaultObjectAccessPermission: CreateDefaultObjectAccessPermission): Observable<ApiResponseError | ApiResponseData<DefaultObjectAccessPermissionResponse>> {
 
         return this.httpPost("/doap", this.jsonConvert.serializeObject(defaultObjectAccessPermission)).pipe(

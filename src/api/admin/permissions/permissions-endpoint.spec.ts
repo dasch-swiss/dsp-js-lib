@@ -1,16 +1,16 @@
-import { AdministrativePermissionsResponse } from "../../../models/admin/administrative-permissions-response";
-import { CreatePermission } from "../../../models/admin/create-permission";
-import { DefaultObjectAccessPermissionResponse } from "../../../models/admin/default-object-access-permission-response";
-import { DefaultObjectAccessPermissionsResponse } from "../../../models/admin/default-object-access-permissions-response";
-import { ApiResponseData } from "../../../models/api-response-data";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { AdministrativePermissionResponse } from "../../../models/admin/administrative-permission-response";
-import { Permission } from "../../../models/admin/permission";
+import { AdministrativePermissionsResponse } from "../../../models/admin/administrative-permissions-response";
 import { CreateAdministrativePermission } from "../../../models/admin/create-administrative-permission";
-import { ProjectPermissionsResponse } from "../../../models/admin/project-permissions-response";
 import { CreateDefaultObjectAccessPermission } from "../../../models/admin/create-default-object-access-permission";
+import { CreatePermission } from "../../../models/admin/create-permission";
+import { DefaultObjectAccessPermissionResponse } from "../../../models/admin/default-object-access-permission-response";
+import { DefaultObjectAccessPermissionsResponse } from "../../../models/admin/default-object-access-permissions-response";
+import { Permission } from "../../../models/admin/permission";
+import { ProjectPermissionsResponse } from "../../../models/admin/project-permissions-response";
+import { ApiResponseData } from "../../../models/api-response-data";
 
 describe("PermissionsEndpoint", () => {
 
@@ -132,8 +132,6 @@ describe("PermissionsEndpoint", () => {
 
             const permission = new CreatePermission();
             permission.name = "ProjectAdminGroupAllPermission";
-            permission.permissionCode = null;
-            permission.additionalInformation = null;
 
             const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
             const projectIri = "http://rdfh.ch/projects/0001";
@@ -254,7 +252,7 @@ describe("PermissionsEndpoint", () => {
 
     describe("Method createDefaultObjectAccessPermission", () => {
 
-        it("should create an  default object access permission", done => {
+        it("should create a default object access permission", done => {
 
             const permission = new CreatePermission();
             permission.name = "D";
