@@ -43,7 +43,8 @@ import {
     CreatePermission,
     CreateAdministrativePermission,
     ResourcePropertyDefinitionWithAllLanguages,
-    CreateResourceProperty
+    CreateResourceProperty,
+    CreateDefaultObjectAccessPermission
 } from "@dasch-swiss/dsp-js";
 
 import { map } from "rxjs/operators";
@@ -204,6 +205,29 @@ export class AppComponent implements OnInit {
             res => console.log(res),
             err => console.error("Error:", err)
         );
+    }
+
+    createDefaultObjectAccessPermission() {
+
+        const permission = new CreatePermission();
+        permission.name = "D";
+        permission.permissionCode = 7;
+        permission.additionalInformation = "http://www.knora.org/ontology/knora-admin#ProjectMember";
+
+        const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
+        const projectIri = "http://rdfh.ch/projects/0001";
+
+        const adminPermission = new CreateDefaultObjectAccessPermission();
+        adminPermission.forGroup = groupIri;
+        adminPermission.forProject = projectIri;
+
+        adminPermission.hasPermissions = [permission];
+
+        this.knoraApiConnection.admin.permissionsEndpoint.createDefaultObjectAccessPermission(adminPermission).subscribe(
+            res => console.log(res),
+            err => console.error("Error:", err)
+        );
+
     }
 
     getOntology(iri: string) {
