@@ -196,6 +196,16 @@ export class AppComponent implements OnInit {
 
     }
 
+    getDefaultObjectAccessPermissions() {
+
+        const projectIri = "http://rdfh.ch/projects/0001";
+
+        this.knoraApiConnection.admin.permissionsEndpoint.getDefaultObjectAccessPermissions(projectIri).subscribe(
+            res => console.log(res),
+            err => console.error("Error:", err)
+        );
+    }
+
     getOntology(iri: string) {
 
         this.knoraApiConnection.v2.ontologyCache.getOntology(iri).subscribe(

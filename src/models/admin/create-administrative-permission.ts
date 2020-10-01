@@ -16,14 +16,14 @@ export class CreateAdministrativePermission {
     /**
      * The group that the permission applies to.
      */
-    @JsonProperty("forGroup", String, true)
-    forGroup?: string = undefined;
+    @JsonProperty("forGroup", String)
+    forGroup: string = "";
 
     /**
      * The project that the permission applies to.
      */
-    @JsonProperty("forProject", String, true)
-    forProject?: string = undefined;
+    @JsonProperty("forProject", String)
+    forProject: string = "";
 
     /**
      * The permissions granted by an AdministrativePermission.

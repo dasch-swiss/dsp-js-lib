@@ -1,4 +1,6 @@
 // Globally necessary files
+import { DefaultObjectAccessPermissionsResponse } from "./models/admin/default-object-access-permissions-response";
+
 export { KnoraApiConnection } from "./knora-api-connection";
 export { KnoraApiConfig } from "./knora-api-config";
 
@@ -49,6 +51,7 @@ export { ProjectRestrictedViewSettings } from "./models/admin/project-restricted
 export { ProjectRestrictedViewSettingsResponse } from "./models/admin/project-restricted-view-settings-response";
 export { ProjectPermissionsResponse } from "./models/admin/project-permissions-response";
 export { ProjectPermission } from "./models/admin/project-permission";
+export { DefaultObjectAccessPermissionsResponse } from "./models/admin/default-object-access-permissions-response";
 export { KeywordsResponse } from "./models/admin/keywords-response";
 
 export { User } from "./models/admin/user";

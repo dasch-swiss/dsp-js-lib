@@ -1,5 +1,6 @@
 import { AdministrativePermissionsResponse } from "../../../models/admin/administrative-permissions-response";
 import { CreatePermission } from "../../../models/admin/create-permission";
+import { DefaultObjectAccessPermissionsResponse } from "../../../models/admin/default-object-access-permissions-response";
 import { ApiResponseData } from "../../../models/api-response-data";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
@@ -212,6 +213,39 @@ describe("PermissionsEndpoint", () => {
             const payload = require("../../../../test/data/api/admin/permissions/create-administrative-permission-withCustomIRI-request.json");
 
             expect(request.data()).toEqual(payload);
+        });
+
+    });
+
+    describe("Method getDefaultObjectAccessPermissions", () => {
+
+        it("should return all default project access permissions", done => {
+
+            const projectIri = "http://rdfh.ch/projects/00FF";
+
+            knoraApiConnection.admin.permissionsEndpoint.getDefaultObjectAccessPermissions(projectIri).subscribe(
+                (response: ApiResponseData<DefaultObjectAccessPermissionsResponse>) => {
+
+                    expect(response.body.defaultObjectAccessPermissions.length).toBe(3);
+
+                    expect(response.body.defaultObjectAccessPermissions[0].forProject).toBe("http://rdfh.ch/projects/00FF");
+                    expect(response.body.defaultObjectAccessPermissions[0].forGroup).toBe("http://www.knora.org/ontology/knora-admin#ProjectMember");
+                    expect(response.body.defaultObjectAccessPermissions[0].id).toBe("http://rdfh.ch/permissions/00FF/d1");
+                    expect(response.body.defaultObjectAccessPermissions[0].hasPermissions.length).toBe(3);
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const defaultObjectAccessPermissionsResponse = require("../../../../test/data/api/admin/permissions/get-defaultObjectAccess-permissions-for-project-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(defaultObjectAccessPermissionsResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/doap/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF");
+
+            expect(request.method).toEqual("GET");
+
         });
 
     });

@@ -7,6 +7,7 @@ import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { CreateAdministrativePermission } from "../../../models/admin/create-administrative-permission";
 import { Endpoint } from "../../endpoint";
+import { DefaultObjectAccessPermissionsResponse } from "../../../models/admin/default-object-access-permissions-response";
 
 /**
  * An endpoint for working with Knora permissions.
@@ -59,6 +60,20 @@ export class PermissionsEndpointAdmin extends Endpoint {
 
         return this.httpPost("/ap", this.jsonConvert.serializeObject(administrativePermission)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, AdministrativePermissionResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+
+    }
+
+    /**
+     * Gets all default object access permissions for a project.
+     *
+     * @param projectIri The project IRI.
+     */
+    getDefaultObjectAccessPermissions(projectIri: string): Observable<ApiResponseError | ApiResponseData<DefaultObjectAccessPermissionsResponse>> {
+
+        return this.httpGet("/doap/" + encodeURIComponent(projectIri)).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, DefaultObjectAccessPermissionsResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
 
