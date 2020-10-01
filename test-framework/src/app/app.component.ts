@@ -140,6 +140,38 @@ export class AppComponent implements OnInit {
         );
     }
 
+    getPermissions() {
+
+        this.knoraApiConnection.admin.permissionsEndpoint.getPermissions("http://rdfh.ch/projects/0001").subscribe(
+            response => {
+                console.log(response);
+            },
+            err => console.error("Error:", err)
+        );
+    }
+
+    getAdministrativePermission() {
+
+        this.knoraApiConnection.admin.permissionsEndpoint.getAdministrativePermission("http://rdfh.ch/projects/0001", "http://www.knora.org/ontology/knora-admin#ProjectMember").subscribe(
+            response => {
+                console.log(response);
+            },
+            err => console.error("Error:", err)
+        );
+
+    }
+
+    getAdministrativePermissions() {
+
+        this.knoraApiConnection.admin.permissionsEndpoint.getAdministrativePermissions("http://rdfh.ch/projects/0001").subscribe(
+            response => {
+                console.log(response);
+            },
+            err => console.error("Error:", err)
+        );
+
+    }
+
     createAdministrativePermission() {
 
         const permission = new CreatePermission();
