@@ -60,6 +60,10 @@ export class PermissionsEndpointAdmin extends Endpoint {
      */
     createAdministrativePermission(administrativePermission: CreateAdministrativePermission): Observable<ApiResponseError | ApiResponseData<AdministrativePermissionResponse>> {
 
+        if (!administrativePermission.forGroup || !administrativePermission.forProject) {
+            throw new Error("Group and project are required when creating a new administrative permission");
+        }
+
         return this.httpPost("/ap", this.jsonConvert.serializeObject(administrativePermission)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, AdministrativePermissionResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
@@ -88,10 +92,29 @@ export class PermissionsEndpointAdmin extends Endpoint {
      */
     createDefaultObjectAccessPermission(defaultObjectAccessPermission: CreateDefaultObjectAccessPermission): Observable<ApiResponseError | ApiResponseData<DefaultObjectAccessPermissionResponse>> {
 
-        return this.httpPost("/doap", this.jsonConvert.serializeObject(defaultObjectAccessPermission)).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, DefaultObjectAccessPermissionResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
-        );
+        // A default object access permission must
+        // always reference a project
+        if (!defaultObjectAccessPermission.forProject) {
+            throw new Error("Project is required when creating a new default object access permission");
+        }
+
+        /*
+            A default object access permission can only reference either a group, a resource class, a property,
+            or a combination of resource class and property.
+         */
+        if ((defaultObjectAccessPermission.forGroup && !defaultObjectAccessPermission.forResourceClass && !defaultObjectAccessPermission.forProperty
+            || !defaultObjectAccessPermission.forGroup && defaultObjectAccessPermission.forResourceClass && !defaultObjectAccessPermission.forProperty
+            || !defaultObjectAccessPermission.forGroup && !defaultObjectAccessPermission.forResourceClass && defaultObjectAccessPermission.forProperty)
+            || !defaultObjectAccessPermission.forGroup && defaultObjectAccessPermission.forResourceClass && defaultObjectAccessPermission.forProperty
+        ) {
+
+            return this.httpPost("/doap", this.jsonConvert.serializeObject(defaultObjectAccessPermission)).pipe(
+                map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, DefaultObjectAccessPermissionResponse, this.jsonConvert)),
+                catchError(error => this.handleError(error))
+            );
+        } else {
+            throw new Error("Invalid combination of properties for creation of new default object access permission");
+        }
 
     }
     
