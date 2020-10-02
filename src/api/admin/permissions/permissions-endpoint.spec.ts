@@ -170,6 +170,42 @@ describe("PermissionsEndpoint", () => {
             expect(request.data()).toEqual(payload);
         });
 
+        it("should attempt to create an administrative permission without a project property", () => {
+
+            const permission = new CreatePermission();
+            permission.name = "ProjectAdminGroupAllPermission";
+
+            const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
+
+            const adminPermission = new CreateAdministrativePermission();
+            adminPermission.forGroup = groupIri;
+
+            adminPermission.hasPermissions = [permission];
+
+            expect(() =>
+                knoraApiConnection.admin.permissionsEndpoint.createAdministrativePermission(adminPermission)
+            ).toThrow(new Error("Group and project are required when creating a new administrative permission."));
+
+        });
+
+        it("should attempt to create an administrative permission without a group property", () => {
+
+            const permission = new CreatePermission();
+            permission.name = "ProjectAdminGroupAllPermission";
+
+            const projectIri = "http://rdfh.ch/projects/0001";
+
+            const adminPermission = new CreateAdministrativePermission();
+            adminPermission.forProject = projectIri;
+
+            adminPermission.hasPermissions = [permission];
+
+            expect(() =>
+                knoraApiConnection.admin.permissionsEndpoint.createAdministrativePermission(adminPermission)
+            ).toThrow(new Error("Group and project are required when creating a new administrative permission."));
+
+        });
+
         it("should create an administrative permission with a custom Iri", done => {
 
             const permission = new CreatePermission();
@@ -262,13 +298,13 @@ describe("PermissionsEndpoint", () => {
             const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
             const projectIri = "http://rdfh.ch/projects/0001";
 
-            const adminPermission = new CreateDefaultObjectAccessPermission();
-            adminPermission.forGroup = groupIri;
-            adminPermission.forProject = projectIri;
+            const defObjAccPermission = new CreateDefaultObjectAccessPermission();
+            defObjAccPermission.forGroup = groupIri;
+            defObjAccPermission.forProject = projectIri;
 
-            adminPermission.hasPermissions = [permission];
+            defObjAccPermission.hasPermissions = [permission];
 
-            knoraApiConnection.admin.permissionsEndpoint.createDefaultObjectAccessPermission(adminPermission).subscribe(
+            knoraApiConnection.admin.permissionsEndpoint.createDefaultObjectAccessPermission(defObjAccPermission).subscribe(
                 (response: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
 
                     expect(response.body.defaultObjectAccessPermission.forGroup).toEqual("http://rdfh.ch/groups/0001/thing-searcher");
@@ -295,6 +331,26 @@ describe("PermissionsEndpoint", () => {
             expect(request.data()).toEqual(payload);
         });
 
+        it("should attempt to create a default object access permission without a project property", () => {
+
+            const permission = new CreatePermission();
+            permission.name = "D";
+            permission.permissionCode = 7;
+            permission.additionalInformation = "http://www.knora.org/ontology/knora-admin#ProjectMember";
+
+            const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
+
+            const defObjAccPermission = new CreateDefaultObjectAccessPermission();
+            defObjAccPermission.forGroup = groupIri;
+
+            defObjAccPermission.hasPermissions = [permission];
+
+            expect(() =>
+                knoraApiConnection.admin.permissionsEndpoint.createDefaultObjectAccessPermission(defObjAccPermission)
+            ).toThrow(new Error("Project is required when creating a new default object access permission."));
+
+        });
+
         it("should create an  default object access permission with a custom Iri", done => {
 
             const permission = new CreatePermission();
@@ -304,13 +360,13 @@ describe("PermissionsEndpoint", () => {
 
             const projectIri = "http://rdfh.ch/projects/00FF";
 
-            const adminPermission = new CreateDefaultObjectAccessPermission();
-            adminPermission.forProject = projectIri;
-            adminPermission.forResourceClass = "http://www.knora.org/ontology/00FF/images#bild";
-            adminPermission.id = "http://rdfh.ch/permissions/00FF/DOAP-with-customIri";
-            adminPermission.hasPermissions = [permission];
+            const defObjAccPermission = new CreateDefaultObjectAccessPermission();
+            defObjAccPermission.forProject = projectIri;
+            defObjAccPermission.forResourceClass = "http://www.knora.org/ontology/00FF/images#bild";
+            defObjAccPermission.id = "http://rdfh.ch/permissions/00FF/DOAP-with-customIri";
+            defObjAccPermission.hasPermissions = [permission];
 
-            knoraApiConnection.admin.permissionsEndpoint.createDefaultObjectAccessPermission(adminPermission).subscribe(
+            knoraApiConnection.admin.permissionsEndpoint.createDefaultObjectAccessPermission(defObjAccPermission).subscribe(
                 (response: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
 
                     expect(response.body.defaultObjectAccessPermission.forProject).toEqual("http://rdfh.ch/projects/00FF");

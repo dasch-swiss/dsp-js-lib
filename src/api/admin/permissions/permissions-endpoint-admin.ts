@@ -61,7 +61,7 @@ export class PermissionsEndpointAdmin extends Endpoint {
     createAdministrativePermission(administrativePermission: CreateAdministrativePermission): Observable<ApiResponseError | ApiResponseData<AdministrativePermissionResponse>> {
 
         if (!administrativePermission.forGroup || !administrativePermission.forProject) {
-            throw new Error("Group and project are required when creating a new administrative permission");
+            throw new Error("Group and project are required when creating a new administrative permission.");
         }
 
         return this.httpPost("/ap", this.jsonConvert.serializeObject(administrativePermission)).pipe(
@@ -95,7 +95,7 @@ export class PermissionsEndpointAdmin extends Endpoint {
         // A default object access permission must
         // always reference a project
         if (!defaultObjectAccessPermission.forProject) {
-            throw new Error("Project is required when creating a new default object access permission");
+            throw new Error("Project is required when creating a new default object access permission.");
         }
 
         /*
@@ -113,7 +113,7 @@ export class PermissionsEndpointAdmin extends Endpoint {
                 catchError(error => this.handleError(error))
             );
         } else {
-            throw new Error("Invalid combination of properties for creation of new default object access permission");
+            throw new Error("Invalid combination of properties for creation of new default object access permission.");
         }
 
     }
