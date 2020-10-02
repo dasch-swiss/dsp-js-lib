@@ -351,6 +351,52 @@ describe("PermissionsEndpoint", () => {
 
         });
 
+        it("should attempt to create a default object access permission submitting a group and a property", () => {
+
+            const permission = new CreatePermission();
+            permission.name = "D";
+            permission.permissionCode = 7;
+            permission.additionalInformation = "http://www.knora.org/ontology/knora-admin#ProjectMember";
+
+            const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
+            const projectIri = "http://rdfh.ch/projects/0001";
+
+            const defObjAccPermission = new CreateDefaultObjectAccessPermission();
+            defObjAccPermission.forGroup = groupIri;
+            defObjAccPermission.forProject = projectIri;
+            defObjAccPermission.forProperty = "myProp";
+
+            defObjAccPermission.hasPermissions = [permission];
+
+            expect(() =>
+                knoraApiConnection.admin.permissionsEndpoint.createDefaultObjectAccessPermission(defObjAccPermission)
+            ).toThrow(new Error("Invalid combination of properties for creation of new default object access permission."));
+
+        });
+
+        it("should attempt to create a default object access permission submitting a group and a resource class", () => {
+
+            const permission = new CreatePermission();
+            permission.name = "D";
+            permission.permissionCode = 7;
+            permission.additionalInformation = "http://www.knora.org/ontology/knora-admin#ProjectMember";
+
+            const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
+            const projectIri = "http://rdfh.ch/projects/0001";
+
+            const defObjAccPermission = new CreateDefaultObjectAccessPermission();
+            defObjAccPermission.forGroup = groupIri;
+            defObjAccPermission.forProject = projectIri;
+            defObjAccPermission.forResourceClass = "myResclass";
+
+            defObjAccPermission.hasPermissions = [permission];
+
+            expect(() =>
+                knoraApiConnection.admin.permissionsEndpoint.createDefaultObjectAccessPermission(defObjAccPermission)
+            ).toThrow(new Error("Invalid combination of properties for creation of new default object access permission."));
+
+        });
+
         it("should create an  default object access permission with a custom Iri", done => {
 
             const permission = new CreatePermission();
