@@ -64,6 +64,10 @@ export class PermissionsEndpointAdmin extends Endpoint {
             throw new Error("Group and project are required when creating a new administrative permission.");
         }
 
+        if (administrativePermission.hasPermissions.length !== 1) {
+            throw new Error("Exactly one permission is expected.");
+        }
+
         return this.httpPost("/ap", this.jsonConvert.serializeObject(administrativePermission)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, AdministrativePermissionResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
@@ -96,6 +100,10 @@ export class PermissionsEndpointAdmin extends Endpoint {
         // always reference a project
         if (!defaultObjectAccessPermission.forProject) {
             throw new Error("Project is required when creating a new default object access permission.");
+        }
+
+        if (defaultObjectAccessPermission.hasPermissions.length !== 1) {
+            throw new Error("Exactly one permission is expected.");
         }
 
         /*
