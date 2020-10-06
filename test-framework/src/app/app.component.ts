@@ -149,7 +149,7 @@ export class AppComponent implements OnInit {
 
     getPermissions() {
 
-        this.knoraApiConnection.admin.permissionsEndpoint.getPermissions("http://rdfh.ch/projects/0001").subscribe(
+        this.knoraApiConnection.admin.permissionsEndpoint.getProjectPermissions("http://rdfh.ch/projects/0001").subscribe(
             (response: ApiResponseData<ProjectPermissionsResponse>) => {
                 this.permissionStatus = "getPermissions ok";
                 console.log(response);

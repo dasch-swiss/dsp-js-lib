@@ -21,7 +21,7 @@ export class PermissionsEndpointAdmin extends Endpoint {
      *
      * @param projectIri The project IRI.
      */
-    getPermissions(projectIri: string): Observable<ApiResponseError | ApiResponseData<ProjectPermissionsResponse>> {
+    getProjectPermissions(projectIri: string): Observable<ApiResponseError | ApiResponseData<ProjectPermissionsResponse>> {
 
         return this.httpGet("/" + encodeURIComponent(projectIri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectPermissionsResponse, this.jsonConvert)),

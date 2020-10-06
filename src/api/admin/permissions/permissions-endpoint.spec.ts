@@ -31,7 +31,7 @@ describe("PermissionsEndpoint", () => {
 
             const projectIri = "http://rdfh.ch/projects/00FF";
 
-            knoraApiConnection.admin.permissionsEndpoint.getPermissions(projectIri).subscribe(
+            knoraApiConnection.admin.permissionsEndpoint.getProjectPermissions(projectIri).subscribe(
                 (response: ApiResponseData<ProjectPermissionsResponse>) => {
 
                     expect(response.body.permissions.length).toEqual(6);
