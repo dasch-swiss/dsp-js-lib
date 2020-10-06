@@ -16,6 +16,11 @@ import { Endpoint } from "../../endpoint";
  */
 export class PermissionsEndpointAdmin extends Endpoint {
 
+    /**
+     * Gets the permissions for a project.
+     *
+     * @param projectIri The project IRI.
+     */
     getPermissions(projectIri: string): Observable<ApiResponseError | ApiResponseData<ProjectPermissionsResponse>> {
 
         return this.httpGet("/" + encodeURIComponent(projectIri)).pipe(

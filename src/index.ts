@@ -39,6 +39,7 @@ export { DefaultObjectAccessPermission } from "./models/admin/default-object-acc
 export { CreateAdministrativePermission } from "./models/admin/create-administrative-permission";
 export { StoredAdministrativePermission } from "./models/admin/stored-administrative-permission";
 export { AdministrativePermissionResponse } from "./models/admin/administrative-permission-response";
+export { AdministrativePermissionsResponse } from "./models/admin/administrative-permissions-response";
 export { Permission } from "./models/admin/permission";
 export { CreatePermission } from "./models/admin/create-permission";
 export { Permissions } from "./models/admin/permissions";
