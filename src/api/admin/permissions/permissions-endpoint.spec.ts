@@ -25,7 +25,7 @@ describe("PermissionsEndpoint", () => {
         jasmine.Ajax.uninstall();
     });
 
-    describe("Method getPermissions", () => {
+    describe("Method getProjectPermissions", () => {
 
         it("should return all permissions", done => {
 
