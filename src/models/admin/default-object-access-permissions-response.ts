@@ -1,5 +1,5 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-import { AdministrativePermission } from "./administrative-permission";
+import { DefaultObjectAccessPermission } from "./default-object-access-permission";
 
 /**
  * Represents a project's default object access permissions.
@@ -10,7 +10,7 @@ export class DefaultObjectAccessPermissionsResponse {
     /**
      * The permissions belonging to a project.
      */
-    @JsonProperty("default_object_access_permissions", [AdministrativePermission])
-    defaultObjectAccessPermissions: AdministrativePermission[] = [];
+    @JsonProperty("default_object_access_permissions", [DefaultObjectAccessPermission])
+    defaultObjectAccessPermissions: DefaultObjectAccessPermission[] = [];
 
 }

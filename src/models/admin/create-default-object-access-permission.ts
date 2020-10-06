@@ -1,6 +1,5 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { CreateAdminDoapBase } from "./create-admin-doap-base";
-import { CreateAdministrativePermission } from "./create-administrative-permission";
 
 /**
  * Creation of a default object access permission permission.

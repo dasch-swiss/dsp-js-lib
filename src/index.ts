@@ -1,5 +1,6 @@
 // Globally necessary files
 import { DefaultObjectAccessPermissionsResponse } from "./models/admin/default-object-access-permissions-response";
+import { DefaultObjectAccessPermission } from "./models/admin/default-object-access-permission";
 
 export { KnoraApiConnection } from "./knora-api-connection";
 export { KnoraApiConfig } from "./knora-api-config";
@@ -34,6 +35,7 @@ export { GroupsResponse } from "./models/admin/groups-response";
 export { MembersResponse } from "./models/admin/members-response";
 
 export { AdministrativePermission } from "./models/admin/administrative-permission";
+export { DefaultObjectAccessPermission } from "./models/admin/default-object-access-permission";
 export { CreateAdministrativePermission } from "./models/admin/create-administrative-permission";
 export { StoredAdministrativePermission } from "./models/admin/stored-administrative-permission";
 export { AdministrativePermissionResponse } from "./models/admin/administrative-permission-response";
