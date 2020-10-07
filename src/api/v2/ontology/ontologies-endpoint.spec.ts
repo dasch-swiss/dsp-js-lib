@@ -1,13 +1,13 @@
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
-import { StringLiteral } from "../../../models/admin/string-literal";
 import { Constants } from "../../../models/v2/Constants";
-import { AddCardinalityToResourceClass } from "../../../models/v2/ontologies/create/add-cardinality-to-resource-class";
+import { UpdateOntologyResourceClassCardinality } from "../../../models/v2/ontologies/update/update-ontology-resource-class-cardinality";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
 import { CreateResourceClass } from "../../../models/v2/ontologies/create/create-resource-class";
 import { CreateResourceProperty } from "../../../models/v2/ontologies/create/create-resource-property";
 import { DeleteOntologyResponse } from "../../../models/v2/ontologies/delete/delete-ontology-response";
+import { DeleteResourceClass } from "../../../models/v2/ontologies/delete/delete-resource-class";
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
 import {
@@ -19,8 +19,11 @@ import {
     ResourcePropertyDefinitionWithAllLanguages
 } from "../../../models/v2/ontologies/resource-property-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
-import { UpdateOntology } from "../../../models/v2/ontologies/update-ontology";
+import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
 import { Cardinality } from "../../../models/v2/ontologies/class-definition";
+import { DeleteOntology } from "../../../models/v2/ontologies/delete/delete-ontology";
+import { DeleteResourceProperty } from "../../../models/v2/ontologies/delete/delete-resource-property";
+import { StringLiteralV2 } from "../../../models/v2/string-literal-v2";
 
 describe("OntologiesEndpoint", () => {
 
@@ -268,7 +271,7 @@ describe("OntologiesEndpoint", () => {
     describe("Method deleteOntology", () => {
         it("should delete an ontology", done => {
 
-            const ontoInfo = new UpdateOntology();
+            const ontoInfo = new DeleteOntology();
 
             ontoInfo.id = "http://0.0.0.0:3333/ontology/00FF/foo/v2";
 
@@ -297,31 +300,37 @@ describe("OntologiesEndpoint", () => {
     });
 
     describe("Method createResourceClass", () => {
+
         it("should create a new res class and add it to anything ontology", done => {
+
+            const onto = new UpdateOntology<CreateResourceClass>();
+
+            onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
+            onto.lastModificationDate = "2017-12-19T15:23:42.166Z";
 
             const newResClass = new CreateResourceClass();
 
-            newResClass.ontology = {
-                id: "http://0.0.0.0:3333/ontology/0001/anything/v2",
-                lastModificationDate: "2017-12-19T15:23:42.166Z"
-            };
             newResClass.name = "Nothing";
-            newResClass.comments = [
-                {
-                    language: "en",
-                    value: "Represents nothing"
-                }
-            ];
 
-            newResClass.labels = [
-                {
-                    language: "en",
-                    value: "nothing"
-                }
-            ];
+            const comment = new StringLiteralV2();
+
+            comment.language = "en";
+            comment.value =  "Represents nothing";
+
+            newResClass.comment = [comment];
+
+            const label = new StringLiteralV2();
+
+            label.language = "en";
+            label.value = "nothing";
+
+            newResClass.label = [label];
+
             newResClass.subClassOf = ["http://api.knora.org/ontology/knora-api/v2#Resource"];
 
-            knoraApiConnection.v2.onto.createResourceClass(newResClass).subscribe(
+            onto.entity = newResClass;
+
+            knoraApiConnection.v2.onto.createResourceClass(onto).subscribe(
                 (response: ResourceClassDefinitionWithAllLanguages) => {
                     // console.log('new resource class created', response);
                     expect(response.id).toBe("http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing");
@@ -346,9 +355,10 @@ describe("OntologiesEndpoint", () => {
     });
 
     describe("Method deleteResourceClass", () => {
+
         it("should delete a resource class", done => {
 
-            const resclass = new UpdateOntology();
+            const resclass = new DeleteResourceClass();
 
             resclass.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
 
@@ -380,43 +390,41 @@ describe("OntologiesEndpoint", () => {
 
         it("should create a new res property as supPropertyOf 'hasValue'", done => {
 
-            const newResProp = new CreateResourceProperty();
-
-            const onto = new UpdateOntology();
+            const onto = new UpdateOntology<CreateResourceProperty>();
 
             onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
             onto.lastModificationDate = "2017-12-19T15:23:42.166Z";
 
-            newResProp.ontology = onto;
+            const newResProp = new CreateResourceProperty();
 
             newResProp.name = "hasName";
 
-            const label1 = new StringLiteral();
+            const label1 = new StringLiteralV2();
 
             label1.language = "en";
             label1.value = "has name";
 
-            const label2 = new StringLiteral();
+            const label2 = new StringLiteralV2();
 
             label2.language = "de";
             label2.value = "hat Namen";
 
-            newResProp.labels = [
+            newResProp.label = [
                 label1,
                 label2
             ];
 
-            const comment1 = new StringLiteral();
+            const comment1 = new StringLiteralV2();
 
             comment1.language = "en";
             comment1.value = "The name of a Thing";
 
-            const comment2 = new StringLiteral();
+            const comment2 = new StringLiteralV2();
 
             comment2.language = "de";
             comment2.value = "Der Name eines Dinges";
 
-            newResProp.comments = [
+            newResProp.comment = [
                 comment1,
                 comment2
             ];
@@ -434,7 +442,9 @@ describe("OntologiesEndpoint", () => {
 
             newResProp.guiAttributes = ["size=80", "maxlength=100"];
 
-            knoraApiConnection.v2.onto.createResourceProperty(newResProp).subscribe(
+            onto.entity = newResProp;
+
+            knoraApiConnection.v2.onto.createResourceProperty(onto).subscribe(
                 (response: ResourcePropertyDefinitionWithAllLanguages) => {
                     expect(response.id).toBe("http://0.0.0.0:3333/ontology/0001/anything/v2#hasName");
                     done();
@@ -457,32 +467,30 @@ describe("OntologiesEndpoint", () => {
 
         it("should create a new res property as supPropertyOf 'hasLinkTo'", done => {
 
-            const newResProp = new CreateResourceProperty();
-
-            const onto = new UpdateOntology();
+            const onto = new UpdateOntology<CreateResourceProperty>();
 
             onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
             onto.lastModificationDate = "2017-12-19T15:23:42.166Z";
 
-            newResProp.ontology = onto;
+            const newResProp = new CreateResourceProperty();
 
             newResProp.name = "hasOtherNothing";
 
-            const label1 = new StringLiteral();
+            const label1 = new StringLiteralV2();
 
             label1.language = "en";
             label1.value = "has nothingness";
 
-            newResProp.labels = [
+            newResProp.label = [
                 label1
             ];
 
-            const comment1 = new StringLiteral();
+            const comment1 = new StringLiteralV2();
 
             comment1.language = "en";
             comment1.value = "Refers to the other Nothing of a Nothing";
 
-            newResProp.comments = [
+            newResProp.comment = [
                 comment1
             ];
 
@@ -494,7 +502,9 @@ describe("OntologiesEndpoint", () => {
 
             newResProp.subjectType = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
 
-            knoraApiConnection.v2.onto.createResourceProperty(newResProp).subscribe(
+            onto.entity = newResProp;
+
+            knoraApiConnection.v2.onto.createResourceProperty(onto).subscribe(
                 (response: ResourcePropertyDefinitionWithAllLanguages) => {
                     expect(response.id).toBe("http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherNothing");
                     done();
@@ -518,9 +528,10 @@ describe("OntologiesEndpoint", () => {
     });
 
     describe("Method deleteResourceProperty", () => {
+
         it("should delete a resource property", done => {
 
-            const resprop = new UpdateOntology();
+            const resprop = new DeleteResourceProperty();
 
             resprop.id = "http://0.0.0.0:3333/ontology/00FF/images/v2#titel";
 
@@ -552,7 +563,7 @@ describe("OntologiesEndpoint", () => {
 
         it("should add a max cardinality 1 to a resource class", done => {
 
-            const addCard = new AddCardinalityToResourceClass();
+            const addCard = new UpdateOntologyResourceClassCardinality();
 
             addCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
 

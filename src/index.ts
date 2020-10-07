@@ -78,11 +78,16 @@ export { ApiResponseData } from "./models/api-response-data";
 export { ApiResponseError } from "./models/api-response-error";
 
 export { CreateOntology } from "./models/v2/ontologies/create/create-ontology";
-export { UpdateOntology } from "./models/v2/ontologies/update-ontology";
+export { CreateResourceProperty } from "./models/v2/ontologies/create/create-resource-property";
+export { ResourcePropertyDefinitionWithAllLanguages } from "./models/v2/ontologies/resource-property-definition";
+export { UpdateOntology } from "./models/v2/ontologies/update/update-ontology";
+export { DeleteOntology } from "./models/v2/ontologies/delete/delete-ontology";
+export { DeleteResourceClass } from "./models/v2/ontologies/delete/delete-resource-class";
+export { DeleteResourceProperty } from "./models/v2/ontologies/delete/delete-resource-property";
 export { DeleteOntologyResponse } from "./models/v2/ontologies/delete/delete-ontology-response";
 export { CreateResourceClass } from "./models/v2/ontologies/create/create-resource-class";
 export { ReadOntology } from "./models/v2/ontologies/read/read-ontology";
-export { AddCardinalityToResourceClass } from "./models/v2/ontologies/create/add-cardinality-to-resource-class";
+export { UpdateOntologyResourceClassCardinality } from "./models/v2/ontologies/update/update-ontology-resource-class-cardinality";
 export { OntologyMetadata, OntologiesMetadata } from "./models/v2/ontologies/ontology-metadata";
 export {
     ResourceClassDefinitionWithPropertyDefinition,
