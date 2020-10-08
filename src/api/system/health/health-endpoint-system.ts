@@ -9,17 +9,33 @@ import { Endpoint } from "../../endpoint";
  * An endpoint to get Knora's state of health.
  */
 export class HealthEndpointSystem extends Endpoint {
-    
+
     /**
      * Returns Knora's state of health.
      */
     getHealth(): Observable<ApiResponseData<HealthResponse> | ApiResponseError> {
-    
+
         return this.httpGet("").pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, HealthResponse, this.jsonConvert)),
+            map(ajaxResponse => {
+                const healthResponse =  ApiResponseData.fromAjaxResponse(ajaxResponse, HealthResponse, this.jsonConvert);
+                const serverHeader = ajaxResponse.xhr.getResponseHeader("server");
+                if (serverHeader !== null) {
+                    const versions = serverHeader.split(" ");
+
+                    if (versions.length === 2) {
+                        healthResponse.body.webapiVersion = versions[0];
+                        healthResponse.body.akkaVersion = versions[1];
+                        return healthResponse;
+                    } else {
+                        throw new Error(`Could not parse server header param ${serverHeader}.`);
+                    }
+                } else {
+                    throw new Error("Could not get server header param.");
+                }
+            }),
             catchError(error => this.handleError(error))
         );
-    
+
     }
-    
+
 }

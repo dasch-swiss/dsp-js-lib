@@ -25,6 +25,12 @@ describe("HealthEndpoint", () => {
                 (response: ApiResponseData<HealthResponse>) => {
 
                     expect(response.body.name).toEqual("AppState");
+                    expect(response.body.message).toEqual("Application is healthy");
+                    expect(response.body.severity).toEqual("non fatal");
+                    expect(response.body.status).toEqual("healthy");
+
+                    expect(response.body.webapiVersion).toEqual("webapi/v13.0.0-rc.16-11-ga88d20d");
+                    expect(response.body.akkaVersion).toEqual("akka-http/10.1.12");
 
                     done();
                 });
@@ -33,7 +39,13 @@ describe("HealthEndpoint", () => {
 
             const health = require("../../../../test/data/api/system/health/get-health-response.json");
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(health)));
+            request.respondWith({
+                status: 200,
+                responseText: JSON.stringify(health),
+                responseHeaders: {
+                    server: "webapi/v13.0.0-rc.16-11-ga88d20d akka-http/10.1.12"
+                }
+            });
 
             expect(request.url).toBe("http://localhost:3333/health");
 
