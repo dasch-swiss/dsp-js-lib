@@ -31,12 +31,7 @@ describe("HealthEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const health: HealthResponse = {
-                "message": "Application is healthy",
-                "name": "AppState",
-                "severity": "non fatal",
-                "status": "healthy"
-            };
+            const health = require("../../../../test/data/api/system/health/get-health-response.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(health)));
 
