@@ -189,6 +189,11 @@ export class AppComponent implements OnInit {
         permission.additionalInformation = null;
         permission.permissionCode = null;
 
+        const permission2 = new CreatePermission();
+        permission2.name = "ProjectAdminAllPermission";
+        permission2.additionalInformation = null;
+        permission2.permissionCode = null;
+
         const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
         const projectIri = "http://rdfh.ch/projects/0001";
 
@@ -196,7 +201,7 @@ export class AppComponent implements OnInit {
         adminPermission.forGroup = groupIri;
         adminPermission.forProject = projectIri;
 
-        adminPermission.hasPermissions = [permission];
+        adminPermission.hasPermissions = [permission, permission2];
 
         // console.log(this.knoraApiConnection.admin.jsonConvert.serializeObject(permission))
 
@@ -230,6 +235,11 @@ export class AppComponent implements OnInit {
         permission.permissionCode = 7;
         permission.additionalInformation = "http://www.knora.org/ontology/knora-admin#ProjectMember";
 
+        const permission2 = new CreatePermission();
+        permission2.name = "D";
+        permission2.permissionCode = 7;
+        permission2.additionalInformation = "http://www.knora.org/ontology/knora-admin#KnownUser";
+
         const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
         const projectIri = "http://rdfh.ch/projects/0001";
 
@@ -237,7 +247,7 @@ export class AppComponent implements OnInit {
         adminPermission.forGroup = groupIri;
         adminPermission.forProject = projectIri;
 
-        adminPermission.hasPermissions = [permission];
+        adminPermission.hasPermissions = [permission, permission2];
 
         this.knoraApiConnection.admin.permissionsEndpoint.createDefaultObjectAccessPermission(adminPermission).subscribe(
             (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
