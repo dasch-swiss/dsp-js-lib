@@ -1,4 +1,3 @@
-import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ApiResponseData } from "../../../models/api-response-data";
@@ -21,7 +20,7 @@ describe("HealthEndpoint", () => {
 
         it("should return health status", done => {
 
-            knoraApiConnection.system.healthEndpoint.getHealth().subscribe(
+            knoraApiConnection.system.healthEndpoint.getHealthStatus().subscribe(
                 (response: ApiResponseData<HealthResponse>) => {
 
                     expect(response.body.name).toEqual("AppState");
