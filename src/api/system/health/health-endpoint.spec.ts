@@ -53,7 +53,7 @@ describe("HealthEndpoint", () => {
 
         });
 
-        fit("should return throw an error if the header server param is missing", done => {
+        it("should return throw an error if the header server param is missing", done => {
 
             knoraApiConnection.system.healthEndpoint.getHealthStatus().subscribe(
                 (response: ApiResponseData<HealthResponse>) => {},
