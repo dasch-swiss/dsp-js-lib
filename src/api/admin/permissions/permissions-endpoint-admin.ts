@@ -69,8 +69,8 @@ export class PermissionsEndpointAdmin extends Endpoint {
             throw new Error("Group and project are required when creating a new administrative permission.");
         }
 
-        if (administrativePermission.hasPermissions.length !== 1) {
-            throw new Error("Exactly one permission is expected.");
+        if (administrativePermission.hasPermissions.length === 0) {
+            throw new Error("At least one permission is expected.");
         }
 
         return this.httpPost("/ap", this.jsonConvert.serializeObject(administrativePermission)).pipe(
@@ -107,8 +107,8 @@ export class PermissionsEndpointAdmin extends Endpoint {
             throw new Error("Project is required when creating a new default object access permission.");
         }
 
-        if (defaultObjectAccessPermission.hasPermissions.length !== 1) {
-            throw new Error("Exactly one permission is expected.");
+        if (defaultObjectAccessPermission.hasPermissions.length === 0) {
+            throw new Error("At least one permission is expected.");
         }
 
         /*
