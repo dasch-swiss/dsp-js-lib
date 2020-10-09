@@ -12,6 +12,7 @@ export namespace HealthConversionUtil {
      */
     export const addHeaderInfoToHealthResponse = (healthResponse: ApiResponseData<HealthResponse>, serverHeaderParam: string | null) => {
         if (serverHeaderParam !== null) {
+            // e.g., "webapi/v13.0.0-rc.16 akka-http/10.1.12"
             const versions = serverHeaderParam.split(" ");
 
             if (versions.length === 2) {
@@ -26,7 +27,14 @@ export namespace HealthConversionUtil {
         }
     };
 
+    /**
+     * Gets the version info from the info string.
+     * Throws an error if the info string is invalid.
+     *
+     * @param infoString the string containing the version information.
+     */
     const getVersionFromString = (infoString: string) => {
+        // e.g., "webapi/v13.0.0-rc.16"
         const parts = infoString.split("/");
         if (parts.length === 2) {
             return parts[1];
