@@ -29,8 +29,8 @@ describe("HealthEndpoint", () => {
                     expect(response.body.severity).toEqual("non fatal");
                     expect(response.body.status).toEqual("healthy");
 
-                    expect(response.body.webapiVersion).toEqual("webapi/v13.0.0-rc.16-11-ga88d20d");
-                    expect(response.body.akkaVersion).toEqual("akka-http/10.1.12");
+                    expect(response.body.webapiVersion).toEqual("v13.0.0-rc.16");
+                    expect(response.body.akkaVersion).toEqual("10.1.12");
 
                     done();
                 });
@@ -43,7 +43,7 @@ describe("HealthEndpoint", () => {
                 status: 200,
                 responseText: JSON.stringify(health),
                 responseHeaders: {
-                    server: "webapi/v13.0.0-rc.16-11-ga88d20d akka-http/10.1.12"
+                    server: "webapi/v13.0.0-rc.16 akka-http/10.1.12"
                 }
             });
 

@@ -15,14 +15,23 @@ export namespace HealthConversionUtil {
             const versions = serverHeaderParam.split(" ");
 
             if (versions.length === 2) {
-                healthResponse.body.webapiVersion = versions[0];
-                healthResponse.body.akkaVersion = versions[1];
+                healthResponse.body.webapiVersion = getVersionFromString(versions[0]);
+                healthResponse.body.akkaVersion = getVersionFromString(versions[1]);
                 return healthResponse;
             } else {
                 throw new Error(`Could not parse server header param ${serverHeaderParam}.`);
             }
         } else {
             throw new Error("Could not get server header param.");
+        }
+    };
+
+    const getVersionFromString = (infoString: string) => {
+        const parts = infoString.split("/");
+        if (parts.length === 2) {
+            return parts[1];
+        } else {
+            throw new Error(`Invalid version string ${infoString}.`);
         }
     };
 
