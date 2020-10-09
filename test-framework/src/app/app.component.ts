@@ -40,8 +40,16 @@ import {
     DeleteResourceClass,
     DeleteResourceProperty,
     UpdateOntologyResourceClassCardinality,
+    CreatePermission,
+    CreateAdministrativePermission,
     ResourcePropertyDefinitionWithAllLanguages,
-    CreateResourceProperty
+    CreateResourceProperty,
+    CreateDefaultObjectAccessPermission,
+    AdministrativePermissionResponse,
+    DefaultObjectAccessPermissionsResponse,
+    DefaultObjectAccessPermissionResponse,
+    ProjectPermissionsResponse,
+    AdministrativePermissionsResponse
 } from "@dasch-swiss/dsp-js";
 import { Observable } from "rxjs";
 
@@ -68,6 +76,7 @@ export class AppComponent implements OnInit {
     resClass: ResourceClassDefinitionWithAllLanguages;
     property: ResourcePropertyDefinitionWithAllLanguages;
     addCard: ResourceClassDefinitionWithAllLanguages;
+    permissionStatus: string;
 
     // reusable response message
     message: string;
@@ -160,6 +169,118 @@ export class AppComponent implements OnInit {
             (a: UserResponse) => console.log(a.user),
             b => console.error(b)
         );
+    }
+
+    getPermissions() {
+
+        this.knoraApiConnection.admin.permissionsEndpoint.getProjectPermissions("http://rdfh.ch/projects/0001").subscribe(
+            (response: ApiResponseData<ProjectPermissionsResponse>) => {
+                this.permissionStatus = "getPermissions ok";
+                console.log(response);
+            },
+            err => console.error("Error:", err)
+        );
+    }
+
+    getAdministrativePermission() {
+
+        this.knoraApiConnection.admin.permissionsEndpoint.getAdministrativePermission("http://rdfh.ch/projects/0001", "http://www.knora.org/ontology/knora-admin#ProjectMember").subscribe(
+            (response: ApiResponseData<AdministrativePermissionResponse>) => {
+                this.permissionStatus = "getAdministrativePermission ok";
+                console.log(response);
+            },
+            err => console.error("Error:", err)
+        );
+
+    }
+
+    getAdministrativePermissions() {
+
+        this.knoraApiConnection.admin.permissionsEndpoint.getAdministrativePermissions("http://rdfh.ch/projects/0001").subscribe(
+            (response: ApiResponseData<AdministrativePermissionsResponse>) => {
+                this.permissionStatus = "getAdministrativePermissions ok";
+                console.log(response);
+            },
+            err => console.error("Error:", err)
+        );
+
+    }
+
+    createAdministrativePermission() {
+
+        const permission = new CreatePermission();
+        permission.name = "ProjectAdminGroupAllPermission";
+        permission.additionalInformation = null;
+        permission.permissionCode = null;
+
+        const permission2 = new CreatePermission();
+        permission2.name = "ProjectAdminAllPermission";
+        permission2.additionalInformation = null;
+        permission2.permissionCode = null;
+
+        const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
+        const projectIri = "http://rdfh.ch/projects/0001";
+
+        const adminPermission = new CreateAdministrativePermission();
+        adminPermission.forGroup = groupIri;
+        adminPermission.forProject = projectIri;
+
+        adminPermission.hasPermissions = [permission, permission2];
+
+        // console.log(this.knoraApiConnection.admin.jsonConvert.serializeObject(permission))
+
+        this.knoraApiConnection.admin.permissionsEndpoint.createAdministrativePermission(adminPermission).subscribe(
+            (res: ApiResponseData<AdministrativePermissionResponse>) => {
+                this.permissionStatus = "createAdministrativePermission ok";
+                console.log(res);
+            },
+            err => console.error(err)
+        )
+
+    }
+
+    getDefaultObjectAccessPermissions() {
+
+        const projectIri = "http://rdfh.ch/projects/0001";
+
+        this.knoraApiConnection.admin.permissionsEndpoint.getDefaultObjectAccessPermissions(projectIri).subscribe(
+            (res: ApiResponseData<DefaultObjectAccessPermissionsResponse>) => {
+                this.permissionStatus = "getDefaultObjectAccessPermissions ok";
+                console.log(res);
+            },
+            err => console.error("Error:", err)
+        );
+    }
+
+    createDefaultObjectAccessPermission() {
+
+        const permission = new CreatePermission();
+        permission.name = "D";
+        permission.permissionCode = 7;
+        permission.additionalInformation = "http://www.knora.org/ontology/knora-admin#ProjectMember";
+
+        const permission2 = new CreatePermission();
+        permission2.name = "D";
+        permission2.permissionCode = 7;
+        permission2.additionalInformation = "http://www.knora.org/ontology/knora-admin#KnownUser";
+
+        const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
+        const projectIri = "http://rdfh.ch/projects/0001";
+
+        const adminPermission = new CreateDefaultObjectAccessPermission();
+        adminPermission.forGroup = groupIri;
+        adminPermission.forProject = projectIri;
+
+        adminPermission.hasPermissions = [permission, permission2];
+
+        this.knoraApiConnection.admin.permissionsEndpoint.createDefaultObjectAccessPermission(adminPermission).subscribe(
+            (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
+                this.permissionStatus = "createDefaultObjectAccessPermission ok";
+                console.log(res);
+            },
+            err => console.error("Error:", err)
+        );
+
     }
 
     getOntology(iri: string) {
