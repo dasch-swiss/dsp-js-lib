@@ -1,4 +1,7 @@
 // Globally necessary files
+import { DefaultObjectAccessPermissionsResponse } from "./models/admin/default-object-access-permissions-response";
+import { DefaultObjectAccessPermission } from "./models/admin/default-object-access-permission";
+
 export { KnoraApiConnection } from "./knora-api-connection";
 export { KnoraApiConfig } from "./knora-api-config";
 
@@ -32,9 +35,13 @@ export { GroupsResponse } from "./models/admin/groups-response";
 export { MembersResponse } from "./models/admin/members-response";
 
 export { AdministrativePermission } from "./models/admin/administrative-permission";
+export { DefaultObjectAccessPermission } from "./models/admin/default-object-access-permission";
+export { CreateAdministrativePermission } from "./models/admin/create-administrative-permission";
 export { StoredAdministrativePermission } from "./models/admin/stored-administrative-permission";
 export { AdministrativePermissionResponse } from "./models/admin/administrative-permission-response";
+export { AdministrativePermissionsResponse } from "./models/admin/administrative-permissions-response";
 export { Permission } from "./models/admin/permission";
+export { CreatePermission } from "./models/admin/create-permission";
 export { Permissions } from "./models/admin/permissions";
 
 export { Project } from "./models/admin/project";
@@ -45,6 +52,11 @@ export { ProjectsResponse } from "./models/admin/projects-response";
 export { ProjectResponse } from "./models/admin/project-response";
 export { ProjectRestrictedViewSettings } from "./models/admin/project-restricted-view-settings";
 export { ProjectRestrictedViewSettingsResponse } from "./models/admin/project-restricted-view-settings-response";
+export { ProjectPermissionsResponse } from "./models/admin/project-permissions-response";
+export { ProjectPermission } from "./models/admin/project-permission";
+export { DefaultObjectAccessPermissionsResponse } from "./models/admin/default-object-access-permissions-response";
+export { DefaultObjectAccessPermissionResponse } from "./models/admin/default-object-access-permission-response";
+export { CreateDefaultObjectAccessPermission } from "./models/admin/create-default-object-access-permission";
 export { KeywordsResponse } from "./models/admin/keywords-response";
 
 export { User } from "./models/admin/user";
