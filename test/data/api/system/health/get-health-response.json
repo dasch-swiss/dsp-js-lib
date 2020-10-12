@@ -1,0 +1,6 @@
+{
+  "message": "Application is healthy",
+  "name": "AppState",
+  "severity": "non fatal",
+  "status": "healthy"
+}
