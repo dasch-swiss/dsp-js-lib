@@ -5,6 +5,9 @@ import { DefaultObjectAccessPermission } from "./models/admin/default-object-acc
 export { KnoraApiConnection } from "./knora-api-connection";
 export { KnoraApiConfig } from "./knora-api-config";
 
+// System Endpoints
+export { HealthEndpointSystem } from "./api/system/health/health-endpoint-system";
+
 // Admin Endpoints
 export { GroupsEndpointAdmin } from "./api/admin/groups/groups-endpoint-admin";
 export { ListsEndpointAdmin } from "./api/admin/lists/lists-endpoint-admin";
@@ -25,6 +28,8 @@ export { UserCache } from "./cache/UserCache";
 export { ListAdminCache } from "./cache/ListAdminCache";
 
 // Classes
+export { HealthResponse } from "./models/system/health-response";
+
 export { Group } from "./models/admin/group";
 export { ReadGroup } from "./models/admin/read-group";
 export { StoredGroup } from "./models/admin/stored-group";
