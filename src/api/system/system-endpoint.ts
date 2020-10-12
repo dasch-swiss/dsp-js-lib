@@ -7,6 +7,8 @@ import { HealthEndpointSystem } from "./health/health-endpoint-system";
  */
 export class SystemEndpoint extends Endpoint {
 
+    static readonly PATH_HEALTH = "/health";
+
     /**
      * An endpoint for knora system health.
      */
@@ -25,6 +27,6 @@ export class SystemEndpoint extends Endpoint {
 
         // Instantiate the endpoints
 
-        this.healthEndpoint = new HealthEndpointSystem(knoraApiConfig, path + "/health");
+        this.healthEndpoint = new HealthEndpointSystem(knoraApiConfig, path + SystemEndpoint.PATH_HEALTH);
     }
 }
