@@ -1,41 +1,16 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-
-import { Permission } from "./permission";
+import { AdminDoapBase } from "./admin-doap-base";
 
 /**
  * An administrative permission.
  */
 @JsonObject("AdministrativePermission")
-export class AdministrativePermission {
+export class AdministrativePermission extends AdminDoapBase {
 
     /**
      * The group that the permission applies to.
      */
-    @JsonProperty("forGroup", String, true)
-    forGroup?: string = undefined;
-
-    /**
-     * The project that the permission applies to.
-     */
-    @JsonProperty("forProject", String, true)
-    forProject?: string = undefined;
-
-    /**
-     * The property that the permission applies to.
-     */
-    @JsonProperty("forProperty", String, true)
-    forProperty?: string = undefined;
-
-    /**
-     * The resource class that the permission applies to.
-     */
-    @JsonProperty("forResourceClass", String, true)
-    forResourceClass?: string = undefined;
-
-    /**
-     * The permissions granted by an AdministrativePermission.
-     */
-    @JsonProperty("hasPermissions", [Permission])
-    hasPermissions: Permission[] = [];
+    @JsonProperty("forGroup", String)
+    forGroup: string = "";
 
 }

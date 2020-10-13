@@ -36,12 +36,24 @@ import {
     UsersResponse,
     WriteValueResponse,
     Cardinality,
-    AddCardinalityToResourceClass
+    DeleteOntology,
+    DeleteResourceClass,
+    DeleteResourceProperty,
+    UpdateOntologyResourceClassCardinality,
+    CreatePermission,
+    CreateAdministrativePermission,
+    ResourcePropertyDefinitionWithAllLanguages,
+    CreateResourceProperty,
+    CreateDefaultObjectAccessPermission,
+    AdministrativePermissionResponse,
+    DefaultObjectAccessPermissionsResponse,
+    DefaultObjectAccessPermissionResponse,
+    ProjectPermissionsResponse,
+    AdministrativePermissionsResponse
 } from "@dasch-swiss/dsp-js";
-import { CreateResourceProperty } from "@dasch-swiss/dsp-js/src/models/v2/ontologies/create/create-resource-property";
-import { ResourcePropertyDefinitionWithAllLanguages } from "@dasch-swiss/dsp-js/src/models/v2/ontologies/resource-property-definition";
+import { Observable } from "rxjs";
 
-import { map } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
 
 @Component({
     selector: 'app-root',
@@ -54,6 +66,8 @@ export class AppComponent implements OnInit {
 
     userCache: UserCache;
 
+    healthState: Observable<any>;
+
     ontologies: Map<string, ReadOntology>;
     anythingOntologies: OntologiesMetadata;
     dokubibOntologies: OntologiesMetadata;
@@ -62,6 +76,7 @@ export class AppComponent implements OnInit {
     resClass: ResourceClassDefinitionWithAllLanguages;
     property: ResourcePropertyDefinitionWithAllLanguages;
     addCard: ResourceClassDefinitionWithAllLanguages;
+    permissionStatus: string;
 
     // reusable response message
     message: string;
@@ -91,6 +106,27 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection = new KnoraApiConnection(config);
         // console.log(this.knoraApiConnection);
         this.userCache = new UserCache(this.knoraApiConnection);
+
+        this.getHealthStatus();
+
+    }
+
+    getHealthStatus() {
+        this.healthState =
+            this.knoraApiConnection.system.healthEndpoint.getHealthStatus().pipe(
+                tap(
+                    res => console.log(res)
+                ),
+                map(
+                    res => {
+                        if (res instanceof ApiResponseData) {
+                            return res.body;
+                        } else {
+                            return res;
+                        }
+                    }
+                )
+            );
 
     }
 
@@ -133,6 +169,118 @@ export class AppComponent implements OnInit {
             (a: UserResponse) => console.log(a.user),
             b => console.error(b)
         );
+    }
+
+    getPermissions() {
+
+        this.knoraApiConnection.admin.permissionsEndpoint.getProjectPermissions("http://rdfh.ch/projects/0001").subscribe(
+            (response: ApiResponseData<ProjectPermissionsResponse>) => {
+                this.permissionStatus = "getPermissions ok";
+                console.log(response);
+            },
+            err => console.error("Error:", err)
+        );
+    }
+
+    getAdministrativePermission() {
+
+        this.knoraApiConnection.admin.permissionsEndpoint.getAdministrativePermission("http://rdfh.ch/projects/0001", "http://www.knora.org/ontology/knora-admin#ProjectMember").subscribe(
+            (response: ApiResponseData<AdministrativePermissionResponse>) => {
+                this.permissionStatus = "getAdministrativePermission ok";
+                console.log(response);
+            },
+            err => console.error("Error:", err)
+        );
+
+    }
+
+    getAdministrativePermissions() {
+
+        this.knoraApiConnection.admin.permissionsEndpoint.getAdministrativePermissions("http://rdfh.ch/projects/0001").subscribe(
+            (response: ApiResponseData<AdministrativePermissionsResponse>) => {
+                this.permissionStatus = "getAdministrativePermissions ok";
+                console.log(response);
+            },
+            err => console.error("Error:", err)
+        );
+
+    }
+
+    createAdministrativePermission() {
+
+        const permission = new CreatePermission();
+        permission.name = "ProjectAdminGroupAllPermission";
+        permission.additionalInformation = null;
+        permission.permissionCode = null;
+
+        const permission2 = new CreatePermission();
+        permission2.name = "ProjectAdminAllPermission";
+        permission2.additionalInformation = null;
+        permission2.permissionCode = null;
+
+        const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
+        const projectIri = "http://rdfh.ch/projects/0001";
+
+        const adminPermission = new CreateAdministrativePermission();
+        adminPermission.forGroup = groupIri;
+        adminPermission.forProject = projectIri;
+
+        adminPermission.hasPermissions = [permission, permission2];
+
+        // console.log(this.knoraApiConnection.admin.jsonConvert.serializeObject(permission))
+
+        this.knoraApiConnection.admin.permissionsEndpoint.createAdministrativePermission(adminPermission).subscribe(
+            (res: ApiResponseData<AdministrativePermissionResponse>) => {
+                this.permissionStatus = "createAdministrativePermission ok";
+                console.log(res);
+            },
+            err => console.error(err)
+        )
+
+    }
+
+    getDefaultObjectAccessPermissions() {
+
+        const projectIri = "http://rdfh.ch/projects/0001";
+
+        this.knoraApiConnection.admin.permissionsEndpoint.getDefaultObjectAccessPermissions(projectIri).subscribe(
+            (res: ApiResponseData<DefaultObjectAccessPermissionsResponse>) => {
+                this.permissionStatus = "getDefaultObjectAccessPermissions ok";
+                console.log(res);
+            },
+            err => console.error("Error:", err)
+        );
+    }
+
+    createDefaultObjectAccessPermission() {
+
+        const permission = new CreatePermission();
+        permission.name = "D";
+        permission.permissionCode = 7;
+        permission.additionalInformation = "http://www.knora.org/ontology/knora-admin#ProjectMember";
+
+        const permission2 = new CreatePermission();
+        permission2.name = "D";
+        permission2.permissionCode = 7;
+        permission2.additionalInformation = "http://www.knora.org/ontology/knora-admin#KnownUser";
+
+        const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
+        const projectIri = "http://rdfh.ch/projects/0001";
+
+        const adminPermission = new CreateDefaultObjectAccessPermission();
+        adminPermission.forGroup = groupIri;
+        adminPermission.forProject = projectIri;
+
+        adminPermission.hasPermissions = [permission, permission2];
+
+        this.knoraApiConnection.admin.permissionsEndpoint.createDefaultObjectAccessPermission(adminPermission).subscribe(
+            (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
+                this.permissionStatus = "createDefaultObjectAccessPermission ok";
+                console.log(res);
+            },
+            err => console.error("Error:", err)
+        );
+
     }
 
     getOntology(iri: string) {
@@ -191,10 +339,10 @@ export class AppComponent implements OnInit {
     }
 
     deleteOntology() {
-        // 2020-06-30T08:52:10.532394Z
-        const deleteOntology = new UpdateOntology();
+        const deleteOntology = new DeleteOntology();
         deleteOntology.id = this.ontology.id;
         deleteOntology.lastModificationDate = this.ontology.lastModificationDate;
+
         this.knoraApiConnection.v2.onto.deleteOntology(deleteOntology).subscribe(
             (response: DeleteOntologyResponse) => {
                 this.message = response.result;
@@ -204,13 +352,16 @@ export class AppComponent implements OnInit {
     }
 
     createResourceClass() {
+
+        const onto = new UpdateOntology<CreateResourceClass>();
+
+        onto.id = this.ontology.id;
+        onto.lastModificationDate = this.ontology.lastModificationDate;
+
         const newResClass = new CreateResourceClass();
-        newResClass.ontology = {
-            id: this.ontology.id,
-            lastModificationDate: this.ontology.lastModificationDate
-        };
+
         newResClass.name = "testclass";
-        newResClass.labels = [
+        newResClass.label = [
             {
                 language: "de",
                 value: "Test Klasse"
@@ -219,7 +370,7 @@ export class AppComponent implements OnInit {
                 value: "Test Class"
             }
         ];
-        newResClass.comments = [
+        newResClass.comment = [
             {
                 language: "en",
                 value: "Just an example of a new resource class"
@@ -227,7 +378,9 @@ export class AppComponent implements OnInit {
         ];
         newResClass.subClassOf = [Constants.Resource];
 
-        this.knoraApiConnection.v2.onto.createResourceClass(newResClass).subscribe(
+        onto.entity = newResClass;
+
+        this.knoraApiConnection.v2.onto.createResourceClass(onto).subscribe(
             (response: ResourceClassDefinitionWithAllLanguages) => {
                 console.log('new resource class created', response);
                 this.resClass = response;
@@ -236,7 +389,8 @@ export class AppComponent implements OnInit {
     }
 
     deleteResourceClass() {
-        const deleteResClass: UpdateOntology = new UpdateOntology();
+
+        const deleteResClass: DeleteResourceClass = new DeleteResourceClass();
         deleteResClass.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass";
         deleteResClass.lastModificationDate = this.ontology.lastModificationDate;
 
@@ -254,16 +408,16 @@ export class AppComponent implements OnInit {
 
 
     createResourceProperty() {
-        const newResProp = new CreateResourceProperty();
+        const onto = new UpdateOntology<CreateResourceProperty>();
 
-        newResProp.ontology = {
-            id: this.ontology.id,
-            lastModificationDate: this.ontology.lastModificationDate
-        };
+        onto.id = this.ontology.id;
+        onto.lastModificationDate = this.ontology.lastModificationDate;
+
+        const newResProp = new CreateResourceProperty();
 
         newResProp.name = "hasName";
 
-        newResProp.labels = [
+        newResProp.label = [
             {
                 language: "en",
                 value: "has name"
@@ -274,7 +428,7 @@ export class AppComponent implements OnInit {
             }
         ];
 
-        newResProp.comments = [
+        newResProp.comment = [
             {
                 language: "en",
                 value: "The name of a Thing"
@@ -293,7 +447,9 @@ export class AppComponent implements OnInit {
         newResProp.guiElement = "http://api.knora.org/ontology/salsah-gui/v2#SimpleText";
         newResProp.guiAttributes = ["size=80", "maxlength=100"];
 
-        this.knoraApiConnection.v2.onto.createResourceProperty(newResProp).subscribe(
+        onto.entity = newResProp;
+
+        this.knoraApiConnection.v2.onto.createResourceProperty(onto).subscribe(
             (response: ResourcePropertyDefinitionWithAllLanguages) => {
                 this.property = response;
                 console.log('new resource property created', response);
@@ -302,7 +458,8 @@ export class AppComponent implements OnInit {
     }
 
     deleteResourceProperty() {
-        const deleteResProp: UpdateOntology = new UpdateOntology();
+
+        const deleteResProp: DeleteResourceProperty = new DeleteResourceProperty();
         deleteResProp.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName";
         deleteResProp.lastModificationDate = this.ontology.lastModificationDate;
 
@@ -320,7 +477,7 @@ export class AppComponent implements OnInit {
 
     addCardinality() {
 
-        const addCard = new AddCardinalityToResourceClass();
+        const addCard = new UpdateOntologyResourceClassCardinality();
 
         addCard.lastModificationDate = this.ontology.lastModificationDate;
 

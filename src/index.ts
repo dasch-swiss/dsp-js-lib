@@ -1,6 +1,12 @@
 // Globally necessary files
+import { DefaultObjectAccessPermissionsResponse } from "./models/admin/default-object-access-permissions-response";
+import { DefaultObjectAccessPermission } from "./models/admin/default-object-access-permission";
+
 export { KnoraApiConnection } from "./knora-api-connection";
 export { KnoraApiConfig } from "./knora-api-config";
+
+// System Endpoints
+export { HealthEndpointSystem } from "./api/system/health/health-endpoint-system";
 
 // Admin Endpoints
 export { GroupsEndpointAdmin } from "./api/admin/groups/groups-endpoint-admin";
@@ -22,6 +28,8 @@ export { UserCache } from "./cache/UserCache";
 export { ListAdminCache } from "./cache/ListAdminCache";
 
 // Classes
+export { HealthResponse } from "./models/system/health-response";
+
 export { Group } from "./models/admin/group";
 export { ReadGroup } from "./models/admin/read-group";
 export { StoredGroup } from "./models/admin/stored-group";
@@ -32,9 +40,13 @@ export { GroupsResponse } from "./models/admin/groups-response";
 export { MembersResponse } from "./models/admin/members-response";
 
 export { AdministrativePermission } from "./models/admin/administrative-permission";
+export { DefaultObjectAccessPermission } from "./models/admin/default-object-access-permission";
+export { CreateAdministrativePermission } from "./models/admin/create-administrative-permission";
 export { StoredAdministrativePermission } from "./models/admin/stored-administrative-permission";
 export { AdministrativePermissionResponse } from "./models/admin/administrative-permission-response";
+export { AdministrativePermissionsResponse } from "./models/admin/administrative-permissions-response";
 export { Permission } from "./models/admin/permission";
+export { CreatePermission } from "./models/admin/create-permission";
 export { Permissions } from "./models/admin/permissions";
 
 export { Project } from "./models/admin/project";
@@ -45,6 +57,11 @@ export { ProjectsResponse } from "./models/admin/projects-response";
 export { ProjectResponse } from "./models/admin/project-response";
 export { ProjectRestrictedViewSettings } from "./models/admin/project-restricted-view-settings";
 export { ProjectRestrictedViewSettingsResponse } from "./models/admin/project-restricted-view-settings-response";
+export { ProjectPermissionsResponse } from "./models/admin/project-permissions-response";
+export { ProjectPermission } from "./models/admin/project-permission";
+export { DefaultObjectAccessPermissionsResponse } from "./models/admin/default-object-access-permissions-response";
+export { DefaultObjectAccessPermissionResponse } from "./models/admin/default-object-access-permission-response";
+export { CreateDefaultObjectAccessPermission } from "./models/admin/create-default-object-access-permission";
 export { KeywordsResponse } from "./models/admin/keywords-response";
 
 export { User } from "./models/admin/user";
@@ -78,11 +95,16 @@ export { ApiResponseData } from "./models/api-response-data";
 export { ApiResponseError } from "./models/api-response-error";
 
 export { CreateOntology } from "./models/v2/ontologies/create/create-ontology";
-export { UpdateOntology } from "./models/v2/ontologies/update-ontology";
+export { CreateResourceProperty } from "./models/v2/ontologies/create/create-resource-property";
+export { ResourcePropertyDefinitionWithAllLanguages } from "./models/v2/ontologies/resource-property-definition";
+export { UpdateOntology } from "./models/v2/ontologies/update/update-ontology";
+export { DeleteOntology } from "./models/v2/ontologies/delete/delete-ontology";
+export { DeleteResourceClass } from "./models/v2/ontologies/delete/delete-resource-class";
+export { DeleteResourceProperty } from "./models/v2/ontologies/delete/delete-resource-property";
 export { DeleteOntologyResponse } from "./models/v2/ontologies/delete/delete-ontology-response";
 export { CreateResourceClass } from "./models/v2/ontologies/create/create-resource-class";
 export { ReadOntology } from "./models/v2/ontologies/read/read-ontology";
-export { AddCardinalityToResourceClass } from "./models/v2/ontologies/create/add-cardinality-to-resource-class";
+export { UpdateOntologyResourceClassCardinality } from "./models/v2/ontologies/update/update-ontology-resource-class-cardinality";
 export { OntologyMetadata, OntologiesMetadata } from "./models/v2/ontologies/ontology-metadata";
 export {
     ResourceClassDefinitionWithPropertyDefinition,

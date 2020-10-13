@@ -2,6 +2,11 @@
 
     <h1>Welcome to knora-api-js-lib-test!</h1>
 
+    <section>
+        <h3>Health State</h3>
+        <span>{{ healthState | async | json}}</span>
+    </section>
+
     <section id="login">
         <h3>Login/Logout</h3>
         <button class="login" (click)="login()">Login</button><br /><br />
@@ -9,10 +14,23 @@
         <div>Status: <span class="status">{{loginStatus}}</span></div>
     </section>
 
-    <section>
+    <section id="admin">
         <h3>Admin</h3>
-        <button (click)="getUsers()">All users</button> <br /><br />
-        <button (click)="getUser('http://rdfh.ch/users/root')">Get root user</button> <br /><br />
+        <div>
+            <h4>Users</h4>
+            <button (click)="getUsers()">All users</button> <br /><br />
+            <button (click)="getUser('http://rdfh.ch/users/root')">Get root user</button> <br /><br />
+        </div>
+        <div id="permissions">
+            <h4>Permissions</h4>
+            <button class="get-permissions" (click)="getPermissions()">Get permissions belonging to a project</button> <br /><br />
+            <button class="get-administrative-permission" (click)="getAdministrativePermission()">Get administrative permission for a project and group</button> <br /><br />
+            <button class="get-administrative-permissions" (click)="getAdministrativePermissions()">Get administrative permissions for a project</button> <br /><br />
+            <button class="create-administrative-permission" (click)="createAdministrativePermission()">Create an administrative Permission</button> <br /><br />
+            <button class="get-default-object-access-permissions" (click)="getDefaultObjectAccessPermissions()">Get default object access permissions for a project</button> <br /><br />
+            <button class="create-default-object-access-permission" (click)="createDefaultObjectAccessPermission()">Create default object access permission for a project</button> <br /><br />
+            <span *ngIf="permissionStatus" class="status">Permission status: {{permissionStatus}}</span>
+        </div>
     </section>
 
     <section id="ontologycache">
