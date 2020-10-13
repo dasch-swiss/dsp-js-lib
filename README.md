@@ -120,24 +120,6 @@ If you need a local version of this lib that contains the mocks, do the followin
    - `npm run prepare-dev-publication` to prepare a dev version.
    - `npm run yalc-publish` to publish a local build containing the mocks.
 
-## Change Version of DSP-API
-
-DSP-JS is compatible with a specified release of DSP-API. 
-To update the target release of DSP-API, the following steps have to be carried out:
-1. Delete local test data with `make delete-test-data`
-2. Generate test data using the target DSP-API release, 
-   see <https://docs.knora.org> -> Internals -> Development -> Generating Client Test Data.
-3. Unpack generated test data and integrate it using the npm scripts 
-    1. `npm run integrate-admin-test-data`
-    2. `npm run integrate-v2-test-data`
-    3. `npm run expand-jsonld-test-data`.
-4. Run the unit tests with `npm test`
-5. Check for differences in the generated test data with respect to the previous release of DSP-API.
-   If there are changes in the test data that have **no breaking effect**, integrate them.
-   Otherwise DSP-JS has to be adapted to comply with the later version of DSP-JS.
-6. Run the e2e tests against the target release of DSP-API.
-7. Update DSP-API version in `Makefile`, e.g., change `--branch v13.0.0-rc.16` to `--branch v13.0.0-rc.17`.
-    
 ## Publish a new version to NPM
 
 Before publishing:
@@ -145,7 +127,7 @@ Before publishing:
 - Update README and CHANGELOG if necessary and commit the changes (currently, the CHANGELOG has to be updated manually)
 
 - Be sure that the dependency to DSP-API is set to the correct version:
-  - Update DSP-API version in `Makefile` (see section above)
+  - Update DSP-API version in `Makefile`
 
 A new version will be published with each Github release as it's part of Github actions' workflow. To make a new release, go to <https://github.com/dasch-swiss/dsp-js-lib/releases> and update the draft called "Next release" by changing:
 
