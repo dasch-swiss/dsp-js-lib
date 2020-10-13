@@ -181,7 +181,7 @@ Before publishing:
 - Update README and CHANGELOG if necessary and commit the changes (currently, the CHANGELOG has to be updated manually)
 
 - Be sure that the dependency to DSP-API is set to the correct version:
-  - Update DSP-API version in `Makefile`
+  - Update DSP-API version in `Makefile` (see section above)
 
 A new version will be published with each Github release as it's part of Github actions' workflow. To make a new release, go to <https://github.com/dasch-swiss/dsp-js-lib/releases> and update the draft called "Next release" by changing:
 
