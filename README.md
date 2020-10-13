@@ -119,6 +119,37 @@ The mocks are configured in `scripts/mock-exports.json`.
 If you need a local version of this lib that contains the mocks, do the following:
    - `npm run prepare-dev-publication` to prepare a dev version.
    - `npm run yalc-publish` to publish a local build containing the mocks.
+5. `npm run webdriver-update` (from directory `test-framework`): updates Chrome webdriver for e2e tests   
+   
+## Change Supported Version of DSP-API
+
+DSP-JS is compatible with a specified release of DSP-API. 
+To update the target release of DSP-API, the following steps have to be carried out:
+1. Delete local test data with `make delete-test-data`
+2. Generate test data using the target DSP-API release, 
+   see <https://docs.knora.org> -> Internals -> Development -> Generating Client Test Data.
+3. Unpack generated test data and integrate it using the npm scripts 
+    1. `npm run integrate-admin-test-data`
+    2. `npm run integrate-v2-test-data`
+    3. `npm run expand-jsonld-test-data`.
+4. Run the unit tests with `npm test` from the project root.
+5. Check for differences in the generated test data with respect to the previous release of DSP-API.
+   If there are changes in the test data that have **no breaking effect**, integrate them (add them to the git repo).
+   Otherwise, DSP-JS has to be adapted to comply with the later version of DSP-JS. Also see section "Integration of Generated Test Data".
+6. Run the e2e tests against the target release of DSP-API:
+   - prepare the local publication of the library using `npm run prepare-dev-publication`
+   - build the library and publish it locally with `npm run yalc-publish`
+   - change to directory `test-framework`
+   - add the locally build library using `npm run yalc-add` and run `npm install`
+   - run `npm run webdriver-update` and then `npm run e22`
+7. Update DSP-API version in `Makefile`, e.g., change `--branch v13.0.0-rc.16` to `--branch v13.0.0-rc.17`.
+8. See if the test pass on GitHub CI   
+
+## Integration of Generated Test Data
+
+By default, all generated test data for admin is integrated with the script `npm run integrate-admin-test-data`.
+
+Test data for v2 has to be added to `scripts/v2-test-data-config.json` to be used in the unit tests.
 
 ## Publish a new version to NPM
 
