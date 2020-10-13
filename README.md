@@ -143,13 +143,34 @@ To update the target release of DSP-API, the following steps have to be carried 
    - add the locally build library using `npm run yalc-add` and run `npm install`
    - run `npm run webdriver-update` and then `npm run e22`
 7. Update DSP-API version in `Makefile`, e.g., change `--branch v13.0.0-rc.16` to `--branch v13.0.0-rc.17`.
-8. See if the test pass on GitHub CI   
+8. See if the tests pass on GitHub CI   
 
 ## Integration of Generated Test Data
 
-By default, all generated test data for admin is integrated with the script `npm run integrate-admin-test-data`.
+By default, all generated test data for THE admin API is integrated with the script `npm run integrate-admin-test-data`.
 
 Test data for v2 has to be added to `scripts/v2-test-data-config.json` to be used in the unit tests.
+All files that are contained in `scripts/v2-test-data-config.json` will be copied this library's tests data when running `npm run integrate-v2-test-data`.
+
+Example:
+```json
+{
+  "generated-test-data": [
+    {
+      "source": "/v2/ontologies/all-ontology-metadata-response.json",
+      "destination": "./test/data/api/v2/ontologies/all-ontology-metadata-response.json"
+    },
+    ...
+  ]
+}
+```
+
+The example shown above will copy the file `/v2/ontologies/all-ontology-metadata-response.json`
+from the generated test data to the specified destination in this library's test data folder.
+In the unit tests, this file can then be used to mock request and response data.
+
+When adding a new method to a v2 endpoint, only add the test data needed to test this method to facilitate the review process.
+**Do not add v2 test data that is not used in the unit tests.**
 
 ## Publish a new version to NPM
 
