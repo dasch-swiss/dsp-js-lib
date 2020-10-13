@@ -172,6 +172,8 @@ In the unit tests, this file can then be used to mock request and response data.
 When adding a new method to a v2 endpoint, only add the test data needed to test this method to facilitate the review process.
 **Do not add v2 test data that is not used in the unit tests.**
 
+After integrating v2 test data, run `npm run expand-jsonld-test-data`.
+
 ## Publish a new version to NPM
 
 Before publishing:
