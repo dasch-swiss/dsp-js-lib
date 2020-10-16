@@ -119,30 +119,80 @@ The mocks are configured in `scripts/mock-exports.json`.
 If you need a local version of this lib that contains the mocks, do the following:
    - `npm run prepare-dev-publication` to prepare a dev version.
    - `npm run yalc-publish` to publish a local build containing the mocks.
+5. `npm run webdriver-update` (from directory `test-framework`): updates Chrome webdriver for e2e tests   
+   
+## Change Supported Version of DSP-API
+
+DSP-JS is compatible with a specified release of DSP-API. 
+To update the target release of DSP-API, the following steps have to be carried out:
+1. Delete local test data with `make delete-test-data`
+2. Generate test data using the target DSP-API release, 
+   see <https://docs.knora.org> -> Internals -> Development -> Generating Client Test Data.
+3. Unpack generated test data and integrate it using the npm scripts 
+    1. `npm run integrate-admin-test-data`
+    2. `npm run integrate-v2-test-data`
+    3. `npm run expand-jsonld-test-data`.
+4. Run the unit tests with `npm test` from the project root.
+5. Check for differences in the generated test data with respect to the previous release of DSP-API.
+   If there are changes in the test data that have **no breaking effect**, integrate them (add them to the git repo).
+   Otherwise, DSP-JS has to be adapted to comply with the later version of DSP-JS. Also see section "Integration of Generated Test Data".
+6. Run the e2e tests against the target release of DSP-API:
+   - prepare the local publication of the library using `npm run prepare-dev-publication`
+   - build the library and publish it locally with `npm run yalc-publish`
+   - change to directory `test-framework`
+   - add the locally build library using `npm run yalc-add` and run `npm install`
+   - run `npm run webdriver-update` and then `npm run e22`
+7. Update DSP-API version in `Makefile`, e.g., change `--branch v13.0.0-rc.16` to `--branch v13.0.0-rc.17`.
+8. See if the tests pass on GitHub CI   
+
+## Integration of Generated Test Data
+
+By default, all generated test data for THE admin API is integrated with the script `npm run integrate-admin-test-data`.
+
+Test data for v2 has to be added to `scripts/v2-test-data-config.json` to be used in the unit tests.
+All files that are contained in `scripts/v2-test-data-config.json` will be copied this library's tests data when running `npm run integrate-v2-test-data`.
+
+Example:
+```json
+{
+  "generated-test-data": [
+    {
+      "source": "/v2/ontologies/all-ontology-metadata-response.json",
+      "destination": "./test/data/api/v2/ontologies/all-ontology-metadata-response.json"
+    },
+    ...
+  ]
+}
+```
+
+The example shown above will copy the file `/v2/ontologies/all-ontology-metadata-response.json`
+from the generated test data to the specified destination in this library's test data folder.
+In the unit tests, this file can then be used to mock request and response data.
+
+When adding a new method to a v2 endpoint, only add the test data needed to test this method to facilitate the review process.
+**Do not add v2 test data that is not used in the unit tests.**
+
+After integrating v2 test data, run `npm run expand-jsonld-test-data`.
 
 ## Publish a new version to NPM
 
-A new version will be published with each github release as it's part of Github actions' workflow. Please follow the steps below to prepare the next release:
+Before publishing:
 
-- Create new branch from master called e.g. `prerelease/v1.0.0-rc.2` or `release/v2.0.0`
-- Run one of the corresponding make commands:
-  - `next-release-candidate`         updates version to next release candidate e.g. from 3.0.0-rc.0 to 3.0.0-rc.1 or from 3.0.0 to 3.0.1-rc.0
-  - `prerelease-major`               updates version to next MAJOR as release candidate e.g. from 4.0.0 to 5.0.0-rc.0
-  - `prerelease-minor`               updates version to next MINOR as release-candidate e.g. from 3.1.0 to 3.2.0-rc.0
-  - `prerelease-patch`               updates version to next PATCH as release-candidate e.g. from 3.0.1 to 3.0.2-rc.0
-  - `release-major`                  updates version to next MAJOR version e.g. from 3.0.0 to 4.0.0
-  - `release-minor`                  updates version to next MINOR version e.g. from 3.0.0 to 3.1.0
-  - `release-patch`                  updates version to next PATCH version e.g. from 3.0.0 to 3.0.1
-- The make command will commit and push to github
-- Update README and CHANGELOG if necessary and commit the changes
-- Create new pull request and merge into master
-- Draft new release on Github. This will build, test and publish the new package on npm. Additional it creates / overrides release notes on Github.
+- Update README and CHANGELOG if necessary and commit the changes (currently, the CHANGELOG has to be updated manually)
 
-New package will be available on <https://www.npmjs.com/package/@dasch-swiss/dsp-js>
+- Be sure that the dependency to DSP-API is set to the correct version:
+  - Update DSP-API version in `Makefile` (see section above)
+
+A new version will be published with each Github release as it's part of Github actions' workflow. To make a new release, go to <https://github.com/dasch-swiss/dsp-js-lib/releases> and update the draft called "Next release" by changing:
+
+- the tag version and the release title (same name) with the version number, e.g. `v3.0.0` or `v3.0.0-rc.0`
+- If this is a pre-release, check the box "This is a pre-release"
+
+New package will be available on <https://www.npmjs.com/package/@dasch-swiss/dsp-js>.
 
 At the moment (2020-06) all releases contain mocked data.
 
 ## Documentation
 
-For the public API, see <https://dasch-swiss.github.io/knora-api-js-lib>.
+For the public API, see <https://dasch-swiss.github.io/dsp-js-lib>.
 For design documentation, see file `design-documentation.md`.

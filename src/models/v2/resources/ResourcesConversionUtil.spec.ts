@@ -168,7 +168,7 @@ describe("ResourcesConversionUtil", () => {
                     const linkVals = resSeq.resources[0].getValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue");
                     expect(linkVals.length).toEqual(1);
                     expect(linkVals[0].type).toEqual("http://api.knora.org/ontology/knora-api/v2#LinkValue");
-                    expect(linkVals[0].strval).toEqual("http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ");
+                    expect(linkVals[0].strval).toEqual("Sierra");
                     const linkValsTyped: ReadLinkValue[] = resSeq.resources[0].getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue", ReadLinkValue);
                     expect(linkValsTyped[0].linkedResourceIri).toEqual("http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ");
                     expect(linkValsTyped[0].linkedResource).toBeDefined();

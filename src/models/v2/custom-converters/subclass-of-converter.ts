@@ -3,7 +3,20 @@ import { CustomConverterUtils } from "../../../util/utils";
 
 @JsonConverter
 export class SubClassOfConverter implements JsonCustomConvert<string[]> {
+    
     serialize(subclasses: string[]): any {
+        if (subclasses.length > 1) {
+            const subClassOf: any = [];
+            subclasses.forEach(item => {
+                subClassOf.push({ "@id": item });
+            });
+            return subClassOf;
+
+        } else {
+            return {
+                "@id": subclasses[0]
+            };
+        }
     }
 
     deserialize(items: any): string[] {

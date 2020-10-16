@@ -51,6 +51,120 @@ describe('workspace-project App', () => {
 
   });
 
+  it('request a project\'s permissions', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#permissions button.get-permissions');
+    button.click();
+
+    const label = page.getEle('div#permissions span.status');
+    expect(label.getText()).toEqual('Permission status: getPermissions ok');
+
+  });
+
+  it('request an administrative permission', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#permissions button.get-administrative-permission');
+    button.click();
+
+    const label = page.getEle('div#permissions span.status');
+    expect(label.getText()).toEqual('Permission status: getAdministrativePermission ok');
+
+  });
+
+  it('request administrative permissions', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#permissions button.get-administrative-permissions');
+    button.click();
+
+    const label = page.getEle('div#permissions span.status');
+    expect(label.getText()).toEqual('Permission status: getAdministrativePermissions ok');
+
+  });
+
+  it('create an administrative permission', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#permissions button.create-administrative-permission');
+    button.click();
+
+    const label = page.getEle('div#permissions span.status');
+    expect(label.getText()).toEqual('Permission status: createAdministrativePermission ok');
+
+  });
+
+  it('request default object access permissions', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#permissions button.get-default-object-access-permissions');
+    button.click();
+
+    const label = page.getEle('div#permissions span.status');
+    expect(label.getText()).toEqual('Permission status: getDefaultObjectAccessPermissions ok');
+
+  });
+
+  it('create a default object access permission', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#permissions button.create-default-object-access-permission');
+    button.click();
+
+    const label = page.getEle('div#permissions span.status');
+    expect(label.getText()).toEqual('Permission status: createDefaultObjectAccessPermission ok');
+
+  });
+
   it('request the knora-api system ontology', () => {
 
     page.navigateTo();
@@ -130,10 +244,122 @@ describe('workspace-project App', () => {
     expect(loginStatus.getText()).toEqual('logged in');
 
     // create testonto
-    const button = page.getEle('div section#ontologyeditor button.create');
+    const button = page.getEle('div section#ontologyeditor button.create-onto');
     button.click();
     const label = page.getEle('div section#ontologyeditor span.label');
     expect(label.getText()).toEqual('Test Ontology');
+
+  });
+  // TODO: create res class / update following example
+  it('create new "testclass" resource class in testonto of anything project', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // create res class
+    const button = page.getEle('div section#ontologyeditor button.create-res-class');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.res-class-label');
+    expect(label.getText()).toEqual('Test Klasse');
+
+  });
+
+  it('create a new property in testonto of the anything project', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // create property
+    const button = page.getEle('div section#ontologyeditor button.create-res-prop');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.res-prop-label');
+
+    expect(label.getText()).toEqual('has name');
+  });
+
+  it('add a cardinality to a resource class in testonto', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // add cardinality
+    const button = page.getEle('div section#ontologyeditor button.add-card-to-res-prop');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.res-card-added');
+
+    expect(label.getText()).toEqual('Test Klasse');
+
+  });
+
+  it('delete "testclass" resource class', () => {
+    
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // delete testclass
+    const button = page.getEle('div section#ontologyeditor button.delete-res-class');
+    button.click();
+    const msg = page.getEle('div section#ontologyeditor span.status');
+    expect(msg.getText()).toEqual('res class has been deleted');
+
+  });
+
+  it('delete "has name" property', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // delete property
+    const button = page.getEle('div section#ontologyeditor button.delete-res-prop');
+    button.click();
+    const msg = page.getEle('div section#ontologyeditor span.status');
+    expect(msg.getText()).toEqual('res property has been deleted');
+
 
   });
 
@@ -147,12 +373,12 @@ describe('workspace-project App', () => {
     const loginStatus = page.getEle('div section#login span.status');
     expect(loginStatus.getText()).toEqual('logged in');
 
-    // get testonto
-    const getButton = page.getEle('div section#ontologyeditor button.read');
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
     getButton.click();
 
     // delete testonto
-    const button = page.getEle('div section#ontologyeditor button.delete');
+    const button = page.getEle('div section#ontologyeditor button.delete-onto');
     button.click();
     const msg = page.getEle('div section#ontologyeditor span.status');
     expect(msg.getText()).toEqual('Ontology http://0.0.0.0:3333/ontology/0001/testonto/v2 has been deleted');

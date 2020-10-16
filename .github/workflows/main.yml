@@ -40,7 +40,9 @@ jobs:
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
       - name: Install requirements
-        run: sudo apt-get install expect
+        run: |
+          sudo apt-get install expect
+          sudo npm install --global @bazel/bazelisk
       - name: Run test-integration
         uses: actions/setup-node@v1
         with:
@@ -58,10 +60,23 @@ jobs:
       - name: Run e2e tests
         run: make e2e-tests
 
+  update_release_draft:
+    name: Update next release draft
+    needs: [test-integration]
+    runs-on: ubuntu-latest
+    # Drafts your next Release notes as Pull Requests are merged into "master"
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - uses: release-drafter/release-drafter@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
   build:
     name: Build package and publish (on release only)
     needs: [test-integration]
     runs-on: ubuntu-latest
+    env:
+      dist-directory: ./build/
     if: github.event_name == 'release' && startsWith(github.ref, 'refs/tags')
     steps:
       - uses: actions/checkout@v2
@@ -71,6 +86,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - name: Install dependencies
         run: |
+          sudo npm install --global @bazel/bazelisk
           npm install
           npm run peer-deps
       - name: Test
@@ -79,16 +95,18 @@ jobs:
         run: npm run prepare-dev-publication
       - name: Build
         run: npm run build
+      - name: Get previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@master"
+      - name: Update version
+        run: cd ${{env.dist-directory}} && npm version ${{steps.previoustag.outputs.tag}} --git-tag-version=false --commit-hooks=false
       - if: "github.event.release.prerelease"
-        name: Publish prerelease to npm
-        run: npm publish --tag rc build/ --access public
+        name: Publish pre-release to npm
+        run: npm publish ${{env.dist-directory}} --tag rc --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_DASCHBOT}}
       - if: "!github.event.release.prerelease"
         name: Publish release to npm
-        run: npm publish build/ --access public
+        run: npm publish ${{env.dist-directory}} --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_DASCHBOT}}
-      - uses: lakto/gren-action@v1.1.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

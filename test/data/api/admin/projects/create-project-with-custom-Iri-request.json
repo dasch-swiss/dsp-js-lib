@@ -1,5 +1,5 @@
 {
-    "projectIri": "http://rdfh.ch/projects/3333",
+    "id": "http://rdfh.ch/projects/3333",
     "shortname": "newprojectWithIri",
     "shortcode": "3333",
     "longname": "new project with a custom IRI",

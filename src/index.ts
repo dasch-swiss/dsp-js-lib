@@ -1,6 +1,12 @@
 // Globally necessary files
+import { DefaultObjectAccessPermissionsResponse } from "./models/admin/default-object-access-permissions-response";
+import { DefaultObjectAccessPermission } from "./models/admin/default-object-access-permission";
+
 export { KnoraApiConnection } from "./knora-api-connection";
 export { KnoraApiConfig } from "./knora-api-config";
+
+// System Endpoints
+export { HealthEndpointSystem } from "./api/system/health/health-endpoint-system";
 
 // Admin Endpoints
 export { GroupsEndpointAdmin } from "./api/admin/groups/groups-endpoint-admin";
@@ -22,6 +28,8 @@ export { UserCache } from "./cache/UserCache";
 export { ListAdminCache } from "./cache/ListAdminCache";
 
 // Classes
+export { HealthResponse } from "./models/system/health-response";
+
 export { Group } from "./models/admin/group";
 export { ReadGroup } from "./models/admin/read-group";
 export { StoredGroup } from "./models/admin/stored-group";
@@ -32,9 +40,13 @@ export { GroupsResponse } from "./models/admin/groups-response";
 export { MembersResponse } from "./models/admin/members-response";
 
 export { AdministrativePermission } from "./models/admin/administrative-permission";
+export { DefaultObjectAccessPermission } from "./models/admin/default-object-access-permission";
+export { CreateAdministrativePermission } from "./models/admin/create-administrative-permission";
 export { StoredAdministrativePermission } from "./models/admin/stored-administrative-permission";
 export { AdministrativePermissionResponse } from "./models/admin/administrative-permission-response";
+export { AdministrativePermissionsResponse } from "./models/admin/administrative-permissions-response";
 export { Permission } from "./models/admin/permission";
+export { CreatePermission } from "./models/admin/create-permission";
 export { Permissions } from "./models/admin/permissions";
 
 export { Project } from "./models/admin/project";
@@ -45,6 +57,11 @@ export { ProjectsResponse } from "./models/admin/projects-response";
 export { ProjectResponse } from "./models/admin/project-response";
 export { ProjectRestrictedViewSettings } from "./models/admin/project-restricted-view-settings";
 export { ProjectRestrictedViewSettingsResponse } from "./models/admin/project-restricted-view-settings-response";
+export { ProjectPermissionsResponse } from "./models/admin/project-permissions-response";
+export { ProjectPermission } from "./models/admin/project-permission";
+export { DefaultObjectAccessPermissionsResponse } from "./models/admin/default-object-access-permissions-response";
+export { DefaultObjectAccessPermissionResponse } from "./models/admin/default-object-access-permission-response";
+export { CreateDefaultObjectAccessPermission } from "./models/admin/create-default-object-access-permission";
 export { KeywordsResponse } from "./models/admin/keywords-response";
 
 export { User } from "./models/admin/user";
@@ -78,9 +95,16 @@ export { ApiResponseData } from "./models/api-response-data";
 export { ApiResponseError } from "./models/api-response-error";
 
 export { CreateOntology } from "./models/v2/ontologies/create/create-ontology";
+export { CreateResourceProperty } from "./models/v2/ontologies/create/create-resource-property";
+export { ResourcePropertyDefinitionWithAllLanguages } from "./models/v2/ontologies/resource-property-definition";
+export { UpdateOntology } from "./models/v2/ontologies/update/update-ontology";
 export { DeleteOntology } from "./models/v2/ontologies/delete/delete-ontology";
+export { DeleteResourceClass } from "./models/v2/ontologies/delete/delete-resource-class";
+export { DeleteResourceProperty } from "./models/v2/ontologies/delete/delete-resource-property";
 export { DeleteOntologyResponse } from "./models/v2/ontologies/delete/delete-ontology-response";
+export { CreateResourceClass } from "./models/v2/ontologies/create/create-resource-class";
 export { ReadOntology } from "./models/v2/ontologies/read/read-ontology";
+export { UpdateOntologyResourceClassCardinality } from "./models/v2/ontologies/update/update-ontology-resource-class-cardinality";
 export { OntologyMetadata, OntologiesMetadata } from "./models/v2/ontologies/ontology-metadata";
 export {
     ResourceClassDefinitionWithPropertyDefinition,
@@ -91,7 +115,7 @@ export { ClassDefinition, IHasProperty, Cardinality } from "./models/v2/ontologi
 export { SystemPropertyDefinition } from "./models/v2/ontologies/system-property-definition";
 export { ResourcePropertyDefinition } from "./models/v2/ontologies/resource-property-definition";
 export { PropertyDefinition } from "./models/v2/ontologies/property-definition";
-export { ResourceClassDefinition } from "./models/v2/ontologies/resource-class-definition";
+export { ResourceClassDefinition, ResourceClassDefinitionWithAllLanguages } from "./models/v2/ontologies/resource-class-definition";
 export { StandoffClassDefinition } from "./models/v2/ontologies/standoff-class-definition";
 export { ReadResourceSequence } from "./models/v2/resources/read/read-resource-sequence";
 export { ReadResource } from "./models/v2/resources/read/read-resource";
@@ -156,6 +180,8 @@ export { CreateUriValue } from "./models/v2/resources/values/create/create-uri-v
 export { CreateTimeValue } from "./models/v2/resources/values/create/create-time-value";
 export { CreateGeonameValue } from "./models/v2/resources/values/create/create-geoname-value";
 
+export { BaseValue } from "./models/v2/resources/values/base-value";
+
 export { ListNodeV2 } from "./models/v2/lists/list-node-v2";
 
 export { Constants } from "./models/v2/Constants";
@@ -163,3 +189,8 @@ export { Constants } from "./models/v2/Constants";
 // Utils
 export { CardinalityUtil } from "./models/v2/resources/cardinality-util";
 export { PermissionUtil } from "./models/v2/resources/permission-util";
+
+// Interfaces
+export { IPermissions } from "./interfaces/models/admin/i-permissions";
+export { IFulltextSearchParams } from "./interfaces/models/v2/i-fulltext-search-params";
+export { ILabelSearchParams } from "./interfaces/models/v2/i-label-search-params";
