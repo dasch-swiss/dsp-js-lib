@@ -6,6 +6,7 @@
 
 - [#243](https://github.com/dasch-swiss/dsp-js-lib/pull/243) DSP-676 Add Support for Additional Methods in Admin Permission Endpoint
 - [#235](https://github.com/dasch-swiss/dsp-js-lib/pull/235) DSP-428 Create res properties
+- [#246](https://github.com/dasch-swiss/dsp-js-lib/pull/246) DSP-743 Support the api route /health
 
 ## Bug fixes
 
@@ -21,7 +22,7 @@
 
 #### Dependencies
 
-- [#246](https://github.com/dasch-swiss/dsp-js-lib/pull/246) Knora): Use rc.17
+- [#237](https://github.com/dasch-swiss/dsp-js-lib/pull/237) DSP-671 Update dsp-api rc.16
 
 ---
 

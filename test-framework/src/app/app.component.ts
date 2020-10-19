@@ -51,8 +51,9 @@ import {
     ProjectPermissionsResponse,
     AdministrativePermissionsResponse
 } from "@dasch-swiss/dsp-js";
+import { Observable } from "rxjs";
 
-import { map } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
 
 @Component({
     selector: 'app-root',
@@ -64,6 +65,8 @@ export class AppComponent implements OnInit {
     knoraApiConnection: KnoraApiConnection;
 
     userCache: UserCache;
+
+    healthState: Observable<any>;
 
     ontologies: Map<string, ReadOntology>;
     anythingOntologies: OntologiesMetadata;
@@ -103,6 +106,27 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection = new KnoraApiConnection(config);
         // console.log(this.knoraApiConnection);
         this.userCache = new UserCache(this.knoraApiConnection);
+
+        this.getHealthStatus();
+
+    }
+
+    getHealthStatus() {
+        this.healthState =
+            this.knoraApiConnection.system.healthEndpoint.getHealthStatus().pipe(
+                tap(
+                    res => console.log(res)
+                ),
+                map(
+                    res => {
+                        if (res instanceof ApiResponseData) {
+                            return res.body;
+                        } else {
+                            return res;
+                        }
+                    }
+                )
+            );
 
     }
 
