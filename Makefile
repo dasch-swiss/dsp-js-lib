@@ -33,7 +33,7 @@ knora-stack: ## runs the knora-stack
 generate-test-data: ## downloads generated test data from Knora-API
 	@rm -rf $(CURRENT_DIR)/.tmp/typescript
 	mkdir -p $(CURRENT_DIR)/.tmp/typescript
-	unzip $(CURRENT_DIR)/.client-test-data.zip -d $(CURRENT_DIR)/.tmp/typescript
+	unzip $(CURRENT_DIR)/client-test-data.zip -d $(CURRENT_DIR)/.tmp/typescript
 
 .PHONY: delete-test-data
 delete-test-data: ## delete static test data before integration
