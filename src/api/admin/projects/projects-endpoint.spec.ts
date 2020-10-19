@@ -1,15 +1,15 @@
-import { Project } from "../../../models/admin/project";
-import { ApiResponseData } from "../../../models/api-response-data";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { KeywordsResponse } from "../../../models/admin/keywords-response";
 import { MembersResponse } from "../../../models/admin/members-response";
+import { Project } from "../../../models/admin/project";
 import { ProjectResponse } from "../../../models/admin/project-response";
 import { ProjectRestrictedViewSettingsResponse } from "../../../models/admin/project-restricted-view-settings-response";
 import { ProjectsResponse } from "../../../models/admin/projects-response";
 import { StringLiteral } from "../../../models/admin/string-literal";
 import { UpdateProjectRequest } from "../../../models/admin/update-project-request";
+import { ApiResponseData } from "../../../models/api-response-data";
 
 describe("ProjectsEndpoint", () => {
 
@@ -90,7 +90,7 @@ describe("ProjectsEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/projects/create-project-request.json");
 
@@ -107,7 +107,7 @@ describe("ProjectsEndpoint", () => {
             knoraApiConnection.admin.projectsEndpoint.getKeywords().subscribe(
                 (response: ApiResponseData<KeywordsResponse>) => {
 
-                    expect(response.body.keywords.length).toEqual(18);
+                    expect(response.body.keywords.length).toEqual(21);
                     expect(response.body.keywords[0]).toEqual("Basel");
 
                     done();
@@ -134,8 +134,8 @@ describe("ProjectsEndpoint", () => {
             knoraApiConnection.admin.projectsEndpoint.getProjectKeywords("http://rdfh.ch/projects/00FF").subscribe(
                 (response: ApiResponseData<KeywordsResponse>) => {
 
-                    expect(response.body.keywords.length).toEqual(2);
-                    expect(response.body.keywords[0]).toEqual("arbitrary test data");
+                    expect(response.body.keywords.length).toEqual(14);
+                    expect(response.body.keywords[0]).toEqual("Basel");
 
                     done();
                 });
@@ -194,7 +194,7 @@ describe("ProjectsEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/projects/update-project-request.json");
 

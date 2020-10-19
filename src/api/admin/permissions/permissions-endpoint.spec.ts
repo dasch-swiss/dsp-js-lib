@@ -145,7 +145,7 @@ describe("PermissionsEndpoint", () => {
             knoraApiConnection.admin.permissionsEndpoint.createAdministrativePermission(adminPermission).subscribe(
                 (response: ApiResponseData<AdministrativePermissionResponse>) => {
 
-                    expect(response.body.administrative_permission.id).toEqual("http://rdfh.ch/permissions/0001/mFlyBEiMQtGzwy_hK0M-Ow");
+                    expect(response.body.administrative_permission.id).toEqual("http://rdfh.ch/permissions/0001/43PeRVK_RqikM6noncPIiQ");
                     expect(response.body.administrative_permission.forGroup).toEqual("http://rdfh.ch/groups/0001/thing-searcher");
                     expect(response.body.administrative_permission.forProject).toEqual("http://rdfh.ch/projects/0001");
                     expect(response.body.administrative_permission.hasPermissions.length).toEqual(1);
@@ -309,7 +309,7 @@ describe("PermissionsEndpoint", () => {
 
                     expect(response.body.defaultObjectAccessPermission.forGroup).toEqual("http://rdfh.ch/groups/0001/thing-searcher");
                     expect(response.body.defaultObjectAccessPermission.forProject).toEqual("http://rdfh.ch/projects/0001");
-                    expect(response.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/0001/v4uUcwD7S5-rfus1uaq1ZQ");
+                    expect(response.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/0001/TqQ2fSIzTsy2blrXGMW5cQ");
                     expect(response.body.defaultObjectAccessPermission.hasPermissions.length).toBe(1);
 
                     done();

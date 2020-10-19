@@ -1,15 +1,14 @@
-import { User } from "../../../models/admin/user";
-import { ApiResponseError } from "../../../models/api-response-error";
-import { UserResponse } from "../../../models/admin/user-response";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { GroupsResponse } from "../../../models/admin/groups-response";
 import { ProjectsResponse } from "../../../models/admin/projects-response";
-import { StoredUser } from "../../../models/admin/stored-user";
 import { UpdateUserRequest } from "../../../models/admin/update-user-request";
+import { User } from "../../../models/admin/user";
+import { UserResponse } from "../../../models/admin/user-response";
 import { UsersResponse } from "../../../models/admin/users-response";
 import { ApiResponseData } from "../../../models/api-response-data";
+import { ApiResponseError } from "../../../models/api-response-error";
 
 describe("UsersEndpoint", () => {
 
@@ -54,19 +53,19 @@ describe("UsersEndpoint", () => {
 
         it("should return a user by its iri", done => {
 
-            knoraApiConnection.admin.usersEndpoint.getUser("iri", "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q").subscribe(
+            knoraApiConnection.admin.usersEndpoint.getUser("iri", "http://rdfh.ch/users/root").subscribe(
                 (response: ApiResponseData<UserResponse>) => {
-                    expect(response.body.user.familyName).toEqual("User01");
+                    expect(response.body.user.familyName).toEqual("Administrator");
 
-                    expect(response.body.user.permissions.administrativePermissionsPerProject).toBeDefined();
-                    expect(response.body.user.permissions.administrativePermissionsPerProject!["http://rdfh.ch/projects/0001"]).toBeDefined();
-                    expect(response.body.user.permissions.administrativePermissionsPerProject!["http://rdfh.ch/projects/0001"]!.length).toEqual(1);
-                    expect(response.body.user.permissions.administrativePermissionsPerProject!["http://rdfh.ch/projects/0001"]![0]!.name).toEqual("ProjectResourceCreateAllPermission");
+                    // expect(response.body.user.permissions.administrativePermissionsPerProject).toBeDefined();
+                    // expect(response.body.user.permissions.administrativePermissionsPerProject!["http://rdfh.ch/projects/0001"]).toBeDefined();
+                    // expect(response.body.user.permissions.administrativePermissionsPerProject!["http://rdfh.ch/projects/0001"]!.length).toEqual(1);
+                    // expect(response.body.user.permissions.administrativePermissionsPerProject!["http://rdfh.ch/projects/0001"]![0]!.name).toEqual("ProjectResourceCreateAllPermission");
 
                     expect(response.body.user.permissions.groupsPerProject).toBeDefined();
-                    expect(response.body.user.permissions.groupsPerProject!["http://rdfh.ch/projects/0001"]).toBeDefined();
-                    expect(response.body.user.permissions.groupsPerProject!["http://rdfh.ch/projects/0001"]!.length).toEqual(2);
-                    expect(response.body.user.permissions.groupsPerProject!["http://rdfh.ch/projects/0001"]![0]).toEqual("http://rdfh.ch/groups/0001/thing-searcher");
+                    expect(response.body.user.permissions.groupsPerProject!["http://www.knora.org/ontology/knora-admin#SystemProject"]).toBeDefined();
+                    expect(response.body.user.permissions.groupsPerProject!["http://www.knora.org/ontology/knora-admin#SystemProject"]!.length).toEqual(1);
+                    expect(response.body.user.permissions.groupsPerProject!["http://www.knora.org/ontology/knora-admin#SystemProject"]![0]).toEqual("http://www.knora.org/ontology/knora-admin#SystemAdmin");
 
                     done();
                 });
@@ -77,7 +76,7 @@ describe("UsersEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(user)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/users/iri/http%3A%2F%2Frdfh.ch%2Fusers%2F9XBCrDV3SRa7kS1WwynB4Q");
+            expect(request.url).toBe("http://localhost:3333/admin/users/iri/http%3A%2F%2Frdfh.ch%2Fusers%2Froot");
 
             expect(request.method).toEqual("GET");
 
@@ -85,9 +84,9 @@ describe("UsersEndpoint", () => {
 
         it("should return a user by its email", done => {
 
-            knoraApiConnection.admin.usersEndpoint.getUser("email", "anything.user01@example.org").subscribe(
+            knoraApiConnection.admin.usersEndpoint.getUser("email", "root@example.org").subscribe(
                 (response: ApiResponseData<UserResponse>) => {
-                    expect(response.body.user.familyName).toEqual("User01");
+                    expect(response.body.user.familyName).toEqual("Administrator");
 
                     done();
                 });
@@ -98,7 +97,7 @@ describe("UsersEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(user)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/users/email/anything.user01%40example.org");
+            expect(request.url).toBe("http://localhost:3333/admin/users/email/root%40example.org");
 
             expect(request.method).toEqual("GET");
 
@@ -106,9 +105,9 @@ describe("UsersEndpoint", () => {
 
         it("should return a user by its username", done => {
 
-            knoraApiConnection.admin.usersEndpoint.getUser("username", "anything.user01").subscribe(
+            knoraApiConnection.admin.usersEndpoint.getUser("username", "anything.Administrator").subscribe(
                 (response: ApiResponseData<UserResponse>) => {
-                    expect(response.body.user.familyName).toEqual("User01");
+                    expect(response.body.user.familyName).toEqual("Administrator");
 
                     done();
                 });
@@ -119,7 +118,7 @@ describe("UsersEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(user)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/users/username/anything.user01");
+            expect(request.url).toBe("http://localhost:3333/admin/users/username/anything.Administrator");
 
             expect(request.method).toEqual("GET");
 
@@ -131,9 +130,9 @@ describe("UsersEndpoint", () => {
 
         it("should return a user by its iri", done => {
 
-            knoraApiConnection.admin.usersEndpoint.getUserByIri("http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q").subscribe(
+            knoraApiConnection.admin.usersEndpoint.getUserByIri("http://rdfh.ch/users/root").subscribe(
                 (response: ApiResponseData<UserResponse>) => {
-                    expect(response.body.user.familyName).toEqual("User01");
+                    expect(response.body.user.familyName).toEqual("Administrator");
 
                     done();
                 });
@@ -144,7 +143,7 @@ describe("UsersEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(user)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/users/iri/http%3A%2F%2Frdfh.ch%2Fusers%2F9XBCrDV3SRa7kS1WwynB4Q");
+            expect(request.url).toBe("http://localhost:3333/admin/users/iri/http%3A%2F%2Frdfh.ch%2Fusers%2Froot");
 
             expect(request.method).toEqual("GET");
 
@@ -156,9 +155,9 @@ describe("UsersEndpoint", () => {
 
         it("should return a user by its email", done => {
 
-            knoraApiConnection.admin.usersEndpoint.getUserByEmail("anything.user01@example.org").subscribe(
+            knoraApiConnection.admin.usersEndpoint.getUserByEmail("root@example.org").subscribe(
                 (response: ApiResponseData<UserResponse>) => {
-                    expect(response.body.user.familyName).toEqual("User01");
+                    expect(response.body.user.familyName).toEqual("Administrator");
 
                     done();
                 });
@@ -169,7 +168,7 @@ describe("UsersEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(user)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/users/email/anything.user01%40example.org");
+            expect(request.url).toBe("http://localhost:3333/admin/users/email/root%40example.org");
 
             expect(request.method).toEqual("GET");
 
@@ -181,9 +180,9 @@ describe("UsersEndpoint", () => {
 
         it("should return a user by its username", done => {
 
-            knoraApiConnection.admin.usersEndpoint.getUserByUsername( "anything.user01").subscribe(
+            knoraApiConnection.admin.usersEndpoint.getUserByUsername("anything.Administrator").subscribe(
                 (response: ApiResponseData<UserResponse>) => {
-                    expect(response.body.user.familyName).toEqual("User01");
+                    expect(response.body.user.familyName).toEqual("Administrator");
 
                     done();
                 });
@@ -194,7 +193,7 @@ describe("UsersEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(user)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/users/username/anything.user01");
+            expect(request.url).toBe("http://localhost:3333/admin/users/username/anything.Administrator");
 
             expect(request.method).toEqual("GET");
 
@@ -212,7 +211,7 @@ describe("UsersEndpoint", () => {
                 (response: ApiResponseData<GroupsResponse>) => {
 
                     expect(response.body.groups.length).toEqual(1);
-                    expect(response.body.groups[0].id).toEqual("http://rdfh.ch/groups/0001/thing-searcher");
+                    expect(response.body.groups[0].id).toEqual("http://rdfh.ch/groups/00FF/images-reviewer");
 
                     done();
                 }
@@ -318,7 +317,7 @@ describe("UsersEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/users/create-user-request.json");
 
@@ -358,7 +357,7 @@ describe("UsersEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/users/update-user-request.json");
 
@@ -391,7 +390,7 @@ describe("UsersEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/users/update-user-status-request.json");
 
@@ -424,7 +423,7 @@ describe("UsersEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/users/update-user-password-request.json");
 
@@ -459,7 +458,7 @@ describe("UsersEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
         });
 
@@ -519,7 +518,7 @@ describe("UsersEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
         });
 
@@ -579,7 +578,7 @@ describe("UsersEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
         });
 
@@ -620,8 +619,8 @@ describe("UsersEndpoint", () => {
 
             knoraApiConnection.admin.usersEndpoint.updateUserSystemAdminMembership("http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q", true).subscribe(
                 (response: ApiResponseData<UserResponse> | ApiResponseError) => {
-                done();
-            });
+                    done();
+                });
 
             const request = jasmine.Ajax.requests.mostRecent();
 
