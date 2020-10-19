@@ -46,8 +46,9 @@ jobs:
           version: "tags/v13.0.0-rc.18"
           file: "client-test-data.zip"
           token: ${{ secrets.GH_TOKEN }}
-        run: unzip client-test-data.zip -d .tmp/typescript
       - name: Prepare test data
+        run: unzip client-test-data.zip -d .tmp/typescript
+      - name: Integrate test data
         run: |
           make delete-test-data
           make integrate-test-data
