@@ -12,7 +12,7 @@ include vars.mk
 # Clones the knora-api git repository
 .PHONY: clone-knora-stack
 clone-knora-stack:
-	@git clone --branch v13.0.0-rc.17 --single-branch --depth 1 https://github.com/dasch-swiss/knora-api.git $(CURRENT_DIR)/.tmp/knora-stack
+	@git clone --branch $(API_VERSION) --single-branch --depth 1 https://github.com/dasch-swiss/knora-api.git $(CURRENT_DIR)/.tmp/knora-stack
 
 #################################
 # Integration test targets
@@ -33,9 +33,7 @@ knora-stack: ## runs the knora-stack
 generate-test-data: ## downloads generated test data from Knora-API
 	@rm -rf $(CURRENT_DIR)/.tmp/typescript
 	mkdir -p $(CURRENT_DIR)/.tmp/typescript
-	curl --fail --retry 5 --retry-connrefused -w http_code -o $(CURRENT_DIR)/.tmp/ts.zip http://localhost:3333/clientapitest
-	sleep 120
-	unzip $(CURRENT_DIR)/.tmp/ts.zip -d $(CURRENT_DIR)/.tmp/typescript
+	unzip $(CURRENT_DIR)/.client-test-data.zip -d $(CURRENT_DIR)/.tmp/typescript
 
 .PHONY: delete-test-data
 delete-test-data: ## delete static test data before integration

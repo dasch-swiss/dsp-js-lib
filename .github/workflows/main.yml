@@ -47,11 +47,7 @@ jobs:
           file: "client-test-data.zip"
           token: ${{ secrets.GH_TOKEN }}
       - name: Prepare test data
-        run: unzip client-test-data.zip -d .tmp/typescript
-      - name: Integrate test data
-        run: |
-          make delete-test-data
-          make integrate-test-data
+        run: make prepare-test-data
       - name: Run unit tests
         run: make unit-tests
       - name: Build lib
