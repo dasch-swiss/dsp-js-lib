@@ -390,7 +390,7 @@ describe("ResourcesConversionUtil", () => {
                     expect(resSeq.resources.length).toEqual(24);
                     expect(resSeq.mayHaveMoreResults).toEqual(true);
 
-                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(22);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(24);
                     expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
 
                     done();
