@@ -5,6 +5,14 @@ CURRENT_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
 include vars.mk
 
+# Function to get github release asset id and to download client-test-data.zip from knora-api release
+define download-test-data
+    ASSET_ID=`curl -H "Accept: application/vnd.github.v3.raw" -s https://api.github.com/repos/$(1)/releases \
+    | jq ". | map(select(.tag_name == \"$(2)\"))[0].assets | map(select(.name == \"client-test-data.zip\"))[0].id"` && \
+    echo $$ASSET_ID && \
+    curl -L -J -O -H "Accept: application/octet-stream" https://api.github.com/repos/$(1)/releases/assets/$$ASSET_ID
+endef
+
 #################################
 # General targets
 #################################
@@ -28,6 +36,10 @@ knora-stack: ## runs the knora-stack
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack init-db-test
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-up
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-logs-api-no-follow
+
+.PHONY: get-test-data-from-release 
+get-test-data-from-release: ## get the test-data from assets in github release
+	@$(call download-test-data,$(API_REPO),$(API_VERSION))
 
 .PHONY: generate-test-data
 generate-test-data: ## prepare test data from Knora-API

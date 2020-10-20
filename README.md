@@ -126,11 +126,14 @@ If you need a local version of this lib that contains the mocks, do the followin
 DSP-JS is compatible with a specified release of DSP-API.
 To update the target release of DSP-API, the following steps have to be carried out:
 
+1. Update DSP-API version in `vars.mk`, e.g., change `v13.0.0-rc.16` to `v13.0.0-rc.17`.
 1. Delete local test data with `make delete-test-data`
 1. Generate test data using the target DSP-API release,
-   see <https://docs.knora.org> -> Internals -> Development -> Generating Client Test Data.
-1. Copy generated test data from Knora-Api repository to DSP-JS-Lib repo. Run from project root: `cp /Folder/To/Knora-Api/client-test-data.zip ./`
-1. Unpack generated test data and integrate it using make command `make prepare-test-data`
+   - Variant 1: See <https://docs.knora.org> -> Internals -> Development -> Generating Client Test Data
+   and copy generated test data from Knora-Api repository to DSP-JS-Lib repo:
+   Run from project root: `cp /Folder/To/Knora-Api/client-test-data.zip ./`
+   - Variant 2: Download test-data from DSP-API release with `make get-test-data-from-release`
+1. Unpack generated test data and integrate it with `make prepare-test-data`
 1. Run the unit tests with `npm test` from the project root.
 1. Check for differences in the generated test data with respect to the previous release of DSP-API.
    If there are changes in the test data that have **no breaking effect**, integrate them (add them to the git repo).
@@ -140,8 +143,8 @@ To update the target release of DSP-API, the following steps have to be carried 
    - build the library and publish it locally with `npm run yalc-publish`
    - change to directory `test-framework`
    - add the locally build library using `npm run yalc-add` and run `npm install`
-   - run `npm run webdriver-update` and then `npm run e22`
-1. Update DSP-API version in `Makefile`, e.g., change `--branch v13.0.0-rc.16` to `--branch v13.0.0-rc.17`.
+   - run `npm run webdriver-update` and then `npm run e2e`
+1. Update DSP-API version in `.github/workflows/main.yml` in step `Get api client test data from knora-api`, e.g., change `tags/v13.0.0-rc.16` to `tags/v13.0.0-rc.17`.
 1. See if the tests pass on GitHub CI
 
 ## Integration of Generated Test Data
