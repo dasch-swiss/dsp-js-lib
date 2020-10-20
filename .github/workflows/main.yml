@@ -33,7 +33,7 @@ jobs:
         run: |
           sudo apt-get install expect
           sudo npm install --global @bazel/bazelisk
-      - name: Run test-integration
+      - name: Setup node
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}

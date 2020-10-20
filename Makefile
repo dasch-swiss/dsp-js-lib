@@ -30,7 +30,7 @@ knora-stack: ## runs the knora-stack
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-logs-api-no-follow
 
 .PHONY: generate-test-data
-generate-test-data: ## downloads generated test data from Knora-API
+generate-test-data: ## prepare test data from Knora-API
 	@rm -rf $(CURRENT_DIR)/.tmp/typescript
 	mkdir -p $(CURRENT_DIR)/.tmp/typescript
 	unzip $(CURRENT_DIR)/client-test-data.zip -d $(CURRENT_DIR)/.tmp/typescript
