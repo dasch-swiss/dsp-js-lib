@@ -14,7 +14,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "V",
+            "knora-api:userHasPermission": "M",
             "knora-api:creationDate": {
                 "@value": "2016-10-17T17:16:04.916Z",
                 "@type": "xsd:dateTimeStamp"
@@ -39,7 +39,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "V",
+            "knora-api:userHasPermission": "M",
             "knora-api:creationDate": {
                 "@value": "2020-04-07T09:12:56.710717Z",
                 "@type": "xsd:dateTimeStamp"
@@ -64,7 +64,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "V",
+            "knora-api:userHasPermission": "M",
             "knora-api:creationDate": {
                 "@value": "2019-11-29T10:00:00.673298Z",
                 "@type": "xsd:dateTimeStamp"
@@ -89,7 +89,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "V",
+            "knora-api:userHasPermission": "M",
             "knora-api:creationDate": {
                 "@value": "2016-10-17T17:16:04.911Z",
                 "@type": "xsd:dateTimeStamp"
@@ -114,7 +114,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "V",
+            "knora-api:userHasPermission": "M",
             "knora-api:creationDate": {
                 "@value": "2016-10-17T17:16:04.913Z",
                 "@type": "xsd:dateTimeStamp"
@@ -139,7 +139,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "V",
+            "knora-api:userHasPermission": "M",
             "knora-api:creationDate": {
                 "@value": "2016-10-17T17:16:04.911Z",
                 "@type": "xsd:dateTimeStamp"
@@ -164,7 +164,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "V",
+            "knora-api:userHasPermission": "M",
             "knora-api:creationDate": {
                 "@value": "2016-10-17T17:16:04.917Z",
                 "@type": "xsd:dateTimeStamp"
@@ -189,7 +189,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "V",
+            "knora-api:userHasPermission": "M",
             "knora-api:creationDate": {
                 "@value": "2016-10-17T17:16:04.914Z",
                 "@type": "xsd:dateTimeStamp"
@@ -214,7 +214,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "V",
+            "knora-api:userHasPermission": "M",
             "knora-api:creationDate": {
                 "@value": "2019-11-29T10:00:00.673298Z",
                 "@type": "xsd:dateTimeStamp"
@@ -239,7 +239,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "V",
+            "knora-api:userHasPermission": "CR",
             "knora-api:creationDate": {
                 "@value": "2016-03-02T15:05:10Z",
                 "@type": "xsd:dateTimeStamp"
@@ -264,7 +264,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "RV",
+            "knora-api:userHasPermission": "M",
             "knora-api:creationDate": {
                 "@value": "2018-05-28T15:52:03.897Z",
                 "@type": "xsd:dateTimeStamp"
@@ -275,6 +275,31 @@
             "knora-api:hasPermissions": "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:KnownUser|RV knora-admin:UnknownUser",
             "@type": "anything:Thing",
             "@id": "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw"
+        },
+        {
+            "knora-api:arkUrl": {
+                "@value": "http://0.0.0.0:3336/ark:/72163/1/0001/IwMDbs0KQsaxSRUTl2cAIQG",
+                "@type": "xsd:anyURI"
+            },
+            "rdfs:label": "hidden thing",
+            "knora-api:versionArkUrl": {
+                "@value": "http://0.0.0.0:3336/ark:/72163/1/0001/IwMDbs0KQsaxSRUTl2cAIQG.20191129T100000673298Z",
+                "@type": "xsd:anyURI"
+            },
+            "knora-api:attachedToProject": {
+                "@id": "http://rdfh.ch/projects/0001"
+            },
+            "knora-api:userHasPermission": "M",
+            "knora-api:creationDate": {
+                "@value": "2019-11-29T10:00:00.673298Z",
+                "@type": "xsd:dateTimeStamp"
+            },
+            "knora-api:attachedToUser": {
+                "@id": "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q"
+            },
+            "knora-api:hasPermissions": "M knora-admin:ProjectMember",
+            "@type": "anything:Thing",
+            "@id": "http://rdfh.ch/0001/IwMDbs0KQsaxSRUTl2cAIQ"
         },
         {
             "knora-api:arkUrl": {
@@ -289,7 +314,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "V",
+            "knora-api:userHasPermission": "M",
             "knora-api:creationDate": {
                 "@value": "2016-10-17T17:16:04.915Z",
                 "@type": "xsd:dateTimeStamp"
@@ -314,7 +339,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "V",
+            "knora-api:userHasPermission": "M",
             "knora-api:creationDate": {
                 "@value": "2016-10-17T17:16:04.916Z",
                 "@type": "xsd:dateTimeStamp"
@@ -339,7 +364,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "V",
+            "knora-api:userHasPermission": "M",
             "knora-api:creationDate": {
                 "@value": "2016-10-17T17:16:04.912Z",
                 "@type": "xsd:dateTimeStamp"
@@ -364,7 +389,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "V",
+            "knora-api:userHasPermission": "M",
             "knora-api:creationDate": {
                 "@value": "2016-10-17T17:16:04.917Z",
                 "@type": "xsd:dateTimeStamp"
@@ -389,7 +414,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "V",
+            "knora-api:userHasPermission": "M",
             "knora-api:creationDate": {
                 "@value": "2016-10-17T17:16:04.916Z",
                 "@type": "xsd:dateTimeStamp"
@@ -414,7 +439,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "V",
+            "knora-api:userHasPermission": "M",
             "knora-api:creationDate": {
                 "@value": "2016-10-17T17:16:04.915Z",
                 "@type": "xsd:dateTimeStamp"
@@ -439,7 +464,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "V",
+            "knora-api:userHasPermission": "M",
             "knora-api:creationDate": {
                 "@value": "2016-10-17T17:16:04.910Z",
                 "@type": "xsd:dateTimeStamp"
@@ -464,7 +489,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "V",
+            "knora-api:userHasPermission": "M",
             "knora-api:creationDate": {
                 "@value": "2016-10-17T17:16:04.916Z",
                 "@type": "xsd:dateTimeStamp"
@@ -489,7 +514,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "V",
+            "knora-api:userHasPermission": "CR",
             "knora-api:creationDate": {
                 "@value": "2016-03-02T15:05:10Z",
                 "@type": "xsd:dateTimeStamp"
@@ -514,7 +539,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "V",
+            "knora-api:userHasPermission": "CR",
             "knora-api:creationDate": {
                 "@value": "2016-03-02T15:05:10Z",
                 "@type": "xsd:dateTimeStamp"
@@ -525,6 +550,31 @@
             "knora-api:hasPermissions": "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:UnknownUser",
             "@type": "anything:Thing",
             "@id": "http://rdfh.ch/0001/a-thing-with-picture"
+        },
+        {
+            "knora-api:arkUrl": {
+                "@value": "http://0.0.0.0:3336/ark:/72163/1/0001/a=thing=with=text=valuesv",
+                "@type": "xsd:anyURI"
+            },
+            "rdfs:label": "Ein Ding für jemanden, dem die Dinge gefallen",
+            "knora-api:versionArkUrl": {
+                "@value": "http://0.0.0.0:3336/ark:/72163/1/0001/a=thing=with=text=valuesv.20160302T150510Z",
+                "@type": "xsd:anyURI"
+            },
+            "knora-api:attachedToProject": {
+                "@id": "http://rdfh.ch/projects/0001"
+            },
+            "knora-api:userHasPermission": "CR",
+            "knora-api:creationDate": {
+                "@value": "2016-03-02T15:05:10Z",
+                "@type": "xsd:dateTimeStamp"
+            },
+            "knora-api:attachedToUser": {
+                "@id": "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q"
+            },
+            "knora-api:hasPermissions": "CR knora-admin:Creator|V knora-admin:ProjectMember",
+            "@type": "anything:Thing",
+            "@id": "http://rdfh.ch/0001/a-thing-with-text-values"
         },
         {
             "knora-api:arkUrl": {
@@ -539,7 +589,7 @@
             "knora-api:attachedToProject": {
                 "@id": "http://rdfh.ch/projects/0001"
             },
-            "knora-api:userHasPermission": "V",
+            "knora-api:userHasPermission": "M",
             "knora-api:creationDate": {
                 "@value": "2016-03-02T15:05:10Z",
                 "@type": "xsd:dateTimeStamp"

@@ -58,22 +58,6 @@
             "rdfs:label": "The Biblio ontology"
         },
         {
-            "@id": "http://0.0.0.0:3333/ontology/0801/leibniz/v2",
-            "@type": "owl:Ontology",
-            "knora-api:attachedToProject": {
-                "@id": "http://rdfh.ch/projects/yTerZGyxjZVqFMNNKXCDPF"
-            },
-            "rdfs:label": "The Briefportal Leibniz ontology"
-        },
-        {
-            "@id": "http://0.0.0.0:3333/ontology/0801/newton/v2",
-            "@type": "owl:Ontology",
-            "knora-api:attachedToProject": {
-                "@id": "http://rdfh.ch/projects/yTerZGyxjZVqFMNNKXCDPF"
-            },
-            "rdfs:label": "The Newton-Project ontology"
-        },
-        {
             "@id": "http://0.0.0.0:3333/ontology/0803/incunabula/v2",
             "@type": "owl:Ontology",
             "knora-api:attachedToProject": {
@@ -123,6 +107,19 @@
             "knora-api:isBuiltIn": true,
             "@type": "owl:Ontology",
             "@id": "http://api.knora.org/ontology/salsah-gui/v2"
+        },
+        {
+            "knora-api:lastModificationDate": {
+                "@value": "2018-09-10T14:53:00Z",
+                "@type": "xsd:dateTimeStamp"
+            },
+            "rdfs:label": "An example of a shared ontology",
+            "knora-api:attachedToProject": {
+                "@id": "http://www.knora.org/ontology/knora-admin#DefaultSharedOntologiesProject"
+            },
+            "knora-api:isShared": true,
+            "@type": "owl:Ontology",
+            "@id": "http://api.knora.org/ontology/shared/example-box/v2"
         },
         {
             "rdfs:label": "The standoff ontology",

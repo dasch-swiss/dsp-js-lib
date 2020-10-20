@@ -1,8 +1,8 @@
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ApiResponseData } from "../../../models/api-response-data";
-import { HealthResponse } from "../../../models/system/health-response";
 import { ApiResponseError } from "../../../models/api-response-error";
+import { HealthResponse } from "../../../models/system/health-response";
 
 describe("HealthEndpoint", () => {
 
@@ -56,7 +56,7 @@ describe("HealthEndpoint", () => {
         it("should return throw an error if the header server param is missing", done => {
 
             knoraApiConnection.system.healthEndpoint.getHealthStatus().subscribe(
-                (response: ApiResponseData<HealthResponse>) => {},
+                (response: ApiResponseData<HealthResponse>) => { },
                 (err: ApiResponseError) => {
                     expect(err.error instanceof Error).toBeTruthy();
                     expect((err.error as Error).message).toEqual("Could not get server header param.");
@@ -81,7 +81,7 @@ describe("HealthEndpoint", () => {
         it("should return throw an error if the header server param is invalid", done => {
 
             knoraApiConnection.system.healthEndpoint.getHealthStatus().subscribe(
-                (response: ApiResponseData<HealthResponse>) => {},
+                (response: ApiResponseData<HealthResponse>) => { },
                 (err: ApiResponseError) => {
                     expect(err.error instanceof Error).toBeTruthy();
                     expect((err.error as Error).message).toEqual("Could not parse server header param webapi/v13.0.0-rc.16-11-ga88d20d.");

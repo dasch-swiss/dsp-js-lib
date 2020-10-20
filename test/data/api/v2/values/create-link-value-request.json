@@ -4,7 +4,7 @@
   "anything:hasOtherThingValue" : {
     "@type" : "knora-api:LinkValue",
     "knora-api:linkValueHasTargetIri" : {
-      "@id" : "http://rdfh.ch/0001/A67ka6UQRHWf313tbhQBjw"
+      "@id" : "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw"
     }
   },
   "@context" : {

@@ -3,7 +3,7 @@
   "@type" : "anything:Thing",
   "anything:hasInteger" : {
     "@type" : "knora-api:IntValue",
-    "knora-api:intValueAsInt" : 4,
+    "knora-api:intValueAsInt" : 1,
     "knora-api:hasPermissions" : "CR knora-admin:Creator|V http://rdfh.ch/groups/0001/thing-searcher"
   },
   "@context" : {
