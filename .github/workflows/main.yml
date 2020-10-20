@@ -9,7 +9,17 @@ jobs:
   build-test:
     name: Build and Test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+         node-version: [12.x]
     steps:
+      - name: Disk Free
+        run: |
+          sudo df -i
+          sudo df -h
+          sudo du -sh /var/lib/docker
+          sudo docker system prune --all --force --volumes
+          sudo df -h
       - name: Checkout source
         uses: actions/checkout@v2
         with:
