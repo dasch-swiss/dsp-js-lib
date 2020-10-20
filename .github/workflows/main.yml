@@ -44,13 +44,13 @@ jobs:
         run: make npm-install
       - name: Get api client test data from knora-api (makefile variant)
         run: make get-test-data-from-release
-      - name: Get api client test data from knora-api (github actions variant)
-        uses: dsaltares/fetch-gh-release-asset@master
-        with:
-          repo: "dasch-swiss/knora-api"
-          version: "tags/v13.0.0-rc.18"
-          file: "client-test-data.zip"
-          token: ${{ secrets.GH_TOKEN }}
+      # - name: Get api client test data from knora-api (github actions variant)
+      #   uses: dsaltares/fetch-gh-release-asset@master
+      #   with:
+      #     repo: "dasch-swiss/knora-api"
+      #     version: "tags/v13.0.0-rc.18"
+      #     file: "client-test-data.zip"
+      #     token: ${{ secrets.GH_TOKEN }}
       - name: Prepare test data
         run: make prepare-test-data
       - name: Run unit tests
