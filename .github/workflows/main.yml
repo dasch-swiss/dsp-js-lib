@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-         node-version: [12.x]
+        node-version: [12.x]
     steps:
       - name: Disk Free
         run: |
@@ -49,6 +49,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
         run: make npm-install
+      - name: Prepare test environment
+        run: make prepare-test-ci
       - name: Get api client test data from knora-api
         uses: dsaltares/fetch-gh-release-asset@master
         with:
