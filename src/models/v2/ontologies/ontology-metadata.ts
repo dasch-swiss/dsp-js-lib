@@ -29,4 +29,3 @@ export class OntologiesMetadata {
     ontologies: OntologyMetadata[] = [];
 
 }
-

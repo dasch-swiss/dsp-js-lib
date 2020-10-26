@@ -212,6 +212,26 @@ describe("OntologiesEndpoint", () => {
 
         });
 
+        it("should return an empty list when no ontologies exist yet for a given project", done => {
+
+            knoraApiConnection.v2.onto.getOntologiesByProjectIri("http://rdfh.ch/projects/0001").subscribe(
+                (response: OntologiesMetadata) => {
+                    expect(response.ontologies.length).toEqual(0);
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            // empty response because no ontologies exist for the project
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({})));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/metadata/http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
         it("should return all ontologies from 'incunabula' project", done => {
 
             knoraApiConnection.v2.onto.getOntologiesByProjectIri("http://rdfh.ch/projects/0803").subscribe(
