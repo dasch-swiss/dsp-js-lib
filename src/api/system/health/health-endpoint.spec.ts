@@ -19,7 +19,7 @@ describe("HealthEndpoint", () => {
 
     describe("Method getHealthStatus", () => {
 
-        it("should return health status", done => {
+        it("should return a running health status", done => {
 
             knoraApiConnection.system.healthEndpoint.getHealthStatus().subscribe(
                 (response: ApiResponseData<HealthResponse>) => {
@@ -38,6 +38,82 @@ describe("HealthEndpoint", () => {
             const request = jasmine.Ajax.requests.mostRecent();
 
             const health = require("../../../../test/data/api/system/health/running-response.json");
+
+            const responseHeader = require("../../../../test/data/api/system/health/response-headers.txt");
+
+            const headerParts = responseHeader.split("\n");
+
+            request.respondWith({
+                status: 200,
+                responseText: JSON.stringify(health),
+                responseHeaders: {
+                    server: headerParts[0].replace("Server: ", "")
+                }
+            });
+
+            expect(request.url).toBe("http://localhost:3333/health");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should return a maintenance mode health status", done => {
+
+            knoraApiConnection.system.healthEndpoint.getHealthStatus().subscribe(
+                (response: ApiResponseData<HealthResponse>) => {
+
+                    expect(response.body.name).toEqual("AppState");
+                    expect(response.body.message).toEqual("Application is in maintenance mode. Please retry later.");
+                    expect(response.body.severity).toEqual("non fatal");
+                    expect(response.body.status).toEqual("unhealthy");
+
+                    expect(response.body.webapiVersion).toEqual("v13.0.0-rc.21");
+                    expect(response.body.akkaVersion).toEqual("10.1.12");
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const health = require("../../../../test/data/api/system/health/maintenance-mode-response.json");
+
+            const responseHeader = require("../../../../test/data/api/system/health/response-headers.txt");
+
+            const headerParts = responseHeader.split("\n");
+
+            request.respondWith({
+                status: 200,
+                responseText: JSON.stringify(health),
+                responseHeaders: {
+                    server: headerParts[0].replace("Server: ", "")
+                }
+            });
+
+            expect(request.url).toBe("http://localhost:3333/health");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should return a stopped mode health status", done => {
+
+            knoraApiConnection.system.healthEndpoint.getHealthStatus().subscribe(
+                (response: ApiResponseData<HealthResponse>) => {
+
+                    expect(response.body.name).toEqual("AppState");
+                    expect(response.body.message).toEqual("Stopped. Please retry later.");
+                    expect(response.body.severity).toEqual("non fatal");
+                    expect(response.body.status).toEqual("unhealthy");
+
+                    expect(response.body.webapiVersion).toEqual("v13.0.0-rc.21");
+                    expect(response.body.akkaVersion).toEqual("10.1.12");
+
+                    done();
+                });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const health = require("../../../../test/data/api/system/health/stopped-response.json");
 
             const responseHeader = require("../../../../test/data/api/system/health/response-headers.txt");
 
