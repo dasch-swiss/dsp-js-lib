@@ -9,6 +9,13 @@ describe("HealthEndpoint", () => {
     const config = new KnoraApiConfig("http", "localhost", 3333, undefined, undefined, true);
     const knoraApiConnection = new KnoraApiConnection(config);
 
+    const getServerFromResponseHeader = (resHeader: string) => {
+        // split by newline: first line server info, second line date
+        const headerParts = resHeader.split("\n");
+        // remove "Server: " from string
+        return headerParts[0].replace("Server: ", "");
+    }
+
     beforeEach(() => {
         jasmine.Ajax.install();
     });
@@ -41,13 +48,11 @@ describe("HealthEndpoint", () => {
 
             const responseHeader = require("../../../../test/data/api/system/health/response-headers.txt");
 
-            const headerParts = responseHeader.split("\n");
-
             request.respondWith({
                 status: 200,
                 responseText: JSON.stringify(health),
                 responseHeaders: {
-                    server: headerParts[0].replace("Server: ", "")
+                    server: getServerFromResponseHeader(responseHeader)
                 }
             });
 
@@ -79,13 +84,11 @@ describe("HealthEndpoint", () => {
 
             const responseHeader = require("../../../../test/data/api/system/health/response-headers.txt");
 
-            const headerParts = responseHeader.split("\n");
-
             request.respondWith({
                 status: 200,
                 responseText: JSON.stringify(health),
                 responseHeaders: {
-                    server: headerParts[0].replace("Server: ", "")
+                    server: getServerFromResponseHeader(responseHeader)
                 }
             });
 
@@ -117,13 +120,11 @@ describe("HealthEndpoint", () => {
 
             const responseHeader = require("../../../../test/data/api/system/health/response-headers.txt");
 
-            const headerParts = responseHeader.split("\n");
-
             request.respondWith({
                 status: 200,
                 responseText: JSON.stringify(health),
                 responseHeaders: {
-                    server: headerParts[0].replace("Server: ", "")
+                    server: getServerFromResponseHeader(responseHeader)
                 }
             });
 
