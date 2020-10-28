@@ -62,6 +62,7 @@ delete-test-data: ## delete static test data before integration
 
 .PHONY: integrate-test-data
 integrate-test-data: ## integrates generated test data
+	npm run integrate-system-test-data $(CURRENT_DIR)/.tmp/typescript/test-data
 	npm run integrate-admin-test-data $(CURRENT_DIR)/.tmp/typescript/test-data
 	npm run integrate-v2-test-data $(CURRENT_DIR)/.tmp/typescript/test-data
 	npm run expand-jsonld-test-data
