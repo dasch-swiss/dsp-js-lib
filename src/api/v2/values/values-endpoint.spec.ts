@@ -548,9 +548,9 @@ describe("ValuesEndpoint", () => {
         it("should check mocked update value response", () => {
 
             const mockedUpdateIntValueResponse = WriteValueMocks.mockUpdateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/klrRm921RMi-EytFLFsO7A",
+                "http://rdfh.ch/0001/a-thing/values/ADHkEJicT1qjuoEgFyfPIg",
                 Constants.IntValue,
-                "5J9Jf2mPRlC2XRxdpzSraQ");
+                "NwAp_UmGRlWTOCss0Yfwbw");
 
             const updateIntValueResponse = require("../../../../test/data/api/v2/values/update-int-value-response-expanded.json");
 
@@ -562,7 +562,7 @@ describe("ValuesEndpoint", () => {
 
             const updateIntVal = new UpdateIntValue();
 
-            updateIntVal.id = "http://rdfh.ch/0001/a-thing/values/-KG_YBC1T7SSlFlRWu_YTQ";
+            updateIntVal.id = "http://rdfh.ch/0001/a-thing/values/Gdp7h5fOTEaxJEvoTXIW5A";
             updateIntVal.int = 5;
 
             const updateResource = new UpdateResource<UpdateValue>();
@@ -604,7 +604,7 @@ describe("ValuesEndpoint", () => {
 
             const updateDecimalVal = new UpdateDecimalValue();
 
-            updateDecimalVal.id = "http://rdfh.ch/0001/a-thing/values/z7RGA1mCRP68BwxvZGLr7Q";
+            updateDecimalVal.id = "http://rdfh.ch/0001/a-thing/values/7Rl2CDFTSIGE04RyB1CG2w";
             updateDecimalVal.decimal = 5.6;
 
             const updateResource = new UpdateResource<UpdateValue>();
@@ -644,7 +644,7 @@ describe("ValuesEndpoint", () => {
 
             const updateColorVal = new UpdateColorValue();
 
-            updateColorVal.id = "http://rdfh.ch/0001/a-thing/values/QRLzowzRQ3KaBfCKnhl13A";
+            updateColorVal.id = "http://rdfh.ch/0001/a-thing/values/74h6nw99Rgiww0y_n2sspQ";
             updateColorVal.color = "#ff3344";
 
             const updateResource = new UpdateResource<UpdateValue>();
@@ -684,7 +684,7 @@ describe("ValuesEndpoint", () => {
 
             const updateIntervalVal = new UpdateIntervalValue();
 
-            updateIntervalVal.id = "http://rdfh.ch/0001/a-thing/values/kHJXPcT-TWKdwTY2cxmcIQ";
+            updateIntervalVal.id = "http://rdfh.ch/0001/a-thing/values/W5_dZsbwTTWj9E4J5WlIJA";
             updateIntervalVal.start = 5.6;
             updateIntervalVal.end = 7.8;
 
@@ -725,7 +725,7 @@ describe("ValuesEndpoint", () => {
 
             const updateBooleanVal = new UpdateBooleanValue();
 
-            updateBooleanVal.id = "http://rdfh.ch/0001/a-thing/values/zV0Zve3wRaCok07flm8Flw";
+            updateBooleanVal.id = "http://rdfh.ch/0001/a-thing/values/-B-cx99VScG5vBXyM5F5tg";
             updateBooleanVal.bool = false;
 
             const updateResource = new UpdateResource<UpdateValue>();
@@ -765,7 +765,7 @@ describe("ValuesEndpoint", () => {
 
             const updateListVal = new UpdateListValue();
 
-            updateListVal.id = "http://rdfh.ch/0001/a-thing/values/tT_RQeE4TVuxTGvKZWigKQ";
+            updateListVal.id = "http://rdfh.ch/0001/a-thing/values/C91T8eVmTD2suPhq6RBNAw";
             updateListVal.listNode = "http://rdfh.ch/lists/0001/treeList02";
 
             const updateResource = new UpdateResource<UpdateValue>();
@@ -805,7 +805,7 @@ describe("ValuesEndpoint", () => {
 
             const updateLinkVal = new UpdateLinkValue();
 
-            updateLinkVal.id = "http://rdfh.ch/0001/a-thing/values/yX1NzITdQXS8QFXz3SBrWw";
+            updateLinkVal.id = "http://rdfh.ch/0001/a-thing/values/vLpKgz66Sn2tyUYJSJ5B5A";
             updateLinkVal.linkedResourceIri = "http://rdfh.ch/0001/5IEswyQFQp2bxXDrOyEfEA";
 
             const updateResource = new UpdateResource<UpdateValue>();
@@ -845,7 +845,7 @@ describe("ValuesEndpoint", () => {
 
             const updateUriVal = new UpdateUriValue();
 
-            updateUriVal.id = "http://rdfh.ch/0001/a-thing/values/0bMc6SXzQiS7lXs6Vi_a2g";
+            updateUriVal.id = "http://rdfh.ch/0001/a-thing/values/ozzNaZM7T6OILHJbxv4MGw";
             updateUriVal.uri = "https://docs.knora.org";
 
             const updateResource = new UpdateResource<UpdateValue>();
@@ -885,7 +885,7 @@ describe("ValuesEndpoint", () => {
 
             const updateTextVal = new UpdateTextValueAsString();
 
-            updateTextVal.id = "http://rdfh.ch/0001/a-thing/values/5Wr5AJF0QIa5_a8rWlFaaQ";
+            updateTextVal.id = "http://rdfh.ch/0001/a-thing/values/pHuFhBelROGexp2IhaLQAg";
             updateTextVal.text = "text without standoff updated";
 
             const updateResource = new UpdateResource<UpdateValue>();
@@ -925,7 +925,7 @@ describe("ValuesEndpoint", () => {
 
             const updateTextVal = new UpdateTextValueAsXml();
 
-            updateTextVal.id = "http://rdfh.ch/0001/a-thing/values/HjDxJmWkQ1SNaJkutQ9XRA";
+            updateTextVal.id = "http://rdfh.ch/0001/a-thing/values/I4OWMilwQwaYvaN5wlUIqg";
             updateTextVal.xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<text>\n   This updated text links to another <a class=\"salsah-link\" href=\"http://rdfh.ch/0001/another-thing\">resource</a>.\n</text>";
             updateTextVal.mapping = "http://rdfh.ch/standoff/mappings/StandardMapping";
 
@@ -966,7 +966,7 @@ describe("ValuesEndpoint", () => {
 
             const updateDateVal = new UpdateDateValue();
 
-            updateDateVal.id = "http://rdfh.ch/0001/a-thing/values/sr8u0luCRYi_lBIQ6s_Udg";
+            updateDateVal.id = "http://rdfh.ch/0001/a-thing/values/80rXchZpShyfQShMi-JZbA";
             updateDateVal.calendar = "GREGORIAN";
             updateDateVal.startYear = 2018;
             updateDateVal.startMonth = 10;
@@ -1014,7 +1014,7 @@ describe("ValuesEndpoint", () => {
 
             const updateDateVal = new UpdateDateValue();
 
-            updateDateVal.id = "http://rdfh.ch/0001/a-thing/values/6KrseAtxRmWaNevG_zDQrg";
+            updateDateVal.id = "http://rdfh.ch/0001/a-thing/values/iNqkXFcwQ6Gx3HQc40d-Vg";
             updateDateVal.calendar = "GREGORIAN";
             updateDateVal.startYear = 2018;
             updateDateVal.startMonth = 9;
@@ -1060,7 +1060,7 @@ describe("ValuesEndpoint", () => {
 
             const updateDateVal = new UpdateDateValue();
 
-            updateDateVal.id = "http://rdfh.ch/0001/a-thing/values/072nhyCVSi-bHZLD940bWQ";
+            updateDateVal.id = "http://rdfh.ch/0001/a-thing/values/OYIThVCdSC63y-nmT805CA";
             updateDateVal.calendar = "GREGORIAN";
             updateDateVal.startYear = 2018;
             updateDateVal.startEra = "CE";
@@ -1144,7 +1144,7 @@ describe("ValuesEndpoint", () => {
 
             const updateGeomVal = new UpdateGeomValue();
 
-            updateGeomVal.id = "http://rdfh.ch/0001/a-thing/values/9ztkk3vnTKiUbLbzLuSRJQ";
+            updateGeomVal.id = "http://rdfh.ch/0001/a-thing/values/_Re6H2ZoQQq8YVgB4HQyjQ";
             updateGeomVal.geometryString = "{\"status\":\"active\",\"lineColor\":\"#ff3344\",\"lineWidth\":2,\"points\":[{\"x\":0.08098591549295775,\"y\":0.16741071428571427},{\"x\":0.7394366197183099,\"y\":0.7299107142857143}],\"type\":\"rectangle\",\"original_index\":0}";
 
             const updateResource = new UpdateResource<UpdateValue>();
@@ -1184,7 +1184,7 @@ describe("ValuesEndpoint", () => {
 
             const updateGeomVal = new UpdateGeonameValue();
 
-            updateGeomVal.id = "http://rdfh.ch/0001/a-thing/values/vb_hXAFuQqmi3czNbsiJBA";
+            updateGeomVal.id = "http://rdfh.ch/0001/a-thing/values/U7gJk99-SNq45u7Y3PvTDQ";
             updateGeomVal.geoname = "2988507";
 
             const updateResource = new UpdateResource<UpdateValue>();
@@ -1224,7 +1224,7 @@ describe("ValuesEndpoint", () => {
 
             const updateTimeVal = new UpdateTimeValue();
 
-            updateTimeVal.id = "http://rdfh.ch/0001/a-thing/values/sWl8Y60ISdmEG_qTO22dxw";
+            updateTimeVal.id = "http://rdfh.ch/0001/a-thing/values/W3U0fhwIQn-NrT0jILRoGA";
             updateTimeVal.time = "2019-12-16T09:14:56.409249Z";
 
             const updateResource = new UpdateResource<UpdateValue>();
@@ -1264,7 +1264,7 @@ describe("ValuesEndpoint", () => {
 
             const updateTextVal = new UpdateTextValueAsString();
 
-            updateTextVal.id = "http://rdfh.ch/0001/a-thing/values/DGODkNO6Rs2tTk6zEFSQKQ";
+            updateTextVal.id = "http://rdfh.ch/0001/a-thing/values/NVRw0-VkQL2YdI_kgkV33Q";
             updateTextVal.text = "text without standoff updated";
             updateTextVal.valueHasComment = "Adding a comment";
 
@@ -1305,7 +1305,7 @@ describe("ValuesEndpoint", () => {
 
             const updateIntVal = new UpdateIntValue();
 
-            updateIntVal.id = "http://rdfh.ch/0001/a-thing/values/cqZzsH0jQxWSYxTzx6opbw";
+            updateIntVal.id = "http://rdfh.ch/0001/a-thing/values/ZF5QPWhcT1e7mqNFoJOjGA";
             updateIntVal.int = 3879;
             updateIntVal.hasPermissions = "CR http://rdfh.ch/groups/0001/thing-searcher";
 
@@ -1347,7 +1347,7 @@ describe("ValuesEndpoint", () => {
 
             const updateIntVal = new UpdateValuePermissions();
 
-            updateIntVal.id = "http://rdfh.ch/0001/a-thing/values/klrRm921RMi-EytFLFsO7A";
+            updateIntVal.id = "http://rdfh.ch/0001/a-thing/values/ADHkEJicT1qjuoEgFyfPIg";
             updateIntVal.type = Constants.IntValue;
             updateIntVal.hasPermissions = "CR http://rdfh.ch/groups/0001/thing-searcher|V knora-admin:KnownUser";
 
@@ -1392,10 +1392,10 @@ describe("ValuesEndpoint", () => {
         it("should check mocked create value response", () => {
 
             const mockedUpdateIntValueResponse = WriteValueMocks.mockCreateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/-KG_YBC1T7SSlFlRWu_YTQ",
+                "http://rdfh.ch/0001/a-thing/values/Gdp7h5fOTEaxJEvoTXIW5A",
                 Constants.IntValue,
-                "5J9Jf2mPRlC2XRxdpzSraQ",
-                "2020-10-19T08:05:06.392531Z");
+                "NwAp_UmGRlWTOCss0Yfwbw",
+                "2020-10-21T23:36:29.290428Z");
 
             const updateIntValueResponse = require("../../../../test/data/api/v2/values/create-int-value-response-expanded.json");
 
@@ -2178,7 +2178,7 @@ describe("ValuesEndpoint", () => {
 
             const deleteVal = new DeleteValue();
 
-            deleteVal.id = "http://rdfh.ch/0001/a-thing/values/4jUavArARJ61fadYdcYDmw";
+            deleteVal.id = "http://rdfh.ch/0001/a-thing/values/OvVdty6hTg2uSYE6Mukhnw";
             deleteVal.type = "http://api.knora.org/ontology/knora-api/v2#IntValue";
             deleteVal.deleteComment = "this value was incorrect";
 
@@ -2192,7 +2192,7 @@ describe("ValuesEndpoint", () => {
 
             knoraApiConnection.v2.values.deleteValue(updateResource).subscribe(
                 (res: DeleteValueResponse) => {
-                    expect(res.result).toEqual("Value <http://rdfh.ch/0001/a-thing/values/4jUavArARJ61fadYdcYDmw> marked as deleted");
+                    expect(res.result).toEqual("Value <http://rdfh.ch/0001/a-thing/values/OvVdty6hTg2uSYE6Mukhnw> marked as deleted");
                     done();
                 }
             );
@@ -2201,7 +2201,7 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(
                 {
-                    "knora-api:result": "Value <http://rdfh.ch/0001/a-thing/values/4jUavArARJ61fadYdcYDmw> marked as deleted",
+                    "knora-api:result": "Value <http://rdfh.ch/0001/a-thing/values/OvVdty6hTg2uSYE6Mukhnw> marked as deleted",
                     "@context": {
                         "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
                     }
@@ -2222,7 +2222,7 @@ describe("ValuesEndpoint", () => {
 
             const deleteVal = new DeleteValue();
 
-            deleteVal.id = "http://rdfh.ch/0001/a-thing/values/--gObVHEQKeX9nNtUx6_EA";
+            deleteVal.id = "http://rdfh.ch/0001/a-thing/values/SR199iTcT5GMbUig36YwOA";
             deleteVal.type = "http://api.knora.org/ontology/knora-api/v2#LinkValue";
 
             const updateResource = new UpdateResource<DeleteValue>();
@@ -2235,7 +2235,7 @@ describe("ValuesEndpoint", () => {
 
             knoraApiConnection.v2.values.deleteValue(updateResource).subscribe(
                 (res: DeleteValueResponse) => {
-                    expect(res.result).toEqual("Value <http://rdfh.ch/0001/a-thing/values/--gObVHEQKeX9nNtUx6_EA> marked as deleted");
+                    expect(res.result).toEqual("Value <http://rdfh.ch/0001/a-thing/values/SR199iTcT5GMbUig36YwOA> marked as deleted");
                     done();
                 }
             );
@@ -2244,7 +2244,7 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(
                 {
-                    "knora-api:result": "Value <http://rdfh.ch/0001/a-thing/values/--gObVHEQKeX9nNtUx6_EA> marked as deleted",
+                    "knora-api:result": "Value <http://rdfh.ch/0001/a-thing/values/SR199iTcT5GMbUig36YwOA> marked as deleted",
                     "@context": {
                         "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
                     }

@@ -326,7 +326,7 @@ describe("OntologiesEndpoint", () => {
             const onto = new UpdateOntology<CreateResourceClass>();
 
             onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
-            onto.lastModificationDate = "2020-10-19T07:54:53.079129Z";
+            onto.lastModificationDate = "2020-10-21T23:50:43.379793Z";
 
             const newResClass = new CreateResourceClass();
 
@@ -490,7 +490,7 @@ describe("OntologiesEndpoint", () => {
             const onto = new UpdateOntology<CreateResourceProperty>();
 
             onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
-            onto.lastModificationDate = "2020-10-19T07:54:54.395841Z";
+            onto.lastModificationDate = "2020-10-21T23:50:45.204678Z";
 
             const newResProp = new CreateResourceProperty();
 
@@ -587,7 +587,7 @@ describe("OntologiesEndpoint", () => {
 
             addCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
 
-            addCard.lastModificationDate = "2020-10-19T07:54:54.779705Z";
+            addCard.lastModificationDate = "2020-10-21T23:50:45.789081Z";
 
             addCard.cardinalities = [
                 {

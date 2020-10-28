@@ -146,7 +146,7 @@ describe("ListsEndpoint", () => {
 
             const listInfo = new UpdateListInfoRequest();
 
-            listInfo.listIri = "http://rdfh.ch/lists/0001/ZaeyYFeJRJCInueIoPzHGQ";
+            listInfo.listIri = "http://rdfh.ch/lists/0001/CeiuqMk_R1-lIOKh-fyddA";
             listInfo.projectIri = "http://rdfh.ch/projects/0001";
 
             const label1 = new StringLiteral();
@@ -181,7 +181,7 @@ describe("ListsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FZaeyYFeJRJCInueIoPzHGQ");
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FCeiuqMk_R1-lIOKh-fyddA");
 
             expect(request.method).toEqual("PUT");
 
@@ -201,7 +201,7 @@ describe("ListsEndpoint", () => {
 
             const childNode = new CreateChildNodeRequest();
 
-            childNode.parentNodeIri = "http://rdfh.ch/lists/0001/ZaeyYFeJRJCInueIoPzHGQ";
+            childNode.parentNodeIri = "http://rdfh.ch/lists/0001/CeiuqMk_R1-lIOKh-fyddA";
             childNode.projectIri = "http://rdfh.ch/projects/0001";
             childNode.name = "first";
 
@@ -229,7 +229,7 @@ describe("ListsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FZaeyYFeJRJCInueIoPzHGQ");
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FCeiuqMk_R1-lIOKh-fyddA");
 
             expect(request.method).toEqual("POST");
 
