@@ -29,7 +29,7 @@ describe("HealthEndpoint", () => {
                     expect(response.body.severity).toEqual("non fatal");
                     expect(response.body.status).toEqual("healthy");
 
-                    expect(response.body.webapiVersion).toEqual("v13.0.0-rc.16");
+                    expect(response.body.webapiVersion).toEqual("v13.0.0-rc.21");
                     expect(response.body.akkaVersion).toEqual("10.1.12");
 
                     done();
@@ -37,13 +37,17 @@ describe("HealthEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const health = require("../../../../test/data/api/system/health/get-health-response.json");
+            const health = require("../../../../test/data/api/system/health/running-response.json");
+
+            const responseHeader = require("../../../../test/data/api/system/health/response-headers.txt");
+
+            const headerParts = responseHeader.split("\n");
 
             request.respondWith({
                 status: 200,
                 responseText: JSON.stringify(health),
                 responseHeaders: {
-                    server: "webapi/v13.0.0-rc.16 akka-http/10.1.12"
+                    server: headerParts[0].replace("Server: ", "")
                 }
             });
 
@@ -65,7 +69,7 @@ describe("HealthEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const health = require("../../../../test/data/api/system/health/get-health-response.json");
+            const health = require("../../../../test/data/api/system/health/running-response.json");
 
             request.respondWith({
                 status: 200,
@@ -90,7 +94,7 @@ describe("HealthEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const health = require("../../../../test/data/api/system/health/get-health-response.json");
+            const health = require("../../../../test/data/api/system/health/running-response.json");
 
             request.respondWith({
                 status: 200,
