@@ -49,6 +49,7 @@ generate-test-data: ## prepare test data from Knora-API
 
 .PHONY: delete-test-data
 delete-test-data: ## delete static test data before integration
+	rm -rf test/data/api/system/health/*
 	rm -rf test/data/api/admin/groups/*
 	rm -rf test/data/api/admin/lists/*
 	rm -rf test/data/api/admin/permissions/*
@@ -61,6 +62,7 @@ delete-test-data: ## delete static test data before integration
 
 .PHONY: integrate-test-data
 integrate-test-data: ## integrates generated test data
+	npm run integrate-system-test-data $(CURRENT_DIR)/.tmp/typescript/test-data
 	npm run integrate-admin-test-data $(CURRENT_DIR)/.tmp/typescript/test-data
 	npm run integrate-v2-test-data $(CURRENT_DIR)/.tmp/typescript/test-data
 	npm run expand-jsonld-test-data
