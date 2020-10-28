@@ -10,6 +10,10 @@
 
 - #249 Explain integration with knora-api
 
+## Testing
+
+- #251 DSP-817 Health Endpoint: integrate test data
+
 ## Dependencies
 
 - #247 Update knora api
