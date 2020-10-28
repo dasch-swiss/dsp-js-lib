@@ -59,8 +59,8 @@ jobs:
     name: Update next release draft
     needs: [build-test]
     runs-on: ubuntu-latest
-    # Drafts your next Release notes as Pull Requests are merged into "master"
-    if: github.ref == 'refs/heads/master'
+    # Drafts your next Release notes as Pull Requests are merged into "main" branch
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: release-drafter/release-drafter@v5
         env:
@@ -92,7 +92,7 @@ jobs:
         run: npm run build
       - name: Get previous tag
         id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
+        uses: "WyriHaximus/github-action-get-previous-tag@1.0.0"
       - name: Update version
         run: cd ${{env.dist-directory}} && npm version ${{steps.previoustag.outputs.tag}} --git-tag-version=false --commit-hooks=false
       - if: "github.event.release.prerelease"
