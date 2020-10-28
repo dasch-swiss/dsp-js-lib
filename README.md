@@ -96,11 +96,11 @@ Any subsequent call after a successful login will be performed using the session
 This package provides the following short-hand scripts:
 
 1. `npm run peer-deps`: Installs the project's peer dependencies. Peer dependencies are not installed with `npm install`, but have to be met before building or running the tests.
-2. `npm run test`: Runs the project's tests defined in `./karma.conf.js`. The coverage data is saved into the `./coverage/` folder.
-3. `npm run build`: Builds the whole project without testing and puts the files into the `./build/` folder.
-4. `npm run yalc-publish`: Executes 2 and publishes the package to the yalc app store.
-5. `npm run npm-pack`: Executes 1, 2 and packs the `./build/` folder into an NPM tgz package. The package is moved into a `./dist/` folder.
-6. `npm run npm-publish`: Executes 4 and publishes the package to the NPM store (runs in dry-run mode).
+1. `npm run test`: Runs the project's tests defined in `./karma.conf.js`. The coverage data is saved into the `./coverage/` folder.
+1. `npm run build`: Builds the whole project without testing and puts the files into the `./build/` folder.
+1. `npm run yalc-publish`: Executes 2 and publishes the package to the yalc app store.
+1. `npm run npm-pack`: Executes 1, 2 and packs the `./build/` folder into an NPM tgz package. The package is moved into a `./dist/` folder.
+1. `npm run npm-publish`: Executes 4 and publishes the package to the NPM store (runs in dry-run mode).
 
 > Note: You need to install [`yalc`](<https://www.npmjs.com/package/yalc>) globally by `npm install yalc -g` to use script number 4.
 
@@ -108,42 +108,44 @@ For further development with Knora, the following scripts can be used:
 
 1. `npm run integrate-admin-test-data <path-to-generated-client-code>`: integrates generated test data for the Knora Admin API,
 see <https://docs.knora.org> -> Internals -> Development -> Generating Client Test Data.
-2. `npm run integrate-v2-test-data <path-to-generated-client-code>`: integrates JSON-LD test data for Knora API v2,
+1. `npm run integrate-v2-test-data <path-to-generated-client-code>`: integrates JSON-LD test data for Knora API v2,
 see <https://docs.knora.org> -> Internals -> Development -> Generating Client Test Data.
 The test data files have to be added to `scripts/v2-test-data-config.json`: `source` refers to their location in the Knora test data directory structure,
 `destination` refers to their location in this repo. The test data files are copied when running the script.
-3. `npm run expand-jsonld-test-data`: creates versions with expanded prefixes for Knora API v2 JSON-LD test data.
-4. `npm run prepare-dev-publication`: prepares a dev version of the library for publication.
+1. `npm run expand-jsonld-test-data`: creates versions with expanded prefixes for Knora API v2 JSON-LD test data.
+1. `npm run prepare-dev-publication`: prepares a dev version of the library for publication.
 The dev versions contains mocks that produce tests data without a connection to Knora.
 The mocks are configured in `scripts/mock-exports.json`.
 If you need a local version of this lib that contains the mocks, do the following:
    - `npm run prepare-dev-publication` to prepare a dev version.
    - `npm run yalc-publish` to publish a local build containing the mocks.
-5. `npm run webdriver-update` (from directory `test-framework`): updates Chrome webdriver for e2e tests   
-   
+1. `npm run webdriver-update` (from directory `test-framework`): updates Chrome webdriver for e2e tests
+
 ## Change Supported Version of DSP-API
 
-DSP-JS is compatible with a specified release of DSP-API. 
+DSP-JS is compatible with a specified release of DSP-API.
 To update the target release of DSP-API, the following steps have to be carried out:
+
+1. Update DSP-API version in `vars.mk`, e.g., change `v13.0.0-rc.16` to `v13.0.0-rc.17`.
 1. Delete local test data with `make delete-test-data`
-2. Generate test data using the target DSP-API release, 
-   see <https://docs.knora.org> -> Internals -> Development -> Generating Client Test Data.
-3. Unpack generated test data and integrate it using the npm scripts 
-    1. `npm run integrate-admin-test-data`
-    2. `npm run integrate-v2-test-data`
-    3. `npm run expand-jsonld-test-data`.
-4. Run the unit tests with `npm test` from the project root.
-5. Check for differences in the generated test data with respect to the previous release of DSP-API.
+1. Generate test data using the target DSP-API release,
+   - Variant 1: See <https://docs.knora.org> -> Internals -> Development -> Generating Client Test Data
+   and copy generated test data from Knora-Api repository to DSP-JS-Lib repo:
+   Run from project root: `cp /Folder/To/Knora-Api/client-test-data.zip ./`
+   - Variant 2: Download test-data from DSP-API release with `make get-test-data-from-release`
+1. Unpack generated test data and integrate it with `make prepare-test-data`
+1. Run the unit tests with `npm test` from the project root.
+1. Check for differences in the generated test data with respect to the previous release of DSP-API.
    If there are changes in the test data that have **no breaking effect**, integrate them (add them to the git repo).
    Otherwise, DSP-JS has to be adapted to comply with the later version of DSP-JS. Also see section "Integration of Generated Test Data".
-6. Run the e2e tests against the target release of DSP-API:
+1. Run the e2e tests against the target release of DSP-API:
    - prepare the local publication of the library using `npm run prepare-dev-publication`
    - build the library and publish it locally with `npm run yalc-publish`
    - change to directory `test-framework`
    - add the locally build library using `npm run yalc-add` and run `npm install`
-   - run `npm run webdriver-update` and then `npm run e22`
-7. Update DSP-API version in `Makefile`, e.g., change `--branch v13.0.0-rc.16` to `--branch v13.0.0-rc.17`.
-8. See if the tests pass on GitHub CI   
+   - run `npm run webdriver-update` and then `npm run e2e`
+1. Update DSP-API version in `.github/workflows/main.yml` in step `Get api client test data from knora-api`, e.g., change `tags/v13.0.0-rc.16` to `tags/v13.0.0-rc.17`.
+1. See if the tests pass on GitHub CI
 
 ## Integration of Generated Test Data
 
@@ -153,6 +155,7 @@ Test data for v2 has to be added to `scripts/v2-test-data-config.json` to be use
 All files that are contained in `scripts/v2-test-data-config.json` will be copied this library's tests data when running `npm run integrate-v2-test-data`.
 
 Example:
+
 ```json
 {
   "generated-test-data": [

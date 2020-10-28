@@ -3,7 +3,7 @@
   "@type" : "anything:Thing",
   "anything:hasText" : {
     "@type" : "knora-api:TextValue",
-    "knora-api:textValueAsXml" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<text documentType=\"html\">\n    <p>This an <span data-description=\"an &quot;event&quot;\" data-date=\"GREGORIAN:2017-01-27 CE\" class=\"event\">event</span>.</p>\n</text>",
+    "knora-api:textValueAsXml" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<text>\n   This text links to another <a class=\"salsah-link\" href=\"http://rdfh.ch/0001/another-thing\">resource</a>.\n   And this <strong id=\"link_id\">strong value</strong> is linked by this <a class=\"internal-link\" href=\"#link_id\">link</a>\n</text>",
     "knora-api:textValueHasMapping" : {
       "@id": "http://rdfh.ch/standoff/mappings/StandardMapping"
     }

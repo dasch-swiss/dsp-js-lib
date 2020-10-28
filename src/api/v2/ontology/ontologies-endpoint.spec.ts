@@ -2,12 +2,14 @@ import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { Constants } from "../../../models/v2/Constants";
-import { UpdateOntologyResourceClassCardinality } from "../../../models/v2/ontologies/update/update-ontology-resource-class-cardinality";
+import { Cardinality } from "../../../models/v2/ontologies/class-definition";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
 import { CreateResourceClass } from "../../../models/v2/ontologies/create/create-resource-class";
 import { CreateResourceProperty } from "../../../models/v2/ontologies/create/create-resource-property";
+import { DeleteOntology } from "../../../models/v2/ontologies/delete/delete-ontology";
 import { DeleteOntologyResponse } from "../../../models/v2/ontologies/delete/delete-ontology-response";
 import { DeleteResourceClass } from "../../../models/v2/ontologies/delete/delete-resource-class";
+import { DeleteResourceProperty } from "../../../models/v2/ontologies/delete/delete-resource-property";
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
 import {
@@ -20,9 +22,7 @@ import {
 } from "../../../models/v2/ontologies/resource-property-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
-import { Cardinality } from "../../../models/v2/ontologies/class-definition";
-import { DeleteOntology } from "../../../models/v2/ontologies/delete/delete-ontology";
-import { DeleteResourceProperty } from "../../../models/v2/ontologies/delete/delete-resource-property";
+import { UpdateOntologyResourceClassCardinality } from "../../../models/v2/ontologies/update/update-ontology-resource-class-cardinality";
 import { StringLiteralV2 } from "../../../models/v2/string-literal-v2";
 
 describe("OntologiesEndpoint", () => {
@@ -44,7 +44,7 @@ describe("OntologiesEndpoint", () => {
 
             knoraApiConnection.v2.onto.getOntologiesMetadata().subscribe(
                 (response: OntologiesMetadata) => {
-                    expect(response.ontologies.length).toEqual(15);
+                    expect(response.ontologies.length).toEqual(14);
                     expect(response.ontologies[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
                     done();
                 }
@@ -260,13 +260,13 @@ describe("OntologiesEndpoint", () => {
         it("should create a new ontology", done => {
 
             const newOntology: CreateOntology = new CreateOntology();
-            newOntology.attachedToProject = "http://rdfh.ch/projects/00FF";
+            newOntology.attachedToProject = "http://rdfh.ch/projects/0001";
             newOntology.label = "The foo ontology";
             newOntology.name = "foo";
 
             knoraApiConnection.v2.onto.createOntology(newOntology).subscribe(
                 (response: OntologyMetadata) => {
-                    expect(response.id).toBe("http://0.0.0.0:3333/ontology/00FF/foo/v2");
+                    expect(response.id).toBe("http://0.0.0.0:3333/ontology/0001/foo/v2");
                     done();
                 }
             );
@@ -293,13 +293,13 @@ describe("OntologiesEndpoint", () => {
 
             const ontoInfo = new DeleteOntology();
 
-            ontoInfo.id = "http://0.0.0.0:3333/ontology/00FF/foo/v2";
+            ontoInfo.id = "http://0.0.0.0:3333/ontology/0001/foo/v2";
 
             ontoInfo.lastModificationDate = "2020-06-29T13:33:46.059576Z";
 
             knoraApiConnection.v2.onto.deleteOntology(ontoInfo).subscribe(
                 (res: DeleteOntologyResponse) => {
-                    expect(res.result).toEqual("Ontology http://0.0.0.0:3333/ontology/00FF/foo/v2 has been deleted");
+                    expect(res.result).toEqual("Ontology http://0.0.0.0:3333/ontology/0001/foo/v2 has been deleted");
                     done();
                 }
             );
@@ -310,7 +310,7 @@ describe("OntologiesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteOntoResponse)));
 
-            const path = "http://0.0.0.0:3333/v2/ontologies/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F00FF%2Ffoo%2Fv2?lastModificationDate=2020-06-29T13%3A33%3A46.059576Z";
+            const path = "http://0.0.0.0:3333/v2/ontologies/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Ffoo%2Fv2?lastModificationDate=2020-06-29T13%3A33%3A46.059576Z";
             expect(request.url).toBe(path);
 
             expect(request.method).toEqual("DELETE");
@@ -326,7 +326,7 @@ describe("OntologiesEndpoint", () => {
             const onto = new UpdateOntology<CreateResourceClass>();
 
             onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
-            onto.lastModificationDate = "2017-12-19T15:23:42.166Z";
+            onto.lastModificationDate = "2020-10-21T23:50:43.379793Z";
 
             const newResClass = new CreateResourceClass();
 
@@ -335,7 +335,7 @@ describe("OntologiesEndpoint", () => {
             const comment = new StringLiteralV2();
 
             comment.language = "en";
-            comment.value =  "Represents nothing";
+            comment.value = "Represents nothing";
 
             newResClass.comment = [comment];
 
@@ -490,7 +490,7 @@ describe("OntologiesEndpoint", () => {
             const onto = new UpdateOntology<CreateResourceProperty>();
 
             onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
-            onto.lastModificationDate = "2017-12-19T15:23:42.166Z";
+            onto.lastModificationDate = "2020-10-21T23:50:45.204678Z";
 
             const newResProp = new CreateResourceProperty();
 
@@ -587,7 +587,7 @@ describe("OntologiesEndpoint", () => {
 
             addCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
 
-            addCard.lastModificationDate = "2017-12-19T15:23:42.166Z";
+            addCard.lastModificationDate = "2020-10-21T23:50:45.789081Z";
 
             addCard.cardinalities = [
                 {

@@ -30,7 +30,7 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.getLists().subscribe(
                 (res: ApiResponseData<ListsResponse>) => {
-                    expect(res.body.lists.length).toEqual(8);
+                    expect(res.body.lists.length).toEqual(7);
                     done();
                 }
             );
@@ -55,7 +55,7 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.getListsInProject("http://rdfh.ch/projects/0001").subscribe(
                 (res: ApiResponseData<ListsResponse>) => {
-                    expect(res.body.lists.length).toEqual(8);
+                    expect(res.body.lists.length).toEqual(7);
                     done();
                 }
             );
@@ -105,7 +105,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/lists/create-list-request.json");
 
@@ -146,7 +146,7 @@ describe("ListsEndpoint", () => {
 
             const listInfo = new UpdateListInfoRequest();
 
-            listInfo.listIri = "http://rdfh.ch/lists/0001/treeList01";
+            listInfo.listIri = "http://rdfh.ch/lists/0001/CeiuqMk_R1-lIOKh-fyddA";
             listInfo.projectIri = "http://rdfh.ch/projects/0001";
 
             const label1 = new StringLiteral();
@@ -181,11 +181,11 @@ describe("ListsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList01");
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FCeiuqMk_R1-lIOKh-fyddA");
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/lists/update-list-info-request.json");
 
@@ -201,19 +201,19 @@ describe("ListsEndpoint", () => {
 
             const childNode = new CreateChildNodeRequest();
 
-            childNode.parentNodeIri = "http://rdfh.ch/lists/0001/treeList01";
+            childNode.parentNodeIri = "http://rdfh.ch/lists/0001/CeiuqMk_R1-lIOKh-fyddA";
             childNode.projectIri = "http://rdfh.ch/projects/0001";
-            childNode.name = "abc123";
+            childNode.name = "first";
 
             const label1 = new StringLiteral();
             label1.language = "en";
-            label1.value = "test node";
+            label1.value = "New First Child List Node Value";
 
             childNode.labels = [label1];
 
             const comment1 = new StringLiteral();
             comment1.language = "en";
-            comment1.value = "a node for testing";
+            comment1.value = "New First Child List Node Comment";
 
             childNode.comments = [comment1];
 
@@ -229,11 +229,11 @@ describe("ListsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList01");
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FCeiuqMk_R1-lIOKh-fyddA");
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/lists/create-child-node-request.json");
 
