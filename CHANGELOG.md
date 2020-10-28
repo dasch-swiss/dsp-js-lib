@@ -1,10 +1,22 @@
 # Changelog
 
-## Next release (01/01/1970)
+## v1.0.0-rc.14 (28/10/2020)
+
+## Bug fixes
+
+- #250 Handle Empty Response when Requesting Ontologies for a Project
 
 ## Documentation
 
 - #249 Explain integration with knora-api
+
+## Testing
+
+- #251 DSP-817 Health Endpoint: integrate test data
+
+## Dependencies
+
+- #247 Update knora api
 
 ---
 
