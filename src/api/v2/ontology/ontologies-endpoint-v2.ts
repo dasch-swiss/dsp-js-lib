@@ -93,7 +93,6 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return this.handleError(error);
             })
         );
-
     }
 
     /**

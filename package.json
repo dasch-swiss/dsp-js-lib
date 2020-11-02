@@ -13,6 +13,7 @@
   ],
   "scripts": {
     "integrate-admin-test-data": "node scripts/integrate-files-admin.js",
+    "integrate-system-test-data": "node scripts/integrate-files-system.js",
     "integrate-v2-test-data": "node scripts/integrate-files-v2.js",
     "expand-jsonld-test-data": "node scripts/expand-jsonld-test-data-files.js",
     "test": "karma start karma.conf.js",

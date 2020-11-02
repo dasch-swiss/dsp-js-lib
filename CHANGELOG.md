@@ -1,34 +1,54 @@
 # Changelog
 
+## v1.0.0-rc.14 (28/10/2020)
+
+## Bug fixes
+
+- #250 Handle Empty Response when Requesting Ontologies for a Project
+
+## Documentation
+
+- #249 Explain integration with knora-api
+
+## Testing
+
+- #251 DSP-817 Health Endpoint: integrate test data
+
+## Dependencies
+
+- #247 Update knora api
+
+---
+
 ## v1.0.0-rc.13 (12/10/2020)
 
 ## Enhancements
 
-- [#243](https://github.com/dasch-swiss/dsp-js-lib/pull/243) DSP-676 Add Support for Additional Methods in Admin Permission Endpoint
-- [#235](https://github.com/dasch-swiss/dsp-js-lib/pull/235) DSP-428 Create res properties
-- [#246](https://github.com/dasch-swiss/dsp-js-lib/pull/246) DSP-743 Support the api route /health
+- #246 DSP-743 Support the api route /health
+- #243 DSP-676 Add Support for Additional Methods in Admin Permission Endpoint 
+- #235 DSP-428 Create res properties
 
 ## Bug fixes
 
-- [#244](https://github.com/dasch-swiss/dsp-js-lib/pull/244) Add missing exports for ResourcePropertyDefinitionWit…
-- [#240](https://github.com/dasch-swiss/dsp-js-lib/pull/240) Revert change for tsconfig
+- #244 Add missing exports for ResourcePropertyDefinitionWit…
+- #240 Revert change for tsconfig
+
+## Documentation
+
+- #248 Update CHANGELOG
 
 ## Maintenance
 
-- [#245](https://github.com/dasch-swiss/dsp-js-lib/pull/245) Security update for node-forge
-- [#242](https://github.com/dasch-swiss/dsp-js-lib/pull/242) DSP-618 Update release process
-- [#239](https://github.com/dasch-swiss/dsp-js-lib/pull/239) Refactor Ontologies Endpoint
-- [#241](https://github.com/dasch-swiss/dsp-js-lib/pull/241) DSP-702 Add template for PRs
-
-#### Dependencies
-
-- [#237](https://github.com/dasch-swiss/dsp-js-lib/pull/237) DSP-671 Update dsp-api rc.16
+- #245 Security update for node-forge
+- #242 DSP-618 Update release process
+- #239 Refactor Ontologies Endpoint
+- #241 DSP-702 Add template for PRs
 
 ---
 
 ## v1.0.0-rc.12 (22/09/2020)
 
-#### Dependencies
+#### Breaking changes
 
 - [#237](https://github.com/dasch-swiss/dsp-js-lib/pull/237) DSP-671 Update dsp-api rc.16
 
