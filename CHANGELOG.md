@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.0-rc.15 (03/11/2020)
+Using latest version of main branch
+---
+
 ## v1.0.0-rc.14 (28/10/2020)
 
 ## Bug fixes
@@ -8,15 +12,20 @@
 
 ## Documentation
 
+- #252 DSP-920 Renaming default github branch to "main"
 - #249 Explain integration with knora-api
-
-## Testing
-
-- #251 DSP-817 Health Endpoint: integrate test data
 
 ## Dependencies
 
 - #247 Update knora api
+
+## Maintenance
+
+- #252 DSP-920 Renaming default github branch to "main"
+
+## Testing
+
+- #251 DSP-817 Health Endpoint: integrate test data
 
 ---
 
