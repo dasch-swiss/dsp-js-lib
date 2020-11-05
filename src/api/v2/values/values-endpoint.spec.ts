@@ -424,7 +424,7 @@ describe("ValuesEndpoint", () => {
 
         });
 
-        it("should read a date value (Islamic)", done => {
+        fit("should read a date value (Islamic)", done => {
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "-rG4F5FTTu2iB5mTBPVn5Q").subscribe(
                 (res: ReadResource) => {
