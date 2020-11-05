@@ -402,6 +402,7 @@ describe("ValuesEndpoint", () => {
                     expect((dateVal[0].date as KnoraDate).day).toEqual(13);
                     expect((dateVal[0].date as KnoraDate).month).toEqual(5);
                     expect((dateVal[0].date as KnoraDate).year).toEqual(2018);
+                    expect((dateVal[0].date as KnoraDate).era).toEqual("CE");
 
                     expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
                     expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
@@ -431,10 +432,11 @@ describe("ValuesEndpoint", () => {
                     const dateVal = res.getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate", ReadDateValue);
                     expect(dateVal.length).toEqual(1);
                     expect(dateVal[0].date instanceof KnoraDate).toBeTruthy();
-                    expect((dateVal[0].date as KnoraDate).calendar).toEqual("GREGORIAN");
-                    expect((dateVal[0].date as KnoraDate).day).toEqual(13);
-                    expect((dateVal[0].date as KnoraDate).month).toEqual(5);
-                    expect((dateVal[0].date as KnoraDate).year).toEqual(2018);
+                    expect((dateVal[0].date as KnoraDate).calendar).toEqual("ISLAMIC");
+                    expect((dateVal[0].date as KnoraDate).day).toEqual(27);
+                    expect((dateVal[0].date as KnoraDate).month).toEqual(8);
+                    expect((dateVal[0].date as KnoraDate).year).toEqual(1439);
+                    expect((dateVal[0].date as KnoraDate).era).toEqual("noEra");
 
                     expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
                     expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
