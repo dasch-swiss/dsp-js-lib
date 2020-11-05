@@ -91,7 +91,7 @@ prepare-test-ci: ## clean up test environment and starts the knora-stack
 
 .PHONY: prepare-test-data
 prepare-test-data: ## prepares test data from knora-api
-	@$(MAKE) -f $(THIS_FILE) delete-test-data
+	#@$(MAKE) -f $(THIS_FILE) delete-test-data
 	@$(MAKE) -f $(THIS_FILE) generate-test-data
 	@$(MAKE) -f $(THIS_FILE) integrate-test-data
 

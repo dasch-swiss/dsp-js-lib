@@ -424,6 +424,39 @@ describe("ValuesEndpoint", () => {
 
         });
 
+        fit("should read a date value (Islamic)", done => {
+
+            knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "-rG4F5FTTu2iB5mTBPVn5Q").subscribe(
+                (res: ReadResource) => {
+                    const dateVal = res.getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate", ReadDateValue);
+                    expect(dateVal.length).toEqual(1);
+                    expect(dateVal[0].date instanceof KnoraDate).toBeTruthy();
+                    expect((dateVal[0].date as KnoraDate).calendar).toEqual("GREGORIAN");
+                    expect((dateVal[0].date as KnoraDate).day).toEqual(13);
+                    expect((dateVal[0].date as KnoraDate).month).toEqual(5);
+                    expect((dateVal[0].date as KnoraDate).year).toEqual(2018);
+
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+
+                    expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const resource = require("../../../../test/data/api/v2/values/get-islamic-date-value-response-expanded.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/-rG4F5FTTu2iB5mTBPVn5Q");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
         it("should read a still image file value", done => {
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "goZ7JFRNSeqF-dNxsqAS7Q").subscribe(
