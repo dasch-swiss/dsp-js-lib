@@ -126,9 +126,6 @@ If you need a local version of this lib that contains the mocks, do the followin
 DSP-JS is compatible with a specified release of DSP-API.
 To update the target release of DSP-API, the following steps have to be carried out:
 
-1. Update DSP-API version in
-   - `vars.mk`, e.g., change `v13.0.0-rc.16` to `v13.0.0-rc.17`.
-   - `src/api/system/health/health-endpoint.spec.ts`
 1. Delete local test data with `make delete-test-data`
 1. Generate test data using the target DSP-API release,
    - Variant 1: See <https://docs.knora.org> -> Internals -> Development -> Generating Client Test Data
