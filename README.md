@@ -1,7 +1,7 @@
 # DSP-JS-LIB &mdash; A library to easily connect to Knora/DSP API
 
 [![npm version](https://badge.fury.io/js/%40dasch-swiss%2Fdsp-js.svg)](https://www.npmjs.com/package/@dasch-swiss/dsp-js)
-[![CI](https://github.com/dasch-swiss/knora-api-js-lib/workflows/CI/badge.svg)](https://github.com/dasch-swiss/knora-api-js-lib/actions?query=workflow%3ACI)
+[![CI](https://github.com/dasch-swiss/knora-api-js-lib/workflows/CI/badge.svg)](https://github.com/dasch-swiss/dsp-js-lib/actions?query=workflow%3ACI)
 [![npm downloads](https://img.shields.io/npm/dt/@dasch-swiss/dsp-js.svg?style=flat)](https://www.npmjs.com/package/@dasch-swiss/dsp-js)
 [![minzipped size](https://img.shields.io/bundlephobia/minzip/@dasch-swiss/dsp-js.svg?style=flat)](https://www.npmjs.com/package/@dasch-swiss/dsp-js)
 [![license](https://img.shields.io/npm/l/@dasch-swiss/dsp-js.svg?style=flat)](https://www.npmjs.com/package/@dasch-swiss/dsp-js)
@@ -14,7 +14,7 @@ The library is developed in TypeScript and declaration files are part of the pac
 
 ## Changelog
 
-See file `CHANGLELOG.md`.
+See file <https://github.com/dasch-swiss/dsp-js-lib/releases>.
 
 ## Getting started
 
@@ -182,7 +182,7 @@ After integrating v2 test data, run `npm run expand-jsonld-test-data`.
 
 Before publishing:
 
-- Update README and CHANGELOG if necessary and commit the changes (currently, the CHANGELOG has to be updated manually)
+- Update README if necessary and commit the changes.
 
 - Be sure that the dependency to DSP-API is set to the correct version:
   - Update DSP-API version in `Makefile` (see section above)
