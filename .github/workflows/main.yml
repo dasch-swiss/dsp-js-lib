@@ -6,22 +6,15 @@ on:
     types: [published]
 
 jobs:
-  test-integration:
-    name: JS Lib Test Integration
+  build-test:
+    name: Build and Test
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [12.x]
     steps:
-      - name: Disk Free
-        run: |
-          sudo df -i
-          sudo df -h
-          sudo du -sh /var/lib/docker
-          sudo docker system prune --all --force --volumes
-          sudo df -h
       - name: Checkout source
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
           fetch-depth: 1
       - name: Checkout private ci-assets
@@ -43,29 +36,31 @@ jobs:
         run: |
           sudo apt-get install expect
           sudo npm install --global @bazel/bazelisk
-      - name: Run test-integration
+      - name: Setup node
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
         run: make npm-install
-      - name: Prepare test environment
-        run: make prepare-test-ci
-      - name: Generate test-data
+      - name: Get api client test data from knora-api (makefile variant)
+        run: make get-test-data-from-release
+      - name: Prepare test data
         run: make prepare-test-data
       - name: Run unit tests
         run: make unit-tests
       - name: Build lib
         run: make build
+      - name: Prepare test environment
+        run: make prepare-test-ci
       - name: Run e2e tests
         run: make e2e-tests
 
   update_release_draft:
     name: Update next release draft
-    needs: [test-integration]
+    needs: [build-test]
     runs-on: ubuntu-latest
-    # Drafts your next Release notes as Pull Requests are merged into "master"
-    if: github.ref == 'refs/heads/master'
+    # Drafts your next Release notes as Pull Requests are merged into "main" branch
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: release-drafter/release-drafter@v5
         env:
@@ -73,7 +68,7 @@ jobs:
 
   build:
     name: Build package and publish (on release only)
-    needs: [test-integration]
+    needs: [build-test]
     runs-on: ubuntu-latest
     env:
       dist-directory: ./build/
@@ -97,7 +92,7 @@ jobs:
         run: npm run build
       - name: Get previous tag
         id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
+        uses: "WyriHaximus/github-action-get-previous-tag@1.0.0"
       - name: Update version
         run: cd ${{env.dist-directory}} && npm version ${{steps.previoustag.outputs.tag}} --git-tag-version=false --commit-hooks=false
       - if: "github.event.release.prerelease"

@@ -1,12 +1,12 @@
 {
-  "@id" : "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
+  "@id" : "http://rdfh.ch/0001/a-thing",
   "@type" : "anything:Thing",
   "anything:hasTimeStamp" : {
-    "@id" : "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/l6DhS5SCT9WhXSoYEZRTRw",
+    "@id" : "http://rdfh.ch/0001/a-thing/values/W3U0fhwIQn-NrT0jILRoGA",
     "@type" : "knora-api:TimeValue",
     "knora-api:timeValueAsTimeStamp" : {
       "@type" : "xsd:dateTimeStamp",
-      "@value" : "2019-12-16T09:33:22.082549Z"
+      "@value" : "2019-12-16T09:14:56.409249Z"
     }
   },
   "@context" : {

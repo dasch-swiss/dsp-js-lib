@@ -1,8 +1,8 @@
 {
-  "@id" : "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
+  "@id" : "http://rdfh.ch/0001/a-thing",
   "@type" : "anything:Thing",
   "anything:hasOtherThingValue" : {
-    "@id" : "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/uvRVxzL1RD-t9VIQ1TpfUw",
+    "@id" : "http://rdfh.ch/0001/a-thing/values/vLpKgz66Sn2tyUYJSJ5B5A",
     "@type" : "knora-api:LinkValue",
     "knora-api:linkValueHasTargetIri" : {
       "@id" : "http://rdfh.ch/0001/5IEswyQFQp2bxXDrOyEfEA"

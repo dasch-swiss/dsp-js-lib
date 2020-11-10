@@ -8,7 +8,7 @@
     "knora-api:dateValueHasStartMonth" : 10,
     "knora-api:dateValueHasStartEra" : "CE",
     "knora-api:dateValueHasEndYear" : 2018,
-    "knora-api:dateValueHasEndMonth" : 10,
+    "knora-api:dateValueHasEndMonth" : 11,
     "knora-api:dateValueHasEndEra" : "CE"
   },
   "@context" : {
