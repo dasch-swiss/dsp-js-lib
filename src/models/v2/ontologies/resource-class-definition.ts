@@ -15,10 +15,10 @@ export class ResourceClassDefinition extends ClassDefinition {
     @JsonProperty(Constants.SubClassOf, SubClassOfConverter)
     subClassOf: string[] = [];
 
-    @JsonProperty(Constants.Comment, String, true)
+    @JsonProperty(Constants.Comment, String)
     comment: string = "";
 
-    @JsonProperty(Constants.Label, String, true)
+    @JsonProperty(Constants.Label, String)
     label: string = "";
 
     @JsonProperty(Constants.SubClassOf, HasCardinalityForPropertyConverter)
@@ -31,13 +31,13 @@ export class ResourceClassDefinition extends ClassDefinition {
 @JsonObject("ResourceClassDefinitionWithAllLanguages")
 export class ResourceClassDefinitionWithAllLanguages extends ResourceClassDefinition {
 
-    @JsonProperty(Constants.Comment, StringLiteralToStringConverter, true)
+    @JsonProperty(Constants.Comment, StringLiteralToStringConverter)
     comment: string = "";
 
     @JsonProperty(Constants.Comment, StringLiteralToStringLiteralArrayConverter, true)
     comments: StringLiteralV2[] = [];
 
-    @JsonProperty(Constants.Label, StringLiteralToStringConverter, true)
+    @JsonProperty(Constants.Label, StringLiteralToStringConverter)
     label: string = "";
 
     @JsonProperty(Constants.Label, StringLiteralToStringLiteralArrayConverter, true)
