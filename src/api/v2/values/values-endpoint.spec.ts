@@ -427,6 +427,8 @@ describe("ValuesEndpoint", () => {
 
         it("should read a date value (Islamic)", done => {
 
+            // test data for Islamic date has been created manually!
+
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "-rG4F5FTTu2iB5mTBPVn5Q").subscribe(
                 (res: ReadResource) => {
                     const dateVal = res.getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate", ReadDateValue);
