@@ -16,10 +16,10 @@ export class ResourceClassDefinition extends ClassDefinition {
     subClassOf: string[] = [];
 
     @JsonProperty(Constants.Comment, String, true)
-    comment?: string = undefined;
+    comment: string = "";
 
     @JsonProperty(Constants.Label, String, true)
-    label?: string = undefined;
+    label: string = "";
 
     @JsonProperty(Constants.SubClassOf, HasCardinalityForPropertyConverter)
     propertiesList: IHasProperty[] = [];
@@ -32,13 +32,13 @@ export class ResourceClassDefinition extends ClassDefinition {
 export class ResourceClassDefinitionWithAllLanguages extends ResourceClassDefinition {
 
     @JsonProperty(Constants.Comment, StringLiteralToStringConverter, true)
-    comment?: string = undefined;
+    comment: string = "";
 
     @JsonProperty(Constants.Comment, StringLiteralToStringLiteralArrayConverter, true)
     comments: StringLiteralV2[] = [];
 
     @JsonProperty(Constants.Label, StringLiteralToStringConverter, true)
-    label?: string = undefined;
+    label: string = "";
 
     @JsonProperty(Constants.Label, StringLiteralToStringLiteralArrayConverter, true)
     labels: StringLiteralV2[] = [];
