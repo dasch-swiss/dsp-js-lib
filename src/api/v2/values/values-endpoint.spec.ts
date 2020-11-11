@@ -101,7 +101,6 @@ namespace WriteValueMocks {
 
 describe("ValuesEndpoint", () => {
 
-
     beforeEach(() => {
         jasmine.Ajax.install();
 
@@ -1461,9 +1460,14 @@ describe("ValuesEndpoint", () => {
                 "NwAp_UmGRlWTOCss0Yfwbw",
                 "2020-10-21T23:36:29.290428Z");
 
-            const updateIntValueResponse = require("../../../../test/data/api/v2/values/create-int-value-response-expanded.json");
+            const createIntValueResponse = require("../../../../test/data/api/v2/values/create-int-value-response-expanded.json");
 
-            expect(JSON.parse(mockedUpdateIntValueResponse)).toEqual(updateIntValueResponse);
+            // TODO: remove this bad hack once test data is stable
+            createIntValueResponse["@id"] = "http://rdfh.ch/0001/a-thing/values/Gdp7h5fOTEaxJEvoTXIW5A";
+            createIntValueResponse["http://api.knora.org/ontology/knora-api/v2#valueHasUUID"] = "NwAp_UmGRlWTOCss0Yfwbw";
+            createIntValueResponse["http://api.knora.org/ontology/knora-api/v2#valueCreationDate"]["@value"] = "2020-10-21T23:36:29.290428Z";
+
+            expect(JSON.parse(mockedUpdateIntValueResponse)).toEqual(createIntValueResponse);
 
         });
 
