@@ -450,7 +450,7 @@ describe("ValuesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const resource = require("../../../../test/data/api/v2/values/get-islamic-date-value-response-expanded.json");
+            const resource = require("../../../../test/data/api/v2/manually-generated/get-islamic-date-value-response-expanded.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
