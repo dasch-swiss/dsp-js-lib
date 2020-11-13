@@ -50,7 +50,8 @@ import {
     DefaultObjectAccessPermissionResponse,
     ProjectPermissionsResponse,
     AdministrativePermissionsResponse,
-    ProjectMetadataResponse
+    ProjectMetadataResponse,
+    UpdateProjectMetadataResponse
 } from "@dasch-swiss/dsp-js";
 import { Observable } from "rxjs";
 
@@ -788,6 +789,7 @@ export class AppComponent implements OnInit {
 
     getProjectMetadata(): void {
         const resourceIri = 'http://rdfh.ch/projects/0001';
+
         this.knoraApiConnection.v2.metadata.getProjectMetadata(resourceIri).subscribe(
             (res: ProjectMetadataResponse) => {
                 console.log(res);
@@ -801,7 +803,31 @@ export class AppComponent implements OnInit {
 
     updateProjectMetadata(): void {
         const resourceIri = 'http://rdfh.ch/projects/0001';
-        // this.knoraApiConnection.v2.metadata.updateProjectMetadata(resourceIri).subscribe();
+        const payload = {
+            "http://ns.dasch.swiss/repository#hasName": "(BEOL)",
+            "http://ns.dasch.swiss/repository#hasFunder": "Schweizerischer Nationalfonds (SNSF)",
+            "http://ns.dasch.swiss/repository#hasKeywords": [
+                "science",
+                "mathematics",
+                "history of science",
+                "history of mathematics"
+            ],
+            "http://ns.dasch.swiss/repository#hasEndDate": "2020.01",
+            "http://ns.dasch.swiss/repository#hasCategories": "mathematics",
+            "@type": "http://ns.dasch.swiss/repository#Project",
+            "http://ns.dasch.swiss/repository#hasStartDate": "2016.07",
+            "@id": "http://ns.dasch.swiss/beol"
+        };
+
+        this.knoraApiConnection.v2.metadata.updateProjectMetadata(resourceIri, payload).subscribe(
+            (res: UpdateProjectMetadataResponse) => {
+                console.log(res);
+                this.projectMetaStatus = 'OK';
+            },
+            error => {
+                this.projectMetaStatus = 'Error';
+            }
+        );
     }
 
 }

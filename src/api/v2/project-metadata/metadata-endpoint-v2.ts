@@ -4,6 +4,7 @@ import { catchError, map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { ProjectMetadataResponse } from "../../../models/v2/project-metadata/project-metadata";
+import { UpdateProjectMetadataResponse } from "../../../models/v2/project-metadata/update-project-metadata";
 import { Endpoint } from "../../endpoint";
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
@@ -43,8 +44,20 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
         );
     }
 
-    updateProjectMetadata(resourceIri: string): Observable<any> {
-        const metadata = "";
-        return this.httpPut("", metadata);
+    /**
+     * Updates a project metadata from Knora.
+     * @param resourceIri the Iri of the resource the value belongs to.
+     * @param metadata the data to update.
+     */
+    updateProjectMetadata(resourceIri: string, metadata: any): Observable<UpdateProjectMetadataResponse | ApiResponseError> {
+        return this.httpPut(`/${encodeURIComponent(resourceIri)}`, metadata).pipe(
+            mergeMap((res: AjaxResponse) => {
+                return jsonld.compact(res.response, {});
+            }),
+            map(obj => {
+                return this.jsonConvert.deserializeObject(obj, UpdateProjectMetadataResponse);
+            }),
+            catchError(e => this.handleError(e))
+        );
     }
 }
