@@ -493,9 +493,9 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.onto.addCardinalityToResourceClass(addCard).subscribe(
             (res: ResourceClassDefinitionWithAllLanguages) => {
-            this.addCard = res;
-            console.log('added card: ', res)
-          }
+                this.addCard = res;
+                console.log('added card: ', res)
+            }
         );
 
 
@@ -781,6 +781,14 @@ export class AppComponent implements OnInit {
             }
         );
 
+    }
+
+    getProjectMetadata(): void {
+        let resourceIri: string;
+    }
+
+    updateProjectMetadata(): void {
+        let resourceIri: string;
     }
 
 }
