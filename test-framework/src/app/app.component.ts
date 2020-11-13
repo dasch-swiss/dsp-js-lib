@@ -49,7 +49,8 @@ import {
     DefaultObjectAccessPermissionsResponse,
     DefaultObjectAccessPermissionResponse,
     ProjectPermissionsResponse,
-    AdministrativePermissionsResponse
+    AdministrativePermissionsResponse,
+    ProjectMetadataResponse
 } from "@dasch-swiss/dsp-js";
 import { Observable } from "rxjs";
 
@@ -100,6 +101,8 @@ export class AppComponent implements OnInit {
             other: '# ontologies'
         }
     };
+
+    projectMetaStatus = '';
 
     ngOnInit() {
         const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
@@ -784,11 +787,21 @@ export class AppComponent implements OnInit {
     }
 
     getProjectMetadata(): void {
-        let resourceIri: string;
+        const resourceIri = 'http://rdfh.ch/projects/0001';
+        this.knoraApiConnection.v2.metadata.getProjectMetadata(resourceIri).subscribe(
+            (res: ProjectMetadataResponse) => {
+                console.log(res);
+                this.projectMetaStatus = 'OK';
+            },
+            error => {
+                this.projectMetaStatus = 'Error';
+            }
+        );
     }
 
     updateProjectMetadata(): void {
-        let resourceIri: string;
+        const resourceIri = 'http://rdfh.ch/projects/0001';
+        // this.knoraApiConnection.v2.metadata.updateProjectMetadata(resourceIri).subscribe();
     }
 
 }

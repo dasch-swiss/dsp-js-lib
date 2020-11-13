@@ -1,12 +1,12 @@
-import { JsonLdProcessor } from "jsonld";
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
-import { map, mergeMap } from "rxjs/operators";
+import { catchError, map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig } from "../../../knora-api-config";
-import { ProjectMetadata } from "../../../models/v2/project-metadata/project-metadata";
+import { ApiResponseError } from "../../../models/api-response-error";
+import { ProjectMetadataResponse } from "../../../models/v2/project-metadata/project-metadata";
 import { Endpoint } from "../../endpoint";
 
-// declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
+declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
 const jsonld = require("jsonld/dist/jsonld.js");
 
 /**
@@ -23,18 +23,27 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
         super(knoraApiConfig, path);
     }
 
-    getMetadata(projectIri: string): Observable<ProjectMetadata> {
-        return this.httpGet("/" + encodeURIComponent(projectIri)).pipe(
+    /**
+     * Reads a project metadata from Knora.
+     * @param resourceIri the Iri of the resource the value belongs to.
+     */
+    getProjectMetadata(resourceIri: string): Observable<ProjectMetadataResponse | ApiResponseError> {
+        return this.httpGet(`/${encodeURIComponent(resourceIri)}`).pipe(
+            // expand all Iris
             mergeMap((res: AjaxResponse) => {
                 return jsonld.compact(res.response, {});
             }),
             map((obj: object) => {
-                return this.jsonConvert.deserializeObject(obj, ProjectMetadata);
+                // create an instance of ProjectMetadata from JSON-LD
+                return this.jsonConvert.deserializeObject(obj, ProjectMetadataResponse);
+            }),
+            catchError(e => {
+                return this.handleError(e);
             })
         );
     }
 
-    updateMetadata(projectIri: string): Observable<any> {
+    updateProjectMetadata(resourceIri: string): Observable<any> {
         const metadata = "";
         return this.httpPut("", metadata);
     }

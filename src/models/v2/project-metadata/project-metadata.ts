@@ -1,7 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 
 @JsonObject("ProjectMetadata")
-export class ProjectMetadata {
+export class ProjectMetadataResponse {
 
     @JsonProperty("http://ns.dasch.swiss/repository#hasName", String)
     name: string = "";
