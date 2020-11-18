@@ -40,10 +40,10 @@ export class ProjectMetadataResponse { //Dataset
     language: string[] = [];
 
     @JsonProperty(Constants.dspRepoBase + "hasLicense", URL)
-    license: URL = new URL(""); //should be string?
+    license: URL = new URL(""); 
 
     @JsonProperty(Constants.dspRepoBase + "hasQualifiedAttribution", [Attribution])
-    qualifiedAttribution: Attribution = new Attribution();
+    qualifiedAttribution: Attribution[] = []; //array
 
     @JsonProperty(Constants.dspRepoBase + "hasStatus", String)
     status: string = "";
@@ -58,7 +58,7 @@ export class ProjectMetadataResponse { //Dataset
     partOf: Project = new Project();
 
     @JsonProperty(Constants.dspRepoBase + "sameAs", URL)
-    sameAs: URL = new URL(""); //should be string?
+    sameAs: URL = new URL(""); 
 
 // left to temp test purposes as it was wroking example
     // @JsonProperty("http://ns.dasch.swiss/repository#hasName", String)
