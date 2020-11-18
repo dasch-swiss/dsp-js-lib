@@ -18,8 +18,8 @@ export class CreateDateValue extends CreateValue implements IBaseDateValue {
     @JsonProperty(Constants.DateValueHasStartYear, Number)
     startYear: number = 0;
 
-    @JsonProperty(Constants.DateValueHasStartEra, String)
-    startEra: string = "";
+    @JsonProperty(Constants.DateValueHasStartEra, String, true)
+    startEra?: string = undefined;
 
     @JsonProperty(Constants.DateValueHasEndDay, Number, true)
     endDay?: number = undefined;
@@ -30,8 +30,8 @@ export class CreateDateValue extends CreateValue implements IBaseDateValue {
     @JsonProperty(Constants.DateValueHasEndYear, Number)
     endYear: number = 0;
 
-    @JsonProperty(Constants.DateValueHasEndEra, String)
-    endEra: string = "";
+    @JsonProperty(Constants.DateValueHasEndEra, String, true)
+    endEra?: string = undefined;
 
     constructor() {
         super(Constants.DateValue);

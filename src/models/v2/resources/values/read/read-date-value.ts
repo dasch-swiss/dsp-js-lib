@@ -21,8 +21,8 @@ export class ParseReadDateValue extends ReadValue implements IBaseDateValue {
     @JsonProperty(Constants.DateValueHasStartYear, Number)
     startYear: number = 0;
 
-    @JsonProperty(Constants.DateValueHasStartEra, String)
-    startEra: string = "";
+    @JsonProperty(Constants.DateValueHasStartEra, String, true)
+    startEra?: string = undefined;
 
     @JsonProperty(Constants.DateValueHasEndDay, Number, true)
     endDay?: number = undefined;
@@ -33,8 +33,8 @@ export class ParseReadDateValue extends ReadValue implements IBaseDateValue {
     @JsonProperty(Constants.DateValueHasEndYear, Number)
     endYear: number = 0;
 
-    @JsonProperty(Constants.DateValueHasEndEra, String)
-    endEra: string = "";
+    @JsonProperty(Constants.DateValueHasEndEra, String, true)
+    endEra?: string = undefined;
 }
 
 /**
@@ -116,10 +116,29 @@ export class ReadDateValue extends ReadValue {
 
         if (date.startYear === date.endYear && date.startMonth === date.endMonth && date.startDay === date.endDay && date.startEra === date.endEra) {
             // single date
-            this.date = new KnoraDate(date.calendar, date.startEra, date.startYear, date.startMonth, date.startDay);
+
+            this.date = new KnoraDate(date.calendar, this.handleEra(date.startEra), date.startYear, date.startMonth, date.startDay);
         } else {
             // date period
-            this.date = new KnoraPeriod(new KnoraDate(date.calendar, date.startEra, date.startYear, date.startMonth, date.startDay), new KnoraDate(date.calendar, date.endEra, date.endYear, date.endMonth, date.endDay));
+
+            this.date = new KnoraPeriod(
+                new KnoraDate(date.calendar, this.handleEra(date.startEra), date.startYear, date.startMonth, date.startDay),
+                new KnoraDate(date.calendar, this.handleEra(date.endEra), date.endYear, date.endMonth, date.endDay));
+        }
+    }
+
+    /**
+     * Determines if an era is given.
+     * Returns "noEra" in case none is given (the given calendar date does not have an era).
+     *
+     * @param era given era, if any.
+     */
+    private handleEra(era?: string): string {
+        // determine era
+        if (era !== undefined) {
+            return era;
+        } else {
+            return "noEra";
         }
     }
 
