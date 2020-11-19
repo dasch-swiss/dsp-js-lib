@@ -10,12 +10,12 @@ export class Grant {
     @JsonProperty(Constants.dspRepoBase + "hasFunder", PersonOrganizationConverter, true)
     funder?: Person | Organization = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasName", String)
-    name?: string = "";
+    @JsonProperty(Constants.dspRepoBase + "hasName", String, true)
+    name?: string = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasNumber", String)
-    number?: string = "";
+    @JsonProperty(Constants.dspRepoBase + "hasNumber", String, true)
+    number?: string = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasURL", URL)
-    url?: URL = new URL("");
+    @JsonProperty(Constants.dspRepoBase + "hasURL", URL, true)
+    url?: URL = undefined;
 }

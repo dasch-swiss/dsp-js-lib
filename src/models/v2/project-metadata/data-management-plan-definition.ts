@@ -4,8 +4,8 @@ import { Constants } from "../Constants";
 @JsonObject("DataManagementPlan")
 export class DataManagementPlan {
 
-    @JsonProperty(Constants.dspRepoBase + "hasURL", URL)
-    url?: URL = new URL("");
+    @JsonProperty(Constants.dspRepoBase + "hasURL", URL, true)
+    url?: URL = undefined;
 
     @JsonProperty(Constants.dspRepoBase + "isAvailable", Boolean, true)
     isAvailable?: boolean = undefined;

@@ -5,15 +5,15 @@ import { Address } from "./address-definition";
 @JsonObject("Organization")
 export class Organization {
 
-    @JsonProperty(Constants.dspRepoBase + "hasAddress", Address)
-    address?: Address = new Address();
+    @JsonProperty(Constants.dspRepoBase + "hasAddress", Address, true)
+    address?: Address = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasEmail", URL)
-    email?: URL = new URL(""); //IRI?
+    @JsonProperty(Constants.dspRepoBase + "hasEmail", URL, true)
+    email?: URL = undefined; //IRI?
 
     @JsonProperty(Constants.dspRepoBase + "hasName", String)
     name: string = "";
 
-    @JsonProperty(Constants.dspRepoBase + "hasURL", URL)
-    url?: URL = new URL("");
+    @JsonProperty(Constants.dspRepoBase + "hasURL", URL, true)
+    url?: URL = undefined;
 }

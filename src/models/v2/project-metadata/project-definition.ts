@@ -10,17 +10,17 @@ import { Place } from "./place-definition";
 @JsonObject("Project")
 export class Project {
 
-    @JsonProperty(Constants.dspRepoBase + "hasAlternateName", String)
-    alternateName?: string = "";
+    @JsonProperty(Constants.dspRepoBase + "hasAlternateName", String, true)
+    alternateName?: string = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasContactPoint", Person)
-    contactPoint?: Person = new Person();
+    @JsonProperty(Constants.dspRepoBase + "hasContactPoint", Person, true)
+    contactPoint?: Person = undefined;
 
     @JsonProperty(Constants.dspRepoBase + "sameAs", URL)
     sameAs: URL = new URL("");
 
-    @JsonProperty(Constants.dspRepoBase + "hasDataManagementPlan", String)
-    dataManagementPlan?: DataManagementPlan = new DataManagementPlan();
+    @JsonProperty(Constants.dspRepoBase + "hasDataManagementPlan", String, true)
+    dataManagementPlan?: DataManagementPlan = undefined;
 
     @JsonProperty(Constants.dspRepoBase + "hasDescription", String)
     description: string = "";
@@ -28,14 +28,14 @@ export class Project {
     @JsonProperty(Constants.dspRepoBase + "hasDiscipline", URL)
     discipline: URL = new URL(""); //String | URL
     
-    @JsonProperty(Constants.dspRepoBase + "hasEndDate", Date)
-    endDate?: Date = new Date();
+    @JsonProperty(Constants.dspRepoBase + "hasEndDate", Date, true)
+    endDate?: Date = undefined;
 
     @JsonProperty(Constants.dspRepoBase + "hasFunder", PersonOrganizationConverter)
     funder: Person | Organization = new Person();
 
-    @JsonProperty(Constants.dspRepoBase + "hasGrant", Grant)
-    grant?: Grant = new Grant();
+    @JsonProperty(Constants.dspRepoBase + "hasGrant", Grant, true)
+    grant?: Grant = undefined;
 
     @JsonProperty(Constants.dspRepoBase + "hasKeywords", [String])
     keywords: string[] = [];
@@ -43,8 +43,8 @@ export class Project {
     @JsonProperty(Constants.dspRepoBase + "hasName", String)
     name: string = "";
 
-    @JsonProperty(Constants.dspRepoBase + "hasPublication", String)
-    publication?: string = "";
+    @JsonProperty(Constants.dspRepoBase + "hasPublication", String, true)
+    publication?: string = undefined;
 
     @JsonProperty(Constants.dspRepoBase + "hasShortcode", String)
     shortcode: string = "";

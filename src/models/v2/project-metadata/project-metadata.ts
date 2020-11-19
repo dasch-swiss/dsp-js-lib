@@ -12,26 +12,26 @@ export class ProjectMetadataResponse { //Dataset
     @JsonProperty(Constants.dspRepoBase + "hasAbstract", String)
     abstract: string = ""; //String | URL
 
-    @JsonProperty(Constants.dspRepoBase + "hasAlternativeTitle", String)
-    alternativeTitle?: string = "";
+    @JsonProperty(Constants.dspRepoBase + "hasAlternativeTitle", String, true)
+    alternativeTitle?: string = undefined;
 
     @JsonProperty(Constants.dspRepoBase + "hasConditionsOfAccess", String)
     conditionsOfAccess: string = "";
 
-    @JsonProperty(Constants.dspRepoBase + "hasDateCreated", Date)
-    dateCreated?: Date = new Date();
+    @JsonProperty(Constants.dspRepoBase + "hasDateCreated", Date, true)
+    dateCreated?: Date = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasDateModified", Date)
-    dateModified?: Date = new Date();
+    @JsonProperty(Constants.dspRepoBase + "hasDateModified", Date, true)
+    dateModified?: Date = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasDatePublished", Date)
-    datePublished?: Date = new Date();
+    @JsonProperty(Constants.dspRepoBase + "hasDatePublished", Date, true)
+    datePublished?: Date = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasDistribution", String) //or DataDownlod type/class
-    distribution?: string = "";
+    @JsonProperty(Constants.dspRepoBase + "hasDistribution", String, true) //or DataDownlod type/class
+    distribution?: string = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasDocumentation", String)
-    documentation?: string = ""; //String | URL
+    @JsonProperty(Constants.dspRepoBase + "hasDocumentation", String, true)
+    documentation?: string = undefined; //String | URL
 
     @JsonProperty(Constants.dspRepoBase + "hasHowToCite", String)
     howToCite: string = "";
@@ -57,8 +57,8 @@ export class ProjectMetadataResponse { //Dataset
     @JsonProperty(Constants.dspRepoBase + "isPartOf", Project)
     partOf: Project = new Project();
 
-    @JsonProperty(Constants.dspRepoBase + "sameAs", URL)
-    sameAs?: URL = new URL("");
+    @JsonProperty(Constants.dspRepoBase + "sameAs", URL, true)
+    sameAs?: URL = undefined;
 
 // left to temp test purposes as it was wroking example
     // @JsonProperty("http://ns.dasch.swiss/repository#hasName", String)

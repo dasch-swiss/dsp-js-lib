@@ -6,14 +6,14 @@ import { Organization } from "./organization-definition";
 @JsonObject("Person")
 export class Person {
     
-    @JsonProperty(Constants.dspRepoBase + "hasAddress", Address)
-    address?: Address = new Address();
+    @JsonProperty(Constants.dspRepoBase + "hasAddress", Address, true)
+    address?: Address = undefined;
 
     @JsonProperty(Constants.dspRepoBase + "hasEmail", URL)
     email: URL = new URL(""); //should be IRI?
 
-    @JsonProperty(Constants.dspRepoBase + "hasFamilyName", String)
-    fmilyName?: string = "";
+    @JsonProperty(Constants.dspRepoBase + "hasFamilyName", String, true)
+    fmilyName?: string = undefined;
 
     @JsonProperty(Constants.dspRepoBase + "hasGivenName", String)
     givenName: string = "";
@@ -24,6 +24,6 @@ export class Person {
     @JsonProperty(Constants.dspRepoBase + "isMemberOf", Organization)
     memberOf: Organization = new Organization();
 
-    @JsonProperty(Constants.dspRepoBase + "sameAs", URL)
-    sameAs?: URL = new URL("");
+    @JsonProperty(Constants.dspRepoBase + "sameAs", URL, true)
+    sameAs?: URL = undefined;
 }
