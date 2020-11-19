@@ -161,7 +161,9 @@ export class Constants {
     static SalsahLink: string = "salsah-link"; // class on an HTML <a> element that indicates a link to a Knora resource
     static RefMarker: string = "ref-marker"; // class on an HTML element that refers to another element in the same document
 
-    static dspRepo = "http://ns.dasch.swiss/repository";
+    static dsp = "http://ns.dasch.swiss/"
+    static dspRepo = Constants.dsp + "repository";
     static dspRepoBase = Constants.dspRepo + Constants.Delimiter;
+    static urlType = "https://schema.org/URL";
 
 }
