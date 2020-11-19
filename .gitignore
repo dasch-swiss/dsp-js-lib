@@ -21,6 +21,7 @@ CHANGELOG.md
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+*.code-workspace
 
 # Generated files
 .idea/**/contentModel.xml
