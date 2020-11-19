@@ -1,7 +1,9 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
+import { PersonOrganizationConverter } from "../custom-converters/person-organization-converter";
 import { DataManagementPlan } from "./data-management-plan-definition";
 import { Grant } from "./grant-definition";
+import { Organization } from "./organization-definition";
 import { Person } from "./person-definition";
 import { Place } from "./place-definition";
 
@@ -29,8 +31,8 @@ export class Project {
     @JsonProperty(Constants.dspRepoBase + "hasEndDate", Date)
     endDate?: Date = new Date();
 
-    @JsonProperty(Constants.dspRepoBase + "hasFunder", Person)
-    funder: Person = new Person(); //Person | Organization
+    @JsonProperty(Constants.dspRepoBase + "hasFunder", PersonOrganizationConverter)
+    funder: Person | Organization = new Person();
 
     @JsonProperty(Constants.dspRepoBase + "hasGrant", Grant)
     grant?: Grant = new Grant();

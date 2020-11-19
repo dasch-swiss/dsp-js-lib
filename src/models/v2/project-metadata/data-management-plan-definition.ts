@@ -7,6 +7,6 @@ export class DataManagementPlan {
     @JsonProperty(Constants.dspRepoBase + "hasURL", URL)
     url?: URL = new URL("");
 
-    @JsonProperty(Constants.dspRepoBase + "isAvailable", Boolean)
-    isAvailable?: boolean; //init it
+    @JsonProperty(Constants.dspRepoBase + "isAvailable", Boolean, true)
+    isAvailable?: boolean = undefined;
 }
