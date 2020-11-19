@@ -56,6 +56,7 @@ import {
 import { Observable } from "rxjs";
 
 import { map, tap } from "rxjs/operators";
+import metadataPayload from "../assets/metadata-payload.json";
 
 @Component({
     selector: 'app-root',
@@ -803,23 +804,8 @@ export class AppComponent implements OnInit {
 
     updateProjectMetadata(): void {
         const resourceIri = 'http://rdfh.ch/projects/0001';
-        const payload = {
-            "http://ns.dasch.swiss/repository#hasName": "(BEOL)",
-            "http://ns.dasch.swiss/repository#hasFunder": "Schweizerischer Nationalfonds (SNSF)",
-            "http://ns.dasch.swiss/repository#hasKeywords": [
-                "science",
-                "mathematics",
-                "history of science",
-                "history of mathematics"
-            ],
-            "http://ns.dasch.swiss/repository#hasEndDate": "2020.01",
-            "http://ns.dasch.swiss/repository#hasCategories": "mathematics",
-            "@type": "http://ns.dasch.swiss/repository#Project",
-            "http://ns.dasch.swiss/repository#hasStartDate": "2016.07",
-            "@id": "http://ns.dasch.swiss/beol"
-        };
 
-        this.knoraApiConnection.v2.metadata.updateProjectMetadata(resourceIri, payload).subscribe(
+        this.knoraApiConnection.v2.metadata.updateProjectMetadata(resourceIri, metadataPayload).subscribe(
             (res: UpdateProjectMetadataResponse) => {
                 console.log(res);
                 this.projectMetaStatus = 'OK';
