@@ -9,31 +9,31 @@ import { Place } from "./place-definition";
 export class Project {
 
     @JsonProperty(Constants.dspRepoBase + "hasAlternateName", String)
-    alternateName: string = "";
+    alternateName?: string = "";
 
     @JsonProperty(Constants.dspRepoBase + "hasContactPoint", Person)
-    contactPoint: Person = new Person();
+    contactPoint?: Person = new Person();
 
     @JsonProperty(Constants.dspRepoBase + "sameAs", URL)
-    sameAs: URL = new URL(""); 
+    sameAs: URL = new URL("");
 
     @JsonProperty(Constants.dspRepoBase + "hasDataManagementPlan", String)
-    dataManagementPlan: DataManagementPlan = new DataManagementPlan();
+    dataManagementPlan?: DataManagementPlan = new DataManagementPlan();
 
     @JsonProperty(Constants.dspRepoBase + "hasDescription", String)
     description: string = "";
 
     @JsonProperty(Constants.dspRepoBase + "hasDiscipline", URL)
-    discipline: URL = new URL(""); 
+    discipline: URL = new URL(""); //String | URL
     
     @JsonProperty(Constants.dspRepoBase + "hasEndDate", Date)
-    endDate: Date = new Date();
+    endDate?: Date = new Date();
 
-    @JsonProperty(Constants.dspRepoBase + "hasFunder", Person) //Person | Organization
-    funder: Person = new Person();
+    @JsonProperty(Constants.dspRepoBase + "hasFunder", Person)
+    funder: Person = new Person(); //Person | Organization
 
     @JsonProperty(Constants.dspRepoBase + "hasGrant", Grant)
-    grant: Grant = new Grant();
+    grant?: Grant = new Grant();
 
     @JsonProperty(Constants.dspRepoBase + "hasKeywords", [String])
     keywords: string[] = [];
@@ -42,7 +42,7 @@ export class Project {
     name: string = "";
 
     @JsonProperty(Constants.dspRepoBase + "hasPublication", String)
-    publication: string = "";
+    publication?: string = "";
 
     @JsonProperty(Constants.dspRepoBase + "hasShortcode", String)
     shortcode: string = "";
@@ -54,8 +54,8 @@ export class Project {
     startDate: Date = new Date();
 
     @JsonProperty(Constants.dspRepoBase + "hasTemporalCoverage", URL)
-    temporalCoverage: URL = new URL(""); 
+    temporalCoverage: URL = new URL(""); //String | URL
 
     @JsonProperty(Constants.dspRepoBase + "hasURL", URL)
-    url: URL = new URL(""); 
+    url: URL = new URL("");
 }

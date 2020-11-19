@@ -7,13 +7,13 @@ import { Organization } from "./organization-definition";
 export class Person {
     
     @JsonProperty(Constants.dspRepoBase + "hasAddress", Address)
-    address: Address = new Address();
+    address?: Address = new Address();
 
     @JsonProperty(Constants.dspRepoBase + "hasEmail", URL)
-    email: URL = new URL(""); 
+    email: URL = new URL(""); //should be IRI?
 
     @JsonProperty(Constants.dspRepoBase + "hasFamilyName", String)
-    fmilyName: string = "";
+    fmilyName?: string = "";
 
     @JsonProperty(Constants.dspRepoBase + "hasGivenName", String)
     givenName: string = "";
@@ -21,9 +21,9 @@ export class Person {
     @JsonProperty(Constants.dspRepoBase + "hasJobTitle", String)
     jobTitle: string = "";
 
-    @JsonProperty(Constants.dspRepoBase + "hasRole", String)
-    role: string = "";
-
     @JsonProperty(Constants.dspRepoBase + "isMemberOf", Organization)
     memberOf: Organization = new Organization();
+
+    @JsonProperty(Constants.dspRepoBase + "sameAs", URL)
+    sameAs?: URL = new URL("");
 }

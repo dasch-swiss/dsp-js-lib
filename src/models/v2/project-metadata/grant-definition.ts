@@ -6,14 +6,14 @@ import { Person } from "./person-definition";
 export class Grant {
 
     @JsonProperty(Constants.dspRepoBase + "hasFunder", Person) //Person | Organization
-    funder: Person = new Person();
+    funder?: Person = new Person();
 
     @JsonProperty(Constants.dspRepoBase + "hasName", String)
-    name: string = "";
+    name?: string = "";
 
     @JsonProperty(Constants.dspRepoBase + "hasNumber", String)
-    number: string = "";
+    number?: string = "";
 
     @JsonProperty(Constants.dspRepoBase + "hasURL", URL)
-    url: URL = new URL(""); 
+    url?: URL = new URL("");
 }

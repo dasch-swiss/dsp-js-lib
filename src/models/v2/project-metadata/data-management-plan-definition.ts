@@ -5,8 +5,8 @@ import { Constants } from "../Constants";
 export class DataManagementPlan {
 
     @JsonProperty(Constants.dspRepoBase + "hasURL", URL)
-    url: URL = new URL(""); 
+    url?: URL = new URL("");
 
     @JsonProperty(Constants.dspRepoBase + "isAvailable", Boolean)
-    isAvailable: boolean; //init it
+    isAvailable?: boolean; //init it
 }

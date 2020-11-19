@@ -5,5 +5,5 @@ import { Constants } from "../Constants";
 export class Place {
 
     @JsonProperty(Constants.dspRepoBase + "URL", URL)
-    url: URL = new URL(""); 
+    url: URL = new URL("");
 }
