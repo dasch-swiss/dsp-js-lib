@@ -11,9 +11,9 @@ export class EmailConverter implements JsonCustomConvert<string> {
     }
     
     deserialize(email: any): string {
-        const hasPrefix = email.include(Constants.dsp);
+        const hasPrefix = email["@id"].include(Constants.dsp);
         if (hasPrefix) {
-            return email.replace(Constants.dsp, "");
+            return email["@id"].replace(Constants.dsp, "");
         } else {
             throw new Error("Expected @id");
         }

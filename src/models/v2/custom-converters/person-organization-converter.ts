@@ -1,5 +1,6 @@
 import { JsonConvert, JsonConverter, JsonCustomConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+import { Constants } from "../Constants";
 import { Organization } from "../project-metadata/organization-definition";
 import { Person } from "../project-metadata/person-definition";
 
@@ -17,8 +18,9 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
         return;
     }
 
-    deserialize(obj: any): Person | Organization {
-        if (obj.jobTitle) {
+    deserialize(obj: object): Person | Organization {
+        const prop = Constants.dspRepoBase + "hasJobTitle";
+        if (obj.hasOwnProperty(prop)) {
             return PersonOrganizationConverter.jsonConvert.deserializeObject(obj, Person);
         } else {
             return PersonOrganizationConverter.jsonConvert.deserializeObject(obj, Organization);
