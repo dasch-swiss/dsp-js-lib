@@ -2,7 +2,7 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { Project } from "../../admin/project";
 import { Constants } from "../Constants";
 import { DateConverter } from "../custom-converters/date-converter";
-import { StringUrlConverter } from "../custom-converters/string-url-converter";
+import { UrlToStringConverter } from "../custom-converters/url-to-string-converter";
 import { Attribution } from "./attribution-definition";
 
 enum TypeofData {
@@ -11,8 +11,8 @@ enum TypeofData {
 @JsonObject("ProjectMetadataResponse")
 export class ProjectMetadataResponse { //Dataset
 
-    @JsonProperty(Constants.dspRepoBase + "hasAbstract", String)
-    abstract: string = ""; //String | URL
+    @JsonProperty(Constants.dspRepoBase + "hasAbstract", UrlToStringConverter)
+    abstract: string = "";
 
     @JsonProperty(Constants.dspRepoBase + "hasAlternativeTitle", String, true)
     alternativeTitle?: string = undefined;
@@ -29,11 +29,11 @@ export class ProjectMetadataResponse { //Dataset
     @JsonProperty(Constants.dspRepoBase + "hasDatePublished", DateConverter, true)
     datePublished?: Date = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasDistribution", String, true) //or DataDownlod type/class
+    @JsonProperty(Constants.dspRepoBase + "hasDistribution", UrlToStringConverter, true)
     distribution?: string = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasDocumentation", String, true)
-    documentation?: string = undefined; //String | URL
+    @JsonProperty(Constants.dspRepoBase + "hasDocumentation", UrlToStringConverter, true)
+    documentation?: string = undefined;
 
     @JsonProperty(Constants.dspRepoBase + "hasHowToCite", String)
     howToCite: string = "";
@@ -41,7 +41,7 @@ export class ProjectMetadataResponse { //Dataset
     @JsonProperty(Constants.dspRepoBase + "hasLanguage", [String])
     language: string[] = [];
 
-    @JsonProperty(Constants.dspRepoBase + "hasLicense", StringUrlConverter)
+    @JsonProperty(Constants.dspRepoBase + "hasLicense", UrlToStringConverter)
     license: string = "";
 
     @JsonProperty(Constants.dspRepoBase + "hasQualifiedAttribution", [Attribution])
@@ -59,8 +59,8 @@ export class ProjectMetadataResponse { //Dataset
     @JsonProperty(Constants.dspRepoBase + "isPartOf", Project)
     partOf: Project = new Project();
 
-    @JsonProperty(Constants.dspRepoBase + "sameAs", StringUrlConverter, true)
-    sameAs?: URL = undefined;
+    @JsonProperty(Constants.dspRepoBase + "sameAs", UrlToStringConverter, true)
+    sameAs?: string = undefined;
 
 // left to temp test purposes as it was wroking example
     // @JsonProperty("http://ns.dasch.swiss/repository#hasName", String)

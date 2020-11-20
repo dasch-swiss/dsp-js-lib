@@ -166,5 +166,7 @@ export class Constants {
     static dspRepo = Constants.dsp + "repository";
     static dspRepoBase = Constants.dspRepo + Constants.Delimiter;
     static urlType = "https://schema.org/URL";
+    static propID = "https://schema.org/propertyID";
+    static dataDownload = "https://schema.org/DataDownload";
 
 }

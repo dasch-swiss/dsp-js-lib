@@ -2,7 +2,8 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
 import { DateConverter } from "../custom-converters/date-converter";
 import { PersonOrganizationConverter } from "../custom-converters/person-organization-converter";
-import { StringUrlConverter } from "../custom-converters/string-url-converter";
+import { UrlToObjectConverter } from "../custom-converters/url-to-object-converter";
+import { UrlToStringConverter } from "../custom-converters/url-to-string-converter";
 import { DataManagementPlan } from "./data-management-plan-definition";
 import { Grant } from "./grant-definition";
 import { Organization } from "./organization-definition";
@@ -18,7 +19,7 @@ export class Project {
     @JsonProperty(Constants.dspRepoBase + "hasContactPoint", Person, true)
     contactPoint?: Person = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "sameAs", StringUrlConverter)
+    @JsonProperty(Constants.dspRepoBase + "sameAs", UrlToStringConverter)
     sameAs: string = "";
 
     @JsonProperty(Constants.dspRepoBase + "hasDataManagementPlan", String, true)
@@ -27,8 +28,8 @@ export class Project {
     @JsonProperty(Constants.dspRepoBase + "hasDescription", String)
     description: string = "";
 
-    @JsonProperty(Constants.dspRepoBase + "hasDiscipline", URL)
-    discipline: URL = new URL(""); //String | URL
+    @JsonProperty(Constants.dspRepoBase + "hasDiscipline", UrlToObjectConverter)
+    discipline: object = {};
     
     @JsonProperty(Constants.dspRepoBase + "hasEndDate", DateConverter, true)
     endDate?: Date = undefined;
@@ -57,9 +58,9 @@ export class Project {
     @JsonProperty(Constants.dspRepoBase + "hasStartDate", DateConverter)
     startDate: Date = new Date();
 
-    @JsonProperty(Constants.dspRepoBase + "hasTemporalCoverage", URL)
-    temporalCoverage: URL = new URL(""); //String | URL
+    @JsonProperty(Constants.dspRepoBase + "hasTemporalCoverage", UrlToObjectConverter)
+    temporalCoverage: object = {};
 
-    @JsonProperty(Constants.dspRepoBase + "hasURL", StringUrlConverter)
+    @JsonProperty(Constants.dspRepoBase + "hasURL", UrlToStringConverter)
     url: string = "";
 }

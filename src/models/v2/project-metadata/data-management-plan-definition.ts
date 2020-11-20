@@ -1,11 +1,11 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
-import { StringUrlConverter } from "../custom-converters/string-url-converter";
+import { UrlToStringConverter } from "../custom-converters/url-to-string-converter";
 
 @JsonObject("DataManagementPlan")
 export class DataManagementPlan {
 
-    @JsonProperty(Constants.dspRepoBase + "hasURL", StringUrlConverter, true)
+    @JsonProperty(Constants.dspRepoBase + "hasURL", UrlToStringConverter, true)
     url?: string = undefined;
 
     @JsonProperty(Constants.dspRepoBase + "isAvailable", Boolean, true)

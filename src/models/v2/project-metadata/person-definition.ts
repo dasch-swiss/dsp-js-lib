@@ -1,7 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
 import { EmailConverter } from "../custom-converters/email-converter";
-import { StringUrlConverter } from "../custom-converters/string-url-converter";
+import { UrlToStringConverter } from "../custom-converters/url-to-string-converter";
 import { Address } from "./address-definition";
 import { Organization } from "./organization-definition";
 
@@ -26,6 +26,6 @@ export class Person {
     @JsonProperty(Constants.dspRepoBase + "isMemberOf", Organization)
     memberOf: Organization = new Organization();
 
-    @JsonProperty(Constants.dspRepoBase + "sameAs", StringUrlConverter, true)
+    @JsonProperty(Constants.dspRepoBase + "sameAs", UrlToStringConverter, true)
     sameAs?: string = undefined;
 }
