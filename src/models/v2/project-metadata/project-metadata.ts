@@ -1,6 +1,8 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Project } from "../../admin/project";
 import { Constants } from "../Constants";
+import { DateConverter } from "../custom-converters/date-converter";
+import { StringUrlConverter } from "../custom-converters/string-url-converter";
 import { Attribution } from "./attribution-definition";
 
 enum TypeofData {
@@ -18,13 +20,13 @@ export class ProjectMetadataResponse { //Dataset
     @JsonProperty(Constants.dspRepoBase + "hasConditionsOfAccess", String)
     conditionsOfAccess: string = "";
 
-    @JsonProperty(Constants.dspRepoBase + "hasDateCreated", Date, true)
+    @JsonProperty(Constants.dspRepoBase + "hasDateCreated", DateConverter, true)
     dateCreated?: Date = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasDateModified", Date, true)
+    @JsonProperty(Constants.dspRepoBase + "hasDateModified", DateConverter, true)
     dateModified?: Date = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasDatePublished", Date, true)
+    @JsonProperty(Constants.dspRepoBase + "hasDatePublished", DateConverter, true)
     datePublished?: Date = undefined;
 
     @JsonProperty(Constants.dspRepoBase + "hasDistribution", String, true) //or DataDownlod type/class
@@ -39,8 +41,8 @@ export class ProjectMetadataResponse { //Dataset
     @JsonProperty(Constants.dspRepoBase + "hasLanguage", [String])
     language: string[] = [];
 
-    @JsonProperty(Constants.dspRepoBase + "hasLicense", URL)
-    license: URL = new URL("");
+    @JsonProperty(Constants.dspRepoBase + "hasLicense", StringUrlConverter)
+    license: string = "";
 
     @JsonProperty(Constants.dspRepoBase + "hasQualifiedAttribution", [Attribution])
     qualifiedAttribution: Attribution[] = [];
@@ -57,7 +59,7 @@ export class ProjectMetadataResponse { //Dataset
     @JsonProperty(Constants.dspRepoBase + "isPartOf", Project)
     partOf: Project = new Project();
 
-    @JsonProperty(Constants.dspRepoBase + "sameAs", URL, true)
+    @JsonProperty(Constants.dspRepoBase + "sameAs", StringUrlConverter, true)
     sameAs?: URL = undefined;
 
 // left to temp test purposes as it was wroking example

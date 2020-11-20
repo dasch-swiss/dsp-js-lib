@@ -1,6 +1,8 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
+import { DateConverter } from "../custom-converters/date-converter";
 import { PersonOrganizationConverter } from "../custom-converters/person-organization-converter";
+import { StringUrlConverter } from "../custom-converters/string-url-converter";
 import { DataManagementPlan } from "./data-management-plan-definition";
 import { Grant } from "./grant-definition";
 import { Organization } from "./organization-definition";
@@ -16,8 +18,8 @@ export class Project {
     @JsonProperty(Constants.dspRepoBase + "hasContactPoint", Person, true)
     contactPoint?: Person = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "sameAs", URL)
-    sameAs: URL = new URL("");
+    @JsonProperty(Constants.dspRepoBase + "sameAs", StringUrlConverter)
+    sameAs: string = "";
 
     @JsonProperty(Constants.dspRepoBase + "hasDataManagementPlan", String, true)
     dataManagementPlan?: DataManagementPlan = undefined;
@@ -28,7 +30,7 @@ export class Project {
     @JsonProperty(Constants.dspRepoBase + "hasDiscipline", URL)
     discipline: URL = new URL(""); //String | URL
     
-    @JsonProperty(Constants.dspRepoBase + "hasEndDate", Date, true)
+    @JsonProperty(Constants.dspRepoBase + "hasEndDate", DateConverter, true)
     endDate?: Date = undefined;
 
     @JsonProperty(Constants.dspRepoBase + "hasFunder", PersonOrganizationConverter)
@@ -52,12 +54,12 @@ export class Project {
     @JsonProperty(Constants.dspRepoBase + "hasSpatialCoverage", [Place])
     spatialCoverage: Place[] = [];
 
-    @JsonProperty(Constants.dspRepoBase + "hasStartDate", Date)
+    @JsonProperty(Constants.dspRepoBase + "hasStartDate", DateConverter)
     startDate: Date = new Date();
 
     @JsonProperty(Constants.dspRepoBase + "hasTemporalCoverage", URL)
     temporalCoverage: URL = new URL(""); //String | URL
 
-    @JsonProperty(Constants.dspRepoBase + "hasURL", URL)
-    url: URL = new URL("");
+    @JsonProperty(Constants.dspRepoBase + "hasURL", StringUrlConverter)
+    url: string = "";
 }

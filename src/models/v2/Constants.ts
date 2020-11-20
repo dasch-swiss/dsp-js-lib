@@ -154,6 +154,7 @@ export class Constants {
     static XsdBoolean = Constants.Xsd + Constants.Delimiter + "boolean";
     static XsdDecimal = Constants.Xsd + Constants.Delimiter + "decimal";
     static XsdInteger = Constants.Xsd + Constants.Delimiter + "integer";
+    static XsdDate = Constants.Xsd + Constants.Delimiter + "date";
     static dateTimeStamp = Constants.Xsd + Constants.Delimiter + "dateTimeStamp";
 
     static SchemaNumberOfItems = "http://schema.org/numberOfItems";

@@ -1,6 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
 import { PersonOrganizationConverter } from "../custom-converters/person-organization-converter";
+import { StringUrlConverter } from "../custom-converters/string-url-converter";
 import { Organization } from "./organization-definition";
 import { Person } from "./person-definition";
 
@@ -16,6 +17,6 @@ export class Grant {
     @JsonProperty(Constants.dspRepoBase + "hasNumber", String, true)
     number?: string = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasURL", URL, true)
-    url?: URL = undefined;
+    @JsonProperty(Constants.dspRepoBase + "hasURL", StringUrlConverter, true)
+    url?: string = undefined;
 }
