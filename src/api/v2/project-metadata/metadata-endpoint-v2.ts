@@ -6,7 +6,7 @@ import { KnoraApiConfig } from "../../../knora-api-config";
 import { ProjectsResponse } from "../../../models/admin/projects-response";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { convertProjectsList } from "../../../models/v2/custom-converters/project-metadata-converter";
-import { ProjectMetadataResponse, ProjectsMetadata } from "../../../models/v2/project-metadata/project-metadata";
+import { Dataset, ProjectsMetadata } from "../../../models/v2/project-metadata/project-metadata";
 import { UpdateProjectMetadataResponse } from "../../../models/v2/project-metadata/update-project-metadata";
 import { Endpoint } from "../../endpoint";
 
@@ -41,6 +41,7 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
             map((obj: object) => {
                 console.log(obj);
                 // create an instance of ProjectMetadata from JSON-LD
+                // return this.jsonConvert.deserializeObject(obj, Dataset);
                 return convertProjectsList(obj, this.jsonConvert);
             }),
             catchError(e => {
