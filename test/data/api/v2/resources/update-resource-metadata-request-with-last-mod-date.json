@@ -5,11 +5,11 @@
   "knora-api:hasPermissions" : "CR knora-admin:ProjectMember|V knora-admin:ProjectMember",
   "knora-api:lastModificationDate" : {
     "@type" : "xsd:dateTimeStamp",
-    "@value" : "2020-11-10T21:07:33.784388Z"
+    "@value" : "2020-11-14T17:33:10.878349Z"
   },
   "knora-api:newModificationDate" : {
     "@type" : "xsd:dateTimeStamp",
-    "@value" : "2020-11-10T21:07:34.594540Z"
+    "@value" : "2020-11-14T17:33:11.845318Z"
   },
   "@context" : {
     "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
