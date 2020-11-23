@@ -1,9 +1,12 @@
+import { JsonConvert } from "json2typescript";
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig } from "../../../knora-api-config";
+import { ProjectsResponse } from "../../../models/admin/projects-response";
 import { ApiResponseError } from "../../../models/api-response-error";
-import { ProjectMetadataResponse } from "../../../models/v2/project-metadata/project-metadata";
+import { convertProjectsList } from "../../../models/v2/custom-converters/project-metadata-converter";
+import { ProjectMetadataResponse, ProjectsMetadata } from "../../../models/v2/project-metadata/project-metadata";
 import { UpdateProjectMetadataResponse } from "../../../models/v2/project-metadata/update-project-metadata";
 import { Endpoint } from "../../endpoint";
 
@@ -28,15 +31,17 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
      * Reads a project metadata from Knora.
      * @param resourceIri the Iri of the resource the value belongs to.
      */
-    getProjectMetadata(resourceIri: string): Observable<ProjectMetadataResponse | ApiResponseError> {
+    getProjectMetadata(resourceIri: string): Observable<ProjectsMetadata | ApiResponseError> {
         return this.httpGet(`/${encodeURIComponent(resourceIri)}`).pipe(
             // expand all Iris
             mergeMap((res: AjaxResponse) => {
+                console.log(res);
                 return jsonld.compact(res.response, {});
             }),
             map((obj: object) => {
+                console.log(obj);
                 // create an instance of ProjectMetadata from JSON-LD
-                return this.jsonConvert.deserializeObject(obj, ProjectMetadataResponse);
+                return convertProjectsList(obj, this.jsonConvert);
             }),
             catchError(e => {
                 return this.handleError(e);

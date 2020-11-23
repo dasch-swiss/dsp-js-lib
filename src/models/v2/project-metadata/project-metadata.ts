@@ -87,3 +87,11 @@ export class ProjectMetadataResponse { //Dataset
     // @JsonProperty("@id", String)
     // id: string = "";
 }
+
+@JsonObject("ProjectsMetdaata")
+export class ProjectsMetadata {
+
+    @JsonProperty("@graph", [ProjectMetadataResponse])
+    projects: ProjectMetadataResponse[] = [];
+
+}
