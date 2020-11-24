@@ -248,7 +248,9 @@ export namespace OntologyConversionUtil {
      */
     export const convertResourceClassResponse = (resClassJsonld: object, jsonConvert: JsonConvert): ResourceClassDefinitionWithAllLanguages => {
         if (resClassJsonld.hasOwnProperty("@graph")) {
-            return jsonConvert.deserializeObject((resClassJsonld as any)['@graph'][0], ResourceClassDefinitionWithAllLanguages);
+            const deserializedObj = jsonConvert.deserializeObject((resClassJsonld as any)["@graph"][0], ResourceClassDefinitionWithAllLanguages);
+            deserializedObj.lastModificationDate = (jsonConvert.deserializeObject(resClassJsonld, OntologyMetadata)).lastModificationDate;
+            return deserializedObj;
         } else {
             return jsonConvert.deserializeObject(resClassJsonld, ResourceClassDefinitionWithAllLanguages);
         }
@@ -262,7 +264,9 @@ export namespace OntologyConversionUtil {
      */
     export const convertResourcePropertyResponse = (resPropJsonld: object, jsonConvert: JsonConvert): ResourcePropertyDefinitionWithAllLanguages => {
         if (resPropJsonld.hasOwnProperty("@graph")) {
-            return jsonConvert.deserializeObject((resPropJsonld as any)['@graph'][0], ResourcePropertyDefinitionWithAllLanguages);
+            const deserializedObj = jsonConvert.deserializeObject((resPropJsonld as any)["@graph"][0], ResourcePropertyDefinitionWithAllLanguages);
+            deserializedObj.lastModificationDate = (jsonConvert.deserializeObject(resPropJsonld, OntologyMetadata)).lastModificationDate;
+            return deserializedObj;
         } else {
             return jsonConvert.deserializeObject(resPropJsonld, ResourcePropertyDefinitionWithAllLanguages);
         }
