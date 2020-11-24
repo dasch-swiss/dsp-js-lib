@@ -1,15 +1,14 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-import { Constants } from "../Constants";
 
 @JsonObject("Address")
 export class Address {
 
-    @JsonProperty(Constants.dspRepoBase + "addressLocality", String)
+    @JsonProperty("https://schema.org/" + "addressLocality", String)
     addressLocality: string = "";
 
-    @JsonProperty(Constants.dspRepoBase + "postalCode", String)
+    @JsonProperty("https://schema.org/" + "postalCode", String)
     postalCode: string = "";
 
-    @JsonProperty(Constants.dspRepoBase + "streetAddress", String)
+    @JsonProperty("https://schema.org/" + "streetAddress", String)
     streetAddress: string = "";
 }

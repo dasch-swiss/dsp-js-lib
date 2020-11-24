@@ -1,10 +1,8 @@
-import { Any, JsonObject, JsonProperty } from "json2typescript";
+import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
-import { AllMetadataClassesConverter } from "../custom-converters/all-metadata-classes-converter";
 import { DateConverter } from "../custom-converters/date-converter";
 import { UrlToStringConverter } from "../custom-converters/url-to-string-converter";
 import { Attribution } from "./attribution-definition";
-import { Person } from "./person-definition";
 import { Project } from "./project-definition";
 
 @JsonObject("Dataset")
@@ -87,7 +85,7 @@ export class Dataset {
     // id: string = "";
 }
 
-@JsonObject("ProjectsMetdaata")
+@JsonObject("ProjectsMetdata")
 export class ProjectsMetadata {
 
     @JsonProperty("@graph", [Dataset])
