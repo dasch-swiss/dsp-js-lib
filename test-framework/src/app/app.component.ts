@@ -50,7 +50,7 @@ import {
     DefaultObjectAccessPermissionResponse,
     ProjectPermissionsResponse,
     AdministrativePermissionsResponse,
-    ProjectMetadataResponse,
+    Dataset,
     UpdateProjectMetadataResponse
 } from "@dasch-swiss/dsp-js";
 import { ProjectsMetadata } from '@dasch-swiss/dsp-js/src/models/v2/project-metadata/project-metadata';
