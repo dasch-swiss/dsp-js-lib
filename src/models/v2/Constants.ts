@@ -168,5 +168,6 @@ export class Constants {
     static urlType = "https://schema.org/URL";
     static propID = "https://schema.org/propertyID";
     static dataDownload = "https://schema.org/DataDownload";
+    static agent = "http://www.w3.org/ns/prov#agent";
 
 }

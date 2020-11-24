@@ -1,14 +1,12 @@
 import { Any, JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
+import { AllMetadataClassesConverter } from "../custom-converters/all-metadata-classes-converter";
 import { DateConverter } from "../custom-converters/date-converter";
 import { UrlToStringConverter } from "../custom-converters/url-to-string-converter";
 import { Attribution } from "./attribution-definition";
 import { Person } from "./person-definition";
 import { Project } from "./project-definition";
 
-enum TypeofData {
-    "xml", "text", "image", "movie", "audio"
-}
 @JsonObject("Dataset")
 export class Dataset {
 
@@ -54,8 +52,8 @@ export class Dataset {
     @JsonProperty(Constants.dspRepoBase + "hasTitle", String)
     title: string = "";
 
-    @JsonProperty(Constants.dspRepoBase + "hasTypeOfData", [TypeofData])
-    typeOfData: TypeofData[] = [];
+    @JsonProperty(Constants.dspRepoBase + "hasTypeOfData", [String])
+    typeOfData: string[] = [];
 
     @JsonProperty(Constants.dspRepoBase + "isPartOf", Project)
     partOf: Project = new Project();

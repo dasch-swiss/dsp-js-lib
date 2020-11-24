@@ -793,7 +793,7 @@ export class AppComponent implements OnInit {
         const resourceIri = 'http://rdfh.ch/projects/0001';
 
         this.knoraApiConnection.v2.metadata.getProjectMetadata(resourceIri).subscribe(
-            (res: ProjectsMetadata) => {
+            (res: any) => {
                 console.log(res);
                 this.projectMetaStatus = 'OK';
             },
