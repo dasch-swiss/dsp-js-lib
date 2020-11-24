@@ -1,7 +1,6 @@
 import { Any, JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
 import { DateConverter } from "../custom-converters/date-converter";
-import { mapClasses } from "../custom-converters/project-metadata-converter";
 import { UrlToStringConverter } from "../custom-converters/url-to-string-converter";
 import { Attribution } from "./attribution-definition";
 import { Person } from "./person-definition";

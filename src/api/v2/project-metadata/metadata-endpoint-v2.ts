@@ -35,11 +35,9 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
         return this.httpGet(`/${encodeURIComponent(resourceIri)}`).pipe(
             // expand all Iris
             mergeMap((res: AjaxResponse) => {
-                console.log(res);
                 return jsonld.compact(res.response, {});
             }),
             map((obj: object) => {
-                console.log(obj);
                 // create an instance of ProjectMetadata from JSON-LD
                 // return this.jsonConvert.deserializeObject(obj, Dataset);
                 return convertProjectsList(obj, this.jsonConvert);
