@@ -1,12 +1,10 @@
-import { JsonConvert } from "json2typescript";
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig } from "../../../knora-api-config";
-import { ProjectsResponse } from "../../../models/admin/projects-response";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { convertProjectsList } from "../../../models/v2/custom-converters/project-metadata-converter";
-import { Dataset, ProjectsMetadata } from "../../../models/v2/project-metadata/project-metadata";
+import { ProjectsMetadata } from "../../../models/v2/project-metadata/project-metadata";
 import { UpdateProjectMetadataResponse } from "../../../models/v2/project-metadata/update-project-metadata";
 import { Endpoint } from "../../endpoint";
 
@@ -37,9 +35,8 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
             mergeMap((res: AjaxResponse) => {
                 return jsonld.compact(res.response, {});
             }),
-            map((obj: object) => {
+            map((obj: any) => {
                 // create an instance of ProjectMetadata from JSON-LD
-                // return this.jsonConvert.deserializeObject(obj, Dataset);
                 return convertProjectsList(obj, this.jsonConvert);
             }),
             catchError(e => {

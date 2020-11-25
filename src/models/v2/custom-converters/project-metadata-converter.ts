@@ -1,5 +1,6 @@
 import { JsonConvert } from "json2typescript";
-import { Dataset, ProjectsMetadata } from "../project-metadata/project-metadata";
+import { Dataset } from "../project-metadata/dataset-definition";
+import { ProjectsMetadata } from "../project-metadata/project-metadata";
 
     /**
      * Converts a list of projects or a single project serialized as JSON-LD to an instance of `ProjectsMetadata`
@@ -13,9 +14,9 @@ export const convertProjectsList = (projectsJsonLd: object, jsonConvert: JsonCon
             return jsonConvert.deserializeObject(projectsJsonLd, ProjectsMetadata);
         } else {
             const projects: ProjectsMetadata = new ProjectsMetadata();
-            // add projects, if any
+            // creates the same structure for single object incoming from API
             if (Object.keys(projectsJsonLd).length > 0) {
-                projects.projects = [jsonConvert.deserializeObject(projectsJsonLd, Dataset)];
+                projects.projectsMetadata = [jsonConvert.deserializeObject(projectsJsonLd, Dataset)];
             }
             return projects;
         }

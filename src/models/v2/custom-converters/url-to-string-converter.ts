@@ -5,7 +5,7 @@ import { Constants } from "../Constants";
 export class UrlToStringConverter implements JsonCustomConvert<string> {
 
     serialize(val: string): object {
-        // how to serialazze to URL objects or "hasDistibution" - the @type values are different
+        // how to serialize back to URL objects or "hasDistibution" - the @type values are different
         const value = Constants.urlTypeLowerCase;
         return {
             "@type": Constants.urlType,

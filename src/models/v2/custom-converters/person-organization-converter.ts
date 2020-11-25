@@ -6,7 +6,7 @@ import { Person } from "../project-metadata/person-definition";
 import { IdConverter } from "./id-converter";
 
 @JsonConverter
-export class PersonOrganizationConverter implements JsonCustomConvert<Person | Organization> {
+export class PersonOrganizationConverter implements JsonCustomConvert<Person | Organization | object> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -19,7 +19,7 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
         return;
     }
 
-    deserialize(obj: object): Person | Organization {
+    deserialize(obj: object): Person | Organization | object {
         const orgProp = Constants.dspRepoBase + "hasName";
         const personProp = Constants.dspRepoBase + "hasJobTitle";
         if (obj.hasOwnProperty(orgProp) || obj.hasOwnProperty(personProp)) {
@@ -29,7 +29,7 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
                 return PersonOrganizationConverter.jsonConvert.deserializeObject(obj, Organization);
             }
         } else {
-            return IdConverter; // || obj ||cobj["@id"]
+            return obj; //map this to desired object instance
         }
     }
 }
