@@ -9,7 +9,6 @@
 ## Introduction
 
 ### Purpose of DSP-JS-LIB
-
 The purpose of DSP-JS-LIB is to facilitate the communication with [DSP-API (Knora)](https://www.knora.org) in web client software developed with TypeScript/JavaScript.
 DSP-JS-LIB depends on [RxJS](https://rxjs.dev/guide/overview) and is web framework agnostic (it can be used with Angular, React, Vue.js etc.).
 
@@ -20,7 +19,6 @@ DSP-JS-LIB offers the following features:
  - caching for different types of data so fewer HTTP calls to DSP-API have to be performed
 
 ### Basic Structure of DSP-JS-LIB
-
 DSP-JS-LIB's architecture is based on endpoints that correspond to DSP-API's endpoints.
 
 The following endpoints are available through DSP-JS-LIB:
@@ -29,15 +27,9 @@ The following endpoints are available through DSP-JS-LIB:
 - system: DSP-API's health status
 
 ### Observables
-
 DSP-JS-LIB's endpoints return observables to the client.
 An `Observable` represents the result of an asynchronous request to DSP-API that will either succeed or fail.
 An `Observable` is an [RxJS construct](https://rxjs.dev/guide/observable) that the client can subscribe to.
-
-## Release Notes
-
-For the release notes 
-see [GitHub releases](https://github.com/dasch-swiss/dsp-js-lib/releases).
 
 ## Getting started
 
@@ -52,7 +44,6 @@ Make sure that `rxjs` is installed in the required major version 6 with the fram
 Otherwise, install it with `npm install rxjs@6.x --save`.
 
 ### Start Using DSP-JS-LIB
-
 In order to get started using DSP-JS-LIB, you have to create a `KnoraApiConfig` instance and pass it to `KnoraApiConnection`'s constructor:
 
 ```typescript
@@ -85,6 +76,9 @@ knoraApiConnection.v2.res.getResource(iri).subscribe(
 
 For more information about available endpoints and methods, consult the API docs.
 
-## Developing DSP-JS-LIB
+## Release Notes
+For the release notes 
+see [GitHub releases](https://github.com/dasch-swiss/dsp-js-lib/releases).
 
+## Developing DSP-JS-LIB
 Please see `developers-guide.md`.
