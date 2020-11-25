@@ -1,6 +1,5 @@
 import { JsonConvert } from "json2typescript";
 import { Dataset, ProjectsMetadata } from "../project-metadata/project-metadata";
-import { AllMetadataClassesConverter } from "./all-metadata-classes-converter";
 
     /**
      * Converts a list of projects or a single project serialized as JSON-LD to an instance of `ProjectsMetadata`

@@ -19,7 +19,7 @@ export class Project {
     @JsonProperty(Constants.dspRepoBase + "hasContactPoint", Person, true)
     contactPoint?: Person = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasDataManagementPlan", String, true)
+    @JsonProperty(Constants.dspRepoBase + "hasDataManagementPlan", DataManagementPlan, true)
     dataManagementPlan?: DataManagementPlan = undefined;
 
     @JsonProperty(Constants.dspRepoBase + "hasDescription", String)

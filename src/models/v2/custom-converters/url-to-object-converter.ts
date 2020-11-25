@@ -1,11 +1,6 @@
 import { JsonConverter, JsonCustomConvert } from "json2typescript";
 import { Constants } from "../Constants";
 
-// export interface UrlObj {
-//     name: string;
-//     url: string;
-// }
-
 @JsonConverter
 export class UrlToObjectConverter implements JsonCustomConvert<object> {
 
@@ -14,9 +9,17 @@ export class UrlToObjectConverter implements JsonCustomConvert<object> {
     }
 
     deserialize(val: any): object {
-        if (val.hasOwnProperty(Constants.propID) || val[Constants.urlType].hasOwnProperty(Constants.propID)) {
-            const name = val[Constants.urlType][Constants.propID][Constants.propID];
-            const url = val[Constants.urlType][Constants.urlType];
+        if (val.hasOwnProperty(Constants.propID)) { // covers hasDiscipline
+            const type = Constants.urlType.toLocaleLowerCase();
+            const name = val[Constants.propID][Constants.propID];
+            const url = val[type];
+            console.log(name, url);
+            return { name, url };
+        } else if (val[Constants.urlType].hasOwnProperty(Constants.propID)) { // covers Place
+            const type = Constants.urlType.toLocaleLowerCase();
+            const name = val[type][Constants.propID][Constants.propID];
+            const url = val[type][type];
+            console.log(name, url);
             return { name, url };
         } else {
             throw new Error(`Has not ${Constants.urlType} type and/or ${Constants.propID}`);
