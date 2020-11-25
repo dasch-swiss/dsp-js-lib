@@ -14,7 +14,7 @@ DSP-JS-LIB depends on [RxJS](https://rxjs.dev/guide/overview) and is web framewo
 
 DSP-JS-LIB offers the following features:
  - handling of HTTP calls to connect to DSP-API
- - (de)serialisation from and to JSON-LD and so the web client can work with classes instead
+ - (de)serialisation from and to JSON-LD so the web client can work with classes instead
  - methods that combine different HTTP calls to DSP-API into *one* method call
  - caching for different types of data so fewer HTTP calls to DSP-API have to be performed
 
@@ -81,4 +81,4 @@ For the release notes
 see [GitHub releases](https://github.com/dasch-swiss/dsp-js-lib/releases).
 
 ## Developing DSP-JS-LIB
-Please see `developers-guide.md`.
+See `developers-guide.md`.
