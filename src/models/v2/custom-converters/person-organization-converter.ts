@@ -3,6 +3,7 @@ import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-c
 import { Constants } from "../Constants";
 import { Organization } from "../project-metadata/organization-definition";
 import { Person } from "../project-metadata/person-definition";
+import { IdConverter } from "./id-converter";
 
 @JsonConverter
 export class PersonOrganizationConverter implements JsonCustomConvert<Person | Organization> {
@@ -19,11 +20,16 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
     }
 
     deserialize(obj: object): Person | Organization {
-        const prop = Constants.dspRepoBase + "hasJobTitle";
-        if (obj.hasOwnProperty(prop)) {
-            return PersonOrganizationConverter.jsonConvert.deserializeObject(obj, Person);
+        const orgProp = Constants.dspRepoBase + "hasName";
+        const personProp = Constants.dspRepoBase + "hasJobTitle";
+        if (obj.hasOwnProperty(orgProp) || obj.hasOwnProperty(personProp)) {
+            if (obj.hasOwnProperty(personProp)) {
+                return PersonOrganizationConverter.jsonConvert.deserializeObject(obj, Person);
+            } else {
+                return PersonOrganizationConverter.jsonConvert.deserializeObject(obj, Organization);
+            }
         } else {
-            return PersonOrganizationConverter.jsonConvert.deserializeObject(obj, Organization);
+            return IdConverter; // || obj ||cobj["@id"]
         }
     }
 }

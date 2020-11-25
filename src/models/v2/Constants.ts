@@ -166,8 +166,10 @@ export class Constants {
     static dspRepo = Constants.dsp + "repository";
     static dspRepoBase = Constants.dspRepo + Constants.Delimiter;
     static urlType = "https://schema.org/URL";
+    static urlTypeLowerCase = Constants.urlType.toLocaleLowerCase();
     static propID = "https://schema.org/propertyID";
     static dataDownload = "https://schema.org/DataDownload";
+    static place = "https://schema.org/Place";
     static agent = "http://www.w3.org/ns/prov#agent";
 
 }

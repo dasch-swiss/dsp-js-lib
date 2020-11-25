@@ -5,6 +5,6 @@ import { UrlToObjectConverter } from "../custom-converters/url-to-object-convert
 @JsonObject("Place")
 export class Place {
 
-    @JsonProperty(Constants.urlType, UrlToObjectConverter)
-    url: object = {};
+    @JsonProperty(Constants.urlTypeLowerCase, UrlToObjectConverter)
+    place: object = {};
 }
