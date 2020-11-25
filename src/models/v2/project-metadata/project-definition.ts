@@ -19,9 +19,6 @@ export class Project {
     @JsonProperty(Constants.dspRepoBase + "hasContactPoint", Person, true)
     contactPoint?: Person = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "sameAs", UrlToStringConverter)
-    sameAs: string = "";
-
     @JsonProperty(Constants.dspRepoBase + "hasDataManagementPlan", String, true)
     dataManagementPlan?: DataManagementPlan = undefined;
 
