@@ -1,3 +1,6 @@
+/**
+ * @internal
+ */
 export namespace CustomConverterUtils {
 
     export const isString = (maybeString: any): boolean => {
