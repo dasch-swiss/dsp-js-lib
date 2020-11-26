@@ -637,6 +637,42 @@ describe('workspace-project App', () => {
 
   });
 
+  it('it should get project metadata', () => {
+
+    page.navigateTo();
+
+    const button = page.getEle('div section#metadata button.read');
+
+    button.click();
+
+    const size = page.getEle('div section#values span.status');
+
+    expect(size.getText()).toEqual('OK');
+
+  });
+
+  it('it should update a project metadata', () => {
+
+    page.navigateTo();
+
+    const loginButton = page.getEle('div section#login button.login');
+
+    loginButton.click();
+
+    const loginStatus = page.getEle('div section#login span.status');
+
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div section#metadata button.update');
+
+    button.click();
+
+    const size = page.getEle('div section#metadata span.status');
+
+    expect(size.getText()).toEqual('OK');
+
+  });
+
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER);
