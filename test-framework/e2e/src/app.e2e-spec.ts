@@ -637,20 +637,6 @@ describe('workspace-project App', () => {
 
   });
 
-  it('it should get project metadata', () => {
-
-    page.navigateTo();
-
-    const button = page.getEle('div section#metadata button.read');
-
-    button.click();
-
-    const size = page.getEle('div section#values span.status');
-
-    expect(size.getText()).toEqual('OK');
-
-  });
-
   it('it should update a project metadata', () => {
 
     page.navigateTo();
@@ -667,9 +653,23 @@ describe('workspace-project App', () => {
 
     button.click();
 
-    const size = page.getEle('div section#metadata span.status');
+    const status = page.getEle('div section#metadata span.status');
 
-    expect(size.getText()).toEqual('OK');
+    expect(status.getText()).toEqual('OK');
+
+  });
+
+  it('it should get project metadata', () => {
+
+    page.navigateTo();
+
+    const button = page.getEle('div section#metadata button.read');
+
+    button.click();
+
+    const status = page.getEle('div section#metadata span.status');
+
+    expect(status.getText()).toEqual('OK');
 
   });
 
