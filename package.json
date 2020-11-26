@@ -9,19 +9,7 @@
         "src/**/*.js",
         "index.d.ts",
         "index.js.map",
-        "index.js",
-        "test/**/*.d.ts",
-        "test/**/*.js.map",
-        "test/**/*.js",
-        "test/**/*.json",
-        "test/**/*.d.ts",
-        "test/**/*.js.map",
-        "test/**/*.js",
-        "test/**/*.json",
-        "test/**/*.d.ts",
-        "test/**/*.js.map",
-        "test/**/*.js",
-        "test/**/*.json"
+        "index.js"
     ],
     "scripts": {
         "integrate-admin-test-data": "node scripts/integrate-files-admin.js",

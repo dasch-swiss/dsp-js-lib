@@ -16,7 +16,7 @@ export class Person {
     email: string = "";
 
     @JsonProperty(Constants.dspRepoBase + "hasFamilyName", String, true)
-    fmilyName?: string = undefined;
+    familyName?: string = undefined;
 
     @JsonProperty(Constants.dspRepoBase + "hasGivenName", String)
     givenName: string = "";
