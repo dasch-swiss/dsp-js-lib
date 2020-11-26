@@ -1,9 +1,10 @@
+import { JsonConvert } from "json2typescript";
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { ApiResponseError } from "../../../models/api-response-error";
-import { convertProjectsList } from "../../../models/v2/custom-converters/project-metadata-converter";
+import { Dataset } from "../../../models/v2/project-metadata/dataset-definition";
 import { ProjectsMetadata } from "../../../models/v2/project-metadata/project-metadata";
 import { UpdateProjectMetadataResponse } from "../../../models/v2/project-metadata/update-project-metadata";
 import { Endpoint } from "../../endpoint";
@@ -37,12 +38,31 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
             }),
             map((obj: any) => {
                 // create an instance of ProjectMetadata from JSON-LD
-                return convertProjectsList(obj, this.jsonConvert);
+                return this.convertProjectsList(obj, this.jsonConvert);
             }),
             catchError(e => {
                 return this.handleError(e);
             })
         );
+    }
+
+    /**
+     * Converts a list of projects or a single project serialized as JSON-LD to an instance of `ProjectsMetadata`
+     * 
+     * @param projectsJsonLd JSON-LD representing project metadata.
+     * @param jsonConvert instance of JsonConvert to use.
+     */
+    convertProjectsList = (projectsJsonLd: object, jsonConvert: JsonConvert): ProjectsMetadata => {
+        if (projectsJsonLd.hasOwnProperty("@graph")) {
+            return jsonConvert.deserializeObject(projectsJsonLd, ProjectsMetadata);
+        } else {
+            const projects: ProjectsMetadata = new ProjectsMetadata();
+            // creates the same structure for single object incoming from API
+            if (Object.keys(projectsJsonLd).length > 0) {
+                projects.projectsMetadata = [jsonConvert.deserializeObject(projectsJsonLd, Dataset)];
+            }
+            return projects;
+        }
     }
 
     /**

@@ -24,7 +24,7 @@ export class Person {
     @JsonProperty(Constants.dspRepoBase + "hasJobTitle", String)
     jobTitle: string = "";
 
-    @JsonProperty(Constants.dspRepoBase + "isMemberOf", IdConverter) //map reference ID to Orgnization
+    @JsonProperty(Constants.dspRepoBase + "isMemberOf", IdConverter) //convert reference ID to Orgnization
     memberOf: Organization = new Organization();
 
     @JsonProperty(Constants.dspRepoBase + "sameAs", UrlToStringConverter, true)
