@@ -22,7 +22,7 @@
     "npm-pack": "npm run test && npm run build && npm pack build/ && mkdir -p dist/ && cp *.tgz dist/ && rm *.tgz",
     "npm-publish": "npm run npm-pack && npm publish --tag rc build/ --dry-run",
     "prepare-dev-publication": "node scripts/prepare-dev-publication.js",
-    "builddocs": "typedoc --out docs --readme none --name '@dasch-swiss/dsp-js API Documentation' --exclude \"**/*.spec.*\" --mode file --excludeExternals --excludeNotExported --excludePrivate src",
+    "builddocs": "typedoc --out docs --readme none --name '@dasch-swiss/dsp-js API Documentation' --exclude \"**/*.spec.*\" --mode file --excludeExternals --excludeNotExported --excludePrivate --stripInternal --excludeProtected src",
     "peer-deps": "npm i rxjs@6.x --no-save"
   },
   "repository": {

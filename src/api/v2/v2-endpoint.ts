@@ -14,13 +14,13 @@ import { ValuesEndpointV2 } from "./values/values-endpoint-v2";
  */
 export class V2Endpoint extends Endpoint {
 
-    static readonly PATH_AUTHENTICATION = "/authentication";
+    private static readonly PATH_AUTHENTICATION = "/authentication";
 
-    static readonly PATH_ONTOLOGIES = "/ontologies";
+    private static readonly PATH_ONTOLOGIES = "/ontologies";
 
-    static readonly PATH_RESOURCES = "/resources";
+    private static readonly PATH_RESOURCES = "/resources";
 
-    static readonly PATH_VALUES = "/values";
+    private static readonly PATH_VALUES = "/values";
 
     readonly auth: AuthenticationEndpointV2;
 
@@ -39,6 +39,7 @@ export class V2Endpoint extends Endpoint {
     readonly listNodeCache: ListNodeV2Cache;
 
     /**
+     * @internal
      * Constructor.
      * Sets up all endpoints for this endpoint.
      * @param knoraApiConfig

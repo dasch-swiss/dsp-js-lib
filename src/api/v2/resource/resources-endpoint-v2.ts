@@ -22,6 +22,12 @@ const jsonld = require("jsonld/dist/jsonld.js");
  */
 export class ResourcesEndpointV2 extends Endpoint {
 
+    /**
+     * @internal
+     * @param knoraApiConfig the config object.
+     * @param path this endpoint's base path.
+     * @param v2Endpoint a reference to the v2 endpoint.
+     */
     constructor(protected readonly knoraApiConfig: KnoraApiConfig, protected readonly path: string, private readonly v2Endpoint: V2Endpoint) {
         super(knoraApiConfig, path);
     }

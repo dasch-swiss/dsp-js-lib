@@ -7,6 +7,9 @@ import { KnoraApiConfig } from "../knora-api-config";
 import { ApiResponseError } from "../models/api-response-error";
 import { DataError } from "../models/data-error";
 
+/**
+ * @internal
+ */
 export class Endpoint {
 
     ///////////////
