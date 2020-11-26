@@ -2,6 +2,9 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
 import { Constants } from "../Constants";
 import { CustomConverterUtils } from "../../../util/utils";
 
+/**
+ * @internal
+ */
 @JsonConverter
 export class DateTimeStampConverter implements JsonCustomConvert<string> {
     serialize(dateTimeStamp: string): any {

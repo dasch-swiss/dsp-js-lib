@@ -1,6 +1,9 @@
 import { JsonConverter, JsonCustomConvert } from "json2typescript";
 import { CustomConverterUtils } from "../../../util/utils";
 
+/**
+ * @internal
+ */
 @JsonConverter
 export class SubPropertyOfConverter implements JsonCustomConvert<string[]> {
     serialize(subproperties: string[]): any {

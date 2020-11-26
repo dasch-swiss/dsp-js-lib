@@ -1,3 +1,6 @@
+/**
+ * @internal
+ */
 export namespace TypeGuard {
 
     // https://dev.to/krumpet/generic-type-guard-in-typescript-258l

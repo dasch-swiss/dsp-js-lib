@@ -1,6 +1,9 @@
 import { JsonConverter, JsonCustomConvert } from "json2typescript";
 import { CustomConverterUtils } from "../../../util/utils";
 
+/**
+ * @internal
+ */
 @JsonConverter
 export class SubClassOfConverter implements JsonCustomConvert<string[]> {
     

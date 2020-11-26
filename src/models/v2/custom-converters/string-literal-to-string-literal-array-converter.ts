@@ -2,6 +2,9 @@ import { JsonConvert, JsonConverter, JsonCustomConvert, OperationMode, ValueChec
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { StringLiteralV2 } from "../string-literal-v2";
 
+/**
+ * @internal
+ */
 @JsonConverter
 export class StringLiteralToStringLiteralArrayConverter implements JsonCustomConvert<StringLiteralV2[]> {
 

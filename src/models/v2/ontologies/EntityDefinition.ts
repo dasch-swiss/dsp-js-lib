@@ -1,3 +1,6 @@
+/**
+ * @internal
+ */
 export abstract class EntityDefinition {
 
     abstract id: string;

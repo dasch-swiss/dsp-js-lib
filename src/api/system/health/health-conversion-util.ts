@@ -1,6 +1,9 @@
 import { ApiResponseData } from "../../../models/api-response-data";
 import { HealthResponse } from "../../../models/system/health-response";
 
+/**
+ * @internal
+ */
 export namespace HealthConversionUtil {
 
     /**

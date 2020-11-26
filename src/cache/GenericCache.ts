@@ -2,6 +2,7 @@ import { AsyncSubject, Observable } from "rxjs";
 import { take } from "rxjs/operators";
 
 /**
+ * @internal
  * Generic cache class.
  * Fetches information of a specific type from Knora once and caches it.
  * Fetches also dependencies of a requested element (non-blocking).

@@ -35,6 +35,9 @@ export class CreateResourceProperty {
 
 }
 
+/**
+ * @internal
+ */
 @JsonObject("CreateResourcePropertyPayload")
 export class CreateResourcePropertyPayload extends CreateResourceProperty {
 

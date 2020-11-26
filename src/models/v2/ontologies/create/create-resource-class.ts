@@ -22,6 +22,9 @@ export class CreateResourceClass {
     subClassOf: string[] = [];
 }
 
+/**
+ * @internal
+ */
 @JsonObject("CreateResourceClassPayload")
 export class CreateResourceClassPayload extends CreateResourceClass {
 

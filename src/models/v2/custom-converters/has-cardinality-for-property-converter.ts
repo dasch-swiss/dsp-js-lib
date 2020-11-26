@@ -3,6 +3,9 @@ import { CustomConverterUtils } from "../../../util/utils";
 import { Constants } from "../Constants";
 import { Cardinality, IHasProperty } from "../ontologies/class-definition";
 
+/**
+ * @internal
+ */
 @JsonConverter
 export class HasCardinalityForPropertyConverter implements JsonCustomConvert<IHasProperty[]> {
     serialize(cardinalities: IHasProperty[]): any {

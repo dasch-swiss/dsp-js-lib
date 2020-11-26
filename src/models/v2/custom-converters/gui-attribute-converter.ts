@@ -1,5 +1,8 @@
 import { JsonConverter, JsonCustomConvert } from "json2typescript";
 
+/**
+ * @internal
+ */
 @JsonConverter
 export class GuiAttributeConverter implements JsonCustomConvert<string[]> {
 

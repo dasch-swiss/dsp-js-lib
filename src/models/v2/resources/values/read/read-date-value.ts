@@ -3,6 +3,9 @@ import { Constants } from "../../../Constants";
 import { IBaseDateValue } from "../type-specific-interfaces/base-date-value";
 import { ReadValue } from "./read-value";
 
+/**
+ * @internal
+ */
 @JsonObject("ReadDateValue")
 export class ParseReadDateValue extends ReadValue implements IBaseDateValue {
 

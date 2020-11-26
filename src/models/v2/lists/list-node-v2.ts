@@ -11,6 +11,9 @@ import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-c
 import { Constants } from "../Constants";
 import { IdConverter } from "../custom-converters/id-converter";
 
+/**
+ * @internal
+ */
 @JsonConverter
 export class SubListNodeConverter implements JsonCustomConvert<ListNodeV2[]> {
 

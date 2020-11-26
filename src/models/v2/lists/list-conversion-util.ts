@@ -1,5 +1,8 @@
 import { ListNodeV2 } from "./list-node-v2";
 
+/**
+ * @internal
+ */
 export namespace ListConversionUtil {
 
     /**
