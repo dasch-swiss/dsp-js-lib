@@ -4,7 +4,7 @@ import { Constants } from "../Constants";
 import { Cardinality, IHasProperty } from "../ontologies/class-definition";
 
 /**
- * @internal
+ * @category Internal
  */
 @JsonConverter
 export class HasCardinalityForPropertyConverter implements JsonCustomConvert<IHasProperty[]> {

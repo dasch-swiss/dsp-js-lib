@@ -2,7 +2,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
 import { CustomConverterUtils } from "../../../util/utils";
 
 /**
- * @internal
+ * @category Internal
  */
 @JsonConverter
 export class GroupsPerProjectConverter implements JsonCustomConvert<{ [key: string]: string[] }> {

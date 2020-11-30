@@ -4,7 +4,7 @@ import { IBaseDateValue } from "../type-specific-interfaces/base-date-value";
 import { ReadValue } from "./read-value";
 
 /**
- * @internal
+ * @category Internal
  */
 @JsonObject("ReadDateValue")
 export class ParseReadDateValue extends ReadValue implements IBaseDateValue {

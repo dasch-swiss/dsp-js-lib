@@ -31,7 +31,7 @@ import { ReadValue } from "./values/read/read-value";
 import { ResourceClassAndPropertyDefinitions } from "../../../cache/ontology-cache/resource-class-and-property-definitions";
 
 /**
- * @internal
+ * @category Internal
  */
 export namespace ResourcesConversionUtil {
 

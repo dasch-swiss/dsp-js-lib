@@ -44,7 +44,7 @@ export class ReadValue extends BaseValue {
     strval?: string;
 
     /**
-     * @internal
+     * @category Internal
      * @param id the id of the value.
      * @param type the type of the value.
      * @param attachedToUser the user the value is attached to.

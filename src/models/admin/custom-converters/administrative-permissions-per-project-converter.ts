@@ -4,7 +4,7 @@ import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-c
 import { Permission } from "../permission";
 
 /**
- * @internal
+ * @category Internal
  */
 @JsonConverter
 export class AdministrativePermissionsPerProjectConverter implements JsonCustomConvert<{ [key: string]: Permission[] }> {

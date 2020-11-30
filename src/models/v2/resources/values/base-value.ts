@@ -1,7 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 
 /**
- * @internal
+ * @category Internal
  */
 @JsonObject("BaseValue")
 export abstract class BaseValue {

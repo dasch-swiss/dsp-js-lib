@@ -1,5 +1,5 @@
 /**
- * @internal
+ * @category Internal
  */
 export interface IBaseTextValueAsString {
 
@@ -8,7 +8,7 @@ export interface IBaseTextValueAsString {
 }
 
 /**
- * @internal
+ * @category Internal
  */
 export interface IBaseTextValueAsXml {
 
@@ -19,7 +19,7 @@ export interface IBaseTextValueAsXml {
 }
 
 /**
- * @internal
+ * @category Internal
  */
 export interface IBaseTextValueAsHtml {
 

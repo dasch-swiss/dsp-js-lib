@@ -8,7 +8,7 @@ import { ApiResponseError } from "../models/api-response-error";
 import { DataError } from "../models/data-error";
 
 /**
- * @internal
+ * @category Internal
  */
 export class Endpoint {
 

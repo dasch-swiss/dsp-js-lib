@@ -12,7 +12,7 @@ import { Constants } from "../Constants";
 import { IdConverter } from "../custom-converters/id-converter";
 
 /**
- * @internal
+ * @category Internal
  */
 @JsonConverter
 export class SubListNodeConverter implements JsonCustomConvert<ListNodeV2[]> {

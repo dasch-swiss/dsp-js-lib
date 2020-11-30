@@ -25,7 +25,7 @@ const jsonld = require("jsonld/dist/jsonld.js");
 export class ValuesEndpointV2 extends Endpoint {
 
     /**
-     * @internal
+     * @category Internal
      * @param knoraApiConfig the config object.
      * @param path this endpoint's base path.
      * @param v2Endpoint a reference to the v2 endpoint.

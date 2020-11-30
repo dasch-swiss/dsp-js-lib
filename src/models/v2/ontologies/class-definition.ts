@@ -56,8 +56,9 @@ export interface IHasProperty {
 }
 
 /**
- * @internal
  * Represents a resource class.
+ *
+ * @category Internal
  */
 export abstract class ClassDefinition extends EntityDefinition {
 

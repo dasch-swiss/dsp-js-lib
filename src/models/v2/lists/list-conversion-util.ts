@@ -1,7 +1,7 @@
 import { ListNodeV2 } from "./list-node-v2";
 
 /**
- * @internal
+ * @category Internal
  */
 export namespace ListConversionUtil {
 

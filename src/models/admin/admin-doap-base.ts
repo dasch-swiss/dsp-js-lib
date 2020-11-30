@@ -2,7 +2,7 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { Permission } from "./permission";
 
 /**
- * @internal
+ * @category Internal
  */
 @JsonObject("AdminDoapBase")
 export abstract class AdminDoapBase {

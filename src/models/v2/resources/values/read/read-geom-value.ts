@@ -4,7 +4,7 @@ import { IBaseGeomValue } from "../type-specific-interfaces/base-geom-value";
 import { ReadValue } from "./read-value";
 
 /**
- * @internal
+ * @category Internal
  */
 @JsonObject("ReadGeomValue")
 export class ParseReadGeomValue extends ReadValue implements IBaseGeomValue {

@@ -3,7 +3,7 @@ import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-c
 import { StringLiteralV2 } from "../string-literal-v2";
 
 /**
- * @internal
+ * @category Internal
  */
 @JsonConverter
 export class StringLiteralToStringLiteralArrayConverter implements JsonCustomConvert<StringLiteralV2[]> {

@@ -39,7 +39,7 @@ export class V2Endpoint extends Endpoint {
     readonly listNodeCache: ListNodeV2Cache;
 
     /**
-     * @internal
+     * @category Internal
      * Constructor.
      * Sets up all endpoints for this endpoint.
      * @param knoraApiConfig

@@ -1,5 +1,5 @@
 /**
- * @internal
+ * @category Internal
  */
 export interface IBaseListValue {
 

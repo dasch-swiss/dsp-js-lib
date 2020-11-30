@@ -2,7 +2,7 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { WriteValue } from "../write-value";
 
 /**
- * @internal
+ * Represents a value to be updated.
  */
 @JsonObject("UpdateValue")
 export abstract class UpdateValue extends WriteValue {

@@ -23,7 +23,7 @@ export class CreateResourceClass {
 }
 
 /**
- * @internal
+ * @category Internal
  */
 @JsonObject("CreateResourceClassPayload")
 export class CreateResourceClassPayload extends CreateResourceClass {

@@ -3,7 +3,7 @@ import { Constants } from "../Constants";
 import { CustomConverterUtils } from "../../../util/utils";
 
 /**
- * @internal
+ * @category Internal
  */
 @JsonConverter
 export class DateTimeStampConverter implements JsonCustomConvert<string> {

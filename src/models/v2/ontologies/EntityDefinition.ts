@@ -1,5 +1,5 @@
 /**
- * @internal
+ * @category Internal
  */
 export abstract class EntityDefinition {
 

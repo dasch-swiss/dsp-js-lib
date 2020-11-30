@@ -2,7 +2,7 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { BaseResource } from "./base-resource";
 
 /**
- * @internal
+ * @category Internal
  */
 @JsonObject("ReadWriteResource")
 export abstract class ReadWriteResource extends BaseResource {
