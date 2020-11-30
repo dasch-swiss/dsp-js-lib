@@ -43,6 +43,23 @@ export class ReadValue extends BaseValue {
 
     strval?: string;
 
+    /**
+     * @internal
+     * @param id the id of the value.
+     * @param type the type of the value.
+     * @param attachedToUser the user the value is attached to.
+     * @param arkUrl the value's persistent URL.
+     * @param versionArkUrl the value's persistent URL for this version.
+     * @param valueCreationDate the value's date of creation.
+     * @param hasPermissions the permission set for the value.
+     * @param userHasPermission the current user's permissions on the value.
+     * @param uuid the value's UUID.
+     * @param propertyLabel the label of the value's property.
+     * @param propertyComment the comment of the value's property.
+     * @param property the property pointing to the value.
+     * @param strval the value's string representation, if any.
+     * @param valueHasComment the comment on the value, if any.
+     */
     constructor(id?: string,
                 type?: string,
                 attachedToUser?: string,
