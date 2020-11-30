@@ -3,6 +3,9 @@ import { AjaxError } from "rxjs/ajax";
 import { ApiResponse } from "./api-response";
 import { ApiResponseData } from "./api-response-data";
 
+/**
+ * @category Model
+ */
 export class ApiResponseError extends ApiResponse {
 
     ///////////////

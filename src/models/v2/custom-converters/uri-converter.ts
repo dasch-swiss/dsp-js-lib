@@ -2,6 +2,9 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
 import { Constants } from "../Constants";
 import { CustomConverterUtils } from "../../../util/utils";
 
+/**
+ * @category Internal
+ */
 @JsonConverter
 export class UriConverter implements JsonCustomConvert<string> {
     serialize(uri: string): any {

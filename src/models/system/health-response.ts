@@ -2,6 +2,8 @@ import { JsonObject, JsonProperty } from "json2typescript";
 
 /**
  * Represents Knora's state of health.
+ *
+ * @category Model
  */
 @JsonObject("HealthResponse")
 export class HealthResponse {

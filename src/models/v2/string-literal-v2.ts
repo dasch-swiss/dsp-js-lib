@@ -2,6 +2,8 @@ import { JsonObject, JsonProperty } from "json2typescript";
 
 /**
  * A string with an optional language tag.
+ *
+ * @category Model
  */
 @JsonObject("StringLiteralV2")
 export class StringLiteralV2 {

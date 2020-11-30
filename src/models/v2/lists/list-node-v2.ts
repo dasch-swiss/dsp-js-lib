@@ -44,6 +44,9 @@ export class SubListNodeConverter implements JsonCustomConvert<ListNodeV2[]> {
     }
 }
 
+/**
+ * @category Model
+ */
 @JsonObject("ListNode")
 export class ListNodeV2 {
 

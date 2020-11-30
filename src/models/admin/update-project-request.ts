@@ -4,6 +4,8 @@ import { StringLiteral } from "./string-literal";
 
 /**
  * A request to update a project.
+ *
+ * @category Model
  */
 @JsonObject("UpdateProjectRequest")
 export class UpdateProjectRequest {

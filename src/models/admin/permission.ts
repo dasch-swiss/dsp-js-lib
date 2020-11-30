@@ -2,6 +2,8 @@ import { JsonObject, JsonProperty } from "json2typescript";
 
 /**
  * A permission.
+ *
+ * @category Model
  */
 @JsonObject("Permission")
 export class Permission {

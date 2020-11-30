@@ -4,6 +4,8 @@ import { AdministrativePermission } from "./administrative-permission";
 
 /**
  * An administrative permission.
+ *
+ * @category Model
  */
 @JsonObject("StoredAdministrativePermission")
 export class StoredAdministrativePermission extends AdministrativePermission {

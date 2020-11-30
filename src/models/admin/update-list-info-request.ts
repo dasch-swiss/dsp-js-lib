@@ -4,6 +4,8 @@ import { StringLiteral } from "./string-literal";
 
 /**
  * A request to update information about a list.
+ *
+ * @category Model
  */
 @JsonObject("UpdateListInfoRequest")
 export class UpdateListInfoRequest {

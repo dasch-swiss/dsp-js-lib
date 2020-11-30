@@ -4,6 +4,8 @@ import { ReadUser } from "./read-user";
 
 /**
  * A response providing a single user.
+ *
+ * @category Model
  */
 @JsonObject("UserResponse")
 export class UserResponse {

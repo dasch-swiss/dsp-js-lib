@@ -4,6 +4,8 @@ import { StringLiteral } from "./string-literal";
 
 /**
  * A list node.
+ *
+ * @category Model
  */
 @JsonObject("ListNode")
 export class ListNode {

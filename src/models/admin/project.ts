@@ -4,6 +4,8 @@ import { StringLiteral } from "./string-literal";
 
 /**
  * Represents a project that uses Knora.
+ *
+ * @category Model
  */
 @JsonObject("Project")
 export class Project {

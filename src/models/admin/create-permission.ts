@@ -2,6 +2,8 @@ import { JsonObject, JsonProperty } from "json2typescript";
 
 /**
  * Creation of a permission.
+ *
+ * @category Model
  */
 @JsonObject("CreatePermission")
 export class CreatePermission {

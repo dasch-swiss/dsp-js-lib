@@ -2,6 +2,8 @@ import { JsonObject, JsonProperty } from "json2typescript";
 
 /**
  * A request to update a group.
+ *
+ * @category Model
  */
 @JsonObject("UpdateGroupRequest")
 export class UpdateGroupRequest {

@@ -4,6 +4,8 @@ import { List } from "./list";
 
 /**
  * A response containing a list.
+ *
+ * @category Model
  */
 @JsonObject("ListResponse")
 export class ListResponse {

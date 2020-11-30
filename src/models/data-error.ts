@@ -2,6 +2,8 @@ import { ApiResponseError } from "./api-response-error";
 
 /**
  * Generic error class for API responses where the format was incorrect.
+ *
+ * @category Model
  */
 export class DataError extends Error {
 

@@ -4,6 +4,8 @@ import { ListNodeInfo } from "./list-node-info";
 
 /**
  * A response containing information about a list node.
+ *
+ * @category Model
  */
 @JsonObject("ListNodeInfoResponse")
 export class ListNodeInfoResponse {

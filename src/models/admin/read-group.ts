@@ -5,6 +5,8 @@ import { StoredProject } from "./stored-project";
 
 /**
  * A group of Knora users.
+ *
+ * @category Model
  */
 @JsonObject("ReadGroup")
 export class ReadGroup extends StoredGroup {

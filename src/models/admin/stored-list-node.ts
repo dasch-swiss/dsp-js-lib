@@ -4,6 +4,8 @@ import { ListNode } from "./list-node";
 
 /**
  * A list node.
+ *
+ * @category Model
  */
 @JsonObject("StoredListNode")
 export class StoredListNode extends ListNode {

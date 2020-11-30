@@ -3,6 +3,8 @@ import { AdminDoapBase } from "./admin-doap-base";
 
 /**
  * An administrative permission.
+ *
+ * @category Model
  */
 @JsonObject("AdministrativePermission")
 export class AdministrativePermission extends AdminDoapBase {

@@ -7,6 +7,8 @@ import { StoredUser } from "./stored-user";
 
 /**
  * Represents a Knora user.
+ *
+ * @category Model
  */
 @JsonObject("ReadUser")
 export class ReadUser extends StoredUser {

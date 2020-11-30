@@ -4,6 +4,8 @@ import { ReadProject } from "./read-project";
 
 /**
  * A response providing a collection of projects.
+ *
+ * @category Model
  */
 @JsonObject("ProjectsResponse")
 export class ProjectsResponse {

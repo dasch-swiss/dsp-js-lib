@@ -3,6 +3,8 @@ import { DefaultObjectAccessPermission } from "./default-object-access-permissio
 
 /**
  * Represents a project's default object access permissions.
+ *
+ * @category Model
  */
 @JsonObject("DefaultObjectAccessPermissionsResponse")
 export class DefaultObjectAccessPermissionsResponse {

@@ -4,6 +4,8 @@ import { Group } from "./group";
 
 /**
  * A group of Knora users.
+ *
+ * @category Model
  */
 @JsonObject("StoredGroup")
 export class StoredGroup extends Group {
