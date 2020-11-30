@@ -6,7 +6,7 @@ import { ApiResponseError } from "./api-response-error";
 import { DataError } from "./data-error";
 
 /**
- * @category Model
+ * @category Response
  */
 export class ApiResponseData<T> extends ApiResponse {
 

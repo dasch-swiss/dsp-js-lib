@@ -5,6 +5,8 @@ import { KnoraApiConfig } from "./knora-api-config";
 
 /**
  * Offers methods for JavaScript developers to interact with the Knora API.
+ *
+ * @category Config
  */
 export class KnoraApiConnection {
 

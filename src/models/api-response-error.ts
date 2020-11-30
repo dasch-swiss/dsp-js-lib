@@ -4,7 +4,7 @@ import { ApiResponse } from "./api-response";
 import { ApiResponseData } from "./api-response-data";
 
 /**
- * @category Model
+ * @category Response
  */
 export class ApiResponseError extends ApiResponse {
 

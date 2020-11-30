@@ -1,5 +1,7 @@
 /**
  * Contains the configuration that can be used in the KnoraApiConnection.
+ *
+ * @category Config
  */
 export class KnoraApiConfig {
 

@@ -1,5 +1,5 @@
 /**
- * @category Model
+ * @category Response
  */
 export abstract class ApiResponse {
 
