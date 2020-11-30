@@ -14,6 +14,8 @@ import { UpdateGroupRequest } from "../../../models/admin/update-group-request";
 
 /**
  * An endpoint for working with Knora groups.
+ *
+ * @category Endpoint
  */
 export class GroupsEndpointAdmin extends Endpoint {
     

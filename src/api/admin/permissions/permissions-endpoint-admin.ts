@@ -13,6 +13,8 @@ import { Endpoint } from "../../endpoint";
 
 /**
  * An endpoint for working with Knora permissions.
+ *
+ * @category Endpoint
  */
 export class PermissionsEndpointAdmin extends Endpoint {
 

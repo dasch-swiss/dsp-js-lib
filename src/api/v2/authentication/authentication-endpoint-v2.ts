@@ -11,6 +11,8 @@ import { Endpoint } from "../../endpoint";
 
 /**
  * Handles requests to the authentication route of the Knora API.
+ *
+ * @category Endpoint
  */
 export class AuthenticationEndpointV2 extends Endpoint {
 
