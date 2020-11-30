@@ -1,3 +1,6 @@
+/**
+ * @category Model V2
+ */
 export namespace PermissionUtil {
 
     /**
