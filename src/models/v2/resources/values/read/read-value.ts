@@ -5,6 +5,9 @@ import { IdConverter } from "../../../custom-converters/id-converter";
 import { UriConverter } from "../../../custom-converters/uri-converter";
 import { BaseValue } from "../base-value";
 
+/**
+ * @category Model
+ */
 @JsonObject("ReadValue")
 export class ReadValue extends BaseValue {
 

@@ -3,6 +3,9 @@ import { Constants } from "../../../Constants";
 import { IBaseGeomValue } from "../type-specific-interfaces/base-geom-value";
 import { CreateValue } from "./create-value";
 
+/**
+ * @category Model
+ */
 @JsonObject("CreateGeomValue")
 export class CreateGeomValue extends CreateValue implements IBaseGeomValue {
 

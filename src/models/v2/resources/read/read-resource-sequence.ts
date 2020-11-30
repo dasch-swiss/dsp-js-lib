@@ -1,5 +1,8 @@
 import { ReadResource } from "./read-resource";
 
+/**
+ * @category Model
+ */
 export class ReadResourceSequence {
 
     /**

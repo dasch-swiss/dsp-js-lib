@@ -3,6 +3,9 @@ import { Constants } from "../../../Constants";
 import { IBaseColorValue } from "../type-specific-interfaces/base-color-value";
 import { ReadValue } from "./read-value";
 
+/**
+ * @category Model
+ */
 @JsonObject("ReadColorValue")
 export class ReadColorValue extends ReadValue implements IBaseColorValue {
 

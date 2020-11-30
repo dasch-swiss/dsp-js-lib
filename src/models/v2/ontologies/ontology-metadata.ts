@@ -3,6 +3,9 @@ import { Constants } from "../Constants";
 import { DateTimeStampConverter } from "../custom-converters/date-time-stamp-converter";
 import { IdConverter } from "../custom-converters/id-converter";
 
+/**
+ * @category Model
+ */
 @JsonObject("OntologyMetadata")
 export class OntologyMetadata {
 
@@ -22,6 +25,9 @@ export class OntologyMetadata {
     attachedToProject: string = "";
 }
 
+/**
+ * @category Model
+ */
 @JsonObject("OntologiesMetadata")
 export class OntologiesMetadata {
 

@@ -15,6 +15,8 @@ export class ParseReadGeomValue extends ReadValue implements IBaseGeomValue {
 
 /**
  * Represents a point in a 2D-coordinate system (for geometry values).
+ *
+ * @category Model
  */
 export class Point2D {
     constructor(public x: number, public y: number) {
@@ -23,6 +25,8 @@ export class Point2D {
 
 /**
  * Represents a geometry value parsed from JSON.
+ *
+ * @category Model
  */
 export class RegionGeometry {
     constructor(public status: string,
@@ -35,6 +39,9 @@ export class RegionGeometry {
     }
 }
 
+/**
+ * @category Model
+ */
 export class ReadGeomValue extends ReadValue {
     
     geometry: RegionGeometry;

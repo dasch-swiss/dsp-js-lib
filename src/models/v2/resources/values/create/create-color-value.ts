@@ -3,6 +3,9 @@ import { Constants } from "../../../Constants";
 import { IBaseColorValue } from "../type-specific-interfaces/base-color-value";
 import { CreateValue } from "./create-value";
 
+/**
+ * @category Model
+ */
 @JsonObject("CreateColorValue")
 export class CreateColorValue extends CreateValue implements IBaseColorValue {
 

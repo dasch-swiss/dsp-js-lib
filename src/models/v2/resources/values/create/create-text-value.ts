@@ -4,6 +4,9 @@ import { IdConverter } from "../../../custom-converters/id-converter";
 import { IBaseTextValueAsString, IBaseTextValueAsXml } from "../type-specific-interfaces/base-text-value";
 import { CreateValue } from "./create-value";
 
+/**
+ * @category Model
+ */
 @JsonObject("CreateTextValueAsString")
 export class CreateTextValueAsString extends CreateValue implements IBaseTextValueAsString {
 
@@ -16,6 +19,9 @@ export class CreateTextValueAsString extends CreateValue implements IBaseTextVal
 
 }
 
+/**
+ * @category Model
+ */
 @JsonObject("CreateTextValueAsXml")
 export class CreateTextValueAsXml extends CreateValue implements IBaseTextValueAsXml {
 

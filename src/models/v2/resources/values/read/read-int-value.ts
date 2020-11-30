@@ -3,6 +3,9 @@ import { Constants } from "../../../Constants";
 import { IBaseIntValue } from "../type-specific-interfaces/base-int-value";
 import { ReadValue } from "./read-value";
 
+/**
+ * @category Model
+ */
 @JsonObject("ReadIntValue")
 export class ReadIntValue extends ReadValue implements IBaseIntValue {
 

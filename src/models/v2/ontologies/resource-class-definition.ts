@@ -8,6 +8,9 @@ import { SubClassOfConverter } from "../custom-converters/subclass-of-converter"
 import { StringLiteralV2 } from "../string-literal-v2";
 import { ClassDefinition, IHasProperty } from "./class-definition";
 
+/**
+ * @category Model
+ */
 @JsonObject("ResourceClassDefinition")
 export class ResourceClassDefinition extends ClassDefinition {
     @JsonProperty("@id", String)
@@ -29,6 +32,9 @@ export class ResourceClassDefinition extends ClassDefinition {
     canBeInstantiated: boolean = false;
 }
 
+/**
+ * @category Model
+ */
 @JsonObject("ResourceClassDefinitionWithAllLanguages")
 export class ResourceClassDefinitionWithAllLanguages extends ResourceClassDefinition {
 

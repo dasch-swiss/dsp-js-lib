@@ -4,6 +4,9 @@ import { IdConverter } from "../custom-converters/id-converter";
 import { SubPropertyOfConverter } from "../custom-converters/subproperty-of-converter";
 import { PropertyDefinition } from "./property-definition";
 
+/**
+ * @category Model
+ */
 @JsonObject("SystemPropertyDefinition")
 export class SystemPropertyDefinition extends PropertyDefinition {
 

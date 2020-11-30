@@ -9,6 +9,9 @@ import { SubPropertyOfConverter } from "../custom-converters/subproperty-of-conv
 import { StringLiteralV2 } from "../string-literal-v2";
 import { PropertyDefinition } from "./property-definition";
 
+/**
+ * @category Model
+ */
 @JsonObject("ResourcePropertyDefinition")
 export class ResourcePropertyDefinition extends PropertyDefinition {
     @JsonProperty("@id", String)
@@ -45,6 +48,9 @@ export class ResourcePropertyDefinition extends PropertyDefinition {
     guiAttributes: string[] = [];
 }
 
+/**
+ * @category Model
+ */
 @JsonObject("ResourcePropertyDefinitionWithAllLanguages")
 export class ResourcePropertyDefinitionWithAllLanguages extends ResourcePropertyDefinition {
 
