@@ -3,10 +3,9 @@ import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-c
 import { Constants } from "../Constants";
 import { Organization } from "../project-metadata/organization-definition";
 import { Person } from "../project-metadata/person-definition";
-import { IdConverter } from "./id-converter";
 
 @JsonConverter
-export class PersonOrganizationConverter implements JsonCustomConvert<Person | Organization | object> {
+export class PersonOrganizationConverter implements JsonCustomConvert<Person | Organization | string> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -19,7 +18,7 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
         return;
     }
 
-    deserialize(obj: object): Person | Organization | object {
+    deserialize(obj: object): Person | Organization | string {
         const orgProp = Constants.dspRepoBase + "hasName";
         const personProp = Constants.dspRepoBase + "hasJobTitle";
         if (obj.hasOwnProperty(orgProp) || obj.hasOwnProperty(personProp)) {
@@ -29,7 +28,11 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
                 return PersonOrganizationConverter.jsonConvert.deserializeObject(obj, Organization);
             }
         } else {
-            return obj; //map this to desired object instance
+            if (obj.hasOwnProperty("@id")) {
+                return (obj as { [index: string]: string})["@id"]; //map this to desired object instance
+            } else {
+                throw new Error("Expected Person, Organization or reference with @id key");
+            }
         }
     }
 }
