@@ -27,7 +27,7 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
     }
 
     /**
-     * Reads a project metadata from Knora.
+     * Reads a project's metadata from Knora.
      * @param resourceIri the Iri of the resource the value belongs to.
      */
     getProjectMetadata(resourceIri: string): Observable<ProjectsMetadata | ApiResponseError> {
@@ -57,7 +57,7 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
             return jsonConvert.deserializeObject(projectsJsonLd, ProjectsMetadata);
         } else {
             const projects: ProjectsMetadata = new ProjectsMetadata();
-            // creates the same structure for single object incoming from API
+            // creates the same structure for a single object incoming from the API
             if (Object.keys(projectsJsonLd).length > 0) {
                 projects.projectsMetadata = [jsonConvert.deserializeObject(projectsJsonLd, Dataset)];
             }

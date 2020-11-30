@@ -186,7 +186,7 @@ export { ListNodeV2 } from "./models/v2/lists/list-node-v2";
 
 export { Constants } from "./models/v2/Constants";
 
-export { Dataset } from "./models/v2/project-metadata/dataset-definition";
+export { ProjectsMetadata } from "./models/v2/project-metadata/project-metadata";
 export { UpdateProjectMetadataResponse } from "./models/v2/project-metadata/update-project-metadata";
 
 // Utils

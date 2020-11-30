@@ -6,5 +6,5 @@ import { Person } from "./person-definition";
 export class ProjectsMetadata {
 
     @JsonProperty("@graph", [Dataset, Person])
-    projectsMetadata: any[] = [];
+    projectsMetadata: Array<Dataset | Person> = [];
 }

@@ -1,5 +1,3 @@
-import { constants } from "buffer";
-
 export class Constants {
 
     static KnoraApi = "http://api.knora.org";
@@ -162,14 +160,15 @@ export class Constants {
     static SalsahLink: string = "salsah-link"; // class on an HTML <a> element that indicates a link to a Knora resource
     static RefMarker: string = "ref-marker"; // class on an HTML element that refers to another element in the same document
 
-    static dsp = "http://ns.dasch.swiss/"
-    static dspRepo = Constants.dsp + "repository";
+    static dsp = "http://ns.dasch.swiss";
+    static dspRepo = Constants.dsp + "/repository";
     static dspRepoBase = Constants.dspRepo + Constants.Delimiter;
-    static urlType = "https://schema.org/URL";
+    static schemaBase = "https://schema.org";
+    static urlType = Constants.schemaBase + "/URL";
     static urlTypeLowerCase = Constants.urlType.toLocaleLowerCase();
-    static propID = "https://schema.org/propertyID";
-    static dataDownload = "https://schema.org/DataDownload";
-    static place = "https://schema.org/Place";
+    static propID = Constants.schemaBase + "/propertyID";
+    static dataDownload = Constants.schemaBase + "/DataDownload";
+    static place = Constants.schemaBase + "/Place";
     static agent = "http://www.w3.org/ns/prov#agent";
 
 }

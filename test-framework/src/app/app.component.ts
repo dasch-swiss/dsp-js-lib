@@ -50,10 +50,9 @@ import {
     DefaultObjectAccessPermissionResponse,
     ProjectPermissionsResponse,
     AdministrativePermissionsResponse,
-    Dataset,
+    ProjectsMetadata,
     UpdateProjectMetadataResponse
 } from "@dasch-swiss/dsp-js";
-import { ProjectsMetadata } from '@dasch-swiss/dsp-js/src/models/v2/project-metadata/project-metadata';
 import { Observable } from "rxjs";
 
 import { map, tap } from "rxjs/operators";

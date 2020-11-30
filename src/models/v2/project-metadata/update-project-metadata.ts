@@ -1,8 +1,9 @@
 import { JsonObject, JsonProperty } from "json2typescript";
+import { Constants } from "../Constants";
 
 @JsonObject("UpdateProjectMetadataResponse")
 export class UpdateProjectMetadataResponse {
 
-    @JsonProperty("http://api.knora.org/ontology/knora-api/v2#result", String)
+    @JsonProperty(Constants.KnoraApiV2 + Constants.Delimiter + "result", String)
     result: string = "";
 }
