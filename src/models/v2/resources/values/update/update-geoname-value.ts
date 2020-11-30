@@ -3,6 +3,9 @@ import { Constants } from "../../../Constants";
 import { IBaseGeonameValue } from "../type-specific-interfaces/base-geoname-value";
 import { UpdateValue } from "./update-value";
 
+/**
+ * @category Model
+ */
 @JsonObject("UpdateGeonameValue")
 export class UpdateGeonameValue extends UpdateValue implements IBaseGeonameValue {
 

@@ -4,6 +4,9 @@ import { UriConverter } from "../../../custom-converters/uri-converter";
 import { IBaseUriValue } from "../type-specific-interfaces/base-uri-value";
 import { UpdateValue } from "./update-value";
 
+/**
+ * @category Model
+ */
 @JsonObject("UpdateUriValue")
 export class UpdateUriValue extends UpdateValue implements IBaseUriValue {
 

@@ -3,6 +3,9 @@ import { Constants } from "../../../Constants";
 import { IBaseIntValue } from "../type-specific-interfaces/base-int-value";
 import { UpdateValue } from "./update-value";
 
+/**
+ * @category Model
+ */
 @JsonObject("UpdateIntValue")
 export class UpdateIntValue extends UpdateValue implements IBaseIntValue {
 

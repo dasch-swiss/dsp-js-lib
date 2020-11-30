@@ -4,6 +4,9 @@ import { DecimalConverter } from "../../../custom-converters/decimal-converter";
 import { IBaseIntervalValue } from "../type-specific-interfaces/base-interval-value";
 import { UpdateValue } from "./update-value";
 
+/**
+ * @category Model
+ */
 @JsonObject("UpdateIntervalValue")
 export class UpdateIntervalValue extends UpdateValue implements IBaseIntervalValue {
 

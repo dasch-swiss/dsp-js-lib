@@ -4,6 +4,9 @@ import { IdConverter } from "../../../custom-converters/id-converter";
 import { IBaseListValue } from "../type-specific-interfaces/base-list-value";
 import { UpdateValue } from "./update-value";
 
+/**
+ * @category Model
+ */
 @JsonObject("UpdateListValue")
 export class UpdateListValue extends UpdateValue implements IBaseListValue {
 
