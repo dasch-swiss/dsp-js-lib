@@ -1,7 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("CredentialsResponse")
 export class CredentialsResponse {

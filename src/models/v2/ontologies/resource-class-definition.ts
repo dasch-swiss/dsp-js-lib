@@ -9,7 +9,7 @@ import { StringLiteralV2 } from "../string-literal-v2";
 import { ClassDefinition, IHasProperty } from "./class-definition";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("ResourceClassDefinition")
 export class ResourceClassDefinition extends ClassDefinition {
@@ -33,7 +33,7 @@ export class ResourceClassDefinition extends ClassDefinition {
 }
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("ResourceClassDefinitionWithAllLanguages")
 export class ResourceClassDefinitionWithAllLanguages extends ResourceClassDefinition {

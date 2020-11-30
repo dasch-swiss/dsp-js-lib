@@ -4,7 +4,7 @@ import { IBaseGeonameValue } from "../type-specific-interfaces/base-geoname-valu
 import { ReadValue } from "./read-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("ReadGeonameValue")
 export class ReadGeonameValue extends ReadValue implements IBaseGeonameValue {

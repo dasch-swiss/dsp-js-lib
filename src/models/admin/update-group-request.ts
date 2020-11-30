@@ -3,7 +3,7 @@ import { JsonObject, JsonProperty } from "json2typescript";
 /**
  * A request to update a group.
  *
- * @category Model
+ * @category Model Admin
  */
 @JsonObject("UpdateGroupRequest")
 export class UpdateGroupRequest {

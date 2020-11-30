@@ -5,7 +5,7 @@ import { ReadUser } from "./read-user";
 /**
  * A response providing a collection of group or project members.
  *
- * @category Model
+ * @category Model Admin
  */
 @JsonObject("MembersResponse")
 export class MembersResponse {

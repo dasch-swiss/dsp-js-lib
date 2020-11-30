@@ -3,7 +3,7 @@ import { JsonObject, JsonProperty } from "json2typescript";
 /**
  * A project's restricted view settings.
  *
- * @category Model
+ * @category Model Admin
  */
 @JsonObject("ProjectRestrictedViewSettings")
 export class ProjectRestrictedViewSettings {

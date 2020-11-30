@@ -5,7 +5,7 @@ import { IBaseTimeValue } from "../type-specific-interfaces/base-time-value";
 import { UpdateValue } from "./update-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("UpdateTimeValue")
 export class UpdateTimeValue extends UpdateValue implements IBaseTimeValue {

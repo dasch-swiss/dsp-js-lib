@@ -5,7 +5,7 @@ import { IBaseIntervalValue } from "../type-specific-interfaces/base-interval-va
 import { ReadValue } from "./read-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("ReadIntervalValue")
 export class ReadIntervalValue extends ReadValue implements IBaseIntervalValue {

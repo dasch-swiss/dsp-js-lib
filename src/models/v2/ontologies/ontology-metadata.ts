@@ -4,7 +4,7 @@ import { DateTimeStampConverter } from "../custom-converters/date-time-stamp-con
 import { IdConverter } from "../custom-converters/id-converter";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("OntologyMetadata")
 export class OntologyMetadata {
@@ -26,7 +26,7 @@ export class OntologyMetadata {
 }
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("OntologiesMetadata")
 export class OntologiesMetadata {

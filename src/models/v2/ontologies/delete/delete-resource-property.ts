@@ -1,7 +1,7 @@
 import { UpdateDeleteEntity } from "../update-delete-entity";
 
 /**
- * @category Model
+ * @category Model V2
  */
 export class DeleteResourceProperty extends UpdateDeleteEntity {
 

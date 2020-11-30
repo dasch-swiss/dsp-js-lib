@@ -3,7 +3,7 @@ import { JsonObject, JsonProperty } from "json2typescript";
 /**
  * A string with an optional language tag.
  *
- * @category Model
+ * @category Model Admin
  */
 @JsonObject("StringLiteral")
 export class StringLiteral {

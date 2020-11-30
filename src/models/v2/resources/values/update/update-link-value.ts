@@ -5,7 +5,7 @@ import { IBaseLinkValue } from "../type-specific-interfaces/base-link-value";
 import { UpdateValue } from "./update-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("UpdateLinkValue")
 export class UpdateLinkValue extends UpdateValue implements IBaseLinkValue {

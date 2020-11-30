@@ -1,7 +1,7 @@
 import { EntityDefinition } from "./EntityDefinition";
 
 /**
- * @category Model
+ * @category Model V2
  */
 export enum Cardinality {
     /**
@@ -29,7 +29,7 @@ export enum Cardinality {
  * Represents a property defined on a resource class.
  * Contains only the property's IRI, not the definition itself.
  *
- * @category Model
+ * @category Model V2
  */
 export interface IHasProperty {
     /**

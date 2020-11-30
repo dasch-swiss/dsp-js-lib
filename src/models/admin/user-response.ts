@@ -5,7 +5,7 @@ import { ReadUser } from "./read-user";
 /**
  * A response providing a single user.
  *
- * @category Model
+ * @category Model Admin
  */
 @JsonObject("UserResponse")
 export class UserResponse {

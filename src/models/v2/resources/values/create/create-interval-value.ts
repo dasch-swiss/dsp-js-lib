@@ -5,7 +5,7 @@ import { IBaseIntervalValue } from "../type-specific-interfaces/base-interval-va
 import { CreateValue } from "./create-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("CreateIntervalValue")
 export class CreateIntervalValue extends CreateValue implements IBaseIntervalValue {

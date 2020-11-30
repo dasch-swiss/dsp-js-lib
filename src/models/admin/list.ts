@@ -6,7 +6,7 @@ import { ListNodeInfo } from "./list-node-info";
 /**
  * Represents a list.
  *
- * @category Model
+ * @category Model Admin
  */
 @JsonObject("List")
 export class List {

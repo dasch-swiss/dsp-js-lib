@@ -5,7 +5,7 @@ import { IBaseUriValue } from "../type-specific-interfaces/base-uri-value";
 import { ReadValue } from "./read-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("ReadUriValue")
 export class ReadUriValue extends ReadValue implements IBaseUriValue {

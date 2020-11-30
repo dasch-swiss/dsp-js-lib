@@ -4,7 +4,7 @@ import { DefaultObjectAccessPermission } from "./default-object-access-permissio
 /**
  * Represents a project's default object access permissions.
  *
- * @category Model
+ * @category Model Admin
  */
 @JsonObject("DefaultObjectAccessPermissionsResponse")
 export class DefaultObjectAccessPermissionsResponse {

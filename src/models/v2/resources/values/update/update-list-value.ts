@@ -5,7 +5,7 @@ import { IBaseListValue } from "../type-specific-interfaces/base-list-value";
 import { UpdateValue } from "./update-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("UpdateListValue")
 export class UpdateListValue extends UpdateValue implements IBaseListValue {

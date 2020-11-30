@@ -4,7 +4,7 @@ import { IBaseBooleanValue } from "../type-specific-interfaces/base-boolean-valu
 import { CreateValue } from "./create-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("CreateBooleanValue")
 export class CreateBooleanValue extends CreateValue implements IBaseBooleanValue {

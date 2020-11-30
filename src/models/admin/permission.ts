@@ -3,7 +3,7 @@ import { JsonObject, JsonProperty } from "json2typescript";
 /**
  * A permission.
  *
- * @category Model
+ * @category Model Admin
  */
 @JsonObject("Permission")
 export class Permission {

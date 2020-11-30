@@ -5,7 +5,7 @@ import { IBaseUriValue } from "../type-specific-interfaces/base-uri-value";
 import { CreateValue } from "./create-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("CreateUriValue")
 export class CreateUriValue extends CreateValue implements IBaseUriValue {

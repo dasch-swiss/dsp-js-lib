@@ -6,7 +6,7 @@ import { UriConverter } from "../../../custom-converters/uri-converter";
 import { BaseValue } from "../base-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("ReadValue")
 export class ReadValue extends BaseValue {

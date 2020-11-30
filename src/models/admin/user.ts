@@ -3,7 +3,7 @@ import { JsonObject, JsonProperty } from "json2typescript";
 /**
  * Represents a Knora user.
  *
- * @category Model
+ * @category Model Admin
  */
 @JsonObject("User")
 export class User {

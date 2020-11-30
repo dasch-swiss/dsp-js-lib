@@ -5,7 +5,7 @@ import { Project } from "./project";
 /**
  * Represents a project that uses Knora.
  *
- * @category Model
+ * @category Model Admin
  */
 @JsonObject("StoredProject")
 export class StoredProject extends Project {

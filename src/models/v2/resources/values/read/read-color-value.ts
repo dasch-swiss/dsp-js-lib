@@ -4,7 +4,7 @@ import { IBaseColorValue } from "../type-specific-interfaces/base-color-value";
 import { ReadValue } from "./read-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("ReadColorValue")
 export class ReadColorValue extends ReadValue implements IBaseColorValue {

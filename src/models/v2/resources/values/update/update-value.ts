@@ -4,7 +4,7 @@ import { WriteValue } from "../write-value";
 /**
  * Represents a value to be updated.
  *
- * @category Model
+ * @category Model V2
  */
 @JsonObject("UpdateValue")
 export abstract class UpdateValue extends WriteValue {

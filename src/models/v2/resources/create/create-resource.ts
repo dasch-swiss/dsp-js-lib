@@ -5,7 +5,7 @@ import { DateTimeStampConverter } from "../../custom-converters/date-time-stamp-
 import { IdConverter } from "../../custom-converters/id-converter";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("CreateResource")
 export class CreateResource {

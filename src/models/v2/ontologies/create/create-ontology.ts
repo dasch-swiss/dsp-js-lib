@@ -3,7 +3,7 @@ import { Constants } from "../../Constants";
 import { IdConverter } from "../../custom-converters/id-converter";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("CreateOntology")
 export class CreateOntology {

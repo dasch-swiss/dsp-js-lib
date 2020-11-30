@@ -4,7 +4,7 @@ import { IBaseDateValue } from "../type-specific-interfaces/base-date-value";
 import { CreateValue } from "./create-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("CreateDateValue")
 export class CreateDateValue extends CreateValue implements IBaseDateValue {

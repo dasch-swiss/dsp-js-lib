@@ -5,7 +5,7 @@ import { ReadGroup } from "./read-group";
 /**
  * A response providing a collection of groups.
  *
- * @category Model
+ * @category Model Admin
  */
 @JsonObject("GroupsResponse")
 export class GroupsResponse {

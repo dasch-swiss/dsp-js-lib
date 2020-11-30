@@ -4,7 +4,7 @@ import { IBaseIntValue } from "../type-specific-interfaces/base-int-value";
 import { UpdateValue } from "./update-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("UpdateIntValue")
 export class UpdateIntValue extends UpdateValue implements IBaseIntValue {

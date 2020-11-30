@@ -5,7 +5,7 @@ import { IBaseListValue } from "../type-specific-interfaces/base-list-value";
 import { CreateValue } from "./create-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("CreateListValue")
 export class CreateListValue extends CreateValue implements IBaseListValue {

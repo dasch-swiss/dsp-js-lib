@@ -5,7 +5,7 @@ import { IBaseUriValue } from "../type-specific-interfaces/base-uri-value";
 import { UpdateValue } from "./update-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("UpdateUriValue")
 export class UpdateUriValue extends UpdateValue implements IBaseUriValue {

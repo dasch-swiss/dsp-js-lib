@@ -5,7 +5,7 @@ import { SubPropertyOfConverter } from "../custom-converters/subproperty-of-conv
 import { PropertyDefinition } from "./property-definition";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("SystemPropertyDefinition")
 export class SystemPropertyDefinition extends PropertyDefinition {

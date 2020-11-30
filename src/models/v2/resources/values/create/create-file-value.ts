@@ -4,7 +4,7 @@ import { IBaseFileValue } from "../type-specific-interfaces/base-file-value";
 import { CreateValue } from "./create-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("CreateFileValue")
 export abstract class CreateFileValue extends CreateValue implements IBaseFileValue {
@@ -13,7 +13,7 @@ export abstract class CreateFileValue extends CreateValue implements IBaseFileVa
 }
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("CreateStillImageFileValue")
 export class CreateStillImageFileValue extends CreateFileValue {

@@ -31,7 +31,7 @@ const jsonld = require("jsonld/dist/jsonld.js");
 /**
  * Handles requests to the ontologies route of the Knora API.
  *
- * @category Endpoint
+ * @category Endpoint V2
  */
 export class OntologiesEndpointV2 extends Endpoint {
 

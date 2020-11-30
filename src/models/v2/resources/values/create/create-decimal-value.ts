@@ -5,7 +5,7 @@ import { IBaseDecimalValue } from "../type-specific-interfaces/base-decimal-valu
 import { CreateValue } from "./create-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("CreateDecimalValue")
 export class CreateDecimalValue extends CreateValue implements IBaseDecimalValue {

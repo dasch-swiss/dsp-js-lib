@@ -5,7 +5,7 @@ import { ClassDefinition } from "../class-definition";
 import { PropertyDefinition } from "../property-definition";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("ReadOntology")
 export class ReadOntology {

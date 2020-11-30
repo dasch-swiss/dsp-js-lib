@@ -43,7 +43,7 @@ export class ParseReadDateValue extends ReadValue implements IBaseDateValue {
 /**
  * Precision for DateSalsah.
  *
- * @category Model
+ * @category Model V2
  */
 export enum Precision {
     yearPrecision,
@@ -54,7 +54,7 @@ export enum Precision {
 /**
  * Represents a Salsah date object with a precision information.
  *
- * @category Model
+ * @category Model V2
  */
 export class KnoraDate {
 
@@ -88,7 +88,7 @@ export class KnoraDate {
 /**
  * Represents a period (with start date and end date).
  *
- * @category Model
+ * @category Model V2
  */
 export class KnoraPeriod {
 
@@ -101,7 +101,7 @@ export class KnoraPeriod {
 }
 
 /**
- * @category Model
+ * @category Model V2
  */
 export class ReadDateValue extends ReadValue {
 

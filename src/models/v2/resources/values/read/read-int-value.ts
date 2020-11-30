@@ -4,7 +4,7 @@ import { IBaseIntValue } from "../type-specific-interfaces/base-int-value";
 import { ReadValue } from "./read-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("ReadIntValue")
 export class ReadIntValue extends ReadValue implements IBaseIntValue {

@@ -4,7 +4,7 @@ import { IBaseDateValue } from "../type-specific-interfaces/base-date-value";
 import { UpdateValue } from "./update-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("UpdateDateValue")
 export class UpdateDateValue extends UpdateValue implements IBaseDateValue {

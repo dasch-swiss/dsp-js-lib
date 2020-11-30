@@ -5,7 +5,7 @@ import { IBaseTextValueAsString, IBaseTextValueAsXml } from "../type-specific-in
 import { CreateValue } from "./create-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("CreateTextValueAsString")
 export class CreateTextValueAsString extends CreateValue implements IBaseTextValueAsString {
@@ -20,7 +20,7 @@ export class CreateTextValueAsString extends CreateValue implements IBaseTextVal
 }
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("CreateTextValueAsXml")
 export class CreateTextValueAsXml extends CreateValue implements IBaseTextValueAsXml {

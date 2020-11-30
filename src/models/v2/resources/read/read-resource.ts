@@ -10,7 +10,7 @@ import { ReadValue } from "../values/read/read-value";
 import { ResourceClassAndPropertyDefinitions } from "../../../../cache/ontology-cache/resource-class-and-property-definitions";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("ReadResource")
 export class ReadResource extends ReadWriteResource {

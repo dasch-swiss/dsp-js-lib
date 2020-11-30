@@ -20,7 +20,7 @@ const jsonld = require("jsonld/dist/jsonld.js");
 /**
  * Handles requests to the resources route of the Knora API.
  *
- * @category Endpoint
+ * @category Endpoint V2
  */
 export class ResourcesEndpointV2 extends Endpoint {
 

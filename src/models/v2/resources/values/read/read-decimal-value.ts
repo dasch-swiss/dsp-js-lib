@@ -5,7 +5,7 @@ import { IBaseDecimalValue } from "../type-specific-interfaces/base-decimal-valu
 import { ReadValue } from "./read-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("ReadDecimalValue")
 export class ReadDecimalValue extends ReadValue implements IBaseDecimalValue {

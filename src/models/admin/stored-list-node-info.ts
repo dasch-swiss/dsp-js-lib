@@ -5,7 +5,7 @@ import { ListNodeInfo } from "./list-node-info";
 /**
  * Information about a list node.
  *
- * @category Model
+ * @category Model Admin
  */
 @JsonObject("StoredListNodeInfo")
 export class StoredListNodeInfo extends ListNodeInfo {

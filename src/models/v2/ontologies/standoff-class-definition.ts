@@ -5,7 +5,7 @@ import { SubClassOfConverter } from "../custom-converters/subclass-of-converter"
 import { ClassDefinition, IHasProperty } from "./class-definition";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("StandoffClassDefinition")
 export class StandoffClassDefinition extends ClassDefinition {

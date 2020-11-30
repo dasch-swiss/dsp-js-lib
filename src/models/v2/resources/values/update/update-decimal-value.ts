@@ -5,7 +5,7 @@ import { IBaseDecimalValue } from "../type-specific-interfaces/base-decimal-valu
 import { UpdateValue } from "./update-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("UpdateDecimalValue")
 export class UpdateDecimalValue extends UpdateValue implements IBaseDecimalValue {

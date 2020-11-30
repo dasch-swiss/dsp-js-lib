@@ -5,7 +5,7 @@ import { IHasProperty } from "../class-definition";
 import { UpdateDeleteEntity } from "../update-delete-entity";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("UpdateOntologyResourceClassCardinality")
 export class UpdateOntologyResourceClassCardinality extends UpdateDeleteEntity {

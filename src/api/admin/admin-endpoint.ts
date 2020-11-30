@@ -11,7 +11,7 @@ import { ListsEndpointAdmin } from "./lists/lists-endpoint-admin";
 /**
  * A client API for administering Knora.
  *
- * @category Endpoint
+ * @category Endpoint Admin
  */
 export class AdminEndpoint extends Endpoint {
     

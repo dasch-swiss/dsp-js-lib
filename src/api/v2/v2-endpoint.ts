@@ -12,7 +12,7 @@ import { ValuesEndpointV2 } from "./values/values-endpoint-v2";
 /**
  * Defines the V2 endpoint of the Knora API.
  *
- * @category Endpoint
+ * @category Endpoint V2
  */
 export class V2Endpoint extends Endpoint {
 

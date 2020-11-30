@@ -3,7 +3,7 @@ import { Constants } from "../../../Constants";
 import { BaseValue } from "../base-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("UpdateValuePermissions")
 export class UpdateValuePermissions extends BaseValue {

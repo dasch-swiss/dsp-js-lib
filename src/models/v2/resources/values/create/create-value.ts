@@ -2,7 +2,7 @@ import { JsonObject } from "json2typescript";
 import { WriteValue } from "../write-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("CreateValue")
 export abstract class CreateValue extends WriteValue {

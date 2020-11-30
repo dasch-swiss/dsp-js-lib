@@ -4,7 +4,7 @@ import { IBaseGeomValue } from "../type-specific-interfaces/base-geom-value";
 import { UpdateValue } from "./update-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("UpdateGeomValue")
 export class UpdateGeomValue extends UpdateValue implements IBaseGeomValue {

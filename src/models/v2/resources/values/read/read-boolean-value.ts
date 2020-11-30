@@ -4,7 +4,7 @@ import { IBaseBooleanValue } from "../type-specific-interfaces/base-boolean-valu
 import { ReadValue } from "./read-value";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("ReadBooleanValue")
 export class ReadBooleanValue extends ReadValue implements IBaseBooleanValue {

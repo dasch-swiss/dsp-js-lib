@@ -6,7 +6,7 @@ import { SubClassOfConverter } from "../../custom-converters/subclass-of-convert
 import { StringLiteralV2 } from "../../string-literal-v2";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("CreateResourceProperty")
 export class CreateResourceProperty {

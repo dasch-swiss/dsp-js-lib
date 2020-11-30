@@ -5,7 +5,7 @@ import { StringLiteral } from "./string-literal";
 /**
  * A request to create a child node in a list.
  *
- * @category Model
+ * @category Model Admin
  */
 @JsonObject("CreateChildNodeRequest")
 export class CreateChildNodeRequest {

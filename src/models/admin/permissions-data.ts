@@ -7,7 +7,7 @@ import { GroupsPerProjectConverter } from "./custom-converters/groups-per-projec
 /**
  * A user's permissions data.
  *
- * @category Model
+ * @category Model Admin
  */
 @JsonObject("PermissionsData")
 export class PermissionsData {

@@ -5,7 +5,7 @@ import { ProjectRestrictedViewSettings } from "./project-restricted-view-setting
 /**
  * A response providing a project's restricted view settings.
  *
- * @category Model
+ * @category Model Admin
  */
 @JsonObject("ProjectRestrictedViewSettingsResponse")
 export class ProjectRestrictedViewSettingsResponse {

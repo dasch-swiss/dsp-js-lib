@@ -10,7 +10,7 @@ import { StringLiteralV2 } from "../string-literal-v2";
 import { PropertyDefinition } from "./property-definition";
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("ResourcePropertyDefinition")
 export class ResourcePropertyDefinition extends PropertyDefinition {
@@ -49,7 +49,7 @@ export class ResourcePropertyDefinition extends PropertyDefinition {
 }
 
 /**
- * @category Model
+ * @category Model V2
  */
 @JsonObject("ResourcePropertyDefinitionWithAllLanguages")
 export class ResourcePropertyDefinitionWithAllLanguages extends ResourcePropertyDefinition {
