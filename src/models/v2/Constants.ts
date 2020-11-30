@@ -165,7 +165,7 @@ export class Constants {
     static dspRepoBase = Constants.dspRepo + Constants.Delimiter;
     static schemaBase = "https://schema.org";
     static urlType = Constants.schemaBase + "/URL";
-    static urlTypeLowerCase = Constants.urlType.toLocaleLowerCase();
+    static urlValue = Constants.urlType.toLocaleLowerCase();
     static propID = Constants.schemaBase + "/propertyID";
     static dataDownload = Constants.schemaBase + "/DataDownload";
     static place = Constants.schemaBase + "/Place";

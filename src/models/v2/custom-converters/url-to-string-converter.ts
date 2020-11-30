@@ -6,7 +6,7 @@ export class UrlToStringConverter implements JsonCustomConvert<string> {
 
     serialize(val: string): object {
         // how to serialize back to URL objects or "hasDistibution" - the @type values are different
-        const value = Constants.urlTypeLowerCase;
+        const value = Constants.urlValue;
         return {
             "@type": Constants.urlType,
             value: val
@@ -15,7 +15,7 @@ export class UrlToStringConverter implements JsonCustomConvert<string> {
 
     deserialize(val: any): string {
         if (val.hasOwnProperty("@type") && (val["@type"] === Constants.urlType || val["@type"] === Constants.dataDownload)) {
-            return val[Constants.urlTypeLowerCase];
+            return val[Constants.urlValue];
         } else {
             return val;
         }

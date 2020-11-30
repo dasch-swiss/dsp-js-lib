@@ -10,12 +10,12 @@ export class UrlToObjectConverter implements JsonCustomConvert<object> {
 
     deserialize(val: any): object {
         if (val.hasOwnProperty(Constants.propID)) { // covers hasDiscipline
-            const type = Constants.urlTypeLowerCase;
+            const type = Constants.urlValue;
             const name = val[Constants.propID][Constants.propID];
             const url = val[type];
             return { name, url };
-        } else if (val.hasOwnProperty(Constants.urlTypeLowerCase)) { // covers Place
-            const type = Constants.urlTypeLowerCase;
+        } else if (val.hasOwnProperty(Constants.urlValue)) { // covers Place
+            const type = Constants.urlValue;
             const name = val[type][Constants.propID][Constants.propID];
             const url = val[type][type];
             return { name, url };

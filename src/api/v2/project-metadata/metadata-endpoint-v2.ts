@@ -17,11 +17,6 @@ const jsonld = require("jsonld/dist/jsonld.js");
  */
 export class ProjectMetadataEndpointV2 extends Endpoint {
 
-    /**
-     * Constructor
-     * @param knoraApiConfig
-     * @param path
-     */
     constructor(protected readonly knoraApiConfig: KnoraApiConfig, protected readonly path: string) {
         super(knoraApiConfig, path);
     }
@@ -31,7 +26,7 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
      * @param resourceIri the Iri of the resource the value belongs to.
      */
     getProjectMetadata(resourceIri: string): Observable<ProjectsMetadata | ApiResponseError> {
-        return this.httpGet(`/${encodeURIComponent(resourceIri)}`).pipe(
+        return this.httpGet("/" + encodeURIComponent(resourceIri)).pipe(
             // expand all Iris
             mergeMap((res: AjaxResponse) => {
                 return jsonld.compact(res.response, {});
@@ -47,30 +42,11 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
     }
 
     /**
-     * Converts a list of projects or a single project serialized as JSON-LD to an instance of `ProjectsMetadata`
-     * 
-     * @param projectsJsonLd JSON-LD representing project metadata.
-     * @param jsonConvert instance of JsonConvert to use.
-     */
-    convertProjectsList = (projectsJsonLd: object, jsonConvert: JsonConvert): ProjectsMetadata => {
-        if (projectsJsonLd.hasOwnProperty("@graph")) {
-            return jsonConvert.deserializeObject(projectsJsonLd, ProjectsMetadata);
-        } else {
-            const projects: ProjectsMetadata = new ProjectsMetadata();
-            // creates the same structure for a single object incoming from the API
-            if (Object.keys(projectsJsonLd).length > 0) {
-                projects.projectsMetadata = [jsonConvert.deserializeObject(projectsJsonLd, Dataset)];
-            }
-            return projects;
-        }
-    }
-
-    /**
      * Updates a project metadata from Knora.
      * @param resourceIri the Iri of the resource the value belongs to.
      * @param metadata the data to update.
      */
-    updateProjectMetadata(resourceIri: string, metadata: any): Observable<UpdateProjectMetadataResponse | ApiResponseError> {
+    updateProjectMetadata(resourceIri: string, metadata: ProjectsMetadata): Observable<UpdateProjectMetadataResponse | ApiResponseError> {
         return this.httpPut(`/${encodeURIComponent(resourceIri)}`, metadata).pipe(
             mergeMap((res: AjaxResponse) => {
                 return jsonld.compact(res.response, {});
@@ -80,5 +56,23 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
             }),
             catchError(e => this.handleError(e))
         );
+    }
+
+    /**
+     * Converts a list of projects or a single project serialized as JSON-LD to an instance of `ProjectsMetadata`
+     * @param projectsJsonLd JSON-LD representing project metadata.
+     * @param jsonConvert instance of JsonConvert to use.
+     */
+    private convertProjectsList = (projectsJsonLd: object, jsonConvert: JsonConvert): ProjectsMetadata => {
+        if (projectsJsonLd.hasOwnProperty("@graph")) {
+            return jsonConvert.deserializeObject(projectsJsonLd, ProjectsMetadata);
+        } else {
+            const projects: ProjectsMetadata = new ProjectsMetadata();
+            // creates the same structure for a single object incoming from the API
+            // if (Object.keys(projectsJsonLd).length > 0) {
+            projects.projectsMetadata = [jsonConvert.deserializeObject(projectsJsonLd, Dataset)];
+            // }
+            return projects;
+        }
     }
 }
