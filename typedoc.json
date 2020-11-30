@@ -7,5 +7,15 @@
   "excludeExternals": true,
   "excludeNotExported": true,
   "excludePrivate": true,
-  "categoryOrder": ["Config", "Response", "Endpoint Admin", "Endpoint V2", "Endpoint System", "Model Admin", "Model V2", "Model System", "Internal"]
+  "categoryOrder": [
+    "Config",
+    "Response",
+    "Endpoint Admin",
+    "Endpoint V2",
+    "Endpoint System",
+    "Model Admin",
+    "Model V2",
+    "Model System",
+    "Internal"
+  ]
 }
