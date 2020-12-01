@@ -1,5 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
+import { DateTimeStampConverter } from "../custom-converters/date-time-stamp-converter";
 import { HasCardinalityForPropertyConverter } from "../custom-converters/has-cardinality-for-property-converter";
 import { StringLiteralToStringConverter } from "../custom-converters/string-literal-to-string-converter";
 import { StringLiteralToStringLiteralArrayConverter } from "../custom-converters/string-literal-to-string-literal-array-converter";
@@ -42,4 +43,8 @@ export class ResourceClassDefinitionWithAllLanguages extends ResourceClassDefini
 
     @JsonProperty(Constants.Label, StringLiteralToStringLiteralArrayConverter, true)
     labels: StringLiteralV2[] = [];
+
+    @JsonProperty(Constants.LastModificationDate, DateTimeStampConverter, true)
+    lastModificationDate?: string = undefined;
+
 }
