@@ -81,4 +81,4 @@ For the release notes
 see [GitHub releases](https://github.com/dasch-swiss/dsp-js-lib/releases).
 
 ## Developing DSP-JS-LIB
-See `developers-guide.md`.
+See `contribution.md`.
