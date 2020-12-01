@@ -9,7 +9,7 @@
 ## Introduction
 
 ### Purpose of DSP-JS-LIB
-The purpose of DSP-JS-LIB is to facilitate the communication with [DSP-API (Knora)](https://www.knora.org) in web client software developed with TypeScript/JavaScript.
+The purpose of DSP-JS-LIB is to facilitate the communication with [DSP-API (Knora)](https://www.knora.org) in web clients developed with TypeScript/JavaScript.
 DSP-JS-LIB depends on [RxJS](https://rxjs.dev/guide/overview) and is web framework agnostic (it can be used with Angular, React, Vue.js etc.).
 
 DSP-JS-LIB offers the following features:
@@ -25,6 +25,8 @@ The following endpoints are available through DSP-JS-LIB:
 - **admin**: getting and modifying users, projects, permissions etc.
 - **v2**: requesting and modifying resources and values using DSP-API version 2
 - **system**: DSP-API's health status
+
+Consult the API docs for more details.
 
 ### RxJS Observables
 DSP-JS-LIB's endpoints return observables to the client.

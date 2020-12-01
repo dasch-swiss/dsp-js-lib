@@ -4,21 +4,29 @@
 
 ### Endpoints
 
-An `Endpoint` offers methods to communicate with the Knora API. At the current state, two main groups of endpoints have been implemented:
+An `Endpoint` offers methods to communicate with DSP-API. At the current state, two main groups of endpoints have been implemented:
 
+- `SystemEndpoint`: communication with DSP-API system endpoint: `HealthEndpoint`
 - `AdminEndpoint`: communication with Knora admin API: `UsersEndpoint`, `GroupsEndpoint`, `ProjectsEndpoint`, `PermissionsEndpoint`
-- `V2Endpoint`: communication with Knora API v2: `AuthenticationEndpoint`, `OntologiesEndpoint`, `ResourcesEndpoint`, `ListsEndpoint`, `SearchEndpoint` 
+- `V2Endpoint`: communication with DSP-API v2: `AuthenticationEndpoint`, `OntologiesEndpoint`, `ResourcesEndpoint`, `ListsEndpoint`, `SearchEndpoint` 
 
+#### System Endpoints
 
-#### Knora Admin API Endpoints
+DSP-API System endpoints inform about DSP-API's status.
 
-The Knora Admin API is used to administrate projects in Knora. This also includes management of users and groups as well as permissions.
-The Knora API relies on JSON as an exchange format.
+##### Health Endpoint
+
+The `HealthEndpointSystem` returns DSP-API's health status including information about the is version.
+
+#### DSP-API Admin API Endpoints
+
+DSP-API Admin is used to administrate projects in DSP-API. This also includes management of users and groups as well as permissions.
+DSP-API relies on JSON as an exchange format.
 
 ##### Users
 
 The `UsersEndpoint` deals with all requests related to creating, reading, updating and deleting users.
-It communicates directly with the Knoa API, taking care of deserializing JSON responses received from Knora and serializing payloads submitted in requests to JSON. 
+It communicates directly with DSP-API, taking care of deserializing JSON responses received from Knora and serializing payloads submitted in requests to JSON. 
 
 ##### Groups
 
@@ -40,19 +48,19 @@ It communicates directly with the Knoa API, taking care of deserializing JSON re
 The `ListsEndpoint` deals with all requests about lists that use the admin API.
 It communicates directly with the Knoa API, taking care of deserializing JSON responses received from Knora.
 
-#### Knora Api v2 Endpoints
+#### DSP-API v2 Endpoints
 
-The Knora API v2 is used to create, read, search, and modify data (resources and values).
-The Knora API relies on JSON-LD as an exchange format.
+DSP-API v2 is used to create, read, search, and modify data (resources and values).
+DSP-API relies on JSON-LD as an exchange format.
 
 ##### Authentication
 
-The `AuthenticationEndpoint` performs login and logout operations to the Knora API. 
-When a user logs in, a token is set and submitted which each request to the Knora API until the user logs out.
+The `AuthenticationEndpoint` performs login and logout operations to DSP-API. 
+When a user logs in, a token is set and submitted which each request to DSP-API until the user logs out.
 
 ##### Ontology
 
-The `OntologiesEndpoint` handles requests to the Knora API that relate to ontologies.
+The `OntologiesEndpoint` handles requests to DSP-API that relate to ontologies.
 
 Entire system or project ontologies are requested from Knora 
 and converted to a `ReadOntology` using `OntologyConversionUtil`.
@@ -61,17 +69,17 @@ This guarantees that an ontology is only requested once from Knora, keeping API 
 
 ##### Resource
 
-The `ResourcesEndpoint` handles requests to the Knora API that relate to resource instances.
+The `ResourcesEndpoint` handles requests to DSP-API that relate to resource instances.
 When reading resources, resource instances are returned from Knora as JSON-LD and converted to an array of `ReadResource` using `ResourcesConversionUtil`.
 
 #### Values
 
-The `ValuesEndpoint` handles requests to the Knora API that relate to operations on values.
+The `ValuesEndpoint` handles requests to DSP-API that relate to operations on values.
 When reading values, these are embedded in resource instances and converted to an array of `ReadResource` using `ResourcesConversionUtil`.
 
 ##### Search
 
-The `SearchEndpoint` handles requests to the Knora API that relate to searches, either full-text or complex (Gravsearch). 
+The `SearchEndpoint` handles requests to DSP-API that relate to searches, either full-text or complex (Gravsearch). 
 The result of a search is converted to an array of `ReadResource` or a  `CountQueryResponse` using `ResourcesConversionUtil`.
 
 ##### List
@@ -94,7 +102,7 @@ Utility methods perform conversion tasks that need to be performed when deserial
 `ResourcesConversionUtil` handles the conversion of one or several resources serialized as JSON-LD to an array of `ReadResource`. 
 `ResourcesConversionUtil` creates an array of `ReadResource` from JSON-LD representing resource instances, 
 automatically adding ontology information such as resource class labels and labels from list nodes that are referred to from list values.
-It does so by using `OntologyCache` and `ListNodeCache`, minimizing the requests to the Knora API to obtain the necessary information.
+It does so by using `OntologyCache` and `ListNodeCache`, minimizing the requests to DSP-API to obtain the necessary information.
 
 `ResourcesConversionUtil.createReadResourceSequence` is a public method that takes JSON-LD representing zero, one or more resources and returns an array of `ReadResource`. For each resource serialized as JSON-LD, `ResourcesConversionUtil.createReadResource` is called to do the conversion to a `ReadResource`. As a first step, `ResourcesConversionUtil.createReadResource` determines the resource's type (its class). Then, the definition for this class is requested from `OntologyCache`. The class definition contains information such as the class's label, cardinalities for properties and the definitions of those properties. The cardinalities are required to distinguish between system properties and properties that are defined in a project ontology. Each property value serialized as JSON-LD is converted to a `ReadValue` if there exists a cardinality for it for the resource class at hand.
 
