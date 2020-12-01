@@ -37,6 +37,6 @@ Make sure that DSP-API-JS's database is in its initial state. Reload the data if
 
 Then, execute the following steps:
 - `npm run webdriver-update` to install the required version of Chrome webdriver
-- `npm e2e`
+- `npm run e2e`
 
 Alternatively, run `npm run e2e-local` which combines the steps mentioned above.
