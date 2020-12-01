@@ -25,7 +25,7 @@ export class V2Endpoint extends Endpoint {
 
     private static readonly PATH_VALUES = "/values";
 
-    static readonly PATH_METADATA = "/metadata";
+    private static readonly PATH_METADATA = "/metadata";
 
     readonly auth: AuthenticationEndpointV2;
 
@@ -46,11 +46,12 @@ export class V2Endpoint extends Endpoint {
     readonly metadata: ProjectMetadataEndpointV2;
 
     /**
-     * @category Internal
-     * Constructor.
      * Sets up all endpoints for this endpoint.
-     * @param knoraApiConfig
-     * @param path
+     * 
+     * @param knoraApiConfig the configuration for the DSP-API instance to connect to.
+     * @param path this endpoint's path segment.
+     *
+     * @category Internal
      */
     constructor(protected readonly knoraApiConfig: KnoraApiConfig, protected readonly path: string) {
 

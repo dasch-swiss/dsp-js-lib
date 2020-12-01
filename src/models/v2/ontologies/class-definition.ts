@@ -1,6 +1,8 @@
 import { EntityDefinition } from "./EntityDefinition";
 
 /**
+ * Represents a property's cardinality.
+ *
  * @category Model V2
  */
 export enum Cardinality {

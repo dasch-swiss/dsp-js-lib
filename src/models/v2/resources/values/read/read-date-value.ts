@@ -41,13 +41,24 @@ export class ParseReadDateValue extends ReadValue implements IBaseDateValue {
 }
 
 /**
- * Precision for DateSalsah.
+ * Precision of a date.
  *
  * @category Model V2
  */
 export enum Precision {
+    /**
+     * Year precision (first to last day of the year).
+     */
     yearPrecision,
+
+    /**
+     * Month precision (first to last day of the month).
+     */
     monthPrecision,
+
+    /**
+     * Day precision.
+     */
     dayPrecision
 }
 

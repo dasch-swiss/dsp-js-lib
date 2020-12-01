@@ -1,29 +1,15 @@
 /**
- * Contains the configuration that can be used in the KnoraApiConnection.
+ * Configuration to instantiate a `KnoraApiConnection`.
  *
  * @category Config
  */
 export class KnoraApiConfig {
-
-    ///////////////
-    // CONSTANTS //
-    ///////////////
-
-    // <editor-fold desc="">
 
     static readonly PROTOCOL_HTTP = "http";
     static readonly PROTOCOL_HTTPS = "https";
 
     static readonly DEFAULT_PORT_HTTP = 80;
     static readonly DEFAULT_PORT_HTTPS = 443;
-
-    // </editor-fold>
-
-    ////////////////
-    // PROPERTIES //
-    ////////////////
-
-    // <editor-fold desc="">
 
     /**
      * The full API URL
@@ -36,20 +22,11 @@ export class KnoraApiConfig {
         );
     }
 
-    // </editor-fold>
-
-    /////////////////
-    // CONSTRUCTOR //
-    /////////////////
-
-    // <editor-fold desc="">
-
     /**
-     * Constructor.
-     * @param apiProtocol the protocol of the API (http/https)
-     * @param apiHost the API base URL
-     * @param apiPort the port of the Knora API
-     * @param apiPath the base path following
+     * @param apiProtocol the protocol of the API (http or https)
+     * @param apiHost the DSP-API base URL
+     * @param apiPort the port of DSP-API
+     * @param apiPath the base path following host and port, if any.
      * @param jsonWebToken token to identify the user
      * @param logErrors determines whether errors should be logged to the console
      */
@@ -68,14 +45,4 @@ export class KnoraApiConfig {
         }
 
     }
-
-    // </editor-fold>
-
-    /////////////
-    // METHODS //
-    /////////////
-
-    // <editor-fold desc="">
-    // </editor-fold>
-
 }
