@@ -27,7 +27,7 @@ It can be installed running `npm run peer-deps` **after** `npm install`.
 and has to be compatible with whatever version of `RxJS` is used in the productive environment, e.g. an Angular application.
 This library works with `RxJS`'s major version defined in `package.json` . See `rxjs.md` for details.
 
-### Scripts for testing and development
+### Scripts for Testing and Development
 
 This package provides the following short-hand scripts:
 
@@ -38,9 +38,18 @@ This package provides the following short-hand scripts:
 1. `npm run yalc-publish`: Builds and publishes the package to the yalc app store (local publication of the lib).
 1. `npm run npm-pack`: Tests and builds the library and then and packs the `./build/` folder into an NPM tgz package. The package is moved into a `./dist/` folder.
 
-### Dev Version
+### Build and Publish a Local Version
 
-The dev versions contains mocks that produce tests data without a connection to DSP-API.
+Using `yalc`, DSP-JS-LIB can be built and published locally:
+- Run `npm install` and `npm run peer-deps`
+- Run `npm run prepare-dev-publication` if the mocks should be included, see section below.
+- Run `npm run yalc-publish`
+
+Alternatively, you can run `npm run build-local` which combines the script mentioned above.
+
+### Development Version
+
+The development version contains mocks that produce tests data without a connection to DSP-API.
 These mocks were originally developed for internal use, but can be used to get data for unit test in projects that use DSP-JS-LIB.
 The following example shows how to get a mocked resource without a connection to DSP-API:
 
@@ -150,6 +159,8 @@ These assertions are defined in `MockOntologyAssertions`.
 
 ## Test Environment and E2E Tests
 
-`./test-framework` provides a ready-to-use test environment for Angular developers. See `./test-framework/README.md` for further instructions.
+`./test-framework` provides a ready-to-use test environment for Angular developers.
+The E2E test for DSP-JS-LIB are run by the test environment.
+See `./test-framework/README.md` for further instructions.
 
 
