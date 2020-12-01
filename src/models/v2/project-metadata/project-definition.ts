@@ -3,15 +3,15 @@ import { Constants } from "../Constants";
 import { DateConverter } from "../custom-converters/date-converter";
 import { PersonOrganizationConverter } from "../custom-converters/person-organization-converter";
 import { UrlToObjectConverter } from "../custom-converters/url-to-object-converter";
-import { UrlToStringConverter } from "../custom-converters/url-to-string-converter";
+import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
 import { DataManagementPlan } from "./data-management-plan-definition";
 import { Grant } from "./grant-definition";
 import { Organization } from "./organization-definition";
 import { Person } from "./person-definition";
 import { Place } from "./place-definition";
 
-@JsonObject("Project")
-export class Project {
+@JsonObject("ProjectClass")
+export class ProjectClass {
 
     @JsonProperty(Constants.dspRepoBase + "hasAlternateName", String, true)
     alternateName?: string = undefined;
@@ -29,7 +29,7 @@ export class Project {
     discipline: object = {};
     
     @JsonProperty(Constants.dspRepoBase + "hasEndDate", DateConverter, true)
-    endDate?: Date = undefined;
+    endDate?: string = undefined;
 
     @JsonProperty(Constants.dspRepoBase + "hasFunder", PersonOrganizationConverter) // check if Person, Organization works
     funder: Person | Organization = new Person();
@@ -40,7 +40,7 @@ export class Project {
     @JsonProperty(Constants.dspRepoBase + "hasKeywords", [String])
     keywords: string[] = [];
 
-    @JsonProperty(Constants.dspRepoBase + "hasName", String)
+    @JsonProperty(Constants.dspName, String)
     name: string = "";
 
     @JsonProperty(Constants.dspRepoBase + "hasPublication", String, true)
@@ -53,11 +53,11 @@ export class Project {
     spatialCoverage: Place[] = [];
 
     @JsonProperty(Constants.dspRepoBase + "hasStartDate", DateConverter)
-    startDate: Date = new Date();
+    startDate: string = "";
 
     @JsonProperty(Constants.dspRepoBase + "hasTemporalCoverage", UrlToObjectConverter)
     temporalCoverage: object = {};
 
-    @JsonProperty(Constants.dspRepoBase + "hasURL", UrlToStringConverter)
+    @JsonProperty(Constants.dspRepoBase + "hasURL", UrlToUrlObjectConverter)
     url: string = "";
 }

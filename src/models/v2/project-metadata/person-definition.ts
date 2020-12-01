@@ -2,7 +2,7 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
 import { EmailConverter } from "../custom-converters/email-converter";
 import { IdConverter } from "../custom-converters/id-converter";
-import { UrlToStringConverter } from "../custom-converters/url-to-string-converter";
+import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
 import { Address } from "./address-definition";
 import { Organization } from "./organization-definition";
 
@@ -27,6 +27,6 @@ export class Person {
     @JsonProperty(Constants.dspRepoBase + "isMemberOf", IdConverter) //convert reference ID to Orgnization
     memberOf: Organization = new Organization();
 
-    @JsonProperty(Constants.dspRepoBase + "sameAs", UrlToStringConverter, true)
+    @JsonProperty(Constants.dspRepoBase + "sameAs", UrlToUrlObjectConverter, true)
     sameAs?: string = undefined;
 }

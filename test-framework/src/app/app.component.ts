@@ -51,6 +51,9 @@ import {
     ProjectPermissionsResponse,
     AdministrativePermissionsResponse,
     ProjectsMetadata,
+    Dataset,
+    ProjectClass,
+    Attribution,
     UpdateProjectMetadataResponse
 } from "@dasch-swiss/dsp-js";
 import { Observable } from "rxjs";
@@ -805,6 +808,31 @@ export class AppComponent implements OnInit {
     updateProjectMetadata(): void {
         const resourceIri = 'http://rdfh.ch/projects/0001';
 
+        const testMetadata = new ProjectsMetadata();
+        const testDataset = new Dataset();
+        testDataset.abstract = 'Dies ist ein Testprojekt.';
+        testDataset.alternativeTitle = 'test';
+        testDataset.conditionsOfAccess = 'Open Access';
+        testDataset.dateCreated = '2001-09-26';
+        testDataset.dateModified = '2020-04-26';
+        testDataset.datePublished = '2002-09-24';
+        testDataset.distribution = 'https://test.dasch.swiss';
+        testDataset.documentation = 'Work in progress';
+        testDataset.howToCite = 'Testprojekt (test), 2002, https://test.dasch.swiss';
+        testDataset.language = [ 'EN', 'DE', 'FR' ];
+        testDataset.license = 'https://creativecommons.org/licenses/by/3.0';
+        const attr = new Attribution();
+        attr.role = 'contributor';
+        attr.agent = 'http://ns.dasch.swiss/test-berry';
+        testDataset.qualifiedAttribution.push(attr);
+        testDataset.status = 'ongoing';
+        testDataset.title = 'Testprojekt';
+        testDataset.typeOfData = ['image', 'text'];
+        testDataset.sameAs = 'https://test.dasch.swiss/';
+        testDataset.project = new ProjectClass();
+        testMetadata.projectsMetadata.push(testDataset);
+        console.log(testMetadata);
+        // replace metadataPayload with constructed above ProjectsMetadata object - swap lines in metadata endpoint
         this.knoraApiConnection.v2.metadata.updateProjectMetadata(resourceIri, metadataPayload).subscribe(
             (res: UpdateProjectMetadataResponse) => {
                 console.log(res);

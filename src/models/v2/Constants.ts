@@ -163,6 +163,7 @@ export class Constants {
     static dsp = "http://ns.dasch.swiss";
     static dspRepo = Constants.dsp + "/repository";
     static dspRepoBase = Constants.dspRepo + Constants.Delimiter;
+    static dspName = Constants.dspRepoBase + "hasName";
     static schemaBase = "https://schema.org";
     static urlType = Constants.schemaBase + "/URL";
     static urlValue = Constants.urlType.toLocaleLowerCase();

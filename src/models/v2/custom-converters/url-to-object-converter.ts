@@ -8,6 +8,7 @@ export class UrlToObjectConverter implements JsonCustomConvert<object> {
         return;
     }
 
+    // possibly divide it
     deserialize(val: any): object {
         if (val.hasOwnProperty(Constants.propID)) { // covers hasDiscipline
             const type = Constants.urlValue;

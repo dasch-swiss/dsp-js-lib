@@ -10,5 +10,5 @@ export class Attribution {
     role: string = "";
 
     @JsonProperty(Constants.agent, IdConverter) //convert to Person base on @id
-    agent: Person = new Person();
+    agent: string = "";
 }

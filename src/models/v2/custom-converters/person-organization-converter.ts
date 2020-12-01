@@ -19,9 +19,8 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
     }
 
     deserialize(obj: object): Person | Organization | string {
-        const orgProp = Constants.dspRepoBase + "hasName";
         const personProp = Constants.dspRepoBase + "hasJobTitle";
-        if (obj.hasOwnProperty(orgProp) || obj.hasOwnProperty(personProp)) {
+        if (obj.hasOwnProperty(Constants.dspName) || obj.hasOwnProperty(personProp)) {
             if (obj.hasOwnProperty(personProp)) {
                 return PersonOrganizationConverter.jsonConvert.deserializeObject(obj, Person);
             } else {

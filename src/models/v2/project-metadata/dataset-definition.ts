@@ -1,14 +1,15 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
 import { DateConverter } from "../custom-converters/date-converter";
-import { UrlToStringConverter } from "../custom-converters/url-to-string-converter";
+import { DistributionConverter } from "../custom-converters/distribution-converter";
+import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
 import { Attribution } from "./attribution-definition";
-import { Project } from "./project-definition";
+import { ProjectClass } from "./project-definition";
 
 @JsonObject("Dataset")
 export class Dataset {
 
-    @JsonProperty(Constants.dspRepoBase + "hasAbstract", UrlToStringConverter)
+    @JsonProperty(Constants.dspRepoBase + "hasAbstract", String) // URL | String
     abstract: string = "";
 
     @JsonProperty(Constants.dspRepoBase + "hasAlternativeTitle", String, true)
@@ -18,18 +19,18 @@ export class Dataset {
     conditionsOfAccess: string = "";
 
     @JsonProperty(Constants.dspRepoBase + "hasDateCreated", DateConverter, true)
-    dateCreated?: Date = undefined;
+    dateCreated?: string = undefined;
 
     @JsonProperty(Constants.dspRepoBase + "hasDateModified", DateConverter, true)
-    dateModified?: Date = undefined;
+    dateModified?: string = undefined;
 
     @JsonProperty(Constants.dspRepoBase + "hasDatePublished", DateConverter, true)
-    datePublished?: Date = undefined;
+    datePublished?: string = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasDistribution", UrlToStringConverter, true)
+    @JsonProperty(Constants.dspRepoBase + "hasDistribution", DistributionConverter, true)
     distribution?: string = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasDocumentation", UrlToStringConverter, true)
+    @JsonProperty(Constants.dspRepoBase + "hasDocumentation", String, true) // URL | String
     documentation?: string = undefined;
 
     @JsonProperty(Constants.dspRepoBase + "hasHowToCite", String)
@@ -38,7 +39,7 @@ export class Dataset {
     @JsonProperty(Constants.dspRepoBase + "hasLanguage", [String])
     language: string[] = [];
 
-    @JsonProperty(Constants.dspRepoBase + "hasLicense", UrlToStringConverter)
+    @JsonProperty(Constants.dspRepoBase + "hasLicense", UrlToUrlObjectConverter)
     license: string = "";
 
     @JsonProperty(Constants.dspRepoBase + "hasQualifiedAttribution", [Attribution])
@@ -53,9 +54,9 @@ export class Dataset {
     @JsonProperty(Constants.dspRepoBase + "hasTypeOfData", [String])
     typeOfData: string[] = [];
 
-    @JsonProperty(Constants.dspRepoBase + "isPartOf", Project)
-    project: Project = new Project();
+    @JsonProperty(Constants.dspRepoBase + "isPartOf", ProjectClass)
+    project: ProjectClass = new ProjectClass();
 
-    @JsonProperty(Constants.dspRepoBase + "sameAs", UrlToStringConverter, true)
+    @JsonProperty(Constants.dspRepoBase + "sameAs", UrlToUrlObjectConverter, true)
     sameAs?: string = undefined;
 }

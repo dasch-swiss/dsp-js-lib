@@ -1,7 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
 import { EmailConverter } from "../custom-converters/email-converter";
-import { UrlToStringConverter } from "../custom-converters/url-to-string-converter";
+import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
 import { Address } from "./address-definition";
 
 @JsonObject("Organization")
@@ -13,9 +13,9 @@ export class Organization {
     @JsonProperty(Constants.dspRepoBase + "hasEmail", EmailConverter, true)
     email?: string = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasName", String)
+    @JsonProperty(Constants.dspName, String)
     name: string = "";
 
-    @JsonProperty(Constants.dspRepoBase + "hasURL", UrlToStringConverter, true)
+    @JsonProperty(Constants.dspRepoBase + "hasURL", UrlToUrlObjectConverter, true)
     url?: string = undefined;
 }
