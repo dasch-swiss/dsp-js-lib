@@ -186,6 +186,12 @@ export { ListNodeV2 } from "./models/v2/lists/list-node-v2";
 
 export { Constants } from "./models/v2/Constants";
 
+export { ProjectsMetadata } from "./models/v2/project-metadata/project-metadata";
+export { Dataset } from "./models/v2/project-metadata/dataset-definition";
+export { ProjectClass } from "./models/v2/project-metadata/project-definition";
+export { Attribution } from "./models/v2/project-metadata/attribution-definition";
+export { UpdateProjectMetadataResponse } from "./models/v2/project-metadata/update-project-metadata";
+
 // Utils
 export { CardinalityUtil } from "./models/v2/resources/cardinality-util";
 export { PermissionUtil } from "./models/v2/resources/permission-util";

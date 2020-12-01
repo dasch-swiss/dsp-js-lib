@@ -4,6 +4,7 @@ import { KnoraApiConfig } from "../../knora-api-config";
 import { Endpoint } from "../endpoint";
 import { AuthenticationEndpointV2 } from "./authentication/authentication-endpoint-v2";
 import { ListsEndpointV2 } from "./list/lists-endpoint-v2";
+import { ProjectMetadataEndpointV2 } from "./project-metadata/metadata-endpoint-v2";
 import { OntologiesEndpointV2 } from "./ontology/ontologies-endpoint-v2";
 import { ResourcesEndpointV2 } from "./resource/resources-endpoint-v2";
 import { SearchEndpointV2 } from "./search/search-endpoint-v2";
@@ -22,6 +23,8 @@ export class V2Endpoint extends Endpoint {
 
     static readonly PATH_VALUES = "/values";
 
+    static readonly PATH_METADATA = "/metadata";
+
     readonly auth: AuthenticationEndpointV2;
 
     readonly onto: OntologiesEndpointV2;
@@ -37,6 +40,8 @@ export class V2Endpoint extends Endpoint {
     readonly ontologyCache: OntologyCache;
 
     readonly listNodeCache: ListNodeV2Cache;
+
+    readonly metadata: ProjectMetadataEndpointV2;
 
     /**
      * Constructor.
@@ -55,6 +60,7 @@ export class V2Endpoint extends Endpoint {
         this.values = new ValuesEndpointV2(knoraApiConfig, path + V2Endpoint.PATH_VALUES, this);
         this.list = new ListsEndpointV2(knoraApiConfig, path);
         this.search = new SearchEndpointV2(knoraApiConfig, path, this);
+        this.metadata = new ProjectMetadataEndpointV2(knoraApiConfig, path + V2Endpoint.PATH_METADATA);
 
         // Instantiate caches
         this.ontologyCache = new OntologyCache(knoraApiConfig, this);
