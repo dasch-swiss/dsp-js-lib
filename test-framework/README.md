@@ -1,6 +1,6 @@
 # Purpose of this project
 
-This Angular application is supposed to test development builds of the `@dasch-swiss/dsp-js` NPM package.
+This Angular application allows testing development builds of the `@dasch-swiss/dsp-js` NPM package.
 Thus, it does not directly install the package through NPM.
 Instead, it links a local version using the NPM package `yalc`.
 
