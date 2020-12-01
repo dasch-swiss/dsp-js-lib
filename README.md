@@ -22,11 +22,11 @@ DSP-JS-LIB offers the following features:
 DSP-JS-LIB's architecture is based on endpoints that correspond to DSP-API's endpoints.
 
 The following endpoints are available through DSP-JS-LIB:
-- admin: getting and modifying users, projects, permissions etc.
-- v2: requesting and modifying resources and values using DSP-API version 2
-- system: DSP-API's health status
+- **admin**: getting and modifying users, projects, permissions etc.
+- **v2**: requesting and modifying resources and values using DSP-API version 2
+- **system**: DSP-API's health status
 
-### Observables
+### RxJS Observables
 DSP-JS-LIB's endpoints return observables to the client.
 An `Observable` represents the result of an asynchronous request to DSP-API that will either succeed or fail.
 An `Observable` is an [RxJS construct](https://rxjs.dev/guide/observable) that the client can subscribe to.
@@ -61,7 +61,7 @@ Once you have set up the connection instance, you can use any of DSP-JS-LIB's en
 In the following example, we are requesting a resource from DSP-API:
 
 ```typescript
-// request a resource using the v2 resources endpoint
+// request a resource using the resources endpoint from v2
 knoraApiConnection.v2.res.getResource(iri).subscribe(
   (resource: ReadResource) => {
     // "resource" represents a resource retrieved from DSP-API
