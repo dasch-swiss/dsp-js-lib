@@ -142,7 +142,7 @@ To update the target release of DSP-API, the following steps have to be carried 
    - change to directory `test-framework`
    - add the locally build library using `npm run yalc-add` and run `npm install`
    - run `npm run webdriver-update` and then `npm run e2e`
-1. See if the tests pass on GitHub CI
+1. See if the tests pass on GitHub CI.
 
 ## Unit Tests
 
