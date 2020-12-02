@@ -38,8 +38,11 @@ An `Observable` is an [RxJS construct](https://rxjs.dev/guide/observable) that t
 ### Install DSP-JS-LIB
 Run `npm install @dasch-swiss/dsp-js --save` to install DSP-JS-LIB in your npm project.
 
-### Install RxJS
-`rxjs` is a peer dependency of this library and is **not installed** when running `npm install`.
+### Dependencies and Peer Dependencies
+DSP-JS-LIB depends on [jsonld](https://www.npmjs.com/package/jsonld) and [json2typescript](https://www.npmjs.com/package/json2typescript).
+These dependencies will be installed with `npm install`.
+
+[RxJS](https://www.npmjs.com/package/rxjs) is a peer dependency of this library and is **not installed** when running `npm install`.
 Note that DSP-JS-LIB requires major version 6 of `rxjs`.
 
 Make sure that `rxjs` is installed in the required major version 6 with the framework you are using, e.g. Angular.

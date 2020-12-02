@@ -22,7 +22,7 @@ Run `npm install yalc -g`. This will enable you to build and publish DSP-JS-LIB 
 
 ### Dependencies
 
-This library depends on `RxJS`, `jsonld`, and `json2typescript`.
+This library depends on [RxJS](https://www.npmjs.com/package/rxjs), [jsonld](https://www.npmjs.com/package/jsonld), and [json2typescript](https://www.npmjs.com/package/json2typescript).
 `jsonld` and `json2typescript` are only used internally and listed as dependencies in `package.json`.
 
 `RxJS` is listed as a peer dependency and **not** installed with `npm install`.
