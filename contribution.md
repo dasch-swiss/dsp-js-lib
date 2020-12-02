@@ -74,7 +74,8 @@ If you need a local version of this library that contains the mocks, do the foll
    - `npm run prepare-dev-publication` to prepare a dev version.
    - `npm run yalc-publish` to publish a local build containing the mocks.
    
-**Note that `prepare-dev-publication` modifies `package.json`, `tsconfig.json` and `index.ts`. Do not commit these changes.**
+**Note that `prepare-dev-publication` modifies `package.json`, `tsconfig.json` and `index.ts`.
+Run this script only once and do not commit these changes.**
 
 ### Integrating Generated Test Data from DSP-API
 
