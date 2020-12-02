@@ -7,8 +7,8 @@
 An `Endpoint` offers methods to communicate with DSP-API. At the current state, two main groups of endpoints have been implemented:
 
 - `SystemEndpoint`: communication with DSP-API system endpoint: `HealthEndpoint`
-- `AdminEndpoint`: communication with Knora admin API: `UsersEndpoint`, `GroupsEndpoint`, `ProjectsEndpoint`, `PermissionsEndpoint`
-- `V2Endpoint`: communication with DSP-API v2: `AuthenticationEndpoint`, `OntologiesEndpoint`, `ResourcesEndpoint`, `ListsEndpoint`, `SearchEndpoint` 
+- `AdminEndpoint`: communication with DSP-API admin endpoint: `UsersEndpoint`, `GroupsEndpoint`, `ProjectsEndpoint`, `PermissionsEndpoint`
+- `V2Endpoint`: communication with DSP-API v2 endpoint: `AuthenticationEndpoint`, `OntologiesEndpoint`, `ResourcesEndpoint`, `ListsEndpoint`, `SearchEndpoint` 
 
 #### System Endpoints
 
@@ -26,27 +26,27 @@ DSP-API relies on JSON as an exchange format.
 ##### Users
 
 The `UsersEndpoint` deals with all requests related to creating, reading, updating and deleting users.
-It communicates directly with DSP-API, taking care of deserializing JSON responses received from Knora and serializing payloads submitted in requests to JSON. 
+It communicates directly with DSP-API, taking care of deserializing JSON responses received from DSP-API and serializing payloads submitted in requests to JSON. 
 
 ##### Groups
 
 The `GroupsEndpoint` deals with all requests related to creating, reading, updating and deleting groups.
-It communicates directly with the Knoa API, taking care of deserializing JSON responses received from Knora and serializing payloads submitted in requests to JSON. 
+It communicates directly with DSP-API, taking care of deserializing JSON responses received from DSP-API and serializing payloads submitted in requests to JSON. 
 
 ##### Projects
 
 The `ProjectsEndpoint` deals with all requests related to creating, reading, updating and deleting projects.
-It communicates directly with the Knoa API, taking care of deserializing JSON responses received from Knora and serializing payloads submitted in requests to JSON. 
+It communicates directly with DSP-API, taking care of deserializing JSON responses received from DSP-API and serializing payloads submitted in requests to JSON. 
 
 ##### Permissions
 
 The `ProjectsEndpoint` deals with all requests related to reading permissions.
-It communicates directly with the Knoa API, taking care of deserializing JSON responses received from Knora.
+It communicates directly with DSP-API, taking care of deserializing JSON responses received from DSP-API.
 
 ##### Lists
 
 The `ListsEndpoint` deals with all requests about lists that use the admin API.
-It communicates directly with the Knoa API, taking care of deserializing JSON responses received from Knora.
+It communicates directly with DSP-API, taking care of deserializing JSON responses received from DSP-API.
 
 #### DSP-API v2 Endpoints
 
@@ -62,15 +62,15 @@ When a user logs in, a token is set and submitted which each request to DSP-API 
 
 The `OntologiesEndpoint` handles requests to DSP-API that relate to ontologies.
 
-Entire system or project ontologies are requested from Knora 
+Entire system or project ontologies are requested from DSP-API 
 and converted to a `ReadOntology` using `OntologyConversionUtil`.
 `OntologiesEndpoint` should not be used directly by the client when reading ontologies. Instead, `OntologyCache` should be used.
-This guarantees that an ontology is only requested once from Knora, keeping API calls and conversions to a minimum.  
+This guarantees that an ontology is only requested once from DSP-API, keeping API calls and conversions to a minimum.  
 
 ##### Resource
 
 The `ResourcesEndpoint` handles requests to DSP-API that relate to resource instances.
-When reading resources, resource instances are returned from Knora as JSON-LD and converted to an array of `ReadResource` using `ResourcesConversionUtil`.
+When reading resources, resource instances are returned from DSP-API as JSON-LD and converted to an array of `ReadResource` using `ResourcesConversionUtil`.
 
 #### Values
 
@@ -91,7 +91,7 @@ Instead, `ListNodeCache` should be used, keeping API calls and conversions to a 
 
 #### Utility Methods
 
-Utility methods perform conversion tasks that need to be performed when deserializing JSON-LD. Utility methods are called in endpoints when an answer from Knora has to be processed. Several endpoints may use the same utility functions. For example, the resources and search endpoint receive the same response format from Knora.
+Utility methods perform conversion tasks that need to be performed when deserializing JSON-LD. Utility methods are called in endpoints when an answer from DSP-API has to be processed. Several endpoints may use the same utility functions. For example, the resources and search endpoint receive the same response format from DSP-API.
 
 ##### Ontology Conversion Util
 
@@ -114,11 +114,11 @@ Caching is necessary to avoid making redundant calls to DSP-API and processing t
 
 ### Generic Cache
 
-`GenericCache` is an abstract and generic class. The generic type is the type of object that is going to be cached, e.g., an `ReadOntology`. The key is the IRI of the object that is cached. `GenericCache` ensures that a specific element is only requested once from Knora also if several asynchronous for the same element are performed. `GenericCache` also resolves dependencies of an element that is being requested, but in a non blocking ay, i.e. the requested element is returned immediately it is ready while the dependencies are still being resolved.
+`GenericCache` is an abstract and generic class. The generic type is the type of object that is going to be cached, e.g., an `ReadOntology`. The key is the IRI of the object that is cached. `GenericCache` ensures that a specific element is only requested once from DSP-API also if several asynchronous for the same element are performed. `GenericCache` also resolves dependencies of an element that is being requested, but in a non blocking ay, i.e. the requested element is returned immediately it is ready while the dependencies are still being resolved.
 
 `GenericCache` cannot be instantiated because it is an abstract class. It can be implemented for a specific type providing implementations for the following methods:
 
-- `requestItemFromKnora(key: string, isDependency: boolean): : Observable<T[]>`: Requests the specified element from Knora, e.g., an ontology by calling the `OntologyEndpoint`.
+- `requestItemFromKnora(key: string, isDependency: boolean): : Observable<T[]>`: Requests the specified element from DSP-API, e.g., an ontology by calling the `OntologyEndpoint`.
 - `getKeyOfItem(item: T): string`: Given the element, get the key that identifies it. For example given a `ReadOntology` returns its IRI.
 - `getDependenciesOfItem(item: T): string[]`: Given an element, gets its dependencies. For example given a `ReadOntology` returns the IRIs of ontologies it directly depends on.
 
