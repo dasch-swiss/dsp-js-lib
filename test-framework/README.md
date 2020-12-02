@@ -40,3 +40,5 @@ Then, execute the following steps:
 - `npm run e2e`
 
 Alternatively, run `npm run e2e-local` which combines the steps mentioned above.
+It installs the locally built version of DSP-JS-LIB using `yalc`,
+installs the required version of Chrome webdriver, and runs the E2E tests. 
