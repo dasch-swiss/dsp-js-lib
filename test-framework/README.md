@@ -33,7 +33,7 @@ To run the E2E tests, you need to build and integrate a local version of DSP-JS-
 see section "Build and Integrate DSP-JS-LIB". 
 If the Angular test app is running, stop it before running the E2E test.
 
-Make sure that DSP-API-JS's database is in its initial state. Reload the data if necessary.
+Make sure that DSP-API's database is in its initial state. Reload the data if necessary.
 
 Then, execute the following steps:
 - `npm run webdriver-update` to install the required version of Chrome webdriver
