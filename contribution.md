@@ -30,7 +30,7 @@ It can be installed running `npm run peer-deps` **after** `npm install`.
 
 `RxJS`'s `Observable` is used in this library's public API
 and has to be compatible with whatever version of `RxJS` is used in the productive environment, e.g. an Angular application.
-This library works with `RxJS`'s major version defined in `package.json` . See `rxjs.md` for details.
+This library works with `RxJS`'s major version defined in `package.json`. See `rxjs.md` for details.
 
 ### Scripts for Testing and Development
 
