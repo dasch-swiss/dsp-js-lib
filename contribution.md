@@ -1,5 +1,10 @@
 # Contribution
 
+## How to Contribute to this Project
+
+If you are interested in contributing to this project,
+please read our [general contribution guidelines](https://docs.dasch.swiss/developers/dsp/contribution/) first.
+
 ## Introduction
 
 The purpose of this library is facilitating the use of [DSP-API (Knora)](https://www.knora.org) in web client development. 
