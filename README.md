@@ -26,7 +26,8 @@ The following endpoints are available through DSP-JS-LIB:
 - **v2**: requesting and modifying resources and values using DSP-API version 2
 - **system**: DSP-API's health status
 
-Consult the API docs for more details.
+Consult the API docs for more details about the available endpoints..
+See `design-documentation.md` for a detailed description of DSP-JS-LIB's design and architecture.
 
 ### RxJS Observables
 DSP-JS-LIB's endpoints return observables to the client.
