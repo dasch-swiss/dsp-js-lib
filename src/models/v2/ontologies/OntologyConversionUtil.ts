@@ -1,9 +1,11 @@
 import { JsonConvert } from "json2typescript";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { Constants } from "../Constants";
+import { TypeGuard } from "../resources/type-guard";
 import { IHasProperty } from "./class-definition";
 import { EntityDefinition } from "./EntityDefinition";
 import { OntologiesMetadata, OntologyMetadata } from "./ontology-metadata";
+import { PropertyDefinition } from "./property-definition";
 import { ReadOntology } from "./read/read-ontology";
 import { ResourceClassDefinition, ResourceClassDefinitionWithAllLanguages } from "./resource-class-definition";
 import { ResourcePropertyDefinition, ResourcePropertyDefinitionWithAllLanguages } from "./resource-property-definition";
@@ -218,6 +220,34 @@ export namespace OntologyConversionUtil {
 
         return ontology;
 
+    };
+
+    /**
+     * Given a map of property Iris to property definitions,
+     * returns an array of property definitions.
+     *
+     * @param propDefs Property definitions to be returned as an array.
+     */
+    export const getAllPropertyDefinitionsAsArray = (propDefs: { [ index: string ]: PropertyDefinition } ): PropertyDefinition[] => {
+        const propIndexes = Object.keys(propDefs);
+
+        return propIndexes.map((propIndex: string) => {
+            return propDefs[propIndex];
+        });
+    };
+
+    /**
+     * Given an array of property definitions,
+     * returns only the property definitions matching the given type.
+     *
+     * @param propDefs The property definitions to be filtered.
+     * @param type The type of property definitions to be returned.
+     */
+    export const getPropertyDefinitionsByTypeAsArray = <T extends PropertyDefinition>(propDefs: PropertyDefinition[], type: TypeGuard.Constructor<T>) => {
+        return propDefs.filter(
+            (prop: PropertyDefinition) => {
+                return TypeGuard.typeGuard(prop, type);
+            }) as T[];
     };
 
     /**
