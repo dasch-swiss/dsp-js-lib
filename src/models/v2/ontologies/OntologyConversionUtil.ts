@@ -223,30 +223,30 @@ export namespace OntologyConversionUtil {
     };
 
     /**
-     * Given a map of property Iris to property definitions,
-     * returns an array of property definitions.
+     * Given a map of entity Iris to entity definitions,
+     * returns an array of entity definitions.
      *
-     * @param propDefs Property definitions to be returned as an array.
+     * @param entityDefs Entity definitions to be returned as an array.
      */
-    export const getAllPropertyDefinitionsAsArray = (propDefs: { [ index: string ]: PropertyDefinition } ): PropertyDefinition[] => {
-        const propIndexes = Object.keys(propDefs);
+    export const getAllEntityDefinitionsAsArray = <T extends EntityDefinition>(entityDefs: { [ index: string ]: T } ): T[] => {
+        const entityIndexes = Object.keys(entityDefs);
 
-        return propIndexes.map((propIndex: string) => {
-            return propDefs[propIndex];
+        return entityIndexes.map((entityIndex: string) => {
+            return entityDefs[entityIndex];
         });
     };
 
     /**
-     * Given an array of property definitions,
-     * returns only the property definitions matching the given type.
+     * Given an array of entity definitions,
+     * returns only the entity definitions matching the given type.
      *
-     * @param propDefs The property definitions to be filtered.
-     * @param type The type of property definitions to be returned.
+     * @param entityDefs The entity definitions to be filtered.
+     * @param type The type of entity definitions to be returned.
      */
-    export const getPropertyDefinitionsByTypeAsArray = <T extends PropertyDefinition>(propDefs: PropertyDefinition[], type: TypeGuard.Constructor<T>): T[] => {
-        return propDefs.filter(
-            (prop: PropertyDefinition) => {
-                return TypeGuard.typeGuard(prop, type);
+    export const getEntityDefinitionsByTypeAsArray = <T extends EntityDefinition>(entityDefs: EntityDefinition[], type: TypeGuard.Constructor<T>): T[] => {
+        return entityDefs.filter(
+            (entityDef: EntityDefinition) => {
+                return TypeGuard.typeGuard(entityDef, type);
             }) as T[];
     };
 

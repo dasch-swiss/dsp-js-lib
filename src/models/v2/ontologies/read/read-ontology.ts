@@ -28,11 +28,7 @@ export class ReadOntology implements IClassAndPropertyDefinitions {
      * Gets all class definitions from the ontology's entity info.
      */
     getAllClassDefinitions(): ClassDefinition[] {
-        const classIndexes = Object.keys(this.classes);
-
-        return classIndexes.map((classIndex: string) => {
-            return this.classes[classIndex];
-        });
+        return OntologyConversionUtil.getAllEntityDefinitionsAsArray(this.classes);
     }
 
     /**
@@ -41,17 +37,14 @@ export class ReadOntology implements IClassAndPropertyDefinitions {
      * @param type restriction to a certain class definition type.
      */
     getClassDefinitionsByType<T extends ClassDefinition>(type: TypeGuard.Constructor<T>): T[] {
-        return this.getAllClassDefinitions().filter(
-            (classDef: ClassDefinition) => {
-                return TypeGuard.typeGuard(classDef, type);
-            }) as T[];
+        return OntologyConversionUtil.getEntityDefinitionsByTypeAsArray(this.getAllClassDefinitions(), type);
     }
 
     /**
      * Gets all property definitions from the ontology's entity info.
      */
     getAllPropertyDefinitions(): PropertyDefinition[] {
-        return OntologyConversionUtil.getAllPropertyDefinitionsAsArray(this.properties);
+        return OntologyConversionUtil.getAllEntityDefinitionsAsArray(this.properties);
     }
 
     /**
@@ -60,7 +53,7 @@ export class ReadOntology implements IClassAndPropertyDefinitions {
      * @param type restriction to a certain property definition type.
      */
     getPropertyDefinitionsByType<T extends PropertyDefinition>(type: TypeGuard.Constructor<T>): T[] {
-        return OntologyConversionUtil.getPropertyDefinitionsByTypeAsArray(this.getAllPropertyDefinitions(), type);
+        return OntologyConversionUtil.getEntityDefinitionsByTypeAsArray(this.getAllPropertyDefinitions(), type);
     }
 
 }

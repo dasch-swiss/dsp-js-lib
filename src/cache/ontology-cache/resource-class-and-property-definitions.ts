@@ -30,7 +30,7 @@ export class ResourceClassAndPropertyDefinitions implements IClassAndPropertyDef
      * Gets all property definitions from the resource's entity info.
      */
     getAllPropertyDefinitions(): PropertyDefinition[] {
-        return OntologyConversionUtil.getAllPropertyDefinitionsAsArray(this.properties);
+        return OntologyConversionUtil.getAllEntityDefinitionsAsArray(this.properties);
     }
 
     /**
@@ -39,6 +39,6 @@ export class ResourceClassAndPropertyDefinitions implements IClassAndPropertyDef
      * @param type restriction to a certain property definition type.
      */
     getPropertyDefinitionsByType<T extends PropertyDefinition>(type: TypeGuard.Constructor<T>): T[] {
-        return OntologyConversionUtil.getPropertyDefinitionsByTypeAsArray(this.getAllPropertyDefinitions(), type);
+        return OntologyConversionUtil.getEntityDefinitionsByTypeAsArray(this.getAllPropertyDefinitions(), type);
     }
 }
