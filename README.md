@@ -26,7 +26,7 @@ The following endpoints are available through DSP-JS-LIB:
 - **v2**: requesting and modifying resources and values using DSP-API version 2
 - **system**: DSP-API's health status
 
-Consult the API docs for more details about the available endpoints..
+Consult the API docs for more details about the available endpoints.
 See `design-documentation.md` for a detailed description of DSP-JS-LIB's design and architecture.
 
 ### RxJS Observables
@@ -46,7 +46,7 @@ These dependencies will be installed with `npm install`.
 [RxJS](https://www.npmjs.com/package/rxjs) is a peer dependency of this library and is **not installed** when running `npm install`.
 Note that DSP-JS-LIB requires major version 6 of `rxjs`.
 
-Make sure that `rxjs` is installed in the required major version 6 with the framework you are using, e.g. Angular.
+Make sure that the framework you are using, e.g., Angular,  requires major version 6 of RxJS to ensure the peer dependency will be met.
 Otherwise, install it with `npm install rxjs@6.x --save`.
 
 ### Start Using DSP-JS-LIB
@@ -74,7 +74,7 @@ knoraApiConnection.v2.res.getResource(iri).subscribe(
     console.log(res);
   },
   (error) => {
-    // for some reason, the request failed
+    // if, for some reason, the request failed
     console.error(error);
   }
 );
