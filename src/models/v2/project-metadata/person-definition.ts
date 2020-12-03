@@ -8,12 +8,15 @@ import { Organization } from "./organization-definition";
 
 @JsonObject("Person")
 export class Person {
+
+    @JsonProperty("@id", String)
+    id: string = "";
     
     @JsonProperty(Constants.DspRepoBase + "hasAddress", Address, true)
     address?: Address = undefined;
 
     @JsonProperty(Constants.DspRepoBase + "hasEmail", EmailConverter)
-    email: string = "";
+    email: string = ""; //should the email be actually @id as in JSON-LD?
 
     @JsonProperty(Constants.DspRepoBase + "hasFamilyName", String, true)
     familyName?: string = undefined;

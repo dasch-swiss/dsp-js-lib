@@ -5,6 +5,9 @@ import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-
 @JsonObject("DataManagementPlan")
 export class DataManagementPlan {
 
+    @JsonProperty("@id", String)
+    id: string = "";
+
     @JsonProperty(Constants.DspRepoBase + "hasURL", UrlToUrlObjectConverter, true)
     url?: string = undefined;
 

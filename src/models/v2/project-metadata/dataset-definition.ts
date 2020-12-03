@@ -9,6 +9,9 @@ import { SingleProject } from "./project-definition";
 @JsonObject("Dataset")
 export class Dataset {
 
+    @JsonProperty("@id", String)
+    id: string = "";
+
     @JsonProperty(Constants.DspRepoBase + "hasAbstract", String) // URL | String
     abstract: string = "";
 

@@ -8,6 +8,9 @@ import { Person } from "./person-definition";
 @JsonObject("Grant")
 export class Grant {
 
+    @JsonProperty("@id", String)
+    id: string = "";
+
     @JsonProperty(Constants.DspRepoBase + "hasFunder", PersonOrganizationConverter, true)
     funder?: Person | Organization = undefined;
 

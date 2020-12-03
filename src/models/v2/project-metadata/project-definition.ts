@@ -13,6 +13,9 @@ import { Place } from "./place-definition";
 @JsonObject("SingleProject")
 export class SingleProject {
 
+    @JsonProperty("@id", String)
+    id: string = "";
+    
     @JsonProperty(Constants.DspRepoBase + "hasAlternateName", String, true)
     alternateName?: string = undefined;
 
