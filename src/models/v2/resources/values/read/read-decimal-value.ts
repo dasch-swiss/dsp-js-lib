@@ -4,6 +4,9 @@ import { DecimalConverter } from "../../../custom-converters/decimal-converter";
 import { IBaseDecimalValue } from "../type-specific-interfaces/base-decimal-value";
 import { ReadValue } from "./read-value";
 
+/**
+ * @category Model V2
+ */
 @JsonObject("ReadDecimalValue")
 export class ReadDecimalValue extends ReadValue implements IBaseDecimalValue {
 

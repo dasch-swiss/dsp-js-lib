@@ -16,6 +16,8 @@ const jsonld = require("jsonld/dist/jsonld.js");
 
 /**
  * Handles requests to the search route of the Knora API.
+ *
+ * @category Endpoint V2
  */
 export class SearchEndpointV2 extends Endpoint {
 

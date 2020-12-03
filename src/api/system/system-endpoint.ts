@@ -4,6 +4,8 @@ import { HealthEndpointSystem } from "./health/health-endpoint-system";
 
 /**
  * A client API for administering Knora.
+ *
+ * @category Endpoint System
  */
 export class SystemEndpoint extends Endpoint {
 

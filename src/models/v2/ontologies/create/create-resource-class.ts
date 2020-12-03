@@ -4,6 +4,9 @@ import { StringLiteralToStringLiteralArrayConverter } from "../../custom-convert
 import { SubClassOfConverter } from "../../custom-converters/subclass-of-converter";
 import { StringLiteralV2 } from "../../string-literal-v2";
 
+/**
+ * @category Model V2
+ */
 @JsonObject("CreateResourceClass")
 export class CreateResourceClass {
 
@@ -22,6 +25,9 @@ export class CreateResourceClass {
     subClassOf: string[] = [];
 }
 
+/**
+ * @category Internal
+ */
 @JsonObject("CreateResourceClassPayload")
 export class CreateResourceClassPayload extends CreateResourceClass {
 

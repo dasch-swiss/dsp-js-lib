@@ -11,6 +11,9 @@ import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-c
 import { Constants } from "../Constants";
 import { IdConverter } from "../custom-converters/id-converter";
 
+/**
+ * @category Internal
+ */
 @JsonConverter
 export class SubListNodeConverter implements JsonCustomConvert<ListNodeV2[]> {
 
@@ -41,6 +44,9 @@ export class SubListNodeConverter implements JsonCustomConvert<ListNodeV2[]> {
     }
 }
 
+/**
+ * @category Model V2
+ */
 @JsonObject("ListNode")
 export class ListNodeV2 {
 

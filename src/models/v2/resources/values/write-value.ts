@@ -2,6 +2,9 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../Constants";
 import { BaseValue } from "./base-value";
 
+/**
+ * @category Internal
+ */
 @JsonObject("WriteValue")
 export abstract class WriteValue extends BaseValue {
 

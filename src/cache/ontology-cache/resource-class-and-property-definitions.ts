@@ -5,6 +5,8 @@ import { ResourceClassDefinitionWithPropertyDefinition } from "./resource-class-
 /**
  * Represents resource class definitions
  * and property definitions the resource classes have cardinalities for.
+ *
+ * @category Model V2
  */
 export class ResourceClassAndPropertyDefinitions {
 

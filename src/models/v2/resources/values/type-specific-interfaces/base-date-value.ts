@@ -1,3 +1,6 @@
+/**
+ * @category Internal
+ */
 export interface IBaseDateValue {
 
     calendar: string;

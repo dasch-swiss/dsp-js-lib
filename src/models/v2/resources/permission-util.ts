@@ -1,3 +1,8 @@
+/**
+ * Utility methods to facilitate the handling of permissions defined for a resource or value.
+ *
+ * @category Model V2
+ */
 export namespace PermissionUtil {
 
     /**
