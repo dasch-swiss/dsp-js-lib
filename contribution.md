@@ -7,7 +7,7 @@ please read our [general contribution guidelines](https://docs.dasch.swiss/devel
 
 ## Introduction
 
-The purpose of this library is facilitating the use of [DSP-API (Knora)](https://www.knora.org) in web client development. 
+The purpose of this library is to facilitate the use of [DSP-API (Knora)](https://www.knora.org) in web client development. 
 It offers a convenient way to communicate with DSP-API without knowing specific technical details.  
 
 ## Architecture
@@ -38,10 +38,10 @@ This package provides the following short-hand scripts:
 
 1. `npm run peer-deps`: Installs the project's peer dependencies. Peer dependencies are not installed with `npm install`, but have to be met before building or running the tests.
 1. `npm run test`: Runs the library's tests defined in `./karma.conf.js`.
-1. `npm run prepare-dev-publication`: prepares a dev version of the library **before** building it. The dev version contains code to create mocked data to be used in unit test of projects using DSP-JS-LIB.
+1. `npm run prepare-dev-publication`: prepares a dev version of the library **before** building it. The dev version contains code to create mocked data to be used in unit tests of projects using DSP-JS-LIB.
 1. `npm run build`: Builds the whole library without testing and puts the files into the `./build/` folder.
 1. `npm run yalc-publish`: Builds and publishes the package to the yalc app store (local publication of the lib).
-1. `npm run npm-pack`: Tests and builds the library and then and packs the `./build/` folder into an NPM tgz package. The package is moved into a `./dist/` folder.
+1. `npm run npm-pack`: Tests and builds the library and then packs the `./build/` folder into an NPM tgz package. The package is moved into a `./dist/` folder.
 
 ### Build and Publish a Local Version
 
@@ -55,7 +55,7 @@ Alternatively, you can run `npm run build-local` which combines the script menti
 ### Development Version
 
 The development version contains mocks that produce tests data without a connection to DSP-API.
-These mocks were originally developed for internal use, but can be used to get data for unit test in projects that use DSP-JS-LIB.
+These mocks were originally developed for internal use, but can be used to get data for unit tests in projects that use DSP-JS-LIB.
 The following example shows how to get a mocked resource without a connection to DSP-API:
 
 ```ts
@@ -98,7 +98,7 @@ Instead of running these scripts one by one, you can also run `make prepare-test
 By default, all generated test data for the system and admin API is integrated with the corresponding script.
 
 Test data for v2 has to be added to `scripts/v2-test-data-config.json` to be used in the unit tests.
-All files that are contained in `scripts/v2-test-data-config.json` will be copied this library's tests data when running `npm run integrate-v2-test-data`.
+All files that are contained in `scripts/v2-test-data-config.json` will be copied to this library's test data directory when running `npm run integrate-v2-test-data`.
 
 Example:
 
@@ -152,15 +152,15 @@ static test data is generated from DSP-API and integrated automatically.
 
 Actual calls to DSP-API in production are mocked with `jasmine.Ajax`.
 The data is read from the static test data files and passed to `jasmine.Ajax`,
-so the component under test can react to it.
+so the component being tested can react to it.
 
 If a component A depends on a component B, then B has to be mocked during the test using a `jasmine.Spy`.
 The behavior of component B is simulated and a fake response is returned.
 Mocking components turned out to be quite complex for the `OntologyCache`. 
-Therefore, the mock has been made a stand-alone testing component called `MockOntology` that can be reused.
+Therefore, a stand-alone testing component has been made for this mock called `MockOntology` that can be reused.
 It can also be used to generate static test data in software projects using this library.
 
-Since `MockOntology` is complex, some global assertions are made to guarantee that the mock behaves as the actual component.
+Since `MockOntology` is complex, some global assertions are made to guarantee that the mock behaves like the actual component.
 These assertions are defined in `MockOntologyAssertions`.
 
 ## Test Environment and E2E Tests
