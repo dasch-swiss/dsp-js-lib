@@ -11,7 +11,7 @@ The purpose of this library is to facilitate the use of [DSP-API (Knora)](https:
 It offers a convenient way to communicate with DSP-API without knowing specific technical details.  
 
 ## Architecture
-See `design-documentation.md`.
+See [design documentation](design-documentation.md).
 
 ## Development
 
@@ -30,7 +30,7 @@ It can be installed running `npm run peer-deps` **after** `npm install`.
 
 `RxJS`'s `Observable` is used in this library's public API
 and has to be compatible with whatever version of `RxJS` is used in the productive environment, e.g. an Angular application.
-This library works with `RxJS`'s major version defined in `package.json`. See `rxjs.md` for details.
+This library works with `RxJS`'s major version defined in `package.json`. See [Use of RxJS](rxjs.md) for details.
 
 ### Scripts for Testing and Development
 
@@ -167,6 +167,6 @@ These assertions are defined in `MockOntologyAssertions`.
 
 `./test-framework` provides a ready-to-use test environment for Angular developers.
 The E2E test for DSP-JS-LIB are run by the test environment.
-See `./test-framework/README.md` for further instructions.
+See the [test framwork README](test-framework/README.md) for further instructions.
 
 

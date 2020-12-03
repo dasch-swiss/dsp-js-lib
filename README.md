@@ -8,6 +8,11 @@
 
 ## Introduction
 
+### Links in this document
+This document contains links to other files of DPS-JS-LIB's documentation.
+Note that these links point to the latest version of these files and
+not necessarily the version you are working with.
+
 ### Purpose of DSP-JS-LIB
 The purpose of DSP-JS-LIB is to facilitate the communication with [DSP-API (Knora)](https://www.knora.org) in web clients developed with TypeScript/JavaScript.
 DSP-JS-LIB depends on [RxJS](https://rxjs.dev/guide/overview) and is web framework agnostic (it can be used with Angular, React, Vue.js etc.).
@@ -27,7 +32,7 @@ The following endpoints are available through DSP-JS-LIB:
 - **system**: DSP-API's health status
 
 Consult the API docs for more details about the available endpoints.
-See `design-documentation.md` for a detailed description of DSP-JS-LIB's design and architecture.
+See [design documentation](design-documentation.md) for a detailed description of DSP-JS-LIB's design and architecture.
 
 ### RxJS Observables
 DSP-JS-LIB's endpoints return observables to the client.
@@ -87,4 +92,4 @@ For the release notes
 see [GitHub releases](https://github.com/dasch-swiss/dsp-js-lib/releases).
 
 ## Developing DSP-JS-LIB
-See `contribution.md`.
+See [contribution guidelines](contribution.md).

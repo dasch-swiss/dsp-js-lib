@@ -12,7 +12,7 @@ If not installed yet, install `yalc` globally by running `npm install yalc -g`.
 ### Build and Integrate DSP-JS-LIB
 
 From the project root, build and publish DSP-JS-LIB locally using `yalc`.
-Follow the instructions given in section "Build and Publish a Local Version" of `contribution.md`.
+Follow the instructions given in the [contribution guidelines](contribution.md#build-and-publish-a-local-version).
 
 Then switch to the directory `./test-framework`. 
 From this directory, run the following scripts:
