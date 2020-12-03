@@ -10,8 +10,8 @@ import { Organization } from "./organization-definition";
 import { Person } from "./person-definition";
 import { Place } from "./place-definition";
 
-@JsonObject("ProjectClass")
-export class ProjectClass {
+@JsonObject("SingleProject")
+export class SingleProject {
 
     @JsonProperty(Constants.DspRepoBase + "hasAlternateName", String, true)
     alternateName?: string = undefined;

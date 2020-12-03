@@ -52,7 +52,7 @@ import {
     AdministrativePermissionsResponse,
     ProjectsMetadata,
     Dataset,
-    ProjectClass,
+    SingleProject,
     Attribution,
     UpdateProjectMetadataResponse
 } from "@dasch-swiss/dsp-js";
@@ -829,7 +829,7 @@ export class AppComponent implements OnInit {
         testDataset.title = 'Testprojekt';
         testDataset.typeOfData = ['image', 'text'];
         testDataset.sameAs = 'https://test.dasch.swiss/';
-        testDataset.project = new ProjectClass();
+        testDataset.project = new SingleProject();
         testMetadata.projectsMetadata.push(testDataset);
         console.log(testMetadata);
         // replace metadataPayload with constructed above ProjectsMetadata object - swap lines in metadata endpoint

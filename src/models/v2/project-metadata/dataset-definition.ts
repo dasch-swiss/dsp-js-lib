@@ -4,7 +4,7 @@ import { DateConverter } from "../custom-converters/date-converter";
 import { DistributionConverter } from "../custom-converters/distribution-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
 import { Attribution } from "./attribution-definition";
-import { ProjectClass } from "./project-definition";
+import { SingleProject } from "./project-definition";
 
 @JsonObject("Dataset")
 export class Dataset {
@@ -54,8 +54,8 @@ export class Dataset {
     @JsonProperty(Constants.DspRepoBase + "hasTypeOfData", [String])
     typeOfData: string[] = [];
 
-    @JsonProperty(Constants.DspRepoBase + "isPartOf", ProjectClass)
-    project: ProjectClass = new ProjectClass();
+    @JsonProperty(Constants.DspRepoBase + "isPartOf", SingleProject)
+    project: SingleProject = new SingleProject();
 
     @JsonProperty(Constants.DspRepoBase + "sameAs", UrlToUrlObjectConverter, true)
     sameAs?: string = undefined;

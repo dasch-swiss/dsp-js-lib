@@ -73,9 +73,7 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
         } else {
             const projects: ProjectsMetadata = new ProjectsMetadata();
             // creates the same structure for a single object incoming from the API
-            // if (Object.keys(projectsJsonLd).length > 0) {
             projects.projectsMetadata = [jsonConvert.deserializeObject(projectsJsonLd, Dataset)];
-            // }
             return projects;
         }
     }
