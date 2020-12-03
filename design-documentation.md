@@ -4,7 +4,7 @@
 
 ### Endpoints
 
-An `Endpoint` offers methods to communicate with DSP-API. At the current state, two main groups of endpoints have been implemented:
+An `Endpoint` offers methods to communicate with DSP-API. Three main groups of endpoints have been implemented:
 
 - `SystemEndpoint`: communication with DSP-API system endpoint: `HealthEndpoint`
 - `AdminEndpoint`: communication with DSP-API admin endpoint: `UsersEndpoint`, `GroupsEndpoint`, `ProjectsEndpoint`, `PermissionsEndpoint`
@@ -12,11 +12,11 @@ An `Endpoint` offers methods to communicate with DSP-API. At the current state, 
 
 #### System Endpoints
 
-DSP-API System endpoints inform about DSP-API's status.
+DSP-API System endpoints inform about DSP-API's health status.
 
 ##### Health Endpoint
 
-The `HealthEndpointSystem` returns DSP-API's health status including information about the is version.
+The `HealthEndpointSystem` returns DSP-API's health status including information about the version.
 
 #### DSP-API Admin API Endpoints
 
@@ -104,7 +104,14 @@ Utility methods perform conversion tasks that need to be performed when deserial
 automatically adding ontology information such as resource class labels and labels from list nodes that are referred to from list values.
 It does so by using `OntologyCache` and `ListNodeCache`, minimizing the requests to DSP-API to obtain the necessary information.
 
-`ResourcesConversionUtil.createReadResourceSequence` is a public method that takes JSON-LD representing zero, one or more resources and returns an array of `ReadResource`. For each resource serialized as JSON-LD, `ResourcesConversionUtil.createReadResource` is called to do the conversion to a `ReadResource`. As a first step, `ResourcesConversionUtil.createReadResource` determines the resource's type (its class). Then, the definition for this class is requested from `OntologyCache`. The class definition contains information such as the class's label, cardinalities for properties and the definitions of those properties. The cardinalities are required to distinguish between system properties and properties that are defined in a project ontology. Each property value serialized as JSON-LD is converted to a `ReadValue` if there exists a cardinality for it for the resource class at hand.
+`ResourcesConversionUtil.createReadResourceSequence` is a public method that takes JSON-LD representing zero, one, or more resources and returns an array of `ReadResource`.
+For each resource serialized as JSON-LD, `ResourcesConversionUtil.createReadResource` is called to do the conversion to a `ReadResource`. 
+As a first step, `ResourcesConversionUtil.createReadResource` determines the resource's type (its class).
+Then, the definition for this class is requested from `OntologyCache`.
+The class definition contains information such as the class's label,
+cardinalities for properties and the definitions of those properties.
+The cardinalities are required to distinguish between system properties and properties that are defined in a project ontology.
+Each property value serialized as JSON-LD is converted to a `ReadValue` if a cardinality for it exists for the resource class at hand.
 
 Once all property values have been converted, link property values are analyzed to facilitate the handling of incoming and outgoing links on a given resource.
 
@@ -114,7 +121,13 @@ Caching is necessary to avoid making redundant calls to DSP-API and processing t
 
 ### Generic Cache
 
-`GenericCache` is an abstract and generic class. The generic type is the type of object that is going to be cached, e.g., an `ReadOntology`. The key is the IRI of the object that is cached. `GenericCache` ensures that a specific element is only requested once from DSP-API also if several asynchronous for the same element are performed. `GenericCache` also resolves dependencies of an element that is being requested, but in a non blocking ay, i.e. the requested element is returned immediately it is ready while the dependencies are still being resolved.
+`GenericCache` is an abstract and generic class. The generic type is the type of object that is going to be cached, e.g., an `ReadOntology`.
+The key is the IRI of the object that is cached.
+`GenericCache` ensures that a specific element is only requested once from DSP-API
+if several asynchronous for the same element are performed.
+`GenericCache` also resolves dependencies of an element that is being requested,
+but in a non-blocking ay, i.e. the requested element is returned immediately
+when it is ready while the dependencies are still being resolved.
 
 `GenericCache` cannot be instantiated because it is an abstract class. It can be implemented for a specific type providing implementations for the following methods:
 

@@ -15,7 +15,7 @@ From the project root, build and publish DSP-JS-LIB locally using `yalc`.
 Follow the instructions given in section "Build and Publish a Local Version" of `contribution.md`.
 
 Then switch to the directory `./test-framework`. 
-From this directory, run the follwoing scripts:
+From this directory, run the following scripts:
 - `npm run yalc-add`
 - `npm install`
 
