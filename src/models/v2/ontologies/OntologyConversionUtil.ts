@@ -243,7 +243,7 @@ export namespace OntologyConversionUtil {
      * @param propDefs The property definitions to be filtered.
      * @param type The type of property definitions to be returned.
      */
-    export const getPropertyDefinitionsByTypeAsArray = <T extends PropertyDefinition>(propDefs: PropertyDefinition[], type: TypeGuard.Constructor<T>) => {
+    export const getPropertyDefinitionsByTypeAsArray = <T extends PropertyDefinition>(propDefs: PropertyDefinition[], type: TypeGuard.Constructor<T>): T[] => {
         return propDefs.filter(
             (prop: PropertyDefinition) => {
                 return TypeGuard.typeGuard(prop, type);

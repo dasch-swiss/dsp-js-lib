@@ -24,6 +24,7 @@ import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-p
 import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
 import { UpdateOntologyResourceClassCardinality } from "../../../models/v2/ontologies/update/update-ontology-resource-class-cardinality";
 import { StringLiteralV2 } from "../../../models/v2/string-literal-v2";
+import { StandoffClassDefinition } from "../../../models/v2/ontologies/standoff-class-definition";
 
 describe("OntologiesEndpoint", () => {
 
@@ -142,6 +143,19 @@ describe("OntologiesEndpoint", () => {
                     expect((response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem"] as ResourcePropertyDefinition).isLinkProperty).toBeFalsy();
                     expect((response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem"] as ResourcePropertyDefinition).isLinkValueProperty).toBeFalsy();
                     expect((response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem"] as ResourcePropertyDefinition).guiAttributes).toEqual(["hlist=<http://rdfh.ch/lists/0001/treeList>"]);
+
+                    const classDefs = response.getAllClassDefinitions();
+                    expect(classDefs.length).toEqual(9);
+                    expect(classDefs[0] instanceof ResourceClassDefinition).toBeTruthy();
+                    expect((classDefs[0] as ResourceClassDefinition).id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#BlueThing");
+
+                    const resClassDefs = response.getClassDefinitionsByType(ResourceClassDefinition);
+                    expect(resClassDefs.length).toEqual(8);
+                    expect(resClassDefs[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#BlueThing");
+
+                    const standoffClassDefs = response.getClassDefinitionsByType(StandoffClassDefinition);
+                    expect(standoffClassDefs.length).toEqual(1);
+                    expect(standoffClassDefs[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#StandoffEventTag");
 
                     done();
                 });

@@ -1,3 +1,4 @@
+import { IClassAndPropertyDefinitions } from "../../models/v2/ontologies/IClassAndPropertyDefinitions";
 import { PropertyDefinition } from "../../models/v2/ontologies/property-definition";
 import { TypeGuard } from "../../models/v2/resources/type-guard";
 import { ResourceClassDefinitionWithPropertyDefinition } from "./resource-class-definition-with-property-definition";
@@ -7,7 +8,7 @@ import { OntologyConversionUtil } from "../../models/v2/ontologies/OntologyConve
  * Represents resource class definitions
  * and property definitions the resource classes have cardinalities for.
  */
-export class ResourceClassAndPropertyDefinitions {
+export class ResourceClassAndPropertyDefinitions implements IClassAndPropertyDefinitions {
 
     /**
      * Resource class definitions and their cardinalities.
