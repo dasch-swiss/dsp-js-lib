@@ -1,0 +1,24 @@
+<h3>Ontology<br>(special edition)</h3>
+
+<p *ngIf="message" class="status-message" [innerHTML]="message"></p>
+
+<h4>1. Ontology</h4>
+<button class="create onto" [disabled]="ontology" (click)="createOntology()">Create testonto</button>
+<button class="delete onto" [disabled]="!ontology" (click)="deleteOntology()">Delete testonto</button>
+
+<div *ngIf="ontology">
+    <p></p>
+
+    <h4>2. Resource class</h4>
+    <button class="create res-class" [disabled]="ontology.classes[resClassId]" (click)="createResourceClass()">Create resource class</button>
+    <button class="delete res-class" [disabled]="!ontology.classes[resClassId]" (click)="deleteResourceClass()">Delete resource class</button>
+
+    <h4>3. Resource properties</h4>
+    <button class="create res-prop" [disabled]="ontology.properties[propOneId] || ontology.properties[propTwoId]" (click)="createResourceProperty()">Create resource property</button>
+    <button class="delete res-prop" [disabled]="!ontology.properties[propOneId]" (click)="deleteResourceProperty(propOneId)">Delete property one</button>
+    <button class="delete res-prop" [disabled]="!ontology.properties[propTwoId]" (click)="deleteResourceProperty(propTwoId)">Delete property two</button>
+
+    <!-- <h4>4. Cardinality</h4>
+    <button class="set cardinality" [disabled]="!ontology.properties[propOneId] || !ontology.properties[propTwoId]" (click)="addCardinality()">Set cardinality</button> -->
+
+</div>
