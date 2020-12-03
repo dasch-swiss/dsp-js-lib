@@ -5,7 +5,6 @@ import { TypeGuard } from "../resources/type-guard";
 import { IHasProperty } from "./class-definition";
 import { EntityDefinition } from "./EntityDefinition";
 import { OntologiesMetadata, OntologyMetadata } from "./ontology-metadata";
-import { PropertyDefinition } from "./property-definition";
 import { ReadOntology } from "./read/read-ontology";
 import { ResourceClassDefinition, ResourceClassDefinitionWithAllLanguages } from "./resource-class-definition";
 import { ResourcePropertyDefinition, ResourcePropertyDefinitionWithAllLanguages } from "./resource-property-definition";
@@ -220,34 +219,6 @@ export namespace OntologyConversionUtil {
 
         return ontology;
 
-    };
-
-    /**
-     * Given a map of entity Iris to entity definitions,
-     * returns an array of entity definitions.
-     *
-     * @param entityDefs Entity definitions to be returned as an array.
-     */
-    export const getAllEntityDefinitionsAsArray = <T extends EntityDefinition>(entityDefs: { [ index: string ]: T } ): T[] => {
-        const entityIndexes = Object.keys(entityDefs);
-
-        return entityIndexes.map((entityIndex: string) => {
-            return entityDefs[entityIndex];
-        });
-    };
-
-    /**
-     * Given an array of entity definitions,
-     * returns only the entity definitions matching the given type.
-     *
-     * @param entityDefs The entity definitions to be filtered.
-     * @param type The type of entity definitions to be returned.
-     */
-    export const getEntityDefinitionsByTypeAsArray = <T extends EntityDefinition>(entityDefs: EntityDefinition[], type: TypeGuard.Constructor<T>): T[] => {
-        return entityDefs.filter(
-            (entityDef: EntityDefinition) => {
-                return TypeGuard.typeGuard(entityDef, type);
-            }) as T[];
     };
 
     /**
