@@ -11,6 +11,9 @@ import { ResourcePropertyDefinition, ResourcePropertyDefinitionWithAllLanguages 
 import { StandoffClassDefinition } from "./standoff-class-definition";
 import { SystemPropertyDefinition } from "./system-property-definition";
 
+/**
+ * @category Internal
+ */
 export namespace OntologyConversionUtil {
 
     /**

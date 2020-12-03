@@ -3,6 +3,8 @@ import { CreateAdminDoapBase } from "./create-admin-doap-base";
 
 /**
  * Creation of a default object access permission permission.
+ *
+ * @category Model Admin
  */
 @JsonObject("CreateDefaultObjectAccessPermission")
 export class CreateDefaultObjectAccessPermission extends CreateAdminDoapBase {

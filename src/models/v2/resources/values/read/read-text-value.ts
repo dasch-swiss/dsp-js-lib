@@ -8,10 +8,16 @@ import {
 } from "../type-specific-interfaces/base-text-value";
 import { ReadValue } from "./read-value";
 
+/**
+ * @category Model V2
+ */
 @JsonObject("ReadTextValue")
 export abstract class ReadTextValue extends ReadValue {
 }
 
+/**
+ * @category Model V2
+ */
 @JsonObject("ReadTextValueAsString")
 export class ReadTextValueAsString extends ReadTextValue implements IBaseTextValueAsString {
 
@@ -22,6 +28,9 @@ export class ReadTextValueAsString extends ReadTextValue implements IBaseTextVal
 
 }
 
+/**
+ * @category Model V2
+ */
 @JsonObject("ReadTextValueAsXml")
 export class ReadTextValueAsXml extends ReadTextValue implements IBaseTextValueAsXml {
 
@@ -33,6 +42,9 @@ export class ReadTextValueAsXml extends ReadTextValue implements IBaseTextValueA
 
 }
 
+/**
+ * @category Model V2
+ */
 @JsonObject("ReadTextValueAsHtml")
 export class ReadTextValueAsHtml extends ReadTextValue implements IBaseTextValueAsHtml {
 

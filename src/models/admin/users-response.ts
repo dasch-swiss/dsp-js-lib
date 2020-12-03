@@ -4,6 +4,8 @@ import { ReadUser } from "./read-user";
 
 /**
  * A response providing a collection of users.
+ *
+ * @category Model Admin
  */
 @JsonObject("UsersResponse")
 export class UsersResponse {

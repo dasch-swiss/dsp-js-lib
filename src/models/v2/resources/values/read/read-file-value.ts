@@ -4,6 +4,9 @@ import { UriConverter } from "../../../custom-converters/uri-converter";
 import { IBaseFileValue } from "../type-specific-interfaces/base-file-value";
 import { ReadValue } from "./read-value";
 
+/**
+ * @category Model V2
+ */
 @JsonObject("ReadFileValue")
 export abstract class ReadFileValue extends ReadValue implements IBaseFileValue {
 
@@ -14,6 +17,9 @@ export abstract class ReadFileValue extends ReadValue implements IBaseFileValue 
     fileUrl: string = "";
 }
 
+/**
+ * @category Model V2
+ */
 @JsonObject("ReadStillImageFileValue")
 export class ReadStillImageFileValue extends ReadFileValue {
 

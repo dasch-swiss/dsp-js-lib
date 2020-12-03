@@ -3,6 +3,8 @@ import { ProjectPermission } from "./project-permission";
 
 /**
  * Represents a project's permissions.
+ *
+ * @category Model Admin
  */
 @JsonObject("ProjectPermissionsResponse")
 export class ProjectPermissionsResponse {
