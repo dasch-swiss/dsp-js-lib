@@ -13,51 +13,51 @@ import { Place } from "./place-definition";
 @JsonObject("ProjectClass")
 export class ProjectClass {
 
-    @JsonProperty(Constants.dspRepoBase + "hasAlternateName", String, true)
+    @JsonProperty(Constants.DspRepoBase + "hasAlternateName", String, true)
     alternateName?: string = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasContactPoint", Person, true)
+    @JsonProperty(Constants.DspRepoBase + "hasContactPoint", Person, true)
     contactPoint?: Person = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasDataManagementPlan", DataManagementPlan, true)
+    @JsonProperty(Constants.DspRepoBase + "hasDataManagementPlan", DataManagementPlan, true)
     dataManagementPlan?: DataManagementPlan = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasDescription", String)
+    @JsonProperty(Constants.DspRepoBase + "hasDescription", String)
     description: string = "";
 
-    @JsonProperty(Constants.dspRepoBase + "hasDiscipline", UrlToObjectConverter)
+    @JsonProperty(Constants.DspRepoBase + "hasDiscipline", UrlToObjectConverter)
     discipline: object = {};
     
-    @JsonProperty(Constants.dspRepoBase + "hasEndDate", DateConverter, true)
+    @JsonProperty(Constants.DspRepoBase + "hasEndDate", DateConverter, true)
     endDate?: string = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasFunder", PersonOrganizationConverter) // check if Person, Organization works
+    @JsonProperty(Constants.DspRepoBase + "hasFunder", PersonOrganizationConverter) // check if Person, Organization works
     funder: Person | Organization = new Person();
 
-    @JsonProperty(Constants.dspRepoBase + "hasGrant", Grant, true)
+    @JsonProperty(Constants.DspRepoBase + "hasGrant", Grant, true)
     grant?: Grant = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasKeywords", [String])
+    @JsonProperty(Constants.DspRepoBase + "hasKeywords", [String])
     keywords: string[] = [];
 
-    @JsonProperty(Constants.dspName, String)
+    @JsonProperty(Constants.DspName, String)
     name: string = "";
 
-    @JsonProperty(Constants.dspRepoBase + "hasPublication", String, true)
+    @JsonProperty(Constants.DspRepoBase + "hasPublication", String, true)
     publication?: string = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasShortcode", String)
+    @JsonProperty(Constants.DspRepoBase + "hasShortcode", String)
     shortcode: string = "";
 
-    @JsonProperty(Constants.dspRepoBase + "hasSpatialCoverage", [Place])
+    @JsonProperty(Constants.DspRepoBase + "hasSpatialCoverage", [Place])
     spatialCoverage: Place[] = [];
 
-    @JsonProperty(Constants.dspRepoBase + "hasStartDate", DateConverter)
+    @JsonProperty(Constants.DspRepoBase + "hasStartDate", DateConverter)
     startDate: string = "";
 
-    @JsonProperty(Constants.dspRepoBase + "hasTemporalCoverage", UrlToObjectConverter)
+    @JsonProperty(Constants.DspRepoBase + "hasTemporalCoverage", UrlToObjectConverter)
     temporalCoverage: object = {};
 
-    @JsonProperty(Constants.dspRepoBase + "hasURL", UrlToUrlObjectConverter)
+    @JsonProperty(Constants.DspRepoBase + "hasURL", UrlToUrlObjectConverter)
     url: string = "";
 }

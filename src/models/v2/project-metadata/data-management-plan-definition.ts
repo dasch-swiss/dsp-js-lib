@@ -5,9 +5,9 @@ import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-
 @JsonObject("DataManagementPlan")
 export class DataManagementPlan {
 
-    @JsonProperty(Constants.dspRepoBase + "hasURL", UrlToUrlObjectConverter, true)
+    @JsonProperty(Constants.DspRepoBase + "hasURL", UrlToUrlObjectConverter, true)
     url?: string = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "isAvailable", Boolean, true)
+    @JsonProperty(Constants.DspRepoBase + "isAvailable", Boolean, true)
     isAvailable?: boolean = undefined;
 }

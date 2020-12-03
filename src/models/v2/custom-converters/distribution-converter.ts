@@ -10,19 +10,19 @@ export class DistributionConverter implements JsonCustomConvert<IDistribution> {
     serialize(val: IDistribution): object {
         const obj = {} as { [index: string]: string };
         obj["@type"] = val.type;
-        obj[Constants.urlValue] = val.value;
+        obj[Constants.SchemaUrlValue] = val.value;
 
         return obj;
     }
 
     deserialize(val: any): IDistribution {
-        if (val.hasOwnProperty("@type") && val["@type"] === Constants.dataDownload) {
+        if (val.hasOwnProperty("@type") && val["@type"] === Constants.SchemaDownload) {
             const obj = {} as IDistribution;
             obj.type = val["@type"];
-            obj.value = val[Constants.urlValue];
+            obj.value = val[Constants.SchemaUrlValue];
             return obj;
         } else {
-            throw new Error(`Expected object of ${Constants.dataDownload} type`);
+            throw new Error(`Expected object of ${Constants.SchemaDownload} type`);
         }
     }
 }

@@ -7,15 +7,15 @@ import { Address } from "./address-definition";
 @JsonObject("Organization")
 export class Organization {
 
-    @JsonProperty(Constants.dspRepoBase + "hasAddress", Address, true)
+    @JsonProperty(Constants.DspRepoBase + "hasAddress", Address, true)
     address?: Address = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasEmail", EmailConverter, true)
+    @JsonProperty(Constants.DspRepoBase + "hasEmail", EmailConverter, true)
     email?: string = undefined;
 
-    @JsonProperty(Constants.dspName, String)
+    @JsonProperty(Constants.DspName, String)
     name: string = "";
 
-    @JsonProperty(Constants.dspRepoBase + "hasURL", UrlToUrlObjectConverter, true)
+    @JsonProperty(Constants.DspRepoBase + "hasURL", UrlToUrlObjectConverter, true)
     url?: string = undefined;
 }

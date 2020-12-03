@@ -6,9 +6,9 @@ import { Person } from "./person-definition";
 @JsonObject("Attribution")
 export class Attribution {
 
-    @JsonProperty(Constants.dspRepoBase + "hasRole", String)
+    @JsonProperty(Constants.DspRepoBase + "hasRole", String)
     role: string = "";
 
-    @JsonProperty(Constants.agent, IdConverter) //convert to Person base on @id
+    @JsonProperty(Constants.ProvAgent, IdConverter) //convert to Person base on @id
     agent: string = "";
 }

@@ -9,24 +9,24 @@ import { Organization } from "./organization-definition";
 @JsonObject("Person")
 export class Person {
     
-    @JsonProperty(Constants.dspRepoBase + "hasAddress", Address, true)
+    @JsonProperty(Constants.DspRepoBase + "hasAddress", Address, true)
     address?: Address = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasEmail", EmailConverter)
+    @JsonProperty(Constants.DspRepoBase + "hasEmail", EmailConverter)
     email: string = "";
 
-    @JsonProperty(Constants.dspRepoBase + "hasFamilyName", String, true)
+    @JsonProperty(Constants.DspRepoBase + "hasFamilyName", String, true)
     familyName?: string = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasGivenName", String)
+    @JsonProperty(Constants.DspRepoBase + "hasGivenName", String)
     givenName: string = "";
 
-    @JsonProperty(Constants.dspRepoBase + "hasJobTitle", String)
+    @JsonProperty(Constants.DspRepoBase + "hasJobTitle", String)
     jobTitle: string = "";
 
-    @JsonProperty(Constants.dspRepoBase + "isMemberOf", IdConverter) //convert reference ID to Orgnization
+    @JsonProperty(Constants.DspRepoBase + "isMemberOf", IdConverter) //convert reference ID to Orgnization
     memberOf: Organization = new Organization();
 
-    @JsonProperty(Constants.dspRepoBase + "sameAs", UrlToUrlObjectConverter, true)
+    @JsonProperty(Constants.DspRepoBase + "sameAs", UrlToUrlObjectConverter, true)
     sameAs?: string = undefined;
 }

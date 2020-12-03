@@ -8,15 +8,15 @@ import { Person } from "./person-definition";
 @JsonObject("Grant")
 export class Grant {
 
-    @JsonProperty(Constants.dspRepoBase + "hasFunder", PersonOrganizationConverter, true)
+    @JsonProperty(Constants.DspRepoBase + "hasFunder", PersonOrganizationConverter, true)
     funder?: Person | Organization = undefined;
 
-    @JsonProperty(Constants.dspName, String, true)
+    @JsonProperty(Constants.DspName, String, true)
     name?: string = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasNumber", String, true)
+    @JsonProperty(Constants.DspRepoBase + "hasNumber", String, true)
     number?: string = undefined;
 
-    @JsonProperty(Constants.dspRepoBase + "hasURL", UrlToUrlObjectConverter, true)
+    @JsonProperty(Constants.DspRepoBase + "hasURL", UrlToUrlObjectConverter, true)
     url?: string = undefined;
 }

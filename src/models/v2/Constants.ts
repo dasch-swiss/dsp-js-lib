@@ -160,16 +160,16 @@ export class Constants {
     static SalsahLink: string = "salsah-link"; // class on an HTML <a> element that indicates a link to a Knora resource
     static RefMarker: string = "ref-marker"; // class on an HTML element that refers to another element in the same document
 
-    static dsp = "http://ns.dasch.swiss";
-    static dspRepo = Constants.dsp + "/repository";
-    static dspRepoBase = Constants.dspRepo + Constants.Delimiter;
-    static dspName = Constants.dspRepoBase + "hasName";
-    static schemaBase = "https://schema.org";
-    static urlType = Constants.schemaBase + "/URL";
-    static urlValue = Constants.urlType.toLocaleLowerCase();
-    static propID = Constants.schemaBase + "/propertyID";
-    static dataDownload = Constants.schemaBase + "/DataDownload";
-    static place = Constants.schemaBase + "/Place";
-    static agent = "http://www.w3.org/ns/prov#agent";
+    static Dsp = "http://ns.dasch.swiss";
+    static DspRepo = Constants.Dsp + "/repository";
+    static DspRepoBase = Constants.DspRepo + Constants.Delimiter;
+    static DspName = Constants.DspRepoBase + "hasName";
+    static SchemaBase = "https://schema.org";
+    static SchemaUrlType = Constants.SchemaBase + "/URL";
+    static SchemaUrlValue = Constants.SchemaUrlType.toLocaleLowerCase();
+    static SchemaPropID = Constants.SchemaBase + "/propertyID";
+    static SchemaDownload = Constants.SchemaBase + "/DataDownload";
+    static SchemaPlace = Constants.SchemaBase + "/Place";
+    static ProvAgent = "http://www.w3.org/ns/prov#agent";
 
 }

@@ -12,19 +12,19 @@ export class UrlToUrlObjectConverter implements JsonCustomConvert<IUrl> {
     serialize(val: IUrl): object {
         const obj = {} as { [index: string]: string };
         obj["@type"] = val.type;
-        obj[Constants.urlValue] = val.value;
+        obj[Constants.SchemaUrlValue] = val.value;
 
         return obj;
     }
 
     deserialize(val: any): IUrl {
-        if (val.hasOwnProperty("@type") && val["@type"] === Constants.urlType) {
+        if (val.hasOwnProperty("@type") && val["@type"] === Constants.SchemaUrlType) {
             const obj = {} as IUrl;
             obj.type = val["@type"];
-            obj.value = val[Constants.urlValue];
+            obj.value = val[Constants.SchemaUrlValue];
             return obj;
         } else {
-            throw new Error(`Expected object of ${Constants.urlType} type`);
+            throw new Error(`Expected object of ${Constants.SchemaUrlType} type`);
         }
     }
 }

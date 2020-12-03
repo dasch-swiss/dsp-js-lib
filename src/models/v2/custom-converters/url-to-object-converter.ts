@@ -10,18 +10,18 @@ export class UrlToObjectConverter implements JsonCustomConvert<object> {
 
     // possibly divide it
     deserialize(val: any): object {
-        if (val.hasOwnProperty(Constants.propID)) { // covers hasDiscipline
-            const type = Constants.urlValue;
-            const name = val[Constants.propID][Constants.propID];
+        if (val.hasOwnProperty(Constants.SchemaPropID)) { // covers hasDiscipline
+            const type = Constants.SchemaUrlValue;
+            const name = val[Constants.SchemaPropID][Constants.SchemaPropID];
             const url = val[type];
             return { name, url };
-        } else if (val.hasOwnProperty(Constants.urlValue)) { // covers Place
-            const type = Constants.urlValue;
-            const name = val[type][Constants.propID][Constants.propID];
+        } else if (val.hasOwnProperty(Constants.SchemaUrlValue)) { // covers Place
+            const type = Constants.SchemaUrlValue;
+            const name = val[type][Constants.SchemaPropID][Constants.SchemaPropID];
             const url = val[type][type];
             return { name, url };
         } else {
-            throw new Error(`Has not ${Constants.urlType} type and/or ${Constants.propID}`);
+            throw new Error(`Has not ${Constants.SchemaUrlType} type and/or ${Constants.SchemaPropID}`);
         }
     }
 }
