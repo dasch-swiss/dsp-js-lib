@@ -54,9 +54,12 @@ import {
     Dataset,
     SingleProject,
     Attribution,
+    DataManagementPlan,
     UpdateProjectMetadataResponse,
     IUrl
 } from "@dasch-swiss/dsp-js";
+import { Address } from '@dasch-swiss/dsp-js/src/models/v2/project-metadata/address-definition';
+import { Person } from '@dasch-swiss/dsp-js/src/models/v2/project-metadata/person-definition';
 import { Observable } from "rxjs";
 
 import { map, tap } from "rxjs/operators";
@@ -797,7 +800,7 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.metadata.getProjectMetadata(resourceIri).subscribe(
             (res: ProjectsMetadata) => {
-                console.log(res);
+                console.log(JSON.stringify(res));
                 this.projectMetaStatus = 'OK';
             },
             error => {
@@ -830,17 +833,85 @@ export class AppComponent implements OnInit {
         // testDataset.license = new IUrl();
         // testDataset.license.type = 'https://schema.org/URL';
         // testDataset.license.value = 'https://creativecommons.org/licenses/by/3.0';
-        const attr = new Attribution();
-        attr.role = 'contributor';
-        attr.agent = 'http://ns.dasch.swiss/test-berry';
-        testDataset.qualifiedAttribution.push(attr);
+        // const attr = new Attribution();
+        // attr.role = 'contributor';
+        // attr.agent = 'http://ns.dasch.swiss/test-berry';
+        // const attr2 = new Attribution();
+        // attr2.role = 'contributor';
+        // attr2.agent = 'http://ns.dasch.swiss/test-hart';
+        // testDataset.qualifiedAttribution.push(attr, attr2);
+        testDataset.qualifiedAttribution = [
+            {
+               "role":"contributor",
+               "agent":"http://ns.dasch.swiss/test-berry"
+            },
+            {
+               "role":"contributor",
+               "agent":"http://ns.dasch.swiss/test-hart"
+            },
+            {
+               "role":"editor",
+               "agent":"http://ns.dasch.swiss/test-abraham"
+            },
+            {
+               "role":"editor",
+               "agent":"http://ns.dasch.swiss/test-coleman"
+            },
+            {
+               "role":"editor",
+               "agent":"http://ns.dasch.swiss/test-jones"
+            }
+         ];
         testDataset.status = 'ongoing';
         testDataset.title = 'Testprojekt';
         testDataset.typeOfData = ['image', 'text'];
         testDataset.sameAs = {type: 'https://schema.org/URL', value: 'https://test.dasch.swiss'} as IUrl;
         testDataset.project = new SingleProject();
         testDataset.project.id = 'http://ns.dasch.swiss/test-project';
-        testDataset.project.url = {type: 'https://schema.org/URL', value: 'https://orcid.org/0000-0002-1825-0097'} as IUrl;
+        testDataset.project.alternateName = 'test';
+        testDataset.project.contactPoint = {
+            "id":"http://ns.dasch.swiss/test-abraham",
+            "address":{
+               "addressLocality":"Basel",
+               "postalCode":"4000",
+               "streetAddress":"Teststrasse"
+            },
+            "email":"/stewart.abraham@test.ch",
+            "familyName":"Abraham",
+            "givenName":"Stewart",
+            "jobTitle":"Dr.",
+            "memberOf":"http://ns.dasch.swiss/test-dasch",
+            "sameAs":{
+               "type":"https://schema.org/URL",
+               "value":"https://orcid.org/0000-0002-1825-0097"
+            }
+         } as Person;
+        // testDataset.project.contactPoint.address = new Address();
+        // testDataset.project.contactPoint.address.addressLocality = 'Basel';
+        // testDataset.project.contactPoint.address.postalCode = '4000';
+        // testDataset.project.contactPoint.address.streetAddress = 'Teststrasse';
+        // testDataset.project.contactPoint.email = 'http://ns.dasch.swiss/stewart.abraham@test.ch';
+        // testDataset.project.contactPoint.familyName = 'Abraham';
+        // testDataset.project.contactPoint.givenName = 'Stewart';
+        // testDataset.project.contactPoint.jobTitle = 'Dr.';
+        // testDataset.project.contactPoint.memberOf = 'http://ns.dasch.swiss/test-dasch';
+        // testDataset.project.contactPoint.sameAs = {type: 'https://schema.org/URL', value: 'https://orcid.org/0000-0002-1825-0097'} as IUrl;
+        testDataset.project.dataManagementPlan = {
+            "id":"http://ns.dasch.swiss/test-plan",
+            "url":{
+               "type":"https://schema.org/URL",
+               "value":"https://snf.ch"
+            },
+            "isAvailable":false
+         } as DataManagementPlan;
+        // testDataset.project.dataManagementPlan.id = 'http://ns.dasch.swiss/test-plan';
+        // testDataset.project.dataManagementPlan.isAvailable = false;
+        // testDataset.project.dataManagementPlan.url = {type: 'https://schema.org/URL', value: 'https://snf.ch'} as IUrl;
+        testDataset.project.description = 'Dies ist ein Testprojekt...alle Properties wurden verwendet, um diese zu testen"';
+        testDataset.project.discipline = {
+            "name":"SKOS UNESCO Nomenclature",
+            "url":"http://skos.um.es/unesco6/11"
+         };
         // testDataset.project.url = new IUrl();
         // testDataset.project.url.type = 'https://schema.org/URL';
         // testDataset.project.url.value = 'https://orcid.org/0000-0002-1825-0097';

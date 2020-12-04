@@ -49,7 +49,8 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
      */
     //make below possible by replacing metadata: any with ProjectsMetadata type and adding serialization to custom converters
     updateProjectMetadata(resourceIri: string, metadata: ProjectsMetadata): Observable<UpdateProjectMetadataResponse | ApiResponseError> {
-        console.log('METADATA', metadata);
+        const convertedDATA = this.jsonConvert.serializeObject(metadata);
+        console.log('METADATA', metadata, convertedDATA);
         return this.httpPut(`/${encodeURIComponent(resourceIri)}`, this.jsonConvert.serializeObject(metadata)).pipe(
     // updateProjectMetadata(resourceIri: string, metadata: any): Observable<UpdateProjectMetadataResponse | ApiResponseError> {    
     //     return this.httpPut(`/${encodeURIComponent(resourceIri)}`, metadata).pipe(

@@ -168,6 +168,7 @@ export class Constants {
     static SchemaUrlType = Constants.SchemaBase + "/URL";
     static SchemaUrlValue = Constants.SchemaUrlType.toLocaleLowerCase();
     static SchemaPropID = Constants.SchemaBase + "/propertyID";
+    static SchemaPropVal = Constants.SchemaBase + "/PropertyValue";
     static SchemaDownload = Constants.SchemaBase + "/DataDownload";
     static SchemaPlace = Constants.SchemaBase + "/Place";
     static ProvAgent = "http://www.w3.org/ns/prov#agent";
