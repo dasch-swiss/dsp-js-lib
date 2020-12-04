@@ -9,6 +9,7 @@ import { Grant } from "./grant-definition";
 import { Organization } from "./organization-definition";
 import { Person } from "./person-definition";
 import { Place } from "./place-definition";
+import { IUrl } from "./../custom-converters/base-url-converter";
 
 @JsonObject("SingleProject")
 export class SingleProject {
@@ -62,5 +63,5 @@ export class SingleProject {
     temporalCoverage: object = {};
 
     @JsonProperty(Constants.DspRepoBase + "hasURL", UrlToUrlObjectConverter)
-    url: string = "";
+    url: IUrl = {} as IUrl;
 }

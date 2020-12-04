@@ -54,7 +54,8 @@ import {
     Dataset,
     SingleProject,
     Attribution,
-    UpdateProjectMetadataResponse
+    UpdateProjectMetadataResponse,
+    IUrl
 } from "@dasch-swiss/dsp-js";
 import { Observable } from "rxjs";
 
@@ -810,17 +811,25 @@ export class AppComponent implements OnInit {
 
         const testMetadata = new ProjectsMetadata();
         const testDataset = new Dataset();
+        testDataset.id = 'http://ns.dasch.swiss/test-dataset';
         testDataset.abstract = 'Dies ist ein Testprojekt.';
         testDataset.alternativeTitle = 'test';
         testDataset.conditionsOfAccess = 'Open Access';
         testDataset.dateCreated = '2001-09-26';
         testDataset.dateModified = '2020-04-26';
         testDataset.datePublished = '2002-09-24';
-        testDataset.distribution = 'https://test.dasch.swiss';
+        testDataset.distribution = {type: 'https://schema.org/DataDownload', value: 'https://test.dasch.swiss'} as IUrl;
+        // testDataset.distribution = new IUrl();
+        // testDataset.distribution.type = 'https://schema.org/DataDownload';
+        // testDataset.distribution.value = 'https://test.dasch.swiss';
         testDataset.documentation = 'Work in progress';
         testDataset.howToCite = 'Testprojekt (test), 2002, https://test.dasch.swiss';
         testDataset.language = [ 'EN', 'DE', 'FR' ];
-        testDataset.license = 'https://creativecommons.org/licenses/by/3.0';
+        testDataset.license = {type: 'https://schema.org/URL', value: 'https://creativecommons.org/licenses/by/3.0'} as IUrl;
+        // testDataset.license = 'https://creativecommons.org/licenses/by/3.0';
+        // testDataset.license = new IUrl();
+        // testDataset.license.type = 'https://schema.org/URL';
+        // testDataset.license.value = 'https://creativecommons.org/licenses/by/3.0';
         const attr = new Attribution();
         attr.role = 'contributor';
         attr.agent = 'http://ns.dasch.swiss/test-berry';
@@ -828,12 +837,18 @@ export class AppComponent implements OnInit {
         testDataset.status = 'ongoing';
         testDataset.title = 'Testprojekt';
         testDataset.typeOfData = ['image', 'text'];
-        testDataset.sameAs = 'https://test.dasch.swiss/';
+        testDataset.sameAs = {type: 'https://schema.org/URL', value: 'https://test.dasch.swiss'} as IUrl;
         testDataset.project = new SingleProject();
+        testDataset.project.id = 'http://ns.dasch.swiss/test-project';
+        testDataset.project.url = {type: 'https://schema.org/URL', value: 'https://orcid.org/0000-0002-1825-0097'} as IUrl;
+        // testDataset.project.url = new IUrl();
+        // testDataset.project.url.type = 'https://schema.org/URL';
+        // testDataset.project.url.value = 'https://orcid.org/0000-0002-1825-0097';
         testMetadata.projectsMetadata.push(testDataset);
-        console.log(testMetadata);
+        console.log(testMetadata, JSON.stringify(testMetadata));
         // replace metadataPayload with constructed above ProjectsMetadata object - swap lines in metadata endpoint
-        this.knoraApiConnection.v2.metadata.updateProjectMetadata(resourceIri, metadataPayload).subscribe(
+        // this.knoraApiConnection.v2.metadata.updateProjectMetadata(resourceIri, metadataPayload).subscribe(
+        this.knoraApiConnection.v2.metadata.updateProjectMetadata(resourceIri, testMetadata).subscribe(
             (res: UpdateProjectMetadataResponse) => {
                 console.log(res);
                 this.projectMetaStatus = 'OK';

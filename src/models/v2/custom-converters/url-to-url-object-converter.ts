@@ -1,21 +1,9 @@
 import { JsonConverter, JsonCustomConvert } from "json2typescript";
 import { Constants } from "../Constants";
-
-export interface IUrl {
-    type: string;
-    value: string;
-}
+import { BaseUrlConverter, IUrl } from "./base-url-converter";
 
 @JsonConverter
-export class UrlToUrlObjectConverter implements JsonCustomConvert<IUrl> {
-
-    serialize(val: IUrl): object {
-        const obj = {} as { [index: string]: string };
-        obj["@type"] = val.type;
-        obj[Constants.SchemaUrlValue] = val.value;
-
-        return obj;
-    }
+export class UrlToUrlObjectConverter extends BaseUrlConverter {
 
     deserialize(val: any): IUrl {
         if (val.hasOwnProperty("@type") && val["@type"] === Constants.SchemaUrlType) {

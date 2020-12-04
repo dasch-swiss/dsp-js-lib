@@ -5,6 +5,7 @@ import { DistributionConverter } from "../custom-converters/distribution-convert
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
 import { Attribution } from "./attribution-definition";
 import { SingleProject } from "./project-definition";
+import { IUrl } from "./../custom-converters/base-url-converter";
 
 @JsonObject("Dataset")
 export class Dataset {
@@ -31,7 +32,7 @@ export class Dataset {
     datePublished?: string = undefined;
 
     @JsonProperty(Constants.DspRepoBase + "hasDistribution", DistributionConverter, true)
-    distribution?: string = undefined;
+    distribution?: IUrl = undefined;
 
     @JsonProperty(Constants.DspRepoBase + "hasDocumentation", String, true) // URL | String
     documentation?: string = undefined;
@@ -43,7 +44,7 @@ export class Dataset {
     language: string[] = [];
 
     @JsonProperty(Constants.DspRepoBase + "hasLicense", UrlToUrlObjectConverter)
-    license: string = "";
+    license: IUrl = {}  as IUrl;
 
     @JsonProperty(Constants.DspRepoBase + "hasQualifiedAttribution", [Attribution])
     qualifiedAttribution: Attribution[] = [];
@@ -61,5 +62,5 @@ export class Dataset {
     project: SingleProject = new SingleProject();
 
     @JsonProperty(Constants.DspRepoBase + "sameAs", UrlToUrlObjectConverter, true)
-    sameAs?: string = undefined;
+    sameAs?: IUrl = undefined;
 }

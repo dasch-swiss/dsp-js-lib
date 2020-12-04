@@ -191,6 +191,7 @@ export { Dataset } from "./models/v2/project-metadata/dataset-definition";
 export { SingleProject } from "./models/v2/project-metadata/project-definition";
 export { Attribution } from "./models/v2/project-metadata/attribution-definition";
 export { UpdateProjectMetadataResponse } from "./models/v2/project-metadata/update-project-metadata";
+export { IUrl } from "./models/v2/custom-converters/base-url-converter";
 
 // Utils
 export { CardinalityUtil } from "./models/v2/resources/cardinality-util";
