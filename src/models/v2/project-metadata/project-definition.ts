@@ -1,15 +1,15 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
 import { DateConverter } from "../custom-converters/date-converter";
+import { AdvancedUrlObjectConverter } from "../custom-converters/advanced-url-object-converter";
 import { PersonOrganizationConverter } from "../custom-converters/person-organization-converter";
-import { UrlToObjectConverter } from "../custom-converters/url-to-object-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
+import { IUrl } from "./../custom-converters/base-url-converter";
 import { DataManagementPlan } from "./data-management-plan-definition";
 import { Grant } from "./grant-definition";
 import { Organization } from "./organization-definition";
 import { Person } from "./person-definition";
 import { Place } from "./place-definition";
-import { IUrl } from "./../custom-converters/base-url-converter";
 
 @JsonObject("SingleProject")
 export class SingleProject {
@@ -29,8 +29,8 @@ export class SingleProject {
     @JsonProperty(Constants.DspRepoBase + "hasDescription", String)
     description: string = "";
 
-    @JsonProperty(Constants.DspRepoBase + "hasDiscipline", UrlToObjectConverter)
-    discipline: object = {};
+    @JsonProperty(Constants.DspRepoBase + "hasDiscipline", AdvancedUrlObjectConverter)
+    discipline: IUrl = {} as IUrl;
     
     @JsonProperty(Constants.DspRepoBase + "hasEndDate", DateConverter, true)
     endDate?: string = undefined;
@@ -59,8 +59,8 @@ export class SingleProject {
     @JsonProperty(Constants.DspRepoBase + "hasStartDate", DateConverter)
     startDate: string = "";
 
-    @JsonProperty(Constants.DspRepoBase + "hasTemporalCoverage", UrlToObjectConverter)
-    temporalCoverage: object = {};
+    @JsonProperty(Constants.DspRepoBase + "hasTemporalCoverage", AdvancedUrlObjectConverter)
+    temporalCoverage: IUrl = {} as IUrl;
 
     @JsonProperty(Constants.DspRepoBase + "hasURL", UrlToUrlObjectConverter)
     url: IUrl = {} as IUrl;

@@ -1,10 +1,11 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
-import { UrlToObjectConverter } from "../custom-converters/url-to-object-converter";
+import { IUrl } from "../custom-converters/base-url-converter";
+import { PlaceConverter } from "../custom-converters/place-converter";
 
 @JsonObject("Place")
 export class Place {
 
-    @JsonProperty(Constants.SchemaUrlValue, UrlToObjectConverter)
-    place: object = {};
+    @JsonProperty(Constants.SchemaUrlValue, PlaceConverter)
+    place: IUrl = {} as IUrl;
 }

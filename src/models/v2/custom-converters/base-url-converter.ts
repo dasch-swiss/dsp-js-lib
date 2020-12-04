@@ -2,8 +2,10 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
 import { Constants } from "../Constants";
 
 export interface IUrl {
-    type: string;
-    value: string;
+    type?: string;
+    value?: string;
+    name?: string;
+    url?: string;
 }
 
 @JsonConverter
