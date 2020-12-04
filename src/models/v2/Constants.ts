@@ -164,6 +164,7 @@ export class Constants {
     static DspRepo = Constants.Dsp + "/repository";
     static DspRepoBase = Constants.DspRepo + Constants.Delimiter;
     static DspName = Constants.DspRepoBase + "hasName";
+    static DspJobTitle = Constants.DspRepoBase + "hasJobTitle";
     static SchemaBase = "https://schema.org";
     static SchemaUrlType = Constants.SchemaBase + "/URL";
     static SchemaUrlValue = Constants.SchemaUrlType.toLocaleLowerCase();

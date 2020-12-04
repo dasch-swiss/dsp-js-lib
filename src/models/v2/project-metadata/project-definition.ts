@@ -36,7 +36,7 @@ export class SingleProject {
     endDate?: string = undefined;
 
     @JsonProperty(Constants.DspRepoBase + "hasFunder", PersonOrganizationConverter) // check if Person, Organization works
-    funder: Person | Organization = new Person();
+    funder: Person | Organization | string = new Person();
 
     @JsonProperty(Constants.DspRepoBase + "hasGrant", Grant, true)
     grant?: Grant = undefined;

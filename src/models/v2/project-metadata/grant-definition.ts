@@ -12,7 +12,7 @@ export class Grant {
     id: string = "";
 
     @JsonProperty(Constants.DspRepoBase + "hasFunder", PersonOrganizationConverter, true)
-    funder?: Person | Organization = undefined;
+    funder?: Person | Organization | string = undefined;
 
     @JsonProperty(Constants.DspName, String, true)
     name?: string = undefined;

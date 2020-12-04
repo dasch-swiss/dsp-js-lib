@@ -56,9 +56,11 @@ import {
     Attribution,
     DataManagementPlan,
     UpdateProjectMetadataResponse,
-    IUrl
+    IUrl,
+    Grant
 } from "@dasch-swiss/dsp-js";
 import { Address } from '@dasch-swiss/dsp-js/src/models/v2/project-metadata/address-definition';
+import { Organization } from '@dasch-swiss/dsp-js/src/models/v2/project-metadata/organization-definition';
 import { Person } from '@dasch-swiss/dsp-js/src/models/v2/project-metadata/person-definition';
 import { Observable } from "rxjs";
 
@@ -912,6 +914,20 @@ export class AppComponent implements OnInit {
             "name":"SKOS UNESCO Nomenclature",
             "url":"http://skos.um.es/unesco6/11"
          };
+        testDataset.project.endDate = "2001-01-26";
+        testDataset.project.funder = "http://ns.dasch.swiss/test-funder";
+        testDataset.project.grant = new Grant();
+        testDataset.project.grant.id = "http://ns.dasch.swiss/test-grant";
+        // testDataset.project.grant.funder = 
+        testDataset.project.keywords = [
+            "science",
+            "mathematics",
+            "history of science",
+            "history of mathematics"
+         ];
+        testDataset.project.name = "Testprojektname (test)";
+        testDataset.project.publication = "testpublication";
+        testDataset.project.shortcode = "0000";
         // testDataset.project.url = new IUrl();
         // testDataset.project.url.type = 'https://schema.org/URL';
         // testDataset.project.url.value = 'https://orcid.org/0000-0002-1825-0097';
