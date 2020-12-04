@@ -34,6 +34,10 @@ export class HasCardinalityForPropertyConverter implements JsonCustomConvert<IHa
                 } else {
                     throw new Error("Invalid cardinality: " + card.cardinality);
                 }
+                
+                if (card.guiOrder) {
+                    cardEle[Constants.GuiOrder] = card.guiOrder;
+                }
 
                 const cardObj: { [index: string]: string | object } = {
                     "@id": card.resourceClass as string,
