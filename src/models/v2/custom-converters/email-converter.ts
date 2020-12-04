@@ -6,7 +6,7 @@ export class EmailConverter implements JsonCustomConvert<string> {
 
     serialize(email: string): any {
         return {
-            "@id": email
+            "@id": Constants.Dsp + email
         };
     }
     
