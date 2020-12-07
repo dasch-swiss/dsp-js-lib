@@ -888,23 +888,9 @@ export class AppComponent implements OnInit {
             "url":"http://skos.um.es/unesco6/11"
          };
         testDataset.project.endDate = "2001-01-26";
-        // testDataset.project.funder = {
-        //     "id":"http://ns.dasch.swiss/test-funder"
-        // };
         testDataset.project.funder = {
-            "id": "http://ns.dasch.swiss/test-funder",
-            "address":{
-                "addressLocality":"Toronto",
-                "postalCode":"40000",
-                "streetAddress":"University of Toronto Street"
-            },
-            "email":"/info@universityoftoronto.ca",
-            "name":"University of Toronto",
-            "url":{
-                "type":"https://schema.org/URL",
-                "value":"http://www.utoronto.ca/"
-            }
-        } as Organization;
+            "id":"http://ns.dasch.swiss/test-funder"
+        };
         const grant = new Grant();
         grant.id = "http://ns.dasch.swiss/test-grant";
         grant.funder = {

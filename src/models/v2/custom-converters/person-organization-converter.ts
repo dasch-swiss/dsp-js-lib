@@ -25,7 +25,9 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
             }
         } else if (obj.hasOwnProperty("id")) {
             console.log('seID', obj);
-            return obj;
+            return {
+                "@id": (obj as { [index: string]: string })["id"]
+            };
         }
     }
 
@@ -41,8 +43,6 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
         } else {
             if (obj.hasOwnProperty("@id")) {
                 console.log('deID', obj);
-                // return (obj as { [index: string]: object})["@id"]; //map this to desired object instance
-                // return obj;
                 return {
                     "id": obj["@id"]
                 };
