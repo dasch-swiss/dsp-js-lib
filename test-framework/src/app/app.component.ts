@@ -928,9 +928,35 @@ export class AppComponent implements OnInit {
         testDataset.project.name = "Testprojektname (test)";
         testDataset.project.publication = "testpublication";
         testDataset.project.shortcode = "0000";
-        // testDataset.project.url = new IUrl();
-        // testDataset.project.url.type = 'https://schema.org/URL';
-        // testDataset.project.url.value = 'https://orcid.org/0000-0002-1825-0097';
+        testDataset.project.spatialCoverage = [
+            {
+                "place":{
+                   "name":"Geonames",
+                   "url":"https://www.geonames.org/2017370/russian-federation.html"
+                }
+             },
+             {
+                "place":{
+                   "name":"Geonames",
+                   "url":"https://www.geonames.org/2658434/switzerland.html"
+                }
+             },
+             {
+                "place":{
+                   "name":"Geonames",
+                   "url":"https://www.geonames.org/3175395/italian-republic.html"
+                }
+             }
+        ];
+        testDataset.project.startDate = "2000-07-26";
+        testDataset.project.temporalCoverage = {
+            "name":"Chronontology Dainst",
+            "url":"http://chronontology.dainst.org/period/Ef9SyESSafJ1"
+        };
+        testDataset.project.url = {
+            "type":"https://schema.org/URL",
+            "value":"https://test.dasch.swiss/"
+        };
         testMetadata.projectsMetadata.push(testDataset);
         console.log(testMetadata, JSON.stringify(testMetadata));
         // replace metadataPayload with constructed above ProjectsMetadata object - swap lines in metadata endpoint
