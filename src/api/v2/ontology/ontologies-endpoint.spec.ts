@@ -157,6 +157,15 @@ describe("OntologiesEndpoint", () => {
                     expect(standoffClassDefs.length).toEqual(1);
                     expect(standoffClassDefs[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#StandoffEventTag");
 
+                    const systemProps: SystemPropertyDefinition[] = response.getPropertyDefinitionsByType(SystemPropertyDefinition);
+                    expect(systemProps.length).toEqual(1);
+                    expect(systemProps[0] instanceof SystemPropertyDefinition).toBe(true);
+                    expect(systemProps[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#standoffEventTagHasDescription");
+
+                    const resourceProps: ResourcePropertyDefinition[] = response.getPropertyDefinitionsByType(ResourcePropertyDefinition);
+                    expect(resourceProps.length).toEqual(28);
+                    expect(resourceProps[0] instanceof ResourcePropertyDefinition).toBe(true);
+
                     done();
                 });
 
