@@ -3,6 +3,9 @@ import { ClassDefinition } from "./class-definition";
 import { EntityDefinition } from "./EntityDefinition";
 import { PropertyDefinition } from "./property-definition";
 
+/**
+ * @category Internal
+ */
 export abstract class ClassAndPropertyDefinitions {
 
     abstract properties: { [index: string]: PropertyDefinition };
