@@ -1,7 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
-import { DateConverter } from "../custom-converters/date-converter";
 import { AdvancedUrlObjectConverter } from "../custom-converters/advanced-url-object-converter";
+import { DateConverter } from "../custom-converters/date-converter";
 import { PersonOrganizationConverter } from "../custom-converters/person-organization-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
 import { IUrl } from "./../custom-converters/base-url-converter";
@@ -36,7 +36,7 @@ export class SingleProject {
     endDate?: string = undefined;
 
     @JsonProperty(Constants.DspRepoBase + "hasFunder", PersonOrganizationConverter) // check if Person, Organization works
-    funder: Person | Organization | string = new Person();
+    funder: Person | Organization | object = new Person();
 
     @JsonProperty(Constants.DspRepoBase + "hasGrant", Grant, true)
     grant?: Grant = undefined;

@@ -1,4 +1,4 @@
-import { JsonConverter, JsonCustomConvert } from "json2typescript";
+import { JsonConverter } from "json2typescript";
 import { Constants } from "../Constants";
 import { BaseUrlConverter, IUrl } from "./base-url-converter";
 

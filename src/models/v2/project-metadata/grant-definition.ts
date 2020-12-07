@@ -1,5 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
+import { IUrl } from "../custom-converters/base-url-converter";
 import { PersonOrganizationConverter } from "../custom-converters/person-organization-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
 import { Organization } from "./organization-definition";
@@ -12,7 +13,7 @@ export class Grant {
     id: string = "";
 
     @JsonProperty(Constants.DspRepoBase + "hasFunder", PersonOrganizationConverter, true)
-    funder?: Person | Organization | string = undefined;
+    funder?: Person | Organization | object = undefined;
 
     @JsonProperty(Constants.DspName, String, true)
     name?: string = undefined;
@@ -21,5 +22,5 @@ export class Grant {
     number?: string = undefined;
 
     @JsonProperty(Constants.DspRepoBase + "hasURL", UrlToUrlObjectConverter, true)
-    url?: string = undefined;
+    url?: IUrl = undefined;
 }

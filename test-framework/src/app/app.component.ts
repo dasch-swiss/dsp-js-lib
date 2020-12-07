@@ -824,24 +824,10 @@ export class AppComponent implements OnInit {
         testDataset.dateModified = '2020-04-26';
         testDataset.datePublished = '2002-09-24';
         testDataset.distribution = {type: 'https://schema.org/DataDownload', value: 'https://test.dasch.swiss'} as IUrl;
-        // testDataset.distribution = new IUrl();
-        // testDataset.distribution.type = 'https://schema.org/DataDownload';
-        // testDataset.distribution.value = 'https://test.dasch.swiss';
         testDataset.documentation = 'Work in progress';
         testDataset.howToCite = 'Testprojekt (test), 2002, https://test.dasch.swiss';
         testDataset.language = [ 'EN', 'DE', 'FR' ];
         testDataset.license = {type: 'https://schema.org/URL', value: 'https://creativecommons.org/licenses/by/3.0'} as IUrl;
-        // testDataset.license = 'https://creativecommons.org/licenses/by/3.0';
-        // testDataset.license = new IUrl();
-        // testDataset.license.type = 'https://schema.org/URL';
-        // testDataset.license.value = 'https://creativecommons.org/licenses/by/3.0';
-        // const attr = new Attribution();
-        // attr.role = 'contributor';
-        // attr.agent = 'http://ns.dasch.swiss/test-berry';
-        // const attr2 = new Attribution();
-        // attr2.role = 'contributor';
-        // attr2.agent = 'http://ns.dasch.swiss/test-hart';
-        // testDataset.qualifiedAttribution.push(attr, attr2);
         testDataset.qualifiedAttribution = [
             {
                "role":"contributor",
@@ -888,16 +874,6 @@ export class AppComponent implements OnInit {
                "value":"https://orcid.org/0000-0002-1825-0097"
             }
          } as Person;
-        // testDataset.project.contactPoint.address = new Address();
-        // testDataset.project.contactPoint.address.addressLocality = 'Basel';
-        // testDataset.project.contactPoint.address.postalCode = '4000';
-        // testDataset.project.contactPoint.address.streetAddress = 'Teststrasse';
-        // testDataset.project.contactPoint.email = 'http://ns.dasch.swiss/stewart.abraham@test.ch';
-        // testDataset.project.contactPoint.familyName = 'Abraham';
-        // testDataset.project.contactPoint.givenName = 'Stewart';
-        // testDataset.project.contactPoint.jobTitle = 'Dr.';
-        // testDataset.project.contactPoint.memberOf = 'http://ns.dasch.swiss/test-dasch';
-        // testDataset.project.contactPoint.sameAs = {type: 'https://schema.org/URL', value: 'https://orcid.org/0000-0002-1825-0097'} as IUrl;
         testDataset.project.dataManagementPlan = {
             "id":"http://ns.dasch.swiss/test-plan",
             "url":{
@@ -906,19 +882,52 @@ export class AppComponent implements OnInit {
             },
             "isAvailable":false
          } as DataManagementPlan;
-        // testDataset.project.dataManagementPlan.id = 'http://ns.dasch.swiss/test-plan';
-        // testDataset.project.dataManagementPlan.isAvailable = false;
-        // testDataset.project.dataManagementPlan.url = {type: 'https://schema.org/URL', value: 'https://snf.ch'} as IUrl;
         testDataset.project.description = 'Dies ist ein Testprojekt...alle Properties wurden verwendet, um diese zu testen"';
         testDataset.project.discipline = {
             "name":"SKOS UNESCO Nomenclature",
             "url":"http://skos.um.es/unesco6/11"
          };
         testDataset.project.endDate = "2001-01-26";
-        testDataset.project.funder = "http://ns.dasch.swiss/test-funder";
-        testDataset.project.grant = new Grant();
-        testDataset.project.grant.id = "http://ns.dasch.swiss/test-grant";
-        // testDataset.project.grant.funder = 
+        // testDataset.project.funder = {
+        //     "id":"http://ns.dasch.swiss/test-funder"
+        // };
+        testDataset.project.funder = {
+            "id": "http://ns.dasch.swiss/test-funder",
+            "address":{
+                "addressLocality":"Toronto",
+                "postalCode":"40000",
+                "streetAddress":"University of Toronto Street"
+            },
+            "email":"/info@universityoftoronto.ca",
+            "name":"University of Toronto",
+            "url":{
+                "type":"https://schema.org/URL",
+                "value":"http://www.utoronto.ca/"
+            }
+        } as Organization;
+        const grant = new Grant();
+        grant.id = "http://ns.dasch.swiss/test-grant";
+        grant.funder = {
+            "id": "http://ns.dasch.swiss/test-funder",
+            "address":{
+                "addressLocality":"Toronto",
+                "postalCode":"40000",
+                "streetAddress":"University of Toronto Street"
+            },
+            "email":"/info@universityoftoronto.ca",
+            "name":"University of Toronto",
+            "url":{
+                "type":"https://schema.org/URL",
+                "value":"http://www.utoronto.ca/"
+            }
+        } as Organization;
+        grant.name = "Prof. test test, Prof. test Harbtestrecht";
+        grant.number = "0123456789";
+        grant.url = {
+            "type":"https://schema.org/URL",
+            "value":"http://p3.snf.ch/testproject"
+         };
+        testDataset.project.grant = grant;
         testDataset.project.keywords = [
             "science",
             "mathematics",

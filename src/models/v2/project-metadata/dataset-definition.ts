@@ -3,9 +3,9 @@ import { Constants } from "../Constants";
 import { DateConverter } from "../custom-converters/date-converter";
 import { DistributionConverter } from "../custom-converters/distribution-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
+import { IUrl } from "./../custom-converters/base-url-converter";
 import { Attribution } from "./attribution-definition";
 import { SingleProject } from "./project-definition";
-import { IUrl } from "./../custom-converters/base-url-converter";
 
 @JsonObject("Dataset")
 export class Dataset {
