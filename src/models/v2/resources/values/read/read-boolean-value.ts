@@ -3,6 +3,9 @@ import { Constants } from "../../../Constants";
 import { IBaseBooleanValue } from "../type-specific-interfaces/base-boolean-value";
 import { ReadValue } from "./read-value";
 
+/**
+ * @category Model V2
+ */
 @JsonObject("ReadBooleanValue")
 export class ReadBooleanValue extends ReadValue implements IBaseBooleanValue {
 

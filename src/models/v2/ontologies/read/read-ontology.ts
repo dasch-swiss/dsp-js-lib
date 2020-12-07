@@ -4,6 +4,9 @@ import { DateTimeStampConverter } from "../../custom-converters/date-time-stamp-
 import { ClassDefinition } from "../class-definition";
 import { PropertyDefinition } from "../property-definition";
 
+/**
+ * @category Model V2
+ */
 @JsonObject("ReadOntology")
 export class ReadOntology {
 

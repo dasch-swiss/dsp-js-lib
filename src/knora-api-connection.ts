@@ -4,7 +4,9 @@ import { V2Endpoint } from "./api/v2/v2-endpoint";
 import { KnoraApiConfig } from "./knora-api-config";
 
 /**
- * Offers methods for JavaScript developers to interact with the Knora API.
+ * Contains endpoints to interact with DSP-API.
+ *
+ * @category Config
  */
 export class KnoraApiConnection {
 
@@ -28,9 +30,9 @@ export class KnoraApiConnection {
     readonly v2: V2Endpoint;
 
     /**
-     * Constructor.
-     * Sets up all endpoints for the Knora API.
-     * @param knoraApiConfig
+     * Sets up all endpoints.
+     *
+     * @param knoraApiConfig the configuration for the DSP-API instance to connect to.
      */
     constructor(knoraApiConfig: KnoraApiConfig) {
 

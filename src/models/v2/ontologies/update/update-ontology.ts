@@ -4,6 +4,9 @@ import { UpdateDeleteEntity } from "../update-delete-entity";
 import { CreateResourceClass } from "../create/create-resource-class";
 import { Constants } from "../../Constants";
 
+/**
+ * @category Model V2
+ */
 @JsonObject("UpdateOntology")
 export class UpdateOntology<T extends CreateResourceClass | CreateResourceProperty> extends UpdateDeleteEntity {
 

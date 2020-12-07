@@ -6,6 +6,8 @@ import { SystemPropertyDefinition } from "../../models/v2/ontologies/system-prop
 
 /**
  * Represents a resource class definition containing all property definitions it has cardinalities for.
+ *
+ * @category Model V2
  */
 export class ResourceClassDefinitionWithPropertyDefinition extends ResourceClassDefinition {
 
@@ -67,6 +69,8 @@ export class ResourceClassDefinitionWithPropertyDefinition extends ResourceClass
 /**
  * Represents a property defined on a resource class
  * including the property definition.
+ *
+ * @category Model V2
  */
 export interface IHasPropertyWithPropertyDefinition extends IHasProperty {
 

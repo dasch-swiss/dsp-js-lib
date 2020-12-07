@@ -1,5 +1,6 @@
 /**
  * Params for fulltext search.
+ * @category Model V2
  */
 export interface IFulltextSearchParams {
 
