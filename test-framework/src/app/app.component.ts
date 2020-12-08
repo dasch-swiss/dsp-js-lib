@@ -871,7 +871,7 @@ export class AppComponent implements OnInit {
                'postalCode': '4000',
                'streetAddress': 'Teststrasse'
             },
-            'email': '/stewart.abraham@test.ch',
+            'email': 'stewart.abraham@test.ch',
             'familyName': 'Abraham',
             'givenName': 'Stewart',
             'jobTitle': 'Dr.',
@@ -911,7 +911,7 @@ export class AppComponent implements OnInit {
                 'postalCode': '40000',
                 'streetAddress': 'University of Toronto Street'
             },
-            'email': '/info@universityoftoronto.ca',
+            'email': 'info@universityoftoronto.ca',
             'name': 'University of Toronto',
             'url': {
                 'type': 'https://schema.org/URL',
@@ -936,23 +936,47 @@ export class AppComponent implements OnInit {
         testDataset.project.shortcode = '0000';
         testDataset.project.spatialCoverage = [
             {
-                'place': {
-                   'name': 'Geonames',
-                   'url': 'https://www.geonames.org/2017370/russian-federation.html'
-                }
-             },
-             {
-                'place': {
-                   'name': 'Geonames',
-                   'url': 'https://www.geonames.org/2658434/switzerland.html'
-                }
-             },
-             {
-                'place': {
-                   'name': 'Geonames',
-                   'url': 'https://www.geonames.org/3175395/italian-republic.html'
-                }
-             }
+               'place': {
+                  'name': 'Geonames',
+                  'url': 'https://www.geonames.org/2017370/russian-federation.html'
+               }
+            },
+            {
+               'place': {
+                  'name': 'Geonames',
+                  'url': 'https://www.geonames.org/2658434/switzerland.html'
+               }
+            },
+            {
+               'place': {
+                  'name': 'Geonames',
+                  'url': 'https://www.geonames.org/3175395/italian-republic.html'
+               }
+            },
+            {
+               'place': {
+                  'name': 'Geonames',
+                  'url': 'https://www.geonames.org/2921044/federal-republic-of-germany.html'
+               }
+            },
+            {
+               'place': {
+                  'name': 'Geonames',
+                  'url': 'https://www.geonames.org/3017382/republic-of-france.html'
+               }
+            },
+            {
+               'place': {
+                  'name': 'Geonames',
+                  'url': 'https://www.geonames.org/6269131/england.html'
+               }
+            },
+            {
+               'place': {
+                  'name': 'Geonames',
+                  'url': 'https://www.geonames.org/6255148/europe.html'
+               }
+            }
         ];
         testDataset.project.startDate = '2000-07-26';
         testDataset.project.temporalCoverage = {
@@ -963,7 +987,67 @@ export class AppComponent implements OnInit {
             'type': 'https://schema.org/URL',
             'value': 'https://test.dasch.swiss/'
         };
-        testMetadata.projectsMetadata.push(testDataset);
+        const testPersonOne = {
+            'id': 'http://ns.dasch.swiss/test-jones',
+            type: Constants.DspRepoBase + 'Person',
+            'address': {
+                type: Constants.SchemaBase + '/PostalAddress',
+               'addressLocality': 'Basel',
+               'postalCode': '4000',
+               'streetAddress': 'Teststrasse'
+            },
+            'email': 'benjamin.jones@test.ch',
+            'familyName': 'Jones',
+            'givenName': 'Benjamin',
+            'jobTitle': 'Dr. des.',
+            'memberOf': 'http://ns.dasch.swiss/test-dasch'
+        } as Person;
+        const testPersonTwo = {
+            'id': 'http://ns.dasch.swiss/test-coleman',
+            type: Constants.DspRepoBase + 'Person',
+            'address': {
+                type: Constants.SchemaBase + '/PostalAddress',
+               'addressLocality': 'Basel',
+               'postalCode': '4000',
+               'streetAddress': 'Teststrasse'
+            },
+            'email': 'james.coleman@dasch.swiss',
+            'familyName': 'Coleman',
+            'givenName': 'James',
+            'jobTitle': 'Dr. des.',
+            'memberOf': 'http://ns.dasch.swiss/test-dasch'
+        } as Person;
+        const testPersonThree = {
+            'id': 'http://ns.dasch.swiss/test-berry',
+            type: Constants.DspRepoBase + 'Person',
+            'address': {
+                type: Constants.SchemaBase + '/PostalAddress',
+               'addressLocality': 'Basel',
+               'postalCode': '4000',
+               'streetAddress': 'Teststrasse'
+            },
+            'email': 'lauren.berry@unibas.ch',
+            'familyName': 'Berry',
+            'givenName': 'Lauren',
+            'jobTitle': 'Dr.',
+            'memberOf': 'http://ns.dasch.swiss/test-dasch'
+        } as Person;
+        const testPersonFour = {
+            'id': 'http://ns.dasch.swiss/test-hart',
+            type: Constants.DspRepoBase + 'Person',
+            'address': {
+                type: Constants.SchemaBase + '/PostalAddress',
+               'addressLocality': 'Basel',
+               'postalCode': '4000',
+               'streetAddress': 'Teststrasse'
+            },
+            'email': 'leonhard.hart@test.ch',
+            'familyName': 'Hart',
+            'givenName': 'Leonhard',
+            'jobTitle': 'Prof.',
+            'memberOf': 'http://ns.dasch.swiss/test-dasch'
+        } as Person;
+        testMetadata.projectsMetadata.push(testDataset, testPersonOne, testPersonTwo, testPersonThree, testPersonFour);
         console.log(testMetadata, JSON.stringify(testMetadata));
         // replace metadataPayload with constructed above ProjectsMetadata object - swap lines in metadata endpoint
         // this.knoraApiConnection.v2.metadata.updateProjectMetadata(resourceIri, metadataPayload).subscribe(
