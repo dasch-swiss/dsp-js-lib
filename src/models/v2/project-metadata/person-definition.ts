@@ -4,13 +4,17 @@ import { IUrl } from "../custom-converters/base-url-converter";
 import { EmailConverter } from "../custom-converters/email-converter";
 import { IdConverter } from "../custom-converters/id-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
+import { BaseValue } from "../resources/values/base-value";
 import { Address } from "./address-definition";
 
 @JsonObject("Person")
-export class Person {
+export class Person extends BaseValue {
 
     @JsonProperty("@id", String)
     id: string = "";
+
+    // @JsonProperty("@type", String)
+    // type?: string = Constants.DspRepoBase + "Person";
     
     @JsonProperty(Constants.DspRepoBase + "hasAddress", Address, true)
     address?: Address = undefined;

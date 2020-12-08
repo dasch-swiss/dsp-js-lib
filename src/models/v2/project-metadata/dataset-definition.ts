@@ -13,6 +13,9 @@ export class Dataset {
     @JsonProperty("@id", String)
     id: string = "";
 
+    @JsonProperty("@type", String)
+    readonly type: string = Constants.DspRepoBase + "Dataset";
+
     @JsonProperty(Constants.DspRepoBase + "hasAbstract", String) // URL | String
     abstract: string = "";
 

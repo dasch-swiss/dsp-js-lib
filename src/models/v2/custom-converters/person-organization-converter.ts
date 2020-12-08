@@ -44,7 +44,7 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
             if (obj.hasOwnProperty("@id")) {
                 console.log('deID', obj);
                 return {
-                    "id": obj["@id"]
+                    id: obj["@id"]
                 };
             } else {
                 throw new Error("Expected Person, Organization or reference with @id key");

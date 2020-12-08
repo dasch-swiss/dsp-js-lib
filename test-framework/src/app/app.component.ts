@@ -823,134 +823,145 @@ export class AppComponent implements OnInit {
         testDataset.dateCreated = '2001-09-26';
         testDataset.dateModified = '2020-04-26';
         testDataset.datePublished = '2002-09-24';
-        testDataset.distribution = {type: 'https://schema.org/DataDownload', value: 'https://test.dasch.swiss'} as IUrl;
+        testDataset.distribution = { type: 'https://schema.org/DataDownload', value: 'https://test.dasch.swiss' } as IUrl;
         testDataset.documentation = 'Work in progress';
         testDataset.howToCite = 'Testprojekt (test), 2002, https://test.dasch.swiss';
         testDataset.language = [ 'EN', 'DE', 'FR' ];
-        testDataset.license = {type: 'https://schema.org/URL', value: 'https://creativecommons.org/licenses/by/3.0'} as IUrl;
+        testDataset.license = { type: 'https://schema.org/URL', value: 'https://creativecommons.org/licenses/by/3.0' } as IUrl;
         testDataset.qualifiedAttribution = [
             {
-               "role":"contributor",
-               "agent":"http://ns.dasch.swiss/test-berry"
+                type: Constants.ProvAttribution,
+                role: 'contributor',
+                agent: 'http://ns.dasch.swiss/test-berry'
             },
             {
-               "role":"contributor",
-               "agent":"http://ns.dasch.swiss/test-hart"
+                type: Constants.ProvAttribution,
+                role: 'contributor',
+                agent: 'http://ns.dasch.swiss/test-hart'
             },
             {
-               "role":"editor",
-               "agent":"http://ns.dasch.swiss/test-abraham"
+                type: Constants.ProvAttribution,
+                role: 'editor',
+                agent: 'http://ns.dasch.swiss/test-abraham'
             },
             {
-               "role":"editor",
-               "agent":"http://ns.dasch.swiss/test-coleman"
+                type: Constants.ProvAttribution,
+                role: 'editor',
+                agent: 'http://ns.dasch.swiss/test-coleman'
             },
             {
-               "role":"editor",
-               "agent":"http://ns.dasch.swiss/test-jones"
+                type: Constants.ProvAttribution,
+                role: 'editor',
+                agent: 'http://ns.dasch.swiss/test-jones'
             }
          ];
         testDataset.status = 'ongoing';
         testDataset.title = 'Testprojekt';
         testDataset.typeOfData = ['image', 'text'];
-        testDataset.sameAs = {type: 'https://schema.org/URL', value: 'https://test.dasch.swiss'} as IUrl;
+        testDataset.sameAs = { type: 'https://schema.org/URL', value: 'https://test.dasch.swiss' } as IUrl;
         testDataset.project = new SingleProject();
         testDataset.project.id = 'http://ns.dasch.swiss/test-project';
         testDataset.project.alternateName = 'test';
         testDataset.project.contactPoint = {
-            "id":"http://ns.dasch.swiss/test-abraham",
-            "address":{
-               "addressLocality":"Basel",
-               "postalCode":"4000",
-               "streetAddress":"Teststrasse"
+            'id': 'http://ns.dasch.swiss/test-abraham',
+            type: Constants.DspRepoBase + 'Person',
+            'address': {
+                type: Constants.SchemaBase + '/PostalAddress',
+               'addressLocality': 'Basel',
+               'postalCode': '4000',
+               'streetAddress': 'Teststrasse'
             },
-            "email":"/stewart.abraham@test.ch",
-            "familyName":"Abraham",
-            "givenName":"Stewart",
-            "jobTitle":"Dr.",
-            "memberOf":"http://ns.dasch.swiss/test-dasch",
-            "sameAs":{
-               "type":"https://schema.org/URL",
-               "value":"https://orcid.org/0000-0002-1825-0097"
+            'email': '/stewart.abraham@test.ch',
+            'familyName': 'Abraham',
+            'givenName': 'Stewart',
+            'jobTitle': 'Dr.',
+            'memberOf': 'http://ns.dasch.swiss/test-dasch',
+            'sameAs': {
+               'type': 'https://schema.org/URL',
+               'value': 'https://orcid.org/0000-0002-1825-0097'
             }
          } as Person;
         testDataset.project.dataManagementPlan = {
-            "id":"http://ns.dasch.swiss/test-plan",
-            "url":{
-               "type":"https://schema.org/URL",
-               "value":"https://snf.ch"
+            'id': 'http://ns.dasch.swiss/test-plan',
+            type: Constants.DspRepoBase + 'DataManagementPlan',
+            'url': {
+               'type': 'https://schema.org/URL',
+               'value': 'https://snf.ch'
             },
-            "isAvailable":false
+            'isAvailable': false
          } as DataManagementPlan;
-        testDataset.project.description = 'Dies ist ein Testprojekt...alle Properties wurden verwendet, um diese zu testen"';
+        testDataset.project.description = 'Dies ist ein Testprojekt...alle Properties wurden verwendet, um diese zu testen';
         testDataset.project.discipline = {
-            "name":"SKOS UNESCO Nomenclature",
-            "url":"http://skos.um.es/unesco6/11"
+            'name': 'SKOS UNESCO Nomenclature',
+            'url': 'http://skos.um.es/unesco6/11'
          };
-        testDataset.project.endDate = "2001-01-26";
+        testDataset.project.endDate = '2001-01-26';
         testDataset.project.funder = {
-            "id":"http://ns.dasch.swiss/test-funder"
+            'id': 'http://ns.dasch.swiss/test-funder'
         };
         const grant = new Grant();
-        grant.id = "http://ns.dasch.swiss/test-grant";
+        grant.id = 'http://ns.dasch.swiss/test-grant';
+        grant.type = Constants.DspRepoBase + 'Grant',
         grant.funder = {
-            "id": "http://ns.dasch.swiss/test-funder",
-            "address":{
-                "addressLocality":"Toronto",
-                "postalCode":"40000",
-                "streetAddress":"University of Toronto Street"
+            'id': 'http://ns.dasch.swiss/test-funder',
+            type: Constants.DspRepoBase + 'Organization',
+            'address': {
+                type: Constants.SchemaBase + '/PostalAddress',
+                'addressLocality': 'Toronto',
+                'postalCode': '40000',
+                'streetAddress': 'University of Toronto Street'
             },
-            "email":"/info@universityoftoronto.ca",
-            "name":"University of Toronto",
-            "url":{
-                "type":"https://schema.org/URL",
-                "value":"http://www.utoronto.ca/"
+            'email': '/info@universityoftoronto.ca',
+            'name': 'University of Toronto',
+            'url': {
+                'type': 'https://schema.org/URL',
+                'value': 'http://www.utoronto.ca/'
             }
         } as Organization;
-        grant.name = "Prof. test test, Prof. test Harbtestrecht";
-        grant.number = "0123456789";
+        grant.name = 'Prof. test test, Prof. test Harbtestrecht';
+        grant.number = '0123456789';
         grant.url = {
-            "type":"https://schema.org/URL",
-            "value":"http://p3.snf.ch/testproject"
+            'type': 'https://schema.org/URL',
+            'value': 'http://p3.snf.ch/testproject'
          };
         testDataset.project.grant = grant;
         testDataset.project.keywords = [
-            "science",
-            "mathematics",
-            "history of science",
-            "history of mathematics"
+            'science',
+            'mathematics',
+            'history of science',
+            'history of mathematics'
          ];
-        testDataset.project.name = "Testprojektname (test)";
-        testDataset.project.publication = "testpublication";
-        testDataset.project.shortcode = "0000";
+        testDataset.project.name = 'Testprojektname (test)';
+        testDataset.project.publication = 'testpublication';
+        testDataset.project.shortcode = '0000';
         testDataset.project.spatialCoverage = [
             {
-                "place":{
-                   "name":"Geonames",
-                   "url":"https://www.geonames.org/2017370/russian-federation.html"
+                'place': {
+                   'name': 'Geonames',
+                   'url': 'https://www.geonames.org/2017370/russian-federation.html'
                 }
              },
              {
-                "place":{
-                   "name":"Geonames",
-                   "url":"https://www.geonames.org/2658434/switzerland.html"
+                'place': {
+                   'name': 'Geonames',
+                   'url': 'https://www.geonames.org/2658434/switzerland.html'
                 }
              },
              {
-                "place":{
-                   "name":"Geonames",
-                   "url":"https://www.geonames.org/3175395/italian-republic.html"
+                'place': {
+                   'name': 'Geonames',
+                   'url': 'https://www.geonames.org/3175395/italian-republic.html'
                 }
              }
         ];
-        testDataset.project.startDate = "2000-07-26";
+        testDataset.project.startDate = '2000-07-26';
         testDataset.project.temporalCoverage = {
-            "name":"Chronontology Dainst",
-            "url":"http://chronontology.dainst.org/period/Ef9SyESSafJ1"
+            'name': 'Chronontology Dainst',
+            'url': 'http://chronontology.dainst.org/period/Ef9SyESSafJ1'
         };
         testDataset.project.url = {
-            "type":"https://schema.org/URL",
-            "value":"https://test.dasch.swiss/"
+            'type': 'https://schema.org/URL',
+            'value': 'https://test.dasch.swiss/'
         };
         testMetadata.projectsMetadata.push(testDataset);
         console.log(testMetadata, JSON.stringify(testMetadata));

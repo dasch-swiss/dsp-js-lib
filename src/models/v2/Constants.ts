@@ -172,6 +172,8 @@ export class Constants {
     static SchemaPropVal = Constants.SchemaBase + "/PropertyValue";
     static SchemaDownload = Constants.SchemaBase + "/DataDownload";
     static SchemaPlace = Constants.SchemaBase + "/Place";
-    static ProvAgent = "http://www.w3.org/ns/prov#agent";
+    static ProvBase = "http://www.w3.org/ns/prov";
+    static ProvAgent = Constants.ProvBase + Constants.Delimiter + "agent";
+    static ProvAttribution = Constants.ProvBase + Constants.Delimiter + "Attribution";
 
 }

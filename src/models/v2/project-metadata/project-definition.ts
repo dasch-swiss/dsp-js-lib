@@ -16,6 +16,9 @@ export class SingleProject {
 
     @JsonProperty("@id", String)
     id: string = "";
+
+    @JsonProperty("@type", String)
+    type: string = Constants.DspRepoBase + "Project";
     
     @JsonProperty(Constants.DspRepoBase + "hasAlternateName", String, true)
     alternateName?: string = undefined;
