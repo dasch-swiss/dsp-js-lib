@@ -5,16 +5,14 @@ import { DistributionConverter } from "../custom-converters/distribution-convert
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
 import { IUrl } from "./../custom-converters/base-url-converter";
 import { Attribution } from "./attribution-definition";
+import { BaseProjectMetadata } from "./base-project-metadata";
 import { SingleProject } from "./project-definition";
 
 @JsonObject("Dataset")
-export class Dataset {
+export class Dataset extends BaseProjectMetadata {
 
     @JsonProperty("@id", String)
     id: string = "";
-
-    @JsonProperty("@type", String)
-    readonly type: string = Constants.DspRepoBase + "Dataset";
 
     @JsonProperty(Constants.DspRepoBase + "hasAbstract", String) // URL | String
     abstract: string = "";
@@ -66,4 +64,8 @@ export class Dataset {
 
     @JsonProperty(Constants.DspRepoBase + "sameAs", UrlToUrlObjectConverter, true)
     sameAs?: IUrl = undefined;
+
+    constructor() {
+        super(Constants.DspRepoBase + "Dataset");
+    }
 }

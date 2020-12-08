@@ -5,6 +5,7 @@ import { DateConverter } from "../custom-converters/date-converter";
 import { PersonOrganizationConverter } from "../custom-converters/person-organization-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
 import { IUrl } from "./../custom-converters/base-url-converter";
+import { BaseProjectMetadata } from "./base-project-metadata";
 import { DataManagementPlan } from "./data-management-plan-definition";
 import { Grant } from "./grant-definition";
 import { Organization } from "./organization-definition";
@@ -12,13 +13,10 @@ import { Person } from "./person-definition";
 import { Place } from "./place-definition";
 
 @JsonObject("SingleProject")
-export class SingleProject {
+export class SingleProject extends BaseProjectMetadata {
 
     @JsonProperty("@id", String)
     id: string = "";
-
-    @JsonProperty("@type", String)
-    type: string = Constants.DspRepoBase + "Project";
     
     @JsonProperty(Constants.DspRepoBase + "hasAlternateName", String, true)
     alternateName?: string = undefined;
@@ -67,4 +65,8 @@ export class SingleProject {
 
     @JsonProperty(Constants.DspRepoBase + "hasURL", UrlToUrlObjectConverter)
     url: IUrl = {} as IUrl;
+
+    constructor() {
+        super(Constants.DspRepoBase + "Project");
+    }
 }

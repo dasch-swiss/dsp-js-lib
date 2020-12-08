@@ -817,6 +817,7 @@ export class AppComponent implements OnInit {
         const testMetadata = new ProjectsMetadata();
         const testDataset = new Dataset();
         testDataset.id = 'http://ns.dasch.swiss/test-dataset';
+        testDataset.type = Constants.DspRepoBase + 'Dataset';
         testDataset.abstract = 'Dies ist ein Testprojekt.';
         testDataset.alternativeTitle = 'test';
         testDataset.conditionsOfAccess = 'Open Access';
@@ -861,6 +862,7 @@ export class AppComponent implements OnInit {
         testDataset.sameAs = { type: 'https://schema.org/URL', value: 'https://test.dasch.swiss' } as IUrl;
         testDataset.project = new SingleProject();
         testDataset.project.id = 'http://ns.dasch.swiss/test-project';
+        testDataset.project.type = Constants.DspRepoBase + 'Project';
         testDataset.project.alternateName = 'test';
         testDataset.project.contactPoint = {
             'id': 'http://ns.dasch.swiss/test-abraham',
