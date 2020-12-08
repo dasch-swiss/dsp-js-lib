@@ -4,17 +4,14 @@ import { IUrl } from "../custom-converters/base-url-converter";
 import { EmailConverter } from "../custom-converters/email-converter";
 import { IdConverter } from "../custom-converters/id-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
-import { BaseValue } from "../resources/values/base-value";
 import { Address } from "./address-definition";
+import { BaseProjectMetadata } from "./base-project-metadata";
 
 @JsonObject("Person")
-export class Person extends BaseValue {
+export class Person extends BaseProjectMetadata {
 
     @JsonProperty("@id", String)
     id: string = "";
-
-    // @JsonProperty("@type", String)
-    // type?: string = Constants.DspRepoBase + "Person";
     
     @JsonProperty(Constants.DspRepoBase + "hasAddress", Address, true)
     address?: Address = undefined;
@@ -36,4 +33,8 @@ export class Person extends BaseValue {
 
     @JsonProperty(Constants.DspRepoBase + "sameAs", UrlToUrlObjectConverter, true)
     sameAs?: IUrl = undefined;
+
+    constructor() {
+        super(Constants.DspRepoBase + "Person");
+    }
 }

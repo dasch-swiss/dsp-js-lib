@@ -1,12 +1,9 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
-import { BaseValue } from "../resources/values/base-value";
+import { BaseProjectMetadata } from "./base-project-metadata";
 
 @JsonObject("Address")
-export class Address extends BaseValue {
-
-    // @JsonProperty("@type", String)
-    // readonly type: string = Constants.SchemaBase + "/PostalAddress";
+export class Address extends BaseProjectMetadata {
 
     @JsonProperty("https://schema.org/" + "addressLocality", String)
     addressLocality: string = "";
@@ -16,4 +13,8 @@ export class Address extends BaseValue {
 
     @JsonProperty("https://schema.org/" + "streetAddress", String)
     streetAddress: string = "";
+
+    constructor() {
+        super(Constants.SchemaBase + "/PostalAddress");
+    }
 }

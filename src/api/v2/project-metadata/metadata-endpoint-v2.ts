@@ -70,6 +70,8 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
      * @param jsonConvert instance of JsonConvert to use.
      */
     private convertProjectsList = (projectsJsonLd: object, jsonConvert: JsonConvert): ProjectsMetadata => {
+        const done = jsonConvert.deserializeObject(projectsJsonLd, ProjectsMetadata);
+        console.log('converter: ', projectsJsonLd, done);
         if (projectsJsonLd.hasOwnProperty("@graph")) {
             return jsonConvert.deserializeObject(projectsJsonLd, ProjectsMetadata);
         } else {
