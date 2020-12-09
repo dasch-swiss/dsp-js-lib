@@ -222,7 +222,7 @@ describe("ListsEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const childNodeResponse = require("../../../../test/data/api/admin/manually-generated/update-childNode-name-response.json");
+            const childNodeResponse = require("../../../../test/data/api/admin/lists/update-childNode-name-response.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(childNodeResponse)));
 
@@ -232,7 +232,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
-            const payload = require("../../../../test/data/api/admin/manually-generated/update-childNode-name-request.json");
+            const payload = require("../../../../test/data/api/admin/lists/update-childNode-name-request.json");
 
             expect(request.data()).toEqual(payload);
         });
@@ -261,7 +261,7 @@ describe("ListsEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const childNodeResponse = require("../../../../test/data/api/admin/manually-generated/update-childNode-labels-response.json");
+            const childNodeResponse = require("../../../../test/data/api/admin/lists/update-childNode-labels-response.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(childNodeResponse)));
 
@@ -271,7 +271,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
-            const payload = require("../../../../test/data/api/admin/manually-generated/update-childNode-labels-request.json");
+            const payload = require("../../../../test/data/api/admin/lists/update-childNode-labels-request.json");
 
             expect(request.data()).toEqual(payload);
         });
@@ -300,7 +300,7 @@ describe("ListsEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const childNodeResponse = require("../../../../test/data/api/admin/manually-generated/update-childNode-comments-response.json");
+            const childNodeResponse = require("../../../../test/data/api/admin/lists/update-childNode-comments-response.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(childNodeResponse)));
 
@@ -310,7 +310,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
-            const payload = require("../../../../test/data/api/admin/manually-generated/update-childNode-comments-request.json");
+            const payload = require("../../../../test/data/api/admin/lists/update-childNode-comments-request.json");
 
             expect(request.data()).toEqual(payload);
         });
