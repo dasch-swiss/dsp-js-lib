@@ -9,6 +9,7 @@ import { ListNodeInfoResponse } from "../../../models/admin/list-node-info-respo
 import { ListResponse } from "../../../models/admin/list-response";
 import { ListsResponse } from "../../../models/admin/lists-response";
 import { StringLiteral } from "../../../models/admin/string-literal";
+import { UpdateChildNodeCommentsRequest } from "../../../models/admin/update-child-node-comments-request";
 import { UpdateChildNodeLabelsRequest } from "../../../models/admin/update-child-node-labels-request";
 import { UpdateChildNodeNameRequest } from "../../../models/admin/update-child-node-name-request";
 import { UpdateListInfoRequest } from "../../../models/admin/update-list-info-request";
@@ -271,6 +272,45 @@ describe("ListsEndpoint", () => {
             expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/manually-generated/update-childNode-labels-request.json");
+
+            expect(request.data()).toEqual(payload);
+        });
+
+    });
+
+    describe("Method UpdateChildComments", () => {
+
+        it("should update the comments of an existing child node", done => {
+
+            const childNodeComments = new UpdateChildNodeCommentsRequest();
+
+            const listItemIri = "http://rdfh.ch/lists/0001/treeList01";
+
+            const newComments = new StringLiteral();
+            newComments.language = "se";
+            newComments.value = "nya kommentarer för nod";
+
+            childNodeComments.comments = [newComments];
+
+            knoraApiConnection.admin.listsEndpoint.updateChildComments(listItemIri, childNodeComments).subscribe(
+                (res: ApiResponseData<ChildNodeInfoResponse>) => {
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const childNodeResponse = require("../../../../test/data/api/admin/manually-generated/update-childNode-comments-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(childNodeResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList01/comments");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+
+            const payload = require("../../../../test/data/api/admin/manually-generated/update-childNode-comments-request.json");
 
             expect(request.data()).toEqual(payload);
         });
