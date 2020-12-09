@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import {
     ApiResponseData,
     ApiResponseError,
@@ -53,19 +53,15 @@ import {
     ProjectsMetadata,
     Dataset,
     SingleProject,
-    Attribution,
     DataManagementPlan,
     UpdateProjectMetadataResponse,
     IUrl,
-    Grant
-} from "@dasch-swiss/dsp-js";
-import { Address } from '@dasch-swiss/dsp-js/src/models/v2/project-metadata/address-definition';
-import { Organization } from '@dasch-swiss/dsp-js/src/models/v2/project-metadata/organization-definition';
-import { Person } from '@dasch-swiss/dsp-js/src/models/v2/project-metadata/person-definition';
-import { Observable } from "rxjs";
-
-import { map, tap } from "rxjs/operators";
-import metadataPayload from "../assets/metadata-payload.json";
+    Grant,
+    Person,
+    Organization
+} from '@dasch-swiss/dsp-js';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-root',
@@ -1051,8 +1047,6 @@ export class AppComponent implements OnInit {
         } as Person;
         testMetadata.projectsMetadata.push(testDataset, testPersonOne, testPersonTwo, testPersonThree, testPersonFour);
         console.log(testMetadata, JSON.stringify(testMetadata));
-        // replace metadataPayload with constructed above ProjectsMetadata object - swap lines in metadata endpoint
-        // this.knoraApiConnection.v2.metadata.updateProjectMetadata(resourceIri, metadataPayload).subscribe(
         this.knoraApiConnection.v2.metadata.updateProjectMetadata(resourceIri, testMetadata).subscribe(
             (res: UpdateProjectMetadataResponse) => {
                 console.log(res);

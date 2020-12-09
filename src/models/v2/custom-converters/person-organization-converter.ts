@@ -17,14 +17,11 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
     serialize(obj: Person | Organization | object): any {
         if (obj.hasOwnProperty("name") || obj.hasOwnProperty("jobTitle")) {
             if (obj.hasOwnProperty("jobTitle")) {
-                console.log('sePERSON', obj)
                 return PersonOrganizationConverter.jsonConvert.serializeObject(obj, Person);
             } else {
-                console.log('seORG', obj)
                 return PersonOrganizationConverter.jsonConvert.serializeObject(obj, Organization);
             }
         } else if (obj.hasOwnProperty("id")) {
-            console.log('seID', obj);
             return {
                 "@id": (obj as { [index: string]: string })["id"]
             };
@@ -34,15 +31,12 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
     deserialize(obj: any): Person | Organization | object {
         if (obj.hasOwnProperty(Constants.DspName) || obj.hasOwnProperty(Constants.DspJobTitle)) {
             if (obj.hasOwnProperty(Constants.DspJobTitle)) {
-                console.log('dePERSON', obj);
                 return PersonOrganizationConverter.jsonConvert.deserializeObject(obj, Person);
             } else {
-                console.log('deORG', obj);
                 return PersonOrganizationConverter.jsonConvert.deserializeObject(obj, Organization);
             }
         } else {
             if (obj.hasOwnProperty("@id")) {
-                console.log('deID', obj);
                 return {
                     id: obj["@id"]
                 };

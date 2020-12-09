@@ -42,18 +42,14 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
     }
 
     /**
-     * WIP - serilization in progress - read comments below
      * Updates a project metadata from Knora.
      * @param resourceIri the Iri of the resource the value belongs to.
      * @param metadata the data to update.
      */
-    //make below possible by replacing metadata: any with ProjectsMetadata type and adding serialization to custom converters
     updateProjectMetadata(resourceIri: string, metadata: ProjectsMetadata): Observable<UpdateProjectMetadataResponse | ApiResponseError> {
         const convertedDATA = this.jsonConvert.serializeObject(metadata);
         console.log('METADATA', metadata, convertedDATA);
-        return this.httpPut(`/${encodeURIComponent(resourceIri)}`, this.jsonConvert.serializeObject(metadata)).pipe(
-    // updateProjectMetadata(resourceIri: string, metadata: any): Observable<UpdateProjectMetadataResponse | ApiResponseError> {    
-    //     return this.httpPut(`/${encodeURIComponent(resourceIri)}`, metadata).pipe(
+        return this.httpPut("/" + encodeURIComponent(resourceIri), this.jsonConvert.serializeObject(metadata)).pipe(
             mergeMap((res: AjaxResponse) => {
                 return jsonld.compact(res.response, {});
             }),
