@@ -1,6 +1,7 @@
 import { JsonConvert } from "json2typescript";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { Constants } from "../Constants";
+import { TypeGuard } from "../resources/type-guard";
 import { IHasProperty } from "./class-definition";
 import { EntityDefinition } from "./EntityDefinition";
 import { OntologiesMetadata, OntologyMetadata } from "./ontology-metadata";
