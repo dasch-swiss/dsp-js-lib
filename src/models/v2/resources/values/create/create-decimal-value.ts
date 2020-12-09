@@ -4,6 +4,9 @@ import { DecimalConverter } from "../../../custom-converters/decimal-converter";
 import { IBaseDecimalValue } from "../type-specific-interfaces/base-decimal-value";
 import { CreateValue } from "./create-value";
 
+/**
+ * @category Model V2
+ */
 @JsonObject("CreateDecimalValue")
 export class CreateDecimalValue extends CreateValue implements IBaseDecimalValue {
 

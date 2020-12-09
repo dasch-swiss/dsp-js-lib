@@ -3,6 +3,9 @@ import { Constants } from "../../../Constants";
 import { IBaseDateValue } from "../type-specific-interfaces/base-date-value";
 import { ReadValue } from "./read-value";
 
+/**
+ * @category Internal
+ */
 @JsonObject("ReadDateValue")
 export class ParseReadDateValue extends ReadValue implements IBaseDateValue {
 
@@ -38,16 +41,31 @@ export class ParseReadDateValue extends ReadValue implements IBaseDateValue {
 }
 
 /**
- * Precision for DateSalsah.
+ * Precision of a date.
+ *
+ * @category Model V2
  */
 export enum Precision {
+    /**
+     * Year precision (first to last day of the year).
+     */
     yearPrecision,
+
+    /**
+     * Month precision (first to last day of the month).
+     */
     monthPrecision,
+
+    /**
+     * Day precision.
+     */
     dayPrecision
 }
 
 /**
  * Represents a Salsah date object with a precision information.
+ *
+ * @category Model V2
  */
 export class KnoraDate {
 
@@ -80,6 +98,8 @@ export class KnoraDate {
 
 /**
  * Represents a period (with start date and end date).
+ *
+ * @category Model V2
  */
 export class KnoraPeriod {
 
@@ -91,6 +111,9 @@ export class KnoraPeriod {
 
 }
 
+/**
+ * @category Model V2
+ */
 export class ReadDateValue extends ReadValue {
 
     date: KnoraDate | KnoraPeriod;

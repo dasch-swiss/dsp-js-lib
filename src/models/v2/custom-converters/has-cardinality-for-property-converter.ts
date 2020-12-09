@@ -3,6 +3,9 @@ import { CustomConverterUtils } from "../../../util/utils";
 import { Constants } from "../Constants";
 import { Cardinality, IHasProperty } from "../ontologies/class-definition";
 
+/**
+ * @category Internal
+ */
 @JsonConverter
 export class HasCardinalityForPropertyConverter implements JsonCustomConvert<IHasProperty[]> {
     serialize(cardinalities: IHasProperty[]): any {
@@ -30,6 +33,10 @@ export class HasCardinalityForPropertyConverter implements JsonCustomConvert<IHa
                     cardEle[Constants.Cardinality] = 1;
                 } else {
                     throw new Error("Invalid cardinality: " + card.cardinality);
+                }
+                
+                if (card.guiOrder) {
+                    cardEle[Constants.GuiOrder] = card.guiOrder;
                 }
 
                 const cardObj: { [index: string]: string | object } = {

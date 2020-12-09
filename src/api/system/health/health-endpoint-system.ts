@@ -8,6 +8,8 @@ import { HealthConversionUtil } from "./health-conversion-util";
 
 /**
  * An endpoint to get Knora's state of health.
+ *
+ * @category Endpoint System
  */
 export class HealthEndpointSystem extends Endpoint {
 

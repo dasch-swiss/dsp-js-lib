@@ -1,6 +1,9 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { AdminDoapBase } from "./admin-doap-base";
 
+/**
+ * @category Model Admin
+ */
 @JsonObject("DefaultObjectAccessPermission")
 export class DefaultObjectAccessPermission extends AdminDoapBase {
 

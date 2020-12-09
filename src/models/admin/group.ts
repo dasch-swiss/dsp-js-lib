@@ -2,6 +2,8 @@ import { JsonObject, JsonProperty } from "json2typescript";
 
 /**
  * A group of Knora users.
+ *
+ * @category Model Admin
  */
 @JsonObject("Group")
 export class Group {

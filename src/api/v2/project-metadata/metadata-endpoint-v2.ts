@@ -13,7 +13,9 @@ declare let require: any; // http://stackoverflow.com/questions/34730010/angular
 const jsonld = require("jsonld/dist/jsonld.js");
 
 /**
- * Handles requests to the metadata route of the Knora API
+ * Handles requests to the metadata route of the Knora API.
+ *
+ * @category Endpoint V2
  */
 export class ProjectMetadataEndpointV2 extends Endpoint {
 

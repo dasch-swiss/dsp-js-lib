@@ -12,18 +12,20 @@ import { ValuesEndpointV2 } from "./values/values-endpoint-v2";
 
 /**
  * Defines the V2 endpoint of the Knora API.
+ *
+ * @category Endpoint V2
  */
 export class V2Endpoint extends Endpoint {
 
-    static readonly PATH_AUTHENTICATION = "/authentication";
+    private static readonly PATH_AUTHENTICATION = "/authentication";
 
-    static readonly PATH_ONTOLOGIES = "/ontologies";
+    private static readonly PATH_ONTOLOGIES = "/ontologies";
 
-    static readonly PATH_RESOURCES = "/resources";
+    private static readonly PATH_RESOURCES = "/resources";
 
-    static readonly PATH_VALUES = "/values";
+    private static readonly PATH_VALUES = "/values";
 
-    static readonly PATH_METADATA = "/metadata";
+    private static readonly PATH_METADATA = "/metadata";
 
     readonly auth: AuthenticationEndpointV2;
 
@@ -44,10 +46,12 @@ export class V2Endpoint extends Endpoint {
     readonly metadata: ProjectMetadataEndpointV2;
 
     /**
-     * Constructor.
      * Sets up all endpoints for this endpoint.
-     * @param knoraApiConfig
-     * @param path
+     * 
+     * @param knoraApiConfig the configuration for the DSP-API instance to connect to.
+     * @param path this endpoint's path segment.
+     *
+     * @category Internal
      */
     constructor(protected readonly knoraApiConfig: KnoraApiConfig, protected readonly path: string) {
 

@@ -1,9 +1,15 @@
+/**
+ * @category Internal
+ */
 export interface IBaseTextValueAsString {
 
     text: string;
 
 }
 
+/**
+ * @category Internal
+ */
 export interface IBaseTextValueAsXml {
 
     xml: string;
@@ -12,6 +18,9 @@ export interface IBaseTextValueAsXml {
 
 }
 
+/**
+ * @category Internal
+ */
 export interface IBaseTextValueAsHtml {
 
     html: string;

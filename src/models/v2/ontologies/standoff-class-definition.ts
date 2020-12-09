@@ -4,6 +4,9 @@ import { HasCardinalityForPropertyConverter } from "../custom-converters/has-car
 import { SubClassOfConverter } from "../custom-converters/subclass-of-converter";
 import { ClassDefinition, IHasProperty } from "./class-definition";
 
+/**
+ * @category Model V2
+ */
 @JsonObject("StandoffClassDefinition")
 export class StandoffClassDefinition extends ClassDefinition {
 

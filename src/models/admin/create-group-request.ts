@@ -2,6 +2,8 @@ import { JsonObject, JsonProperty } from "json2typescript";
 
 /**
  * A request to create a group.
+ *
+ * @category Model Admin
  */
 @JsonObject("CreateGroupRequest")
 export class CreateGroupRequest {

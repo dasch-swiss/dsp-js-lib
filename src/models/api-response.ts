@@ -1,3 +1,6 @@
+/**
+ * @category Response
+ */
 export abstract class ApiResponse {
 
     ///////////////

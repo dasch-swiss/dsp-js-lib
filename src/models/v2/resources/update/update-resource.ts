@@ -6,6 +6,8 @@ import { UpdateValue } from "../values/update/update-value";
 
 /**
  * Represents a resource with a value to be updated, created, or deleted.
+ *
+ * @category Model V2
  */
 @JsonObject("UpdateResource")
 export class UpdateResource<T extends UpdateValue | CreateValue | DeleteValue> extends ReadWriteResource {
