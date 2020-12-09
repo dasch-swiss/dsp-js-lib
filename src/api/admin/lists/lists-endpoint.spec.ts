@@ -9,7 +9,8 @@ import { ListNodeInfoResponse } from "../../../models/admin/list-node-info-respo
 import { ListResponse } from "../../../models/admin/list-response";
 import { ListsResponse } from "../../../models/admin/lists-response";
 import { StringLiteral } from "../../../models/admin/string-literal";
-import { UpdateChildListNodeNameRequest } from "../../../models/admin/update-child-list-node-name-request";
+import { UpdateChildNodeLabelsRequest } from "../../../models/admin/update-child-node-labels-request";
+import { UpdateChildNodeNameRequest } from "../../../models/admin/update-child-node-name-request";
 import { UpdateListInfoRequest } from "../../../models/admin/update-list-info-request";
 import { ApiResponseData } from "../../../models/api-response-data";
 
@@ -202,9 +203,9 @@ describe("ListsEndpoint", () => {
 
     describe("Method UpdateChildName", () => {
 
-        it("should a name of an existing child node", done => {
+        it("should update the name of an existing child node", done => {
 
-            const childNodeInfo = new UpdateChildListNodeNameRequest();
+            const childNodeInfo = new UpdateChildNodeNameRequest();
 
             const listItemIri = "http://rdfh.ch/lists/0001/treeList01";
 
@@ -237,56 +238,44 @@ describe("ListsEndpoint", () => {
 
     });
 
-    // fdescribe("Method UpdateListLabel", () => {
+    describe("Method UpdateChildLabels", () => {
 
-    //     it("should a label of an existing a list", done => {
+        it("should update the labels of an existing child node", done => {
 
-    //         const listsResponse = require("../../../../test/data/api/admin/lists/get-list-info-response.json");
+            const childNodeLabels = new UpdateChildNodeLabelsRequest();
 
-    //         console.log("listsResponse: ", JSON.stringify(listsResponse));
+            const listItemIri = "http://rdfh.ch/lists/0001/treeList01";
 
-    //         const listInfo = new UpdateListInfoRequest();
+            const newLabels = new StringLiteral();
+            newLabels.language = "se";
+            newLabels.value = "nya märkningen för nod";
 
-    //         listInfo.listIri = "http://rdfh.ch/lists/0001/CeiuqMk_R1-lIOKh-fyddA";
-    //         listInfo.projectIri = "http://rdfh.ch/projects/0001";
+            childNodeLabels.labels = [newLabels];
 
-    //         const label1 = new StringLiteral();
-    //         label1.language = "de";
-    //         label1.value = "Neue geänderte Liste";
+            knoraApiConnection.admin.listsEndpoint.updateChildLabels(listItemIri, childNodeLabels).subscribe(
+                (res: ApiResponseData<ChildNodeInfoResponse>) => {
+                    done();
+                }
+            );
 
-    //         const label2 = new StringLiteral();
-    //         label2.language = "en";
-    //         label2.value = "Changed list";
+            const request = jasmine.Ajax.requests.mostRecent();
 
-    //         listInfo.labels = [label1, label2];
+            const childNodeResponse = require("../../../../test/data/api/admin/manually-generated/update-childNode-labels-response.json");
 
-    //         const comment1 = new StringLiteral();
-    //         comment1.language = "de";
-    //         comment1.value = "Neuer Kommentar";
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(childNodeResponse)));
 
-    //         const comment2 = new StringLiteral();
-    //         comment2.language = "en";
-    //         comment2.value = "New comment";
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList01/labels");
 
-    //         listInfo.comments = [comment1, comment2];
+            expect(request.method).toEqual("PUT");
 
-    //         knoraApiConnection.admin.listsEndpoint.updateListLabel(listInfo).subscribe(
-    //             (res: ApiResponseData<ListInfoResponse>) => {
-    //                 done();
-    //             }
-    //         );
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
-    //         const request = jasmine.Ajax.requests.mostRecent();
+            const payload = require("../../../../test/data/api/admin/manually-generated/update-childNode-labels-request.json");
 
-    //         request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
+            expect(request.data()).toEqual(payload);
+        });
 
-    //         console.log("request: ", request.data());
-
-    //         expect(1).toEqual(1);
-
-    //     });
-
-    // });
+    });
 
     describe("Method CreateChildNode", () => {
 

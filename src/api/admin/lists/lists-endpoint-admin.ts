@@ -12,8 +12,9 @@ import { ListNodeInfoResponse } from "../../../models/admin/list-node-info-respo
 import { ListResponse } from "../../../models/admin/list-response";
 import { ListsResponse } from "../../../models/admin/lists-response";
 import { UpdateListInfoRequest } from "../../../models/admin/update-list-info-request";
-import { UpdateChildListNodeNameRequest } from "../../../models/admin/update-child-list-node-name-request";
+import { UpdateChildNodeNameRequest } from "../../../models/admin/update-child-node-name-request";
 import { ChildNodeInfoResponse } from "../../../models/admin/child-node-info-response";
+import { UpdateChildNodeLabelsRequest } from "../../../models/admin/update-child-node-labels-request";
 
 
 /**
@@ -92,12 +93,12 @@ export class ListsEndpointAdmin extends Endpoint {
     }
 
     /**
-     * Updates a name of an existing child node.
+     * Updates the name of an existing child node.
      * 
-     * @param listItemIri the Iri of the list item
+     * @param listItemIri the Iri of the list item.
      * @param childName the new name to replace the existing name.
      */
-    updateChildName(listItemIri: string, childName: UpdateChildListNodeNameRequest): Observable<ApiResponseData<ChildNodeInfoResponse> | ApiResponseError> {
+    updateChildName(listItemIri: string, childName: UpdateChildNodeNameRequest): Observable<ApiResponseData<ChildNodeInfoResponse> | ApiResponseError> {
     
         return this.httpPut("/" + encodeURIComponent(listItemIri) + "/name", this.jsonConvert.serializeObject(childName)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ChildNodeInfoResponse, this.jsonConvert)),
@@ -107,18 +108,19 @@ export class ListsEndpointAdmin extends Endpoint {
     }
 
     /**
-     * Updates a label in an existing a list.
+     * Updates the labels of an existing child node.
      * 
-     * @param newLabel the new label to replace the existing label.
+     * @param listItemIri the Iri of the list item.
+     * @param labels the new labels to replace the existing labels.
      */
-    // updateListLabel(newLabel: UpdateListInfoRequest): Observable<ApiResponseData<ListInfoResponse> | ApiResponseError> {
+    updateChildLabels(listItemIri: string, labels: UpdateChildNodeLabelsRequest): Observable<ApiResponseData<ChildNodeInfoResponse> | ApiResponseError> {
     
-    //     return this.httpPut("/" + encodeURIComponent(newLabel.listIri) + "/labels", this.jsonConvert.serializeObject(newLabel)).pipe(
-    //         map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListInfoResponse, this.jsonConvert)),
-    //         catchError(error => this.handleError(error))
-    //     );
+        return this.httpPut("/" + encodeURIComponent(listItemIri) + "/labels", this.jsonConvert.serializeObject(labels)).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ChildNodeInfoResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
     
-    // }
+    }
     
     /**
      * Creates a child node in a list.
