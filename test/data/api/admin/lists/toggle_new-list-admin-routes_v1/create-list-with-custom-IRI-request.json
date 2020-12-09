@@ -1,0 +1,6 @@
+{
+    "id": "http://rdfh.ch/lists/0001/a-list-with-IRI",
+    "projectIri": "http://rdfh.ch/projects/0001",
+    "labels": [{ "value": "New list with a custom IRI", "language": "en"}],
+    "comments": []
+}
