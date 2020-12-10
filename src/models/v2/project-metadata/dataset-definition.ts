@@ -8,6 +8,9 @@ import { Attribution } from "./attribution-definition";
 import { BaseProjectMetadata } from "./base-project-metadata";
 import { SingleProject } from "./project-definition";
 
+ /** 
+  * @category Model V2 
+  */ 
 @JsonObject("Dataset")
 export class Dataset extends BaseProjectMetadata {
 

@@ -7,6 +7,9 @@ import { BaseProjectMetadata } from "./base-project-metadata";
 import { Organization } from "./organization-definition";
 import { Person } from "./person-definition";
 
+ /** 
+  * @category Model V2 
+  */ 
 @JsonObject("Grant")
 export class Grant extends BaseProjectMetadata {
 

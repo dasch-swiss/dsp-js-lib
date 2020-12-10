@@ -2,6 +2,9 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
 import { BaseProjectMetadata } from "./base-project-metadata";
 
+ /** 
+  * @category Model V2 
+  */ 
 @JsonObject("Address")
 export class Address extends BaseProjectMetadata {
 

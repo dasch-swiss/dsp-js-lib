@@ -6,6 +6,9 @@ import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-
 import { Address } from "./address-definition";
 import { BaseProjectMetadata } from "./base-project-metadata";
 
+ /** 
+  * @category Model V2 
+  */ 
 @JsonObject("Organization")
 export class Organization extends BaseProjectMetadata {
 

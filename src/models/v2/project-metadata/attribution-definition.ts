@@ -3,6 +3,9 @@ import { Constants } from "../Constants";
 import { IdConverter } from "../custom-converters/id-converter";
 import { BaseProjectMetadata } from "./base-project-metadata";
 
+ /** 
+  * @category Model V2 
+  */ 
 @JsonObject("Attribution")
 export class Attribution extends BaseProjectMetadata {
 

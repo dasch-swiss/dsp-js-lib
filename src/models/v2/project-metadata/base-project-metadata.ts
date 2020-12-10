@@ -1,6 +1,9 @@
 import { JsonObject } from "json2typescript";
 import { BaseValue } from "../resources/values/base-value";
 
+ /** 
+  * @category Model V2 
+  */ 
 @JsonObject("BaseProjectMetadata")
 export class BaseProjectMetadata extends BaseValue {
 

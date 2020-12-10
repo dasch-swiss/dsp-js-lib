@@ -12,6 +12,9 @@ import { Organization } from "./organization-definition";
 import { Person } from "./person-definition";
 import { Place } from "./place-definition";
 
+ /** 
+  * @category Model V2 
+  */ 
 @JsonObject("SingleProject")
 export class SingleProject extends BaseProjectMetadata {
 
