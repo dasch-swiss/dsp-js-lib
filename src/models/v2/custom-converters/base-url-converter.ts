@@ -8,6 +8,9 @@ export interface IUrl {
     url?: string;
 }
 
+/**
+ * @category Internal
+ */
 @JsonConverter
 export abstract class BaseUrlConverter implements JsonCustomConvert<IUrl> {
 

@@ -14,7 +14,6 @@ const jsonld = require("jsonld/dist/jsonld.js");
 
 /**
  * Handles requests to the metadata route of the Knora API.
- *
  * @category Endpoint V2
  */
 export class ProjectMetadataEndpointV2 extends Endpoint {
@@ -25,6 +24,7 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
 
     /**
      * Reads a project's metadata from Knora.
+     * @category Model V2 
      * @param resourceIri the Iri of the resource the value belongs to.
      */
     getProjectMetadata(resourceIri: string): Observable<ProjectsMetadata | ApiResponseError> {
@@ -45,6 +45,7 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
 
     /**
      * Updates a project metadata from Knora.
+     * @category Model V2 
      * @param resourceIri the Iri of the resource the value belongs to.
      * @param metadata the data to update.
      */

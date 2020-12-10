@@ -4,6 +4,9 @@ import { Constants } from "../Constants";
 import { Organization } from "../project-metadata/organization-definition";
 import { Person } from "../project-metadata/person-definition";
 
+/**
+ * @category Internal
+ */
 @JsonConverter
 export class PersonOrganizationConverter implements JsonCustomConvert<Person | Organization | object> {
 

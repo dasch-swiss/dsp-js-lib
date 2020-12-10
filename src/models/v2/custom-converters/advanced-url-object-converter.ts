@@ -2,6 +2,9 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
 import { Constants } from "../Constants";
 import { IUrl } from "./base-url-converter";
 
+/**
+ * @category Internal
+ */
 @JsonConverter
 export class AdvancedUrlObjectConverter implements JsonCustomConvert<IUrl> {
 
