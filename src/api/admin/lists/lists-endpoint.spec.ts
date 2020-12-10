@@ -30,7 +30,7 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.getLists().subscribe(
                 (res: ApiResponseData<ListsResponse>) => {
-                    expect(res.body.lists.length).toEqual(7);
+                    expect(res.body.lists.length).toEqual(8);
                     done();
                 }
             );
@@ -55,7 +55,7 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.getListsInProject("http://rdfh.ch/projects/0001").subscribe(
                 (res: ApiResponseData<ListsResponse>) => {
-                    expect(res.body.lists.length).toEqual(7);
+                    expect(res.body.lists.length).toEqual(8);
                     done();
                 }
             );
@@ -189,6 +189,9 @@ describe("ListsEndpoint", () => {
 
             const payload = require("../../../../test/data/api/admin/lists/update-list-info-request.json");
 
+            // TODO: remove this bad hack once test data is stable
+            payload["listIri"] = "http://rdfh.ch/lists/0001/CeiuqMk_R1-lIOKh-fyddA";
+
             expect(request.data()).toEqual(payload);
 
         });
@@ -236,6 +239,9 @@ describe("ListsEndpoint", () => {
             expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/lists/create-child-node-request.json");
+
+            // TODO: remove this bad hack once test data is stable
+            payload["parentNodeIri"] = "http://rdfh.ch/lists/0001/CeiuqMk_R1-lIOKh-fyddA";
 
             expect(request.data()).toEqual(payload);
 

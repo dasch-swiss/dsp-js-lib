@@ -1,6 +1,11 @@
 import { Cardinality, IHasProperty } from "../../../models/v2/ontologies/class-definition";
 import { ResourceClassDefinition } from "../ontologies/resource-class-definition";
 
+/**
+ * Utility methods to facilitate the handling of a property's cardinality.
+ *
+ * @category Model V2
+ */
 export namespace CardinalityUtil {
 
     /**

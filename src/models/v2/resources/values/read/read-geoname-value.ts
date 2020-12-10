@@ -3,6 +3,9 @@ import { Constants } from "../../../Constants";
 import { IBaseGeonameValue } from "../type-specific-interfaces/base-geoname-value";
 import { ReadValue } from "./read-value";
 
+/**
+ * @category Model V2
+ */
 @JsonObject("ReadGeonameValue")
 export class ReadGeonameValue extends ReadValue implements IBaseGeonameValue {
 

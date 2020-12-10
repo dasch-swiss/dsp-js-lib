@@ -4,6 +4,9 @@ import { UriConverter } from "../../../custom-converters/uri-converter";
 import { IBaseUriValue } from "../type-specific-interfaces/base-uri-value";
 import { ReadValue } from "./read-value";
 
+/**
+ * @category Model V2
+ */
 @JsonObject("ReadUriValue")
 export class ReadUriValue extends ReadValue implements IBaseUriValue {
 

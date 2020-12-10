@@ -3,13 +3,15 @@ import { Constants } from "../../Constants";
 import { DateTimeStampConverter } from "../../custom-converters/date-time-stamp-converter";
 import { IdConverter } from "../../custom-converters/id-converter";
 import { UriConverter } from "../../custom-converters/uri-converter";
-import { PropertyDefinition } from "../../ontologies/property-definition";
 import { ResourcePropertyDefinition } from "../../ontologies/resource-property-definition";
 import { ReadWriteResource } from "../read-write-resource";
 import { TypeGuard } from "../type-guard";
 import { ReadValue } from "../values/read/read-value";
 import { ResourceClassAndPropertyDefinitions } from "../../../../cache/ontology-cache/resource-class-and-property-definitions";
 
+/**
+ * @category Model V2
+ */
 @JsonObject("ReadResource")
 export class ReadResource extends ReadWriteResource {
 

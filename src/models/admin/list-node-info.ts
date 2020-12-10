@@ -4,6 +4,8 @@ import { StringLiteral } from "./string-literal";
 
 /**
  * Information about a list node.
+ *
+ * @category Model Admin
  */
 @JsonObject("ListNodeInfo")
 export class ListNodeInfo {
