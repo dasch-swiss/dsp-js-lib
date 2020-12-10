@@ -798,7 +798,7 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.metadata.getProjectMetadata(resourceIri).subscribe(
             (res: ProjectsMetadata) => {
-                console.log(JSON.stringify(res));
+                console.log('GET', JSON.stringify(res));
                 this.projectMetaStatus = 'OK';
             },
             error => {
@@ -1049,7 +1049,7 @@ export class AppComponent implements OnInit {
         console.log(testMetadata, JSON.stringify(testMetadata));
         this.knoraApiConnection.v2.metadata.updateProjectMetadata(resourceIri, testMetadata).subscribe(
             (res: UpdateProjectMetadataResponse) => {
-                console.log(res);
+                console.log('PUT', res);
                 this.projectMetaStatus = 'OK';
             },
             error => {

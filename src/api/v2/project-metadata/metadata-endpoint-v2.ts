@@ -4,6 +4,7 @@ import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { ApiResponseError } from "../../../models/api-response-error";
+import { Constants } from "../../../models/v2/Constants";
 import { Dataset } from "../../../models/v2/project-metadata/dataset-definition";
 import { ProjectsMetadata } from "../../../models/v2/project-metadata/project-metadata";
 import { UpdateProjectMetadataResponse } from "../../../models/v2/project-metadata/update-project-metadata";
@@ -24,7 +25,6 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
 
     /**
      * Reads a project's metadata from Knora.
-     * @category Model V2 
      * @param resourceIri the Iri of the resource the value belongs to.
      */
     getProjectMetadata(resourceIri: string): Observable<ProjectsMetadata | ApiResponseError> {
@@ -33,9 +33,11 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
             mergeMap((res: AjaxResponse) => {
                 return jsonld.compact(res.response, {});
             }),
-            map((obj: any) => {
+            map((obj: ProjectsMetadata) => {
                 // create an instance of ProjectMetadata from JSON-LD
-                return this.convertProjectsList(obj, this.jsonConvert);
+                const convertedObj = this.convertProjectsList(obj, this.jsonConvert);
+                // map outter objects to its references inside the Dateset object
+                return this.mapReferences(convertedObj);
             }),
             catchError(e => {
                 return this.handleError(e);
@@ -45,7 +47,6 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
 
     /**
      * Updates a project metadata from Knora.
-     * @category Model V2 
      * @param resourceIri the Iri of the resource the value belongs to.
      * @param metadata the data to update.
      */
@@ -79,5 +80,52 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
             projects.projectsMetadata = [jsonConvert.deserializeObject(projectsJsonLd, Dataset)];
             return projects;
         }
+    }
+    
+    /**
+     * Maps over ProjectsMetadata array to return only one item array,
+     * which contains Dataset object
+     * @param  {ProjectsMetadata} data data to map
+     */
+    private mapReferences(data: ProjectsMetadata): ProjectsMetadata {
+        let datasetObj = new Dataset();
+        let meta = new ProjectsMetadata();
+
+        data.projectsMetadata.map(obj => {
+            if (obj.type === Constants.DspRepoBase + "Dataset") {
+                datasetObj = obj as Dataset;
+            }
+        });
+
+        data.projectsMetadata.map(obj => {
+            if (obj.type !== Constants.DspRepoBase + "Dataset") {
+                this.replaceReference(datasetObj, obj.id, obj);
+            }
+        })
+
+        meta.projectsMetadata.push(datasetObj as Dataset);
+
+        return meta;
+    }
+
+    /**
+     * Replaces matched references found in Dataset object with outter object
+     * @param  {object} obj Dataset object to look in
+     * @param  {string} ref reference string to look for
+     * @param  {any} replacer item for replacement
+     */
+    private replaceReference(obj: object, ref: string, replacer: any): Dataset {
+        let tempObj = Object.assign(obj);
+
+        for (const key in tempObj) {
+            if (tempObj[key] === ref) {
+                tempObj[key] = replacer;
+            } else if (Array.isArray(tempObj[key])) {
+                (tempObj[key] as any[]).forEach(member => this.replaceReference(member, ref, replacer));
+            } else if (typeof tempObj[key] === "object") {
+                this.replaceReference(tempObj[key], ref, replacer);
+            }
+        }
+        return tempObj;
     }
 }
