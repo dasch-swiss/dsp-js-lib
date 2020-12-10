@@ -143,13 +143,7 @@ export class OntologyCache extends GenericCache<ReadOntology> {
 
     protected requestItemFromKnora(key: string, isDependency: boolean): Observable<ReadOntology[] | ApiResponseError> {
         return this.v2Endpoint.onto.getOntology(key).pipe(
-            map((onto: ReadOntology | ApiResponseError) => {
-                if (onto instanceof ReadOntology) {
-                    return [onto];
-                } else {
-                    throw onto;
-                }
-            })
+            map((onto: ReadOntology) => [onto])
         );
     }
 

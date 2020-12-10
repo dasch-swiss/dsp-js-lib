@@ -1,4 +1,4 @@
-import { of } from "rxjs";
+import { of, throwError } from "rxjs";
 import { AjaxError } from "rxjs/ajax";
 import { MockOntologyAssertions } from "../../../test/data/api/v2/mock-ontology-assertions";
 import { MockOntology } from "../../../test/data/api/v2/mock-ontology";
@@ -270,7 +270,7 @@ describe("OntologyCache", () => {
 
             const ajaxError = new AjaxError("Error", new XMLHttpRequest(), {});
             const apiResponseError = ApiResponseError.fromAjaxError(ajaxError);
-            getOntoSpy = spyOn(knoraApiConnection.v2.onto, "getOntology").and.returnValue(of(apiResponseError));
+            getOntoSpy = spyOn(knoraApiConnection.v2.onto, "getOntology").and.returnValue(throwError(apiResponseError));
 
         });
 
@@ -286,7 +286,7 @@ describe("OntologyCache", () => {
                     console.log(ontos);
                     },
                     (err: ApiResponseError) => {
-                        // console.log('failed to get onto', err);
+                        console.log('failed to get onto', err);
                         // console.log(knoraApiConnection.v2.ontologyCache["cache"]);
 
                         expect(getOntoSpy).toHaveBeenCalledTimes(1);
