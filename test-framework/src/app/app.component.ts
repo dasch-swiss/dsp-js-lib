@@ -56,7 +56,10 @@ import {
     Attribution,
     UpdateProjectMetadataResponse,
     UpdateChildNodeNameRequest,
-    ChildNodeInfoResponse
+    ChildNodeInfoResponse,
+    StringLiteral,
+    UpdateChildNodeLabelsRequest,
+    UpdateChildNodeCommentsRequest
 } from "@dasch-swiss/dsp-js";
 import { Observable } from "rxjs";
 
@@ -112,6 +115,8 @@ export class AppComponent implements OnInit {
     projectMetaStatus = '';
 
     listChildName = '';
+    listChildLabels = '';
+    listChildComments = '';
 
     ngOnInit() {
         const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
@@ -849,17 +854,61 @@ export class AppComponent implements OnInit {
     }
 
     updateChildName(): void {
-        const childNodeInfo = new UpdateChildNodeNameRequest();
+        const childNodeName = new UpdateChildNodeNameRequest();
 
         const listItemIri = 'http://rdfh.ch/lists/0001/treeList01';
 
         const newName = 'updated child name';
 
-        childNodeInfo.name = newName;
+        childNodeName.name = newName;
 
-        this.knoraApiConnection.admin.listsEndpoint.updateChildName(listItemIri, childNodeInfo).subscribe(
+        this.knoraApiConnection.admin.listsEndpoint.updateChildName(listItemIri, childNodeName).subscribe(
             (res: ApiResponseData<ChildNodeInfoResponse>) => {
                 this.listChildName = res.response.response.nodeinfo.name;
+            }
+        );
+    }
+
+    updateChildLabels(): void {
+        const childNodeLabels = new UpdateChildNodeLabelsRequest();
+
+        const listItemIri = 'http://rdfh.ch/lists/0001/treeList01';
+
+        const newLabels = new StringLiteral();
+        newLabels.language = 'en';
+        newLabels.value = 'new label';
+
+        childNodeLabels.labels = [newLabels];
+
+        this.knoraApiConnection.admin.listsEndpoint.updateChildLabels(listItemIri, childNodeLabels).subscribe(
+            (res: ApiResponseData<ChildNodeInfoResponse>) => {
+                console.log(res);
+                this.listChildLabels =
+                    res.response.response.nodeinfo.labels[0].language
+                    + '/'
+                    + res.response.response.nodeinfo.labels[0].value;
+            }
+        );
+    }
+
+    updateChildComments(): void {
+        const childNodeComments = new UpdateChildNodeCommentsRequest();
+
+        const listItemIri = 'http://rdfh.ch/lists/0001/treeList01';
+
+        const newComments = new StringLiteral();
+        newComments.language = 'en';
+        newComments.value = 'new comment';
+
+        childNodeComments.comments = [newComments];
+
+        this.knoraApiConnection.admin.listsEndpoint.updateChildComments(listItemIri, childNodeComments).subscribe(
+            (res: ApiResponseData<ChildNodeInfoResponse>) => {
+                console.log(res);
+                this.listChildComments =
+                    res.response.response.nodeinfo.comments[0].language
+                    + '/'
+                    + res.response.response.nodeinfo.comments[0].value;
             }
         );
     }

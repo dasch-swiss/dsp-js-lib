@@ -206,15 +206,15 @@ describe("ListsEndpoint", () => {
 
         it("should update the name of an existing child node", done => {
 
-            const childNodeInfo = new UpdateChildNodeNameRequest();
+            const childNodeName = new UpdateChildNodeNameRequest();
 
             const listItemIri = "http://rdfh.ch/lists/0001/treeList01";
 
             const newName = "updated third child name";
 
-            childNodeInfo.name = newName;
+            childNodeName.name = newName;
 
-            knoraApiConnection.admin.listsEndpoint.updateChildName(listItemIri, childNodeInfo).subscribe(
+            knoraApiConnection.admin.listsEndpoint.updateChildName(listItemIri, childNodeName).subscribe(
                 (res: ApiResponseData<ChildNodeInfoResponse>) => {
                     done();
                 }
