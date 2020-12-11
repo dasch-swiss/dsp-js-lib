@@ -32,8 +32,8 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
     }
 
     deserialize(obj: any): Person | Organization | object {
-        if (obj.hasOwnProperty(Constants.DspName) || obj.hasOwnProperty(Constants.DspJobTitle)) {
-            if (obj.hasOwnProperty(Constants.DspJobTitle)) {
+        if (obj.hasOwnProperty(Constants.DspHasName) || obj.hasOwnProperty(Constants.DspHasJobTitle)) {
+            if (obj.hasOwnProperty(Constants.DspHasJobTitle)) {
                 return PersonOrganizationConverter.jsonConvert.deserializeObject(obj, Person);
             } else {
                 return PersonOrganizationConverter.jsonConvert.deserializeObject(obj, Organization);

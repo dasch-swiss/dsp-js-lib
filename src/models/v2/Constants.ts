@@ -160,20 +160,78 @@ export class Constants {
     static SalsahLink: string = "salsah-link"; // class on an HTML <a> element that indicates a link to a Knora resource
     static RefMarker: string = "ref-marker"; // class on an HTML element that refers to another element in the same document
 
+    // Project Metadata
     static Dsp = "http://ns.dasch.swiss";
     static DspRepo = Constants.Dsp + "/repository";
     static DspRepoBase = Constants.DspRepo + Constants.Delimiter;
-    static DspName = Constants.DspRepoBase + "hasName";
-    static DspJobTitle = Constants.DspRepoBase + "hasJobTitle";
     static SchemaBase = "https://schema.org";
+    static ProvBase = "http://www.w3.org/ns/prov";
+    // Dataset
+    static DspDataset = Constants.DspRepoBase + "Dataset";
+    static DspHasAbstract = Constants.DspRepoBase + "hasAbstract";
+    static DspHasAlternativeTitle = Constants.DspRepoBase + "hasAlternativeTitle";
+    static DspHasConditionsOfAccess = Constants.DspRepoBase + "hasConditionsOfAccess";
+    static DspHasDateCreated = Constants.DspRepoBase + "hasDateCreated";
+    static DspHasDateModified = Constants.DspRepoBase + "hasDateModified";
+    static DspHasDatePublished = Constants.DspRepoBase + "hasDatePublished";
+    static DspHasDistribution = Constants.DspRepoBase + "hasDistribution";
+    static DspHasDocumentation = Constants.DspRepoBase + "hasDocumentation";
+    static DspHasHowToCite = Constants.DspRepoBase + "hasHowToCite";
+    static DspHasLanguage = Constants.DspRepoBase + "hasLanguage";
+    static DspHasLicense = Constants.DspRepoBase + "hasLicense";
+    static DspHasQualifiedAttribution = Constants.DspRepoBase + "hasQualifiedAttribution";
+    static DspHasStatus = Constants.DspRepoBase + "hasStatus";
+    static DspHasTitle = Constants.DspRepoBase + "hasTitle";
+    static DspHasTypeOfData = Constants.DspRepoBase + "hasTypeOfData";
+    static DspIsPartOf = Constants.DspRepoBase + "isPartOf";
+    static DspSameAs = Constants.DspRepoBase + "sameAs";
+    // Project
+    static DspProject = Constants.DspRepoBase + "Project";
+    static DspHasAlternateName = Constants.DspRepoBase + "hasAlternateName";
+    static DspHasContactPoint = Constants.DspRepoBase + "hasContactPoint";
+    static DspHasDataManagementPlan = Constants.DspRepoBase + "hasDataManagementPlan";
+    static DspHasDescription = Constants.DspRepoBase + "hasDescription";
+    static DspHasDiscipline = Constants.DspRepoBase + "hasDiscipline";
+    static DspHasEndDate = Constants.DspRepoBase + "hasEndDate";
+    static DspHasFunder = Constants.DspRepoBase + "hasFunder";
+    static DspHasGrant = Constants.DspRepoBase + "hasGrant";
+    static DspHasKeywords = Constants.DspRepoBase + "hasKeywords";
+    static DspHasName = Constants.DspRepoBase + "hasName";
+    static DspHasPublication = Constants.DspRepoBase + "hasPublication";
+    static DspHasShortcode = Constants.DspRepoBase + "hasShortcode";
+    static DspHasSpatialCoverage = Constants.DspRepoBase + "hasSpatialCoverage";
+    static DspHasStartDate = Constants.DspRepoBase + "hasStartDate";
+    static DspHasTemporalCoverage = Constants.DspRepoBase + "hasTemporalCoverage";
+    static DspHasURL = Constants.DspRepoBase + "hasURL";
+    // Person/Organization
+    static DspPerson = Constants.DspRepoBase + "Person";
+    static DspOrganization = Constants.DspRepoBase + "Organization";
+    static DspHasAddress = Constants.DspRepoBase + "hasAddress";
+    static DspHasEmail = Constants.DspRepoBase + "hasEmail";
+    static DspHasFamilyName = Constants.DspRepoBase + "hasFamilyName";
+    static DspHasGivenName = Constants.DspRepoBase + "hasGivenName";
+    static DspHasJobTitle = Constants.DspRepoBase + "hasJobTitle";
+    static DspIsMemberOf = Constants.DspRepoBase + "isMemberOf";
+    // Address
+    static SchemaPostalAddress = Constants.SchemaBase + "/PostalAddress";
+    static SchemaAddressLocality = Constants.SchemaBase + "/addressLocality";
+    static SchemaPostalCode = Constants.SchemaBase + "/postalCode";
+    static SchemaStreetAddress = Constants.SchemaBase + "/streetAddress";
+    // Attribution
+    static DspHasRole = Constants.DspRepoBase + "hasRole";
+    static ProvAgent = Constants.ProvBase + Constants.Delimiter + "agent";
+    static ProvAttribution = Constants.ProvBase + Constants.Delimiter + "Attribution";
+    // DataManagementPlan
+    static DspDataManagementPlan = Constants.DspRepoBase + "DataManagementPlan";
+    static DspIsAvailable = Constants.DspRepoBase + "isAvailable";
+    // Grant
+    static DspGrant = Constants.DspRepoBase + "Grant";
+    static DspHasNumber = Constants.DspRepoBase + "hasNumber";
+
     static SchemaUrlType = Constants.SchemaBase + "/URL";
     static SchemaUrlValue = Constants.SchemaUrlType.toLocaleLowerCase();
     static SchemaPropID = Constants.SchemaBase + "/propertyID";
     static SchemaPropVal = Constants.SchemaBase + "/PropertyValue";
     static SchemaDownload = Constants.SchemaBase + "/DataDownload";
     static SchemaPlace = Constants.SchemaBase + "/Place";
-    static ProvBase = "http://www.w3.org/ns/prov";
-    static ProvAgent = Constants.ProvBase + Constants.Delimiter + "agent";
-    static ProvAttribution = Constants.ProvBase + Constants.Delimiter + "Attribution";
-
 }

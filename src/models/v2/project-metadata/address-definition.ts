@@ -2,22 +2,22 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
 import { BaseProjectMetadata } from "./base-project-metadata";
 
- /** 
-  * @category Model V2 
-  */ 
+/** 
+ * @category Model V2 
+ */ 
 @JsonObject("Address")
 export class Address extends BaseProjectMetadata {
 
-    @JsonProperty("https://schema.org/" + "addressLocality", String)
+    @JsonProperty(Constants.SchemaAddressLocality, String)
     addressLocality: string = "";
 
-    @JsonProperty("https://schema.org/" + "postalCode", String)
+    @JsonProperty(Constants.SchemaPostalCode, String)
     postalCode: string = "";
 
-    @JsonProperty("https://schema.org/" + "streetAddress", String)
+    @JsonProperty(Constants.SchemaStreetAddress, String)
     streetAddress: string = "";
 
     constructor() {
-        super(Constants.SchemaBase + "/PostalAddress");
+        super(Constants.SchemaPostalAddress);
     }
 }

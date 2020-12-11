@@ -7,28 +7,28 @@ import { BaseProjectMetadata } from "./base-project-metadata";
 import { Organization } from "./organization-definition";
 import { Person } from "./person-definition";
 
- /** 
-  * @category Model V2 
-  */ 
+/** 
+ * @category Model V2 
+ */ 
 @JsonObject("Grant")
 export class Grant extends BaseProjectMetadata {
 
     @JsonProperty("@id", String)
     id: string = "";
 
-    @JsonProperty(Constants.DspRepoBase + "hasFunder", PersonOrganizationConverter, true)
+    @JsonProperty(Constants.DspHasFunder, PersonOrganizationConverter, true)
     funder?: Person | Organization | object = undefined;
 
-    @JsonProperty(Constants.DspName, String, true)
+    @JsonProperty(Constants.DspHasName, String, true)
     name?: string = undefined;
 
-    @JsonProperty(Constants.DspRepoBase + "hasNumber", String, true)
+    @JsonProperty(Constants.DspHasNumber, String, true)
     number?: string = undefined;
 
-    @JsonProperty(Constants.DspRepoBase + "hasURL", UrlToUrlObjectConverter, true)
+    @JsonProperty(Constants.DspHasURL, UrlToUrlObjectConverter, true)
     url?: IUrl = undefined;
 
     constructor() {
-        super(Constants.DspRepoBase + "Grant");
+        super(Constants.DspGrant);
     }
 }

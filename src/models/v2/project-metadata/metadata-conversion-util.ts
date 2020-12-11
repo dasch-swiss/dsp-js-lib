@@ -3,8 +3,12 @@ import { Constants } from "../Constants";
 import { Dataset } from "./dataset-definition";
 import { ProjectsMetadata } from "./project-metadata";
 
+/**
+ * @category Internal
+ */
 export namespace MetadataConversionUtil {
-        /**
+    
+    /**
      * Converts a list of projects or a single project serialized as JSON-LD to an instance of `ProjectsMetadata`
      * @param projectsJsonLd JSON-LD representing project metadata.
      * @param jsonConvert instance of JsonConvert to use.
@@ -31,13 +35,13 @@ export namespace MetadataConversionUtil {
         let meta = new ProjectsMetadata();
 
         data.projectsMetadata.map(obj => {
-            if (obj.type === Constants.DspRepoBase + "Dataset") {
+            if (obj.type === Constants.DspDataset) {
                 datasetObj = obj as Dataset;
             }
         });
 
         data.projectsMetadata.map(obj => {
-            if (obj.type !== Constants.DspRepoBase + "Dataset") {
+            if (obj.type !== Constants.DspDataset) {
                 replaceReference(datasetObj, obj.id, obj);
             }
         })

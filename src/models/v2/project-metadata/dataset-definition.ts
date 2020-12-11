@@ -8,67 +8,67 @@ import { Attribution } from "./attribution-definition";
 import { BaseProjectMetadata } from "./base-project-metadata";
 import { SingleProject } from "./project-definition";
 
- /** 
-  * @category Model V2 
-  */ 
+/** 
+ * @category Model V2 
+ */ 
 @JsonObject("Dataset")
 export class Dataset extends BaseProjectMetadata {
 
     @JsonProperty("@id", String)
     id: string = "";
 
-    @JsonProperty(Constants.DspRepoBase + "hasAbstract", String) // URL | String
+    @JsonProperty(Constants.DspHasAbstract, String) // URL | String
     abstract: string = "";
 
-    @JsonProperty(Constants.DspRepoBase + "hasAlternativeTitle", String, true)
+    @JsonProperty(Constants.DspHasAlternativeTitle, String, true)
     alternativeTitle?: string = undefined;
 
-    @JsonProperty(Constants.DspRepoBase + "hasConditionsOfAccess", String)
+    @JsonProperty(Constants.DspHasConditionsOfAccess, String)
     conditionsOfAccess: string = "";
 
-    @JsonProperty(Constants.DspRepoBase + "hasDateCreated", DateConverter, true)
+    @JsonProperty(Constants.DspHasDateCreated, DateConverter, true)
     dateCreated?: string = undefined;
 
-    @JsonProperty(Constants.DspRepoBase + "hasDateModified", DateConverter, true)
+    @JsonProperty(Constants.DspHasDateModified, DateConverter, true)
     dateModified?: string = undefined;
 
-    @JsonProperty(Constants.DspRepoBase + "hasDatePublished", DateConverter, true)
+    @JsonProperty(Constants.DspHasDatePublished, DateConverter, true)
     datePublished?: string = undefined;
 
-    @JsonProperty(Constants.DspRepoBase + "hasDistribution", DistributionConverter, true)
+    @JsonProperty(Constants.DspHasDistribution, DistributionConverter, true)
     distribution?: IUrl = undefined;
 
-    @JsonProperty(Constants.DspRepoBase + "hasDocumentation", String, true) // URL | String
+    @JsonProperty(Constants.DspHasDocumentation, String, true) // URL | String
     documentation?: string = undefined;
 
-    @JsonProperty(Constants.DspRepoBase + "hasHowToCite", String)
+    @JsonProperty(Constants.DspHasHowToCite, String)
     howToCite: string = "";
 
-    @JsonProperty(Constants.DspRepoBase + "hasLanguage", [String])
+    @JsonProperty(Constants.DspHasLanguage, [String])
     language: string[] = [];
 
-    @JsonProperty(Constants.DspRepoBase + "hasLicense", UrlToUrlObjectConverter)
+    @JsonProperty(Constants.DspHasLicense, UrlToUrlObjectConverter)
     license: IUrl = {}  as IUrl;
 
-    @JsonProperty(Constants.DspRepoBase + "hasQualifiedAttribution", [Attribution])
+    @JsonProperty(Constants.DspHasQualifiedAttribution, [Attribution])
     qualifiedAttribution: Attribution[] = [];
 
-    @JsonProperty(Constants.DspRepoBase + "hasStatus", String)
+    @JsonProperty(Constants.DspHasStatus, String)
     status: string = "";
 
-    @JsonProperty(Constants.DspRepoBase + "hasTitle", String)
+    @JsonProperty(Constants.DspHasTitle, String)
     title: string = "";
 
-    @JsonProperty(Constants.DspRepoBase + "hasTypeOfData", [String])
+    @JsonProperty(Constants.DspHasTypeOfData, [String])
     typeOfData: string[] = [];
 
-    @JsonProperty(Constants.DspRepoBase + "isPartOf", SingleProject)
+    @JsonProperty(Constants.DspIsPartOf, SingleProject)
     project: SingleProject = new SingleProject();
 
-    @JsonProperty(Constants.DspRepoBase + "sameAs", UrlToUrlObjectConverter, true)
+    @JsonProperty(Constants.DspSameAs, UrlToUrlObjectConverter, true)
     sameAs?: IUrl = undefined;
 
     constructor() {
-        super(Constants.DspRepoBase + "Dataset");
+        super(Constants.DspDataset);
     }
 }

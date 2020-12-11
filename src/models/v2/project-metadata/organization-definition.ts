@@ -1,33 +1,22 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
 import { IUrl } from "../custom-converters/base-url-converter";
-import { EmailConverter } from "../custom-converters/email-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
-import { Address } from "./address-definition";
-import { BaseProjectMetadata } from "./base-project-metadata";
+import { BaseFunder } from "./base=funder-definition";
 
- /** 
-  * @category Model V2 
-  */ 
+/** 
+ * @category Model V2 
+ */ 
 @JsonObject("Organization")
-export class Organization extends BaseProjectMetadata {
+export class Organization extends BaseFunder {
 
-    @JsonProperty("@id", String)
-    id: string = "";
-
-    @JsonProperty(Constants.DspRepoBase + "hasAddress", Address, true)
-    address?: Address = undefined;
-
-    @JsonProperty(Constants.DspRepoBase + "hasEmail", EmailConverter, true)
-    email?: string = undefined;
-
-    @JsonProperty(Constants.DspName, String)
+    @JsonProperty(Constants.DspHasName, String)
     name: string = "";
 
-    @JsonProperty(Constants.DspRepoBase + "hasURL", UrlToUrlObjectConverter, true)
+    @JsonProperty(Constants.DspHasURL, UrlToUrlObjectConverter, true)
     url?: IUrl = undefined;
 
     constructor() {
-        super(Constants.DspRepoBase + "Organization");
+        super(Constants.DspOrganization);
     }
 }

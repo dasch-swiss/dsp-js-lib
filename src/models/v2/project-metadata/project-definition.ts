@@ -12,64 +12,64 @@ import { Organization } from "./organization-definition";
 import { Person } from "./person-definition";
 import { Place } from "./place-definition";
 
- /** 
-  * @category Model V2 
-  */ 
+/** 
+ * @category Model V2 
+ */ 
 @JsonObject("SingleProject")
 export class SingleProject extends BaseProjectMetadata {
 
     @JsonProperty("@id", String)
     id: string = "";
     
-    @JsonProperty(Constants.DspRepoBase + "hasAlternateName", String, true)
+    @JsonProperty(Constants.DspHasAlternateName, String, true)
     alternateName?: string = undefined;
 
-    @JsonProperty(Constants.DspRepoBase + "hasContactPoint", Person, true)
+    @JsonProperty(Constants.DspHasContactPoint, Person, true)
     contactPoint?: Person = undefined;
 
-    @JsonProperty(Constants.DspRepoBase + "hasDataManagementPlan", DataManagementPlan, true)
+    @JsonProperty(Constants.DspHasDataManagementPlan, DataManagementPlan, true)
     dataManagementPlan?: DataManagementPlan = undefined;
 
-    @JsonProperty(Constants.DspRepoBase + "hasDescription", String)
+    @JsonProperty(Constants.DspHasDescription, String)
     description: string = "";
 
-    @JsonProperty(Constants.DspRepoBase + "hasDiscipline", AdvancedUrlObjectConverter)
+    @JsonProperty(Constants.DspHasDiscipline, AdvancedUrlObjectConverter)
     discipline: IUrl = {} as IUrl;
     
-    @JsonProperty(Constants.DspRepoBase + "hasEndDate", DateConverter, true)
+    @JsonProperty(Constants.DspHasEndDate, DateConverter, true)
     endDate?: string = undefined;
 
-    @JsonProperty(Constants.DspRepoBase + "hasFunder", PersonOrganizationConverter) // check if Person, Organization works
+    @JsonProperty(Constants.DspHasFunder, PersonOrganizationConverter)
     funder: Person | Organization | object = new Person();
 
-    @JsonProperty(Constants.DspRepoBase + "hasGrant", Grant, true)
+    @JsonProperty(Constants.DspHasGrant, Grant, true)
     grant?: Grant = undefined;
 
-    @JsonProperty(Constants.DspRepoBase + "hasKeywords", [String])
+    @JsonProperty(Constants.DspHasKeywords, [String])
     keywords: string[] = [];
 
-    @JsonProperty(Constants.DspName, String)
+    @JsonProperty(Constants.DspHasName, String)
     name: string = "";
 
-    @JsonProperty(Constants.DspRepoBase + "hasPublication", String, true)
+    @JsonProperty(Constants.DspHasPublication, String, true)
     publication?: string = undefined;
 
-    @JsonProperty(Constants.DspRepoBase + "hasShortcode", String)
+    @JsonProperty(Constants.DspHasShortcode, String)
     shortcode: string = "";
 
-    @JsonProperty(Constants.DspRepoBase + "hasSpatialCoverage", [Place])
+    @JsonProperty(Constants.DspHasSpatialCoverage, [Place])
     spatialCoverage: Place[] = [];
 
-    @JsonProperty(Constants.DspRepoBase + "hasStartDate", DateConverter)
+    @JsonProperty(Constants.DspHasStartDate, DateConverter)
     startDate: string = "";
 
-    @JsonProperty(Constants.DspRepoBase + "hasTemporalCoverage", AdvancedUrlObjectConverter)
+    @JsonProperty(Constants.DspHasTemporalCoverage, AdvancedUrlObjectConverter)
     temporalCoverage: IUrl = {} as IUrl;
 
-    @JsonProperty(Constants.DspRepoBase + "hasURL", UrlToUrlObjectConverter)
+    @JsonProperty(Constants.DspHasURL, UrlToUrlObjectConverter)
     url: IUrl = {} as IUrl;
 
     constructor() {
-        super(Constants.DspRepoBase + "Project");
+        super(Constants.DspProject);
     }
 }
