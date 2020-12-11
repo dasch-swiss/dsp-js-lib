@@ -1,11 +1,9 @@
-import { JsonConvert } from "json2typescript";
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { ApiResponseError } from "../../../models/api-response-error";
-import { Constants } from "../../../models/v2/Constants";
-import { Dataset } from "../../../models/v2/project-metadata/dataset-definition";
+import { MetadataConversionUtil } from "../../../models/v2/project-metadata/metadata-conversion-util";
 import { ProjectsMetadata } from "../../../models/v2/project-metadata/project-metadata";
 import { UpdateProjectMetadataResponse } from "../../../models/v2/project-metadata/update-project-metadata";
 import { Endpoint } from "../../endpoint";
@@ -35,9 +33,9 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
             }),
             map((obj: ProjectsMetadata) => {
                 // create an instance of ProjectMetadata from JSON-LD
-                const convertedObj = this.convertProjectsList(obj, this.jsonConvert);
+                const convertedObj = MetadataConversionUtil.convertProjectsList(obj, this.jsonConvert);
                 // map outter objects to its references inside the Dateset object
-                return this.mapReferences(convertedObj);
+                return MetadataConversionUtil.mapReferences(convertedObj);
             }),
             catchError(e => {
                 return this.handleError(e);
@@ -51,9 +49,8 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
      * @param metadata the data to update.
      */
     updateProjectMetadata(resourceIri: string, metadata: ProjectsMetadata): Observable<UpdateProjectMetadataResponse | ApiResponseError> {
-        const convertedDATA = this.jsonConvert.serializeObject(metadata);
-        console.log('METADATA', metadata, convertedDATA);
-        return this.httpPut("/" + encodeURIComponent(resourceIri), this.jsonConvert.serializeObject(metadata)).pipe(
+        const convertedMetadata = this.jsonConvert.serializeObject(metadata);
+        return this.httpPut("/" + encodeURIComponent(resourceIri), convertedMetadata).pipe(
             mergeMap((res: AjaxResponse) => {
                 return jsonld.compact(res.response, {});
             }),
@@ -62,70 +59,5 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
             }),
             catchError(e => this.handleError(e))
         );
-    }
-
-    /**
-     * Converts a list of projects or a single project serialized as JSON-LD to an instance of `ProjectsMetadata`
-     * @param projectsJsonLd JSON-LD representing project metadata.
-     * @param jsonConvert instance of JsonConvert to use.
-     */
-    private convertProjectsList = (projectsJsonLd: object, jsonConvert: JsonConvert): ProjectsMetadata => {
-        const done = jsonConvert.deserializeObject(projectsJsonLd, ProjectsMetadata);
-        console.log('converter: ', projectsJsonLd, done);
-        if (projectsJsonLd.hasOwnProperty("@graph")) {
-            return jsonConvert.deserializeObject(projectsJsonLd, ProjectsMetadata);
-        } else {
-            const projects: ProjectsMetadata = new ProjectsMetadata();
-            // creates the same structure for a single object incoming from the API
-            projects.projectsMetadata = [jsonConvert.deserializeObject(projectsJsonLd, Dataset)];
-            return projects;
-        }
-    }
-    
-    /**
-     * Maps over ProjectsMetadata array to return only one item array,
-     * which contains Dataset object
-     * @param  {ProjectsMetadata} data data to map
-     */
-    private mapReferences(data: ProjectsMetadata): ProjectsMetadata {
-        let datasetObj = new Dataset();
-        let meta = new ProjectsMetadata();
-
-        data.projectsMetadata.map(obj => {
-            if (obj.type === Constants.DspRepoBase + "Dataset") {
-                datasetObj = obj as Dataset;
-            }
-        });
-
-        data.projectsMetadata.map(obj => {
-            if (obj.type !== Constants.DspRepoBase + "Dataset") {
-                this.replaceReference(datasetObj, obj.id, obj);
-            }
-        })
-
-        meta.projectsMetadata.push(datasetObj as Dataset);
-
-        return meta;
-    }
-
-    /**
-     * Replaces matched references found in Dataset object with outter object
-     * @param  {object} obj Dataset object to look in
-     * @param  {string} ref reference string to look for
-     * @param  {any} replacer item for replacement
-     */
-    private replaceReference(obj: object, ref: string, replacer: any): Dataset {
-        let tempObj = Object.assign(obj);
-
-        for (const key in tempObj) {
-            if (tempObj[key] === ref) {
-                tempObj[key] = replacer;
-            } else if (Array.isArray(tempObj[key])) {
-                (tempObj[key] as any[]).forEach(member => this.replaceReference(member, ref, replacer));
-            } else if (typeof tempObj[key] === "object") {
-                this.replaceReference(tempObj[key], ref, replacer);
-            }
-        }
-        return tempObj;
     }
 }
