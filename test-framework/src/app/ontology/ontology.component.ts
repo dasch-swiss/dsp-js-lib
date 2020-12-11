@@ -250,17 +250,20 @@ export class OntologyComponent implements OnInit {
 
         newProperties.push(newResProp_2);
 
+        let i = 0;
+
         // loop through newProperties here
         from(newProperties)
             .pipe(concatMap(prop => {
-                console.log('first pipe operator...waiting...', this.lastModificationDate);
+                console.log('first pipe operator...waiting...', prop);
                 // submit prop
-                this.submitProp(prop);
-                return new Promise(resolve => setTimeout(() => resolve(prop), 1000));
+                this.submitProp(prop, i);
+                return new Promise(resolve => setTimeout(() => resolve('done'), 1000));  // sends to next .pipe
             }))
             .pipe(concatMap(prop => {
-                console.log('second pipe operator', this.lastModificationDate);
-                return of(this.property);
+                i++;
+                console.log('second pipe operator', prop);
+                return of(prop); // sends to last step .subscribe
             }))
             .subscribe(prop => {
                 this.getOntology(this.ontologyId);
@@ -269,7 +272,7 @@ export class OntologyComponent implements OnInit {
 
     }
 
-    submitProp(prop: CreateResourceProperty) {
+    submitProp(prop: CreateResourceProperty, index: number) {
         const onto = new UpdateOntology<CreateResourceProperty>();
         onto.id = this.ontology.id;
         onto.lastModificationDate = this.lastModificationDate;
@@ -279,10 +282,10 @@ export class OntologyComponent implements OnInit {
             (response: ResourcePropertyDefinitionWithAllLanguages) => {
                 this.property = response;
                 this.lastModificationDate = response.lastModificationDate;
-                console.log('new resource property created', response);
+                // console.log('new resource property created', response);
                 this.message = `Res property created: <strong>${response.label}</strong>`;
                 // set cardinality
-                this.addCardinality(this.resClassId, this.property.id, Cardinality._0_1);
+                this.addCardinality(this.resClassId, this.property.id, Cardinality._0_1, index);
             }
         );
     }
@@ -309,7 +312,7 @@ export class OntologyComponent implements OnInit {
 
     }
 
-    addCardinality(resIri: string, propIri: string, cardinality: Cardinality) {
+    addCardinality(resIri: string, propIri: string, cardinality: Cardinality, index: number) {
 
         const addCard = new UpdateOntologyResourceClassCardinality();
 
@@ -321,7 +324,8 @@ export class OntologyComponent implements OnInit {
             {
                 propertyIndex: propIri,
                 cardinality: cardinality,
-                resourceClass: resIri
+                resourceClass: resIri,
+                guiOrder: index
             }
         ];
 
