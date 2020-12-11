@@ -54,7 +54,9 @@ import {
     Dataset,
     ProjectClass,
     Attribution,
-    UpdateProjectMetadataResponse
+    UpdateProjectMetadataResponse,
+    UpdateChildNodeNameRequest,
+    ChildNodeInfoResponse
 } from "@dasch-swiss/dsp-js";
 import { Observable } from "rxjs";
 
@@ -108,6 +110,8 @@ export class AppComponent implements OnInit {
     };
 
     projectMetaStatus = '';
+
+    listChildName = '';
 
     ngOnInit() {
         const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
@@ -840,6 +844,22 @@ export class AppComponent implements OnInit {
             },
             error => {
                 this.projectMetaStatus = 'Error';
+            }
+        );
+    }
+
+    updateChildName(): void {
+        const childNodeInfo = new UpdateChildNodeNameRequest();
+
+        const listItemIri = 'http://rdfh.ch/lists/0001/treeList01';
+
+        const newName = 'updated child name';
+
+        childNodeInfo.name = newName;
+
+        this.knoraApiConnection.admin.listsEndpoint.updateChildName(listItemIri, childNodeInfo).subscribe(
+            (res: ApiResponseData<ChildNodeInfoResponse>) => {
+                this.listChildName = res.response.response.nodeinfo.name;
             }
         );
     }

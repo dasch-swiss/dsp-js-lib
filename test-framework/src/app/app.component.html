@@ -31,6 +31,14 @@
             <button class="create-default-object-access-permission" (click)="createDefaultObjectAccessPermission()">Create default object access permission for a project</button> <br /><br />
             <span *ngIf="permissionStatus" class="status">Permission status: {{permissionStatus}}</span>
         </div>
+        <div id="lists">
+            <h4>Lists</h4>
+            <button class="update-child-name" (click)="updateChildName()">Update name of a child node</button>
+            <div>
+                List Child Info:
+                <div>Name: <span class="child-name">{{listChildName}}</span></div>
+            </div>
+        </div>
     </section>
 
     <section id="ontologycache">

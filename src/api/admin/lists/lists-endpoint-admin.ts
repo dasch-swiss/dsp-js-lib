@@ -94,11 +94,11 @@ export class ListsEndpointAdmin extends Endpoint {
      * Updates the name of an existing child node.
      * 
      * @param listItemIri the Iri of the list item.
-     * @param childName the new name to replace the existing name.
+     * @param name the new name to replace the existing name.
      */
-    updateChildName(listItemIri: string, childName: UpdateChildNodeNameRequest): Observable<ApiResponseData<ChildNodeInfoResponse> | ApiResponseError> {
+    updateChildName(listItemIri: string, name: UpdateChildNodeNameRequest): Observable<ApiResponseData<ChildNodeInfoResponse> | ApiResponseError> {
     
-        return this.httpPut("/" + encodeURIComponent(listItemIri) + "/name", this.jsonConvert.serializeObject(childName)).pipe(
+        return this.httpPut("/" + encodeURIComponent(listItemIri) + "/name", this.jsonConvert.serializeObject(name)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ChildNodeInfoResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
