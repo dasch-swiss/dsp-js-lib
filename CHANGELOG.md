@@ -2,14 +2,14 @@
 
 ## v1.0.0 (14/12/2020)
 
-#### Breaking changes
+### Breaking changes
 
 - [#259](https://github.com/dasch-swiss/dsp-js-lib/pull/259) DSP-1035 - MockResource Rename Methods
 - [#214](https://github.com/dasch-swiss/dsp-ui-lib/pull/214) DSP-759 Check if a Given Date Can Be Edited / Rename ValueTypeService to ValueService
 - [#191](https://github.com/dasch-swiss/dsp-js-lib/pull/191) Rename package
 - [#138](https://github.com/dasch-swiss/dsp-js-lib/pull/138) test (admin): adapt test for updateUserSystemAdminMembership
 
-#### Enhancements
+### Enhancements
 
 - [#265](https://github.com/dasch-swiss/dsp-js-lib/pull/265) DSP-442 Add Convenience Methods to Ontology Information
 - [#258](https://github.com/dasch-swiss/dsp-js-lib/pull/258) DSP-1064 Create metadata endpoint in JS-LIB
@@ -39,7 +39,7 @@
 - [#244](https://github.com/dasch-swiss/dsp-js-lib/pull/244) Add missing exports for ResourcePropertyDefinitionWit…
 - [#240](https://github.com/dasch-swiss/dsp-js-lib/pull/240) Revert change for tsconfig
 
-#### Bug Fixes
+### Bug Fixes
 
 - [#266](https://github.com/dasch-swiss/dsp-js-lib/pull/266) DSP-1138 Add missing guiOrder to serialize IHasProperty
 - [#250](https://github.com/dasch-swiss/dsp-js-lib/pull/250) Handle Empty Response when Requesting Ontologies for a Project
@@ -60,7 +60,7 @@
 - [#176](https://github.com/dasch-swiss/dsp-js-lib/pull/176) Make RxJS a Peer Dep
 - [#174](https://github.com/dasch-swiss/dsp-js-lib/pull/174) Add Missing Exports to Index.ts
 
-#### Dependencies
+### Dependencies
 
 - [#262](https://github.com/dasch-swiss/dsp-js-lib/pull/262) Update Knora to v13.0.0-rc.24
 - [#263](https://github.com/dasch-swiss/dsp-js-lib/pull/263) Chore(deps): Bump highlight.js from 9.18.1 to 9.18.5
@@ -68,27 +68,34 @@
 - [#219](https://github.com/dasch-swiss/dsp-js-lib/pull/219) Bump lodash from 4.17.15 to 4.17.19
 - [#172](https://github.com/dasch-swiss/dsp-js-lib/pull/172) Test Framework: Update from Angular 7 to Angular 9
 
-#### Documentation
+### Documentation
 
 - [#264](https://github.com/dasch-swiss/dsp-js-lib/pull/264) Improve Docs
 - [#252](https://github.com/dasch-swiss/dsp-js-lib/pull/252) DSP-920 Renaming default github branch to "main"
 - [#249](https://github.com/dasch-swiss/dsp-js-lib/pull/249) Explain integration with knora-api
 
+## Compatibility
+
+This release is compatible with DSP-API [v13.0.0-rc.24](https://github.com/dasch-swiss/knora-api/releases/tag/v13.0.0-rc.24)
+
 ---
 
 ## v0.2.0 (29/01/2020)
-**Breaking Knora API Changes**
+
+### Breaking changes
 
 - Breaking change in format of knora-api:lastModificationDate [#47](https://github.com/dasch-swiss/knora-api-js-lib/issues/47)
 
-**Enhancement**
+### Enhancements
 
 - Missing label in ReadOntology [#139](https://github.com/dasch-swiss/knora-api-js-lib/issues/139)
 
-**Compatibility**
+## Compatibility
 
-This release is compatible with knora-api [v12.0.0](https://github.com/dasch-swiss/knora-api/releases/tag/v12.0.0) 
+This release is compatible with knora-api [v12.0.0](https://github.com/dasch-swiss/knora-api/releases/tag/v12.0.0)
+
 ---
 
 ## 0.1.0 (18/12/2019)
+
 Basic implementation of admin and v2 endpoints.
