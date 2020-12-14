@@ -23,7 +23,7 @@ export namespace MetadataConversionUtil {
             projects.projectsMetadata = [jsonConvert.deserializeObject(projectsJsonLd, Dataset)];
             return projects;
         }
-    }
+    };
     
     /**
      * Maps over ProjectsMetadata array to return only one item array,
@@ -34,24 +34,24 @@ export namespace MetadataConversionUtil {
         let datasetObj = new Dataset();
         let meta = new ProjectsMetadata();
 
-        data.projectsMetadata.map(obj => {
-            if (obj.type === Constants.DspDataset) {
+        data.projectsMetadata.forEach(obj => {
+            if (obj instanceof Dataset) {
                 datasetObj = obj as Dataset;
             }
         });
 
-        data.projectsMetadata.map(obj => {
-            if (obj.type !== Constants.DspDataset) {
+        data.projectsMetadata.forEach(obj => {
+            if (!(obj instanceof Dataset)) {
                 replaceReference(datasetObj, obj.id, obj);
             }
         })
 
         meta.projectsMetadata.push(datasetObj as Dataset);
         return meta;
-    }
+    };
 
     /**
-     * Replaces matched references found in Dataset object with outter object
+     * Replaces matched references found in Dataset object with outer object
      * @param  {object} obj Dataset object to look in
      * @param  {string} ref reference string to look for
      * @param  {any} replacer item for replacement
@@ -69,5 +69,5 @@ export namespace MetadataConversionUtil {
             }
         }
         return tempObj;
-    }
+    };
 }

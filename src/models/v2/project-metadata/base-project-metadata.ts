@@ -1,14 +1,15 @@
-import { JsonObject } from "json2typescript";
-import { BaseValue } from "../resources/values/base-value";
+import { JsonObject, JsonProperty } from "json2typescript";
 
 /** 
  * @category Model V2 
  */ 
 @JsonObject("BaseProjectMetadata")
-export class BaseProjectMetadata extends BaseValue {
+export class BaseProjectMetadata {
+
+    @JsonProperty("@type", String)
+    type: string = "";
 
     constructor(type: string) {
-        super();
         this.type = type;
     }
 }
