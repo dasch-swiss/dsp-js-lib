@@ -5,7 +5,6 @@
 /dist
 /docs
 .DS_Store
-CHANGELOG.md
 
 ############################
 # PhpStorm/WebStorm ignore #
