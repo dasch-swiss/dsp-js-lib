@@ -18,12 +18,10 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
     );
 
     serialize(obj: Person | Organization | object): any {
-        if (obj.hasOwnProperty("name") || obj.hasOwnProperty("jobTitle")) {
-            if (obj.hasOwnProperty("jobTitle")) {
-                return PersonOrganizationConverter.jsonConvert.serializeObject(obj, Person);
-            } else {
-                return PersonOrganizationConverter.jsonConvert.serializeObject(obj, Organization);
-            }
+        if (obj.hasOwnProperty("jobTitle")) {
+            return PersonOrganizationConverter.jsonConvert.serializeObject(obj, Person);
+        } else if (obj.hasOwnProperty("name")) {
+            return PersonOrganizationConverter.jsonConvert.serializeObject(obj, Organization);
         } else if (obj.hasOwnProperty("id")) {
             return {
                 "@id": (obj as { [index: string]: string })["id"]
@@ -32,12 +30,10 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
     }
 
     deserialize(obj: any): Person | Organization | object {
-        if (obj.hasOwnProperty(Constants.DspHasName) || obj.hasOwnProperty(Constants.DspHasJobTitle)) {
-            if (obj.hasOwnProperty(Constants.DspHasJobTitle)) {
-                return PersonOrganizationConverter.jsonConvert.deserializeObject(obj, Person);
-            } else {
-                return PersonOrganizationConverter.jsonConvert.deserializeObject(obj, Organization);
-            }
+        if (obj.hasOwnProperty(Constants.DspHasJobTitle)) {
+            return PersonOrganizationConverter.jsonConvert.deserializeObject(obj, Person);
+        } else if (obj.hasOwnProperty(Constants.DspHasJobTitle)) {
+            return PersonOrganizationConverter.jsonConvert.deserializeObject(obj, Organization);
         } else {
             if (obj.hasOwnProperty("@id")) {
                 return {
