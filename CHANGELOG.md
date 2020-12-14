@@ -5,7 +5,6 @@
 ### Breaking changes
 
 - [#259](https://github.com/dasch-swiss/dsp-js-lib/pull/259) DSP-1035 - MockResource Rename Methods
-- [#214](https://github.com/dasch-swiss/dsp-ui-lib/pull/214) DSP-759 Check if a Given Date Can Be Edited / Rename ValueTypeService to ValueService
 - [#191](https://github.com/dasch-swiss/dsp-js-lib/pull/191) Rename package
 - [#138](https://github.com/dasch-swiss/dsp-js-lib/pull/138) test (admin): adapt test for updateUserSystemAdminMembership
 
