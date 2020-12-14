@@ -673,6 +673,63 @@ describe('workspace-project App', () => {
 
   });
 
+  it('should update the name of a list child node', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#lists button.update-child-name');
+
+    button.click();
+
+    const childName = page.getEle('div#lists span.child-name');
+
+    expect(childName.getText()).toEqual('updated child name');
+  });
+
+  it('should update the labels of a list child node', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#lists button.update-child-labels');
+
+    button.click();
+
+    const childName = page.getEle('div#lists span.child-labels');
+
+    expect(childName.getText()).toEqual('en/new label');
+  });
+
+  it('should update the comments of a list child node', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#lists button.update-child-comments');
+
+    button.click();
+
+    const childName = page.getEle('div#lists span.child-comments');
+
+    expect(childName.getText()).toEqual('en/new comment');
+  });
+
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER);
