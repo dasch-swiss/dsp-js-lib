@@ -3,13 +3,13 @@ import { map } from "rxjs/operators";
 import { V2Endpoint } from "../api/v2/v2-endpoint";
 import { ListConversionUtil } from "../models/v2/lists/list-conversion-util";
 import { ListNodeV2 } from "../models/v2/lists/list-node-v2";
-import { GenericCache2 } from "./GenericCache2";
+import { GenericCache } from "./GenericCache";
 
 /**
  * Caches list nodes obtained from Knora.
  * As an optimization, the whole list is requested and cached (all of its nodes) once a list node has been rquested.
  */
-export class ListNodeV2Cache extends GenericCache2<ListNodeV2> {
+export class ListNodeV2Cache extends GenericCache<ListNodeV2> {
 
     constructor(private v2Endpoint: V2Endpoint) {
         super();
