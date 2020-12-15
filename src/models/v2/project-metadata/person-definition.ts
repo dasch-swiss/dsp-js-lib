@@ -1,7 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
 import { IUrl } from "../custom-converters/base-url-converter";
-import { EmailConverter } from "../custom-converters/email-converter";
 import { IdConverter } from "../custom-converters/id-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
 import { Address } from "./address-definition";
@@ -19,8 +18,8 @@ export class Person extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasAddress, Address, true)
     address?: Address = undefined;
 
-    @JsonProperty(Constants.DspHasEmail, EmailConverter, true)
-    email?: string = undefined; //should the email be actually @id as in JSON-LD?
+    @JsonProperty(Constants.DspHasEmail, String, true)
+    email?: string = undefined;
 
     @JsonProperty(Constants.DspHasFamilyName, String, true)
     familyName?: string = undefined;

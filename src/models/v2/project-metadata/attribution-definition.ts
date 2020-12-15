@@ -12,7 +12,7 @@ export class Attribution extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasRole, String)
     role: string = "";
 
-    @JsonProperty(Constants.ProvAgent, IdConverter) //convert to Person base on @id
+    @JsonProperty(Constants.ProvAgent, IdConverter)
     agent: string = "";
 
     constructor() {
