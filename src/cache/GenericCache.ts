@@ -93,7 +93,7 @@ export abstract class GenericCache<T> {
      * @return keys of the items the current item relies on.
      */
     protected abstract getDependenciesOfItem(item: T): string[];
-
+    
     private processSuccessfulResponse(key: string, items: T[]) {
         // console.log("fetching from Knora", key);
         if (items.length === 0) throw Error("No items returned from Knora for " + key);
@@ -103,6 +103,16 @@ export abstract class GenericCache<T> {
         // Updates and completes the AsyncSubject for `key`.
         this.cache[key].next(items[0]);
         this.cache[key].complete();
+
+        this.processDeps(items);
+    }
+
+    /**
+     * Handle dependencies resolved automatically.
+     *
+     * @param items dependencies that have been retrieved.
+     */
+    private processDeps(items: T[]) {
 
         // Write all available items to the cache (only for non existing keys)
         // Analyze dependencies of available items.
@@ -133,6 +143,7 @@ export abstract class GenericCache<T> {
                     });
             }
         );
+
     }
 
     private handleError(key: string, err: ApiResponseError) {
