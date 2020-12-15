@@ -1,6 +1,6 @@
 import { JsonConvert } from "json2typescript";
-import { Constants } from "../Constants";
 import { Dataset } from "./dataset-definition";
+import { Person } from "./person-definition";
 import { ProjectsMetadata } from "./project-metadata";
 
 /**
@@ -31,34 +31,33 @@ export namespace MetadataConversionUtil {
      * @param  {ProjectsMetadata} data data to map
      */
     export const mapReferences = (data: ProjectsMetadata): ProjectsMetadata => {
-        let datasetObj = new Dataset();
         let meta = new ProjectsMetadata();
 
-        data.projectsMetadata.forEach(obj => {
-            if (obj instanceof Dataset) {
-                datasetObj = obj as Dataset;
-            }
-        });
+        // handles 1 or more Dataset objects
+        const datasets: Dataset[] = data.projectsMetadata.filter(obj => (obj instanceof Dataset)).map(dataset => dataset as Dataset);
 
         data.projectsMetadata.forEach(obj => {
             if (!(obj instanceof Dataset)) {
-                replaceReference(datasetObj, obj.id, obj);
+                datasets.forEach(
+                    dataset => replaceReference(dataset, obj.id, obj)
+                )
             }
         })
 
-        meta.projectsMetadata.push(datasetObj as Dataset);
+        meta.projectsMetadata.push(...datasets);
         return meta;
     };
 
     /**
      * Replaces matched references found in Dataset object with outer object
-     * @param  {object} obj Dataset object to look in
+     * @param  {Dataset} obj Dataset object to look in
      * @param  {string} ref reference string to look for
-     * @param  {any} replacer item for replacement
+     * @param  {Person} replacer class instance for replacement
      */
-    const replaceReference = (obj: object, ref: string, replacer: any): Dataset => {
+    const replaceReference = (obj: Dataset, ref: string, replacer: Person): Dataset => {
         let tempObj = Object.assign(obj);
 
+        // TODO: consider other obejcts placed outside the Dataset object(s) and/or simplify/adjust it to known possibilities
         for (const key in tempObj) {
             if (tempObj[key] === ref) {
                 tempObj[key] = replacer;
