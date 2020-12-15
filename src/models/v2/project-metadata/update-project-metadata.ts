@@ -7,6 +7,6 @@ import { Constants } from "../Constants";
 @JsonObject("UpdateProjectMetadataResponse")
 export class UpdateProjectMetadataResponse {
 
-    @JsonProperty(Constants.KnoraApiV2 + Constants.Delimiter + "result", String)
+    @JsonProperty(Constants.KnoraApiV2 + Constants.HashDelimiter + "result", String)
     result: string = "";
 }

@@ -864,7 +864,7 @@ export class AppComponent implements OnInit {
             'id': 'http://ns.dasch.swiss/test-abraham',
             type: Constants.DspRepoBase + 'Person',
             'address': {
-                type: Constants.SchemaBase + '/PostalAddress',
+                type: Constants.SchemaBase + 'PostalAddress',
                'addressLocality': 'Basel',
                'postalCode': '4000',
                'streetAddress': 'Teststrasse'
@@ -904,7 +904,7 @@ export class AppComponent implements OnInit {
             'id': 'http://ns.dasch.swiss/test-funder',
             type: Constants.DspRepoBase + 'Organization',
             'address': {
-                type: Constants.SchemaBase + '/PostalAddress',
+                type: Constants.SchemaBase + 'PostalAddress',
                 'addressLocality': 'Toronto',
                 'postalCode': '40000',
                 'streetAddress': 'University of Toronto Street'
@@ -989,7 +989,7 @@ export class AppComponent implements OnInit {
             'id': 'http://ns.dasch.swiss/test-jones',
             type: Constants.DspRepoBase + 'Person',
             'address': {
-                type: Constants.SchemaBase + '/PostalAddress',
+                type: Constants.SchemaBase + 'PostalAddress',
                'addressLocality': 'Basel',
                'postalCode': '4000',
                'streetAddress': 'Teststrasse'
@@ -1004,7 +1004,7 @@ export class AppComponent implements OnInit {
             'id': 'http://ns.dasch.swiss/test-coleman',
             type: Constants.DspRepoBase + 'Person',
             'address': {
-                type: Constants.SchemaBase + '/PostalAddress',
+                type: Constants.SchemaBase + 'PostalAddress',
                'addressLocality': 'Basel',
                'postalCode': '4000',
                'streetAddress': 'Teststrasse'
@@ -1019,7 +1019,7 @@ export class AppComponent implements OnInit {
             'id': 'http://ns.dasch.swiss/test-berry',
             type: Constants.DspRepoBase + 'Person',
             'address': {
-                type: Constants.SchemaBase + '/PostalAddress',
+                type: Constants.SchemaBase + 'PostalAddress',
                'addressLocality': 'Basel',
                'postalCode': '4000',
                'streetAddress': 'Teststrasse'
@@ -1034,7 +1034,7 @@ export class AppComponent implements OnInit {
             'id': 'http://ns.dasch.swiss/test-hart',
             type: Constants.DspRepoBase + 'Person',
             'address': {
-                type: Constants.SchemaBase + '/PostalAddress',
+                type: Constants.SchemaBase + 'PostalAddress',
                'addressLocality': 'Basel',
                'postalCode': '4000',
                'streetAddress': 'Teststrasse'
