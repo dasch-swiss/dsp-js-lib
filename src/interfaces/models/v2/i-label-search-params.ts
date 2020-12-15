@@ -1,5 +1,7 @@
 /**
  * Params for search by label
+ *
+ * @category Model V2
  */
 export interface ILabelSearchParams {
 

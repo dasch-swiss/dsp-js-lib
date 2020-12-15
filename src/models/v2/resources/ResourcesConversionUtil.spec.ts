@@ -1,15 +1,14 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { of } from "rxjs";
-import { MockOntologyAssertions } from "../../../../test/data/api/v2/mock-ontology-assertions";
 import { MockList } from "../../../../test/data/api/v2/mock-list";
 import { MockOntology } from "../../../../test/data/api/v2/mock-ontology";
+import { MockOntologyAssertions } from "../../../../test/data/api/v2/mock-ontology-assertions";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ReadResource } from "./read/read-resource";
 import { ReadResourceSequence } from "./read/read-resource-sequence";
 import { ResourcesConversionUtil } from "./ResourcesConversionUtil";
-
 import { ReadBooleanValue } from "./values/read/read-boolean-value";
 import { ReadColorValue } from "./values/read/read-color-value";
 import { KnoraDate, Precision, ReadDateValue } from "./values/read/read-date-value";
@@ -287,8 +286,8 @@ describe("ResourcesConversionUtil", () => {
                     expect((geomValue as ReadGeomValue).geometry.lineWidth).toEqual(2);
                     expect((geomValue as ReadGeomValue).geometry.lineColor).toEqual("#ff3333");
                     expect((geomValue as ReadGeomValue).geometry.points.length).toEqual(2);
-                    expect((geomValue as ReadGeomValue).geometry.points[0]).toEqual(new Point2D( 0.08098591549295775, 0.16741071428571427));
-                    expect((geomValue as ReadGeomValue).geometry.points[1]).toEqual(new Point2D( 0.7394366197183099, 0.7299107142857143));
+                    expect((geomValue as ReadGeomValue).geometry.points[0]).toEqual(new Point2D(0.08098591549295775, 0.16741071428571427));
+                    expect((geomValue as ReadGeomValue).geometry.points[1]).toEqual(new Point2D(0.7394366197183099, 0.7299107142857143));
 
                     //
                     // test time value
@@ -388,10 +387,10 @@ describe("ResourcesConversionUtil", () => {
 
             ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
                 (resSeq: ReadResourceSequence) => {
-                    expect(resSeq.resources.length).toEqual(22);
+                    expect(resSeq.resources.length).toEqual(24);
                     expect(resSeq.mayHaveMoreResults).toEqual(true);
 
-                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(22);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(24);
                     expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
 
                     done();

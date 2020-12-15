@@ -1,8 +1,8 @@
 {
-  "@id" : "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw",
+  "@id" : "http://rdfh.ch/0001/a-thing",
   "@type" : "anything:Thing",
   "anything:hasInterval" : {
-    "@id" : "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/RbDKPKHWTC-0lkRKae-E6A",
+    "@id" : "http://rdfh.ch/0001/a-thing/values/oboYbVq5RK-HHl5Bk9kvqw",
     "@type" : "knora-api:IntervalValue",
     "knora-api:intervalValueHasStart" : {
       "@type" : "xsd:decimal",

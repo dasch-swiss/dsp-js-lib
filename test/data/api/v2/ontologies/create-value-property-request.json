@@ -1,4 +1,3 @@
-
 {
   "@id" : "http://0.0.0.0:3333/ontology/0001/anything/v2",
   "@type" : "owl:Ontology",
@@ -49,4 +48,3 @@
     "anything" : "http://0.0.0.0:3333/ontology/0001/anything/v2#"
   }
 }
-        

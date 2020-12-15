@@ -5,8 +5,9 @@ import { take } from "rxjs/operators";
  * Generic cache class.
  * Fetches information of a specific type from Knora once and caches it.
  * Fetches also dependencies of a requested element (non-blocking).
- *
  * Works also with multiple async requests for the same key, also if not cached yet.
+ *
+ * @category Internal
  */
 export abstract class GenericCache<T> {
 

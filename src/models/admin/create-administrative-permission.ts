@@ -1,9 +1,10 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { CreateAdminDoapBase } from "./create-admin-doap-base";
-import { CreatePermission } from "./create-permission";
 
 /**
  * Creation of an administrative permission.
+ *
+ * @category Model Admin
  */
 @JsonObject("CreateAdministrativePermission")
 export class CreateAdministrativePermission extends CreateAdminDoapBase {

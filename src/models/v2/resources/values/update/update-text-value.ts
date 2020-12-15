@@ -4,6 +4,9 @@ import { IdConverter } from "../../../custom-converters/id-converter";
 import { IBaseTextValueAsString, IBaseTextValueAsXml } from "../type-specific-interfaces/base-text-value";
 import { UpdateValue } from "./update-value";
 
+/**
+ * @category Model V2
+ */
 @JsonObject("UpdateTextValueAsString")
 export class UpdateTextValueAsString extends UpdateValue implements IBaseTextValueAsString {
 
@@ -16,6 +19,9 @@ export class UpdateTextValueAsString extends UpdateValue implements IBaseTextVal
 
 }
 
+/**
+ * @category Model V2
+ */
 @JsonObject("UpdateTextValueAsXml")
 export class UpdateTextValueAsXml extends UpdateValue implements IBaseTextValueAsXml {
 

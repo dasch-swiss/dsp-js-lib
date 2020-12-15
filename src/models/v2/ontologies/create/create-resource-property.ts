@@ -1,12 +1,13 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-import { StringLiteral } from "../../../admin/string-literal";
 import { Constants } from "../../Constants";
 import { IdConverter } from "../../custom-converters/id-converter";
 import { StringLiteralToStringLiteralArrayConverter } from "../../custom-converters/string-literal-to-string-literal-array-converter";
 import { SubClassOfConverter } from "../../custom-converters/subclass-of-converter";
 import { StringLiteralV2 } from "../../string-literal-v2";
-import { UpdateOntology } from "../update/update-ontology";
 
+/**
+ * @category Model V2
+ */
 @JsonObject("CreateResourceProperty")
 export class CreateResourceProperty {
 
@@ -35,6 +36,9 @@ export class CreateResourceProperty {
 
 }
 
+/**
+ * @category Internal
+ */
 @JsonObject("CreateResourcePropertyPayload")
 export class CreateResourcePropertyPayload extends CreateResourceProperty {
 

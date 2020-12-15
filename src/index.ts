@@ -83,6 +83,11 @@ export { CreateListRequest } from "./models/admin/create-list-request";
 export { StoredListNodeInfo } from "./models/admin/stored-list-node-info";
 export { StoredListNode } from "./models/admin/stored-list-node";
 export { UpdateListInfoRequest } from "./models/admin/update-list-info-request";
+export { UpdateChildNodeNameRequest } from "./models/admin/update-child-node-name-request";
+export { UpdateChildNodeLabelsRequest } from "./models/admin/update-child-node-labels-request";
+export { UpdateChildNodeCommentsRequest } from "./models/admin/update-child-node-comments-request";
+export { ChildNodeInfoResponse } from "./models/admin/child-node-info-response";
+export { ChildNodeInfo } from "./models/admin/child-node-info";
 
 export { LoginResponse } from "./models/v2/authentication/login-response";
 export { CredentialsResponse } from "./models/v2/authentication/credentials-response";
@@ -185,6 +190,12 @@ export { BaseValue } from "./models/v2/resources/values/base-value";
 export { ListNodeV2 } from "./models/v2/lists/list-node-v2";
 
 export { Constants } from "./models/v2/Constants";
+
+export { ProjectsMetadata } from "./models/v2/project-metadata/project-metadata";
+export { Dataset } from "./models/v2/project-metadata/dataset-definition";
+export { ProjectClass } from "./models/v2/project-metadata/project-definition";
+export { Attribution } from "./models/v2/project-metadata/attribution-definition";
+export { UpdateProjectMetadataResponse } from "./models/v2/project-metadata/update-project-metadata";
 
 // Utils
 export { CardinalityUtil } from "./models/v2/resources/cardinality-util";

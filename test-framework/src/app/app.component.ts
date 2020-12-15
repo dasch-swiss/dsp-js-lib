@@ -49,11 +49,22 @@ import {
     DefaultObjectAccessPermissionsResponse,
     DefaultObjectAccessPermissionResponse,
     ProjectPermissionsResponse,
-    AdministrativePermissionsResponse
+    AdministrativePermissionsResponse,
+    ProjectsMetadata,
+    Dataset,
+    ProjectClass,
+    Attribution,
+    UpdateProjectMetadataResponse,
+    UpdateChildNodeNameRequest,
+    ChildNodeInfoResponse,
+    StringLiteral,
+    UpdateChildNodeLabelsRequest,
+    UpdateChildNodeCommentsRequest
 } from "@dasch-swiss/dsp-js";
 import { Observable } from "rxjs";
 
 import { map, tap } from "rxjs/operators";
+import metadataPayload from "../assets/metadata-payload.json";
 
 @Component({
     selector: 'app-root',
@@ -100,6 +111,12 @@ export class AppComponent implements OnInit {
             other: '# ontologies'
         }
     };
+
+    projectMetaStatus = '';
+
+    listChildName = '';
+    listChildLabels = '';
+    listChildComments = '';
 
     ngOnInit() {
         const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
@@ -493,9 +510,9 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.onto.addCardinalityToResourceClass(addCard).subscribe(
             (res: ResourceClassDefinitionWithAllLanguages) => {
-            this.addCard = res;
-            console.log('added card: ', res)
-          }
+                this.addCard = res;
+                console.log('added card: ', res)
+            }
         );
 
 
@@ -783,4 +800,116 @@ export class AppComponent implements OnInit {
 
     }
 
+    getProjectMetadata(): void {
+        const resourceIri = 'http://rdfh.ch/projects/0001';
+
+        this.knoraApiConnection.v2.metadata.getProjectMetadata(resourceIri).subscribe(
+            (res: ProjectsMetadata) => {
+                console.log(res);
+                this.projectMetaStatus = 'OK';
+            },
+            error => {
+                this.projectMetaStatus = 'Error';
+            }
+        );
+    }
+
+    updateProjectMetadata(): void {
+        const resourceIri = 'http://rdfh.ch/projects/0001';
+
+        const testMetadata = new ProjectsMetadata();
+        const testDataset = new Dataset();
+        testDataset.abstract = 'Dies ist ein Testprojekt.';
+        testDataset.alternativeTitle = 'test';
+        testDataset.conditionsOfAccess = 'Open Access';
+        testDataset.dateCreated = '2001-09-26';
+        testDataset.dateModified = '2020-04-26';
+        testDataset.datePublished = '2002-09-24';
+        testDataset.distribution = 'https://test.dasch.swiss';
+        testDataset.documentation = 'Work in progress';
+        testDataset.howToCite = 'Testprojekt (test), 2002, https://test.dasch.swiss';
+        testDataset.language = [ 'EN', 'DE', 'FR' ];
+        testDataset.license = 'https://creativecommons.org/licenses/by/3.0';
+        const attr = new Attribution();
+        attr.role = 'contributor';
+        attr.agent = 'http://ns.dasch.swiss/test-berry';
+        testDataset.qualifiedAttribution.push(attr);
+        testDataset.status = 'ongoing';
+        testDataset.title = 'Testprojekt';
+        testDataset.typeOfData = ['image', 'text'];
+        testDataset.sameAs = 'https://test.dasch.swiss/';
+        testDataset.project = new ProjectClass();
+        testMetadata.projectsMetadata.push(testDataset);
+        console.log(testMetadata);
+        // replace metadataPayload with constructed above ProjectsMetadata object - swap lines in metadata endpoint
+        this.knoraApiConnection.v2.metadata.updateProjectMetadata(resourceIri, metadataPayload).subscribe(
+            (res: UpdateProjectMetadataResponse) => {
+                console.log(res);
+                this.projectMetaStatus = 'OK';
+            },
+            error => {
+                this.projectMetaStatus = 'Error';
+            }
+        );
+    }
+
+    updateChildName(): void {
+        const childNodeName = new UpdateChildNodeNameRequest();
+
+        const listItemIri = 'http://rdfh.ch/lists/0001/treeList01';
+
+        const newName = 'updated child name';
+
+        childNodeName.name = newName;
+
+        this.knoraApiConnection.admin.listsEndpoint.updateChildName(listItemIri, childNodeName).subscribe(
+            (res: ApiResponseData<ChildNodeInfoResponse>) => {
+                this.listChildName = res.response.response.nodeinfo.name;
+            }
+        );
+    }
+
+    updateChildLabels(): void {
+        const childNodeLabels = new UpdateChildNodeLabelsRequest();
+
+        const listItemIri = 'http://rdfh.ch/lists/0001/treeList01';
+
+        const newLabels = new StringLiteral();
+        newLabels.language = 'en';
+        newLabels.value = 'new label';
+
+        childNodeLabels.labels = [newLabels];
+
+        this.knoraApiConnection.admin.listsEndpoint.updateChildLabels(listItemIri, childNodeLabels).subscribe(
+            (res: ApiResponseData<ChildNodeInfoResponse>) => {
+                console.log(res);
+                this.listChildLabels =
+                    res.response.response.nodeinfo.labels[0].language
+                    + '/'
+                    + res.response.response.nodeinfo.labels[0].value;
+            }
+        );
+    }
+
+    updateChildComments(): void {
+        const childNodeComments = new UpdateChildNodeCommentsRequest();
+
+        const listItemIri = 'http://rdfh.ch/lists/0001/treeList01';
+
+        const newComments = new StringLiteral();
+        newComments.language = 'en';
+        newComments.value = 'new comment';
+
+        childNodeComments.comments = [newComments];
+
+        this.knoraApiConnection.admin.listsEndpoint.updateChildComments(listItemIri, childNodeComments).subscribe(
+            (res: ApiResponseData<ChildNodeInfoResponse>) => {
+                console.log(res);
+                this.listChildComments =
+                    res.response.response.nodeinfo.comments[0].language
+                    + '/'
+                    + res.response.response.nodeinfo.comments[0].value;
+            }
+        );
+    }
 }

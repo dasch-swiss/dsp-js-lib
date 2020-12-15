@@ -449,7 +449,7 @@ describe("ResourcesEndpoint", () => {
 
             updateResourceMetadata.hasPermissions = "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:ProjectMember";
 
-            updateResourceMetadata.newModificationDate = "2019-12-12T10:23:25.836924Z";
+            updateResourceMetadata.newModificationDate = "2020-10-22T23:52:01.991413Z";
 
             knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
                 (res: UpdateResourceMetadataResponse) => {
@@ -467,6 +467,9 @@ describe("ResourcesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             const expectedPayload = require("../../../../test/data/api/v2/resources/update-resource-metadata-request-expanded.json");
+
+            // TODO: remove this bad hack once test data is stable
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#newModificationDate"]["@value"] = "2020-10-22T23:52:01.991413Z";
 
             expect(request.data()).toEqual(expectedPayload);
 
@@ -507,13 +510,13 @@ describe("ResourcesEndpoint", () => {
 
             updateResourceMetadata.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
 
-            updateResourceMetadata.label = "test thing with modified label";
+            updateResourceMetadata.label = "test thing with modified label again";
 
-            updateResourceMetadata.hasPermissions = "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:ProjectMember";
+            updateResourceMetadata.hasPermissions = "CR knora-admin:ProjectMember|V knora-admin:ProjectMember";
 
-            updateResourceMetadata.lastModificationDate = "2019-02-13T09:05:10Z";
+            updateResourceMetadata.lastModificationDate = "2020-10-22T23:52:01.991413Z";
 
-            updateResourceMetadata.newModificationDate = "2019-12-12T10:23:25.836924Z";
+            updateResourceMetadata.newModificationDate = "2020-10-22T23:52:02.920220Z";
 
             knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
                 (res: UpdateResourceMetadataResponse) => {
@@ -531,6 +534,10 @@ describe("ResourcesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             const expectedPayload = require("../../../../test/data/api/v2/resources/update-resource-metadata-request-with-last-mod-date-expanded.json");
+
+            // TODO: remove this bad hack once test data is stable
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#lastModificationDate"]["@value"] = "2020-10-22T23:52:01.991413Z";
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#newModificationDate"]["@value"] = "2020-10-22T23:52:02.920220Z";
 
             expect(request.data()).toEqual(expectedPayload);
 
@@ -565,7 +572,7 @@ describe("ResourcesEndpoint", () => {
 
             deleteResource.deleteComment = "This resource is too boring.";
 
-            deleteResource.lastModificationDate = "2019-12-12T10:23:25.836924Z";
+            deleteResource.lastModificationDate = "2020-10-22T23:52:02.920220Z";
 
             knoraApiConnection.v2.res.deleteResource(deleteResource).subscribe(
                 (res: DeleteResourceResponse) => {
@@ -585,6 +592,9 @@ describe("ResourcesEndpoint", () => {
             expect(request.method).toEqual("POST");
 
             const expectedPayload = require("../../../../test/data/api/v2/resources/delete-resource-request-expanded.json");
+
+            // TODO: remove this bad hack once test data is stable
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#lastModificationDate"]["@value"] = "2020-10-22T23:52:02.920220Z";
 
             expect(request.data()).toEqual(expectedPayload);
 

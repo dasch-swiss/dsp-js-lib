@@ -33,13 +33,13 @@ describe("Test class AuthenticationEndpoint", () => {
 
         const request = jasmine.Ajax.requests.mostRecent();
 
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({token: "testtoken"})));
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({ token: "testtoken" })));
 
         expect(request.url).toEqual("http://localhost:3333/v2/authentication");
 
         expect(request.method).toEqual("POST");
 
-        expect(request.data()).toEqual({username: "user", password: "test"});
+        expect(request.data()).toEqual({ username: "user", password: "test" });
 
     });
 
@@ -59,13 +59,13 @@ describe("Test class AuthenticationEndpoint", () => {
 
         const request = jasmine.Ajax.requests.mostRecent();
 
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({token: "testtoken"})));
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({ token: "testtoken" })));
 
         expect(request.url).toEqual("http://localhost:3333/v2/authentication");
 
         expect(request.method).toEqual("POST");
 
-        expect(request.data()).toEqual({email: "root@example.com", password: "test"});
+        expect(request.data()).toEqual({ email: "root@example.com", password: "test" });
 
     });
 
@@ -85,13 +85,13 @@ describe("Test class AuthenticationEndpoint", () => {
 
         const request = jasmine.Ajax.requests.mostRecent();
 
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({token: "testtoken"})));
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({ token: "testtoken" })));
 
         expect(request.url).toEqual("http://localhost:3333/v2/authentication");
 
         expect(request.method).toEqual("POST");
 
-        expect(request.data()).toEqual({iri: "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q", password: "test"});
+        expect(request.data()).toEqual({ iri: "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q", password: "test" });
 
     });
 
@@ -115,14 +115,14 @@ describe("Test class AuthenticationEndpoint", () => {
 
         request.respondWith(MockAjaxCall.mockNotAuthorizedResponse(JSON.stringify({
             "knora-api:error": "org.knora.webapi.BadCredentialsException: bad credentials: not valid",
-            "@context": {"knora-api": "http://api.knora.org/ontology/knora-api/v2#"}
+            "@context": { "knora-api": "http://api.knora.org/ontology/knora-api/v2#" }
         })));
 
         expect(request.url).toEqual("http://localhost:3333/v2/authentication");
 
         expect(request.method).toEqual("POST");
 
-        expect(request.data()).toEqual({username: "user", password: "wrongpassword"});
+        expect(request.data()).toEqual({ username: "user", password: "wrongpassword" });
 
     });
 
@@ -143,7 +143,7 @@ describe("Test class AuthenticationEndpoint", () => {
 
         const request = jasmine.Ajax.requests.mostRecent();
 
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({message: "Logout OK", status: 0})));
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({ message: "Logout OK", status: 0 })));
 
         expect(request.url).toEqual("http://localhost:3333/v2/authentication");
 
@@ -166,7 +166,7 @@ describe("Test class AuthenticationEndpoint", () => {
 
         const request = jasmine.Ajax.requests.mostRecent();
 
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({message: "credentials are OK"})));
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({ message: "credentials are OK" })));
 
         expect(request.url).toEqual("http://localhost:3333/v2/authentication");
 
@@ -193,7 +193,7 @@ describe("Test class AuthenticationEndpoint", () => {
 
         request.respondWith(MockAjaxCall.mockNotAuthorizedResponse(JSON.stringify({
             "knora-api:error": "org.knora.webapi.BadCredentialsException: bad credentials: none found",
-            "@context": {"knora-api": "http://api.knora.org/ontology/knora-api/v2#"}
+            "@context": { "knora-api": "http://api.knora.org/ontology/knora-api/v2#" }
         })));
 
         expect(request.url).toEqual("http://localhost:3333/v2/authentication");

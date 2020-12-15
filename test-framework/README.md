@@ -1,36 +1,44 @@
-# Purpose of this project
+# Purpose of the Test Environment
 
-This Angular application is supposed to test development builds of the `@dasch-swiss/dsp-js` NPM package.
-Thus, it does not directly install the package through NPM.
+This Angular application allows testing local builds of the `@dasch-swiss/dsp-js` npm package.
 Instead, it links a local version using the NPM package `yalc`.
 
-## Setup application
+## Using the Test Environment
 
-### Install yalc
+### Prerequisites
 
-Install the NPM package `yalc` by running `npm install yalc -g`.
+If not installed yet, install `yalc` globally by running `npm install yalc -g`.
 
-### Setup development of Knora API package
+### Build and Integrate DSP-JS-LIB
 
-Check out https://github.com/dhlab-basel/knora-api-js-lib to the folder of your choice on your computer.
+From the project root, build and publish DSP-JS-LIB locally using `yalc`.
+Follow the instructions given in the [contribution guidelines](../contribution.md#build-and-publish-a-local-version).
 
-Then, open the root directory of the library in the terminal and run
+Then switch to the directory `./test-framework`. 
+From this directory, run the following scripts:
+- `npm run yalc-add`
+- `npm install`
 
-```shell
-npm install && npm run yalc-publish
-```
+### Run Test Angular Application
 
-This command will first install other NPM packages (dependencies), make a local build of the package and then publish the package to the local `yalc` store.
+Once you have included the local build with `yalc`,
+you can run the test Angular application with `npm run ng s`.
 
-### Setup development of this test application
+Note that this requires a running DSP-API instance.
+Use the DSP-API release which is specified in `vars.mk`. 
 
-Open the root directory of this application the terminal and run:
+### Run E2E Tests
 
-```shell
-yalc add @dasch-swiss/dsp-js
-npm install
-```
+To run the E2E tests, you need to build and integrate a local version of DSP-JS-LIB,
+see section "Build and Integrate DSP-JS-LIB". 
+If the Angular test app is running, stop it before running the E2E test.
 
-## Run application
+Make sure that DSP-API's database is in its initial state. Reload the data if necessary.
 
-Now you may proceed using the Angular CLI. To see the result in the browser, run `ng serve` in the terminal.
+Then, execute the following steps:
+- `npm run webdriver-update` to install the required version of Chrome webdriver
+- `npm run e2e`
+
+Alternatively, run `npm run e2e-local` which combines the steps mentioned above.
+It installs the locally built version of DSP-JS-LIB using `yalc`,
+installs the required version of Chrome webdriver, and runs the E2E tests. 

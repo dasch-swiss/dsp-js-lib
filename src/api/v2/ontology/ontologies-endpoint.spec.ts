@@ -2,12 +2,14 @@ import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { Constants } from "../../../models/v2/Constants";
-import { UpdateOntologyResourceClassCardinality } from "../../../models/v2/ontologies/update/update-ontology-resource-class-cardinality";
+import { Cardinality } from "../../../models/v2/ontologies/class-definition";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
 import { CreateResourceClass } from "../../../models/v2/ontologies/create/create-resource-class";
 import { CreateResourceProperty } from "../../../models/v2/ontologies/create/create-resource-property";
+import { DeleteOntology } from "../../../models/v2/ontologies/delete/delete-ontology";
 import { DeleteOntologyResponse } from "../../../models/v2/ontologies/delete/delete-ontology-response";
 import { DeleteResourceClass } from "../../../models/v2/ontologies/delete/delete-resource-class";
+import { DeleteResourceProperty } from "../../../models/v2/ontologies/delete/delete-resource-property";
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
 import {
@@ -20,10 +22,9 @@ import {
 } from "../../../models/v2/ontologies/resource-property-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
-import { Cardinality } from "../../../models/v2/ontologies/class-definition";
-import { DeleteOntology } from "../../../models/v2/ontologies/delete/delete-ontology";
-import { DeleteResourceProperty } from "../../../models/v2/ontologies/delete/delete-resource-property";
+import { UpdateOntologyResourceClassCardinality } from "../../../models/v2/ontologies/update/update-ontology-resource-class-cardinality";
 import { StringLiteralV2 } from "../../../models/v2/string-literal-v2";
+import { StandoffClassDefinition } from "../../../models/v2/ontologies/standoff-class-definition";
 
 describe("OntologiesEndpoint", () => {
 
@@ -44,7 +45,7 @@ describe("OntologiesEndpoint", () => {
 
             knoraApiConnection.v2.onto.getOntologiesMetadata().subscribe(
                 (response: OntologiesMetadata) => {
-                    expect(response.ontologies.length).toEqual(15);
+                    expect(response.ontologies.length).toEqual(14);
                     expect(response.ontologies[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
                     done();
                 }
@@ -143,6 +144,28 @@ describe("OntologiesEndpoint", () => {
                     expect((response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem"] as ResourcePropertyDefinition).isLinkValueProperty).toBeFalsy();
                     expect((response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem"] as ResourcePropertyDefinition).guiAttributes).toEqual(["hlist=<http://rdfh.ch/lists/0001/treeList>"]);
 
+                    const classDefs = response.getAllClassDefinitions();
+                    expect(classDefs.length).toEqual(9);
+                    expect(classDefs[0] instanceof ResourceClassDefinition).toBeTruthy();
+                    expect((classDefs[0] as ResourceClassDefinition).id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#BlueThing");
+
+                    const resClassDefs = response.getClassDefinitionsByType(ResourceClassDefinition);
+                    expect(resClassDefs.length).toEqual(8);
+                    expect(resClassDefs[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#BlueThing");
+
+                    const standoffClassDefs = response.getClassDefinitionsByType(StandoffClassDefinition);
+                    expect(standoffClassDefs.length).toEqual(1);
+                    expect(standoffClassDefs[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#StandoffEventTag");
+
+                    const systemProps: SystemPropertyDefinition[] = response.getPropertyDefinitionsByType(SystemPropertyDefinition);
+                    expect(systemProps.length).toEqual(1);
+                    expect(systemProps[0] instanceof SystemPropertyDefinition).toBe(true);
+                    expect(systemProps[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#standoffEventTagHasDescription");
+
+                    const resourceProps: ResourcePropertyDefinition[] = response.getPropertyDefinitionsByType(ResourcePropertyDefinition);
+                    expect(resourceProps.length).toEqual(28);
+                    expect(resourceProps[0] instanceof ResourcePropertyDefinition).toBe(true);
+
                     done();
                 });
 
@@ -212,6 +235,26 @@ describe("OntologiesEndpoint", () => {
 
         });
 
+        it("should return an empty list when no ontologies exist yet for a given project", done => {
+
+            knoraApiConnection.v2.onto.getOntologiesByProjectIri("http://rdfh.ch/projects/0001").subscribe(
+                (response: OntologiesMetadata) => {
+                    expect(response.ontologies.length).toEqual(0);
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            // empty response because no ontologies exist for the project
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({})));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/metadata/http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
         it("should return all ontologies from 'incunabula' project", done => {
 
             knoraApiConnection.v2.onto.getOntologiesByProjectIri("http://rdfh.ch/projects/0803").subscribe(
@@ -240,13 +283,13 @@ describe("OntologiesEndpoint", () => {
         it("should create a new ontology", done => {
 
             const newOntology: CreateOntology = new CreateOntology();
-            newOntology.attachedToProject = "http://rdfh.ch/projects/00FF";
+            newOntology.attachedToProject = "http://rdfh.ch/projects/0001";
             newOntology.label = "The foo ontology";
             newOntology.name = "foo";
 
             knoraApiConnection.v2.onto.createOntology(newOntology).subscribe(
                 (response: OntologyMetadata) => {
-                    expect(response.id).toBe("http://0.0.0.0:3333/ontology/00FF/foo/v2");
+                    expect(response.id).toBe("http://0.0.0.0:3333/ontology/0001/foo/v2");
                     done();
                 }
             );
@@ -273,13 +316,13 @@ describe("OntologiesEndpoint", () => {
 
             const ontoInfo = new DeleteOntology();
 
-            ontoInfo.id = "http://0.0.0.0:3333/ontology/00FF/foo/v2";
+            ontoInfo.id = "http://0.0.0.0:3333/ontology/0001/foo/v2";
 
             ontoInfo.lastModificationDate = "2020-06-29T13:33:46.059576Z";
 
             knoraApiConnection.v2.onto.deleteOntology(ontoInfo).subscribe(
                 (res: DeleteOntologyResponse) => {
-                    expect(res.result).toEqual("Ontology http://0.0.0.0:3333/ontology/00FF/foo/v2 has been deleted");
+                    expect(res.result).toEqual("Ontology http://0.0.0.0:3333/ontology/0001/foo/v2 has been deleted");
                     done();
                 }
             );
@@ -290,7 +333,7 @@ describe("OntologiesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteOntoResponse)));
 
-            const path = "http://0.0.0.0:3333/v2/ontologies/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F00FF%2Ffoo%2Fv2?lastModificationDate=2020-06-29T13%3A33%3A46.059576Z";
+            const path = "http://0.0.0.0:3333/v2/ontologies/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Ffoo%2Fv2?lastModificationDate=2020-06-29T13%3A33%3A46.059576Z";
             expect(request.url).toBe(path);
 
             expect(request.method).toEqual("DELETE");
@@ -306,7 +349,7 @@ describe("OntologiesEndpoint", () => {
             const onto = new UpdateOntology<CreateResourceClass>();
 
             onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
-            onto.lastModificationDate = "2017-12-19T15:23:42.166Z";
+            onto.lastModificationDate = "2020-10-21T23:50:43.379793Z";
 
             const newResClass = new CreateResourceClass();
 
@@ -315,7 +358,7 @@ describe("OntologiesEndpoint", () => {
             const comment = new StringLiteralV2();
 
             comment.language = "en";
-            comment.value =  "Represents nothing";
+            comment.value = "Represents nothing";
 
             newResClass.comment = [comment];
 
@@ -349,6 +392,10 @@ describe("OntologiesEndpoint", () => {
             expect(request.method).toEqual("POST");
 
             const expectedPayload = require("../../../../test/data/api/v2/ontologies/create-class-without-cardinalities-request-expanded.json");
+
+            // TODO: remove this bad hack once test data is stable
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#lastModificationDate"]["@value"] = "2020-10-21T23:50:43.379793Z";
+
             expect(request.data()).toEqual(expectedPayload);
         });
 
@@ -470,7 +517,7 @@ describe("OntologiesEndpoint", () => {
             const onto = new UpdateOntology<CreateResourceProperty>();
 
             onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
-            onto.lastModificationDate = "2017-12-19T15:23:42.166Z";
+            onto.lastModificationDate = "2020-10-21T23:50:45.204678Z";
 
             const newResProp = new CreateResourceProperty();
 
@@ -514,6 +561,10 @@ describe("OntologiesEndpoint", () => {
             const request = jasmine.Ajax.requests.mostRecent();
 
             const expectedPayload = require("../../../../test/data/api/v2/ontologies/create-link-property-request-expanded.json");
+
+            // TODO: remove this bad hack once test data is stable
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#lastModificationDate"]["@value"] = "2020-10-21T23:50:45.204678Z";
+
             expect(request.data()).toEqual(expectedPayload);
 
             const createResPropResponse = require("../../../../test/data/api/v2/ontologies/create-link-property-response.json");
@@ -567,7 +618,7 @@ describe("OntologiesEndpoint", () => {
 
             addCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
 
-            addCard.lastModificationDate = "2017-12-19T15:23:42.166Z";
+            addCard.lastModificationDate = "2020-10-21T23:50:45.789081Z";
 
             addCard.cardinalities = [
                 {
@@ -587,6 +638,10 @@ describe("OntologiesEndpoint", () => {
             const request = jasmine.Ajax.requests.mostRecent();
 
             const expectedPayload = require("../../../../test/data/api/v2/ontologies/add-cardinalities-to-class-nothing-request-expanded.json");
+
+            // TODO: remove this bad hack once test data is stable
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#lastModificationDate"]["@value"] = "2020-10-21T23:50:45.789081Z";
+
             expect(request.data()).toEqual(expectedPayload);
 
             const createCardResponse = require("../../../../test/data/api/v2/ontologies/add-cardinalities-to-class-nothing-response.json");

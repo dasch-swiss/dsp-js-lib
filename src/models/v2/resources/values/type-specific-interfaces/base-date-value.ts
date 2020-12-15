@@ -1,3 +1,6 @@
+/**
+ * @category Internal
+ */
 export interface IBaseDateValue {
 
     calendar: string;
@@ -8,7 +11,7 @@ export interface IBaseDateValue {
 
     startYear: number;
 
-    startEra: string;
+    startEra?: string;
 
     endDay?: number;
 
@@ -16,5 +19,5 @@ export interface IBaseDateValue {
 
     endYear: number;
 
-    endEra: string;
+    endEra?: string;
 }

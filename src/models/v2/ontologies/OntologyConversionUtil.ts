@@ -1,6 +1,7 @@
 import { JsonConvert } from "json2typescript";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { Constants } from "../Constants";
+import { TypeGuard } from "../resources/type-guard";
 import { IHasProperty } from "./class-definition";
 import { EntityDefinition } from "./EntityDefinition";
 import { OntologiesMetadata, OntologyMetadata } from "./ontology-metadata";
@@ -10,6 +11,9 @@ import { ResourcePropertyDefinition, ResourcePropertyDefinitionWithAllLanguages 
 import { StandoffClassDefinition } from "./standoff-class-definition";
 import { SystemPropertyDefinition } from "./system-property-definition";
 
+/**
+ * @category Internal
+ */
 export namespace OntologyConversionUtil {
 
     /**
@@ -199,8 +203,8 @@ export namespace OntologyConversionUtil {
      * Converts an ontology serialized as JSON-LD to an instance of `ReadOntology`.
      *
      * @param ontologyJsonld ontology as JSON-LD already processed by the jsonld-processor.
-     * @param jsonConvert
-     * @param knoraApiConfig
+     * @param jsonConvert instance of JsonConvert to use.
+     * @param knoraApiConfig config object to use.
      * @return the ontology as a `ReadOntology`.
      */
     export const convertOntology = (ontologyJsonld: object, jsonConvert: JsonConvert, knoraApiConfig: KnoraApiConfig): ReadOntology => {
@@ -221,10 +225,10 @@ export namespace OntologyConversionUtil {
     };
 
     /**
-     * Converts a list of ontolgies or a single ontology serialized as JSON-LD to an instance of `OntologiesMetadata`
+     * Converts a list of ontologies or a single ontology serialized as JSON-LD to an instance of `OntologiesMetadata`
      * 
-     * @param ontologiesJsonld 
-     * @param jsonConvert 
+     * @param ontologiesJsonld JSON-LD representing ontology metadata.
+     * @param jsonConvert instance of JsonConvert to use.
      */
     export const convertOntologiesList = (ontologiesJsonld: object, jsonConvert: JsonConvert): OntologiesMetadata => {
 
@@ -232,7 +236,10 @@ export namespace OntologyConversionUtil {
             return jsonConvert.deserializeObject(ontologiesJsonld, OntologiesMetadata);
         } else {
             const ontologies: OntologiesMetadata = new OntologiesMetadata();
-            ontologies.ontologies = [jsonConvert.deserializeObject(ontologiesJsonld, OntologyMetadata)];
+            // add ontologies, if any
+            if (Object.keys(ontologiesJsonld).length > 0) {
+                ontologies.ontologies = [jsonConvert.deserializeObject(ontologiesJsonld, OntologyMetadata)];
+            }
             return ontologies;
         }
     };
@@ -240,30 +247,33 @@ export namespace OntologyConversionUtil {
     /**
      * Converts the response from createResourceClass serialized as JSON-LD to an instance of `ResourceClassDefinition`
      * 
-     * @param  resClassJsonld
-     * @param  jsonConvert
-     * @returns ResourceClassDefinitionWithAllLanguages
+     * @param  resClassJsonld JSON-LD representing a resource class definition.
+     * @param  jsonConvert instance of JsonConvert to use.
      */
     export const convertResourceClassResponse = (resClassJsonld: object, jsonConvert: JsonConvert): ResourceClassDefinitionWithAllLanguages => {
         if (resClassJsonld.hasOwnProperty("@graph")) {
-            return jsonConvert.deserializeObject((resClassJsonld as any)['@graph'][0], ResourceClassDefinitionWithAllLanguages);
+            const deserializedObj = jsonConvert.deserializeObject((resClassJsonld as any)["@graph"][0], ResourceClassDefinitionWithAllLanguages);
+            deserializedObj.lastModificationDate = (jsonConvert.deserializeObject(resClassJsonld, OntologyMetadata)).lastModificationDate;
+            return deserializedObj;
         } else {
             return jsonConvert.deserializeObject(resClassJsonld, ResourceClassDefinitionWithAllLanguages);
         }
-    }
+    };
+
     /**
      * Converts the response from createResourceProperty serialized as JSON-LD to an instance of `ResourcePropertyDefinition`
      * 
-     * @param  resPropJsonld
-     * @param  jsonConvert
-     * @returns ResourcePropertyDefinitionWithAllLanguages
+     * @param  resPropJsonld JSON-LD representing a resource property definition.
+     * @param  jsonConvert instance of JsonConvert to use.
      */
     export const convertResourcePropertyResponse = (resPropJsonld: object, jsonConvert: JsonConvert): ResourcePropertyDefinitionWithAllLanguages => {
         if (resPropJsonld.hasOwnProperty("@graph")) {
-            return jsonConvert.deserializeObject((resPropJsonld as any)['@graph'][0], ResourcePropertyDefinitionWithAllLanguages);
+            const deserializedObj = jsonConvert.deserializeObject((resPropJsonld as any)["@graph"][0], ResourcePropertyDefinitionWithAllLanguages);
+            deserializedObj.lastModificationDate = (jsonConvert.deserializeObject(resPropJsonld, OntologyMetadata)).lastModificationDate;
+            return deserializedObj;
         } else {
             return jsonConvert.deserializeObject(resPropJsonld, ResourcePropertyDefinitionWithAllLanguages);
         }
-    }
+    };
 
 }

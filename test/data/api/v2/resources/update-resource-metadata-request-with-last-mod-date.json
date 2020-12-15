@@ -1,15 +1,15 @@
 {
   "@id" : "http://rdfh.ch/0001/a-thing",
   "@type" : "anything:Thing",
-  "rdfs:label" : "test thing with modified label",
-  "knora-api:hasPermissions" : "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:ProjectMember",
+  "rdfs:label" : "test thing with modified label again",
+  "knora-api:hasPermissions" : "CR knora-admin:ProjectMember|V knora-admin:ProjectMember",
   "knora-api:lastModificationDate" : {
     "@type" : "xsd:dateTimeStamp",
-    "@value" : "2019-02-13T09:05:10Z"
+    "@value" : "2020-12-10T11:46:44.902923Z"
   },
   "knora-api:newModificationDate" : {
     "@type" : "xsd:dateTimeStamp",
-    "@value" : "2019-12-12T10:23:25.836924Z"
+    "@value" : "2020-12-10T11:46:45.741754Z"
   },
   "@context" : {
     "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",

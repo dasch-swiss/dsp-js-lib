@@ -292,7 +292,7 @@ describe('workspace-project App', () => {
     button.click();
     const label = page.getEle('div section#ontologyeditor span.res-prop-label');
 
-    expect(label.getText()).toEqual('has name');
+    expect(label.getText()).toEqual('hat Namen');
   });
 
   it('add a cardinality to a resource class in testonto', () => {
@@ -635,6 +635,99 @@ describe('workspace-project App', () => {
 
     expect(label2.getText()).toEqual('OK');
 
+  });
+
+  it('it should update a project metadata', () => {
+
+    page.navigateTo();
+
+    const loginButton = page.getEle('div section#login button.login');
+
+    loginButton.click();
+
+    const loginStatus = page.getEle('div section#login span.status');
+
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div section#metadata button.update');
+
+    button.click();
+
+    const status = page.getEle('div section#metadata span.status');
+
+    expect(status.getText()).toEqual('OK');
+
+  });
+
+  it('it should get project metadata', () => {
+
+    page.navigateTo();
+
+    const button = page.getEle('div section#metadata button.read');
+
+    button.click();
+
+    const status = page.getEle('div section#metadata span.status');
+
+    expect(status.getText()).toEqual('OK');
+
+  });
+
+  it('should update the name of a list child node', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#lists button.update-child-name');
+
+    button.click();
+
+    const childName = page.getEle('div#lists span.child-name');
+
+    expect(childName.getText()).toEqual('updated child name');
+  });
+
+  it('should update the labels of a list child node', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#lists button.update-child-labels');
+
+    button.click();
+
+    const childName = page.getEle('div#lists span.child-labels');
+
+    expect(childName.getText()).toEqual('en/new label');
+  });
+
+  it('should update the comments of a list child node', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#lists button.update-child-comments');
+
+    button.click();
+
+    const childName = page.getEle('div#lists span.child-comments');
+
+    expect(childName.getText()).toEqual('en/new comment');
   });
 
   afterEach(async () => {

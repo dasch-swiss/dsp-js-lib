@@ -4,3 +4,6 @@ ifeq ($(UNAME),Darwin)
 else
   DOCKERHOST := $(shell ip -4 addr show docker0 | grep -Po 'inet \K[\d.]+')
 endif
+
+API_REPO := dasch-swiss/dsp-api
+API_VERSION := v13.0.0-rc.25
