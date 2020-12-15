@@ -3,12 +3,12 @@ import { map } from "rxjs/operators";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { UserResponse } from "../models/admin/user-response";
 import { ApiResponseData } from "../models/api-response-data";
-import { GenericCache } from "./GenericCache";
+import { GenericCache2 } from "./GenericCache2";
 
 /**
  * Caches user information obtained from Knora.
  */
-export class UserCache extends GenericCache<UserResponse> {
+export class UserCache extends GenericCache2<UserResponse> {
 
     constructor(private knoraApiConnection: KnoraApiConnection) {
         super();
@@ -19,7 +19,7 @@ export class UserCache extends GenericCache<UserResponse> {
      *
      * @param iri the Iri identifying the user.
      */
-    getUser(iri: string) {
+    getUser(iri: string): Observable<UserResponse> {
         return this.getItem(iri);
     }
 

@@ -3,12 +3,12 @@ import { map } from "rxjs/operators";
 import { AdminEndpoint } from "../api/admin/admin-endpoint";
 import { ListResponse } from "../models/admin/list-response";
 import { ApiResponseData } from "../models/api-response-data";
-import { GenericCache } from "./GenericCache";
+import { GenericCache2 } from "./GenericCache2";
 
 /**
  * Caches user information obtained from Knora.
  */
-export class ListAdminCache extends GenericCache<ListResponse> {
+export class ListAdminCache extends GenericCache2<ListResponse> {
 
     constructor(private adminEndpoint: AdminEndpoint) {
         super();

@@ -1,4 +1,4 @@
-import { AsyncSubject, forkJoin, Observable, of } from "rxjs";
+import { forkJoin, Observable, of } from "rxjs";
 import { map, mergeMap } from "rxjs/operators";
 import { V2Endpoint } from "../../api/v2/v2-endpoint";
 import { KnoraApiConfig } from "../../knora-api-config";
@@ -8,14 +8,14 @@ import { OntologyConversionUtil } from "../../models/v2/ontologies/OntologyConve
 import { PropertyDefinition } from "../../models/v2/ontologies/property-definition";
 import { ReadOntology } from "../../models/v2/ontologies/read/read-ontology";
 import { ResourceClassDefinition } from "../../models/v2/ontologies/resource-class-definition";
-import { GenericCache } from "../GenericCache";
+import { GenericCache2 } from "../GenericCache2";
 import { ResourceClassAndPropertyDefinitions } from "./resource-class-and-property-definitions";
 import { ResourceClassDefinitionWithPropertyDefinition } from "./resource-class-definition-with-property-definition";
 
 /**
  * Caches ontologies obtained from Knora and handles direct dependencies between ontologies.
  */
-export class OntologyCache extends GenericCache<ReadOntology> {
+export class OntologyCache extends GenericCache2<ReadOntology> {
 
     constructor(private knoraApiConfig: KnoraApiConfig, private v2Endpoint: V2Endpoint) {
         super();
@@ -36,7 +36,7 @@ export class OntologyCache extends GenericCache<ReadOntology> {
 
                 if (ontology.dependsOnOntologies.size > 0) {
                     // get dependencies
-                    const deps: Array<AsyncSubject<ReadOntology>> = [];
+                    const deps: Array<Observable<ReadOntology>> = [];
                     ontology.dependsOnOntologies.forEach((depKey: string) => {
                         deps.push(this.getItem(depKey));
                     });

@@ -15,18 +15,6 @@ export namespace MockList {
         PropertyMatchingRule.CASE_STRICT
     );
 
-    export const mockCompletedAsyncSubject = (listNodeIri: string): AsyncSubject<ListNodeV2> => {
-
-        const mock: ListNodeV2 = mockNode(listNodeIri);
-
-        const sub = new AsyncSubject<ListNodeV2>();
-        sub.next(mock);
-        sub.complete();
-
-        return sub;
-
-    };
-
     export const mockNode = (listNodeIri: string): ListNodeV2 => {
 
         const treeList = mockList("http://rdfh.ch/lists/0001/treeList");
