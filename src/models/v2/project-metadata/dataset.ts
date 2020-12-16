@@ -3,10 +3,10 @@ import { Constants } from "../Constants";
 import { DateConverter } from "../custom-converters/date-converter";
 import { DistributionConverter } from "../custom-converters/distribution-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
-import { IUrl } from "./../custom-converters/base-url-converter";
-import { Attribution } from "./attribution-definition";
+import { IUrl } from "../custom-converters/base-url-converter";
+import { Attribution } from "./attribution";
 import { BaseProjectMetadata } from "./base-project-metadata";
-import { SingleProject } from "./project-definition";
+import { SingleProject } from "./single-project";
 
 /** 
  * @category Model V2 

@@ -187,15 +187,15 @@ export { ListNodeV2 } from "./models/v2/lists/list-node-v2";
 export { Constants } from "./models/v2/Constants";
 
 export { ProjectsMetadata } from "./models/v2/project-metadata/project-metadata";
-export { Dataset } from "./models/v2/project-metadata/dataset-definition";
-export { SingleProject } from "./models/v2/project-metadata/project-definition";
-export { Person } from "./models/v2/project-metadata/person-definition";
-export { Address } from "./models/v2/project-metadata/address-definition";
-export { Attribution } from "./models/v2/project-metadata/attribution-definition";
-export { DataManagementPlan } from "./models/v2/project-metadata/data-management-plan-definition";
-export { Grant } from "./models/v2/project-metadata/grant-definition";
-export { Organization } from "./models/v2/project-metadata/organization-definition";
-export { Place } from "./models/v2/project-metadata/place-definition";
+export { Dataset } from "./models/v2/project-metadata/dataset";
+export { SingleProject } from "./models/v2/project-metadata/single-project";
+export { Person } from "./models/v2/project-metadata/person";
+export { Address } from "./models/v2/project-metadata/address";
+export { Attribution } from "./models/v2/project-metadata/attribution";
+export { DataManagementPlan } from "./models/v2/project-metadata/data-management-plan";
+export { Grant } from "./models/v2/project-metadata/grant";
+export { Organization } from "./models/v2/project-metadata/organization";
+export { Place } from "./models/v2/project-metadata/place";
 export { UpdateProjectMetadataResponse } from "./models/v2/project-metadata/update-project-metadata";
 export { IUrl } from "./models/v2/custom-converters/base-url-converter";
 

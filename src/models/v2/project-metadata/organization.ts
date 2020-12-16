@@ -2,7 +2,7 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
 import { IUrl } from "../custom-converters/base-url-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
-import { Address } from "./address-definition";
+import { Address } from "./address";
 import { BaseProjectMetadata } from "./base-project-metadata";
 
 /** 

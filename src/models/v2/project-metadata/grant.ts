@@ -4,8 +4,8 @@ import { IUrl } from "../custom-converters/base-url-converter";
 import { PersonOrganizationConverter } from "../custom-converters/person-organization-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
 import { BaseProjectMetadata } from "./base-project-metadata";
-import { Organization } from "./organization-definition";
-import { Person } from "./person-definition";
+import { Organization } from "./organization";
+import { Person } from "./person";
 
 /** 
  * @category Model V2 

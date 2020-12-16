@@ -1,6 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-import { Dataset } from "./dataset-definition";
-import { Person } from "./person-definition";
+import { Dataset } from "./dataset";
+import { Person } from "./person";
 
 /** 
 * @category Model V2 

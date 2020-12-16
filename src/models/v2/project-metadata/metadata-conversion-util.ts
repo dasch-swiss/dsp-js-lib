@@ -1,6 +1,6 @@
 import { JsonConvert } from "json2typescript";
-import { Dataset } from "./dataset-definition";
-import { Person } from "./person-definition";
+import { Dataset } from "./dataset";
+import { Person } from "./person";
 import { ProjectsMetadata } from "./project-metadata";
 
 /**
@@ -31,7 +31,7 @@ export namespace MetadataConversionUtil {
      * @param  {ProjectsMetadata} data data to map
      */
     export const mapReferences = (data: ProjectsMetadata): ProjectsMetadata => {
-        let meta = new ProjectsMetadata();
+        const meta = new ProjectsMetadata();
 
         // handles 1 or more Dataset objects
         const datasets: Dataset[] = data.projectsMetadata.filter(obj => (obj instanceof Dataset)).map(dataset => dataset as Dataset);
@@ -40,11 +40,11 @@ export namespace MetadataConversionUtil {
             if (!(obj instanceof Dataset)) {
                 datasets.forEach(
                     dataset => replaceReference(dataset, obj.id, obj)
-                )
+                );
             }
-        })
+        });
 
-        meta.projectsMetadata.push(...datasets);
+        meta.projectsMetadata = [...datasets];
         return meta;
     };
 
@@ -55,9 +55,9 @@ export namespace MetadataConversionUtil {
      * @param  {Person} replacer class instance for replacement
      */
     const replaceReference = (obj: Dataset, ref: string, replacer: Person): Dataset => {
-        let tempObj = Object.assign(obj);
+        const tempObj = Object.assign(obj);
 
-        // TODO: consider other obejcts placed outside the Dataset object(s) and/or simplify/adjust it to known possibilities
+        // TODO: consider other objects placed outside the Dataset object(s) and/or simplify/adjust it to known possibilities
         for (const key in tempObj) {
             if (tempObj[key] === ref) {
                 tempObj[key] = replacer;

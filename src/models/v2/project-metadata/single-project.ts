@@ -4,13 +4,13 @@ import { AdvancedUrlObjectConverter } from "../custom-converters/advanced-url-ob
 import { DateConverter } from "../custom-converters/date-converter";
 import { PersonOrganizationConverter } from "../custom-converters/person-organization-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
-import { IUrl } from "./../custom-converters/base-url-converter";
+import { IUrl } from "../custom-converters/base-url-converter";
 import { BaseProjectMetadata } from "./base-project-metadata";
-import { DataManagementPlan } from "./data-management-plan-definition";
-import { Grant } from "./grant-definition";
-import { Organization } from "./organization-definition";
-import { Person } from "./person-definition";
-import { Place } from "./place-definition";
+import { DataManagementPlan } from "./data-management-plan";
+import { Grant } from "./grant";
+import { Organization } from "./organization";
+import { Person } from "./person";
+import { Place } from "./place";
 
 /** 
  * @category Model V2 
