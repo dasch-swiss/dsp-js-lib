@@ -15,6 +15,7 @@
 - [#142](https://github.com/dasch-swiss/dsp-js-lib/pull/142) Util for permission handling
 - [#265](https://github.com/dasch-swiss/dsp-js-lib/pull/265) DSP-442 Add Convenience Methods to Ontology Information
 - [#258](https://github.com/dasch-swiss/dsp-js-lib/pull/258) DSP-1064 Create metadata endpoint in JS-LIB
+- [#269](https://github.com/dasch-swiss/dsp-js-lib/pull/269) DSP-883 Support New Edit List Endpoints
 - [#261](https://github.com/dasch-swiss/dsp-js-lib/pull/261) DSP-915 - Missing lastModificationDate property 
 - [#246](https://github.com/dasch-swiss/dsp-js-lib/pull/246) DSP-743 Support the api route /health
 - [#243](https://github.com/dasch-swiss/dsp-js-lib/pull/243) DSP-676 Add Support for Additional Methods in Admin Permission Endpoint 
