@@ -1,5 +1,5 @@
-import { ConnectableObservable, Observable, of } from "rxjs";
-import { map, publishLast, take, tap } from "rxjs/operators";
+import { Observable, of } from "rxjs";
+import { map, shareReplay, take, tap } from "rxjs/operators";
 import { ApiResponseError } from "..";
 
 /**
@@ -48,11 +48,12 @@ export abstract class GenericCache<T> {
             }),
             // only write the requested item to the cache for the given key
             map((res: T[]) => res[0]),
-            publishLast()
+            // make it a `ReplaySubject` so that all subscribers
+            // will get the latest and only emitted value
+            // side effects will only be done once
+            // failed observables will be retried with the next subscriber
+            shareReplay({ bufferSize: 1, refCount: true })
         );
-
-        // active ConnectableObservable
-        (this.cache[key] as ConnectableObservable<T>).connect();
 
         return this.cache[key];
 
@@ -135,7 +136,9 @@ export abstract class GenericCache<T> {
                     })
                     .forEach((depKey: string) => {
                         // Request each dependency from the cache
-                        // Dependencies will be fetched asynchronously.
+                        // Dependencies will be fetched independently (non-blocking).
+                        // It is the responsibility of the class implementing `GenericCache`
+                        // to subscribe to these dependencies.
                         this.getItem(depKey, true);
                     });
             }

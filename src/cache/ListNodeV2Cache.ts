@@ -1,5 +1,5 @@
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
 import { V2Endpoint } from "../api/v2/v2-endpoint";
 import { ListConversionUtil } from "../models/v2/lists/list-conversion-util";
 import { ListNodeV2 } from "../models/v2/lists/list-node-v2";
@@ -24,7 +24,15 @@ export class ListNodeV2Cache extends GenericCache<ListNodeV2> {
      * @param nodeIri the IRI of the list node to be returned.
      */
     getNode(nodeIri: string) {
-        return this.getItem(nodeIri);
+        return this.getItem(nodeIri).pipe(
+            tap((res: ListNodeV2) => {
+                const deps = this.getDependenciesOfItem(res);
+                deps.forEach(depKey =>  {
+                    // subscribe to dependencies so the observables starts emitting
+                    this.getItem(depKey).subscribe();
+                });
+            })
+        );
     }
 
     protected getKeyOfItem(item: ListNodeV2): string {
