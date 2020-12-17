@@ -123,9 +123,9 @@ jobs:
       - name: Check out
         uses: actions/checkout@v1
       - name: Install dependencies
-          run: |
-            npm install
-            npm run peer-deps
+        run: |
+          npm install
+          npm run peer-deps
       - name: Build API docs
         run: npm run builddocs
       - name: Publish generated content to GitHub Pages
