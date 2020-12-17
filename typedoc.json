@@ -1,5 +1,5 @@
 {
-  "out": "docs",
+  "out": "docs/1_0_0",
   "readme": "none",
   "name": "@dasch-swiss/dsp-js API Documentation",
   "exclude": "**/*.spec.*",
