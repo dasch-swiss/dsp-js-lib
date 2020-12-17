@@ -152,7 +152,7 @@ export class OntologiesEndpointV2 extends Endpoint {
 
         const resClassPay = new CreateResourceClassPayload();
 
-        resClassPay.id = resourceClasses.id + Constants.Delimiter + resourceClasses.entity.name;
+        resClassPay.id = resourceClasses.id + Constants.HashDelimiter + resourceClasses.entity.name;
         resClassPay.label = resourceClasses.entity.label;
         resClassPay.comment = (resourceClasses.entity.comment.length ? resourceClasses.entity.comment : resourceClasses.entity.label);
         resClassPay.subClassOf = resourceClasses.entity.subClassOf;
@@ -208,7 +208,7 @@ export class OntologiesEndpointV2 extends Endpoint {
 
         const resPropPay = new CreateResourcePropertyPayload();
 
-        resPropPay.id = resourceProperties.id + Constants.Delimiter + resourceProperties.entity.name;
+        resPropPay.id = resourceProperties.id + Constants.HashDelimiter + resourceProperties.entity.name;
 
         resPropPay.label = resourceProperties.entity.label;
         resPropPay.comment = (resourceProperties.entity.comment.length ? resourceProperties.entity.comment : resourceProperties.entity.label);
