@@ -120,6 +120,32 @@ describe("Test class Endpoint", () => {
 
     });
 
+    it("should perform a GET request with optional header options", done => {
+
+        const config = new KnoraApiConfig("http", "localhost", 3333);
+
+        const endpoint = new Endpoint(config, "/test");
+
+        endpoint["httpGet"](undefined, {"my-feature-toggle": "my-awesome-feature"}).subscribe(
+            (response: AjaxResponse) => {
+                expect(response.status).toEqual(200);
+                expect(response.response).toEqual({test: "test"});
+
+                done();
+            });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
+
+        expect(request.url).toBe("http://localhost:3333/test");
+
+        expect(request.method).toEqual("GET");
+
+        expect(request.requestHeaders).toEqual({"my-feature-toggle": "my-awesome-feature"});
+
+    });
+
     it("should perform a POST request", done => {
 
         const config = new KnoraApiConfig("http", "localhost", 3333);
@@ -239,6 +265,68 @@ describe("Test class Endpoint", () => {
 
     });
 
+    it("should perform a POST request with default json Content-Type and optional header options", done => {
+
+        const config = new KnoraApiConfig("http", "localhost", 3333);
+
+        const endpoint = new Endpoint(config, "/test");
+
+        endpoint["httpPost"](undefined, undefined, undefined, {"my-feature-toggle": "my-awesome-feature"}).subscribe(
+            (response: AjaxResponse) => {
+                expect(response.status).toEqual(200);
+                expect(response.response).toEqual({test: "test"});
+
+                done();
+            });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
+
+        expect(request.url).toBe("http://localhost:3333/test");
+
+        expect(request.method).toEqual("POST");
+
+        expect(request.requestHeaders).toEqual({
+            "Content-Type": "application/json; charset=utf-8",
+            "my-feature-toggle": "my-awesome-feature"
+        });
+
+        expect(request.data()).toEqual({});
+
+    });
+
+    it("should perform a POST request with sparql Content-Type and optional header options", done => {
+
+        const config = new KnoraApiConfig("http", "localhost", 3333);
+
+        const endpoint = new Endpoint(config, "/test");
+
+        endpoint["httpPost"](undefined, undefined, "sparql", {"my-feature-toggle": "my-awesome-feature"}).subscribe(
+            (response: AjaxResponse) => {
+                expect(response.status).toEqual(200);
+                expect(response.response).toEqual({test: "test"});
+
+                done();
+            });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
+
+        expect(request.url).toBe("http://localhost:3333/test");
+
+        expect(request.method).toEqual("POST");
+
+        expect(request.requestHeaders).toEqual({
+            "Content-Type": "application/sparql-query; charset=utf-8",
+            "my-feature-toggle": "my-awesome-feature"
+        });
+
+        expect(request.data()).toEqual({});
+
+    });
+
     it("should perform a PUT request", done => {
 
         const config = new KnoraApiConfig("http", "localhost", 3333);
@@ -354,6 +442,37 @@ describe("Test class Endpoint", () => {
         });
 
         expect(request.data()).toEqual({mydata: "data"});
+
+    });
+
+    it("should perform a PUT request with default Content-Type and optional header options", done => {
+
+        const config = new KnoraApiConfig("http", "localhost", 3333);
+
+        const endpoint = new Endpoint(config, "/test");
+
+        endpoint["httpPut"](undefined, undefined, undefined, {"my-feature-toggle": "my-awesome-feature"}).subscribe(
+            (response: AjaxResponse) => {
+                expect(response.status).toEqual(200);
+                expect(response.response).toEqual({test: "test"});
+
+                done();
+            });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
+
+        expect(request.url).toBe("http://localhost:3333/test");
+
+        expect(request.method).toEqual("PUT");
+
+        expect(request.requestHeaders).toEqual({
+            "Content-Type": "application/json; charset=utf-8",
+            "my-feature-toggle": "my-awesome-feature"
+        });
+
+        expect(request.data()).toEqual({});
 
     });
 
