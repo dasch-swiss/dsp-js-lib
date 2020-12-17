@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.0.1 (17/12/2020)
+
+#### Enhancements
+
+- [#268](https://github.com/dasch-swiss/dsp-js-lib/pull/268) DSP-1126 Finish metadata endpoint in JS-LIB
+
+---
+
 ## v1.0.0 (17/12/2020)
 
 #### Breaking changes
