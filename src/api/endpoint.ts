@@ -7,6 +7,8 @@ import { KnoraApiConfig } from "../knora-api-config";
 import { ApiResponseError } from "../models/api-response-error";
 import { DataError } from "../models/data-error";
 
+export type headerOptions = { [index: string]: string };
+
 /**
  * @category Internal
  */
@@ -77,11 +79,11 @@ export class Endpoint {
      *
      * @param path the relative URL for the request
      */
-    protected httpGet(path?: string): Observable<AjaxResponse> {
+    protected httpGet(path?: string, headerOpts?: headerOptions): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
 
-        return ajax.get(this.knoraApiConfig.apiUrl + this.path + path, this.constructHeader());
+        return ajax.get(this.knoraApiConfig.apiUrl + this.path + path, this.constructHeader(undefined, headerOpts));
 
     }
 
@@ -92,11 +94,11 @@ export class Endpoint {
      * @param body the body of the request, if any.
      * @param contentType content content type of body, if any.
      */
-    protected httpPost(path?: string, body?: any, contentType: "json" | "sparql" = "json"): Observable<AjaxResponse> {
+    protected httpPost(path?: string, body?: any, contentType: "json" | "sparql" = "json", headerOpts?: headerOptions): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
 
-        return ajax.post(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentType));
+        return ajax.post(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentType, headerOpts));
 
     }
 
@@ -107,11 +109,11 @@ export class Endpoint {
      * @param body the body of the request
      * @param contentType content content type of body, if any.
      */
-    protected httpPut(path?: string, body?: any, contentType: "json" = "json"): Observable<AjaxResponse> {
+    protected httpPut(path?: string, body?: any, contentType: "json" = "json", headerOpts?: headerOptions): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
 
-        return ajax.put(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentType));
+        return ajax.put(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentType, headerOpts));
 
     }
 
@@ -122,11 +124,11 @@ export class Endpoint {
      * @param body the body of the request
      * @param contentType content content type of body, if any.
      */
-    protected httpPatch(path?: string, body?: any, contentType: "json" = "json"): Observable<AjaxResponse> {
+    protected httpPatch(path?: string, body?: any, contentType: "json" = "json", headerOpts?: headerOptions): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
 
-        return ajax.patch(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentType));
+        return ajax.patch(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentType, headerOpts));
 
     }
 
@@ -135,11 +137,11 @@ export class Endpoint {
      *
      * @param path the relative URL for the request
      */
-    protected httpDelete(path?: string): Observable<AjaxResponse> {
+    protected httpDelete(path?: string, headerOpts?: headerOptions): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
 
-        return ajax.delete(this.knoraApiConfig.apiUrl + this.path + path, this.constructHeader());
+        return ajax.delete(this.knoraApiConfig.apiUrl + this.path + path, this.constructHeader(undefined, headerOpts));
 
     }
 
@@ -183,8 +185,9 @@ export class Endpoint {
      * If the client has obtained a token, it is included.
      *
      * @param contentType Sets the content type, if any.
+     * @param headerOpts Additional header options, if any.
      */
-    private constructHeader(contentType?: "json" | "sparql"): object {
+    private constructHeader(contentType?: "json" | "sparql", headerOpts?: headerOptions): object {
 
         const header: { [key: string]: string } = {};
 
@@ -201,7 +204,17 @@ export class Endpoint {
             }
         }
 
+        if (headerOpts !== undefined) {
+            const headerProps = Object.keys(headerOpts);
+            headerProps.forEach(
+                prop => {
+                    header[prop] = headerOpts[prop];
+                }
+            );
+        }
+
         return header;
     }
 
 }
+
