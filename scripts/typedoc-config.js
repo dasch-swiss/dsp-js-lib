@@ -8,5 +8,5 @@ const pack = fs.readJsonSync('./package.json');
 const typedoc = fs.readJsonSync('./typedoc.json');
 
 const version = pack.version;
-typedoc.out = "docs/" + version.replace(".", "_"); // e.g., 1.0.0 -> 1_0_0 (out: docs/1_0_0)
+typedoc.out = "docs/" + version.replaceAll(".", "_"); // e.g., 1.0.0 -> 1_0_0 (out: docs/1_0_0)
 fs.writeJsonSync('./typedoc.json', typedoc);
