@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.0.0 (14/12/2020)
+## v1.0.0 (17/12/2020)
 
 #### Breaking changes
 
