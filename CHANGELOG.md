@@ -1,5 +1,33 @@
 # Changelog
 
+## [0.3.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v0.2.0...v0.3.0) (2020-12-17)
+
+
+### Bug Fixes
+
+* **CI:** Bug fix in publish process ([#198](https://www.github.com/dasch-swiss/dsp-js-lib/issues/198)) ([6274a04](https://www.github.com/dasch-swiss/dsp-js-lib/commit/6274a04554b6a9c985023c673d66188fdfca9ed7))
+* **dependencies:** Security update for node-forge ([#245](https://www.github.com/dasch-swiss/dsp-js-lib/issues/245)) ([752017a](https://www.github.com/dasch-swiss/dsp-js-lib/commit/752017a5285747a013d84d8fc0ebcf40484d5583))
+* **ontology:** Add missing guiOrder to serialize IHasProperty ([#266](https://www.github.com/dasch-swiss/dsp-js-lib/issues/266)) ([fc1c086](https://www.github.com/dasch-swiss/dsp-js-lib/commit/fc1c08672c8d376e348329de1636ffbc61f03fbe))
+* Replace DateDate by Date ([#209](https://www.github.com/dasch-swiss/dsp-js-lib/issues/209)) ([bc169c0](https://www.github.com/dasch-swiss/dsp-js-lib/commit/bc169c0403b19d81096be81d871ef3c12ff29549))
+
+
+### Enhancements
+
+* **PR:** Add template for PRs ([#241](https://www.github.com/dasch-swiss/dsp-js-lib/issues/241)) ([240d1d6](https://www.github.com/dasch-swiss/dsp-js-lib/commit/240d1d63b961c6619f4055f8720de2a0ef2e2bc5))
+* **test-data:** Mock minimal ontology ([#229](https://www.github.com/dasch-swiss/dsp-js-lib/issues/229)) ([873696c](https://www.github.com/dasch-swiss/dsp-js-lib/commit/873696c0c438912743aeee19646299e95c2bbb95))
+
+
+### Documentation
+
+* Update CHANGELOG ([#248](https://www.github.com/dasch-swiss/dsp-js-lib/issues/248)) ([999dcca](https://www.github.com/dasch-swiss/dsp-js-lib/commit/999dcca2c1570c67c4771d417e2bc953bd288092))
+
+
+### Maintenance
+
+* **deps:** Bump highlight.js from 9.18.1 to 9.18.5 ([#263](https://www.github.com/dasch-swiss/dsp-js-lib/issues/263)) ([52b66fc](https://www.github.com/dasch-swiss/dsp-js-lib/commit/52b66fc7ab109374a2cc070e2f88eccaefe83df4))
+* **gh-ci:** Update main workflow ([#223](https://www.github.com/dasch-swiss/dsp-js-lib/issues/223)) ([ea73fb8](https://www.github.com/dasch-swiss/dsp-js-lib/commit/ea73fb803a2983552dd3ec76fde7d0070b1a0b65))
+* bump dsp-api (DSP-512) ([#220](https://www.github.com/dasch-swiss/dsp-js-lib/issues/220)) ([e7fb411](https://www.github.com/dasch-swiss/dsp-js-lib/commit/e7fb41196d4aacd6537bb13199745678c27fae92))
+
 ## v1.0.0 (14/12/2020)
 
 #### Breaking changes
