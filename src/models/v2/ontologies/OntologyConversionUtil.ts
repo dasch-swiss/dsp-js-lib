@@ -44,7 +44,7 @@ export namespace OntologyConversionUtil {
         } else if (entityIri.indexOf(projectEntityBase) === 0) {
 
             // split entity Iri on "#"
-            const segments: string[] = entityIri.split(Constants.Delimiter);
+            const segments: string[] = entityIri.split(Constants.HashDelimiter);
 
             if (segments.length === 2) {
                 // First segment identifies the project ontology the entity belongs to.

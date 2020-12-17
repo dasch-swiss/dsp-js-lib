@@ -1,10 +1,9 @@
-import { JsonConvert } from "json2typescript";
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { ApiResponseError } from "../../../models/api-response-error";
-import { Dataset } from "../../../models/v2/project-metadata/dataset-definition";
+import { MetadataConversionUtil } from "../../../models/v2/project-metadata/metadata-conversion-util";
 import { ProjectsMetadata } from "../../../models/v2/project-metadata/project-metadata";
 import { UpdateProjectMetadataResponse } from "../../../models/v2/project-metadata/update-project-metadata";
 import { Endpoint } from "../../endpoint";
@@ -14,7 +13,6 @@ const jsonld = require("jsonld/dist/jsonld.js");
 
 /**
  * Handles requests to the metadata route of the Knora API.
- *
  * @category Endpoint V2
  */
 export class ProjectMetadataEndpointV2 extends Endpoint {
@@ -33,9 +31,11 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
             mergeMap((res: AjaxResponse) => {
                 return jsonld.compact(res.response, {});
             }),
-            map((obj: any) => {
+            map((obj: ProjectsMetadata) => {
                 // create an instance of ProjectMetadata from JSON-LD
-                return this.convertProjectsList(obj, this.jsonConvert);
+                const convertedObj = MetadataConversionUtil.convertProjectsList(obj, this.jsonConvert);
+                // map outer objects to its references inside the Dateset object
+                return MetadataConversionUtil.mapReferences(convertedObj);
             }),
             catchError(e => {
                 return this.handleError(e);
@@ -44,16 +44,13 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
     }
 
     /**
-     * WIP - serilization in progress - read comments below
      * Updates a project metadata from Knora.
      * @param resourceIri the Iri of the resource the value belongs to.
      * @param metadata the data to update.
      */
-    //make below possible by replacing metadata: any with ProjectsMetadata type and adding serialization to custom converters
-    // updateProjectMetadata(resourceIri: string, metadata: ProjectsMetadata): Observable<UpdateProjectMetadataResponse | ApiResponseError> {
-    //     return this.httpPut(`/${encodeURIComponent(resourceIri)}`, this.jsonConvert.serializeObject(metadata)).pipe(
-    updateProjectMetadata(resourceIri: string, metadata: any): Observable<UpdateProjectMetadataResponse | ApiResponseError> {    
-        return this.httpPut(`/${encodeURIComponent(resourceIri)}`, metadata).pipe(
+    updateProjectMetadata(resourceIri: string, metadata: ProjectsMetadata): Observable<UpdateProjectMetadataResponse | ApiResponseError> {
+        const convertedMetadata = this.jsonConvert.serializeObject(metadata);
+        return this.httpPut("/" + encodeURIComponent(resourceIri), convertedMetadata).pipe(
             mergeMap((res: AjaxResponse) => {
                 return jsonld.compact(res.response, {});
             }),
@@ -62,23 +59,5 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
             }),
             catchError(e => this.handleError(e))
         );
-    }
-
-    /**
-     * Converts a list of projects or a single project serialized as JSON-LD to an instance of `ProjectsMetadata`
-     * @param projectsJsonLd JSON-LD representing project metadata.
-     * @param jsonConvert instance of JsonConvert to use.
-     */
-    private convertProjectsList = (projectsJsonLd: object, jsonConvert: JsonConvert): ProjectsMetadata => {
-        if (projectsJsonLd.hasOwnProperty("@graph")) {
-            return jsonConvert.deserializeObject(projectsJsonLd, ProjectsMetadata);
-        } else {
-            const projects: ProjectsMetadata = new ProjectsMetadata();
-            // creates the same structure for a single object incoming from the API
-            // if (Object.keys(projectsJsonLd).length > 0) {
-            projects.projectsMetadata = [jsonConvert.deserializeObject(projectsJsonLd, Dataset)];
-            // }
-            return projects;
-        }
     }
 }
