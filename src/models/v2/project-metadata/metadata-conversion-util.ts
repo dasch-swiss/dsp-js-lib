@@ -44,7 +44,7 @@ export namespace MetadataConversionUtil {
             }
         });
 
-        meta.projectsMetadata = [...datasets];
+        meta.projectsMetadata = datasets;
         return meta;
     };
 
