@@ -28,7 +28,7 @@
 * **gh-ci:** Update main workflow ([#223](https://www.github.com/dasch-swiss/dsp-js-lib/issues/223)) ([ea73fb8](https://www.github.com/dasch-swiss/dsp-js-lib/commit/ea73fb803a2983552dd3ec76fde7d0070b1a0b65))
 * bump dsp-api (DSP-512) ([#220](https://www.github.com/dasch-swiss/dsp-js-lib/issues/220)) ([e7fb411](https://www.github.com/dasch-swiss/dsp-js-lib/commit/e7fb41196d4aacd6537bb13199745678c27fae92))
 
-## v1.0.0 (14/12/2020)
+## v1.0.0 (17/12/2020)
 
 #### Breaking changes
 

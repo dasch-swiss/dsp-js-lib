@@ -1,28 +1,21 @@
 import { JsonConverter, JsonCustomConvert } from "json2typescript";
 import { Constants } from "../Constants";
-import { IUrl } from "./url-to-url-object-converter";
+import { BaseUrlConverter, IUrl } from "./base-url-converter";
 
-type IDistribution = IUrl;
-
+/**
+ * @category Internal
+ */
 @JsonConverter
-export class DistributionConverter implements JsonCustomConvert<IDistribution> {
+export class DistributionConverter extends BaseUrlConverter {
 
-    serialize(val: IDistribution): object {
-        const obj = {} as { [index: string]: string };
-        obj["@type"] = val.type;
-        obj[Constants.urlValue] = val.value;
-
-        return obj;
-    }
-
-    deserialize(val: any): IDistribution {
-        if (val.hasOwnProperty("@type") && val["@type"] === Constants.dataDownload) {
-            const obj = {} as IDistribution;
+    deserialize(val: any): IUrl {
+        if (val.hasOwnProperty("@type") && val["@type"] === Constants.SchemaDownload) {
+            const obj = {} as IUrl;
             obj.type = val["@type"];
-            obj.value = val[Constants.urlValue];
+            obj.value = val[Constants.SchemaUrlValue];
             return obj;
         } else {
-            throw new Error(`Expected object of ${Constants.dataDownload} type`);
+            throw new Error(`Expected object of ${Constants.SchemaDownload} type`);
         }
     }
 }
