@@ -1,19 +1,19 @@
 import { of, throwError } from "rxjs";
 import { AjaxError } from "rxjs/ajax";
-import { MockOntologyAssertions } from "../../../test/data/api/v2/mock-ontology-assertions";
+import { delay } from "rxjs/operators";
 import { MockOntology } from "../../../test/data/api/v2/mock-ontology";
+import { MockOntologyAssertions } from "../../../test/data/api/v2/mock-ontology-assertions";
 import { KnoraApiConfig } from "../../knora-api-config";
 import { KnoraApiConnection } from "../../knora-api-connection";
+import { ApiResponseError } from "../../models/api-response-error";
+import { PropertyDefinition } from "../../models/v2/ontologies/property-definition";
 import { ReadOntology } from "../../models/v2/ontologies/read/read-ontology";
+import { ResourcePropertyDefinition } from "../../models/v2/ontologies/resource-property-definition";
+import { SystemPropertyDefinition } from "../../models/v2/ontologies/system-property-definition";
 import {
     IHasPropertyWithPropertyDefinition,
     ResourceClassDefinitionWithPropertyDefinition
 } from "./resource-class-definition-with-property-definition";
-import { PropertyDefinition } from "../../models/v2/ontologies/property-definition";
-import { SystemPropertyDefinition } from "../../models/v2/ontologies/system-property-definition";
-import { ResourcePropertyDefinition } from "../../models/v2/ontologies/resource-property-definition";
-import { ApiResponseError } from "../../models/api-response-error";
-
 
 describe("OntologyCache", () => {
 
@@ -35,7 +35,8 @@ describe("OntologyCache", () => {
 
                     const onto = MockOntology.mockReadOntology(ontoIri);
 
-                    return of(onto);
+                    // use delay operator to make sync Observable async
+                    return of(onto).pipe(delay(1));
                 }
             );
 
@@ -146,6 +147,9 @@ describe("OntologyCache", () => {
                     done();
 
                 });
+
+                // the Observable is returned synchronously from the cache
+                expect(knoraApiConnection.v2.ontologyCache["cache"]["http://0.0.0.0:3333/ontology/0001/anything/v2"]).toBeDefined();
 
             });
 
@@ -286,7 +290,7 @@ describe("OntologyCache", () => {
                     console.log(ontos);
                     },
                     (err: ApiResponseError) => {
-                        console.log('failed to get onto', err);
+                        // console.log('failed to get onto', err);
                         // console.log(knoraApiConnection.v2.ontologyCache["cache"]);
 
                         expect(getOntoSpy).toHaveBeenCalledTimes(1);
