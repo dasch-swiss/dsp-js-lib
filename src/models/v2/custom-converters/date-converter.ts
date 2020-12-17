@@ -1,6 +1,9 @@
 import { JsonConverter, JsonCustomConvert } from "json2typescript";
 import { Constants } from "../Constants";
 
+/**
+ * @category Internal
+ */
 @JsonConverter
 export class DateConverter implements JsonCustomConvert<string> {
 
