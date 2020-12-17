@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DPS-JS-LIB API Docs</title>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" language="JavaScript"></script>
+        <script language="JavaScript">
+            "use strict";
+
+            var ghPagesBaseUrl = "https://dasch-swiss.github.io/dsp-js-lib";
+            var githubReleasesUrl = "https://api.github.com/repos/dasch-swiss/dsp-js-lib/releases";
+
+            $( document ).ready(function() {
+
+                $.get(githubReleasesUrl, function(data, status) {
+                    if (status === "success" && Array.isArray(data)) {
+
+                        var releases = data.reverse();
+
+                        $(data).each(
+                            (index, ele) => {
+
+                                // get rid of leading "v"
+                                var version = ele.name.replace("v", "");
+
+                                // check that version is at least 1.0.0
+                                // ignore prereleases
+                                if (version.charAt(0) !== "1" || version.indexOf("-rc.") !== -1) {
+                                    return;
+                                }
+
+                                // replace "." with "_", e.g. 1.0.0 -> 1_0_0
+                                var versionSegment = version.replaceAll(".", "_");
+
+                                // create a bullet point in list
+                                $(".versions").append(`<li><a href="${ghPagesBaseUrl}/${versionSegment}/index.html">${version}</a></li>`);
+                            }
+                        )
+                    }
+                });
+            });
+
+
+        </script>
+    </head>
+    <body>
+        <h1>DSP-JS API Doc</h1>
+
+        Find the apt API doc version of <a href="https://www.npmjs.com/package/@dasch-swiss/dsp-js">DPS-JS-LIB</a> in the list below:
+
+        <ul class="versions">
+
+        </ul>
+
+    </body>
+</html>
