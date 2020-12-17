@@ -1,5 +1,7 @@
 # Changelog
 
+## [v1.0.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v1.0.0...v1.0.1) (2020-12-17)
+
 ## v1.0.0 (17/12/2020)
 
 #### Breaking changes
