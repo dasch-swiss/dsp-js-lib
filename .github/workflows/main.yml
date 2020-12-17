@@ -127,7 +127,9 @@ jobs:
           npm install
           npm run peer-deps
       - name: Build API docs
-        run: npm run builddocs
+        run: |
+          npm run build-docs
+          npm run publish-docs
       - name: Publish generated content to GitHub Pages
         uses: tsunematsu21/actions-publish-gh-pages@v1.0.1
         with:
