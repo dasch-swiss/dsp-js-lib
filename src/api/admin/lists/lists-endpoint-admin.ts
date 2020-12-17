@@ -1,18 +1,19 @@
 import { Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
-
-import { ApiResponseData } from "../../../models/api-response-data";
-import { ApiResponseError } from "../../../models/api-response-error";
-import { Endpoint } from "../../endpoint";
-
+import { ChildNodeInfoResponse } from "../../../models/admin/child-node-info-response";
 import { CreateChildNodeRequest } from "../../../models/admin/create-child-node-request";
 import { CreateListRequest } from "../../../models/admin/create-list-request";
 import { ListInfoResponse } from "../../../models/admin/list-info-response";
 import { ListNodeInfoResponse } from "../../../models/admin/list-node-info-response";
 import { ListResponse } from "../../../models/admin/list-response";
 import { ListsResponse } from "../../../models/admin/lists-response";
+import { UpdateChildNodeCommentsRequest } from "../../../models/admin/update-child-node-comments-request";
+import { UpdateChildNodeLabelsRequest } from "../../../models/admin/update-child-node-labels-request";
+import { UpdateChildNodeNameRequest } from "../../../models/admin/update-child-node-name-request";
 import { UpdateListInfoRequest } from "../../../models/admin/update-list-info-request";
-
+import { ApiResponseData } from "../../../models/api-response-data";
+import { ApiResponseError } from "../../../models/api-response-error";
+import { Endpoint } from "../../endpoint";
 
 /**
  * An endpoint for working with Knora lists.
@@ -84,6 +85,51 @@ export class ListsEndpointAdmin extends Endpoint {
     
         return this.httpPut("/" + encodeURIComponent(listInfo.listIri), this.jsonConvert.serializeObject(listInfo)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListInfoResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    
+    }
+
+    /**
+     * Updates the name of an existing child node.
+     * 
+     * @param listItemIri the Iri of the list item.
+     * @param name the new name to replace the existing name.
+     */
+    updateChildName(listItemIri: string, name: UpdateChildNodeNameRequest): Observable<ApiResponseData<ChildNodeInfoResponse> | ApiResponseError> {
+    
+        return this.httpPut("/" + encodeURIComponent(listItemIri) + "/name", this.jsonConvert.serializeObject(name)).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ChildNodeInfoResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    
+    }
+
+    /**
+     * Updates the labels of an existing child node.
+     * 
+     * @param listItemIri the Iri of the list item.
+     * @param labels the new labels to replace the existing labels.
+     */
+    updateChildLabels(listItemIri: string, labels: UpdateChildNodeLabelsRequest): Observable<ApiResponseData<ChildNodeInfoResponse> | ApiResponseError> {
+    
+        return this.httpPut("/" + encodeURIComponent(listItemIri) + "/labels", this.jsonConvert.serializeObject(labels)).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ChildNodeInfoResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    
+    }
+
+    /**
+     * Updates the comments of an existing child node.
+     * 
+     * @param listItemIri the Iri of the list item.
+     * @param comments the new comments to replace the existing comments.
+     */
+    updateChildComments(listItemIri: string, comments: UpdateChildNodeCommentsRequest): Observable<ApiResponseData<ChildNodeInfoResponse> | ApiResponseError> {
+    
+        return this.httpPut("/" + encodeURIComponent(listItemIri) + "/comments", this.jsonConvert.serializeObject(comments)).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ChildNodeInfoResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
     
