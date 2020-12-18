@@ -63,7 +63,8 @@ import {
     IUrl,
     Grant,
     Person,
-    Organization
+    Organization,
+    UpdateChildNodeRequest
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -1067,6 +1068,42 @@ export class AppComponent implements OnInit {
         );
     }
 
+    updateChildNode(): void {
+        const childNode = new UpdateChildNodeRequest();
+
+        const newLabels = new StringLiteral();
+        newLabels.language = 'en';
+        newLabels.value = 'updated label';
+
+        childNode.labels = [newLabels];
+
+        const newComments = new StringLiteral();
+        newComments.language = 'en';
+        newComments.value = 'updated comment';
+
+        childNode.comments = [newComments];
+
+        childNode.listIri = 'http://rdfh.ch/lists/0001/treeList01';
+
+        childNode.projectIri = 'http://rdfh.ch/projects/0001';
+
+        this.knoraApiConnection.admin.listsEndpoint.updateChildNode(childNode).subscribe(
+            (res: ApiResponseData<ChildNodeInfoResponse>) => {
+                this.listChildLabels =
+                    res.response.response.nodeinfo.labels[0].language
+                    + '/'
+                    + res.response.response.nodeinfo.labels[0].value;
+
+                this.listChildComments =
+                    res.response.response.nodeinfo.comments[0].language
+                    + '/'
+                    + res.response.response.nodeinfo.comments[0].value;
+
+                this.listChildName = res.response.response.nodeinfo.name;
+            }
+        );
+    }
+
     updateChildName(): void {
         const childNodeName = new UpdateChildNodeNameRequest();
 
@@ -1096,7 +1133,6 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.admin.listsEndpoint.updateChildLabels(listItemIri, childNodeLabels).subscribe(
             (res: ApiResponseData<ChildNodeInfoResponse>) => {
-                console.log(res);
                 this.listChildLabels =
                     res.response.response.nodeinfo.labels[0].language
                     + '/'
@@ -1118,7 +1154,6 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.admin.listsEndpoint.updateChildComments(listItemIri, childNodeComments).subscribe(
             (res: ApiResponseData<ChildNodeInfoResponse>) => {
-                console.log(res);
                 this.listChildComments =
                     res.response.response.nodeinfo.comments[0].language
                     + '/'

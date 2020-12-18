@@ -12,6 +12,7 @@ import { StringLiteral } from "../../../models/admin/string-literal";
 import { UpdateChildNodeCommentsRequest } from "../../../models/admin/update-child-node-comments-request";
 import { UpdateChildNodeLabelsRequest } from "../../../models/admin/update-child-node-labels-request";
 import { UpdateChildNodeNameRequest } from "../../../models/admin/update-child-node-name-request";
+import { UpdateChildNodeRequest } from "../../../models/admin/update-child-node-request";
 import { UpdateListInfoRequest } from "../../../models/admin/update-list-info-request";
 import { ApiResponseData } from "../../../models/api-response-data";
 
@@ -198,6 +199,56 @@ describe("ListsEndpoint", () => {
 
             expect(request.data()).toEqual(payload);
 
+        });
+
+    });
+
+    describe("Method UpdateChildNode", () => {
+
+        it("should update the name, labels, and comments of an existing child node", done => {
+
+            const childNode = new UpdateChildNodeRequest();
+
+            childNode.listIri = "http://rdfh.ch/lists/0001/treeList01";
+
+            childNode.projectIri = "http://rdfh.ch/projects/0001";
+
+            childNode.name = "updated third child name";
+
+            const newLabels = new StringLiteral();
+            newLabels.language = "se";
+            newLabels.value = "nya märkningen för nod";
+
+            childNode.labels = [newLabels];
+
+            const newComments = new StringLiteral();
+            newComments.language = "se";
+            newComments.value = "nya kommentarer för nod";
+
+            childNode.comments = [newComments];
+
+            knoraApiConnection.admin.listsEndpoint.updateChildNode(childNode).subscribe(
+                (res: ApiResponseData<ChildNodeInfoResponse>) => {
+                    // console.log(res.response.response);
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const childNodeResponse = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/manually-generated/update-node-info-name-comment-label-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(childNodeResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList01");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+
+            const payload = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/manually-generated/update-node-info-name-comment-label-request.json");
+
+            expect(request.data()).toEqual(payload);
         });
 
     });

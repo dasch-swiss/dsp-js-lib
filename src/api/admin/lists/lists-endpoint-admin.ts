@@ -10,6 +10,7 @@ import { ListsResponse } from "../../../models/admin/lists-response";
 import { UpdateChildNodeCommentsRequest } from "../../../models/admin/update-child-node-comments-request";
 import { UpdateChildNodeLabelsRequest } from "../../../models/admin/update-child-node-labels-request";
 import { UpdateChildNodeNameRequest } from "../../../models/admin/update-child-node-name-request";
+import { UpdateChildNodeRequest } from "../../../models/admin/update-child-node-request";
 import { UpdateListInfoRequest } from "../../../models/admin/update-list-info-request";
 import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
@@ -85,6 +86,20 @@ export class ListsEndpointAdmin extends Endpoint {
     
         return this.httpPut("/" + encodeURIComponent(listInfo.listIri), this.jsonConvert.serializeObject(listInfo)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListInfoResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    
+    }
+
+    /**
+     * Updates a child node.
+     * 
+     * @param nodeInfo Information about the node to be updated.
+     */
+    updateChildNode(nodeInfo: UpdateChildNodeRequest): Observable<ApiResponseData<ChildNodeInfoResponse> | ApiResponseError> {
+    
+        return this.httpPut("/" + encodeURIComponent(nodeInfo.listIri), this.jsonConvert.serializeObject(nodeInfo), undefined, { "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" }).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ChildNodeInfoResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
     
