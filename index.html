@@ -14,19 +14,17 @@
                 $.get(githubReleasesUrl, function(data, status) {
                     if (status === "success" && Array.isArray(data)) {
 
-                        var releases = data.reverse();
+                        var releases = data.filter(
+                            // check that version is at least v1.0.0
+                            // ignore prereleases
+                            rel => rel.name.charAt(1) === "1" && rel.name.indexOf("-rc.") === -1
+                        ).reverse();
 
-                        $(data).each(
-                            (index, ele) => {
+                        releases.forEach(
+                            ele => {
 
-                                // get rid of leading "v"
+                                // get rid of leading "v", e.g., v1.0.0
                                 var version = ele.name.replace("v", "");
-
-                                // check that version is at least 1.0.0
-                                // ignore prereleases
-                                if (version.charAt(0) !== "1" || version.indexOf("-rc.") !== -1) {
-                                    return;
-                                }
 
                                 // replace "." with "_", e.g. 1.0.0 -> 1_0_0
                                 var versionSegment = version.replaceAll(".", "_");
@@ -45,7 +43,7 @@
     <body>
         <h1>DSP-JS API Doc</h1>
 
-        Find the apt API doc version of <a href="https://www.npmjs.com/package/@dasch-swiss/dsp-js">DPS-JS-LIB</a> in the list below:
+        API docs for <a href="https://www.npmjs.com/package/@dasch-swiss/dsp-js">DPS-JS-LIB</a> releases:
 
         <ul class="versions">
 
