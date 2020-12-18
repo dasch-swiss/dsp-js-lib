@@ -1,6 +1,6 @@
 import { Observable, of } from "rxjs";
 import { map, shareReplay, take, tap } from "rxjs/operators";
-import { ApiResponseError } from "..";
+import { ApiResponseError } from "../models/api-response-error";
 
 /**
  * Generic cache class.
@@ -33,11 +33,17 @@ export abstract class GenericCache<T> {
             return this.cache[key];
         }
 
+        // store the observable in the cache
+        // the next request for the same key will immediately get the observable
+        // also if the request has not finished yet
         this.cache[key] = this.requestItemFromKnora(key, isDependency).pipe(
+            // only one item is expected
             take(1),
+            // DSP-API may return several elements for the request (optimization)
             tap((items: T[]) => {
-                if (items.length === 0) throw Error("No items returned from Knora for " + key);
+                if (items.length === 0) throw Error("No items returned from DSP-API for " + key);
 
+                // the first item is expected to be the requested item
                 if (key !== this.getKeyOfItem(items[0])) throw Error("First item of items returned from DSP-API is expected to be " + key);
 
                 // save all additional items returned for this request
@@ -50,11 +56,14 @@ export abstract class GenericCache<T> {
             map((res: T[]) => res[0]),
             // make it a `ReplaySubject` so that all subscribers
             // will get the latest and only emitted value
-            // side effects will only be done once
-            // failed observables will be retried with the next subscriber
+
+            // side effects will only be performed once
+
+            // failed observables will be retried upon the next subscription
             shareReplay({ bufferSize: 1, refCount: true })
         );
 
+        // return the observable immediately (sync)
         return this.cache[key];
 
     }
