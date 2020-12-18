@@ -8,6 +8,18 @@ import { ApiResponseError } from "../models/api-response-error";
 import { DataError } from "../models/data-error";
 
 /**
+ * HTTP Headers to be sent with the request.
+ *
+ * Note that Authorization and Content-Type are handled
+ * by the method `constructHeader`.
+ *
+ * @category Internal
+ */
+export interface IHeaderOptions {
+    [index: string]: string;
+}
+
+/**
  * @category Internal
  */
 export class Endpoint {
@@ -76,12 +88,13 @@ export class Endpoint {
      * Performs a general GET request.
      *
      * @param path the relative URL for the request
+     * @param headerOpts additional headers, if any.
      */
-    protected httpGet(path?: string): Observable<AjaxResponse> {
+    protected httpGet(path?: string, headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
 
-        return ajax.get(this.knoraApiConfig.apiUrl + this.path + path, this.constructHeader());
+        return ajax.get(this.knoraApiConfig.apiUrl + this.path + path, this.constructHeader(undefined, headerOpts));
 
     }
 
@@ -91,12 +104,13 @@ export class Endpoint {
      * @param path the relative URL for the request
      * @param body the body of the request, if any.
      * @param contentType content content type of body, if any.
+     * @param headerOpts additional headers, if any.
      */
-    protected httpPost(path?: string, body?: any, contentType: "json" | "sparql" = "json"): Observable<AjaxResponse> {
+    protected httpPost(path?: string, body?: any, contentType: "json" | "sparql" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
 
-        return ajax.post(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentType));
+        return ajax.post(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentType, headerOpts));
 
     }
 
@@ -106,12 +120,13 @@ export class Endpoint {
      * @param path the relative URL for the request
      * @param body the body of the request
      * @param contentType content content type of body, if any.
+     * @param headerOpts additional headers, if any.
      */
-    protected httpPut(path?: string, body?: any, contentType: "json" = "json"): Observable<AjaxResponse> {
+    protected httpPut(path?: string, body?: any, contentType: "json" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
 
-        return ajax.put(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentType));
+        return ajax.put(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentType, headerOpts));
 
     }
 
@@ -121,25 +136,27 @@ export class Endpoint {
      * @param path the relative URL for the request
      * @param body the body of the request
      * @param contentType content content type of body, if any.
+     * @param headerOpts additional headers, if any.
      */
-    protected httpPatch(path?: string, body?: any, contentType: "json" = "json"): Observable<AjaxResponse> {
+    protected httpPatch(path?: string, body?: any, contentType: "json" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
 
-        return ajax.patch(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentType));
+        return ajax.patch(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentType, headerOpts));
 
     }
 
     /**
      * Performs a general PUT request.
      *
-     * @param path the relative URL for the request
+     * @param path the relative URL for the request.
+     * @param headerOpts additional headers, if any.
      */
-    protected httpDelete(path?: string): Observable<AjaxResponse> {
+    protected httpDelete(path?: string, headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
 
-        return ajax.delete(this.knoraApiConfig.apiUrl + this.path + path, this.constructHeader());
+        return ajax.delete(this.knoraApiConfig.apiUrl + this.path + path, this.constructHeader(undefined, headerOpts));
 
     }
 
@@ -183,22 +200,31 @@ export class Endpoint {
      * If the client has obtained a token, it is included.
      *
      * @param contentType Sets the content type, if any.
+     * @param headerOpts additional headers, if any.
      */
-    private constructHeader(contentType?: "json" | "sparql"): object {
+    private constructHeader(contentType?: "json" | "sparql", headerOpts?: IHeaderOptions): object {
 
-        const header: { [key: string]: string } = {};
+        const header: IHeaderOptions = {};
 
         if (this.jsonWebToken !== "") {
-            header["Authorization" as any] = "Bearer " + this.jsonWebToken;
+            header["Authorization"] = "Bearer " + this.jsonWebToken;
         }
 
         if (contentType !== undefined) {
-
             if (contentType === "json") {
                 header["Content-Type"] = "application/json; charset=utf-8";
             } else if (contentType === "sparql") {
                 header["Content-Type"] = "application/sparql-query; charset=utf-8";
             }
+        }
+
+        if (headerOpts !== undefined) {
+            const headerProps = Object.keys(headerOpts);
+            headerProps.forEach(
+                prop => {
+                    header[prop] = headerOpts[prop];
+                }
+            );
         }
 
         return header;
