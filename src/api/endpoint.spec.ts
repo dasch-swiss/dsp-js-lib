@@ -265,13 +265,13 @@ describe("Test class Endpoint", () => {
 
     });
 
-    it("should perform a POST request with default json Content-Type and optional header options", done => {
+    it("should perform a POST request with default JSON Content-Type and optional header options", done => {
 
         const config = new KnoraApiConfig("http", "localhost", 3333);
 
         const endpoint = new Endpoint(config, "/test");
 
-        endpoint["httpPost"](undefined, undefined, undefined, {"my-feature-toggle": "my-awesome-feature"}).subscribe(
+        endpoint["httpPost"](undefined, {mydata: "data"}, undefined, {"my-feature-toggle": "my-awesome-feature"}).subscribe(
             (response: AjaxResponse) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
@@ -292,17 +292,33 @@ describe("Test class Endpoint", () => {
             "my-feature-toggle": "my-awesome-feature"
         });
 
-        expect(request.data()).toEqual({});
+        expect(request.data()).toEqual({mydata: "data"});
 
     });
 
-    it("should perform a POST request with sparql Content-Type and optional header options", done => {
+    it("should perform a POST request with SPARQL Content-Type and additional header options", done => {
 
         const config = new KnoraApiConfig("http", "localhost", 3333);
 
         const endpoint = new Endpoint(config, "/test");
 
-        endpoint["httpPost"](undefined, undefined, "sparql", {"my-feature-toggle": "my-awesome-feature"}).subscribe(
+        const gravsearchQuery = `
+                PREFIX knora-api: <http://api.knora.org/ontology/knora-api/v2#>
+                CONSTRUCT {
+
+                    ?mainRes knora-api:isMainResource true .
+
+                } WHERE {
+
+                    ?mainRes a knora-api:Resource .
+
+                    ?mainRes a <http://0.0.0.0:3333/ontology/0001/anything/v2#Thing> .
+                }
+
+                OFFSET 0
+            `;
+
+        endpoint["httpPost"](undefined, gravsearchQuery, "sparql", {"my-feature-toggle": "my-awesome-feature"}).subscribe(
             (response: AjaxResponse) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
@@ -323,7 +339,7 @@ describe("Test class Endpoint", () => {
             "my-feature-toggle": "my-awesome-feature"
         });
 
-        expect(request.data()).toEqual({});
+        expect(request.params).toEqual(gravsearchQuery);
 
     });
 
@@ -445,13 +461,13 @@ describe("Test class Endpoint", () => {
 
     });
 
-    it("should perform a PUT request with default Content-Type and optional header options", done => {
+    it("should perform a PUT request with default Content-Type and additional header options", done => {
 
         const config = new KnoraApiConfig("http", "localhost", 3333);
 
         const endpoint = new Endpoint(config, "/test");
 
-        endpoint["httpPut"](undefined, undefined, undefined, {"my-feature-toggle": "my-awesome-feature"}).subscribe(
+        endpoint["httpPut"](undefined, {mydata: "data"}, undefined, {"my-feature-toggle": "my-awesome-feature"}).subscribe(
             (response: AjaxResponse) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
@@ -472,7 +488,7 @@ describe("Test class Endpoint", () => {
             "my-feature-toggle": "my-awesome-feature"
         });
 
-        expect(request.data()).toEqual({});
+        expect(request.data()).toEqual({mydata: "data"});
 
     });
 
@@ -580,6 +596,32 @@ describe("Test class Endpoint", () => {
         expect(request.method).toEqual("DELETE");
 
         expect(request.requestHeaders).toEqual({Authorization: "Bearer testtoken"});
+
+    });
+
+    it("should perform a DELETE request with additional header options", done => {
+
+        const config = new KnoraApiConfig("http", "localhost", 3333);
+
+        const endpoint = new Endpoint(config, "/test");
+
+        endpoint["httpDelete"](undefined, {"my-feature-toggle": "my-awesome-feature"}).subscribe(
+            (response: AjaxResponse) => {
+                expect(response.status).toEqual(200);
+                expect(response.response).toEqual({test: "test"});
+
+                done();
+            });
+
+        const request = jasmine.Ajax.requests.mostRecent();
+
+        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
+
+        expect(request.url).toBe("http://localhost:3333/test");
+
+        expect(request.method).toEqual("DELETE");
+
+        expect(request.requestHeaders).toEqual({"my-feature-toggle": "my-awesome-feature"});
 
     });
 
