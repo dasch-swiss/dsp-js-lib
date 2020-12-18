@@ -55,16 +55,18 @@ jobs:
       - name: Run e2e tests
         run: make e2e-tests
 
-  update_release_draft:
-    name: Update next release draft
-    needs: [build-test]
+  release-please:
+    name: Prepare next release
     runs-on: ubuntu-latest
-    # Drafts your next Release notes as Pull Requests are merged into "main" branch
+    # Automate releases with Conventional Commit Messages as Pull Requests are merged into "main" branch
     if: github.ref == 'refs/heads/main'
     steps:
-      - uses: release-drafter/release-drafter@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      - uses: GoogleCloudPlatform/release-please-action@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          release-type: node
+          package-name: dsp-js
+          changelog-types: '[{"type": "feat","section": "Enhancements","hidden": false }, {"type": "fix","section": "Bug Fixes","hidden": false }, {"type": "chore","section": "Maintenance","hidden": false }, {"type": "docs","section": "Documentation","hidden": false }]'
 
   build:
     name: Build package and publish (on release only)
@@ -90,11 +92,6 @@ jobs:
         run: npm run prepare-dev-publication
       - name: Build
         run: npm run build
-      - name: Get previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@1.0.0"
-      - name: Update version
-        run: cd ${{env.dist-directory}} && npm version ${{steps.previoustag.outputs.tag}} --git-tag-version=false --commit-hooks=false
       - if: "github.event.release.prerelease"
         name: Publish pre-release to npm
         run: npm publish ${{env.dist-directory}} --tag rc --access public
@@ -105,3 +102,14 @@ jobs:
         run: npm publish ${{env.dist-directory}} --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_DASCHBOT}}
+
+  notification:
+    name: Google chat notification about release and published version
+    needs: [build]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release' && startsWith(github.ref, 'refs/tags')
+    steps:
+      - name: Send notification to google chat room "DSP releases"
+        uses: lakto/google-chat-action@main
+        with:
+          url: ${{ secrets.GOOGLE_CHAT_DSP_RELEASES_WEBHOOK_URL }}

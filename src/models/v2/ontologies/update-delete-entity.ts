@@ -2,6 +2,9 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
 import { DateTimeStampConverter } from "../custom-converters/date-time-stamp-converter";
 
+/**
+ * @category Internal
+ */
 @JsonObject("UpdateDeleteEntity")
 export abstract class UpdateDeleteEntity {
 

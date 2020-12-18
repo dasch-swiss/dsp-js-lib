@@ -3,6 +3,8 @@ import { AdministrativePermission } from "./administrative-permission";
 
 /**
  * A response providing all administrative permissions.
+ *
+ * @category Model Admin
  */
 @JsonObject("AdministrativePermissionsResponse")
 export class AdministrativePermissionsResponse {

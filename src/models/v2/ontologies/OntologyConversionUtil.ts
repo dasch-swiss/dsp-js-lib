@@ -1,6 +1,7 @@
 import { JsonConvert } from "json2typescript";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { Constants } from "../Constants";
+import { TypeGuard } from "../resources/type-guard";
 import { IHasProperty } from "./class-definition";
 import { EntityDefinition } from "./EntityDefinition";
 import { OntologiesMetadata, OntologyMetadata } from "./ontology-metadata";
@@ -10,6 +11,9 @@ import { ResourcePropertyDefinition, ResourcePropertyDefinitionWithAllLanguages 
 import { StandoffClassDefinition } from "./standoff-class-definition";
 import { SystemPropertyDefinition } from "./system-property-definition";
 
+/**
+ * @category Internal
+ */
 export namespace OntologyConversionUtil {
 
     /**
@@ -40,7 +44,7 @@ export namespace OntologyConversionUtil {
         } else if (entityIri.indexOf(projectEntityBase) === 0) {
 
             // split entity Iri on "#"
-            const segments: string[] = entityIri.split(Constants.Delimiter);
+            const segments: string[] = entityIri.split(Constants.HashDelimiter);
 
             if (segments.length === 2) {
                 // First segment identifies the project ontology the entity belongs to.
@@ -248,7 +252,9 @@ export namespace OntologyConversionUtil {
      */
     export const convertResourceClassResponse = (resClassJsonld: object, jsonConvert: JsonConvert): ResourceClassDefinitionWithAllLanguages => {
         if (resClassJsonld.hasOwnProperty("@graph")) {
-            return jsonConvert.deserializeObject((resClassJsonld as any)['@graph'][0], ResourceClassDefinitionWithAllLanguages);
+            const deserializedObj = jsonConvert.deserializeObject((resClassJsonld as any)["@graph"][0], ResourceClassDefinitionWithAllLanguages);
+            deserializedObj.lastModificationDate = (jsonConvert.deserializeObject(resClassJsonld, OntologyMetadata)).lastModificationDate;
+            return deserializedObj;
         } else {
             return jsonConvert.deserializeObject(resClassJsonld, ResourceClassDefinitionWithAllLanguages);
         }
@@ -262,7 +268,9 @@ export namespace OntologyConversionUtil {
      */
     export const convertResourcePropertyResponse = (resPropJsonld: object, jsonConvert: JsonConvert): ResourcePropertyDefinitionWithAllLanguages => {
         if (resPropJsonld.hasOwnProperty("@graph")) {
-            return jsonConvert.deserializeObject((resPropJsonld as any)['@graph'][0], ResourcePropertyDefinitionWithAllLanguages);
+            const deserializedObj = jsonConvert.deserializeObject((resPropJsonld as any)["@graph"][0], ResourcePropertyDefinitionWithAllLanguages);
+            deserializedObj.lastModificationDate = (jsonConvert.deserializeObject(resPropJsonld, OntologyMetadata)).lastModificationDate;
+            return deserializedObj;
         } else {
             return jsonConvert.deserializeObject(resPropJsonld, ResourcePropertyDefinitionWithAllLanguages);
         }

@@ -1,17 +1,17 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
-import { Observable, of, forkJoin } from "rxjs";
+import { forkJoin, Observable, of } from "rxjs";
 import { map } from "rxjs/operators";
-import { ReadResource } from "../../../../src/models/v2/resources/read/read-resource";
 import { V2Endpoint } from "../../../../src/api/v2/v2-endpoint";
 import { ListNodeV2Cache } from "../../../../src/cache/ListNodeV2Cache";
 import { OntologyCache } from "../../../../src/cache/ontology-cache/OntologyCache";
 import { KnoraApiConfig } from "../../../../src/knora-api-config";
+import { ReadResource } from "../../../../src/models/v2/resources/read/read-resource";
+import { ReadResourceSequence } from "../../../../src/models/v2/resources/read/read-resource-sequence";
 import { ResourcesConversionUtil } from "../../../../src/models/v2/resources/ResourcesConversionUtil";
 import testthing from "../v2/resources/testding-expanded.json";
 import { MockList } from "./mock-list";
 import { MockOntology } from "./mock-ontology";
-import { ReadResourceSequence } from "../../../../src/models/v2/resources/read/read-resource-sequence";
 
 export namespace MockResource {
 
@@ -22,7 +22,7 @@ export namespace MockResource {
         PropertyMatchingRule.CASE_STRICT
     );
 
-    export const getTestthing = (): Observable<ReadResource> => {
+    export const getTestThing = (): Observable<ReadResource> => {
 
         const config = new KnoraApiConfig("http", "");
 
@@ -32,7 +32,7 @@ export namespace MockResource {
 
         const listNodeCache = new ListNodeV2Cache(v2Endpoint);
 
-        // replace actual cache methods with class to exiting mock factories
+        // replace actual cache methods with class to existing mock factories
 
         // use ontology mock factory
         ontoCache.getResourceClassDefinition = (resClassIri: string) => {
@@ -59,11 +59,11 @@ export namespace MockResource {
 
     };
 
-    export const getTesthings = (length = 25, mayHaveMoreResults = false): Observable<ReadResourceSequence> => {
+    export const getTestThings = (length = 25, mayHaveMoreResults = false): Observable<ReadResourceSequence> => {
 
         const resources: Array<Observable<ReadResource>> = new Array(length).fill(0).map(
             () => {
-                return getTestthing();
+                return getTestThing();
             }
         );
 
