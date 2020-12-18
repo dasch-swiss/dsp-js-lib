@@ -339,6 +339,8 @@ describe("Test class Endpoint", () => {
             "my-feature-toggle": "my-awesome-feature"
         });
 
+        // https://github.com/jasmine/jasmine-ajax#5-inspect-ajax-requests
+        // just check for the params because data() cannot handle this case
         expect(request.params).toEqual(gravsearchQuery);
 
     });
