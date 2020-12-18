@@ -7,7 +7,17 @@ import { KnoraApiConfig } from "../knora-api-config";
 import { ApiResponseError } from "../models/api-response-error";
 import { DataError } from "../models/data-error";
 
-export type headerOptions = { [index: string]: string };
+/**
+ * HTTP Headers to be sent with the request.
+ *
+ * Note that Authorization and Content-Type are handled
+ * by the method `constructHeader`.
+ *
+ * @category Internal
+ */
+export interface IHeaderOptions {
+    [index: string]: string;
+}
 
 /**
  * @category Internal
@@ -78,8 +88,9 @@ export class Endpoint {
      * Performs a general GET request.
      *
      * @param path the relative URL for the request
+     * @param headerOpts additional headers, if any.
      */
-    protected httpGet(path?: string, headerOpts?: headerOptions): Observable<AjaxResponse> {
+    protected httpGet(path?: string, headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
 
@@ -93,8 +104,9 @@ export class Endpoint {
      * @param path the relative URL for the request
      * @param body the body of the request, if any.
      * @param contentType content content type of body, if any.
+     * @param headerOpts additional headers, if any.
      */
-    protected httpPost(path?: string, body?: any, contentType: "json" | "sparql" = "json", headerOpts?: headerOptions): Observable<AjaxResponse> {
+    protected httpPost(path?: string, body?: any, contentType: "json" | "sparql" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
 
@@ -108,8 +120,9 @@ export class Endpoint {
      * @param path the relative URL for the request
      * @param body the body of the request
      * @param contentType content content type of body, if any.
+     * @param headerOpts additional headers, if any.
      */
-    protected httpPut(path?: string, body?: any, contentType: "json" = "json", headerOpts?: headerOptions): Observable<AjaxResponse> {
+    protected httpPut(path?: string, body?: any, contentType: "json" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
 
@@ -123,8 +136,9 @@ export class Endpoint {
      * @param path the relative URL for the request
      * @param body the body of the request
      * @param contentType content content type of body, if any.
+     * @param headerOpts additional headers, if any.
      */
-    protected httpPatch(path?: string, body?: any, contentType: "json" = "json", headerOpts?: headerOptions): Observable<AjaxResponse> {
+    protected httpPatch(path?: string, body?: any, contentType: "json" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
 
@@ -135,9 +149,10 @@ export class Endpoint {
     /**
      * Performs a general PUT request.
      *
-     * @param path the relative URL for the request
+     * @param path the relative URL for the request.
+     * @param headerOpts additional headers, if any.
      */
-    protected httpDelete(path?: string, headerOpts?: headerOptions): Observable<AjaxResponse> {
+    protected httpDelete(path?: string, headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
 
@@ -185,18 +200,17 @@ export class Endpoint {
      * If the client has obtained a token, it is included.
      *
      * @param contentType Sets the content type, if any.
-     * @param headerOpts Additional header options, if any.
+     * @param headerOpts additional headers, if any.
      */
-    private constructHeader(contentType?: "json" | "sparql", headerOpts?: headerOptions): object {
+    private constructHeader(contentType?: "json" | "sparql", headerOpts?: IHeaderOptions): object {
 
-        const header: { [key: string]: string } = {};
+        const header: IHeaderOptions = {};
 
         if (this.jsonWebToken !== "") {
-            header["Authorization" as any] = "Bearer " + this.jsonWebToken;
+            header["Authorization"] = "Bearer " + this.jsonWebToken;
         }
 
         if (contentType !== undefined) {
-
             if (contentType === "json") {
                 header["Content-Type"] = "application/json; charset=utf-8";
             } else if (contentType === "sparql") {
@@ -217,4 +231,3 @@ export class Endpoint {
     }
 
 }
-
