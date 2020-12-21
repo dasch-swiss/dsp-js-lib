@@ -55,6 +55,19 @@ jobs:
       - name: Run e2e tests
         run: make e2e-tests
 
+  release-please:
+    name: Prepare next release
+    runs-on: ubuntu-latest
+    # Automate releases with Conventional Commit Messages as Pull Requests are merged into "main" branch
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: GoogleCloudPlatform/release-please-action@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          release-type: node
+          package-name: dsp-js
+          changelog-types: '[{"type": "feat","section": "Enhancements","hidden": false }, {"type": "fix","section": "Bug Fixes","hidden": false }, {"type": "chore","section": "Maintenance","hidden": false }, {"type": "docs","section": "Documentation","hidden": false }]'
+
   build:
     name: Build package and publish (on release only)
     needs: [build-test]
