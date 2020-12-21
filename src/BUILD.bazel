@@ -1,7 +1,8 @@
 load("@npm//@bazel/typescript:index.bzl", "ts_library")
+
 load("@npm//@bazel/karma:index.bzl", "karma_web_test")
 
-package(default_visibility=["//visibility:public"])
+package(default_visibility = ["//visibility:public"])
 
 ts_library(
     name = "js_lib_library",
@@ -37,5 +38,5 @@ karma_web_test(
     config_file = "//:karma.conf.js",
     deps = [
         # ":js_lib_library"
-    ]
+    ],
 )
