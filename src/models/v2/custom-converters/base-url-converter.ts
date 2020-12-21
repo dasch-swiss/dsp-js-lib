@@ -1,6 +1,9 @@
 import { JsonConverter, JsonCustomConvert } from "json2typescript";
 import { Constants } from "../Constants";
 
+/**
+ * @category Model V2
+ */
 export interface IUrl {
     type?: string;
     value?: string;
