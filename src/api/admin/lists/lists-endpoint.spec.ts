@@ -207,6 +207,8 @@ describe("ListsEndpoint", () => {
 
         it("should update the name, labels, and comments of an existing child node", done => {
 
+            // test data for this test has been created manually!
+
             const childNode = new UpdateChildNodeRequest();
 
             childNode.listIri = "http://rdfh.ch/lists/0001/treeList01";
@@ -236,7 +238,7 @@ describe("ListsEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const childNodeResponse = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/manually-generated/update-node-info-name-comment-label-response.json");
+            const childNodeResponse = require("../../../../test/data/api/admin/manually-generated/update-node-info-name-comment-label-response.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(childNodeResponse)));
 
@@ -246,7 +248,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8", "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" });
 
-            const payload = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/manually-generated/update-node-info-name-comment-label-request.json");
+            const payload = require("../../../../test/data/api/admin/manually-generated/update-node-info-name-comment-label-request.json");
 
             expect(request.data()).toEqual(payload);
         });
