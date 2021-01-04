@@ -503,4 +503,76 @@ describe("ListsEndpoint", () => {
 
     });
 
+    describe("Method getListNodeInfoV2", () => {
+
+        it("should return information about a list node", done => {
+
+            knoraApiConnection.admin.listsEndpoint.getListNodeInfoV2("http://rdfh.ch/lists/0001/treeList01").subscribe(
+                (res: ApiResponseData<ListNodeInfoResponse>) => {
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const listsResponse = require("../../../../test/data/api/admin/lists/get-list-node-info-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList01/info");
+
+            expect(request.method).toEqual("GET");
+
+            console.log(request.requestHeaders);
+
+            expect(request.requestHeaders).toEqual({ "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" });
+
+        });
+
+    });
+
+    describe("Method createListV2", () => {
+
+        it("should create a list", done => {
+
+            const list = new CreateListRequest();
+
+            list.comments = [];
+            list.projectIri = "http://rdfh.ch/projects/0001";
+
+            const label = new StringLiteral();
+            label.language = "de";
+            label.value = "Neue Liste";
+
+            list.labels = [label];
+
+            knoraApiConnection.admin.listsEndpoint.createListV2(list).subscribe(
+                (res: ApiResponseData<ListResponse>) => {
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const listsResponse = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/create-list-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8", "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" });
+
+            console.log(request.requestHeaders);
+
+            const payload = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/create-list-request.json");
+
+            expect(request.data()).toEqual(payload);
+
+        });
+
+    });
+
 });

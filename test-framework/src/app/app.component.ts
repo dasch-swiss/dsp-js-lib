@@ -64,7 +64,10 @@ import {
     Grant,
     Person,
     Organization,
-    UpdateChildNodeRequest
+    UpdateChildNodeRequest,
+    ListNodeInfoResponse,
+    CreateListRequest,
+    ListResponse
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -1160,5 +1163,63 @@ export class AppComponent implements OnInit {
                     + res.response.response.nodeinfo.comments[0].value;
             }
         );
+    }
+
+    getListNodeInfoV1(): void {
+        const listItemIri = 'http://rdfh.ch/lists/0001/treeList01';
+
+        this.knoraApiConnection.admin.listsEndpoint.getListNodeInfo(listItemIri).subscribe(
+            (res: ApiResponseData<ListNodeInfoResponse>) => {
+                console.log(res);
+            }
+        );
+    }
+
+    getListNodeInfoV2(): void {
+        const listItemIri = 'http://rdfh.ch/lists/0001/treeList01';
+
+        this.knoraApiConnection.admin.listsEndpoint.getListNodeInfoV2(listItemIri).subscribe(
+            (res: ApiResponseData<ListNodeInfoResponse>) => {
+                console.log(res);
+            }
+        );
+    }
+
+    createListV1(): void {
+        const list = new CreateListRequest();
+
+            list.comments = [];
+            list.projectIri = 'http://rdfh.ch/projects/0001';
+
+            const label = new StringLiteral();
+            label.language = 'de';
+            label.value = 'Neue Liste';
+
+            list.labels = [label];
+
+            this.knoraApiConnection.admin.listsEndpoint.createList(list).subscribe(
+                (res: ApiResponseData<ListResponse>) => {
+                    console.log(res);
+                }
+            );
+    }
+
+    createListV2(): void {
+        const list = new CreateListRequest();
+
+            list.comments = [];
+            list.projectIri = 'http://rdfh.ch/projects/0001';
+
+            const label = new StringLiteral();
+            label.language = 'de';
+            label.value = 'Neue Liste';
+
+            list.labels = [label];
+
+            this.knoraApiConnection.admin.listsEndpoint.createListV2(list).subscribe(
+                (res: ApiResponseData<ListResponse>) => {
+                    console.log(res);
+                }
+            );
     }
 }

@@ -92,20 +92,6 @@ export class ListsEndpointAdmin extends Endpoint {
     }
 
     /**
-     * Updates a child node.
-     * 
-     * @param nodeInfo Information about the node to be updated.
-     */
-    updateChildNode(nodeInfo: UpdateChildNodeRequest): Observable<ApiResponseData<ChildNodeInfoResponse> | ApiResponseError> {
-    
-        return this.httpPut("/" + encodeURIComponent(nodeInfo.listIri), this.jsonConvert.serializeObject(nodeInfo), undefined, { "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" }).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ChildNodeInfoResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
-        );
-    
-    }
-
-    /**
      * Updates the name of an existing child node.
      * 
      * @param listItemIri the Iri of the list item.
@@ -187,6 +173,50 @@ export class ListsEndpointAdmin extends Endpoint {
     
         return this.httpGet("/nodes/" + encodeURIComponent(iri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListNodeInfoResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    
+    }
+
+    // *** All methods below this point require the "new-list-admin-routes:1=on" feature toggle ***
+
+    /**
+     * Updates a child node.
+     * 
+     * @param nodeInfo Information about the node to be updated.
+     */
+    updateChildNode(nodeInfo: UpdateChildNodeRequest): Observable<ApiResponseData<ChildNodeInfoResponse> | ApiResponseError> {
+    
+        return this.httpPut("/" + encodeURIComponent(nodeInfo.listIri), this.jsonConvert.serializeObject(nodeInfo), undefined, { "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" }).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ChildNodeInfoResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    
+    }
+
+    /**
+     * Returns information about a list node using the new route.
+     * 
+     * @param listItemIri The IRI of the node.
+     */
+    getListNodeInfoV2(listItemIri: string): Observable<ApiResponseData<ListNodeInfoResponse> | ApiResponseError> {
+    
+        return this.httpGet("/" + encodeURIComponent(listItemIri) + "/info", { "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" }).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListNodeInfoResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    
+    }
+
+    /**
+     * Creates a list using the new route.
+     * 
+     * @param listInfo Information about the list to be created.
+     */
+    createListV2(listInfo: CreateListRequest): Observable<ApiResponseData<ListResponse> | ApiResponseError> {
+    
+        return this.httpPost("", this.jsonConvert.serializeObject(listInfo), undefined, { "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" }).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
     
