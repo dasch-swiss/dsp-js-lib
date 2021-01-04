@@ -19,7 +19,7 @@ export abstract class GenericCache<T> {
 
     /**
      * Gets a specific item from the cache.
-     * If not cached yet, the information will be retrieved from Knora.
+     * If not cached yet, the information will be retrieved from DSP-API.
      *
      * @param key the id of the item to be returned.
      * @param isDependency true if the item to be returned
