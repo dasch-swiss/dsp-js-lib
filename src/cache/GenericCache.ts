@@ -60,8 +60,9 @@ export abstract class GenericCache<T> {
             // side effects will only be performed once
 
             // failed observables will be retried upon the next subscription
-            // dependencies have to be subscribed to, otherwise there are sitting idle
-            shareReplay(1)
+            // dependencies have to be subscribed to (in the class implementing `GenericCache`),
+            // otherwise they are sitting idle
+            shareReplay({refCount: false, bufferSize: 1})
         );
 
         // return the observable immediately (sync)
