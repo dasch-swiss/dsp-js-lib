@@ -3,6 +3,7 @@ import { map } from "rxjs/operators";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { UserResponse } from "../models/admin/user-response";
 import { ApiResponseData } from "../models/api-response-data";
+import { ApiResponseError } from "../models/api-response-error";
 import { GenericCache } from "./GenericCache";
 
 /**
@@ -23,7 +24,7 @@ export class UserCache extends GenericCache<UserResponse> {
         return this.getItem(iri);
     }
 
-    protected requestItemFromKnora(key: string, isDependency: boolean): Observable<UserResponse[]> {
+    protected requestItemFromKnora(key: string, isDependency: boolean): Observable<UserResponse[] | ApiResponseError> {
         return this.knoraApiConnection.admin.usersEndpoint.getUser("iri", key).pipe(
             map((response: ApiResponseData<UserResponse>) => {
                 return [response.body];
