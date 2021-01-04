@@ -209,13 +209,27 @@ export class ListsEndpointAdmin extends Endpoint {
     }
 
     /**
-     * Creates a list using the new route.
+     * Creates a list using the old route but with the feature toggle enabled.
      * 
      * @param listInfo Information about the list to be created.
      */
     createListV2(listInfo: CreateListRequest): Observable<ApiResponseData<ListResponse> | ApiResponseError> {
     
         return this.httpPost("", this.jsonConvert.serializeObject(listInfo), undefined, { "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" }).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    
+    }
+
+    /**
+     * Gets a list using the old route but with the feature toggle enabled
+     * 
+     * @param listItemIri The IRI of the list.
+     */
+    getListV2(listItemIri: string): Observable<ApiResponseData<ListResponse> | ApiResponseError> {
+    
+        return this.httpGet("/" + encodeURIComponent(listItemIri), { "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" }).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );

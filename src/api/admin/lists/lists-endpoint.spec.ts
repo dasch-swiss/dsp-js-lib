@@ -516,15 +516,13 @@ describe("ListsEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const listsResponse = require("../../../../test/data/api/admin/lists/get-list-node-info-response.json");
+            const listsResponse = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/get-list-node-info-response.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
 
             expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList01/info");
 
             expect(request.method).toEqual("GET");
-
-            console.log(request.requestHeaders);
 
             expect(request.requestHeaders).toEqual({ "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" });
 
@@ -565,11 +563,36 @@ describe("ListsEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8", "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" });
 
-            console.log(request.requestHeaders);
-
             const payload = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/create-list-request.json");
 
             expect(request.data()).toEqual(payload);
+
+        });
+
+    });
+
+    describe("Method getListV2", () => {
+
+        it("should return a list", done => {
+
+            knoraApiConnection.admin.listsEndpoint.getListV2("http://rdfh.ch/lists/0001/treeList").subscribe(
+                (res: ApiResponseData<ListResponse>) => {
+                    expect(res.body.list.listinfo.id).toEqual("http://rdfh.ch/lists/0001/treeList");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const listsResponse = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/get-list-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList");
+
+            expect(request.method).toEqual("GET");
+
+            expect(request.requestHeaders).toEqual({ "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" });
 
         });
 

@@ -67,7 +67,8 @@ import {
     UpdateChildNodeRequest,
     ListNodeInfoResponse,
     CreateListRequest,
-    ListResponse
+    ListResponse,
+    ListInfoResponse
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -1221,5 +1222,25 @@ export class AppComponent implements OnInit {
                     console.log(res);
                 }
             );
+    }
+
+    getListV1(): void {
+        const listItemIri = 'http://rdfh.ch/lists/0001/treeList';
+
+        this.knoraApiConnection.admin.listsEndpoint.getList(listItemIri).subscribe(
+            (res: ApiResponseData<ListResponse>) => {
+                console.log(res);
+            }
+        );
+    }
+
+    getListV2(): void {
+        const listItemIri = 'http://rdfh.ch/lists/0001/treeList';
+
+        this.knoraApiConnection.admin.listsEndpoint.getListV2(listItemIri).subscribe(
+            (res: ApiResponseData<ListResponse>) => {
+                console.log(res);
+            }
+        );
     }
 }
