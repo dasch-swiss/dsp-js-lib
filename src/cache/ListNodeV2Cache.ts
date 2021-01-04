@@ -28,7 +28,7 @@ export class ListNodeV2Cache extends GenericCache<ListNodeV2> {
             tap((res: ListNodeV2) => {
                 const deps = this.getDependenciesOfItem(res);
                 deps.forEach(depKey =>  {
-                    // subscribe to dependencies so the observables starts emitting
+                    // subscribe to dependencies so the Observable starts emitting
                     this.getItem(depKey).subscribe();
                 });
             })

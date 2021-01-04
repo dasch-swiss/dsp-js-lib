@@ -35,7 +35,7 @@ describe("OntologyCache", () => {
 
                     const onto = MockOntology.mockReadOntology(ontoIri);
 
-                    // use delay operator to make sync Observable async
+                    // use delay operator to make a sync Observable async
                     return of(onto).pipe(delay(1));
                 }
             );
@@ -287,12 +287,9 @@ describe("OntologyCache", () => {
             it("should attempt get an ontology with dependencies from the cache", done => {
 
                 knoraApiConnection.v2.ontologyCache.getOntology("http://api.knora.org/ontology/knora-api/v2").subscribe(ontos => {
-                    console.log(ontos);
+
                     },
                     (err: ApiResponseError) => {
-                        // console.log('failed to get onto', err);
-                        // console.log(knoraApiConnection.v2.ontologyCache["cache"]);
-
                         expect(getOntoSpy).toHaveBeenCalledTimes(1);
                         expect(getOntoSpy).toHaveBeenCalledWith("http://api.knora.org/ontology/knora-api/v2");
 

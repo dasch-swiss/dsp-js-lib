@@ -28,7 +28,7 @@ export abstract class GenericCache<T> {
     protected getItem(key: string, isDependency = false): Observable<T> {
 
         // If the key already exists,
-        // return the associated AsyncSubject.
+        // return the associated Observable.
         if (this.cache[key] !== undefined) {
             return this.cache[key];
         }
@@ -60,6 +60,7 @@ export abstract class GenericCache<T> {
             // side effects will only be performed once
 
             // failed observables will be retried upon the next subscription
+            // dependencies have to be subscribed to, otherwise there are sitting idle
             shareReplay({ bufferSize: 1, refCount: true })
         );
 
@@ -147,7 +148,7 @@ export abstract class GenericCache<T> {
                         // Request each dependency from the cache
                         // Dependencies will be fetched independently (non-blocking).
                         // It is the responsibility of the class implementing `GenericCache`
-                        // to subscribe to these dependencies.
+                        // to subscribe to these dependencies (refcount requires a subscription).
                         this.getItem(depKey, true);
                     });
             }
