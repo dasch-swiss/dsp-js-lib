@@ -61,7 +61,7 @@ export abstract class GenericCache<T> {
 
             // failed observables will be retried upon the next subscription
             // dependencies have to be subscribed to, otherwise there are sitting idle
-            shareReplay({ bufferSize: 1, refCount: true })
+            shareReplay(1)
         );
 
         // return the observable immediately (sync)
@@ -148,7 +148,7 @@ export abstract class GenericCache<T> {
                         // Request each dependency from the cache
                         // Dependencies will be fetched independently (non-blocking).
                         // It is the responsibility of the class implementing `GenericCache`
-                        // to subscribe to these dependencies (refcount requires a subscription).
+                        // to subscribe to these dependencies.
                         this.getItem(depKey, true);
                     });
             }

@@ -135,7 +135,7 @@ when it is ready while the dependencies are still being resolved.
 - `getKeyOfItem(item: T): string`: Given the element, get the key that identifies it. For example, given a `ReadOntology` returns its IRI.
 - `getDependenciesOfItem(item: T): string[]`: Given an element, gets its dependencies. For example, given a `ReadOntology` returns the IRIs of ontologies it directly depends on.
   Note that the dependencies have to be subscribed to in the class implementing `GenericCache`,
-  otherwise the Observable in the cache is sitting idle until subscribed to (refcount).
+  otherwise the Observable in the cache is sitting idle until subscribed to.
 
 ### Admin
 
