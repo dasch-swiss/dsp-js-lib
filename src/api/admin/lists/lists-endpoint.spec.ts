@@ -244,7 +244,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8", "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" });
 
             const payload = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/manually-generated/update-node-info-name-comment-label-request.json");
 
