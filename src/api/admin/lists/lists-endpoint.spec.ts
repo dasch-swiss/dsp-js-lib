@@ -231,7 +231,6 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.updateChildNode(childNode).subscribe(
                 (res: ApiResponseData<ChildNodeInfoResponse>) => {
-                    // console.log(res.response.response);
                     done();
                 }
             );
@@ -249,6 +248,39 @@ describe("ListsEndpoint", () => {
             expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8", "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" });
 
             const payload = require("../../../../test/data/api/admin/manually-generated/update-node-info-name-comment-label-request.json");
+
+            expect(request.data()).toEqual(payload);
+        });
+
+        it("should update the name of an existing child node", done => {
+
+            const childNode = new UpdateChildNodeRequest();
+
+            childNode.listIri = "http://rdfh.ch/lists/0001/a-child-node-with-IRI";
+
+            childNode.projectIri = "http://rdfh.ch/projects/0001";
+
+            childNode.name = "modified third child";
+
+            knoraApiConnection.admin.listsEndpoint.updateChildNode(childNode).subscribe(
+                (res: ApiResponseData<ChildNodeInfoResponse>) => {
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const childNodeResponse = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/update-node-info-name-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(childNodeResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2Fa-child-node-with-IRI");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8", "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" });
+
+            const payload = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/update-node-info-name-request.json");
 
             expect(request.data()).toEqual(payload);
         });

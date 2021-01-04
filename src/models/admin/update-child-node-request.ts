@@ -31,13 +31,13 @@ export class UpdateChildNodeRequest {
     /**
      * The labels attached to the enclosing object.
      */
-    @JsonProperty("labels", [StringLiteral])
-    labels: StringLiteral[] = [];
+    @JsonProperty("labels", [StringLiteral], true)
+    labels?: StringLiteral[] = undefined;
 
     /**
      * The comments attached to the enclosing object.
      */
-    @JsonProperty("comments", [StringLiteral])
-    comments: StringLiteral[] = [];
+    @JsonProperty("comments", [StringLiteral], true)
+    comments?: StringLiteral[] = undefined;
 
 }
