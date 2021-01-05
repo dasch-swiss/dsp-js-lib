@@ -16,6 +16,7 @@ export class Constants {
 
     static StandoffOntology = Constants.KnoraApi + "/ontology/standoff/v2";
 
+    static HasStandoffLinkToValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasStandoffLinkToValue";
     static XMLToStandoffMapping = Constants.KnoraApiV2 + Constants.HashDelimiter + "XMLToStandoffMapping";
     static Resource = Constants.KnoraApiV2 + Constants.HashDelimiter + "Resource";
     static MayHaveMoreResults = Constants.KnoraApiV2 + Constants.HashDelimiter + "mayHaveMoreResults";
