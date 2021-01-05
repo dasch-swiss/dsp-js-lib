@@ -1,5 +1,6 @@
 export class Constants {
 
+    static StandardMapping = "http://rdfh.ch/standoff/mappings/StandardMapping";
     static KnoraApi = "http://api.knora.org";
     static KnoraApiV2 = Constants.KnoraApi + "/ontology/knora-api/v2";
     static HashDelimiter = "#";
