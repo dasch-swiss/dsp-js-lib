@@ -69,7 +69,7 @@ export abstract class GenericCache<T> {
     }
 
     /**
-     * Deletes an existing entry in the cache and requests information from Knora.
+     * Deletes an existing entry in the cache and requests information from DSP-API.
      *
      * @param key the id of the information to be returned.
      * @return the item.
@@ -80,11 +80,11 @@ export abstract class GenericCache<T> {
     }
 
     /**
-     * Fetches information from Knora.
+     * Fetches information from DSP-API.
      *
      * @param key the id of the information to be returned.
      * @param isDependency true if the requested key is a dependency of another item.
-     * @return the items received from Knora.
+     * @return the items received from DSP-API.
      */
     protected abstract requestItemFromKnora(key: string, isDependency: boolean): Observable<T[] | ApiResponseError>;
 
