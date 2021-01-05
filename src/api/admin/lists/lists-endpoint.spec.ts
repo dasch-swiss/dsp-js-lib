@@ -79,72 +79,6 @@ describe("ListsEndpoint", () => {
 
     });
 
-    describe("Method createList", () => {
-
-        it("should create a list", done => {
-
-            const list = new CreateListRequest();
-
-            list.comments = [];
-            list.projectIri = "http://rdfh.ch/projects/0001";
-
-            const label = new StringLiteral();
-            label.language = "de";
-            label.value = "Neue Liste";
-
-            list.labels = [label];
-
-            knoraApiConnection.admin.listsEndpoint.createList(list).subscribe(
-                (res: ApiResponseData<ListResponse>) => {
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const listsResponse = require("../../../../test/data/api/admin/lists/get-list-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/lists");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
-
-            const payload = require("../../../../test/data/api/admin/lists/create-list-request.json");
-
-            expect(request.data()).toEqual(payload);
-
-        });
-
-    });
-
-    describe("Method getList", () => {
-
-        it("should return a list", done => {
-
-            knoraApiConnection.admin.listsEndpoint.getList("http://rdfh.ch/lists/0001/treeList").subscribe(
-                (res: ApiResponseData<ListResponse>) => {
-                    expect(res.body.list.listinfo.id).toEqual("http://rdfh.ch/lists/0001/treeList");
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const listsResponse = require("../../../../test/data/api/admin/lists/get-list-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList");
-
-            expect(request.method).toEqual("GET");
-
-        });
-
-    });
-
     describe("Method UpdateListInfo", () => {
 
         it("should update a list", done => {
@@ -471,31 +405,6 @@ describe("ListsEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
 
             expect(request.url).toBe("http://localhost:3333/admin/lists/infos/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList");
-
-            expect(request.method).toEqual("GET");
-
-        });
-
-    });
-
-    describe("Method getListNodeInfo", () => {
-
-        it("should return information about a list node", done => {
-
-            knoraApiConnection.admin.listsEndpoint.getListNodeInfo("http://rdfh.ch/lists/0001/treeList01").subscribe(
-                (res: ApiResponseData<ListNodeInfoResponse>) => {
-
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const listsResponse = require("../../../../test/data/api/admin/lists/get-list-node-info-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/lists/nodes/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList01");
 
             expect(request.method).toEqual("GET");
 

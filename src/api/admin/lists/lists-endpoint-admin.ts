@@ -56,10 +56,8 @@ export class ListsEndpointAdmin extends Endpoint {
      */
     createList(listInfo: CreateListRequest): Observable<ApiResponseData<ListResponse> | ApiResponseError> {
     
-        return this.httpPost("", this.jsonConvert.serializeObject(listInfo)).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
-        );
+        // use new method which uses the feature toggle
+        return this.createListV2(listInfo);
     
     }
     
@@ -70,10 +68,8 @@ export class ListsEndpointAdmin extends Endpoint {
      */
     getList(iri: string): Observable<ApiResponseData<ListResponse> | ApiResponseError> {
     
-        return this.httpGet("/" + encodeURIComponent(iri)).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
-        );
+        // use new method which uses the feature toggle
+        return this.getListV2(iri);
     
     }
     
@@ -171,10 +167,8 @@ export class ListsEndpointAdmin extends Endpoint {
      */
     getListNodeInfo(iri: string): Observable<ApiResponseData<ListNodeInfoResponse> | ApiResponseError> {
     
-        return this.httpGet("/nodes/" + encodeURIComponent(iri)).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListNodeInfoResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
-        );
+        // use new route with feature toggle
+        return this.getListNodeInfoV2(iri);
     
     }
 
