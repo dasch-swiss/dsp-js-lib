@@ -23,7 +23,8 @@
     "yalc-publish": "npm run build && yalc publish build/ --push",
     "npm-pack": "npm run test && npm run build && npm pack build/ && mkdir -p dist/ && cp *.tgz dist/ && rm *.tgz",
     "prepare-dev-publication": "node scripts/prepare-dev-publication.js",
-    "builddocs": "typedoc --options typedoc.json src",
+    "build-docs": "typedoc --options typedoc.json src",
+    "typedoc-config": "node scripts/typedoc-config.js",
     "peer-deps": "npm i rxjs@6.x --no-save",
     "build-local": "npm i && npm run peer-deps && npm run prepare-dev-publication && npm run yalc-publish"
   },
