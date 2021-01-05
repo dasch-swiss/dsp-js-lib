@@ -14,9 +14,9 @@ export class Constants {
     static IsInherited = Constants.KnoraApiV2 + Constants.HashDelimiter + "isInherited";
     static CanBeInstantiated = Constants.KnoraApiV2 + Constants.HashDelimiter + "canBeInstantiated";
 
-    static StandoffOntology: string = Constants.KnoraApi + "/ontology/standoff/v2";
+    static StandoffOntology = Constants.KnoraApi + "/ontology/standoff/v2";
 
-    static XMLToStandoffMapping: string = Constants.KnoraApiV2 + Constants.HashDelimiter + "XMLToStandoffMapping";
+    static XMLToStandoffMapping = Constants.KnoraApiV2 + Constants.HashDelimiter + "XMLToStandoffMapping";
     static Resource = Constants.KnoraApiV2 + Constants.HashDelimiter + "Resource";
     static MayHaveMoreResults = Constants.KnoraApiV2 + Constants.HashDelimiter + "mayHaveMoreResults";
     static ResourceIcon = Constants.KnoraApiV2 + Constants.HashDelimiter + "ResourceIcon";
@@ -121,11 +121,11 @@ export class Constants {
     static OntologyName = Constants.KnoraApiV2 + Constants.HashDelimiter + "ontologyName";
 
     static KnoraAdmin = "http://www.knora.org/ontology/knora-admin";
-    static DefaultSharedOntologyIRI: string = Constants.KnoraAdmin + Constants.HashDelimiter + "DefaultSharedOntologiesProject";
-    static SystemProjectIRI: string = Constants.KnoraAdmin + Constants.HashDelimiter + "SystemProject";
-    static SystemAdminGroupIRI: string = Constants.KnoraAdmin + Constants.HashDelimiter + "SystemAdmin";
-    static ProjectAdminGroupIRI: string = Constants.KnoraAdmin + Constants.HashDelimiter + "ProjectAdmin";
-    static ProjectMemberGroupIRI: string = Constants.KnoraAdmin + Constants.HashDelimiter + "ProjectMember";
+    static DefaultSharedOntologyIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "DefaultSharedOntologiesProject";
+    static SystemProjectIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "SystemProject";
+    static SystemAdminGroupIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "SystemAdmin";
+    static ProjectAdminGroupIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "ProjectAdmin";
+    static ProjectMemberGroupIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "ProjectMember";
 
     static SalsahGui = "http://api.knora.org/ontology/salsah-gui/v2";
     static GuiAttribute = Constants.SalsahGui + Constants.HashDelimiter + "guiAttribute";
@@ -164,8 +164,8 @@ export class Constants {
 
     static SchemaNumberOfItems = "http://schema.org/numberOfItems";
 
-    static SalsahLink: string = "salsah-link"; // class on an HTML <a> element that indicates a link to a Knora resource
-    static RefMarker: string = "ref-marker"; // class on an HTML element that refers to another element in the same document
+    static SalsahLink = "salsah-link"; // class on an HTML <a> element that indicates a link to a Knora resource
+    static RefMarker = "ref-marker"; // class on an HTML element that refers to another element in the same document
 
     // Project Metadata
     static Dsp = "http://ns.dasch.swiss";
