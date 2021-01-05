@@ -55,6 +55,13 @@ export class Constants {
     static HasDDDFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasDDDFileValue";
     static HasAudioFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasAudioFileValue";
 
+    static StillImageRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "StillImageRepresentation";
+    static MovingImageRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "MovingImageRepresentation";
+    static AudioRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "AudioRepresentation";
+    static DDDrepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "DDDrepresentation";
+    static TextRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "TextRepresentation";
+    static DocumentRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "DocumentRepresentation";
+
     static HasGeometry = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasGeometry";
 
     static AttachedToProject = Constants.KnoraApiV2 + Constants.HashDelimiter + "attachedToProject";
