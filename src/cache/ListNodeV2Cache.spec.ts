@@ -67,6 +67,12 @@ describe("ListNodeV2Cache", () => {
 
                 expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList"]).not.toBeUndefined(); // root node Iri is a dependency of each list node
 
+                // since the test uses a sync Observable to retrieve the whole list, the information is present
+                expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList02"]).not.toBeUndefined();
+                expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList03"]).not.toBeUndefined();
+                expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList10"]).not.toBeUndefined();
+                expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList11"]).not.toBeUndefined();
+
                 done();
 
             });
@@ -88,23 +94,11 @@ describe("ListNodeV2Cache", () => {
 
                 expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList"]).not.toBeUndefined(); // root node Iri is a dependency of each list node
 
-                done();
-
-            });
-
-            knoraApiConnection.v2.listNodeCache["getItem"]("http://rdfh.ch/lists/0001/treeList01").subscribe((node: ListNodeV2) => {
-
-                expect(node.id).toEqual("http://rdfh.ch/lists/0001/treeList01");
-
-                expect(getNodeSpy).toHaveBeenCalledTimes(1);
-                expect(getNodeSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList01");
-
-                expect(getListSpy).toHaveBeenCalledTimes(1);
-                expect(getListSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList");
-
-                expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList01"]).not.toBeUndefined();
-
-                expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList"]).not.toBeUndefined(); // root node Iri is a dependency of each list node
+                // since the test uses a sync Observable to retrieve the whole list, the information is present
+                expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList02"]).not.toBeUndefined();
+                expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList03"]).not.toBeUndefined();
+                expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList10"]).not.toBeUndefined();
+                expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList11"]).not.toBeUndefined();
 
                 done();
 
@@ -123,6 +117,36 @@ describe("ListNodeV2Cache", () => {
                 expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList01"]).not.toBeUndefined();
 
                 expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList"]).not.toBeUndefined(); // root node Iri is a dependency of each list node
+
+                // since the test uses a sync Observable to retrieve the whole list, the information is present
+                expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList02"]).not.toBeUndefined();
+                expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList03"]).not.toBeUndefined();
+                expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList10"]).not.toBeUndefined();
+                expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList11"]).not.toBeUndefined();
+
+                done();
+
+            });
+
+            knoraApiConnection.v2.listNodeCache["getItem"]("http://rdfh.ch/lists/0001/treeList01").subscribe((node: ListNodeV2) => {
+
+                expect(node.id).toEqual("http://rdfh.ch/lists/0001/treeList01");
+
+                expect(getNodeSpy).toHaveBeenCalledTimes(1);
+                expect(getNodeSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList01");
+
+                expect(getListSpy).toHaveBeenCalledTimes(1);
+                expect(getListSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList");
+
+                expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList01"]).not.toBeUndefined();
+
+                expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList"]).not.toBeUndefined(); // root node Iri is a dependency of each list node
+
+                // since the test uses a sync Observable to retrieve the whole list, the information is present
+                expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList02"]).not.toBeUndefined();
+                expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList03"]).not.toBeUndefined();
+                expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList10"]).not.toBeUndefined();
+                expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList11"]).not.toBeUndefined();
 
                 done();
 

@@ -1,6 +1,5 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
-import { AsyncSubject } from "rxjs";
 import { ListConversionUtil } from "../../../../src/models/v2/lists/list-conversion-util";
 import { ListNodeV2 } from "../../../../src/models/v2/lists/list-node-v2";
 import treeListExpanded from "../v2/lists/treelist-expanded.json";
