@@ -25,15 +25,7 @@ export class ListNodeV2Cache extends GenericCache<ListNodeV2> {
      * @param nodeIri the IRI of the list node to be returned.
      */
     getNode(nodeIri: string) {
-        return this.getItem(nodeIri).pipe(
-            tap((res: ListNodeV2) => {
-                const deps = this.getDependenciesOfItem(res);
-                deps.forEach(depKey =>  {
-                    // subscribe to dependencies so the Observable starts emitting
-                    this.getItem(depKey).subscribe();
-                });
-            })
-        );
+        return this.getItem(nodeIri);
     }
 
     protected getKeyOfItem(item: ListNodeV2): string {

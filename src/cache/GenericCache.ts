@@ -56,12 +56,10 @@ export abstract class GenericCache<T> {
             map((res: T[]) => res[0]),
             // make it a `ReplaySubject` so that all subscribers
             // will get the latest and only emitted value
-
-            // side effects will only be performed once
-
+            //
+            // side effects (dependency handling, optimization) will only be performed once
+            //
             // failed observables will be retried upon the next subscription
-            // dependencies have to be subscribed to (in the class implementing `GenericCache`),
-            // otherwise they are sitting idle
             shareReplay({refCount: false, bufferSize: 1})
         );
 
@@ -148,9 +146,8 @@ export abstract class GenericCache<T> {
                     .forEach((depKey: string) => {
                         // Request each dependency from the cache
                         // Dependencies will be fetched independently (non-blocking).
-                        // It is the responsibility of the class implementing `GenericCache`
-                        // to subscribe to these dependencies.
-                        this.getItem(depKey, true);
+                        // Subscribe because the Observable is lazy
+                        this.getItem(depKey, true).subscribe();
                     });
             }
         );
