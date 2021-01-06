@@ -110,6 +110,7 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.updateListInfo(listInfo).subscribe(
                 (res: ApiResponseData<ListInfoResponse>) => {
+                    expect(res.body.listinfo.comments.length).toEqual(1);
                     done();
                 }
             );
@@ -165,6 +166,7 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.updateChildNode(childNode).subscribe(
                 (res: ApiResponseData<ChildNodeInfoResponse>) => {
+                    expect(res.body.nodeinfo.name).toEqual("updated third child name");
                     done();
                 }
             );
@@ -248,6 +250,7 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.updateChildName(listItemIri, childNodeName).subscribe(
                 (res: ApiResponseData<ChildNodeInfoResponse>) => {
+                    expect(res.body.nodeinfo.name).toEqual("updated third child name");
                     done();
                 }
             );
@@ -287,6 +290,7 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.updateChildLabels(listItemIri, childNodeLabels).subscribe(
                 (res: ApiResponseData<ChildNodeInfoResponse>) => {
+                    expect(res.body.nodeinfo.labels[0].value).toEqual("nya märkningen för nod");
                     done();
                 }
             );
@@ -326,6 +330,7 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.updateChildComments(listItemIri, childNodeComments).subscribe(
                 (res: ApiResponseData<ChildNodeInfoResponse>) => {
+                    expect(res.body.nodeinfo.comments[0].value).toEqual("nya kommentarer för nod");
                     done();
                 }
             );
@@ -407,7 +412,7 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.getListNodeInfo("http://rdfh.ch/lists/0001/treeList01").subscribe(
                 (res: ApiResponseData<ListNodeInfoResponse>) => {
-
+                    expect(res.body.nodeinfo.labels[0].value).toEqual("Tree list node 01");
                     done();
                 }
             );
@@ -445,6 +450,7 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.createList(list).subscribe(
                 (res: ApiResponseData<ListResponse>) => {
+                    expect(res.body.list.listinfo.labels[0].value).toEqual("Neue Liste");
                     done();
                 }
             );
