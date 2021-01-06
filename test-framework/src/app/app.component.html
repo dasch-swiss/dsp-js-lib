@@ -33,16 +33,13 @@
         </div>
         <div id="lists">
             <h4>Lists</h4>
-            <button class="create-list-v1" (click)="createListV1()">Create a list with the old route</button> <br /><br />
-            <button class="create-list-v2" (click)="createListV2()">Create a list with the new route</button> <br /><br />
+            <button class="create-list" (click)="createList()">Create a list</button> <br /><br />
             <button class="update-list-node" (click)="updateChildNode()">Update labels & comments of a child node</button> <br /><br />
             <button class="update-child-name" (click)="updateChildName()">Update name of a child node</button> <br /><br />
             <button class="update-child-labels" (click)="updateChildLabels()">Update labels of a child node</button> <br /><br />
             <button class="update-child-comments" (click)="updateChildComments()">Update comments of a child node</button> <br /><br />
-            <button class="get-list-v1" (click)="getListV1()">Get list with the old route</button> <br /><br />
-            <button class="get-list-v2" (click)="getListV2()">Get list with the new route</button> <br /><br />
-            <button class="get-list-node-info-v1" (click)="getListNodeInfoV1()">Get info of a node with the old route</button> <br /><br />
-            <button class="get-list-node-info-v2" (click)="getListNodeInfoV2()">Get info of a node with the new route</button> <br /><br />
+            <button class="get-list" (click)="getList()">Get list</button> <br /><br />
+            <button class="get-list-node-info" (click)="getListNodeInfo()">Get info of a node</button> <br /><br />
             <div>
                 List Child Info:
                 <div>Name: <span class="child-name">{{listChildName}}</span></div>

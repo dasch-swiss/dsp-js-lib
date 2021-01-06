@@ -387,36 +387,12 @@ describe("ListsEndpoint", () => {
 
     });
 
-    describe("Method getListInfo", () => {
 
-        it("should return information about a list", done => {
-
-            knoraApiConnection.admin.listsEndpoint.getListInfo("http://rdfh.ch/lists/0001/treeList").subscribe(
-                (res: ApiResponseData<ListInfoResponse>) => {
-
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const listsResponse = require("../../../../test/data/api/admin/lists/get-list-info-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/lists/infos/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList");
-
-            expect(request.method).toEqual("GET");
-
-        });
-
-    });
-
-    describe("Method getListNodeInfoV2", () => {
+    describe("Method getListNodeInfo", () => {
 
         it("should return information about a list node", done => {
 
-            knoraApiConnection.admin.listsEndpoint.getListNodeInfoV2("http://rdfh.ch/lists/0001/treeList01").subscribe(
+            knoraApiConnection.admin.listsEndpoint.getListNodeInfo("http://rdfh.ch/lists/0001/treeList01").subscribe(
                 (res: ApiResponseData<ListNodeInfoResponse>) => {
 
                     done();
@@ -439,7 +415,7 @@ describe("ListsEndpoint", () => {
 
     });
 
-    describe("Method createListV2", () => {
+    describe("Method createList", () => {
 
         it("should create a list", done => {
 
@@ -454,7 +430,7 @@ describe("ListsEndpoint", () => {
 
             list.labels = [label];
 
-            knoraApiConnection.admin.listsEndpoint.createListV2(list).subscribe(
+            knoraApiConnection.admin.listsEndpoint.createList(list).subscribe(
                 (res: ApiResponseData<ListResponse>) => {
                     done();
                 }
@@ -480,11 +456,11 @@ describe("ListsEndpoint", () => {
 
     });
 
-    describe("Method getListV2", () => {
+    describe("Method getList", () => {
 
         it("should return a list", done => {
 
-            knoraApiConnection.admin.listsEndpoint.getListV2("http://rdfh.ch/lists/0001/treeList").subscribe(
+            knoraApiConnection.admin.listsEndpoint.getList("http://rdfh.ch/lists/0001/treeList").subscribe(
                 (res: ApiResponseData<ListResponse>) => {
                     expect(res.body.list.listinfo.id).toEqual("http://rdfh.ch/lists/0001/treeList");
                     done();

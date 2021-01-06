@@ -1166,7 +1166,7 @@ export class AppComponent implements OnInit {
         );
     }
 
-    getListNodeInfoV1(): void {
+    getListNodeInfo(): void {
         const listItemIri = 'http://rdfh.ch/lists/0001/treeList01';
 
         this.knoraApiConnection.admin.listsEndpoint.getListNodeInfo(listItemIri).subscribe(
@@ -1176,17 +1176,7 @@ export class AppComponent implements OnInit {
         );
     }
 
-    getListNodeInfoV2(): void {
-        const listItemIri = 'http://rdfh.ch/lists/0001/treeList01';
-
-        this.knoraApiConnection.admin.listsEndpoint.getListNodeInfoV2(listItemIri).subscribe(
-            (res: ApiResponseData<ListNodeInfoResponse>) => {
-                console.log(res);
-            }
-        );
-    }
-
-    createListV1(): void {
+    createList(): void {
         const list = new CreateListRequest();
 
             list.comments = [];
@@ -1205,26 +1195,7 @@ export class AppComponent implements OnInit {
             );
     }
 
-    createListV2(): void {
-        const list = new CreateListRequest();
-
-            list.comments = [];
-            list.projectIri = 'http://rdfh.ch/projects/0001';
-
-            const label = new StringLiteral();
-            label.language = 'de';
-            label.value = 'Neue Liste';
-
-            list.labels = [label];
-
-            this.knoraApiConnection.admin.listsEndpoint.createListV2(list).subscribe(
-                (res: ApiResponseData<ListResponse>) => {
-                    console.log(res);
-                }
-            );
-    }
-
-    getListV1(): void {
+    getList(): void {
         const listItemIri = 'http://rdfh.ch/lists/0001/treeList';
 
         this.knoraApiConnection.admin.listsEndpoint.getList(listItemIri).subscribe(
@@ -1234,13 +1205,4 @@ export class AppComponent implements OnInit {
         );
     }
 
-    getListV2(): void {
-        const listItemIri = 'http://rdfh.ch/lists/0001/treeList';
-
-        this.knoraApiConnection.admin.listsEndpoint.getListV2(listItemIri).subscribe(
-            (res: ApiResponseData<ListResponse>) => {
-                console.log(res);
-            }
-        );
-    }
 }
