@@ -1,7 +1,8 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
-import { Observable, throwError } from "rxjs";
+import { Observable, of, throwError } from "rxjs";
 import { ajax, AjaxError, AjaxResponse } from "rxjs/ajax";
+import { delay, mergeMap, retryWhen, tap } from "rxjs/operators";
 
 import { KnoraApiConfig } from "../knora-api-config";
 import { ApiResponseError } from "../models/api-response-error";
@@ -36,6 +37,12 @@ export class Endpoint {
     ////////////////
 
     // <editor-fold desc="">
+
+    readonly maxRetries = 5;
+
+    readonly delay = 500;
+
+    readonly retryOnErrorStatus = [0, 500];
 
     /**
      * JsonConvert instance
@@ -92,9 +99,20 @@ export class Endpoint {
      */
     protected httpGet(path?: string, headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
 
+        let retries = this.maxRetries;
+
         if (path === undefined) path = "";
 
-        return ajax.get(this.knoraApiConfig.apiUrl + this.path + path, this.constructHeader(undefined, headerOpts));
+        return ajax.get(this.knoraApiConfig.apiUrl + this.path + path, this.constructHeader(undefined, headerOpts))
+            .pipe(
+                retryWhen(errors =>
+                    errors.pipe(
+                        delay(this.delay),
+                        // log error message
+                        tap(error => console.log("request failed", error, error.status)),
+                        mergeMap(error => this.retryOnErrorStatus.indexOf(error.status) !== -1 && --retries > 0 ? of(error) : throwError(error))
+                    ))
+            );
 
     }
 
