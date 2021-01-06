@@ -59,7 +59,7 @@ jobs:
     name: Prepare next release
     runs-on: ubuntu-latest
     # Automate releases with Conventional Commit Messages as Pull Requests are merged into "main" branch
-    if: github.ref == 'refs/heads/main'
+    # if: github.ref == 'refs/heads/main'
     steps:
       - uses: GoogleCloudPlatform/release-please-action@v2
         with:
