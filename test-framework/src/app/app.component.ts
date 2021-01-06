@@ -121,9 +121,14 @@ export class AppComponent implements OnInit {
 
     projectMetaStatus = '';
 
+    listName = '';
+    listLabels = '';
+    listComments = '';
+    listChildren = '';
     listChildName = '';
     listChildLabels = '';
     listChildComments = '';
+    listNodeId = '';
 
     ngOnInit() {
         const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
@@ -1094,16 +1099,16 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.admin.listsEndpoint.updateChildNode(childNode).subscribe(
             (res: ApiResponseData<ChildNodeInfoResponse>) => {
                 this.listChildLabels =
-                    res.response.response.nodeinfo.labels[0].language
+                    res.body.nodeinfo.labels[0].language
                     + '/'
-                    + res.response.response.nodeinfo.labels[0].value;
+                    + res.body.nodeinfo.labels[0].value;
 
                 this.listChildComments =
-                    res.response.response.nodeinfo.comments[0].language
+                    res.body.nodeinfo.comments[0].language
                     + '/'
-                    + res.response.response.nodeinfo.comments[0].value;
+                    + res.body.nodeinfo.comments[0].value;
 
-                this.listChildName = res.response.response.nodeinfo.name;
+                this.listChildName = res.body.nodeinfo.name;
             }
         );
     }
@@ -1119,7 +1124,7 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.admin.listsEndpoint.updateChildName(listItemIri, childNodeName).subscribe(
             (res: ApiResponseData<ChildNodeInfoResponse>) => {
-                this.listChildName = res.response.response.nodeinfo.name;
+                this.listChildName = res.body.nodeinfo.name;
             }
         );
     }
@@ -1138,9 +1143,9 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.admin.listsEndpoint.updateChildLabels(listItemIri, childNodeLabels).subscribe(
             (res: ApiResponseData<ChildNodeInfoResponse>) => {
                 this.listChildLabels =
-                    res.response.response.nodeinfo.labels[0].language
+                    res.body.nodeinfo.labels[0].language
                     + '/'
-                    + res.response.response.nodeinfo.labels[0].value;
+                    + res.body.nodeinfo.labels[0].value;
             }
         );
     }
@@ -1159,9 +1164,9 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.admin.listsEndpoint.updateChildComments(listItemIri, childNodeComments).subscribe(
             (res: ApiResponseData<ChildNodeInfoResponse>) => {
                 this.listChildComments =
-                    res.response.response.nodeinfo.comments[0].language
+                    res.body.nodeinfo.comments[0].language
                     + '/'
-                    + res.response.response.nodeinfo.comments[0].value;
+                    + res.body.nodeinfo.comments[0].value;
             }
         );
     }
@@ -1172,6 +1177,9 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.admin.listsEndpoint.getListNodeInfo(listItemIri).subscribe(
             (res: ApiResponseData<ListNodeInfoResponse>) => {
                 console.log(res);
+
+                this.listNodeId = res.body.nodeinfo.id;
+
             }
         );
     }
@@ -1179,20 +1187,35 @@ export class AppComponent implements OnInit {
     createList(): void {
         const list = new CreateListRequest();
 
-            list.comments = [];
-            list.projectIri = 'http://rdfh.ch/projects/0001';
+        list.projectIri = 'http://rdfh.ch/projects/0001';
 
-            const label = new StringLiteral();
-            label.language = 'de';
-            label.value = 'Neue Liste';
+        const label = new StringLiteral();
+        label.language = 'de';
+        label.value = 'Neue Liste';
 
-            list.labels = [label];
+        list.labels = [label];
 
-            this.knoraApiConnection.admin.listsEndpoint.createList(list).subscribe(
-                (res: ApiResponseData<ListResponse>) => {
-                    console.log(res);
-                }
-            );
+        const comments = new StringLiteral();
+        comments.language = 'de';
+        comments.value = 'Neuer Kommentar';
+
+        list.comments = [comments];
+
+        this.knoraApiConnection.admin.listsEndpoint.createList(list).subscribe(
+            (res: ApiResponseData<ListResponse>) => {
+                console.log(res);
+
+                this.listLabels =
+                    res.body.list.listinfo.labels[0].language
+                    + '/'
+                    + res.body.list.listinfo.labels[0].value;
+
+                this.listComments =
+                    res.body.list.listinfo.comments[0].language
+                    + '/'
+                    + res.body.list.listinfo.comments[0].value;
+            }
+        );
     }
 
     getList(): void {
@@ -1201,8 +1224,12 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.admin.listsEndpoint.getList(listItemIri).subscribe(
             (res: ApiResponseData<ListResponse>) => {
                 console.log(res);
+                this.listName = res.body.list.listinfo.name;
+                this.listChildren = res.body.list.children.length.toString();
             }
         );
+
+        
     }
 
 }

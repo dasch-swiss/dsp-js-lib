@@ -41,10 +41,19 @@
             <button class="get-list" (click)="getList()">Get list</button> <br /><br />
             <button class="get-list-node-info" (click)="getListNodeInfo()">Get info of a node</button> <br /><br />
             <div>
-                List Child Info:
+                List Info:
+                <div>Name: <span class="list-name">{{listName}}</span></div>
+                <div>Labels: <span class="list-labels">{{listLabels}}</span></div>
+                <div>Comments: <span class="list-comments">{{listComments}}</span></div>
+                <div>Children Count: <span class="list-children">{{listChildren}}</span></div>
+            </div>
+            <br>
+            <div>
+                List Node Info:
                 <div>Name: <span class="child-name">{{listChildName}}</span></div>
                 <div>Labels: <span class="child-labels">{{listChildLabels}}</span></div>
                 <div>Comments: <span class="child-comments">{{listChildComments}}</span></div>
+                <div>ID: <span class="list-node-id">{{listNodeId}}</span></div>
             </div>
         </div>
     </section>
