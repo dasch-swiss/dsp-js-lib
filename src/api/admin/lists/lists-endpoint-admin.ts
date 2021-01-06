@@ -145,6 +145,10 @@ export class ListsEndpointAdmin extends Endpoint {
      */
     updateChildNode(nodeInfo: UpdateChildNodeRequest): Observable<ApiResponseData<ChildNodeInfoResponse> | ApiResponseError> {
     
+        if (nodeInfo.name === undefined && nodeInfo.labels === undefined && nodeInfo.comments === undefined) {
+            throw new Error("At least one property is expected from the following properties: name, labels, comments.");
+        }
+
         return this.httpPut("/" + encodeURIComponent(nodeInfo.listIri), this.jsonConvert.serializeObject(nodeInfo), undefined, { "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" }).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ChildNodeInfoResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))

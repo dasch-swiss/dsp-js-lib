@@ -219,6 +219,19 @@ describe("ListsEndpoint", () => {
             expect(request.data()).toEqual(payload);
         });
 
+        it("should throw an error if given an incomplete UpdateChildNodeRequest", () => {
+
+            const childNode = new UpdateChildNodeRequest();
+
+            childNode.listIri = "http://rdfh.ch/lists/0001/a-child-node-with-IRI";
+
+            childNode.projectIri = "http://rdfh.ch/projects/0001";
+
+            expect(() =>
+                knoraApiConnection.admin.listsEndpoint.updateChildNode(childNode)
+            ).toThrow(new Error("At least one property is expected from the following properties: name, labels, comments."));
+        });
+
     });
 
     describe("Method UpdateChildName", () => {
