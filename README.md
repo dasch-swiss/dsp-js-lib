@@ -31,7 +31,7 @@ The following endpoints are available through DSP-JS-LIB:
 - **v2**: requesting and modifying resources and values using DSP-API version 2
 - **system**: DSP-API's health status
 
-Consult the API docs for more details about the available endpoints.
+Consult the [API docs](https://dasch-swiss.github.io/dsp-js-lib) for more details about the available endpoints.
 See [design documentation](design-documentation.md) for a detailed description of DSP-JS-LIB's design and architecture.
 
 ### RxJS Observables
@@ -85,7 +85,7 @@ knoraApiConnection.v2.res.getResource(iri).subscribe(
 );
 ```
 
-For more information about available endpoints and methods, consult the API docs.
+For more information about available endpoints and methods, consult the [API docs](https://dasch-swiss.github.io/dsp-js-lib).
 
 ## Release Notes
 For the release notes 

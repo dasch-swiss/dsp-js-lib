@@ -35,14 +35,27 @@
         </div>
         <div id="lists">
             <h4>Lists</h4>
+            <button class="create-list" (click)="createList()">Create a list</button> <br /><br />
+            <button class="update-list-node" (click)="updateChildNode()">Update labels & comments of a child node</button> <br /><br />
             <button class="update-child-name" (click)="updateChildName()">Update name of a child node</button> <br /><br />
             <button class="update-child-labels" (click)="updateChildLabels()">Update labels of a child node</button> <br /><br />
-            <button class="update-child-comments" (click)="updateChildComments()">Update comments of a child node</button>
+            <button class="update-child-comments" (click)="updateChildComments()">Update comments of a child node</button> <br /><br />
+            <button class="get-list" (click)="getList()">Get list</button> <br /><br />
+            <button class="get-list-node-info" (click)="getListNodeInfo()">Get info of a node</button> <br /><br />
             <div>
-                List Child Info:
+                List Info:
+                <div>Name: <span class="list-name">{{listName}}</span></div>
+                <div>Labels: <span class="list-labels">{{listLabels}}</span></div>
+                <div>Comments: <span class="list-comments">{{listComments}}</span></div>
+                <div>Children Count: <span class="list-children">{{listChildren}}</span></div>
+            </div>
+            <br>
+            <div>
+                List Node Info:
                 <div>Name: <span class="child-name">{{listChildName}}</span></div>
                 <div>Labels: <span class="child-labels">{{listChildLabels}}</span></div>
                 <div>Comments: <span class="child-comments">{{listChildComments}}</span></div>
+                <div>ID: <span class="list-node-id">{{listNodeId}}</span></div>
             </div>
         </div>
     </section>
