@@ -706,9 +706,9 @@ describe('workspace-project App', () => {
 
     button.click();
 
-    const childName = page.getEle('div#lists span.child-labels');
+    const childLabel = page.getEle('div#lists span.child-labels');
 
-    expect(childName.getText()).toEqual('en/new label');
+    expect(childLabel.getText()).toEqual('en/new label');
   });
 
   it('should update the comments of a list child node', () => {
@@ -728,6 +728,82 @@ describe('workspace-project App', () => {
     const childName = page.getEle('div#lists span.child-comments');
 
     expect(childName.getText()).toEqual('en/new comment');
+  });
+
+  it('should update the labels and comments of a list child node', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#lists button.update-list-node');
+
+    button.click();
+
+    const childLabel = page.getEle('div#lists span.child-labels');
+
+    expect(childLabel.getText()).toEqual('en/updated label');
+
+    const childComment = page.getEle('div#lists span.child-comments');
+
+    expect(childComment.getText()).toEqual('en/updated comment');
+  });
+
+  it('should get a list', () => {
+
+    page.navigateTo();
+
+    const button = page.getEle('div#lists button.get-list');
+
+    button.click();
+
+    const listName = page.getEle('div#lists span.list-name');
+
+    expect(listName.getText()).toEqual('treelistroot');
+
+    const listChildren = page.getEle('div#lists span.list-children');
+
+    expect(listChildren.getText()).toEqual('3');
+  });
+
+  it('should get info of a list node', () => {
+
+    page.navigateTo();
+
+    const button = page.getEle('div#lists button.get-list-node-info');
+
+    button.click();
+
+    const listNodeId = page.getEle('div#lists span.list-node-id');
+
+    expect(listNodeId.getText()).toEqual('http://rdfh.ch/lists/0001/treeList01');
+  });
+
+  it('should create a list', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#lists button.create-list');
+
+    button.click();
+
+    const listLabel = page.getEle('div#lists span.list-labels');
+
+    expect(listLabel.getText()).toEqual('de/Neue Liste');
+
+    const listComment = page.getEle('div#lists span.list-comments');
+
+    expect(listComment.getText()).toEqual('de/Neuer Kommentar');
   });
 
   afterEach(async () => {
