@@ -13,21 +13,27 @@ describe("RetryOnError Operator", () => {
         });
     });
 
-    it("Retry try on error", () => {
+    it("should get a completed response after 3 unsuccessful requests", () => {
         scheduler.run(({cold, expectObservable}) => {
 
             const values = {a: 20};
 
             const ajaxError = {status: 0};
 
-            const send = createSpy("send");
-            send.and.returnValues(cold("-#", undefined, ajaxError), cold("-#", undefined, ajaxError), cold("-a", values));
-
-            const source$ = of(undefined).pipe(
-                switchMap(() => send())
+            // https://stackoverflow.com/questions/57406445/rxjs-marble-testing-retrywhen
+            const http = createSpy("http");
+            http.and.returnValues(
+                cold("-#", undefined, ajaxError),
+                cold("-#", undefined, ajaxError),
+                cold("-#", undefined, ajaxError),
+                cold("-a|", values)
             );
 
-            const expectedMarble = "-----a";
+            const source$ = of(undefined).pipe(
+                switchMap(() => http())
+            );
+
+            const expectedMarble = "-------a|";
             const expectedValues = {a: 20};
 
             const result$ = source$.pipe(
