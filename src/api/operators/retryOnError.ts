@@ -16,16 +16,15 @@ import { delay, mergeMap, retryWhen, tap } from "rxjs/operators";
 export function retryOnError(delayMs: number, maxRetries: number, retryOnErrorStatus: number[], logError: boolean) {
     let retries = maxRetries;
 
-    return (src: Observable<AjaxResponse>) =>
+    return (src: Observable<any>) =>
         src.pipe(
             retryWhen(errors =>
                 errors.pipe(
                     delay(delayMs),
                     // log error message
                     tap((error: AjaxError) => {
-                        if (logError) console.error("HTTP request failed", error);
+                        if (logError) console.error("HTTP request failed", error.status);
                     }),
                     mergeMap((error: AjaxError) => retryOnErrorStatus.indexOf(error.status) !== -1 && --retries > 0 ? of(error) : throwError(error))
                 )));
-
 }
