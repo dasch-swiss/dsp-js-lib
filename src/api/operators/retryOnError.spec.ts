@@ -2,14 +2,13 @@ import { of } from "rxjs";
 import { switchMap } from "rxjs/operators";
 import { TestScheduler } from "rxjs/testing";
 import { retryOnError } from "./retryOnError";
-import createSpy = jasmine.createSpy;
 
 describe("RetryOnError Operator", () => {
     let scheduler: TestScheduler;
 
     // https://stackoverflow.com/questions/57406445/rxjs-marble-testing-retrywhen
     const createRetryableStream = (...obs$: any[]) => {
-        const http = createSpy("http");
+        const http = jasmine.createSpy("http");
         http.and.returnValues(...obs$);
 
         return of(undefined).pipe(
@@ -23,7 +22,28 @@ describe("RetryOnError Operator", () => {
         });
     });
 
-    it("should get a completed response after 3 unsuccessful requests", () => {
+    it("should get a completed response", () => {
+        scheduler.run(({cold, expectObservable}) => {
+
+            const values = { a: 20 };
+
+            const source$ = createRetryableStream(
+                cold("a|", values)
+            );
+
+            const expectedMarble = "a|";
+            const expectedValues = { a: 20 };
+
+            const result$ = source$.pipe(
+                retryOnError(1, 1, [0], true)
+            );
+
+            expectObservable(result$).toBe(expectedMarble, expectedValues);
+
+        });
+    });
+
+    it("should get a completed response after 1 unsuccessful request", () => {
         scheduler.run(({cold, expectObservable}) => {
 
             const values = {a: 20};
@@ -31,19 +51,42 @@ describe("RetryOnError Operator", () => {
             const ajaxError = {status: 0};
 
             const source$ = createRetryableStream(
-                cold("-#", undefined, ajaxError),
-                cold("-#", undefined, ajaxError),
-                cold("-#", undefined, ajaxError),
-                cold("-a|", values)
+                cold("#", undefined, ajaxError),
+                cold("a|", values)
             );
 
-            const expectedMarble = "-------a|";
+            const expectedMarble = "-a|";
             const expectedValues = { a: 20 };
 
             const result$ = source$.pipe(
-                retryOnError(1, 5, [0], true)
+                retryOnError(1, 1, [0], true)
             );
+
             expectObservable(result$).toBe(expectedMarble, expectedValues);
+
+        });
+    });
+
+    it("should get an error after 2 unsuccessful requests", () => {
+        scheduler.run(({cold, expectObservable}) => {
+
+            const values = { a: 20 };
+
+            const ajaxError = { status: 0 };
+
+            const source$ = createRetryableStream(
+                cold("#", undefined, ajaxError),
+                cold("#", undefined, ajaxError),
+                cold("a|", values)
+            );
+
+            const expectedMarble = "-#";
+
+            const result$ = source$.pipe(
+                retryOnError(1, 1, [0], true)
+            );
+
+            expectObservable(result$).toBe(expectedMarble, undefined, ajaxError);
 
         });
     });
