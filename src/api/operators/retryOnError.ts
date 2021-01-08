@@ -22,7 +22,7 @@ export function retryOnError(delayMs: number, maxRetries: number, retryOnErrorSt
                 errors.pipe(
                     // log error message if logging is enabled
                     tap((error: AjaxError) => {
-                        if (logError) console.error("HTTP request failed", error.status, retries);
+                        if (logError) console.error("HTTP request failed:", "status:", error.status, "retries:", retries, "error:", error);
                     }),
                     mergeMap((error: AjaxError) => {
                         // retry on specified error status
