@@ -16,7 +16,8 @@ import { delay, mergeMap, retryWhen, tap } from "rxjs/operators";
 export function retryOnError(delayMs: number, maxRetries: number, retryOnErrorStatus: number[], logError: boolean) {
     let retries = maxRetries;
 
-    return (src: Observable<any>) =>
+    // inspired by https://medium.com/angular-in-depth/retry-failed-http-requests-in-angular-f5959d486294
+    return (src: Observable<AjaxResponse>) =>
         src.pipe(
             retryWhen(errors =>
                 errors.pipe(
@@ -26,7 +27,7 @@ export function retryOnError(delayMs: number, maxRetries: number, retryOnErrorSt
                     }),
                     mergeMap((error: AjaxError) => {
                         // retry on specified error status
-                        // check if max retries is reached
+                        // check if max retries is reached ("retries" is decremented on each retry)
                         if (retryOnErrorStatus.indexOf(error.status) !== -1 && retries-- > 0) {
                             return of(error).pipe(
                                 // delay retry
