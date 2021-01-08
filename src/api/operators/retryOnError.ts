@@ -20,11 +20,18 @@ export function retryOnError(delayMs: number, maxRetries: number, retryOnErrorSt
         src.pipe(
             retryWhen(errors =>
                 errors.pipe(
-                    delay(delayMs),
                     // log error message
                     tap((error: AjaxError) => {
                         if (logError) console.error("HTTP request failed", error.status);
                     }),
-                    mergeMap((error: AjaxError) => retryOnErrorStatus.indexOf(error.status) !== -1 && --retries > 0 ? of(error) : throwError(error))
+                    mergeMap((error: AjaxError) => {
+                        if (retryOnErrorStatus.indexOf(error.status) !== -1 && retries-- > 0) {
+                            return of(error).pipe(
+                                delay(delayMs)
+                            );
+                        } else {
+                            return throwError(error);
+                        }
+                    })
                 )));
 }
