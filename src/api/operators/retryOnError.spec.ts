@@ -91,4 +91,25 @@ describe("RetryOnError Operator", () => {
         });
     });
 
+    it("should not retry on certain error status", () => {
+        scheduler.run(({cold, expectObservable}) => {
+
+            const ajaxError = { status: 400 };
+
+            const source$ = createRetryableStream(
+                cold("#", undefined, ajaxError),
+                cold("#", undefined, ajaxError)
+            );
+
+            const expectedMarble = "#";
+
+            const result$ = source$.pipe(
+                retryOnError(1, 1, [0], true)
+            );
+
+            expectObservable(result$).toBe(expectedMarble, undefined, ajaxError);
+
+        });
+    });
+
 });
