@@ -31,7 +31,7 @@ Each of these main endpoints offers endpoints for specific operations.
 #### Admin
 
 - admin.usersEndpoint (`UsersEndpointAdmin`): offers methods to administer users.
-- admin.groupsEndpoint (`GroupsEndpointAdmin`): offers methods to administer groups. -
+- admin.groupsEndpoint (`GroupsEndpointAdmin`): offers methods to administer groups.
 - admin.projectsEndpoint (`ProjectsEndpointAdmin`): offers methods to administer projects.
 - admin.permissionsEndpoint (`PermissionsEndpointAdmin`): offers methods to administer permissions.
 - admin.listsEndpoint (`ListsEndpointAdmin`): offers methods to administer lists.
