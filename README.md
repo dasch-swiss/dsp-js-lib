@@ -56,7 +56,7 @@ For each main endpoint, you'll find a category in the API docs:
 - v2: `Endpoint V2 Classes`
 - system: `Endpoint System Classes`
 
-You can also use the full text search to search for an end endpoint's class name, e.g., `ResourcesEndpointV2`.
+You can also use the full text search to search for an endpoint's class name within the [API docs](https://dasch-swiss.github.io/dsp-js-lib), e.g., `ResourcesEndpointV2`.
 See section [Getting started](#getting-started) for more usage information.
 
 See [design documentation](design-documentation.md) for a detailed description of DSP-JS-LIB's design and architecture.
