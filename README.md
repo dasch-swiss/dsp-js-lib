@@ -8,11 +8,6 @@
 
 ## Introduction
 
-### Links in this document
-This document contains links to other files of DPS-JS-LIB's documentation.
-Note that these links point to the latest version of these files and
-not necessarily the version you are working with.
-
 ### Purpose of DSP-JS-LIB
 The purpose of DSP-JS-LIB is to facilitate the communication with [DSP-API (Knora)](https://www.knora.org) in web clients developed with TypeScript/JavaScript.
 DSP-JS-LIB depends on [RxJS](https://rxjs.dev/guide/overview) and is web framework agnostic (it can be used with Angular, React, Vue.js etc.).
@@ -26,12 +21,44 @@ DSP-JS-LIB offers the following features:
 ### Basic Structure of DSP-JS-LIB
 DSP-JS-LIB's architecture is based on endpoints that correspond to DSP-API's endpoints.
 
-The following endpoints are available through DSP-JS-LIB:
-- **admin**: getting and modifying users, projects, permissions etc.
-- **v2**: requesting and modifying resources and values using DSP-API version 2
-- **system**: DSP-API's health status
+The following main endpoints are available through DSP-JS-LIB:
+- **admin** (`AdminEndpoint`): getting and modifying users, projects, permissions etc.
+- **v2** (`V2Endpoint`): requesting and modifying resources and values using DSP-API version 2.
+- **system** (`SystemEndpoint`): DSP-API's health status.
+
+Each of these main endpoints offers endpoints for specific operations.
+
+#### Admin
+
+- admin.usersEndpoint (`UsersEndpointAdmin`): offers methods to administer users.
+- admin.groupsEndpoint (`GroupsEndpointAdmin`): offers methods to administer groups.
+- admin.projectsEndpoint (`ProjectsEndpointAdmin`): offers methods to administer projects.
+- admin.permissionsEndpoint (`PermissionsEndpointAdmin`): offers methods to administer permissions.
+- admin.listsEndpoint (`ListsEndpointAdmin`): offers methods to administer lists.
+
+#### V2
+
+- v2.auth (`AuthenticationEndpointV2`): offers methods to authenticate.
+- v2.onto (`OntologiesEndpointV2`): offers methods to get ontology information.
+- v2.res (`ResourcesEndpointV2`): offers methods to work with resources.
+- v2.values (`ValuesEndpointV2`): offers methods to work with values.
+- v2.list (`ListsEndpointV2`): offers methods to retrieve list nodes and lists.
+- v2.search (`SearchEndpointV2`): offers methods to search.
+- v2.metadata (`ProjectMetadataEndpointV2`): offers methods to work with project metadata.
+
+#### System
+
+- system.healthEndpoint (`HealthEndpointSystem`): offers methods to get DSP-API's status.
 
 Consult the [API docs](https://dasch-swiss.github.io/dsp-js-lib) for more details about the available endpoints.
+For each main endpoint, you'll find a category in the API docs:
+- admin: `Endpoint Admin Classes`
+- v2: `Endpoint V2 Classes`
+- system: `Endpoint System Classes`
+
+You can also use the full text search to search for an endpoint's class name within the [API docs](https://dasch-swiss.github.io/dsp-js-lib), e.g., `ResourcesEndpointV2`.
+See section [Getting started](#getting-started) for more usage information.
+
 See [design documentation](design-documentation.md) for a detailed description of DSP-JS-LIB's design and architecture.
 
 ### RxJS Observables
@@ -46,7 +73,7 @@ Run `npm install @dasch-swiss/dsp-js --save` to install DSP-JS-LIB in your npm p
 
 ### Dependencies and Peer Dependencies
 DSP-JS-LIB depends on [jsonld](https://www.npmjs.com/package/jsonld) and [json2typescript](https://www.npmjs.com/package/json2typescript).
-These dependencies will be installed with `npm install`.
+These dependencies will be installed when you run `npm install` in your project.
 
 [RxJS](https://www.npmjs.com/package/rxjs) is a peer dependency of this library and is **not installed** when running `npm install`.
 Note that DSP-JS-LIB requires major version 6 of `rxjs`.
@@ -68,8 +95,22 @@ const config: KnoraApiConfig = new KnoraApiConfig("https", "api.dasch.swiss");
 const knoraApiConnection: KnoraApiConnection = new KnoraApiConnection(config);
 ```
 
-Once you have set up the connection instance, you can use any of DSP-JS-LIB's endpoints to perform requests to DSP-API.
-In the following example, we are requesting a resource from DSP-API:
+Once you have set up the connection instance, you can use any of DSP-JS-LIB's endpoints to perform requests to DSP-API:
+```typescript
+// formal example
+knoraApiConnection.[mainEndpoint].[endpoint].[method(...)]
+
+// admin users endpoint example, see UsersEndpointAdmin in API docs
+knoraApiConnection.admin.usersEndpoint.getUserByIri("userIri").subscribe(...);
+
+// v2 search endpoint example, see SearchEndpointV2 in API docs
+knoraApiConnection.v2.search.doFulltextSearch("searchLabel").subscribe(...);
+
+// system health endpoint example, see HealthEndpointSystem in API docs
+knoraApiConnection.system.getHealthStatus().subscribe(...);
+```
+
+In the following full example, we are requesting a resource from DSP-API:
 
 ```typescript
 // request a resource using the resources endpoint from v2
