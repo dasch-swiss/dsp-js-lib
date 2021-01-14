@@ -131,7 +131,7 @@ After integrating v2 test data, run `npm run expand-jsonld-test-data`.
 DSP-JS-LIB is compatible with a release of DSP-API that is specified in `vars.mk`.
 To update the target release of DSP-API, the following steps have to be carried out:
 
-1. Update DSP-API version in `vars.mk`, e.g., change `v13.0.0-rc.16` to `v13.0.0-rc.17`.
+1. Update DSP-API version in `vars.mk`, e.g., change `v13.0.0` to `v13.1.0`.
 1. Download test-data from DSP-API release with `make get-test-data-from-release`.
 1. Unpack generated test data and integrate it with `make prepare-test-data`.
 1. Run the unit tests with `npm test` from the project root.
