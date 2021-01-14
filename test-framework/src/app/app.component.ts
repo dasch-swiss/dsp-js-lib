@@ -1,65 +1,32 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import {
-    AdministrativePermissionResponse,
-    AdministrativePermissionsResponse,
     ApiResponseData,
     ApiResponseError,
-    Cardinality,
-    ChildNodeInfoResponse,
     Constants,
     CountQueryResponse,
-    CreateAdministrativePermission,
     CreateBooleanValue,
-    CreateDefaultObjectAccessPermission,
     CreateIntValue,
-    CreateListRequest,
     CreateOntology,
-    CreatePermission,
     CreateResource,
     CreateResourceClass,
-    CreateResourceProperty,
     CreateValue,
-    DataManagementPlan,
-    Dataset,
-    DefaultObjectAccessPermissionResponse,
-    DefaultObjectAccessPermissionsResponse,
-    DeleteOntology,
     DeleteOntologyResponse,
     DeleteResource,
-    DeleteResourceClass,
-    DeleteResourceProperty,
     DeleteResourceResponse,
     DeleteValue,
     DeleteValueResponse,
-    Grant,
-    IUrl,
     KnoraApiConfig,
     KnoraApiConnection,
-    ListNodeInfoResponse,
     ListNodeV2,
-    ListResponse,
     LoginResponse,
     OntologiesMetadata,
     OntologyMetadata,
-    Organization,
-    Person,
-    ProjectPermissionsResponse,
-    ProjectsMetadata,
     ReadOntology,
     ReadResource,
     ReadResourceSequence,
     ResourceClassDefinitionWithAllLanguages,
-    ResourcePropertyDefinitionWithAllLanguages,
-    SingleProject,
-    StringLiteral,
-    UpdateChildNodeCommentsRequest,
-    UpdateChildNodeLabelsRequest,
-    UpdateChildNodeNameRequest,
-    UpdateChildNodeRequest,
     UpdateIntValue,
     UpdateOntology,
-    UpdateOntologyResourceClassCardinality,
-    UpdateProjectMetadataResponse,
     UpdateResource,
     UpdateResourceMetadata,
     UpdateResourceMetadataResponse,
@@ -67,16 +34,49 @@ import {
     UserCache,
     UserResponse,
     UsersResponse,
-    WriteValueResponse
-} from "@dasch-swiss/dsp-js";
-import { forkJoin, Observable, of } from "rxjs";
-import { map, mergeMap, reduce, tap } from "rxjs/operators";
-import { ResourceClassDefinitionWithPropertyDefinition } from "../../../src";
+    WriteValueResponse,
+    Cardinality,
+    DeleteOntology,
+    DeleteResourceClass,
+    DeleteResourceProperty,
+    UpdateOntologyResourceClassCardinality,
+    CreatePermission,
+    CreateAdministrativePermission,
+    ResourcePropertyDefinitionWithAllLanguages,
+    CreateResourceProperty,
+    CreateDefaultObjectAccessPermission,
+    AdministrativePermissionResponse,
+    DefaultObjectAccessPermissionsResponse,
+    DefaultObjectAccessPermissionResponse,
+    ProjectPermissionsResponse,
+    AdministrativePermissionsResponse,
+    UpdateChildNodeNameRequest,
+    ChildNodeInfoResponse,
+    StringLiteral,
+    UpdateChildNodeLabelsRequest,
+    UpdateChildNodeCommentsRequest,
+    ProjectsMetadata,
+    Dataset,
+    SingleProject,
+    DataManagementPlan,
+    UpdateProjectMetadataResponse,
+    IUrl,
+    Grant,
+    Person,
+    Organization,
+    UpdateChildNodeRequest,
+    ListNodeInfoResponse,
+    CreateListRequest,
+    ListResponse,
+    ListInfoResponse
+} from '@dasch-swiss/dsp-js';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
-    selector: "app-root",
-    templateUrl: "./app.component.html",
-    styleUrls: ["./app.component.scss"]
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
 
@@ -106,32 +106,32 @@ export class AppComponent implements OnInit {
     searchResult: ReadResource[];
     size: number;
 
-    loginStatus = "";
+    loginStatus = '';
 
-    valueStatus = "";
+    valueStatus = '';
 
-    resourceStatus = "";
+    resourceStatus = '';
 
     itemPluralMapping = {
         ontology: {
-            "=1": "1 ontology",
-            other: "# ontologies"
+            '=1': '1 ontology',
+            other: '# ontologies'
         }
     };
 
-    projectMetaStatus = "";
+    projectMetaStatus = '';
 
-    listName = "";
-    listLabels = "";
-    listComments = "";
-    listChildren = "";
-    listChildName = "";
-    listChildLabels = "";
-    listChildComments = "";
-    listNodeId = "";
+    listName = '';
+    listLabels = '';
+    listComments = '';
+    listChildren = '';
+    listChildName = '';
+    listChildLabels = '';
+    listChildComments = '';
+    listNodeId = '';
 
     ngOnInit() {
-        const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, undefined, true);
+        const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
         this.knoraApiConnection = new KnoraApiConnection(config);
         // console.log(this.knoraApiConnection);
         this.userCache = new UserCache(this.knoraApiConnection);
@@ -161,10 +161,10 @@ export class AppComponent implements OnInit {
 
     login() {
 
-        this.knoraApiConnection.v2.auth.login("username", "root", "test").subscribe(
+        this.knoraApiConnection.v2.auth.login('username', 'root', 'test').subscribe(
             (loginResponse: ApiResponseData<LoginResponse>) => {
                 console.log(loginResponse);
-                this.loginStatus = "logged in";
+                this.loginStatus = 'logged in';
 
             },
             error => console.error(error)
@@ -177,7 +177,7 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.auth.logout().subscribe(
             logoutRes => {
                 console.log(logoutRes);
-                this.loginStatus = "logged out";
+                this.loginStatus = 'logged out';
             },
             error => console.error(error)
         );
@@ -264,7 +264,7 @@ export class AppComponent implements OnInit {
                 console.log(res);
             },
             err => console.error(err)
-        );
+        )
 
     }
 
@@ -316,45 +316,44 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.ontologyCache.getOntology(iri).subscribe(
             onto => {
-                console.log("onto ", onto);
+                console.log('onto ', onto);
                 this.ontologies = onto;
             }
         );
     }
 
     getAnythingOntologies() {
-        this.knoraApiConnection.v2.onto.getOntologiesByProjectIri("http://rdfh.ch/projects/0001").subscribe(
+        this.knoraApiConnection.v2.onto.getOntologiesByProjectIri('http://rdfh.ch/projects/0001').subscribe(
             (response: OntologiesMetadata) => {
-                console.log("anythingOntologies ", response);
+                console.log('anythingOntologies ', response);
                 this.anythingOntologies = response;
             },
             (error: ApiResponseError) => {
-                console.error("project ontologies error", error);
+                console.error('project ontologies error', error);
             }
-        );
+        )
     }
-
     getDokubibOntologies() {
-        this.knoraApiConnection.v2.onto.getOntologiesByProjectIri("http://rdfh.ch/projects/0804").subscribe(
+        this.knoraApiConnection.v2.onto.getOntologiesByProjectIri('http://rdfh.ch/projects/0804').subscribe(
             (response: OntologiesMetadata) => {
-                console.log("dokubibOntologies ", response);
+                console.log('dokubibOntologies ', response);
                 this.dokubibOntologies = response;
             },
             (error: ApiResponseError) => {
-                console.error("project ontologies error", error);
+                console.error('project ontologies error', error);
             }
-        );
+        )
     }
 
     createOntology() {
         const createOntology = new CreateOntology();
-        createOntology.label = "Test Ontology";
-        createOntology.name = "testonto";
-        createOntology.attachedToProject = "http://rdfh.ch/projects/0001";
+        createOntology.label = 'Test Ontology';
+        createOntology.name = 'testonto';
+        createOntology.attachedToProject = 'http://rdfh.ch/projects/0001';
         this.knoraApiConnection.v2.onto.createOntology(createOntology).subscribe(
             (onto: OntologyMetadata) => {
                 this.ontologyMeta = onto;
-                console.log("new ontology created", onto);
+                console.log('new ontology created', onto);
             }
         );
     }
@@ -363,9 +362,9 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.onto.getOntology(iri).subscribe(
             (onto: ReadOntology) => {
                 this.ontology = onto;
-                console.log("get testonto ", onto);
+                console.log('get testonto ', onto);
             }
-        );
+        )
     }
 
     deleteOntology() {
@@ -376,9 +375,9 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.onto.deleteOntology(deleteOntology).subscribe(
             (response: DeleteOntologyResponse) => {
                 this.message = response.result;
-                console.log("ontology deleted", response);
+                console.log('ontology deleted', response);
             }
-        );
+        )
     }
 
     createResourceClass() {
@@ -412,7 +411,7 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.onto.createResourceClass(onto).subscribe(
             (response: ResourceClassDefinitionWithAllLanguages) => {
-                console.log("new resource class created", response);
+                console.log('new resource class created', response);
                 this.resClass = response;
             }
         );
@@ -426,15 +425,16 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.onto.deleteResourceClass(deleteResClass).subscribe(
             (response: OntologyMetadata) => {
-                this.message = "res class has been deleted";
-                console.log("res class deleted", response);
+                this.message = 'res class has been deleted';
+                console.log('res class deleted', response);
             },
             (error: ApiResponseError) => {
                 console.error(error);
             }
-        );
+        )
 
     }
+
 
     createResourceProperty() {
         const onto = new UpdateOntology<CreateResourceProperty>();
@@ -481,7 +481,7 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.onto.createResourceProperty(onto).subscribe(
             (response: ResourcePropertyDefinitionWithAllLanguages) => {
                 this.property = response;
-                console.log("new resource property created", response);
+                console.log('new resource property created', response);
             }
         );
     }
@@ -494,13 +494,13 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.onto.deleteResourceProperty(deleteResProp).subscribe(
             (response: OntologyMetadata) => {
-                this.message = "res property has been deleted";
-                console.log("res property deleted", response);
+                this.message = 'res property has been deleted';
+                console.log('res property deleted', response);
             },
             (error: ApiResponseError) => {
                 console.error(error);
             }
-        );
+        )
 
     }
 
@@ -523,62 +523,21 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.onto.addCardinalityToResourceClass(addCard).subscribe(
             (res: ResourceClassDefinitionWithAllLanguages) => {
                 this.addCard = res;
-                console.log("added card: ", res);
+                console.log('added card: ', res)
             }
         );
 
+
     }
+
 
     getResourceClass(iri: string) {
 
-        /*const getSuperClassIri = (classDef: ResourceClassDefinitionWithPropertyDefinition): string[] => {
-            return classDef.subClassOf;
-        };*/
-
-        const getSuperClassDef = (onto: ResourceClassDefinitionWithPropertyDefinition, superClassIri?: string): Observable<any> => {
-
-            if (superClassIri) {
-                return this.knoraApiConnection.v2.ontologyCache.getResourceClassDefinition(superClassIri).pipe(
-                    mergeMap(
-                        onto2 => {
-                            // check if superclass is non empty
-                            console.log("getting ", superClassIri)
-                            return forkJoin([of(onto), getSuperClassDef(onto2.classes[superClassIri], onto2.classes[superClassIri].subClassOf[0])]);
-                        }
-                    )
-                );
-            } else {
-                return of([onto]);
+        this.knoraApiConnection.v2.ontologyCache.getResourceClassDefinition(iri).subscribe(
+            onto => {
+                console.log('get res class', onto);
             }
-
-        };
-
-        const flatten = (acc, curVal) => {
-            // console.log("acc ", acc, "curVal ", curVal)
-            if (Array.isArray(curVal)) {
-                return acc.concat(curVal.reduce(flatten, []))
-            } else {
-                return acc.concat(curVal)
-            }
-        };
-
-        this.knoraApiConnection.v2.ontologyCache.getResourceClassDefinition(iri)
-            .pipe(
-                mergeMap(onto => {
-                    return getSuperClassDef(onto.classes[iri], onto.classes[iri].subClassOf[0]);
-                }),
-                map(
-                    (defs: []) => {
-                        return defs.reduce(flatten, []);
-                    }
-                ),
-                map(defs => defs.map(def => def.id))
-            )
-            .subscribe(
-                (superclasses) => {
-                    console.log(superclasses);
-                }
-            );
+        );
     }
 
     getResource(iri: string) {
@@ -605,17 +564,17 @@ export class AppComponent implements OnInit {
 
         const createResource = new CreateResource();
 
-        createResource.label = "testding";
+        createResource.label = 'testding';
 
-        createResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+        createResource.type = 'http://0.0.0.0:3333/ontology/0001/anything/v2#Thing';
 
-        createResource.attachedToProject = "http://rdfh.ch/projects/0001";
+        createResource.attachedToProject = 'http://rdfh.ch/projects/0001';
 
         const boolVal = new CreateBooleanValue();
         boolVal.bool = true;
 
         const props = {
-            "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean": [
+            'http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean': [
                 boolVal
             ]
         };
@@ -634,15 +593,15 @@ export class AppComponent implements OnInit {
 
         const updateResourceMetadata = new UpdateResourceMetadata();
 
-        updateResourceMetadata.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
+        updateResourceMetadata.id = 'http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw';
 
-        updateResourceMetadata.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+        updateResourceMetadata.type = 'http://0.0.0.0:3333/ontology/0001/anything/v2#Thing';
 
-        updateResourceMetadata.label = "Das Ding der Dinge";
+        updateResourceMetadata.label = 'Das Ding der Dinge';
 
         this.knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
             (res: UpdateResourceMetadataResponse) => {
-                this.resourceStatus = "OK";
+                this.resourceStatus = 'OK';
             }
         );
     }
@@ -657,7 +616,7 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.res.deleteResource(deleteResource).subscribe(
             (res: DeleteResourceResponse) => {
-                this.resourceStatus = "OK";
+                this.resourceStatus = 'OK';
             }
         );
 
@@ -762,14 +721,14 @@ export class AppComponent implements OnInit {
     generateUpdateIntValue(int: number): UpdateResource<UpdateValue> {
         const updateIntVal = new UpdateIntValue();
 
-        updateIntVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg";
+        updateIntVal.id = 'http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/dJ1ES8QTQNepFKF5-EAqdg';
         updateIntVal.int = int;
 
         const updateResource: UpdateResource<UpdateValue> = new UpdateResource<UpdateValue>();
 
-        updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
-        updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-        updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
+        updateResource.id = 'http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw';
+        updateResource.type = 'http://0.0.0.0:3333/ontology/0001/anything/v2#Thing';
+        updateResource.property = 'http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger';
         updateResource.value = updateIntVal;
 
         return updateResource;
@@ -778,11 +737,11 @@ export class AppComponent implements OnInit {
     updateValue(updateResource: UpdateResource<UpdateValue>) {
 
         this.knoraApiConnection.v2.values.updateValue(updateResource).subscribe((res: WriteValueResponse) => {
-                console.log(res);
-                this.valueStatus = "OK";
-            },
+            console.log(res);
+            this.valueStatus = 'OK';
+        },
             error => {
-                this.valueStatus = "";
+                this.valueStatus = '';
             }
         );
 
@@ -794,9 +753,9 @@ export class AppComponent implements OnInit {
 
         const updateResource: UpdateResource<CreateValue> = new UpdateResource<CreateValue>();
 
-        updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
-        updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-        updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
+        updateResource.id = 'http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw';
+        updateResource.type = 'http://0.0.0.0:3333/ontology/0001/anything/v2#Thing';
+        updateResource.property = 'http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger';
         updateResource.value = createIntVal;
 
         return updateResource;
@@ -805,11 +764,11 @@ export class AppComponent implements OnInit {
     createValue(updateResource: UpdateResource<CreateValue>) {
 
         this.knoraApiConnection.v2.values.createValue(updateResource).subscribe((res: WriteValueResponse) => {
-                console.log(res);
-                this.valueStatus = "OK";
-            },
+            console.log(res);
+            this.valueStatus = 'OK';
+        },
             error => {
-                this.valueStatus = "";
+                this.valueStatus = '';
             }
         );
 
@@ -819,22 +778,22 @@ export class AppComponent implements OnInit {
 
         const deleteVal = new DeleteValue();
 
-        deleteVal.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/bXMwnrHvQH2DMjOFrGmNzg";
+        deleteVal.id = 'http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/bXMwnrHvQH2DMjOFrGmNzg';
         deleteVal.type = Constants.DecimalValue;
 
         const updateResource: UpdateResource<DeleteValue> = new UpdateResource<DeleteValue>();
 
-        updateResource.id = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
-        updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-        updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal";
+        updateResource.id = 'http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw';
+        updateResource.type = 'http://0.0.0.0:3333/ontology/0001/anything/v2#Thing';
+        updateResource.property = 'http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal';
         updateResource.value = deleteVal;
 
         this.knoraApiConnection.v2.values.deleteValue(updateResource).subscribe((res: DeleteValueResponse) => {
-                console.log(res);
-                this.valueStatus = "OK";
-            },
+            console.log(res);
+            this.valueStatus = 'OK';
+        },
             error => {
-                this.valueStatus = "";
+                this.valueStatus = '';
             }
         );
     }
@@ -844,279 +803,276 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.values.getValue(resourceIri, valueUuid).subscribe(
             (res: ReadResource) => {
                 console.log(res);
-                this.valueStatus = "OK";
+                this.valueStatus = 'OK';
             },
             error => {
-                this.valueStatus = "";
+                this.valueStatus = '';
             }
         );
 
     }
 
     getProjectMetadata(): void {
-        const resourceIri = "http://rdfh.ch/projects/0001";
+        const resourceIri = 'http://rdfh.ch/projects/0001';
 
         this.knoraApiConnection.v2.metadata.getProjectMetadata(resourceIri).subscribe(
             (res: ProjectsMetadata) => {
-                console.log("GET", JSON.stringify(res));
-                this.projectMetaStatus = "OK";
+                console.log('GET', JSON.stringify(res));
+                this.projectMetaStatus = 'OK';
             },
             error => {
-                this.projectMetaStatus = "Error";
+                this.projectMetaStatus = 'Error';
             }
         );
     }
 
     updateProjectMetadata(): void {
-        const resourceIri = "http://rdfh.ch/projects/0001";
+        const resourceIri = 'http://rdfh.ch/projects/0001';
 
         const testMetadata = new ProjectsMetadata();
         const testDataset = new Dataset();
-        testDataset.id = "http://ns.dasch.swiss/test-dataset";
-        testDataset.type = Constants.DspRepoBase + "Dataset";
-        testDataset.abstract = "Dies ist ein Testprojekt.";
-        testDataset.alternativeTitle = "test";
-        testDataset.conditionsOfAccess = "Open Access";
-        testDataset.dateCreated = "2001-09-26";
-        testDataset.dateModified = "2020-04-26";
-        testDataset.datePublished = "2002-09-24";
-        testDataset.distribution = {type: "https://schema.org/DataDownload", value: "https://test.dasch.swiss"} as IUrl;
-        testDataset.documentation = "Work in progress";
-        testDataset.howToCite = "Testprojekt (test), 2002, https://test.dasch.swiss";
-        testDataset.language = ["EN", "DE", "FR"];
-        testDataset.license = {
-            type: "https://schema.org/URL",
-            value: "https://creativecommons.org/licenses/by/3.0"
-        } as IUrl;
+        testDataset.id = 'http://ns.dasch.swiss/test-dataset';
+        testDataset.type = Constants.DspRepoBase + 'Dataset';
+        testDataset.abstract = 'Dies ist ein Testprojekt.';
+        testDataset.alternativeTitle = 'test';
+        testDataset.conditionsOfAccess = 'Open Access';
+        testDataset.dateCreated = '2001-09-26';
+        testDataset.dateModified = '2020-04-26';
+        testDataset.datePublished = '2002-09-24';
+        testDataset.distribution = { type: 'https://schema.org/DataDownload', value: 'https://test.dasch.swiss' } as IUrl;
+        testDataset.documentation = 'Work in progress';
+        testDataset.howToCite = 'Testprojekt (test), 2002, https://test.dasch.swiss';
+        testDataset.language = [ 'EN', 'DE', 'FR' ];
+        testDataset.license = { type: 'https://schema.org/URL', value: 'https://creativecommons.org/licenses/by/3.0' } as IUrl;
         testDataset.qualifiedAttribution = [
             {
                 type: Constants.ProvAttribution,
-                role: "contributor",
-                agent: "http://ns.dasch.swiss/test-berry"
+                role: 'contributor',
+                agent: 'http://ns.dasch.swiss/test-berry'
             },
             {
                 type: Constants.ProvAttribution,
-                role: "contributor",
-                agent: "http://ns.dasch.swiss/test-hart"
+                role: 'contributor',
+                agent: 'http://ns.dasch.swiss/test-hart'
             },
             {
                 type: Constants.ProvAttribution,
-                role: "editor",
-                agent: "http://ns.dasch.swiss/test-abraham"
+                role: 'editor',
+                agent: 'http://ns.dasch.swiss/test-abraham'
             },
             {
                 type: Constants.ProvAttribution,
-                role: "editor",
-                agent: "http://ns.dasch.swiss/test-coleman"
+                role: 'editor',
+                agent: 'http://ns.dasch.swiss/test-coleman'
             },
             {
                 type: Constants.ProvAttribution,
-                role: "editor",
-                agent: "http://ns.dasch.swiss/test-jones"
+                role: 'editor',
+                agent: 'http://ns.dasch.swiss/test-jones'
             }
-        ];
-        testDataset.status = "ongoing";
-        testDataset.title = "Testprojekt";
-        testDataset.typeOfData = ["image", "text"];
-        testDataset.sameAs = {type: "https://schema.org/URL", value: "https://test.dasch.swiss"} as IUrl;
+         ];
+        testDataset.status = 'ongoing';
+        testDataset.title = 'Testprojekt';
+        testDataset.typeOfData = ['image', 'text'];
+        testDataset.sameAs = { type: 'https://schema.org/URL', value: 'https://test.dasch.swiss' } as IUrl;
         testDataset.project = new SingleProject();
-        testDataset.project.id = "http://ns.dasch.swiss/test-project";
-        testDataset.project.type = Constants.DspRepoBase + "Project";
-        testDataset.project.alternateName = "test";
+        testDataset.project.id = 'http://ns.dasch.swiss/test-project';
+        testDataset.project.type = Constants.DspRepoBase + 'Project';
+        testDataset.project.alternateName = 'test';
         testDataset.project.contactPoint = {
-            "id": "http://ns.dasch.swiss/test-abraham",
-            type: Constants.DspRepoBase + "Person",
-            "address": {
-                type: Constants.SchemaBase + "PostalAddress",
-                "addressLocality": "Basel",
-                "postalCode": "4000",
-                "streetAddress": "Teststrasse"
+            'id': 'http://ns.dasch.swiss/test-abraham',
+            type: Constants.DspRepoBase + 'Person',
+            'address': {
+                type: Constants.SchemaBase + 'PostalAddress',
+               'addressLocality': 'Basel',
+               'postalCode': '4000',
+               'streetAddress': 'Teststrasse'
             },
-            "email": "stewart.abraham@test.ch",
-            "familyName": "Abraham",
-            "givenName": "Stewart",
-            "jobTitle": "Dr.",
-            "memberOf": "http://ns.dasch.swiss/test-dasch",
-            "sameAs": {
-                "type": "https://schema.org/URL",
-                "value": "https://orcid.org/0000-0002-1825-0097"
+            'email': 'stewart.abraham@test.ch',
+            'familyName': 'Abraham',
+            'givenName': 'Stewart',
+            'jobTitle': 'Dr.',
+            'memberOf': 'http://ns.dasch.swiss/test-dasch',
+            'sameAs': {
+               'type': 'https://schema.org/URL',
+               'value': 'https://orcid.org/0000-0002-1825-0097'
             }
-        } as Person;
+         } as Person;
         testDataset.project.dataManagementPlan = {
-            "id": "http://ns.dasch.swiss/test-plan",
-            type: Constants.DspRepoBase + "DataManagementPlan",
-            "url": {
-                "type": "https://schema.org/URL",
-                "value": "https://snf.ch"
+            'id': 'http://ns.dasch.swiss/test-plan',
+            type: Constants.DspRepoBase + 'DataManagementPlan',
+            'url': {
+               'type': 'https://schema.org/URL',
+               'value': 'https://snf.ch'
             },
-            "isAvailable": false
-        } as DataManagementPlan;
-        testDataset.project.description = "Dies ist ein Testprojekt...alle Properties wurden verwendet, um diese zu testen";
+            'isAvailable': false
+         } as DataManagementPlan;
+        testDataset.project.description = 'Dies ist ein Testprojekt...alle Properties wurden verwendet, um diese zu testen';
         testDataset.project.discipline = {
-            "name": "SKOS UNESCO Nomenclature",
-            "url": "http://skos.um.es/unesco6/11"
-        };
-        testDataset.project.endDate = "2001-01-26";
+            'name': 'SKOS UNESCO Nomenclature',
+            'url': 'http://skos.um.es/unesco6/11'
+         };
+        testDataset.project.endDate = '2001-01-26';
         testDataset.project.funder = {
-            "id": "http://ns.dasch.swiss/test-funder"
+            'id': 'http://ns.dasch.swiss/test-funder'
         };
         const grant = new Grant();
-        grant.id = "http://ns.dasch.swiss/test-grant";
-        grant.type = Constants.DspRepoBase + "Grant",
-            grant.funder = {
-                "id": "http://ns.dasch.swiss/test-funder",
-                type: Constants.DspRepoBase + "Organization",
-                "address": {
-                    type: Constants.SchemaBase + "PostalAddress",
-                    "addressLocality": "Toronto",
-                    "postalCode": "40000",
-                    "streetAddress": "University of Toronto Street"
-                },
-                "email": "info@universityoftoronto.ca",
-                "name": "University of Toronto",
-                "url": {
-                    "type": "https://schema.org/URL",
-                    "value": "http://www.utoronto.ca/"
-                }
-            } as Organization;
-        grant.name = "Prof. test test, Prof. test Harbtestrecht";
-        grant.number = "0123456789";
+        grant.id = 'http://ns.dasch.swiss/test-grant';
+        grant.type = Constants.DspRepoBase + 'Grant',
+        grant.funder = {
+            'id': 'http://ns.dasch.swiss/test-funder',
+            type: Constants.DspRepoBase + 'Organization',
+            'address': {
+                type: Constants.SchemaBase + 'PostalAddress',
+                'addressLocality': 'Toronto',
+                'postalCode': '40000',
+                'streetAddress': 'University of Toronto Street'
+            },
+            'email': 'info@universityoftoronto.ca',
+            'name': 'University of Toronto',
+            'url': {
+                'type': 'https://schema.org/URL',
+                'value': 'http://www.utoronto.ca/'
+            }
+        } as Organization;
+        grant.name = 'Prof. test test, Prof. test Harbtestrecht';
+        grant.number = '0123456789';
         grant.url = {
-            "type": "https://schema.org/URL",
-            "value": "http://p3.snf.ch/testproject"
-        };
+            'type': 'https://schema.org/URL',
+            'value': 'http://p3.snf.ch/testproject'
+         };
         testDataset.project.grant = grant;
         testDataset.project.keywords = [
-            "science",
-            "mathematics",
-            "history of science",
-            "history of mathematics"
-        ];
-        testDataset.project.name = "Testprojektname (test)";
-        testDataset.project.publication = "testpublication";
-        testDataset.project.shortcode = "0000";
+            'science',
+            'mathematics',
+            'history of science',
+            'history of mathematics'
+         ];
+        testDataset.project.name = 'Testprojektname (test)';
+        testDataset.project.publication = 'testpublication';
+        testDataset.project.shortcode = '0000';
         testDataset.project.spatialCoverage = [
             {
-                "place": {
-                    "name": "Geonames",
-                    "url": "https://www.geonames.org/2017370/russian-federation.html"
-                }
+               'place': {
+                  'name': 'Geonames',
+                  'url': 'https://www.geonames.org/2017370/russian-federation.html'
+               }
             },
             {
-                "place": {
-                    "name": "Geonames",
-                    "url": "https://www.geonames.org/2658434/switzerland.html"
-                }
+               'place': {
+                  'name': 'Geonames',
+                  'url': 'https://www.geonames.org/2658434/switzerland.html'
+               }
             },
             {
-                "place": {
-                    "name": "Geonames",
-                    "url": "https://www.geonames.org/3175395/italian-republic.html"
-                }
+               'place': {
+                  'name': 'Geonames',
+                  'url': 'https://www.geonames.org/3175395/italian-republic.html'
+               }
             },
             {
-                "place": {
-                    "name": "Geonames",
-                    "url": "https://www.geonames.org/2921044/federal-republic-of-germany.html"
-                }
+               'place': {
+                  'name': 'Geonames',
+                  'url': 'https://www.geonames.org/2921044/federal-republic-of-germany.html'
+               }
             },
             {
-                "place": {
-                    "name": "Geonames",
-                    "url": "https://www.geonames.org/3017382/republic-of-france.html"
-                }
+               'place': {
+                  'name': 'Geonames',
+                  'url': 'https://www.geonames.org/3017382/republic-of-france.html'
+               }
             },
             {
-                "place": {
-                    "name": "Geonames",
-                    "url": "https://www.geonames.org/6269131/england.html"
-                }
+               'place': {
+                  'name': 'Geonames',
+                  'url': 'https://www.geonames.org/6269131/england.html'
+               }
             },
             {
-                "place": {
-                    "name": "Geonames",
-                    "url": "https://www.geonames.org/6255148/europe.html"
-                }
+               'place': {
+                  'name': 'Geonames',
+                  'url': 'https://www.geonames.org/6255148/europe.html'
+               }
             }
         ];
-        testDataset.project.startDate = "2000-07-26";
+        testDataset.project.startDate = '2000-07-26';
         testDataset.project.temporalCoverage = {
-            "name": "Chronontology Dainst",
-            "url": "http://chronontology.dainst.org/period/Ef9SyESSafJ1"
+            'name': 'Chronontology Dainst',
+            'url': 'http://chronontology.dainst.org/period/Ef9SyESSafJ1'
         };
         testDataset.project.url = {
-            "type": "https://schema.org/URL",
-            "value": "https://test.dasch.swiss/"
+            'type': 'https://schema.org/URL',
+            'value': 'https://test.dasch.swiss/'
         };
         const testPersonOne = {
-            "id": "http://ns.dasch.swiss/test-jones",
-            type: Constants.DspRepoBase + "Person",
-            "address": {
-                type: Constants.SchemaBase + "PostalAddress",
-                "addressLocality": "Basel",
-                "postalCode": "4000",
-                "streetAddress": "Teststrasse"
+            'id': 'http://ns.dasch.swiss/test-jones',
+            type: Constants.DspRepoBase + 'Person',
+            'address': {
+                type: Constants.SchemaBase + 'PostalAddress',
+               'addressLocality': 'Basel',
+               'postalCode': '4000',
+               'streetAddress': 'Teststrasse'
             },
-            "email": "benjamin.jones@test.ch",
-            "familyName": "Jones",
-            "givenName": "Benjamin",
-            "jobTitle": "Dr. des.",
-            "memberOf": "http://ns.dasch.swiss/test-dasch"
+            'email': 'benjamin.jones@test.ch',
+            'familyName': 'Jones',
+            'givenName': 'Benjamin',
+            'jobTitle': 'Dr. des.',
+            'memberOf': 'http://ns.dasch.swiss/test-dasch'
         } as Person;
         const testPersonTwo = {
-            "id": "http://ns.dasch.swiss/test-coleman",
-            type: Constants.DspRepoBase + "Person",
-            "address": {
-                type: Constants.SchemaBase + "PostalAddress",
-                "addressLocality": "Basel",
-                "postalCode": "4000",
-                "streetAddress": "Teststrasse"
+            'id': 'http://ns.dasch.swiss/test-coleman',
+            type: Constants.DspRepoBase + 'Person',
+            'address': {
+                type: Constants.SchemaBase + 'PostalAddress',
+               'addressLocality': 'Basel',
+               'postalCode': '4000',
+               'streetAddress': 'Teststrasse'
             },
-            "email": "james.coleman@dasch.swiss",
-            "familyName": "Coleman",
-            "givenName": "James",
-            "jobTitle": "Dr. des.",
-            "memberOf": "http://ns.dasch.swiss/test-dasch"
+            'email': 'james.coleman@dasch.swiss',
+            'familyName': 'Coleman',
+            'givenName': 'James',
+            'jobTitle': 'Dr. des.',
+            'memberOf': 'http://ns.dasch.swiss/test-dasch'
         } as Person;
         const testPersonThree = {
-            "id": "http://ns.dasch.swiss/test-berry",
-            type: Constants.DspRepoBase + "Person",
-            "address": {
-                type: Constants.SchemaBase + "PostalAddress",
-                "addressLocality": "Basel",
-                "postalCode": "4000",
-                "streetAddress": "Teststrasse"
+            'id': 'http://ns.dasch.swiss/test-berry',
+            type: Constants.DspRepoBase + 'Person',
+            'address': {
+                type: Constants.SchemaBase + 'PostalAddress',
+               'addressLocality': 'Basel',
+               'postalCode': '4000',
+               'streetAddress': 'Teststrasse'
             },
-            "email": "lauren.berry@unibas.ch",
-            "familyName": "Berry",
-            "givenName": "Lauren",
-            "jobTitle": "Dr.",
-            "memberOf": "http://ns.dasch.swiss/test-dasch"
+            'email': 'lauren.berry@unibas.ch',
+            'familyName': 'Berry',
+            'givenName': 'Lauren',
+            'jobTitle': 'Dr.',
+            'memberOf': 'http://ns.dasch.swiss/test-dasch'
         } as Person;
         const testPersonFour = {
-            "id": "http://ns.dasch.swiss/test-hart",
-            type: Constants.DspRepoBase + "Person",
-            "address": {
-                type: Constants.SchemaBase + "PostalAddress",
-                "addressLocality": "Basel",
-                "postalCode": "4000",
-                "streetAddress": "Teststrasse"
+            'id': 'http://ns.dasch.swiss/test-hart',
+            type: Constants.DspRepoBase + 'Person',
+            'address': {
+                type: Constants.SchemaBase + 'PostalAddress',
+               'addressLocality': 'Basel',
+               'postalCode': '4000',
+               'streetAddress': 'Teststrasse'
             },
-            "email": "leonhard.hart@test.ch",
-            "familyName": "Hart",
-            "givenName": "Leonhard",
-            "jobTitle": "Prof.",
-            "memberOf": "http://ns.dasch.swiss/test-dasch"
+            'email': 'leonhard.hart@test.ch',
+            'familyName': 'Hart',
+            'givenName': 'Leonhard',
+            'jobTitle': 'Prof.',
+            'memberOf': 'http://ns.dasch.swiss/test-dasch'
         } as Person;
         testMetadata.projectsMetadata.push(testDataset, testPersonOne, testPersonTwo, testPersonThree, testPersonFour);
         console.log(testMetadata, JSON.stringify(testMetadata));
         this.knoraApiConnection.v2.metadata.updateProjectMetadata(resourceIri, testMetadata).subscribe(
             (res: UpdateProjectMetadataResponse) => {
-                console.log("PUT", res);
-                this.projectMetaStatus = "OK";
+                console.log('PUT', res);
+                this.projectMetaStatus = 'OK';
             },
             error => {
-                this.projectMetaStatus = "Error";
+                this.projectMetaStatus = 'Error';
             }
         );
     }
@@ -1125,31 +1081,31 @@ export class AppComponent implements OnInit {
         const childNode = new UpdateChildNodeRequest();
 
         const newLabels = new StringLiteral();
-        newLabels.language = "en";
-        newLabels.value = "updated label";
+        newLabels.language = 'en';
+        newLabels.value = 'updated label';
 
         childNode.labels = [newLabels];
 
         const newComments = new StringLiteral();
-        newComments.language = "en";
-        newComments.value = "updated comment";
+        newComments.language = 'en';
+        newComments.value = 'updated comment';
 
         childNode.comments = [newComments];
 
-        childNode.listIri = "http://rdfh.ch/lists/0001/treeList01";
+        childNode.listIri = 'http://rdfh.ch/lists/0001/treeList01';
 
-        childNode.projectIri = "http://rdfh.ch/projects/0001";
+        childNode.projectIri = 'http://rdfh.ch/projects/0001';
 
         this.knoraApiConnection.admin.listsEndpoint.updateChildNode(childNode).subscribe(
             (res: ApiResponseData<ChildNodeInfoResponse>) => {
                 this.listChildLabels =
                     res.body.nodeinfo.labels[0].language
-                    + "/"
+                    + '/'
                     + res.body.nodeinfo.labels[0].value;
 
                 this.listChildComments =
                     res.body.nodeinfo.comments[0].language
-                    + "/"
+                    + '/'
                     + res.body.nodeinfo.comments[0].value;
 
                 this.listChildName = res.body.nodeinfo.name;
@@ -1160,9 +1116,9 @@ export class AppComponent implements OnInit {
     updateChildName(): void {
         const childNodeName = new UpdateChildNodeNameRequest();
 
-        const listItemIri = "http://rdfh.ch/lists/0001/treeList01";
+        const listItemIri = 'http://rdfh.ch/lists/0001/treeList01';
 
-        const newName = "updated child name";
+        const newName = 'updated child name';
 
         childNodeName.name = newName;
 
@@ -1176,11 +1132,11 @@ export class AppComponent implements OnInit {
     updateChildLabels(): void {
         const childNodeLabels = new UpdateChildNodeLabelsRequest();
 
-        const listItemIri = "http://rdfh.ch/lists/0001/treeList01";
+        const listItemIri = 'http://rdfh.ch/lists/0001/treeList01';
 
         const newLabels = new StringLiteral();
-        newLabels.language = "en";
-        newLabels.value = "new label";
+        newLabels.language = 'en';
+        newLabels.value = 'new label';
 
         childNodeLabels.labels = [newLabels];
 
@@ -1188,7 +1144,7 @@ export class AppComponent implements OnInit {
             (res: ApiResponseData<ChildNodeInfoResponse>) => {
                 this.listChildLabels =
                     res.body.nodeinfo.labels[0].language
-                    + "/"
+                    + '/'
                     + res.body.nodeinfo.labels[0].value;
             }
         );
@@ -1197,11 +1153,11 @@ export class AppComponent implements OnInit {
     updateChildComments(): void {
         const childNodeComments = new UpdateChildNodeCommentsRequest();
 
-        const listItemIri = "http://rdfh.ch/lists/0001/treeList01";
+        const listItemIri = 'http://rdfh.ch/lists/0001/treeList01';
 
         const newComments = new StringLiteral();
-        newComments.language = "en";
-        newComments.value = "new comment";
+        newComments.language = 'en';
+        newComments.value = 'new comment';
 
         childNodeComments.comments = [newComments];
 
@@ -1209,14 +1165,14 @@ export class AppComponent implements OnInit {
             (res: ApiResponseData<ChildNodeInfoResponse>) => {
                 this.listChildComments =
                     res.body.nodeinfo.comments[0].language
-                    + "/"
+                    + '/'
                     + res.body.nodeinfo.comments[0].value;
             }
         );
     }
 
     getListNodeInfo(): void {
-        const listItemIri = "http://rdfh.ch/lists/0001/treeList01";
+        const listItemIri = 'http://rdfh.ch/lists/0001/treeList01';
 
         this.knoraApiConnection.admin.listsEndpoint.getListNodeInfo(listItemIri).subscribe(
             (res: ApiResponseData<ListNodeInfoResponse>) => {
@@ -1231,17 +1187,17 @@ export class AppComponent implements OnInit {
     createList(): void {
         const list = new CreateListRequest();
 
-        list.projectIri = "http://rdfh.ch/projects/0001";
+        list.projectIri = 'http://rdfh.ch/projects/0001';
 
         const label = new StringLiteral();
-        label.language = "de";
-        label.value = "Neue Liste";
+        label.language = 'de';
+        label.value = 'Neue Liste';
 
         list.labels = [label];
 
         const comments = new StringLiteral();
-        comments.language = "de";
-        comments.value = "Neuer Kommentar";
+        comments.language = 'de';
+        comments.value = 'Neuer Kommentar';
 
         list.comments = [comments];
 
@@ -1251,19 +1207,19 @@ export class AppComponent implements OnInit {
 
                 this.listLabels =
                     res.body.list.listinfo.labels[0].language
-                    + "/"
+                    + '/'
                     + res.body.list.listinfo.labels[0].value;
 
                 this.listComments =
                     res.body.list.listinfo.comments[0].language
-                    + "/"
+                    + '/'
                     + res.body.list.listinfo.comments[0].value;
             }
         );
     }
 
     getList(): void {
-        const listItemIri = "http://rdfh.ch/lists/0001/treeList";
+        const listItemIri = 'http://rdfh.ch/lists/0001/treeList';
 
         this.knoraApiConnection.admin.listsEndpoint.getList(listItemIri).subscribe(
             (res: ApiResponseData<ListResponse>) => {
@@ -1273,6 +1229,7 @@ export class AppComponent implements OnInit {
             }
         );
 
+        
     }
 
 }
