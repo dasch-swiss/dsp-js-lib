@@ -1,5 +1,5 @@
 import { AsyncSubject, forkJoin, Observable, of } from "rxjs";
-import { map, mergeMap } from "rxjs/operators";
+import { map, mergeMap, tap } from "rxjs/operators";
 import { V2Endpoint } from "../../api/v2/v2-endpoint";
 import { KnoraApiConfig } from "../../knora-api-config";
 import { IHasProperty } from "../../models/v2/ontologies/class-definition";
@@ -150,13 +150,28 @@ export class OntologyCache extends GenericCache<ReadOntology> {
 
         const getSuperClassDef = (onto: ResourceClassDefinitionWithPropertyDefinition, superClassIri?: string): Observable<any> => {
 
+            // check if superclass is given
             if (superClassIri) {
                 return this.getResourceClassDefinition(superClassIri).pipe(
                     mergeMap(
                         onto2 => {
-                            // check if superclass is non empty
-                            console.log("getting ", superClassIri);
-                            return forkJoin([of(onto), getSuperClassDef(onto2.classes[superClassIri], onto2.classes[superClassIri].subClassOf[0])]);
+
+                            const superDefs = getSuperClassDef(onto2.classes[superClassIri], onto2.classes[superClassIri].subClassOf[0]);
+
+                            return forkJoin([of(onto), superDefs])
+                                .pipe(
+                                    map(
+                                        defs => {
+                                            // console.log("1 returning from getSuperClassDef", superClassIri, defs);
+                                            return defs.reduce(flatten, []);
+                                        }
+                                    ),
+                                    tap(
+                                        defs => {
+                                            // console.log("2 returning from getSuperClassDef", superClassIri, defs);
+                                        }
+                                    )
+                                );
                         }
                     )
                 );
@@ -166,26 +181,14 @@ export class OntologyCache extends GenericCache<ReadOntology> {
 
         };
 
-        const flatten = (acc: any, curVal: any) => {
-            // console.log("acc ", acc, "curVal ", curVal)
-            if (Array.isArray(curVal)) {
-                return acc.concat(curVal.reduce(flatten, []));
-            } else {
-                return acc.concat(curVal);
-            }
-        };
+        const flatten = (acc: ResourceClassDefinitionWithPropertyDefinition[], curVal: ResourceClassDefinitionWithPropertyDefinition | ResourceClassDefinitionWithPropertyDefinition[]) => acc.concat(curVal);
 
         return this.getResourceClassDefinition(resourceClassIri)
             .pipe(
                 mergeMap(onto => {
                     return getSuperClassDef(onto.classes[resourceClassIri], onto.classes[resourceClassIri].subClassOf[0]);
                 }),
-                map(
-                    (defs: []) => {
-                        return defs.reduce(flatten, []);
-                    }
-                ),
-                map(defs => defs.map((def: any) => def.id))
+                map(defs => defs.map((def: ResourceClassDefinitionWithPropertyDefinition) => def.id))
             );
     }
 
