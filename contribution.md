@@ -7,7 +7,7 @@ please read our [general contribution guidelines](https://docs.dasch.swiss/devel
 
 ## Introduction
 
-The purpose of this library is to facilitate the use of [DSP-API (Knora)](https://www.knora.org) in web client development. 
+The purpose of this library is to facilitate the use of [DSP-API (Knora)](https://www.knora.org) in web client development.
 It offers a convenient way to communicate with DSP-API without knowing specific technical details.  
 
 ## Architecture
@@ -18,7 +18,7 @@ See [design documentation](design-documentation.md).
 
 ### Prerequisites
 
-For development, you need to install [`yalc`](<https://www.npmjs.com/package/yalc>) globally. 
+For development, you need to install [`yalc`](<https://www.npmjs.com/package/yalc>) globally.
 Run `npm install yalc -g`. This will enable you to build and publish DSP-JS-LIB locally.
 
 ### Dependencies
@@ -158,7 +158,7 @@ so the component being tested can react to it.
 
 If a component A depends on a component B, then B has to be mocked during the test using a `jasmine.Spy`.
 The behavior of component B is simulated and a fake response is returned.
-Mocking components turned out to be quite complex for the `OntologyCache`. 
+Mocking components turned out to be quite complex for the `OntologyCache`.
 Therefore, a stand-alone testing component has been made for this mock called `MockOntology` that can be reused.
 It can also be used to generate static test data in software projects using this library.
 
