@@ -255,6 +255,11 @@ describe("OntologyCache", () => {
             knoraApiConnection.v2.ontologyCache.getSuperClassIris("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing").subscribe(
                 superClassIris => {
                     expect(superClassIris).toEqual(["http://0.0.0.0:3333/ontology/0001/anything/v2#Thing", "http://api.knora.org/ontology/knora-api/v2#Resource"]);
+
+                    expect(getOntoSpy).toHaveBeenCalledTimes(2);
+                    expect(getOntoSpy).toHaveBeenCalledWith("http://api.knora.org/ontology/knora-api/v2");
+                    expect(getOntoSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2");
+
                     done();
                 }
             );
@@ -272,6 +277,11 @@ describe("OntologyCache", () => {
                             "http://api.knora.org/ontology/knora-api/v2#Representation",
                             "http://api.knora.org/ontology/knora-api/v2#Resource"
                         ]);
+
+                    expect(getOntoSpy).toHaveBeenCalledTimes(2);
+                    expect(getOntoSpy).toHaveBeenCalledWith("http://api.knora.org/ontology/knora-api/v2");
+                    expect(getOntoSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2");
+
                     done();
                 }
             );
