@@ -58,7 +58,7 @@
     "phantomjs-prebuilt": "^2.1.16",
     "tslint": "^5.20.0",
     "typedoc": "^0.20.0",
-    "typescript": "^4.0.0"
+    "typescript": "~4.1.0"
   },
   "dependencies": {
     "@types/jsonld": "^1.5.0",
