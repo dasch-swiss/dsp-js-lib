@@ -148,7 +148,7 @@ export class OntologyCache extends GenericCache<ReadOntology> {
      */
     getSuperClassIris(resourceClassIri: string): Observable<string[]> {
 
-        const getSuperClassDef = (onto: ResourceClassDefinitionWithPropertyDefinition, superClassIri?: string): Observable<any> => {
+        const getSuperClassDef = (onto: ResourceClassDefinitionWithPropertyDefinition, superClassIri?: string): Observable<ResourceClassDefinitionWithPropertyDefinition[]> => {
 
             // check if superclass is given
             if (superClassIri) {
@@ -163,12 +163,16 @@ export class OntologyCache extends GenericCache<ReadOntology> {
                                     map(
                                         defs => {
                                             // console.log("1 returning from getSuperClassDef", superClassIri, defs);
-                                            return defs.reduce(flatten, []);
+                                            return defs.reduce(
+                                                (acc: ResourceClassDefinitionWithPropertyDefinition[], curVal: ResourceClassDefinitionWithPropertyDefinition | ResourceClassDefinitionWithPropertyDefinition[]) =>
+                                                    acc.concat(curVal) as ResourceClassDefinitionWithPropertyDefinition[],
+                                                []
+                                            ) as ResourceClassDefinitionWithPropertyDefinition[];
                                         }
                                     ),
                                     tap(
                                         defs => {
-                                            // console.log("2 returning from getSuperClassDef", superClassIri, defs);
+                                            console.log("2 returning from getSuperClassDef", superClassIri, defs);
                                         }
                                     )
                                 );
@@ -181,14 +185,12 @@ export class OntologyCache extends GenericCache<ReadOntology> {
 
         };
 
-        const flatten = (acc: ResourceClassDefinitionWithPropertyDefinition[], curVal: ResourceClassDefinitionWithPropertyDefinition | ResourceClassDefinitionWithPropertyDefinition[]) => acc.concat(curVal);
-
         return this.getResourceClassDefinition(resourceClassIri)
             .pipe(
                 mergeMap(onto => {
                     return getSuperClassDef(onto.classes[resourceClassIri], onto.classes[resourceClassIri].subClassOf[0]);
                 }),
-                map(defs => defs.map((def: ResourceClassDefinitionWithPropertyDefinition) => def.id))
+                map((defs: ResourceClassDefinitionWithPropertyDefinition[]) => defs.map((def: ResourceClassDefinitionWithPropertyDefinition) => def.id))
             );
     }
 
