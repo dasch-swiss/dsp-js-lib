@@ -135,10 +135,58 @@ export class OntologyCache extends GenericCache<ReadOntology> {
                     return new ResourceClassAndPropertyDefinitions({}, {});
                 }
 
-
             })
         );
 
+    }
+
+    /**
+     * Given a resource class Iri, returns all super class Iris in ascending order,
+     * starting with the resource class Iri.
+     *
+     * @param resourceClassIri the Iri of the resource class whose super class Iris should be determined.
+     */
+    getSuperClassIris(resourceClassIri: string): Observable<string[]> {
+
+        const getSuperClassDef = (onto: ResourceClassDefinitionWithPropertyDefinition, superClassIri?: string): Observable<any> => {
+
+            if (superClassIri) {
+                return this.getResourceClassDefinition(superClassIri).pipe(
+                    mergeMap(
+                        onto2 => {
+                            // check if superclass is non empty
+                            console.log("getting ", superClassIri);
+                            return forkJoin([of(onto), getSuperClassDef(onto2.classes[superClassIri], onto2.classes[superClassIri].subClassOf[0])]);
+                        }
+                    )
+                );
+            } else {
+                return of([onto]);
+            }
+
+        };
+
+        const flatten = (acc: any, curVal: any) => {
+            // console.log("acc ", acc, "curVal ", curVal)
+            if (Array.isArray(curVal)) {
+                return acc.concat(curVal.reduce(flatten, []));
+            } else {
+                return acc.concat(curVal);
+            }
+        };
+
+        return this.getResourceClassDefinition(resourceClassIri)
+            .pipe(
+                mergeMap(onto => {
+                    return getSuperClassDef(onto.classes[resourceClassIri], onto.classes[resourceClassIri].subClassOf[0]);
+                }),
+                map(
+                    (defs: []) => {
+                        return defs.reduce(flatten, []);
+                    }
+                ),
+                map(defs => defs.map((def: any) => def.id))
+            );
     }
 
     protected requestItemFromKnora(key: string, isDependency: boolean): Observable<ReadOntology[]> {
