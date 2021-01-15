@@ -1063,7 +1063,7 @@ export class AppComponent implements OnInit {
             'jobTitle': 'Prof.',
             'memberOf': 'http://ns.dasch.swiss/test-dasch'
         } as Person;
-        testMetadata.projectsMetadata.push(testPersonOne, testDataset, testPersonTwo, testPersonThree, testPersonFour);
+        testMetadata.projectsMetadata.push(testDataset, testPersonOne, testPersonTwo, testPersonThree, testPersonFour);
         console.log(testMetadata, JSON.stringify(testMetadata));
         this.knoraApiConnection.v2.metadata.updateProjectMetadata(resourceIri, testMetadata).subscribe(
             (res: UpdateProjectMetadataResponse) => {
