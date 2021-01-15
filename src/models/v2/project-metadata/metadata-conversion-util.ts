@@ -1,4 +1,5 @@
 import { JsonConvert } from "json2typescript";
+import { Constants } from "../Constants";
 import { Dataset } from "./dataset";
 import { Person } from "./person";
 import { ProjectsMetadata } from "./project-metadata";
@@ -14,8 +15,10 @@ export namespace MetadataConversionUtil {
      * @param jsonConvert instance of JsonConvert to use.
      */
     export const convertProjectsList = (projectsJsonLd: object, jsonConvert: JsonConvert): ProjectsMetadata => {
-        const deserialisedMetadata = jsonConvert.deserializeObject(projectsJsonLd, ProjectsMetadata);
+        
         if (projectsJsonLd.hasOwnProperty("@graph")) {
+            const metaObj: object = sortMetadataObjects(projectsJsonLd);            
+            const deserialisedMetadata = jsonConvert.deserializeObject(metaObj, ProjectsMetadata);
             return deserialisedMetadata;
         } else {
             const projects: ProjectsMetadata = new ProjectsMetadata();
@@ -26,8 +29,7 @@ export namespace MetadataConversionUtil {
     };
     
     /**
-     * Maps over ProjectsMetadata array to return only one item array,
-     * which contains Dataset object
+     * Maps over ProjectsMetadata array to return only one item array, which contains Dataset object
      * @param  {ProjectsMetadata} data data to map
      */
     export const mapReferences = (data: ProjectsMetadata): ProjectsMetadata => {
@@ -47,6 +49,18 @@ export namespace MetadataConversionUtil {
         meta.projectsMetadata = datasets;
         return meta;
     };
+    /**
+     * Sorts objects inside `@graph` array of matadata JSON-LD response to set Dataset object as primary
+     * @param  {any} projectsJsonLd JSON-LD response to sort
+     */
+    const sortMetadataObjects = (projectsJsonLd: any): object => {
+        let sortedObj = {} as any;
+        let metaArray = projectsJsonLd["@graph"] as [];
+        let peopleArr = metaArray.filter(el => (el["@type"] !== Constants.DspDataset));
+        let datasetArr = metaArray.filter(el => (el["@type"] === Constants.DspDataset));
+        sortedObj["@graph"] = datasetArr.concat(peopleArr);
+        return sortedObj;
+    }
 
     /**
      * Replaces matched references found in Dataset object with outer object
