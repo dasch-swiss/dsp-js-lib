@@ -1,11 +1,12 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
-import { Observable, throwError } from "rxjs";
+import { Observable, of, throwError } from "rxjs";
 import { ajax, AjaxError, AjaxResponse } from "rxjs/ajax";
 
 import { KnoraApiConfig } from "../knora-api-config";
 import { ApiResponseError } from "../models/api-response-error";
 import { DataError } from "../models/data-error";
+import { retryOnError } from "./operators/retryOnError";
 
 /**
  * HTTP Headers to be sent with the request.
@@ -24,18 +25,11 @@ export interface IHeaderOptions {
  */
 export class Endpoint {
 
-    ///////////////
-    // CONSTANTS //
-    ///////////////
+    readonly maxRetries = 5;
 
-    // <editor-fold desc="">
-    // </editor-fold>
+    readonly delay = 500;
 
-    ////////////////
-    // PROPERTIES //
-    ////////////////
-
-    // <editor-fold desc="">
+    readonly retryOnErrorStatus = [0, 500];
 
     /**
      * JsonConvert instance
@@ -61,28 +55,11 @@ export class Endpoint {
         this.knoraApiConfig.jsonWebToken = value;
     }
 
-    // </editor-fold>
-
-    /////////////////
-    // CONSTRUCTOR //
-    /////////////////
-
-    // <editor-fold desc="">
-
     /**
      * Constructor.
      */
     constructor(protected readonly knoraApiConfig: KnoraApiConfig, protected readonly path: string) {
     }
-
-    // </editor-fold>
-
-    /////////////
-    // METHODS //
-    /////////////
-
-    // <editor-fold desc="">
-    // </editor-fold>
 
     /**
      * Performs a general GET request.
@@ -94,7 +71,10 @@ export class Endpoint {
 
         if (path === undefined) path = "";
 
-        return ajax.get(this.knoraApiConfig.apiUrl + this.path + path, this.constructHeader(undefined, headerOpts));
+        return ajax.get(this.knoraApiConfig.apiUrl + this.path + path, this.constructHeader(undefined, headerOpts))
+            .pipe(
+                retryOnError(this.delay, this.maxRetries, this.retryOnErrorStatus, this.knoraApiConfig.logErrors)
+            );
 
     }
 
@@ -110,7 +90,10 @@ export class Endpoint {
 
         if (path === undefined) path = "";
 
-        return ajax.post(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentType, headerOpts));
+        return ajax.post(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentType, headerOpts))
+            .pipe(
+                retryOnError(this.delay, this.maxRetries, this.retryOnErrorStatus, this.knoraApiConfig.logErrors)
+            );
 
     }
 
@@ -126,7 +109,10 @@ export class Endpoint {
 
         if (path === undefined) path = "";
 
-        return ajax.put(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentType, headerOpts));
+        return ajax.put(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentType, headerOpts))
+            .pipe(
+                retryOnError(this.delay, this.maxRetries, this.retryOnErrorStatus, this.knoraApiConfig.logErrors)
+            );
 
     }
 
@@ -142,7 +128,10 @@ export class Endpoint {
 
         if (path === undefined) path = "";
 
-        return ajax.patch(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentType, headerOpts));
+        return ajax.patch(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentType, headerOpts))
+            .pipe(
+                retryOnError(this.delay, this.maxRetries, this.retryOnErrorStatus, this.knoraApiConfig.logErrors)
+            );
 
     }
 
@@ -156,7 +145,10 @@ export class Endpoint {
 
         if (path === undefined) path = "";
 
-        return ajax.delete(this.knoraApiConfig.apiUrl + this.path + path, this.constructHeader(undefined, headerOpts));
+        return ajax.delete(this.knoraApiConfig.apiUrl + this.path + path, this.constructHeader(undefined, headerOpts))
+            .pipe(
+                retryOnError(this.delay, this.maxRetries, this.retryOnErrorStatus, this.knoraApiConfig.logErrors)
+            );
 
     }
 
