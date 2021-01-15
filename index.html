@@ -17,14 +17,14 @@
                         var releases = data.filter(
                             // check that version is at least v1.0.0
                             // ignore prereleases
-                            rel => rel.name.charAt(1) === "1" && rel.name.indexOf("-rc.") === -1
+                            rel => rel.tag_name.charAt(1) === "1" && rel.tag_name.indexOf("-rc.") === -1
                         ).reverse();
 
                         releases.forEach(
                             ele => {
 
                                 // get rid of leading "v", e.g., v1.0.0
-                                var version = ele.name.replace("v", "");
+                                var version = ele.tag_name.replace("v", "");
 
                                 // replace "." with "_", e.g. 1.0.0 -> 1_0_0
                                 var versionSegment = version.replaceAll(".", "_");
