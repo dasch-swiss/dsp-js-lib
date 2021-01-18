@@ -23,7 +23,7 @@ export class PlaceConverter implements JsonCustomConvert<IUrl> {
     }
 
     deserialize(val: any): IUrl {
-        console.log("PLACE", val);
+        // TODO: change it or SpatialCoverage WRITE format (next iteration), so far it's temp working solution
         if (val.hasOwnProperty(Constants.SchemaPropID) && val.hasOwnProperty(Constants.SchemaUrlValue)) {
             const name = val[Constants.SchemaPropID][Constants.SchemaPropID];
             const url = val[Constants.SchemaUrlValue][Constants.SchemaUrlValue];
