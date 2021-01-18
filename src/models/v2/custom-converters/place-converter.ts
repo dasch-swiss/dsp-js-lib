@@ -23,7 +23,12 @@ export class PlaceConverter implements JsonCustomConvert<IUrl> {
     }
 
     deserialize(val: any): IUrl {
-        if (val.hasOwnProperty(Constants.SchemaUrlValue)) {
+        console.log("PLACE", val);
+        if (val.hasOwnProperty(Constants.SchemaPropID) && val.hasOwnProperty(Constants.SchemaUrlValue)) {
+            const name = val[Constants.SchemaPropID][Constants.SchemaPropID];
+            const url = val[Constants.SchemaUrlValue][Constants.SchemaUrlValue];
+            return { name, url } as IUrl;
+        } else if (!val.hasOwnProperty(Constants.SchemaPropID) && val.hasOwnProperty(Constants.SchemaUrlValue)) {
             const name = val[Constants.SchemaUrlValue][Constants.SchemaPropID][Constants.SchemaPropID];
             const url = val[Constants.SchemaUrlValue][Constants.SchemaUrlValue];
             return { name, url } as IUrl;
