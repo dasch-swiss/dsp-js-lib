@@ -32,7 +32,6 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
                 return jsonld.compact(res.response, {});
             }),
             map((obj: ProjectsMetadata) => {
-                console.log('RAW', obj);
                 // create an instance of ProjectMetadata from JSON-LD
                 const convertedObj = MetadataConversionUtil.convertProjectsList(obj, this.jsonConvert);
                 // map outer objects to its references inside the Dateset object
