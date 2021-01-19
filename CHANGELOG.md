@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v1.0.1...v1.1.0) (2021-01-12)
+
+
+### Maintenance
+
+* **CI:** Bring back release-please-action ([#283](https://www.github.com/dasch-swiss/dsp-js-lib/issues/283)) ([4d1f07b](https://www.github.com/dasch-swiss/dsp-js-lib/commit/4d1f07bf687e8774dda59405cbda92927b198af1))
+* Try to re-activate release pr ([#287](https://www.github.com/dasch-swiss/dsp-js-lib/issues/287)) ([3cf4b42](https://www.github.com/dasch-swiss/dsp-js-lib/commit/3cf4b42a18c3140808e17500ac08442460760ac3))
+* update PR title guideline and templates (DSP-1189) ([#288](https://www.github.com/dasch-swiss/dsp-js-lib/issues/288)) ([d9ab6f6](https://www.github.com/dasch-swiss/dsp-js-lib/commit/d9ab6f6bee0b2156c62f3e1157f0a86eec057d79))
+
+
+### Documentation
+
+* **README:** improve explanation about endpoints (DSP-1192) ([#289](https://www.github.com/dasch-swiss/dsp-js-lib/issues/289)) ([876ff97](https://www.github.com/dasch-swiss/dsp-js-lib/commit/876ff97f6ffdc33773a9a3687b63458f80fc2460))
+
+
+### Enhancements
+
+* **endpoint:** Retry failed HTTP requests (DSP-170) ([#286](https://www.github.com/dasch-swiss/dsp-js-lib/issues/286)) ([c2fa0b3](https://www.github.com/dasch-swiss/dsp-js-lib/commit/c2fa0b3db9f0dcea8e721c240eb717ae62ae251e))
+* Support Edit List Feature Toggle Endpoints (DSP-1180) ([#281](https://www.github.com/dasch-swiss/dsp-js-lib/issues/281)) ([7c09fc1](https://github.com/dasch-swiss/dsp-js-lib/commit/7c09fc1e522a7f4996fd4edeeb0b6fb50df6af14))
+
 ## v1.0.1 (17/12/2020)
 
 #### Enhancements
