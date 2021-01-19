@@ -54,13 +54,13 @@ export namespace MetadataConversionUtil {
      * @param  {any} projectsJsonLd JSON-LD response to sort
      */
     const sortMetadataObjects = (projectsJsonLd: any): object => {
-        let sortedObj = {} as any;
-        let metaArray = projectsJsonLd["@graph"] as [];
-        let peopleArr = metaArray.filter(el => (el["@type"] !== Constants.DspDataset));
-        let datasetArr = metaArray.filter(el => (el["@type"] === Constants.DspDataset));
+        const sortedObj = {} as any;
+        const metaArray = projectsJsonLd["@graph"] as [];
+        const peopleArr = metaArray.filter(el => (el["@type"] !== Constants.DspDataset));
+        const datasetArr = metaArray.filter(el => (el["@type"] === Constants.DspDataset));
         sortedObj["@graph"] = datasetArr.concat(peopleArr);
         return sortedObj;
-    }
+    };
 
     /**
      * Replaces matched references found in Dataset object with outer object
