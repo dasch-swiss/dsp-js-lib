@@ -24,7 +24,7 @@ export class PlaceConverter implements JsonCustomConvert<IUrl> {
 
     deserialize(val: any): IUrl {
         // TODO: temp working solution, check how SpatialCoverage should be send like
-        // in the model SpatialCoverage is single Place type obkect, but returned by DSP-API as array of Place objects
+        // in the model SpatialCoverage is single Place type object, but returned by DSP-API as array of Place objects
         if (val.hasOwnProperty(Constants.SchemaPropID) && val.hasOwnProperty(Constants.SchemaUrlValue)) {
             const name = val[Constants.SchemaPropID][Constants.SchemaPropID];
             const url = val[Constants.SchemaUrlValue][Constants.SchemaUrlValue];

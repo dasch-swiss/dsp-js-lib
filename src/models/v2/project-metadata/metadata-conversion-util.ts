@@ -18,8 +18,8 @@ export namespace MetadataConversionUtil {
         
         if (projectsJsonLd.hasOwnProperty("@graph")) {
             const metaObj: object = sortMetadataObjects(projectsJsonLd);            
-            const deserialisedMetadata = jsonConvert.deserializeObject(metaObj, ProjectsMetadata);
-            return deserialisedMetadata;
+            const deserializedMetadata = jsonConvert.deserializeObject(metaObj, ProjectsMetadata);
+            return deserializedMetadata;
         } else {
             const projects: ProjectsMetadata = new ProjectsMetadata();
             // creates the same structure for a single object incoming from the API
