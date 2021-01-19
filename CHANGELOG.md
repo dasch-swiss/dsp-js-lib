@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.1.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v1.1.0...v1.1.1) (2021-01-19)
+
+
+### Bug Fixes
+
+* metadata endpoint after DSP-API v.13.0.0 release (DSP-1232) ([#294](https://www.github.com/dasch-swiss/dsp-js-lib/issues/294)) ([07c908b](https://www.github.com/dasch-swiss/dsp-js-lib/commit/07c908bc7570b04d0c40afd8b6982b01b2adda16))
+
 ## [1.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v1.0.1...v1.1.0) (2021-01-12)
 
 
