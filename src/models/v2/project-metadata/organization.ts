@@ -1,6 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
 import { IUrl } from "../custom-converters/base-url-converter";
+import { StringArrayOfStringsConverter } from "../custom-converters/string-array-of-strings-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
 import { Address } from "./address";
 import { BaseProjectMetadata } from "./base-project-metadata";
@@ -20,8 +21,8 @@ export class Organization extends BaseProjectMetadata{
     @JsonProperty(Constants.DspHasEmail, String, true)
     email?: string = undefined;
 
-    @JsonProperty(Constants.DspHasName, String)
-    name: string = "";
+    @JsonProperty(Constants.DspHasName, StringArrayOfStringsConverter)
+    name: string[] | string = "";
 
     @JsonProperty(Constants.DspHasURL, UrlToUrlObjectConverter, true)
     url?: IUrl = undefined;
