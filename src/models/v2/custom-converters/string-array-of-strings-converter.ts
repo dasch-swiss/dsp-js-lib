@@ -8,6 +8,8 @@ type ElementOrArrayOfElements<T> = T | T[];
 @JsonConverter
 export class StringArrayOfStringsConverter implements JsonCustomConvert<ElementOrArrayOfElements<string>> {
 
+    // TODO: add String | URL type handling
+
     serialize<T>(el: ElementOrArrayOfElements<T>): any {
         console.log("SER", el);
         if (Array.isArray(el)) {
