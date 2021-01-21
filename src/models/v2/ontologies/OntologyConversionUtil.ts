@@ -8,8 +8,8 @@ import { OntologiesMetadata, OntologyMetadata } from "./ontology-metadata";
 import { ReadOntology } from "./read/read-ontology";
 import { ResourceClassDefinition, ResourceClassDefinitionWithAllLanguages } from "./resource-class-definition";
 import { ResourcePropertyDefinition, ResourcePropertyDefinitionWithAllLanguages } from "./resource-property-definition";
-import { StandoffClassDefinition } from "./standoff-class-definition";
-import { SystemPropertyDefinition } from "./system-property-definition";
+import { StandoffClassDefinition, StandoffClassDefinitionWithAllLanguages } from "./standoff-class-definition";
+import { SystemPropertyDefinition, SystemPropertyDefinitionWithAllLanguages } from "./system-property-definition";
 
 /**
  * @category Internal
@@ -165,11 +165,11 @@ export namespace OntologyConversionUtil {
         });
 
         // Convert standoff classes
-        /*entities.filter(filterStandoffClassDefinitions).map(standoffclassJsonld => {
-            return convertEntity(standoffclassJsonld, StandoffClassDefinition, jsonConvert);
+        entities.filter(filterStandoffClassDefinitions).map(standoffclassJsonld => {
+            return convertEntity(standoffclassJsonld, StandoffClassDefinitionWithAllLanguages, jsonConvert);
         }).forEach((standoffClass: StandoffClassDefinition) => {
             ontology.classes[standoffClass.id] = standoffClass;
-        });*/
+        });
 
         // Convert resource properties (properties pointing to Knora values)
         entities.filter(filterResourcePropertyDefinitions).map(propertyJsonld => {
@@ -179,11 +179,11 @@ export namespace OntologyConversionUtil {
         });
 
         // Convert system properties (properties not pointing to Knora values)
-        /*entities.filter(filterSystemPropertyDefintions).map(propertyJsonld => {
-            return convertEntity(propertyJsonld, SystemPropertyDefinition, jsonConvert);
+        entities.filter(filterSystemPropertyDefintions).map(propertyJsonld => {
+            return convertEntity(propertyJsonld, SystemPropertyDefinitionWithAllLanguages, jsonConvert);
         }).forEach((prop: SystemPropertyDefinition) => {
             ontology.properties[prop.id] = prop;
-        });*/
+        });
     };
 
     /**
