@@ -207,17 +207,21 @@ describe("OntologiesEndpoint", () => {
 
         });
 
-        fit("should return an ontology with labels and comments in all languages", done => {
+        it("should return an ontology with labels and comments in all languages", done => {
 
             knoraApiConnection.v2.onto.getOntology("http://0.0.0.0:3333/ontology/0001/minimal/v2", true).subscribe(
                 (response: ReadOntology) => {
+
+                    expect(response.getPropertyDefinitionsByType(ResourcePropertyDefinitionWithAllLanguages).length).toEqual(1);
+
+                    expect(response.getPropertyDefinitionsByType(ResourcePropertyDefinitionWithAllLanguages)[0].labels[0].value).toEqual("has name");
 
                     done();
                 });
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const onto = require("../../../../test/data/api/v2/ontologies/minimal-ontology.json");
+            const onto = require("../../../../test/data/api/v2/manually-generated/minimal-ontology-with-all-languages-expanded.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(onto)));
 
