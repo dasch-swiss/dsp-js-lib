@@ -41,13 +41,11 @@ export class SingleProject extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasEndDate, DateConverter, true)
     endDate?: string = undefined;
 
-    // 1-n
     @JsonProperty(Constants.DspHasFunder, PersonOrganizationConverter)
-    funder: Person | Organization | object = new Person();
+    funder: [Person | Organization | object] | Person | Organization | object = new Person();
 
-    // 0-n
-    @JsonProperty(Constants.DspHasGrant, Grant, true)
-    grant?: Grant = undefined;
+    @JsonProperty(Constants.DspHasGrant, ElementArrayOfElementsConverter, true)
+    grant?: Grant[] | Grant = undefined;
 
     @JsonProperty(Constants.DspHasKeywords, StringArrayOfStringsConverter)
     keywords: string[] | string = [];

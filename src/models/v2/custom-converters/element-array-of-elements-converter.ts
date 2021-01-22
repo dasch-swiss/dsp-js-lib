@@ -2,6 +2,7 @@ import { JsonConvert, JsonConverter, JsonCustomConvert, OperationMode, ValueChec
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { Constants } from "../Constants";
 import { Attribution } from "../project-metadata/attribution";
+import { Grant } from "../project-metadata/grant";
 import { Place } from "../project-metadata/place";
 
 /**
@@ -24,6 +25,8 @@ export class ElementArrayOfElementsConverter implements JsonCustomConvert<any> {
             switch (true) {
                 case el[0].hasOwnProperty(Constants.DspHasQualifiedAttribution):
                     return ElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Attribution);
+                case el[0].hasOwnProperty(Constants.DspHasGrant):
+                    return ElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Grant);
                 case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.SchemaPlace:
                     return ElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Place);
                 case typeof el === "string":
@@ -34,6 +37,8 @@ export class ElementArrayOfElementsConverter implements JsonCustomConvert<any> {
             switch (true) {
                 case el.hasOwnProperty(Constants.DspHasQualifiedAttribution):
                     return ElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Attribution);
+                case el.hasOwnProperty(Constants.DspHasGrant):
+                    return ElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Grant);
                 case el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaPlace:
                     return ElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Place);
                 case typeof el === "string":
@@ -48,6 +53,8 @@ export class ElementArrayOfElementsConverter implements JsonCustomConvert<any> {
             switch (true) {
                 case el[0].hasOwnProperty(Constants.DspHasQualifiedAttribution):
                     return ElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Attribution);
+                case el[0].hasOwnProperty(Constants.DspHasGrant):
+                    return ElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Grant);
                 case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.SchemaPlace:
                     return ElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Place);
                 case typeof el === "string":
@@ -58,6 +65,8 @@ export class ElementArrayOfElementsConverter implements JsonCustomConvert<any> {
             switch (true) {
                 case el.hasOwnProperty(Constants.DspHasQualifiedAttribution):
                     return ElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Attribution);
+                case el.hasOwnProperty(Constants.DspHasGrant):
+                return ElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Grant);
                 case el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaPlace:
                     return ElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Place);
                 case typeof el === "string":

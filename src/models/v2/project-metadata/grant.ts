@@ -16,9 +16,8 @@ export class Grant extends BaseProjectMetadata {
     @JsonProperty("@id", String)
     id: string = "";
 
-    // 1-n
     @JsonProperty(Constants.DspHasFunder, PersonOrganizationConverter, true)
-    funder?: Person | Organization | object = undefined;
+    funder?: Person | Organization | object | [Person | Organization | object] = undefined;
 
     @JsonProperty(Constants.DspHasName, String, true)
     name?: string = undefined;
