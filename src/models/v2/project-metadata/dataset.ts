@@ -1,5 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
+import { AttributionConverter } from "../custom-converters/attribution-converter";
 import { IUrl } from "../custom-converters/base-url-converter";
 import { DateConverter } from "../custom-converters/date-converter";
 import { DistributionConverter } from "../custom-converters/distribution-converter";
@@ -54,9 +55,8 @@ export class Dataset extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasLicense, UrlToUrlObjectConverter)
     license: IUrl = {}  as IUrl;
 
-    // 1-n
-    @JsonProperty(Constants.DspHasQualifiedAttribution, [Attribution])
-    qualifiedAttribution: Attribution[] = [];
+    @JsonProperty(Constants.DspHasQualifiedAttribution, AttributionConverter)
+    qualifiedAttribution: Attribution[] | Attribution = [];
 
     @JsonProperty(Constants.DspHasStatus, String)
     status: string = "";

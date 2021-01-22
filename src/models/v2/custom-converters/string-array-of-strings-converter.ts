@@ -11,7 +11,7 @@ export class StringArrayOfStringsConverter implements JsonCustomConvert<ElementO
     // TODO: add String | URL type handling
 
     serialize<T>(el: ElementOrArrayOfElements<T>): any {
-        console.log("SER", el);
+        // console.log("SER", el);
         if (Array.isArray(el)) {
             return el as T[];
         } else {
@@ -20,7 +20,7 @@ export class StringArrayOfStringsConverter implements JsonCustomConvert<ElementO
     }
 
     deserialize<T>(el: any): ElementOrArrayOfElements<T> {
-        console.log("deSER", el);
+        // console.log("deSER", el);
         if (Array.isArray(el)) {
             return el as T[];
         } else {
