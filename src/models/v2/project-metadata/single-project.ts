@@ -34,8 +34,7 @@ export class SingleProject extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasDescription, String)
     description: string = "";
 
-    // 1-n
-    @JsonProperty(Constants.DspHasDiscipline, AdvancedUrlObjectConverter)
+    @JsonProperty(Constants.DspHasDiscipline, AdvancedUrlObjectConverter) // String | URL
     discipline: IUrl = {} as IUrl;
     
     @JsonProperty(Constants.DspHasEndDate, DateConverter, true)
@@ -68,7 +67,7 @@ export class SingleProject extends BaseProjectMetadata {
     startDate: string = "";
 
     // 1-n
-    @JsonProperty(Constants.DspHasTemporalCoverage, AdvancedUrlObjectConverter)
+    @JsonProperty(Constants.DspHasTemporalCoverage, AdvancedUrlObjectConverter) // String | URL
     temporalCoverage: IUrl = {} as IUrl;
 
     // 1-2
