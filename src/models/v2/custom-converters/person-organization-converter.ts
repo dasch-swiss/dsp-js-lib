@@ -17,31 +17,55 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
         PropertyMatchingRule.CASE_STRICT
     );
 
-    serialize(obj: Person | Organization | object): any {
-        if (obj.hasOwnProperty("jobTitle")) {
-            return PersonOrganizationConverter.jsonConvert.serializeObject(obj, Person);
-        } else if (obj.hasOwnProperty("name")) {
-            return PersonOrganizationConverter.jsonConvert.serializeObject(obj, Organization);
-        } else if (obj.hasOwnProperty("id")) {
+    serializeElement(el: any): Person | Organization | object {
+        if (el.hasOwnProperty("jobTitle")) {
+            return PersonOrganizationConverter.jsonConvert.serializeObject(el, Person);
+        } else if (el.hasOwnProperty("name")) {
+            return PersonOrganizationConverter.jsonConvert.serializeObject(el, Organization);
+        } else if (el.hasOwnProperty("id")) {
             return {
-                "@id": (obj as { [index: string]: string })["id"]
+                "@id": (el as { [index: string]: string })["id"]
             };
+        } else {
+            throw new Error("Expected Person or Organization object type, or reference with id key");
         }
     }
 
-    deserialize(obj: any): Person | Organization | object {
-        if (obj.hasOwnProperty(Constants.DspHasJobTitle)) {
-            return PersonOrganizationConverter.jsonConvert.deserializeObject(obj, Person);
-        } else if (obj.hasOwnProperty(Constants.DspHasJobTitle)) {
-            return PersonOrganizationConverter.jsonConvert.deserializeObject(obj, Organization);
-        } else {
-            if (obj.hasOwnProperty("@id")) {
+    deserializeElement(el: Person | Organization | object): any {
+        if (el.hasOwnProperty(Constants.DspHasJobTitle)) {
+            return PersonOrganizationConverter.jsonConvert.deserializeObject(el, Person);
+        } else if (el.hasOwnProperty(Constants.DspHasJobTitle)) {
+            return PersonOrganizationConverter.jsonConvert.deserializeObject(el, Organization);
+        } else if (el.hasOwnProperty("@id")) {
                 return {
-                    id: obj["@id"]
+                    id: (el as { [index: string]: string })["@id"]
                 };
-            } else {
-                throw new Error("Expected Person, Organization or reference with @id key");
-            }
+        } else {
+            throw new Error(`Expected ${Constants.DspPerson} or ${Constants.DspOrganization} object type, or reference with @id key`);
+        }
+    }
+
+    serialize(el: Person | Organization | object): any {
+        if (Array.isArray(el)) {
+            const newObj = [] as any[];
+            el.forEach((
+                item => newObj.push(this.serializeElement(item))
+            ));
+            return newObj;
+        } else {
+            return this.serializeElement(el);
+        }
+    }
+
+    deserialize(el: any): Person | Organization | object {
+        if (Array.isArray(el)) {
+            const newObj = [] as any[];
+            el.forEach((
+                item => newObj.push(this.deserializeElement(item))
+            ));
+            return newObj;
+        } else {
+            return this.deserializeElement(el);
         }
     }
 }

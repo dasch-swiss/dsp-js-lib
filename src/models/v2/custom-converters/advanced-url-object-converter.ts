@@ -8,16 +8,6 @@ import { IUrl } from "./base-url-converter";
 @JsonConverter
 export class AdvancedUrlObjectConverter implements JsonCustomConvert<IUrl | string | [IUrl | string]> {
 
-    deserializeElement(el: any): IUrl | string {
-        if (el.hasOwnProperty(Constants.SchemaPropID)) {
-            const name = el[Constants.SchemaPropID][Constants.SchemaPropID];
-            const url = el[Constants.SchemaUrlValue];
-            return { name, url } as IUrl;
-        } else {
-            return el as string;
-        }
-    }
-
     serializeElement(el: IUrl | string): any {
         if (typeof el === "string") {
             return el;
@@ -30,6 +20,16 @@ export class AdvancedUrlObjectConverter implements JsonCustomConvert<IUrl | stri
                 },
                 [Constants.SchemaUrlValue]: el.url
             };
+        }
+    }
+
+    deserializeElement(el: any): IUrl | string {
+        if (el.hasOwnProperty(Constants.SchemaPropID)) {
+            const name = el[Constants.SchemaPropID][Constants.SchemaPropID];
+            const url = el[Constants.SchemaUrlValue];
+            return { name, url } as IUrl;
+        } else {
+            return el as string;
         }
     }
 

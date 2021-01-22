@@ -41,6 +41,7 @@ export class SingleProject extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasEndDate, DateConverter, true)
     endDate?: string = undefined;
 
+    // 1-n
     @JsonProperty(Constants.DspHasFunder, PersonOrganizationConverter)
     funder: Person | Organization | object = new Person();
 
