@@ -65,13 +65,11 @@ export class SingleProject extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasStartDate, DateConverter)
     startDate: string = "";
 
-    // 1-n
     @JsonProperty(Constants.DspHasTemporalCoverage, AdvancedUrlObjectConverter) // String | URL
     temporalCoverage: IUrl = {} as IUrl;
 
-    // 1-2
     @JsonProperty(Constants.DspHasURL, UrlToUrlObjectConverter)
-    url: IUrl = {} as IUrl;
+    url: IUrl[] | IUrl = [];
 
     constructor() {
         super(Constants.DspProject);

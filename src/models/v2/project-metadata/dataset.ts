@@ -51,9 +51,8 @@ export class Dataset extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasLanguage, StringArrayOfStringsConverter)
     language: string[] | string = [];
 
-    // 1-n
     @JsonProperty(Constants.DspHasLicense, UrlToUrlObjectConverter)
-    license: IUrl = {}  as IUrl;
+    license: IUrl[] | IUrl = [];
 
     @JsonProperty(Constants.DspHasQualifiedAttribution, AttributionConverter)
     qualifiedAttribution: Attribution[] | Attribution = [];
@@ -72,9 +71,8 @@ export class Dataset extends BaseProjectMetadata {
     @JsonProperty(Constants.DspIsPartOf, SingleProject)
     project: SingleProject = new SingleProject();
 
-    // 0-n
     @JsonProperty(Constants.DspSameAs, UrlToUrlObjectConverter, true)
-    sameAs?: IUrl = undefined;
+    sameAs?: IUrl[] | IUrl = undefined;
 
     constructor() {
         super(Constants.DspDataset);

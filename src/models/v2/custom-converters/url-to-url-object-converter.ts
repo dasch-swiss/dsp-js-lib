@@ -8,14 +8,26 @@ import { BaseUrlConverter, IUrl } from "./base-url-converter";
 @JsonConverter
 export class UrlToUrlObjectConverter extends BaseUrlConverter {
 
-    deserialize(val: any): IUrl {
-        if (val.hasOwnProperty("@type") && val["@type"] === Constants.SchemaUrlType) {
+    deserializeElement(el: any): IUrl {
+        if (el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaUrlType) {
             const obj = {} as IUrl;
-            obj.type = val["@type"];
-            obj.value = val[Constants.SchemaUrlValue];
+            obj.type = el["@type"];
+            obj.value = el[Constants.SchemaUrlValue];
             return obj;
         } else {
-            throw new Error(`Expected object of ${Constants.SchemaUrlType} type`);
+            throw new Error(`Deserialization Error: Expected object of ${Constants.SchemaUrlType} type`);
+        }
+    }
+
+    deserialize(el: any): IUrl | IUrl[] {
+        if (Array.isArray(el)) {
+            const newObj = [] as any[];
+            el.forEach(
+                (item: IUrl) => newObj.push(this.deserializeElement(item))
+            );
+            return newObj as IUrl[];
+        } else {
+            return this.deserializeElement(el);
         }
     }
 }

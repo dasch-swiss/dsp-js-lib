@@ -48,8 +48,8 @@ export class AdvancedUrlObjectConverter implements JsonCustomConvert<IUrl | stri
     deserialize(el: any): IUrl | string | [IUrl | string] {
         if (Array.isArray(el)) {
             const newObj = [] as Array<IUrl | string>;
-            el.forEach((
-                item: IUrl | string) => newObj.push(this.deserializeElement(item))
+            el.forEach(
+                (item: IUrl | string) => newObj.push(this.deserializeElement(item))
             );
             return newObj as [IUrl | string];
         } else {
