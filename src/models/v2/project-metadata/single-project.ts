@@ -3,6 +3,7 @@ import { Constants } from "../Constants";
 import { AdvancedUrlObjectConverter } from "../custom-converters/advanced-url-object-converter";
 import { IUrl } from "../custom-converters/base-url-converter";
 import { DateConverter } from "../custom-converters/date-converter";
+import { ElementArrayOfElementsConverter } from "../custom-converters/element-array-of-elements-converter";
 import { PersonOrganizationConverter } from "../custom-converters/person-organization-converter";
 import { StringArrayOfStringsConverter } from "../custom-converters/string-array-of-strings-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
@@ -59,9 +60,8 @@ export class SingleProject extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasShortcode, String)
     shortcode: string = "";
 
-    // 1-n
-    @JsonProperty(Constants.DspHasSpatialCoverage, [Place])
-    spatialCoverage: Place[] = [];
+    @JsonProperty(Constants.DspHasSpatialCoverage, ElementArrayOfElementsConverter)
+    spatialCoverage: Place[] | Place = [];
 
     @JsonProperty(Constants.DspHasStartDate, DateConverter)
     startDate: string = "";

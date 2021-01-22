@@ -1,6 +1,8 @@
 import { JsonConvert, JsonConverter, JsonCustomConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+import { Constants } from "../Constants";
 import { Attribution } from "../project-metadata/attribution";
+import { Place } from "../project-metadata/place";
 
 /**
  * Experimental converter to distinguish elements and arrays of these as a first step
@@ -18,16 +20,22 @@ export class ElementArrayOfElementsConverter implements JsonCustomConvert<any> {
     
     serialize(el: any): any {
         if (Array.isArray(el)) {
+            console.log("ser ARR", el);
             switch (true) {
-                case el[0] instanceof Attribution:
+                case el[0].hasOwnProperty(Constants.DspHasQualifiedAttribution):
                     return ElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Attribution);
+                case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.SchemaPlace:
+                    return ElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Place);
                 case typeof el === "string":
                     return ElementArrayOfElementsConverter.jsonConvert.serializeArray(el, String);
             }
         } else {
+            console.log("ser EL", el);
             switch (true) {
-                case el instanceof Attribution:
+                case el.hasOwnProperty(Constants.DspHasQualifiedAttribution):
                     return ElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Attribution);
+                case el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaPlace:
+                    return ElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Place);
                 case typeof el === "string":
                     return ElementArrayOfElementsConverter.jsonConvert.serializeObject(el, String);
             }
@@ -36,16 +44,22 @@ export class ElementArrayOfElementsConverter implements JsonCustomConvert<any> {
 
     deserialize(el: any ): any {
         if (Array.isArray(el)) {
+            console.log("deser ARR", el);
             switch (true) {
-                case el[0] instanceof Attribution:
+                case el[0].hasOwnProperty(Constants.DspHasQualifiedAttribution):
                     return ElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Attribution);
+                case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.SchemaPlace:
+                    return ElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Place);
                 case typeof el === "string":
                     return ElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, String);
             }
         } else {
+            console.log("deser EL", el);
             switch (true) {
-                case el instanceof Attribution:
+                case el.hasOwnProperty(Constants.DspHasQualifiedAttribution):
                     return ElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Attribution);
+                case el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaPlace:
+                    return ElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Place);
                 case typeof el === "string":
                     return ElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, String);
             }
