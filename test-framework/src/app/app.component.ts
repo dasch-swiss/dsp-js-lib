@@ -86,6 +86,7 @@ export class AppComponent implements OnInit {
     healthState: Observable<any>;
 
     ontologies: Map<string, ReadOntology>;
+    ontologyWithAllLangs: ReadOntology;
     anythingOntologies: OntologiesMetadata;
     dokubibOntologies: OntologiesMetadata;
     ontologyMeta: OntologyMetadata;
@@ -318,6 +319,17 @@ export class AppComponent implements OnInit {
                 console.log('onto ', onto);
                 this.ontologies = onto;
             }
+        );
+    }
+
+    getOntologyWithAllLanguages(iri: string) {
+
+        this.knoraApiConnection.v2.onto.getOntology(iri, true).subscribe(
+            (onto: ReadOntology) => {
+                console.log(onto);
+                this.ontologyWithAllLangs = onto;
+            },
+            err => console.error(err)
         );
     }
 
