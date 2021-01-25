@@ -7,6 +7,7 @@ import { Place } from "../project-metadata/place";
 
 /**
  * Experimental converter to distinguish elements and arrays of these as a first step
+ * Attribution and String cases are ready to use but not yet turned on inside classes 
  * @category Internal
  */
 @JsonConverter

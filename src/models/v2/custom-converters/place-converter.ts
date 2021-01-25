@@ -33,11 +33,6 @@ export class PlaceConverter implements JsonCustomConvert<IUrl> {
             const name = val[Constants.SchemaUrlValue][Constants.SchemaPropID][Constants.SchemaPropID];
             const url = val[Constants.SchemaUrlValue][Constants.SchemaUrlValue];
             return { name, url } as IUrl;
-        } else if (val.hasOwnProperty(Constants.SchemaPropID) && !val.hasOwnProperty(Constants.SchemaUrlValue)) {
-            // experimental condition
-            const name = val[Constants.SchemaPropID][Constants.SchemaPropID];
-            const url = val[Constants.SchemaPropID][Constants.SchemaUrlValue];
-            return { name, url } as IUrl;
         } else {
             throw new Error(`Deserialization Error: missing onr of or both properties: "${Constants.SchemaUrlType}", "${Constants.SchemaPropID}"`);
         }
