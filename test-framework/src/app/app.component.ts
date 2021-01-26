@@ -896,7 +896,7 @@ export class AppComponent implements OnInit {
             'familyName': 'Abraham',
             'givenName': 'Stewart',
             'jobTitle': ['Dr.', 'Dre'],
-            'memberOf': 'http://ns.dasch.swiss/test-dasch',
+            'memberOf': {id: 'http://ns.dasch.swiss/test-dasch'},
             'sameAs': {
                'type': 'https://schema.org/URL',
                'value': 'https://orcid.org/0000-0002-1825-0097'
@@ -1024,7 +1024,7 @@ export class AppComponent implements OnInit {
             'familyName': 'Jones',
             'givenName': 'Benjamin',
             'jobTitle': 'Dr. des.',
-            'memberOf': 'http://ns.dasch.swiss/test-dasch'
+            'memberOf': {id: 'http://ns.dasch.swiss/test-dasch'},
         } as Person;
         const testPersonTwo = {
             'id': 'http://ns.dasch.swiss/test-coleman',
@@ -1039,7 +1039,7 @@ export class AppComponent implements OnInit {
             'familyName': 'Coleman',
             'givenName': 'James',
             'jobTitle': 'Dr. des.',
-            'memberOf': 'http://ns.dasch.swiss/test-dasch'
+            'memberOf': {id: 'http://ns.dasch.swiss/test-dasch'},
         } as Person;
         const testPersonThree = {
             'id': 'http://ns.dasch.swiss/test-berry',
@@ -1054,7 +1054,7 @@ export class AppComponent implements OnInit {
             'familyName': 'Berry',
             'givenName': 'Lauren',
             'jobTitle': 'Dr.',
-            'memberOf': 'http://ns.dasch.swiss/test-dasch'
+            'memberOf': {id: 'http://ns.dasch.swiss/test-dasch'},
         } as Person;
         const testPersonFour = {
             'id': 'http://ns.dasch.swiss/test-hart',
@@ -1069,7 +1069,7 @@ export class AppComponent implements OnInit {
             'familyName': 'Hart',
             'givenName': 'Leonhard',
             'jobTitle': 'Prof.',
-            'memberOf': 'http://ns.dasch.swiss/test-dasch'
+            'memberOf': {id: 'http://ns.dasch.swiss/test-dasch'},
         } as Person;
         testMetadata.projectsMetadata.push(testDataset, testDataset);
         console.log(testMetadata, JSON.stringify(testMetadata));
