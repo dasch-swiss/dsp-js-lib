@@ -4,6 +4,7 @@ import { AttributionConverter } from "../custom-converters/attribution-converter
 import { IUrl } from "../custom-converters/base-url-converter";
 import { DateConverter } from "../custom-converters/date-converter";
 import { DistributionConverter } from "../custom-converters/distribution-converter";
+import { SingleProjctIdConverter } from "../custom-converters/single-project-id-converter";
 import { StringArrayOfStringsConverter } from "../custom-converters/string-array-of-strings-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
 import { Attribution } from "./attribution";
@@ -68,8 +69,8 @@ export class Dataset extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasTypeOfData, StringArrayOfStringsConverter)
     typeOfData: string[] | string = [];
 
-    @JsonProperty(Constants.DspIsPartOf, SingleProject)
-    project: SingleProject = new SingleProject();
+    @JsonProperty(Constants.DspIsPartOf, SingleProjctIdConverter)
+    project: SingleProject | object = new SingleProject();
 
     @JsonProperty(Constants.DspSameAs, UrlToUrlObjectConverter, true)
     sameAs?: IUrl[] | IUrl = undefined;
