@@ -832,52 +832,57 @@ export class AppComponent implements OnInit {
         const testDataset = new Dataset();
         testDataset.id = 'http://ns.dasch.swiss/test-dataset';
         testDataset.type = Constants.DspRepoBase + 'Dataset';
-        testDataset.abstract = 'Dies ist ein Testprojekt.';
+        // testDataset.abstract = 'Dies ist ein Testprojekt.';
+        testDataset.abstract = ['Dies ist ein Testprojekt.', 'Another'];
         testDataset.alternativeTitle = 'test';
         testDataset.conditionsOfAccess = 'Open Access';
         testDataset.dateCreated = '2001-09-26';
         testDataset.dateModified = '2020-04-26';
         testDataset.datePublished = '2002-09-24';
         testDataset.distribution = { type: 'https://schema.org/DataDownload', value: 'https://test.dasch.swiss' } as IUrl;
-        testDataset.documentation = 'Work in progress';
+        // testDataset.documentation = 'Work in progress';
+        testDataset.documentation = ['Work in progress', 'Dddddd'];
         testDataset.howToCite = 'Testprojekt (test), 2002, https://test.dasch.swiss';
-        testDataset.language = [ 'EN', 'DE', 'FR' ];
+        // testDataset.language = [ 'EN', 'DE', 'FR' ];
+        testDataset.language = 'EN';
         testDataset.license = { type: 'https://schema.org/URL', value: 'https://creativecommons.org/licenses/by/3.0' } as IUrl;
         testDataset.qualifiedAttribution = [
             {
                 type: Constants.ProvAttribution,
-                role: 'contributor',
-                agent: 'http://ns.dasch.swiss/test-berry'
+                role: ['contributor', 'watcher'],
+                agent: {id: 'http://ns.dasch.swiss/test-berry'}
             },
             {
                 type: Constants.ProvAttribution,
                 role: 'contributor',
-                agent: 'http://ns.dasch.swiss/test-hart'
+                agent: {id: 'http://ns.dasch.swiss/test-hart'}
             },
             {
                 type: Constants.ProvAttribution,
                 role: 'editor',
-                agent: 'http://ns.dasch.swiss/test-abraham'
+                agent: {id: 'http://ns.dasch.swiss/test-abraham'}
             },
             {
                 type: Constants.ProvAttribution,
                 role: 'editor',
-                agent: 'http://ns.dasch.swiss/test-coleman'
+                agent: {id: 'http://ns.dasch.swiss/test-coleman'}
             },
             {
                 type: Constants.ProvAttribution,
                 role: 'editor',
-                agent: 'http://ns.dasch.swiss/test-jones'
+                agent: {id: 'http://ns.dasch.swiss/test-jones'}
             }
          ];
         testDataset.status = 'ongoing';
         testDataset.title = 'Testprojekt';
-        testDataset.typeOfData = ['image', 'text'];
+        // testDataset.typeOfData = ['image', 'text'];
+        testDataset.typeOfData = 'image';
         testDataset.sameAs = { type: 'https://schema.org/URL', value: 'https://test.dasch.swiss' } as IUrl;
         testDataset.project = new SingleProject();
         testDataset.project.id = 'http://ns.dasch.swiss/test-project';
         testDataset.project.type = Constants.DspRepoBase + 'Project';
-        testDataset.project.alternateName = 'test';
+        // testDataset.project.alternateName = 'test';
+        testDataset.project.alternateName = ['test', 'test2'];
         testDataset.project.contactPoint = {
             'id': 'http://ns.dasch.swiss/test-abraham',
             type: Constants.DspRepoBase + 'Person',
@@ -887,10 +892,10 @@ export class AppComponent implements OnInit {
                'postalCode': '4000',
                'streetAddress': 'Teststrasse'
             },
-            'email': 'stewart.abraham@test.ch',
+            'email': ['stewart.abraham@test.ch', 'test@test.ch'],
             'familyName': 'Abraham',
             'givenName': 'Stewart',
-            'jobTitle': 'Dr.',
+            'jobTitle': ['Dr.', 'Dre'],
             'memberOf': 'http://ns.dasch.swiss/test-dasch',
             'sameAs': {
                'type': 'https://schema.org/URL',
@@ -918,6 +923,7 @@ export class AppComponent implements OnInit {
         const grant = new Grant();
         grant.id = 'http://ns.dasch.swiss/test-grant';
         grant.type = Constants.DspRepoBase + 'Grant',
+        // TODO: why funder is not returnet but only id?
         grant.funder = {
             'id': 'http://ns.dasch.swiss/test-funder',
             type: Constants.DspRepoBase + 'Organization',
@@ -928,7 +934,7 @@ export class AppComponent implements OnInit {
                 'streetAddress': 'University of Toronto Street'
             },
             'email': 'info@universityoftoronto.ca',
-            'name': 'University of Toronto',
+            'name': ['University of Toronto', 'WWW'],
             'url': {
                 'type': 'https://schema.org/URL',
                 'value': 'http://www.utoronto.ca/'
@@ -941,14 +947,16 @@ export class AppComponent implements OnInit {
             'value': 'http://p3.snf.ch/testproject'
          };
         testDataset.project.grant = grant;
-        testDataset.project.keywords = [
-            'science',
-            'mathematics',
-            'history of science',
-            'history of mathematics'
-         ];
+        testDataset.project.keywords = 'science';
+        // testDataset.project.keywords = [
+        //     'science',
+        //     'mathematics',
+        //     'history of science',
+        //     'history of mathematics'
+        //  ];
         testDataset.project.name = 'Testprojektname (test)';
-        testDataset.project.publication = 'testpublication';
+        // testDataset.project.publication = 'testpublication';
+        testDataset.project.publication = ['testpublication', 'pub2'];
         testDataset.project.shortcode = '0000';
         testDataset.project.spatialCoverage = [
             {
@@ -1063,7 +1071,7 @@ export class AppComponent implements OnInit {
             'jobTitle': 'Prof.',
             'memberOf': 'http://ns.dasch.swiss/test-dasch'
         } as Person;
-        testMetadata.projectsMetadata.push(testDataset, testPersonOne, testPersonTwo, testPersonThree, testPersonFour);
+        testMetadata.projectsMetadata.push(testDataset, testDataset);
         console.log(testMetadata, JSON.stringify(testMetadata));
         this.knoraApiConnection.v2.metadata.updateProjectMetadata(resourceIri, testMetadata).subscribe(
             (res: UpdateProjectMetadataResponse) => {
