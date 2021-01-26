@@ -34,12 +34,12 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
     deserializeElement(el: Person | Organization | object): any {
         if (el.hasOwnProperty(Constants.DspHasJobTitle)) {
             return PersonOrganizationConverter.jsonConvert.deserializeObject(el, Person);
-        } else if (el.hasOwnProperty(Constants.DspHasJobTitle)) {
+        } else if (el.hasOwnProperty(Constants.DspHasName)) {
             return PersonOrganizationConverter.jsonConvert.deserializeObject(el, Organization);
         } else if (el.hasOwnProperty("@id")) {
-                return {
-                    id: (el as { [index: string]: string })["@id"]
-                };
+            return {
+                id: (el as { [index: string]: string })["@id"]
+            };
         } else {
             throw new Error(`Expected ${Constants.DspPerson} or ${Constants.DspOrganization} object type, or reference with @id key`);
         }
