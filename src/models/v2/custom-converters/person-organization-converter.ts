@@ -17,7 +17,7 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
         PropertyMatchingRule.CASE_STRICT
     );
 
-    serializeElement(el: any): Person | Organization | object {
+    serializeElement(el: Person | Organization | object): any {
         if (el.hasOwnProperty("jobTitle")) {
             return PersonOrganizationConverter.jsonConvert.serializeObject(el, Person);
         } else if (el.hasOwnProperty("name")) {
@@ -31,7 +31,7 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
         }
     }
 
-    deserializeElement(el: Person | Organization | object): any {
+    deserializeElement(el: any): Person | Organization | object {
         if (el.hasOwnProperty(Constants.DspHasJobTitle)) {
             return PersonOrganizationConverter.jsonConvert.deserializeObject(el, Person);
         } else if (el.hasOwnProperty(Constants.DspHasName)) {
@@ -49,7 +49,7 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
         if (Array.isArray(el)) {
             const newObj = [] as any[];
             el.forEach((
-                item => newObj.push(this.serializeElement(item))
+                (item: Person | Organization | object) => newObj.push(this.serializeElement(item))
             ));
             return newObj;
         } else {
@@ -61,7 +61,7 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
         if (Array.isArray(el)) {
             const newObj = [] as any[];
             el.forEach((
-                item => newObj.push(this.deserializeElement(item))
+                (item: any) => newObj.push(this.deserializeElement(item))
             ));
             return newObj;
         } else {
