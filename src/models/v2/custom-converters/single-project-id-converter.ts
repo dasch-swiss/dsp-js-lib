@@ -20,24 +20,24 @@ export class SingleProjctIdConverter implements JsonCustomConvert<SingleProject 
     serialize(el: SingleProject | any): any {
         if (el.hasOwnProperty("type") && el["type"] === Constants.DspProject) {
             return SingleProjctIdConverter.jsonConvert.serializeObject(el, SingleProject);
-        } else if (el.hasOwnProperty("id")) {
+        } else if (!el.hasOwnProperty("type") && el.hasOwnProperty("id")) {
             return {
                 "@id": (el as { [index: string]: string })["id"]
             };
         } else {
-            throw new Error("Expected SingleProject object type or reference with id key");
+            throw new Error("Expected SingleProject object type or reference with id property");
         }
     }
 
     deserialize(el: any): SingleProject | object {
-        if (el.hasOwnProperty(Constants.DspProject)) {
+        if (el.hasOwnProperty("@type") && el["@type"] === Constants.DspProject) {
             return SingleProjctIdConverter.jsonConvert.deserializeObject(el, SingleProject);
-        } else if (el.hasOwnProperty("@id")) {
+        } else if (!el.hasOwnProperty("@type") && el.hasOwnProperty("@id")) {
             return {
                 id: (el as { [index: string]: string })["@id"]
             };
         } else {
-            throw new Error(`Expected ${Constants.DspProject} object type or reference with @id key.`);
+            throw new Error(`Expected ${Constants.DspProject} object type or reference with @id property.`);
         }
     }
 }
