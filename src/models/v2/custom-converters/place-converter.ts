@@ -27,14 +27,14 @@ export class PlaceConverter implements JsonCustomConvert<IUrl> {
         // in the model SpatialCoverage is single Place type object, but returned by DSP-API as array of Place objects
         if (val.hasOwnProperty(Constants.SchemaPropID) && val.hasOwnProperty(Constants.SchemaUrlValue)) {
             const name = val[Constants.SchemaPropID][Constants.SchemaPropID];
-            const url = val[Constants.SchemaUrlValue][Constants.SchemaUrlValue];
+            const url = val[Constants.SchemaUrlValue];
             return { name, url } as IUrl;
         } else if (!val.hasOwnProperty(Constants.SchemaPropID) && val.hasOwnProperty(Constants.SchemaUrlValue)) {
             const name = val[Constants.SchemaUrlValue][Constants.SchemaPropID][Constants.SchemaPropID];
             const url = val[Constants.SchemaUrlValue][Constants.SchemaUrlValue];
             return { name, url } as IUrl;
         } else {
-            throw new Error(`Deserialization Error: missing onr of or both properties: "${Constants.SchemaUrlType}", "${Constants.SchemaPropID}"`);
+            throw new Error(`Deserialization Error: missing one of or both properties: "${Constants.SchemaUrlType}", "${Constants.SchemaPropID}"`);
         }
     }
 }
