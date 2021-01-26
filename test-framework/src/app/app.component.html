@@ -105,6 +105,8 @@
         <button class="create-res-class" (click)="createResourceClass()">Create resource class</button><br><br>
         <div><span *ngIf="resClass">Res class created:&nbsp;</span><span class="res-class-label">{{resClass?.label}}</span> </div> <br />
 
+        <button class="update-res-class-label" (click)="updateResourceClassLabel()">Update resource class label</button><br><br>
+
         <button class="get-res-class" (click)="getResourceClass('http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass')">Get resource class</button><br><br>
 
         <button class="delete-res-class" (click)="deleteResourceClass()">Delete resource class</button><br><br>

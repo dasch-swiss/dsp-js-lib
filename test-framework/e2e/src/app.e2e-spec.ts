@@ -286,6 +286,28 @@ describe('workspace-project App', () => {
 
   });
 
+  it('change a resource classes\'s label', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // update res class label
+    const button = page.getEle('div section#ontologyeditor button.update-res-class-label');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.res-class-label');
+    expect(label.getText()).toEqual('Test Klasse neu');
+
+  });
+
   it('create a new property in testonto of the anything project', () => {
 
     page.navigateTo();
@@ -327,7 +349,7 @@ describe('workspace-project App', () => {
     button.click();
     const label = page.getEle('div section#ontologyeditor span.res-card-added');
 
-    expect(label.getText()).toEqual('Test Klasse');
+    expect(label.getText()).toEqual('Test Klasse neu');
 
   });
 

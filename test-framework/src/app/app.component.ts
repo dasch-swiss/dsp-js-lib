@@ -67,7 +67,8 @@ import {
     UpdateChildNodeRequest,
     ListNodeInfoResponse,
     CreateListRequest,
-    ListResponse
+    ListResponse,
+    UpdateResourceClassLabel
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -426,6 +427,37 @@ export class AppComponent implements OnInit {
                 this.resClass = response;
             }
         );
+    }
+
+    updateResourceClassLabel() {
+
+        const onto = new UpdateOntology<UpdateResourceClassLabel>();
+
+        onto.id = this.ontology.id;
+        onto.lastModificationDate = this.ontology.lastModificationDate;
+
+        const updateLabel = new UpdateResourceClassLabel();
+
+        updateLabel.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass";
+
+        updateLabel.labels = [
+            {
+                language: "de",
+                value: "Test Klasse neu"
+            }, {
+                language: "en",
+                value: "Test Class new"
+            }
+        ];
+
+        onto.entity = updateLabel;
+
+        this.knoraApiConnection.v2.onto.updateResourceClass(onto).subscribe(
+            (res: ResourceClassDefinitionWithAllLanguages) => {
+                this.resClass = res;
+            }
+        );
+
     }
 
     deleteResourceClass() {

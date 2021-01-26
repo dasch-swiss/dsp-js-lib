@@ -23,6 +23,7 @@ import { ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/onto
 import { ResourcePropertyDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-property-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
 import { UpdateOntologyResourceClassCardinality } from "../../../models/v2/ontologies/update/update-ontology-resource-class-cardinality";
+import { UpdateResourceClassLabel } from "../../../models/v2/ontologies/update/update-resource-class-label";
 import { Endpoint } from "../../endpoint";
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
@@ -152,19 +153,19 @@ export class OntologiesEndpointV2 extends Endpoint {
     /**
      * Creates a resource class without cardinalities.
      *
-     * @param  resourceClasses The resource class to be created.
+     * @param  resourceClass The resource class to be created.
      */
-    createResourceClass(resourceClasses: UpdateOntology<CreateResourceClass>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+    createResourceClass(resourceClass: UpdateOntology<CreateResourceClass>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
 
         const resClassPay = new CreateResourceClassPayload();
 
-        resClassPay.id = resourceClasses.id + Constants.HashDelimiter + resourceClasses.entity.name;
-        resClassPay.label = resourceClasses.entity.label;
-        resClassPay.comment = (resourceClasses.entity.comment.length ? resourceClasses.entity.comment : resourceClasses.entity.label);
-        resClassPay.subClassOf = resourceClasses.entity.subClassOf;
+        resClassPay.id = resourceClass.id + Constants.HashDelimiter + resourceClass.entity.name;
+        resClassPay.label = resourceClass.entity.label;
+        resClassPay.comment = (resourceClass.entity.comment.length ? resourceClass.entity.comment : resourceClass.entity.label);
+        resClassPay.subClassOf = resourceClass.entity.subClassOf;
         resClassPay.type = Constants.Class;
 
-        const ontoPayload = this.jsonConvert.serializeObject(resourceClasses);
+        const ontoPayload = this.jsonConvert.serializeObject(resourceClass);
 
         ontoPayload["@graph"] = [this.jsonConvert.serializeObject(resClassPay)];
 
@@ -180,6 +181,27 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return this.handleError(error);
             })
         );
+    }
+
+    updateResourceClass(updateResourceClass: UpdateOntology<UpdateResourceClassLabel>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+
+        const ontoPayload = this.jsonConvert.serializeObject(updateResourceClass);
+
+        ontoPayload["@graph"] = [this.jsonConvert.serializeObject(updateResourceClass.entity)];
+
+        return this.httpPut("/classes", ontoPayload).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
     }
 
     /**

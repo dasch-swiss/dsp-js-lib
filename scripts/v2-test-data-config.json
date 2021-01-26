@@ -49,6 +49,10 @@
       "destination": "./test/data/api/v2/ontologies/create-class-without-cardinalities-response.json"
     },
     {
+      "source": "/v2/ontologies/change-class-label-request.json",
+      "destination": "./test/data/api/v2/ontologies/change-class-label-request.json"
+    },
+    {
       "source": "/v2/ontologies/create-value-property-request.json",
       "destination": "./test/data/api/v2/ontologies/create-value-property-request.json"
     },

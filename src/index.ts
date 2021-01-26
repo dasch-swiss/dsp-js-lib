@@ -109,6 +109,7 @@ export { DeleteResourceClass } from "./models/v2/ontologies/delete/delete-resour
 export { DeleteResourceProperty } from "./models/v2/ontologies/delete/delete-resource-property";
 export { DeleteOntologyResponse } from "./models/v2/ontologies/delete/delete-ontology-response";
 export { CreateResourceClass } from "./models/v2/ontologies/create/create-resource-class";
+export { UpdateResourceClassLabel } from "./models/v2/ontologies/update/update-resource-class-label";
 export { ReadOntology } from "./models/v2/ontologies/read/read-ontology";
 export { UpdateOntologyResourceClassCardinality } from "./models/v2/ontologies/update/update-ontology-resource-class-cardinality";
 export { OntologyMetadata, OntologiesMetadata } from "./models/v2/ontologies/ontology-metadata";
