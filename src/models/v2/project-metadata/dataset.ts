@@ -70,7 +70,7 @@ export class Dataset extends BaseProjectMetadata {
     typeOfData: string[] | string = [];
 
     @JsonProperty(Constants.DspIsPartOf, SingleProjctIdConverter)
-    project: SingleProject | object = new SingleProject();
+    project: SingleProject = new SingleProject();
 
     @JsonProperty(Constants.DspSameAs, UrlToUrlObjectConverter, true)
     sameAs?: IUrl[] | IUrl = undefined;

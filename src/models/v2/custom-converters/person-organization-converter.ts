@@ -22,7 +22,7 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
             return PersonOrganizationConverter.jsonConvert.serializeObject(el, Person);
         } else if (el.hasOwnProperty("name")) {
             return PersonOrganizationConverter.jsonConvert.serializeObject(el, Organization);
-        } else if (el.hasOwnProperty("id")) {
+        } else if (el.hasOwnProperty("id") && (!el.hasOwnProperty("jobTitle") && !el.hasOwnProperty("name"))) {
             return {
                 "@id": (el as { [index: string]: string })["id"]
             };
@@ -36,7 +36,7 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
             return PersonOrganizationConverter.jsonConvert.deserializeObject(el, Person);
         } else if (el.hasOwnProperty(Constants.DspHasName)) {
             return PersonOrganizationConverter.jsonConvert.deserializeObject(el, Organization);
-        } else if (el.hasOwnProperty("@id")) {
+        } else if (el.hasOwnProperty("@id") && (!el.hasOwnProperty(Constants.DspHasJobTitle) || !el.hasOwnProperty(Constants.DspHasName))) {
             return {
                 id: (el as { [index: string]: string })["@id"]
             };

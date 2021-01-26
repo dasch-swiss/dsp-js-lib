@@ -26,7 +26,7 @@ export class ElementArrayOfElementsConverter implements JsonCustomConvert<any> {
             switch (true) {
                 case el[0].hasOwnProperty(Constants.DspHasQualifiedAttribution):
                     return ElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Attribution);
-                case el[0].hasOwnProperty(Constants.DspHasGrant):
+                case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.DspGrant:
                     return ElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Grant);
                 case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.SchemaPlace:
                     return ElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Place);
@@ -38,7 +38,7 @@ export class ElementArrayOfElementsConverter implements JsonCustomConvert<any> {
             switch (true) {
                 case el.hasOwnProperty(Constants.DspHasQualifiedAttribution):
                     return ElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Attribution);
-                case el.hasOwnProperty(Constants.DspHasGrant):
+                case el.hasOwnProperty("@type") && el["@type"] === Constants.DspGrant:
                     return ElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Grant);
                 case el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaPlace:
                     return ElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Place);
@@ -54,7 +54,7 @@ export class ElementArrayOfElementsConverter implements JsonCustomConvert<any> {
             switch (true) {
                 case el[0].hasOwnProperty(Constants.DspHasQualifiedAttribution):
                     return ElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Attribution);
-                case el[0].hasOwnProperty(Constants.DspHasGrant):
+                case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.DspGrant:
                     return ElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Grant);
                 case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.SchemaPlace:
                     return ElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Place);
@@ -66,8 +66,9 @@ export class ElementArrayOfElementsConverter implements JsonCustomConvert<any> {
             switch (true) {
                 case el.hasOwnProperty(Constants.DspHasQualifiedAttribution):
                     return ElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Attribution);
-                case el.hasOwnProperty(Constants.DspHasGrant):
-                return ElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Grant);
+                case el.hasOwnProperty("@type") && el["@type"] === Constants.DspGrant:
+                    console.log("deser GRANT", el);
+                    return ElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Grant);
                 case el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaPlace:
                     return ElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Place);
                 case typeof el === "string":
