@@ -67,7 +67,6 @@ export class ElementArrayOfElementsConverter implements JsonCustomConvert<any> {
                 case el.hasOwnProperty(Constants.DspHasQualifiedAttribution):
                     return ElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Attribution);
                 case el.hasOwnProperty("@type") && el["@type"] === Constants.DspGrant:
-                    console.log("deser GRANT", el);
                     return ElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Grant);
                 case el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaPlace:
                     return ElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Place);

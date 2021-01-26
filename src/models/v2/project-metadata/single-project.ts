@@ -27,7 +27,7 @@ export class SingleProject extends BaseProjectMetadata {
     alternateName?: string[] | string = undefined;
 
     @JsonProperty(Constants.DspHasContactPoint, PersonOrganizationConverter, true)
-    contactPoint?: Person | Organization | object = undefined;
+    contactPoint?: Person | Organization = undefined;
 
     @JsonProperty(Constants.DspHasDataManagementPlan, DataManagementPlan, true)
     dataManagementPlan?: DataManagementPlan = undefined;

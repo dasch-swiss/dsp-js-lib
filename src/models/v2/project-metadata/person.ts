@@ -1,11 +1,12 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
 import { IUrl } from "../custom-converters/base-url-converter";
-import { IdConverter } from "../custom-converters/id-converter";
+import { OrganizationIdConverter } from "../custom-converters/orgnization-id-converter";
 import { StringArrayOfStringsConverter } from "../custom-converters/string-array-of-strings-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
 import { Address } from "./address";
 import { BaseProjectMetadata } from "./base-project-metadata";
+import { Organization } from "./organization";
 
 /** 
  * @category Model V2 
@@ -32,9 +33,8 @@ export class Person extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasJobTitle, StringArrayOfStringsConverter)
     jobTitle: string[] | string = [];
 
-    // 1-n
-    @JsonProperty(Constants.DspIsMemberOf, IdConverter) //convert reference ID to Orgnization
-    memberOf: string = "";
+    @JsonProperty(Constants.DspIsMemberOf, OrganizationIdConverter)
+    memberOf: Organization[] | Organization = new Organization();
 
     // 0-n
     @JsonProperty(Constants.DspSameAs, UrlToUrlObjectConverter, true)
