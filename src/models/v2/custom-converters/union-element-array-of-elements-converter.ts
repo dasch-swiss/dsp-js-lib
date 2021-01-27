@@ -6,8 +6,7 @@ import { Grant } from "../project-metadata/grant";
 import { Place } from "../project-metadata/place";
 
 /**
- * Experimental converter to distinguish elements and arrays of these as a first step
- * Attribution case are ready to use but not yet turned on inside classes 
+ * Experimental converter to distinguish elements and arrays of these as a first step of conversion
  * @category Internal
  */
 @JsonConverter
@@ -23,7 +22,7 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert<a
     serialize(el: any): any {
         if (Array.isArray(el)) {
             switch (true) {
-                case el[0].hasOwnProperty(Constants.DspHasQualifiedAttribution):
+                case el[0].hasOwnProperty("type") && el[0]["type"] === Constants.ProvAttribution:
                     return UnionElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Attribution);
                 case el[0].hasOwnProperty("type") && el[0]["type"] === Constants.DspGrant:
                     return UnionElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Grant);
@@ -32,7 +31,7 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert<a
             }
         } else {
             switch (true) {
-                case el.hasOwnProperty(Constants.DspHasQualifiedAttribution):
+                case el.hasOwnProperty("type") && el["type"] === Constants.ProvAttribution:
                     return UnionElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Attribution);
                 case el.hasOwnProperty("type") && el["type"] === Constants.DspGrant:
                     return UnionElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Grant);
@@ -45,7 +44,7 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert<a
     deserialize(el: any ): any {
         if (Array.isArray(el)) {
             switch (true) {
-                case el[0].hasOwnProperty(Constants.DspHasQualifiedAttribution):
+                case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.ProvAttribution:
                     return UnionElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Attribution);
                 case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.DspGrant:
                     return UnionElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Grant);
@@ -54,7 +53,7 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert<a
             }
         } else {
             switch (true) {
-                case el.hasOwnProperty(Constants.DspHasQualifiedAttribution):
+                case el.hasOwnProperty("@type") && el["@type"] === Constants.ProvAttribution:
                     return UnionElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Attribution);
                 case el.hasOwnProperty("@type") && el["@type"] === Constants.DspGrant:
                     return UnionElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Grant);

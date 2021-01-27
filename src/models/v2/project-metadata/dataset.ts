@@ -3,7 +3,7 @@ import { Constants } from "../Constants";
 import { IUrl } from "../custom-converters/base-url-converter";
 import { DateConverter } from "../custom-converters/date-converter";
 import { DistributionConverter } from "../custom-converters/distribution-converter";
-import { UnionAttributionConverter } from "../custom-converters/union-attribution-converter";
+import { UnionElementArrayOfElementsConverter } from "../custom-converters/union-element-array-of-elements-converter";
 import { UnionSingleProjctIdConverter } from "../custom-converters/union-single-project-id-converter";
 import { UnionStringArrayOfStringsConverter } from "../custom-converters/union-string-array-of-strings-converter";
 import { UnionUrlStringConverter } from "../custom-converters/union-url-string-converter";
@@ -54,7 +54,7 @@ export class Dataset extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasLicense, UrlToUrlObjectConverter)
     license: IUrl[] | IUrl = [];
 
-    @JsonProperty(Constants.DspHasQualifiedAttribution, UnionAttributionConverter)
+    @JsonProperty(Constants.DspHasQualifiedAttribution, UnionElementArrayOfElementsConverter)
     qualifiedAttribution: Attribution[] | Attribution = [];
 
     @JsonProperty(Constants.DspHasStatus, String)
