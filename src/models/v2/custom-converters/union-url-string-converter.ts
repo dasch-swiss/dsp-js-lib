@@ -8,6 +8,21 @@ import { BaseUrlConverter, IUrl } from "./base-url-converter";
 @JsonConverter
 export class UnionUrlStringConverter extends BaseUrlConverter {
 
+    serializeElement(el: IUrl | string): any {
+        if (typeof el === "string") {
+            return el;
+        } else {
+            return {
+                "@type": Constants.SchemaUrlType,
+                [Constants.SchemaPropID]: {
+                    "@type": Constants.SchemaPropVal,
+                    [Constants.SchemaPropID]: el.type
+                },
+                [Constants.SchemaUrlValue]: el.value
+            };
+        }
+    }
+
     deserializeElement(el: any): IUrl | string {
         if (typeof el === "string") {
             return el;
@@ -18,6 +33,18 @@ export class UnionUrlStringConverter extends BaseUrlConverter {
             return obj;
         } else {
             throw new Error(`Expected object of ${Constants.SchemaUrlType} type or string.`);
+        }
+    }
+
+    serialize(el: IUrl | IUrl[] | string | string[]): any {
+        if (Array.isArray(el)) {
+            const newObj = [] as any[];
+            el.forEach((
+                (item: any) => newObj.push(this.serializeElement(item))
+            ));
+            return newObj;
+        } else {
+            return this.serializeElement(el);
         }
     }
 

@@ -1,8 +1,8 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
-import { UnionAdvancedUrlObjectConverter } from "../custom-converters/union-advanced-url-object-converter";
 import { IUrl } from "../custom-converters/base-url-converter";
 import { DateConverter } from "../custom-converters/date-converter";
+import { UnionAdvancedUrlObjectConverter } from "../custom-converters/union-advanced-url-object-converter";
 import { UnionElementArrayOfElementsConverter } from "../custom-converters/union-element-array-of-elements-converter";
 import { UnionPersonOrganizationIdConverter } from "../custom-converters/union-person-organization-id-converter";
 import { UnionStringArrayOfStringsConverter } from "../custom-converters/union-string-array-of-strings-converter";
@@ -35,7 +35,7 @@ export class SingleProject extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasDescription, String)
     description: string = "";
 
-    @JsonProperty(Constants.DspHasDiscipline, UnionAdvancedUrlObjectConverter) // String | URL
+    @JsonProperty(Constants.DspHasDiscipline, UnionAdvancedUrlObjectConverter)
     discipline: IUrl = {} as IUrl;
     
     @JsonProperty(Constants.DspHasEndDate, DateConverter, true)
@@ -65,7 +65,7 @@ export class SingleProject extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasStartDate, DateConverter)
     startDate: string = "";
 
-    @JsonProperty(Constants.DspHasTemporalCoverage, UnionAdvancedUrlObjectConverter) // String | URL
+    @JsonProperty(Constants.DspHasTemporalCoverage, UnionAdvancedUrlObjectConverter)
     temporalCoverage: IUrl = {} as IUrl;
 
     @JsonProperty(Constants.DspHasURL, UrlToUrlObjectConverter)
