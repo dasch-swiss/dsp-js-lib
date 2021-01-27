@@ -346,7 +346,7 @@ describe('workspace-project App', () => {
     getButton.click();
 
     // add cardinality
-    const button = page.getEle('div section#ontologyeditor button.replace-card-to-res-prop');
+    const button = page.getEle('div section#ontologyeditor button.replace-card-for-res-prop');
     button.click();
     const label = page.getEle('div section#ontologyeditor span.res-card-replaced');
 
