@@ -23,6 +23,7 @@ import { ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/onto
 import { ResourcePropertyDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-property-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
 import { UpdateOntologyResourceClassCardinality } from "../../../models/v2/ontologies/update/update-ontology-resource-class-cardinality";
+import { UpdateResourceClass } from "../../../models/v2/ontologies/update/update-resource-class";
 import { UpdateResourceClassLabel } from "../../../models/v2/ontologies/update/update-resource-class-label";
 import { Endpoint } from "../../endpoint";
 
@@ -183,7 +184,12 @@ export class OntologiesEndpointV2 extends Endpoint {
         );
     }
 
-    updateResourceClass(updateResourceClass: UpdateOntology<UpdateResourceClassLabel>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+    /**
+     * Updates a resource class's label or comment.
+     *
+     * @param updateResourceClass the new label or comment.
+     */
+    updateResourceClass(updateResourceClass: UpdateOntology<UpdateResourceClass>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
 
         const ontoPayload = this.jsonConvert.serializeObject(updateResourceClass);
 

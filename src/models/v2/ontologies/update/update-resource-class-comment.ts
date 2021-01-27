@@ -7,10 +7,10 @@ import { UpdateResourceClass } from "./update-resource-class";
 /**
  * @category Model V2
  */
-@JsonObject("UpdateResourceClassLabel")
-export class UpdateResourceClassLabel extends UpdateResourceClass {
+@JsonObject("UpdateResourceClassComment")
+export class UpdateResourceClassComment extends UpdateResourceClass {
 
-    @JsonProperty(Constants.Label, StringLiteralToStringLiteralArrayConverter)
-    labels: StringLiteralV2[] = [];
+    @JsonProperty(Constants.Comment, StringLiteralToStringLiteralArrayConverter)
+    comments: StringLiteralV2[] = [];
 
 }

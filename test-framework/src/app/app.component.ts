@@ -68,7 +68,8 @@ import {
     ListNodeInfoResponse,
     CreateListRequest,
     ListResponse,
-    UpdateResourceClassLabel
+    UpdateResourceClassLabel,
+    UpdateResourceClassComment
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -447,6 +448,34 @@ export class AppComponent implements OnInit {
             }, {
                 language: "en",
                 value: "Test Class new"
+            }
+        ];
+
+        onto.entity = updateLabel;
+
+        this.knoraApiConnection.v2.onto.updateResourceClass(onto).subscribe(
+            (res: ResourceClassDefinitionWithAllLanguages) => {
+                this.resClass = res;
+            }
+        );
+
+    }
+
+    updateResourceClassComment() {
+
+        const onto = new UpdateOntology<UpdateResourceClassComment>();
+
+        onto.id = this.ontology.id;
+        onto.lastModificationDate = this.ontology.lastModificationDate;
+
+        const updateLabel = new UpdateResourceClassComment();
+
+        updateLabel.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass";
+
+        updateLabel.comments = [
+            {
+                language: "de",
+                value: "Just an example of a new resource class new"
             }
         ];
 

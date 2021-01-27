@@ -3,13 +3,13 @@ import { CreateResourceProperty } from "../create/create-resource-property";
 import { UpdateDeleteEntity } from "../update-delete-entity";
 import { CreateResourceClass } from "../create/create-resource-class";
 import { Constants } from "../../Constants";
-import { UpdateResourceClassLabel } from "./update-resource-class-label";
+import { UpdateResourceClass } from "./update-resource-class";
 
 /**
  * @category Model V2
  */
 @JsonObject("UpdateOntology")
-export class UpdateOntology<T extends CreateResourceClass | CreateResourceProperty | UpdateResourceClassLabel> extends UpdateDeleteEntity {
+export class UpdateOntology<T extends CreateResourceClass | CreateResourceProperty | UpdateResourceClass> extends UpdateDeleteEntity {
 
     @JsonProperty("@type", String)
     type: string = Constants.Ontology;

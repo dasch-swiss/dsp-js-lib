@@ -301,6 +301,28 @@ describe('workspace-project App', () => {
     getButton.click();
 
     // update res class label
+    const button = page.getEle('div section#ontologyeditor button.update-res-class-comment');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.res-class-comment');
+    expect(label.getText()).toEqual('Just an example of a new resource class new');
+
+  });
+
+  it('change a resource classes\'s comment', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // update res class label
     const button = page.getEle('div section#ontologyeditor button.update-res-class-label');
     button.click();
     const label = page.getEle('div section#ontologyeditor span.res-class-label');
