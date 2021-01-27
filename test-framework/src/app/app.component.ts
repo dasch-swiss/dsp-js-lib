@@ -518,11 +518,13 @@ export class AppComponent implements OnInit {
 
     addCardinality() {
 
+        const onto = new UpdateOntology<UpdateOntologyResourceClassCardinality>();
+
+        onto.lastModificationDate = this.ontology.lastModificationDate;
+
+        onto.id = this.ontology.id;
+
         const addCard = new UpdateOntologyResourceClassCardinality();
-
-        addCard.lastModificationDate = this.ontology.lastModificationDate;
-
-        addCard.id = this.ontology.id;
 
         addCard.cardinalities = [
             {
@@ -532,7 +534,9 @@ export class AppComponent implements OnInit {
             }
         ];
 
-        this.knoraApiConnection.v2.onto.addCardinalityToResourceClass(addCard).subscribe(
+        onto.entity = addCard;
+
+        this.knoraApiConnection.v2.onto.addCardinalityToResourceClass(onto).subscribe(
             (res: ResourceClassDefinitionWithAllLanguages) => {
                 this.addCard = res;
                 console.log('added card: ', res)
@@ -543,11 +547,13 @@ export class AppComponent implements OnInit {
 
     replaceCardinality() {
 
+        const onto = new UpdateOntology<UpdateOntologyResourceClassCardinality>();
+
+        onto.lastModificationDate = this.ontology.lastModificationDate;
+
+        onto.id = this.ontology.id;
+
         const replaceCard = new UpdateOntologyResourceClassCardinality();
-
-        replaceCard.lastModificationDate = this.ontology.lastModificationDate;
-
-        replaceCard.id = this.ontology.id;
 
         replaceCard.cardinalities = [
             {
@@ -557,7 +563,9 @@ export class AppComponent implements OnInit {
             }
         ];
 
-        this.knoraApiConnection.v2.onto.replaceCardinalityOfResourceClass(replaceCard).subscribe(
+        onto.entity = replaceCard;
+
+        this.knoraApiConnection.v2.onto.replaceCardinalityOfResourceClass(onto).subscribe(
             (res: ResourceClassDefinitionWithAllLanguages) => {
                 this.replacedCard = res;
                 console.log('replace card: ', res)
