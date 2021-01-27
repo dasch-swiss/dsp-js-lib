@@ -26,9 +26,9 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert<a
             switch (true) {
                 case el[0].hasOwnProperty(Constants.DspHasQualifiedAttribution):
                     return UnionElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Attribution);
-                case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.DspGrant:
+                case el[0].hasOwnProperty("type") && el[0]["type"] === Constants.DspGrant:
                     return UnionElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Grant);
-                case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.SchemaPlace:
+                case el[0].hasOwnProperty("place"):
                     return UnionElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Place);
             }
         } else {
@@ -36,9 +36,9 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert<a
             switch (true) {
                 case el.hasOwnProperty(Constants.DspHasQualifiedAttribution):
                     return UnionElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Attribution);
-                case el.hasOwnProperty("@type") && el["@type"] === Constants.DspGrant:
+                case el.hasOwnProperty("type") && el["type"] === Constants.DspGrant:
                     return UnionElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Grant);
-                case el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaPlace:
+                case el.hasOwnProperty("place"):
                     return UnionElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Place);
             }
         }
