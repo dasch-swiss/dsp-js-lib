@@ -526,6 +526,8 @@ export class AppComponent implements OnInit {
 
         const addCard = new UpdateOntologyResourceClassCardinality();
 
+        addCard.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass";
+
         addCard.cardinalities = [
             {
                 propertyIndex: "http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName",
@@ -562,6 +564,8 @@ export class AppComponent implements OnInit {
                 resourceClass: "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass"
             }
         ];
+
+        replaceCard.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass";
 
         onto.entity = replaceCard;
 
