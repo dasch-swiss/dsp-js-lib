@@ -6,20 +6,22 @@ import { BaseUrlConverter, IUrl } from "./base-url-converter";
  * @category Internal
  */
 @JsonConverter
-export class UrlToUrlObjectConverter extends BaseUrlConverter {
+export class UnionUrlStringConverter extends BaseUrlConverter {
 
-    deserializeElement(el: any): IUrl {
-        if (el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaUrlType) {
+    deserializeElement(el: any): IUrl | string {
+        if (typeof el === "string") {
+            return el;
+        } else if (el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaUrlType) {
             const obj = {} as IUrl;
             obj.type = el["@type"];
             obj.value = el[Constants.SchemaUrlValue];
             return obj;
         } else {
-            throw new Error(`Expected object of ${Constants.SchemaUrlType} type.`);
+            throw new Error(`Expected object of ${Constants.SchemaUrlType} type or string.`);
         }
     }
 
-    deserialize(el: any): IUrl | IUrl[] {
+    deserialize(el: any): IUrl | IUrl[] | string | string[] {
         if (Array.isArray(el)) {
             const newObj = [] as any[];
             el.forEach(

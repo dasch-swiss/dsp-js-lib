@@ -4,10 +4,11 @@ import { Constants } from "../Constants";
 import { Attribution } from "../project-metadata/attribution";
 import { Grant } from "../project-metadata/grant";
 import { Place } from "../project-metadata/place";
+import { UrlToUrlObjectConverter } from "./url-to-url-object-converter";
 
 /**
  * Experimental converter to distinguish elements and arrays of these as a first step
- * Attribution and String cases are ready to use but not yet turned on inside classes 
+ * Attribution case are ready to use but not yet turned on inside classes 
  * @category Internal
  */
 @JsonConverter
@@ -30,8 +31,6 @@ export class ElementArrayOfElementsConverter implements JsonCustomConvert<any> {
                     return ElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Grant);
                 case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.SchemaPlace:
                     return ElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Place);
-                case typeof el === "string":
-                    return ElementArrayOfElementsConverter.jsonConvert.serializeArray(el, String);
             }
         } else {
             console.log("ser EL", el);
@@ -42,8 +41,6 @@ export class ElementArrayOfElementsConverter implements JsonCustomConvert<any> {
                     return ElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Grant);
                 case el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaPlace:
                     return ElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Place);
-                case typeof el === "string":
-                    return ElementArrayOfElementsConverter.jsonConvert.serializeObject(el, String);
             }
         }
     }
@@ -58,8 +55,6 @@ export class ElementArrayOfElementsConverter implements JsonCustomConvert<any> {
                     return ElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Grant);
                 case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.SchemaPlace:
                     return ElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Place);
-                case typeof el === "string":
-                    return ElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, String);
             }
         } else {
             console.log("deser EL", el);
@@ -70,8 +65,6 @@ export class ElementArrayOfElementsConverter implements JsonCustomConvert<any> {
                     return ElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Grant);
                 case el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaPlace:
                     return ElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Place);
-                case typeof el === "string":
-                    return ElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, String);
             }
         }
     }

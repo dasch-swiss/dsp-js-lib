@@ -15,7 +15,7 @@ export interface IUrl {
  * @category Internal
  */
 @JsonConverter
-export abstract class BaseUrlConverter implements JsonCustomConvert<IUrl | IUrl[]> {
+export abstract class BaseUrlConverter implements JsonCustomConvert<IUrl | IUrl[] | string | string[]> {
 
     serializeElement(el: IUrl): object {
         return {
@@ -36,7 +36,7 @@ export abstract class BaseUrlConverter implements JsonCustomConvert<IUrl | IUrl[
         }
     }
 
-    deserialize(val: any): IUrl | IUrl[] {
+    deserialize(val: any): IUrl | IUrl[] | string | string[] {
         return val;
     }
 }

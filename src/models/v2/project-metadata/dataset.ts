@@ -6,6 +6,7 @@ import { DateConverter } from "../custom-converters/date-converter";
 import { DistributionConverter } from "../custom-converters/distribution-converter";
 import { SingleProjctIdConverter } from "../custom-converters/single-project-id-converter";
 import { StringArrayOfStringsConverter } from "../custom-converters/string-array-of-strings-converter";
+import { UnionUrlStringConverter } from "../custom-converters/union-url-string-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
 import { Attribution } from "./attribution";
 import { BaseProjectMetadata } from "./base-project-metadata";
@@ -20,8 +21,7 @@ export class Dataset extends BaseProjectMetadata {
     @JsonProperty("@id", String)
     id: string = "";
 
-    // 1-n
-    @JsonProperty(Constants.DspHasAbstract, StringArrayOfStringsConverter) // URL | String
+    @JsonProperty(Constants.DspHasAbstract, UnionUrlStringConverter)
     abstract: string[] | string = [];
 
     @JsonProperty(Constants.DspHasAlternativeTitle, String, true)
@@ -42,8 +42,7 @@ export class Dataset extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasDistribution, DistributionConverter, true)
     distribution?: IUrl = undefined;
 
-    // 0-n
-    @JsonProperty(Constants.DspHasDocumentation, StringArrayOfStringsConverter, true) // URL | String
+    @JsonProperty(Constants.DspHasDocumentation, UnionUrlStringConverter, true)
     documentation?: string[] | string = undefined;
 
     @JsonProperty(Constants.DspHasHowToCite, String)
@@ -64,7 +63,6 @@ export class Dataset extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasTitle, String)
     title: string = "";
 
-    // 1-n
     // TODO: add enum >> In planning, Ongoing, On hold, Finished
     @JsonProperty(Constants.DspHasTypeOfData, StringArrayOfStringsConverter)
     typeOfData: string[] | string = [];

@@ -17,7 +17,6 @@ export class Person extends BaseProjectMetadata {
     @JsonProperty("@id", String)
     id: string = "";
     
-    // 0-n
     @JsonProperty(Constants.DspHasAddress, Address, true)
     address?: Address = undefined;
 
@@ -36,7 +35,6 @@ export class Person extends BaseProjectMetadata {
     @JsonProperty(Constants.DspIsMemberOf, OrganizationIdConverter)
     memberOf: Organization[] | Organization = new Organization();
 
-    // 0-n
     @JsonProperty(Constants.DspSameAs, UrlToUrlObjectConverter, true)
     sameAs?: IUrl = undefined;
 

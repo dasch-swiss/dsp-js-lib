@@ -22,7 +22,7 @@ export class Organization extends BaseProjectMetadata{
     email?: string = undefined;
 
     @JsonProperty(Constants.DspHasName, StringArrayOfStringsConverter)
-    name: string[] | string = "";
+    name: string[] | string = [];
 
     @JsonProperty(Constants.DspHasURL, UrlToUrlObjectConverter, true)
     url?: IUrl = undefined;

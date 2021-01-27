@@ -1,28 +1,22 @@
 import { JsonConverter, JsonCustomConvert } from "json2typescript";
 
-type ElementOrArrayOfElements<T> = T | T[];
-
 /**
  * @category Internal
  */
 @JsonConverter
-export class StringArrayOfStringsConverter implements JsonCustomConvert<ElementOrArrayOfElements<string>> {
+export class StringArrayOfStringsConverter implements JsonCustomConvert<string[] | string> {
 
-    // TODO: add String | URL type handling
-
-    serialize<T>(el: ElementOrArrayOfElements<T>): any {
-        // console.log("SER", el);
+    serialize(el: string[] | string): any {
         if (Array.isArray(el)) {
-            return el as T[];
+            return el as string[];
         } else {
             return el;
         }
     }
 
-    deserialize<T>(el: any): ElementOrArrayOfElements<T> {
-        // console.log("deSER", el);
+    deserialize(el: any): string[] | string {
         if (Array.isArray(el)) {
-            return el as T[];
+            return el as string[];
         } else {
             return el;
         }
