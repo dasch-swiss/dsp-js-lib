@@ -531,8 +531,7 @@ export class AppComponent implements OnInit {
         addCard.cardinalities = [
             {
                 propertyIndex: "http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName",
-                cardinality: Cardinality._0_1,
-                resourceClass: "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass"
+                cardinality: Cardinality._0_1
             }
         ];
 
@@ -560,8 +559,7 @@ export class AppComponent implements OnInit {
         replaceCard.cardinalities = [
             {
                 propertyIndex: "http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName",
-                cardinality: Cardinality._1,
-                resourceClass: "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass"
+                cardinality: Cardinality._1
             }
         ];
 

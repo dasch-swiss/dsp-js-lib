@@ -651,8 +651,7 @@ describe("OntologiesEndpoint", () => {
             addCard.cardinalities = [
                 {
                     propertyIndex: "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherNothing",
-                    cardinality: Cardinality._0_1,
-                    resourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing"
+                    cardinality: Cardinality._0_1
                 }
             ];
 
@@ -703,7 +702,6 @@ describe("OntologiesEndpoint", () => {
                 {
                     propertyIndex: "http://0.0.0.0:3333/ontology/0001/anything/v2#hasEmptiness",
                     cardinality: Cardinality._0_1,
-                    resourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing"
                 }
             ];
 
