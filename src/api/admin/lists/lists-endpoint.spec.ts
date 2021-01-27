@@ -405,14 +405,14 @@ describe("ListsEndpoint", () => {
 
     });
 
-
     describe("Method getListNodeInfo", () => {
 
-        it("should return information about a list node", done => {
+        it("should return information about a list child node", done => {
 
             knoraApiConnection.admin.listsEndpoint.getListNodeInfo("http://rdfh.ch/lists/0001/treeList01").subscribe(
-                (res: ApiResponseData<ListNodeInfoResponse>) => {
-                    expect(res.body.nodeinfo.labels[0].value).toEqual("Tree list node 01");
+                (res: ApiResponseData<ListNodeInfoResponse | ListInfoResponse>) => {
+                    expect(res.body instanceof ListNodeInfoResponse).toBeTruthy();
+                    expect((res.body as ListNodeInfoResponse).nodeinfo.labels[0].value).toEqual("Tree list node 01");
                     done();
                 }
             );
@@ -431,6 +431,29 @@ describe("ListsEndpoint", () => {
 
         });
 
+        it("should return information about a list root node", done => {
+
+            knoraApiConnection.admin.listsEndpoint.getListNodeInfo("http://rdfh.ch/lists/0001/treeList").subscribe(
+                (res: ApiResponseData<ListNodeInfoResponse | ListInfoResponse>) => {
+                    expect(res.body instanceof ListInfoResponse).toBeTruthy();
+                    expect((res.body as ListInfoResponse).listinfo.labels[1].value).toEqual("Tree list root");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const listsResponse = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/get-list-info-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList/info");
+
+            expect(request.method).toEqual("GET");
+
+            expect(request.requestHeaders).toEqual({ "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" });
+
+        });
     });
 
     describe("Method createList", () => {
