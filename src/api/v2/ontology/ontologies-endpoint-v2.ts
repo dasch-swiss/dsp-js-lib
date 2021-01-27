@@ -309,19 +309,19 @@ export class OntologiesEndpointV2 extends Endpoint {
      */
     replaceCardinalityOfResourceClass(replaceCardinalityOfResourceClass: UpdateOntology<UpdateOntologyResourceClassCardinality>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
 
-        if (replaceCardinalityOfResourceClass.entity.cardinalities.length === 0) {
-            throw new Error("At least one cardinality must be defined");
-        }
-
         const onto = this.jsonConvert.serializeObject(replaceCardinalityOfResourceClass);
+
+        const numberOfCards = replaceCardinalityOfResourceClass.entity.cardinalities.length;
 
         const cardinalities = this.jsonConvert.serializeObject(replaceCardinalityOfResourceClass.entity);
 
-        // TODO: remove subClassOf if no cards ae provided
+        // remove subClassOf if no cards ae provided
+        // all cards will be removed from resource class
+        if (numberOfCards === 0) {
+            delete cardinalities[Constants.SubClassOf];
+        }
 
         onto["@graph"] = [cardinalities];
-
-        // console.log(JSON.stringify(onto));
 
         return this.httpPut("/cardinalities", onto).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {

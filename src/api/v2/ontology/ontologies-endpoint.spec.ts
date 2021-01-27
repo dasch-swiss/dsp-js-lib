@@ -704,12 +704,7 @@ describe("OntologiesEndpoint", () => {
                     propertyIndex: "http://0.0.0.0:3333/ontology/0001/anything/v2#hasEmptiness",
                     cardinality: Cardinality._0_1,
                     resourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing"
-                }/*,
-                {
-                    propertyIndex: "http://0.0.0.0:3333/ontology/0001/anything/v2#hasEmptiness2",
-                    cardinality: Cardinality._0_1,
-                    resourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing"
-                }*/
+                }
             ];
 
             onto.entity = addCard;
