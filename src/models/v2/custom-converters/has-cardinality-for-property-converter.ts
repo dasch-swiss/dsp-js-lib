@@ -14,7 +14,21 @@ export class HasCardinalityForPropertyConverter implements JsonCustomConvert<IHa
             throw new Error("At least one cardinality must be defined");
         }
 
-        return cardinalities.map(
+        const resClass = cardinalities[0].resourceClass;
+        if (resClass === undefined) {
+            throw Error("Resource class must be defined when updating a cardinality ");
+        }
+
+        // all cardinalities must apply to the same resource class
+        if (cardinalities.length > 1) {
+            cardinalities.forEach(card => {
+                if (card.resourceClass !== resClass) {
+                    throw Error("All cardinalities must apply to the same resource class " + resClass);
+                }
+            });
+        }
+
+        const subClassOf =  cardinalities.map(
             card => {
                 const cardEle: { [index: string]: number | string | object } = {};
 
@@ -39,16 +53,18 @@ export class HasCardinalityForPropertyConverter implements JsonCustomConvert<IHa
                     cardEle[Constants.GuiOrder] = card.guiOrder;
                 }
 
-                const cardObj: { [index: string]: string | object } = {
-                    "@id": card.resourceClass as string,
-                    "@type": Constants.Class
-                };
-
-                cardObj[Constants.SubClassOf] = cardEle;
-
-                return cardObj;
+                return cardEle;
             }
         );
+
+        const cardObj: { [index: string]: string | object } = {
+            "@id": resClass!,
+            "@type": Constants.Class
+        };
+
+        cardObj[Constants.SubClassOf] = (subClassOf.length > 1 ? subClassOf : subClassOf[0]);
+
+        return [cardObj];
 
     }
 

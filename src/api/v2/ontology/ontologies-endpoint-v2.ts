@@ -303,6 +303,12 @@ export class OntologiesEndpointV2 extends Endpoint {
      */
     replaceCardinalityOfResourceClass(replaceCardinalityOfResourceClass: UpdateOntologyResourceClassCardinality): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
 
+        if (replaceCardinalityOfResourceClass.cardinalities.length === 0) {
+            throw new Error("At least one cardinality must be defined");
+        }
+
+        const cards = this.jsonConvert.serializeObject(replaceCardinalityOfResourceClass)
+
         return this.httpPut("/cardinalities", this.jsonConvert.serializeObject(replaceCardinalityOfResourceClass)).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // TODO: @rosenth Adapt context object
