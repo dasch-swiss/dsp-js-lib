@@ -3,6 +3,7 @@ import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { ApiResponseError } from "../../../models/api-response-error";
+import { UnionPersonOrganizationIdConverter } from "../../../models/v2/custom-converters/union-person-organization-id-converter";
 import { MetadataConversionUtil } from "../../../models/v2/project-metadata/metadata-conversion-util";
 import { ProjectsMetadata } from "../../../models/v2/project-metadata/project-metadata";
 import { UpdateProjectMetadataResponse } from "../../../models/v2/project-metadata/update-project-metadata";
@@ -34,8 +35,10 @@ export class ProjectMetadataEndpointV2 extends Endpoint {
             map((obj: ProjectsMetadata) => {
                 // create an instance of ProjectMetadata from JSON-LD
                 const convertedObj = MetadataConversionUtil.convertProjectsList(obj, this.jsonConvert);
-                // no mapping option
-                return MetadataConversionUtil.mapReferences(convertedObj);
+                // TODO: temp sollution with no-mapping option
+                return MetadataConversionUtil.convertProjectsList(obj, this.jsonConvert);
+                // map outer objects to its references inside the Dateset object
+                // return MetadataConversionUtil.mapReferences(convertedObj);
             }),
             catchError(e => {
                 return this.handleError(e);

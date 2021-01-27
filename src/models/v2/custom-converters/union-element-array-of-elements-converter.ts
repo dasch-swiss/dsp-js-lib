@@ -22,7 +22,6 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert<a
     
     serialize(el: any): any {
         if (Array.isArray(el)) {
-            console.log("ser ARR", el);
             switch (true) {
                 case el[0].hasOwnProperty(Constants.DspHasQualifiedAttribution):
                     return UnionElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Attribution);
@@ -32,7 +31,6 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert<a
                     return UnionElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Place);
             }
         } else {
-            console.log("ser EL", el);
             switch (true) {
                 case el.hasOwnProperty(Constants.DspHasQualifiedAttribution):
                     return UnionElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Attribution);
@@ -46,7 +44,6 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert<a
 
     deserialize(el: any ): any {
         if (Array.isArray(el)) {
-            console.log("deser ARR", el);
             switch (true) {
                 case el[0].hasOwnProperty(Constants.DspHasQualifiedAttribution):
                     return UnionElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Attribution);
@@ -56,7 +53,6 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert<a
                     return UnionElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Place);
             }
         } else {
-            console.log("deser EL", el);
             switch (true) {
                 case el.hasOwnProperty(Constants.DspHasQualifiedAttribution):
                     return UnionElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Attribution);
