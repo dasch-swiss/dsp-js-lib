@@ -1,5 +1,5 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-import { MetadataConverter } from "../custom-converters/metadata-converter";
+import { UnionMetadataConverter } from "../custom-converters/union-metadata-converter";
 import { Dataset } from "./dataset";
 import { Person } from "./person";
 
@@ -9,6 +9,6 @@ import { Person } from "./person";
 @JsonObject("ProjectsMetadata")
 export class ProjectsMetadata {
 
-    @JsonProperty("@graph", MetadataConverter)
+    @JsonProperty("@graph", UnionMetadataConverter)
     projectsMetadata: Array<Dataset | Person> = [];
 }

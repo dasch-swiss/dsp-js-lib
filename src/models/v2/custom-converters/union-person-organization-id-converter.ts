@@ -8,7 +8,7 @@ import { Person } from "../project-metadata/person";
  * @category Internal
  */
 @JsonConverter
-export class PersonOrganizationConverter implements JsonCustomConvert<Person | Organization | object> {
+export class UnionPersonOrganizationIdConverter implements JsonCustomConvert<Person | Organization | object> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -19,9 +19,9 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
 
     serializeElement(el: Person | Organization | object): any {
         if (el.hasOwnProperty("jobTitle")) {
-            return PersonOrganizationConverter.jsonConvert.serializeObject(el, Person);
+            return UnionPersonOrganizationIdConverter.jsonConvert.serializeObject(el, Person);
         } else if (el.hasOwnProperty("name")) {
-            return PersonOrganizationConverter.jsonConvert.serializeObject(el, Organization);
+            return UnionPersonOrganizationIdConverter.jsonConvert.serializeObject(el, Organization);
         } else if (el.hasOwnProperty("id") && (!el.hasOwnProperty("jobTitle") && !el.hasOwnProperty("name"))) {
             return {
                 "@id": (el as { [index: string]: string })["id"]
@@ -33,9 +33,9 @@ export class PersonOrganizationConverter implements JsonCustomConvert<Person | O
 
     deserializeElement(el: any): Person | Organization | object {
         if (el.hasOwnProperty(Constants.DspHasJobTitle)) {
-            return PersonOrganizationConverter.jsonConvert.deserializeObject(el, Person);
+            return UnionPersonOrganizationIdConverter.jsonConvert.deserializeObject(el, Person);
         } else if (el.hasOwnProperty(Constants.DspHasName)) {
-            return PersonOrganizationConverter.jsonConvert.deserializeObject(el, Organization);
+            return UnionPersonOrganizationIdConverter.jsonConvert.deserializeObject(el, Organization);
         } else if (el.hasOwnProperty("@id") && (!el.hasOwnProperty(Constants.DspHasJobTitle) || !el.hasOwnProperty(Constants.DspHasName))) {
             return {
                 id: (el as { [index: string]: string })["@id"]

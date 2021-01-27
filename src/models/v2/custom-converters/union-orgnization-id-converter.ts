@@ -7,7 +7,7 @@ import { Organization } from "../project-metadata/organization";
  * @category Internal
  */
 @JsonConverter
-export class OrganizationIdConverter implements JsonCustomConvert<Organization | object> {
+export class UnionOrganizationIdConverter implements JsonCustomConvert<Organization | object> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -18,7 +18,7 @@ export class OrganizationIdConverter implements JsonCustomConvert<Organization |
 
     serializeElement(el: Organization | object): any {
         if (el.hasOwnProperty("name")) {
-            return OrganizationIdConverter.jsonConvert.serializeObject(el, Organization);
+            return UnionOrganizationIdConverter.jsonConvert.serializeObject(el, Organization);
         } else if (el.hasOwnProperty("id") && !el.hasOwnProperty("name")) {
             return {
                 "@id": (el as { [index: string]: string })["id"]
@@ -30,7 +30,7 @@ export class OrganizationIdConverter implements JsonCustomConvert<Organization |
 
     deserializeElement(el: any): Organization | object {
         if (el.hasOwnProperty(Constants.DspHasName)) {
-            return OrganizationIdConverter.jsonConvert.deserializeObject(el, Organization);
+            return UnionOrganizationIdConverter.jsonConvert.deserializeObject(el, Organization);
         } else if (el.hasOwnProperty("@id") && !el.hasOwnProperty(Constants.DspHasName)) {
             return {
                 id: (el as { [index: string]: string })["@id"]

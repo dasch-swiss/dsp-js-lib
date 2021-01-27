@@ -6,7 +6,7 @@ import { Attribution } from "../project-metadata/attribution";
  * @category Internal
  */
 @JsonConverter
-export class AttributionConverter implements JsonCustomConvert<Attribution[] | Attribution> {
+export class UnionAttributionConverter implements JsonCustomConvert<Attribution[] | Attribution> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -17,18 +17,18 @@ export class AttributionConverter implements JsonCustomConvert<Attribution[] | A
     
     serialize(item: Attribution[] | Attribution): any {
         if (Array.isArray(item)) {
-            return AttributionConverter.jsonConvert.serializeArray(item, Attribution);
+            return UnionAttributionConverter.jsonConvert.serializeArray(item, Attribution);
         } else {
-            return AttributionConverter.jsonConvert.serializeObject(item, Attribution);
+            return UnionAttributionConverter.jsonConvert.serializeObject(item, Attribution);
         }
     }
 
     deserialize(item: any ): Attribution[] | Attribution {
         
         if (Array.isArray(item)) {
-            return AttributionConverter.jsonConvert.deserializeArray(item, Attribution);
+            return UnionAttributionConverter.jsonConvert.deserializeArray(item, Attribution);
         } else {
-            return [AttributionConverter.jsonConvert.deserializeObject(item, Attribution)];
+            return [UnionAttributionConverter.jsonConvert.deserializeObject(item, Attribution)];
         }
     }
 }

@@ -6,7 +6,7 @@ import { IUrl } from "./base-url-converter";
  * @category Internal
  */
 @JsonConverter
-export class AdvancedUrlObjectConverter implements JsonCustomConvert<IUrl | string | [IUrl | string]> {
+export class UnionAdvancedUrlObjectConverter implements JsonCustomConvert<IUrl | string | [IUrl | string]> {
 
     serializeElement(el: IUrl | string): any {
         if (typeof el === "string") {

@@ -4,7 +4,6 @@ import { Constants } from "../Constants";
 import { Attribution } from "../project-metadata/attribution";
 import { Grant } from "../project-metadata/grant";
 import { Place } from "../project-metadata/place";
-import { UrlToUrlObjectConverter } from "./url-to-url-object-converter";
 
 /**
  * Experimental converter to distinguish elements and arrays of these as a first step
@@ -12,7 +11,7 @@ import { UrlToUrlObjectConverter } from "./url-to-url-object-converter";
  * @category Internal
  */
 @JsonConverter
-export class ElementArrayOfElementsConverter implements JsonCustomConvert<any> {
+export class UnionElementArrayOfElementsConverter implements JsonCustomConvert<any> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -26,21 +25,21 @@ export class ElementArrayOfElementsConverter implements JsonCustomConvert<any> {
             console.log("ser ARR", el);
             switch (true) {
                 case el[0].hasOwnProperty(Constants.DspHasQualifiedAttribution):
-                    return ElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Attribution);
+                    return UnionElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Attribution);
                 case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.DspGrant:
-                    return ElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Grant);
+                    return UnionElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Grant);
                 case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.SchemaPlace:
-                    return ElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Place);
+                    return UnionElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Place);
             }
         } else {
             console.log("ser EL", el);
             switch (true) {
                 case el.hasOwnProperty(Constants.DspHasQualifiedAttribution):
-                    return ElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Attribution);
+                    return UnionElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Attribution);
                 case el.hasOwnProperty("@type") && el["@type"] === Constants.DspGrant:
-                    return ElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Grant);
+                    return UnionElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Grant);
                 case el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaPlace:
-                    return ElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Place);
+                    return UnionElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Place);
             }
         }
     }
@@ -50,21 +49,21 @@ export class ElementArrayOfElementsConverter implements JsonCustomConvert<any> {
             console.log("deser ARR", el);
             switch (true) {
                 case el[0].hasOwnProperty(Constants.DspHasQualifiedAttribution):
-                    return ElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Attribution);
+                    return UnionElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Attribution);
                 case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.DspGrant:
-                    return ElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Grant);
+                    return UnionElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Grant);
                 case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.SchemaPlace:
-                    return ElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Place);
+                    return UnionElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Place);
             }
         } else {
             console.log("deser EL", el);
             switch (true) {
                 case el.hasOwnProperty(Constants.DspHasQualifiedAttribution):
-                    return ElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Attribution);
+                    return UnionElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Attribution);
                 case el.hasOwnProperty("@type") && el["@type"] === Constants.DspGrant:
-                    return ElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Grant);
+                    return UnionElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Grant);
                 case el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaPlace:
-                    return ElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Place);
+                    return UnionElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Place);
             }
         }
     }

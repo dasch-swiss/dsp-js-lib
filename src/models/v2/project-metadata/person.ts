@@ -1,8 +1,8 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
 import { IUrl } from "../custom-converters/base-url-converter";
-import { OrganizationIdConverter } from "../custom-converters/orgnization-id-converter";
-import { StringArrayOfStringsConverter } from "../custom-converters/string-array-of-strings-converter";
+import { UnionOrganizationIdConverter } from "../custom-converters/union-orgnization-id-converter";
+import { UnionStringArrayOfStringsConverter } from "../custom-converters/union-string-array-of-strings-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
 import { Address } from "./address";
 import { BaseProjectMetadata } from "./base-project-metadata";
@@ -20,7 +20,7 @@ export class Person extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasAddress, Address, true)
     address?: Address = undefined;
 
-    @JsonProperty(Constants.DspHasEmail, StringArrayOfStringsConverter, true)
+    @JsonProperty(Constants.DspHasEmail, UnionStringArrayOfStringsConverter, true)
     email?: string[] | string = undefined;
 
     @JsonProperty(Constants.DspHasFamilyName, String, true)
@@ -29,10 +29,10 @@ export class Person extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasGivenName, String)
     givenName: string = "";
 
-    @JsonProperty(Constants.DspHasJobTitle, StringArrayOfStringsConverter)
+    @JsonProperty(Constants.DspHasJobTitle, UnionStringArrayOfStringsConverter)
     jobTitle: string[] | string = [];
 
-    @JsonProperty(Constants.DspIsMemberOf, OrganizationIdConverter)
+    @JsonProperty(Constants.DspIsMemberOf, UnionOrganizationIdConverter)
     memberOf: Organization[] | Organization = new Organization();
 
     @JsonProperty(Constants.DspSameAs, UrlToUrlObjectConverter, true)

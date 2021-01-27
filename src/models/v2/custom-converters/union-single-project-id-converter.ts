@@ -8,7 +8,7 @@ import { SingleProject } from "../project-metadata/single-project";
  * @category Internal
  */
 @JsonConverter
-export class SingleProjctIdConverter implements JsonCustomConvert<SingleProject | object> {
+export class UnionSingleProjctIdConverter implements JsonCustomConvert<SingleProject | object> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -19,7 +19,7 @@ export class SingleProjctIdConverter implements JsonCustomConvert<SingleProject 
 
     serialize(el: SingleProject | any): any {
         if (el.hasOwnProperty("type") && el["type"] === Constants.DspProject) {
-            return SingleProjctIdConverter.jsonConvert.serializeObject(el, SingleProject);
+            return UnionSingleProjctIdConverter.jsonConvert.serializeObject(el, SingleProject);
         } else if (!el.hasOwnProperty("type") && el.hasOwnProperty("id")) {
             return {
                 "@id": (el as { [index: string]: string })["id"]
@@ -31,7 +31,7 @@ export class SingleProjctIdConverter implements JsonCustomConvert<SingleProject 
 
     deserialize(el: any): SingleProject | object {
         if (el.hasOwnProperty("@type") && el["@type"] === Constants.DspProject) {
-            return SingleProjctIdConverter.jsonConvert.deserializeObject(el, SingleProject);
+            return UnionSingleProjctIdConverter.jsonConvert.deserializeObject(el, SingleProject);
         } else if (!el.hasOwnProperty("@type") && el.hasOwnProperty("@id")) {
             return {
                 id: (el as { [index: string]: string })["@id"]

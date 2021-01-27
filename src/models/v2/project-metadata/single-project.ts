@@ -1,11 +1,11 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
-import { AdvancedUrlObjectConverter } from "../custom-converters/advanced-url-object-converter";
+import { UnionAdvancedUrlObjectConverter } from "../custom-converters/union-advanced-url-object-converter";
 import { IUrl } from "../custom-converters/base-url-converter";
 import { DateConverter } from "../custom-converters/date-converter";
-import { ElementArrayOfElementsConverter } from "../custom-converters/element-array-of-elements-converter";
-import { PersonOrganizationConverter } from "../custom-converters/person-organization-converter";
-import { StringArrayOfStringsConverter } from "../custom-converters/string-array-of-strings-converter";
+import { UnionElementArrayOfElementsConverter } from "../custom-converters/union-element-array-of-elements-converter";
+import { UnionPersonOrganizationIdConverter } from "../custom-converters/union-person-organization-id-converter";
+import { UnionStringArrayOfStringsConverter } from "../custom-converters/union-string-array-of-strings-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
 import { BaseProjectMetadata } from "./base-project-metadata";
 import { DataManagementPlan } from "./data-management-plan";
@@ -23,10 +23,10 @@ export class SingleProject extends BaseProjectMetadata {
     @JsonProperty("@id", String)
     id: string = "";
     
-    @JsonProperty(Constants.DspHasAlternateName, StringArrayOfStringsConverter, true)
+    @JsonProperty(Constants.DspHasAlternateName, UnionStringArrayOfStringsConverter, true)
     alternateName?: string[] | string = undefined;
 
-    @JsonProperty(Constants.DspHasContactPoint, PersonOrganizationConverter, true)
+    @JsonProperty(Constants.DspHasContactPoint, UnionPersonOrganizationIdConverter, true)
     contactPoint?: Person | Organization = undefined;
 
     @JsonProperty(Constants.DspHasDataManagementPlan, DataManagementPlan, true)
@@ -35,37 +35,37 @@ export class SingleProject extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasDescription, String)
     description: string = "";
 
-    @JsonProperty(Constants.DspHasDiscipline, AdvancedUrlObjectConverter) // String | URL
+    @JsonProperty(Constants.DspHasDiscipline, UnionAdvancedUrlObjectConverter) // String | URL
     discipline: IUrl = {} as IUrl;
     
     @JsonProperty(Constants.DspHasEndDate, DateConverter, true)
     endDate?: string = undefined;
 
-    @JsonProperty(Constants.DspHasFunder, PersonOrganizationConverter)
+    @JsonProperty(Constants.DspHasFunder, UnionPersonOrganizationIdConverter)
     funder: [Person | Organization | object] | Person | Organization | object = new Person();
 
-    @JsonProperty(Constants.DspHasGrant, ElementArrayOfElementsConverter, true)
+    @JsonProperty(Constants.DspHasGrant, UnionElementArrayOfElementsConverter, true)
     grant?: Grant[] | Grant = undefined;
 
-    @JsonProperty(Constants.DspHasKeywords, StringArrayOfStringsConverter)
+    @JsonProperty(Constants.DspHasKeywords, UnionStringArrayOfStringsConverter)
     keywords: string[] | string = [];
 
     @JsonProperty(Constants.DspHasName, String)
     name: string = "";
 
-    @JsonProperty(Constants.DspHasPublication, StringArrayOfStringsConverter, true)
+    @JsonProperty(Constants.DspHasPublication, UnionStringArrayOfStringsConverter, true)
     publication?: string[] | string = undefined;
 
     @JsonProperty(Constants.DspHasShortcode, String)
     shortcode: string = "";
 
-    @JsonProperty(Constants.DspHasSpatialCoverage, ElementArrayOfElementsConverter)
+    @JsonProperty(Constants.DspHasSpatialCoverage, UnionElementArrayOfElementsConverter)
     spatialCoverage: Place[] | Place = [];
 
     @JsonProperty(Constants.DspHasStartDate, DateConverter)
     startDate: string = "";
 
-    @JsonProperty(Constants.DspHasTemporalCoverage, AdvancedUrlObjectConverter) // String | URL
+    @JsonProperty(Constants.DspHasTemporalCoverage, UnionAdvancedUrlObjectConverter) // String | URL
     temporalCoverage: IUrl = {} as IUrl;
 
     @JsonProperty(Constants.DspHasURL, UrlToUrlObjectConverter)

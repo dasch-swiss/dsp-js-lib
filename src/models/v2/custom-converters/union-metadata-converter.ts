@@ -8,7 +8,7 @@ import { Person } from "../project-metadata/person";
  * @category Internal
  */
 @JsonConverter
-export class MetadataConverter implements JsonCustomConvert<[Dataset | Person]> {
+export class UnionMetadataConverter implements JsonCustomConvert<[Dataset | Person]> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -19,9 +19,9 @@ export class MetadataConverter implements JsonCustomConvert<[Dataset | Person]> 
 
     serializeElement(el: Dataset | Person): any {
         if (el.hasOwnProperty("type") && el["type"] === Constants.DspDataset) {
-            return MetadataConverter.jsonConvert.serializeObject(el, Dataset);
+            return UnionMetadataConverter.jsonConvert.serializeObject(el, Dataset);
         } else if (el.hasOwnProperty("type") && el["type"] === Constants.DspPerson) {
-            return MetadataConverter.jsonConvert.serializeObject(el, Person);
+            return UnionMetadataConverter.jsonConvert.serializeObject(el, Person);
         } else {
             throw new Error("Expected Dataset or Person object type.");
         }
@@ -29,9 +29,9 @@ export class MetadataConverter implements JsonCustomConvert<[Dataset | Person]> 
 
     deserializeElement(el: any): Dataset | Person {
         if (el.hasOwnProperty("@type") && el["@type"] === Constants.DspDataset) {
-            return MetadataConverter.jsonConvert.deserializeObject(el, Dataset);
+            return UnionMetadataConverter.jsonConvert.deserializeObject(el, Dataset);
         } else if (el.hasOwnProperty("@type") && el["@type"] === Constants.DspPerson) {
-            return MetadataConverter.jsonConvert.deserializeObject(el, Person);
+            return UnionMetadataConverter.jsonConvert.deserializeObject(el, Person);
         } else {
             throw new Error(`Expected ${Constants.DspDataset} or ${Constants.DspPerson} object type.`);
         }
