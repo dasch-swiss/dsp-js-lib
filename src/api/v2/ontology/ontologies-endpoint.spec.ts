@@ -679,4 +679,49 @@ describe("OntologiesEndpoint", () => {
 
     });
 
+    describe("Method replaceCardinalityOfResourceClass", () => {
+
+        it("should replace the cardinalities with a max cardinality 1 to a resource class", done => {
+
+            const addCard = new UpdateOntologyResourceClassCardinality();
+
+            addCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
+
+            addCard.lastModificationDate = "2020-10-21T23:50:45.789081Z";
+
+            addCard.cardinalities = [
+                {
+                    propertyIndex: "http://0.0.0.0:3333/ontology/0001/anything/v2#hasEmptiness",
+                    cardinality: Cardinality._0_1,
+                    resourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing"
+                }
+            ];
+
+            knoraApiConnection.v2.onto.replaceCardinalityOfResourceClass(addCard).subscribe(
+                (res: ResourceClassDefinitionWithAllLanguages) => {
+                    expect(res.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const expectedPayload = require("../../../../test/data/api/v2/ontologies/replace-class-cardinalities-request-expanded.json");
+
+            // TODO: remove this bad hack once test data is stable
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#lastModificationDate"]["@value"] = "2020-10-21T23:50:45.789081Z";
+
+            expect(request.data()).toEqual(expectedPayload);
+
+            const createCardResponse = require("../../../../test/data/api/v2/ontologies/add-cardinalities-to-class-nothing-response.json");
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createCardResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/cardinalities");
+
+            expect(request.method).toEqual("PUT");
+
+        });
+
+    });
+
 });

@@ -273,11 +273,37 @@ export class OntologiesEndpointV2 extends Endpoint {
     /**
      * Adds cardinalities for properties to a resource class.
      *
-     * @param addCardinalityToResourceClass the cardinailities to be added.
+     * @param addCardinalityToResourceClass the cardinalities to be added.
      */
     addCardinalityToResourceClass(addCardinalityToResourceClass: UpdateOntologyResourceClassCardinality): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
 
+        if (addCardinalityToResourceClass.cardinalities.length === 0) {
+            throw new Error("At least one cardinality must be defined");
+        }
+
         return this.httpPost("/cardinalities", this.jsonConvert.serializeObject(addCardinalityToResourceClass)).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
+    }
+
+    /**
+     * Adds cardinalities for properties to a resource class.
+     *
+     * @param replaceCardinalityOfResourceClass the cardinalities to be added.
+     */
+    replaceCardinalityOfResourceClass(replaceCardinalityOfResourceClass: UpdateOntologyResourceClassCardinality): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+
+        return this.httpPut("/cardinalities", this.jsonConvert.serializeObject(replaceCardinalityOfResourceClass)).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri

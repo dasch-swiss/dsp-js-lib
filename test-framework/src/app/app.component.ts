@@ -94,6 +94,7 @@ export class AppComponent implements OnInit {
     resClass: ResourceClassDefinitionWithAllLanguages;
     property: ResourcePropertyDefinitionWithAllLanguages;
     addCard: ResourceClassDefinitionWithAllLanguages;
+    replacedCard: ResourceClassDefinitionWithAllLanguages;
     permissionStatus: string;
 
     // reusable response message
@@ -538,6 +539,30 @@ export class AppComponent implements OnInit {
             }
         );
 
+    }
+
+    replaceCardinality() {
+
+        const replaceCard = new UpdateOntologyResourceClassCardinality();
+
+        replaceCard.lastModificationDate = this.ontology.lastModificationDate;
+
+        replaceCard.id = this.ontology.id;
+
+        replaceCard.cardinalities = [
+            {
+                propertyIndex: "http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName",
+                cardinality: Cardinality._1,
+                resourceClass: "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass"
+            }
+        ];
+
+        this.knoraApiConnection.v2.onto.replaceCardinalityOfResourceClass(replaceCard).subscribe(
+            (res: ResourceClassDefinitionWithAllLanguages) => {
+                this.replacedCard = res;
+                console.log('replace card: ', res)
+            }
+        );
 
     }
 
