@@ -1,3 +1,4 @@
+import { JsonConvert } from "json2typescript";
 import { Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { ChildNodeInfoResponse } from "../../../models/admin/child-node-info-response";
@@ -161,10 +162,16 @@ export class ListsEndpointAdmin extends Endpoint {
      * 
      * @param listItemIri The IRI of the node.
      */
-    getListNodeInfo(listItemIri: string): Observable<ApiResponseData<ListNodeInfoResponse> | ApiResponseError> {
+    getListNodeInfo(listItemIri: string): Observable<ApiResponseData<ListNodeInfoResponse | ListInfoResponse> | ApiResponseError> {
     
         return this.httpGet("/" + encodeURIComponent(listItemIri) + "/info", { "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" }).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListNodeInfoResponse, this.jsonConvert)),
+            map(ajaxResponse => {
+                if (ajaxResponse.response.hasOwnProperty("listinfo")) { // root node
+                    return ApiResponseData.fromAjaxResponse(ajaxResponse, ListInfoResponse, this.jsonConvert);
+                } else { // child node
+                    return ApiResponseData.fromAjaxResponse(ajaxResponse, ListNodeInfoResponse, this.jsonConvert);
+                }
+            }),
             catchError(error => this.handleError(error))
         );
     
