@@ -7,14 +7,14 @@ import { UpdateEntityCommentOrLabel } from "./update-entity-comment-or-label";
 /**
  * @category Model V2
  */
-@JsonObject("UpdateResourceClassComment")
-export class UpdateResourceClassComment extends UpdateEntityCommentOrLabel {
+@JsonObject("UpdateResourcePropertyComment")
+export class UpdateResourcePropertyComment extends UpdateEntityCommentOrLabel {
 
     @JsonProperty(Constants.Comment, StringLiteralToStringLiteralArrayConverter)
     comments: StringLiteralV2[] = [];
 
     constructor() {
-        super(Constants.Class);
+        super(Constants.ObjectProperty);
     }
 
 }

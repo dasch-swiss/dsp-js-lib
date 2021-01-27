@@ -23,7 +23,11 @@ import { ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/onto
 import { ResourcePropertyDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-property-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
 import { UpdateOntologyResourceClassCardinality } from "../../../models/v2/ontologies/update/update-ontology-resource-class-cardinality";
-import { UpdateResourceClass } from "../../../models/v2/ontologies/update/update-resource-class";
+import { UpdateEntityCommentOrLabel } from "../../../models/v2/ontologies/update/update-entity-comment-or-label";
+import { UpdateResourceClassComment } from "../../../models/v2/ontologies/update/update-resource-class-comment";
+import { UpdateResourceClassLabel } from "../../../models/v2/ontologies/update/update-resource-class-label";
+import { UpdateResourcePropertyComment } from "../../../models/v2/ontologies/update/update-resource-property-comment";
+import { UpdateResourcePropertyLabel } from "../../../models/v2/ontologies/update/update-resource-property-label";
 import { Endpoint } from "../../endpoint";
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
@@ -188,7 +192,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param updateResourceClass the new label or comment.
      */
-    updateResourceClass(updateResourceClass: UpdateOntology<UpdateResourceClass>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+    updateResourceClass(updateResourceClass: UpdateOntology<UpdateResourceClassLabel | UpdateResourceClassComment>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
 
         const ontoPayload = this.jsonConvert.serializeObject(updateResourceClass);
 
@@ -210,9 +214,35 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
+     * Updates a property's label or comment.
+     *
+     * @param updateProperty the new label or comment.
+     */
+    updateResourceProperty(updateProperty: UpdateOntology<UpdateResourcePropertyLabel | UpdateResourcePropertyComment>): Observable<ResourcePropertyDefinitionWithAllLanguages | ApiResponseError> {
+
+        const ontoPayload = this.jsonConvert.serializeObject(updateProperty);
+
+        ontoPayload["@graph"] = [this.jsonConvert.serializeObject(updateProperty.entity)];
+
+        return this.httpPut("/properties", ontoPayload).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return OntologyConversionUtil.convertResourcePropertyResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
+    }
+
+    /**
      * Deletes a resource class.
      *
-     * @param  deleteResourceClass with class IRI.
+     * @param deleteResourceClass with class IRI.
      */
     deleteResourceClass(deleteResourceClass: DeleteResourceClass): Observable<OntologyMetadata | ApiResponseError> {
 

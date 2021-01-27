@@ -57,6 +57,14 @@
       "destination": "./test/data/api/v2/ontologies/change-class-comment-request.json"
     },
     {
+      "source": "/v2/ontologies/change-property-label-request.json",
+      "destination": "./test/data/api/v2/ontologies/change-property-label-request.json"
+    },
+    {
+      "source": "/v2/ontologies/change-property-comment-request.json",
+      "destination": "./test/data/api/v2/ontologies/change-property-comment-request.json"
+    },
+    {
       "source": "/v2/ontologies/create-value-property-request.json",
       "destination": "./test/data/api/v2/ontologies/create-value-property-request.json"
     },
