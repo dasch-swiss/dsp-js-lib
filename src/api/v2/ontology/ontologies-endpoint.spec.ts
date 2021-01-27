@@ -638,11 +638,15 @@ describe("OntologiesEndpoint", () => {
 
         it("should add a max cardinality 1 to a resource class", done => {
 
+            const onto = new UpdateOntology<UpdateOntologyResourceClassCardinality>();
+
+            onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
+
+            onto.lastModificationDate = "2020-10-21T23:50:45.789081Z";
+
             const addCard = new UpdateOntologyResourceClassCardinality();
 
-            addCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
-
-            addCard.lastModificationDate = "2020-10-21T23:50:45.789081Z";
+            addCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
 
             addCard.cardinalities = [
                 {
@@ -652,7 +656,9 @@ describe("OntologiesEndpoint", () => {
                 }
             ];
 
-            knoraApiConnection.v2.onto.addCardinalityToResourceClass(addCard).subscribe(
+            onto.entity = addCard;
+
+            knoraApiConnection.v2.onto.addCardinalityToResourceClass(onto).subscribe(
                 (res: ResourceClassDefinitionWithAllLanguages) => {
                     expect(res.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing");
                     done();
@@ -683,11 +689,15 @@ describe("OntologiesEndpoint", () => {
 
         it("should replace the cardinalities with a max cardinality 1 to a resource class", done => {
 
+            const onto = new UpdateOntology<UpdateOntologyResourceClassCardinality>();
+
+            onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
+
+            onto.lastModificationDate = "2020-10-21T23:50:45.789081Z";
+
             const addCard = new UpdateOntologyResourceClassCardinality();
 
-            addCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
-
-            addCard.lastModificationDate = "2020-10-21T23:50:45.789081Z";
+            addCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
 
             addCard.cardinalities = [
                 {
@@ -702,7 +712,9 @@ describe("OntologiesEndpoint", () => {
                 }*/
             ];
 
-            knoraApiConnection.v2.onto.replaceCardinalityOfResourceClass(addCard).subscribe(
+            onto.entity = addCard;
+
+            knoraApiConnection.v2.onto.replaceCardinalityOfResourceClass(onto).subscribe(
                 (res: ResourceClassDefinitionWithAllLanguages) => {
                     expect(res.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing");
                     done();

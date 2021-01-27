@@ -10,24 +10,6 @@ import { Cardinality, IHasProperty } from "../ontologies/class-definition";
 export class HasCardinalityForPropertyConverter implements JsonCustomConvert<IHasProperty[]> {
     serialize(cardinalities: IHasProperty[]): any {
 
-        if (cardinalities.length === 0) {
-            throw new Error("At least one cardinality must be defined");
-        }
-
-        const resClass = cardinalities[0].resourceClass;
-        if (resClass === undefined) {
-            throw Error("Resource class must be defined when updating a cardinality ");
-        }
-
-        // all cardinalities must apply to the same resource class
-        if (cardinalities.length > 1) {
-            cardinalities.forEach(card => {
-                if (card.resourceClass !== resClass) {
-                    throw Error("All cardinalities must apply to the same resource class " + resClass);
-                }
-            });
-        }
-
         const subClassOf =  cardinalities.map(
             card => {
                 const cardEle: { [index: string]: number | string | object } = {};
@@ -57,14 +39,7 @@ export class HasCardinalityForPropertyConverter implements JsonCustomConvert<IHa
             }
         );
 
-        const cardObj: { [index: string]: string | object } = {
-            "@id": resClass!,
-            "@type": Constants.Class
-        };
-
-        cardObj[Constants.SubClassOf] = (subClassOf.length > 1 ? subClassOf : subClassOf[0]);
-
-        return [cardObj];
+        return (subClassOf.length > 1 ? subClassOf : subClassOf[0]);
 
     }
 

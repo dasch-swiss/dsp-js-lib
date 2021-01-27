@@ -275,13 +275,19 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param addCardinalityToResourceClass the cardinalities to be added.
      */
-    addCardinalityToResourceClass(addCardinalityToResourceClass: UpdateOntologyResourceClassCardinality): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+    addCardinalityToResourceClass(addCardinalityToResourceClass: UpdateOntology<UpdateOntologyResourceClassCardinality>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
 
-        if (addCardinalityToResourceClass.cardinalities.length === 0) {
+        if (addCardinalityToResourceClass.entity.cardinalities.length === 0) {
             throw new Error("At least one cardinality must be defined");
         }
 
-        return this.httpPost("/cardinalities", this.jsonConvert.serializeObject(addCardinalityToResourceClass)).pipe(
+        const onto = this.jsonConvert.serializeObject(addCardinalityToResourceClass);
+
+        const cardinalities = this.jsonConvert.serializeObject(addCardinalityToResourceClass.entity);
+
+        onto["@graph"] = [cardinalities];
+
+        return this.httpPost("/cardinalities", onto).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -301,15 +307,23 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param replaceCardinalityOfResourceClass the cardinalities to be added.
      */
-    replaceCardinalityOfResourceClass(replaceCardinalityOfResourceClass: UpdateOntologyResourceClassCardinality): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+    replaceCardinalityOfResourceClass(replaceCardinalityOfResourceClass: UpdateOntology<UpdateOntologyResourceClassCardinality>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
 
-        if (replaceCardinalityOfResourceClass.cardinalities.length === 0) {
+        if (replaceCardinalityOfResourceClass.entity.cardinalities.length === 0) {
             throw new Error("At least one cardinality must be defined");
         }
 
-        const cards = this.jsonConvert.serializeObject(replaceCardinalityOfResourceClass)
+        const onto = this.jsonConvert.serializeObject(replaceCardinalityOfResourceClass);
 
-        return this.httpPut("/cardinalities", this.jsonConvert.serializeObject(replaceCardinalityOfResourceClass)).pipe(
+        const cardinalities = this.jsonConvert.serializeObject(replaceCardinalityOfResourceClass.entity);
+
+        // TODO: remove subClassOf if no cards ae provided
+
+        onto["@graph"] = [cardinalities];
+
+        // console.log(JSON.stringify(onto));
+
+        return this.httpPut("/cardinalities", onto).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
