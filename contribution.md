@@ -7,17 +7,18 @@ please read our [general contribution guidelines](https://docs.dasch.swiss/devel
 
 ## Introduction
 
-The purpose of this library is to facilitate the use of [DSP-API (Knora)](https://www.knora.org) in web client development. 
+The purpose of this library is to facilitate the use of [DSP-API (Knora)](https://www.knora.org) in web client development.
 It offers a convenient way to communicate with DSP-API without knowing specific technical details.  
 
 ## Architecture
+
 See [design documentation](design-documentation.md).
 
 ## Development
 
 ### Prerequisites
 
-For development, you need to install [`yalc`](<https://www.npmjs.com/package/yalc>) globally. 
+For development, you need to install [`yalc`](<https://www.npmjs.com/package/yalc>) globally.
 Run `npm install yalc -g`. This will enable you to build and publish DSP-JS-LIB locally.
 
 ### Dependencies
@@ -46,9 +47,10 @@ This package provides the following short-hand scripts:
 ### Build and Publish a Local Version
 
 Using `yalc`, DSP-JS-LIB can be built and published locally:
-- Run `npm install` and `npm run peer-deps`
-- Run `npm run prepare-dev-publication` if the mocks should be included, see section below.
-- Run `npm run yalc-publish`
+
+* Run `npm install` and `npm run peer-deps`
+* Run `npm run prepare-dev-publication` if the mocks should be included, see section below.
+* Run `npm run yalc-publish`
 
 Alternatively, you can run `npm run build-local` which combines the script mentioned above.
 
@@ -71,9 +73,10 @@ MockResource.getTestThing().subscribe(
 The mocks are configured in `scripts/mock-exports.json`.
 
 If you need a local version of this library that contains the mocks, do the following:
-   - `npm run prepare-dev-publication` to prepare a dev version.
-   - `npm run yalc-publish` to publish a local build containing the mocks.
-   
+
+* `npm run prepare-dev-publication` to prepare a dev version.
+* `npm run yalc-publish` to publish a local build containing the mocks.
+
 **Note that `prepare-dev-publication` modifies `package.json`, `tsconfig.json` and `index.ts`.
 Run this script only once and do not commit these changes.**
 
@@ -123,13 +126,12 @@ When adding a new method to a v2 endpoint, only add the test data needed to test
 
 After integrating v2 test data, run `npm run expand-jsonld-test-data`.
 
-
 ### Change Supported Version of DSP-API
 
 DSP-JS-LIB is compatible with a release of DSP-API that is specified in `vars.mk`.
 To update the target release of DSP-API, the following steps have to be carried out:
 
-1. Update DSP-API version in `vars.mk`, e.g., change `v13.0.0-rc.16` to `v13.0.0-rc.17`.
+1. Update DSP-API version in `vars.mk`, e.g., change `v13.0.0` to `v13.1.0`.
 1. Download test-data from DSP-API release with `make get-test-data-from-release`.
 1. Unpack generated test data and integrate it with `make prepare-test-data`.
 1. Run the unit tests with `npm test` from the project root.
@@ -137,11 +139,11 @@ To update the target release of DSP-API, the following steps have to be carried 
    If there are changes in the test data that have **no breaking effect**, integrate them (add them to the git repo).
    Otherwise, DSP-JS has to be adapted to comply with the later version of DSP-JS. Also see section "Integration of Generated Test Data".
 1. Run the e2e tests against the target release of DSP-API:
-   - prepare the local publication of the library using `npm run prepare-dev-publication`
-   - build the library and publish it locally with `npm run yalc-publish`
-   - change to directory `test-framework`
-   - add the locally build library using `npm run yalc-add` and run `npm install`
-   - run `npm run webdriver-update` and then `npm run e2e`
+   * prepare the local publication of the library using `npm run prepare-dev-publication`
+   * build the library and publish it locally with `npm run yalc-publish`
+   * change to directory `test-framework`
+   * add the locally build library using `npm run yalc-add` and run `npm install`
+   * run `npm run webdriver-update` and then `npm run e2e`
 1. See if the tests pass on GitHub CI.
 
 ## Unit Tests
@@ -156,7 +158,7 @@ so the component being tested can react to it.
 
 If a component A depends on a component B, then B has to be mocked during the test using a `jasmine.Spy`.
 The behavior of component B is simulated and a fake response is returned.
-Mocking components turned out to be quite complex for the `OntologyCache`. 
+Mocking components turned out to be quite complex for the `OntologyCache`.
 Therefore, a stand-alone testing component has been made for this mock called `MockOntology` that can be reused.
 It can also be used to generate static test data in software projects using this library.
 
@@ -168,5 +170,3 @@ These assertions are defined in `MockOntologyAssertions`.
 `./test-framework` provides a ready-to-use test environment for Angular developers.
 The E2E test for DSP-JS-LIB are run by the test environment.
 See the [test framwork README](test-framework/README.md) for further instructions.
-
-
