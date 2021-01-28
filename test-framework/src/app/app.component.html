@@ -71,6 +71,15 @@
         </div>
     </section>
 
+    <section id="ontologyendpoint">
+        <h3>Ontology With All Languages</h3>
+        <button class="knora-api" (click)="getOntologyWithAllLanguages('http://api.knora.org/ontology/knora-api/v2')">Get system ontology</button> <br /><br />
+        <button class="anything" (click)="getOntologyWithAllLanguages('http://0.0.0.0:3333/ontology/0001/anything/v2')">Get anything ontology</button> <br /><br />
+        <div>
+            Ontology with all languages: <span class="ontology">{{ontologyWithAllLangs?.label}}</span>
+        </div>
+    </section>
+
     <section id="ontologymetadata">
         <h3>Project specific ontologies</h3>
         <button class="anything" (click)="getAnythingOntologies()">Get anything project ontologies</button>

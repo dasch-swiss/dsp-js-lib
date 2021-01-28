@@ -67,8 +67,7 @@ import {
     UpdateChildNodeRequest,
     ListNodeInfoResponse,
     CreateListRequest,
-    ListResponse,
-    ListInfoResponse
+    ListResponse
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -87,6 +86,7 @@ export class AppComponent implements OnInit {
     healthState: Observable<any>;
 
     ontologies: Map<string, ReadOntology>;
+    ontologyWithAllLangs: ReadOntology;
     anythingOntologies: OntologiesMetadata;
     dokubibOntologies: OntologiesMetadata;
     ontologyMeta: OntologyMetadata;
@@ -319,6 +319,17 @@ export class AppComponent implements OnInit {
                 console.log('onto ', onto);
                 this.ontologies = onto;
             }
+        );
+    }
+
+    getOntologyWithAllLanguages(iri: string) {
+
+        this.knoraApiConnection.v2.onto.getOntology(iri, true).subscribe(
+            (onto: ReadOntology) => {
+                console.log(onto);
+                this.ontologyWithAllLangs = onto;
+            },
+            err => console.error(err)
         );
     }
 
@@ -817,7 +828,7 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.metadata.getProjectMetadata(resourceIri).subscribe(
             (res: ProjectsMetadata) => {
-                console.log('GET', JSON.stringify(res));
+                console.log('GET', JSON.stringify(res), res);
                 this.projectMetaStatus = 'OK';
             },
             error => {
@@ -883,7 +894,7 @@ export class AppComponent implements OnInit {
             'id': 'http://ns.dasch.swiss/test-abraham',
             type: Constants.DspRepoBase + 'Person',
             'address': {
-                type: Constants.SchemaBase + 'PostalAddress',
+                type: Constants.SchemaPostalAddress,
                'addressLocality': 'Basel',
                'postalCode': '4000',
                'streetAddress': 'Teststrasse'
@@ -923,7 +934,7 @@ export class AppComponent implements OnInit {
             'id': 'http://ns.dasch.swiss/test-funder',
             type: Constants.DspRepoBase + 'Organization',
             'address': {
-                type: Constants.SchemaBase + 'PostalAddress',
+                type: Constants.SchemaPostalAddress,
                 'addressLocality': 'Toronto',
                 'postalCode': '40000',
                 'streetAddress': 'University of Toronto Street'
@@ -1008,7 +1019,7 @@ export class AppComponent implements OnInit {
             'id': 'http://ns.dasch.swiss/test-jones',
             type: Constants.DspRepoBase + 'Person',
             'address': {
-                type: Constants.SchemaBase + 'PostalAddress',
+                type: Constants.SchemaPostalAddress,
                'addressLocality': 'Basel',
                'postalCode': '4000',
                'streetAddress': 'Teststrasse'
@@ -1023,7 +1034,7 @@ export class AppComponent implements OnInit {
             'id': 'http://ns.dasch.swiss/test-coleman',
             type: Constants.DspRepoBase + 'Person',
             'address': {
-                type: Constants.SchemaBase + 'PostalAddress',
+                type: Constants.SchemaPostalAddress,
                'addressLocality': 'Basel',
                'postalCode': '4000',
                'streetAddress': 'Teststrasse'
@@ -1038,7 +1049,7 @@ export class AppComponent implements OnInit {
             'id': 'http://ns.dasch.swiss/test-berry',
             type: Constants.DspRepoBase + 'Person',
             'address': {
-                type: Constants.SchemaBase + 'PostalAddress',
+                type: Constants.SchemaPostalAddress,
                'addressLocality': 'Basel',
                'postalCode': '4000',
                'streetAddress': 'Teststrasse'
@@ -1053,7 +1064,7 @@ export class AppComponent implements OnInit {
             'id': 'http://ns.dasch.swiss/test-hart',
             type: Constants.DspRepoBase + 'Person',
             'address': {
-                type: Constants.SchemaBase + 'PostalAddress',
+                type: Constants.SchemaPostalAddress,
                'addressLocality': 'Basel',
                'postalCode': '4000',
                'streetAddress': 'Teststrasse'
