@@ -159,6 +159,7 @@ export { UpdateBooleanValue } from "./models/v2/resources/values/update/update-b
 export { UpdateColorValue } from "./models/v2/resources/values/update/update-color-value";
 export { UpdateDateValue } from "./models/v2/resources/values/update/update-date-value";
 export { UpdateDecimalValue } from "./models/v2/resources/values/update/update-decimal-value";
+export { UpdateFileValue } from "./models/v2/resources/values/update/update-file-value";
 export { UpdateStillImageFileValue } from "./models/v2/resources/values/update/update-file-value";
 export { UpdateGeomValue } from "./models/v2/resources/values/update/update-geom-value";
 export { UpdateIntValue } from "./models/v2/resources/values/update/update-int-value";
@@ -175,6 +176,7 @@ export { CreateBooleanValue } from "./models/v2/resources/values/create/create-b
 export { CreateColorValue } from "./models/v2/resources/values/create/create-color-value";
 export { CreateDateValue } from "./models/v2/resources/values/create/create-date-value";
 export { CreateDecimalValue } from "./models/v2/resources/values/create/create-decimal-value";
+export { CreateFileValue } from "./models/v2/resources/values/create/create-file-value";
 export { CreateStillImageFileValue } from "./models/v2/resources/values/create/create-file-value";
 export { CreateGeomValue } from "./models/v2/resources/values/create/create-geom-value";
 export { CreateIntValue } from "./models/v2/resources/values/create/create-int-value";

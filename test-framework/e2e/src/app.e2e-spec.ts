@@ -220,6 +220,19 @@ describe('workspace-project App', () => {
 
   });
 
+  it('request the anything project ontologies with all languages', () => {
+
+    page.navigateTo();
+
+    const button = page.getEle('div section#ontologyendpoint button.anything');
+
+    button.click();
+
+    const result = page.getEle('div section#ontologyendpoint span.ontology');
+    expect(result.getText()).toEqual('The anything ontology');
+
+  });
+
   it('request the dokubib project ontologies', () => {
 
     page.navigateTo();
