@@ -438,7 +438,7 @@ describe('workspace-project App', () => {
     button.click();
     const label = page.getEle('div section#ontologyeditor span.res-card-replaced');
 
-    expect(label.getText()).toEqual('Test Klasse');
+    expect(label.getText()).toEqual('Test Klasse neu');
 
   });
 
