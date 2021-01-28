@@ -1,5 +1,17 @@
 # Changelog
 
+### [1.2.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v1.2.0...v1.2.1) (2021-01-28)
+
+
+### Bug Fixes
+
+* **lists-endpoint:** getListNodeInfo now returns either a ListInfoResponse or a ListNodeInfoResponse depending on the returned JSON ([#302](https://www.github.com/dasch-swiss/dsp-js-lib/issues/302)) ([a7a7fcd](https://www.github.com/dasch-swiss/dsp-js-lib/commit/a7a7fcdddd0ca5fb689e14fee009216f12d2b4ad))
+
+
+### Maintenance
+
+* **dsp-api:** update to latest version v13.0.0 ([#291](https://www.github.com/dasch-swiss/dsp-js-lib/issues/291)) ([3d41e1a](https://www.github.com/dasch-swiss/dsp-js-lib/commit/3d41e1a98366d2ca06ef80e2e522e0c05a15112a))
+
 ## [1.2.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v1.1.0...v1.2.0) (2021-01-25)
 
 
