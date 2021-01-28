@@ -9,8 +9,11 @@ export abstract class UpdateEntityCommentOrLabel {
     @JsonProperty("@id", String)
     id: string = "";
 
+    /**
+     * Type will be assigned on construction.
+     */
     @JsonProperty("@type", String)
-    type: string = "";
+    readonly type: string = "";
 
     constructor(type: string) {
         this.type = type;

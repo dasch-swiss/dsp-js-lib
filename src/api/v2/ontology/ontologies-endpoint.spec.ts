@@ -20,6 +20,7 @@ import {
     ResourcePropertyDefinition,
     ResourcePropertyDefinitionWithAllLanguages
 } from "../../../models/v2/ontologies/resource-property-definition";
+import { StandoffClassDefinition } from "../../../models/v2/ontologies/standoff-class-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
 import { UpdateOntologyResourceClassCardinality } from "../../../models/v2/ontologies/update/update-ontology-resource-class-cardinality";
@@ -28,7 +29,6 @@ import { UpdateResourceClassLabel } from "../../../models/v2/ontologies/update/u
 import { UpdateResourcePropertyComment } from "../../../models/v2/ontologies/update/update-resource-property-comment";
 import { UpdateResourcePropertyLabel } from "../../../models/v2/ontologies/update/update-resource-property-label";
 import { StringLiteralV2 } from "../../../models/v2/string-literal-v2";
-import { StandoffClassDefinition } from "../../../models/v2/ontologies/standoff-class-definition";
 
 describe("OntologiesEndpoint", () => {
 
@@ -491,9 +491,9 @@ describe("OntologiesEndpoint", () => {
 
             onto.lastModificationDate = "2020-10-21T23:50:43.379793Z";
 
-            const updateResClassLabel = new UpdateResourceClassComment();
+            const updateResClassComment = new UpdateResourceClassComment();
 
-            updateResClassLabel.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
+            updateResClassComment.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
 
             const label = new StringLiteralV2();
 
@@ -505,9 +505,9 @@ describe("OntologiesEndpoint", () => {
             label2.language = "fr";
             label2.value = "ne représente rien";
 
-            updateResClassLabel.comments = [label, label2];
+            updateResClassComment.comments = [label, label2];
 
-            onto.entity = updateResClassLabel;
+            onto.entity = updateResClassComment;
 
             knoraApiConnection.v2.onto.updateResourceClass(onto).subscribe(
                 (res: ResourceClassDefinitionWithAllLanguages) => {
@@ -604,9 +604,9 @@ describe("OntologiesEndpoint", () => {
 
             onto.lastModificationDate = "2020-10-21T23:50:43.379793Z";
 
-            const updateResClassLabel = new UpdateResourcePropertyComment();
+            const updateResPropertyComment = new UpdateResourcePropertyComment();
 
-            updateResClassLabel.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasName";
+            updateResPropertyComment.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasName";
 
             const label = new StringLiteralV2();
 
@@ -623,9 +623,9 @@ describe("OntologiesEndpoint", () => {
             label3.language = "de";
             label3.value = "Der Name eines Dinges";
 
-            updateResClassLabel.comments = [label, label2, label3];
+            updateResPropertyComment.comments = [label, label2, label3];
 
-            onto.entity = updateResClassLabel;
+            onto.entity = updateResPropertyComment;
 
             knoraApiConnection.v2.onto.updateResourceProperty(onto).subscribe(
                 (res: ResourcePropertyDefinitionWithAllLanguages) => {
