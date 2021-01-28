@@ -69,7 +69,9 @@ import {
     CreateListRequest,
     ListResponse,
     UpdateResourceClassLabel,
-    UpdateResourceClassComment
+    UpdateResourceClassComment,
+    UpdateResourcePropertyLabel,
+    UpdateResourcePropertyComment
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -556,6 +558,70 @@ export class AppComponent implements OnInit {
                 console.log('new resource property created', response);
             }
         );
+    }
+
+    updateResourcePropertyLabel() {
+
+        const onto = new UpdateOntology<UpdateResourcePropertyLabel>();
+
+        onto.id = this.ontology.id;
+        onto.lastModificationDate = this.ontology.lastModificationDate;
+
+        const updateLabel = new UpdateResourcePropertyLabel();
+
+        updateLabel.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName";
+
+        updateLabel.labels = [
+            {
+                language: "en",
+                value: "has name new"
+            },
+            {
+                language: "de",
+                value: "hat Namen neu"
+            }
+        ];
+
+        onto.entity = updateLabel;
+
+        this.knoraApiConnection.v2.onto.updateResourceProperty(onto).subscribe(
+            (res: ResourcePropertyDefinitionWithAllLanguages) => {
+                this.property = res;
+            }
+        );
+
+    }
+
+    updateResourcePropertyComment() {
+
+        const onto = new UpdateOntology<UpdateResourcePropertyComment>();
+
+        onto.id = this.ontology.id;
+        onto.lastModificationDate = this.ontology.lastModificationDate;
+
+        const updateLabel = new UpdateResourcePropertyComment();
+
+        updateLabel.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName";
+
+        updateLabel.comments = [
+            {
+                language: "en",
+                value: "The name of a Thing new"
+            },
+            {
+                language: "de",
+                value: "Der Name eines Dinges neu"
+            }
+        ];
+
+        onto.entity = updateLabel;
+
+        this.knoraApiConnection.v2.onto.updateResourceProperty(onto).subscribe(
+            (res: ResourcePropertyDefinitionWithAllLanguages) => {
+                this.property = res;
+            }
+        );
+
     }
 
     deleteResourceProperty() {

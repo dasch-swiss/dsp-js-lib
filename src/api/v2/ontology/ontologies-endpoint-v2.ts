@@ -23,7 +23,6 @@ import { ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/onto
 import { ResourcePropertyDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-property-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
 import { UpdateOntologyResourceClassCardinality } from "../../../models/v2/ontologies/update/update-ontology-resource-class-cardinality";
-import { UpdateEntityCommentOrLabel } from "../../../models/v2/ontologies/update/update-entity-comment-or-label";
 import { UpdateResourceClassComment } from "../../../models/v2/ontologies/update/update-resource-class-comment";
 import { UpdateResourceClassLabel } from "../../../models/v2/ontologies/update/update-resource-class-label";
 import { UpdateResourcePropertyComment } from "../../../models/v2/ontologies/update/update-resource-property-comment";

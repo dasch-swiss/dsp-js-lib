@@ -286,7 +286,7 @@ describe('workspace-project App', () => {
 
   });
 
-  it('change a resource classes\'s label', () => {
+  it('change a resource classes\'s comment', () => {
 
     page.navigateTo();
 
@@ -308,7 +308,7 @@ describe('workspace-project App', () => {
 
   });
 
-  it('change a resource classes\'s comment', () => {
+  it('change a resource classes\'s label', () => {
 
     page.navigateTo();
 
@@ -350,6 +350,50 @@ describe('workspace-project App', () => {
     const label = page.getEle('div section#ontologyeditor span.res-prop-label');
 
     expect(label.getText()).toEqual('hat Namen');
+  });
+
+  it('change a resource property\'s comment', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // update res class label
+    const button = page.getEle('div section#ontologyeditor button.update-res-prop-comment');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.res-prop-comment');
+    expect(label.getText()).toEqual('Der Name eines Dinges neu');
+
+  });
+
+  it('change a resource property\'s label', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // update res class label
+    const button = page.getEle('div section#ontologyeditor button.update-res-prop-label');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.res-prop-label');
+    expect(label.getText()).toEqual('hat Namen neu');
+
   });
 
   it('add a cardinality to a resource class in testonto', () => {
