@@ -22,15 +22,13 @@ export class PlaceConverter implements JsonCustomConvert<IUrl> {
                 }
             };
         } else {
-            throw new Error("Serialization Error: missing one of or both properties: name, url.");
+            throw new Error("Serialization Error: missing one or both properties: name, url.");
         }
-
     }
 
     deserialize(el: any): IUrl {
         // TODO: temp working solution, check how SpatialCoverage should be send because in the model
         // it's a single Place type object, but returned by DSP-API as array of Place objects
-        // due to above added 3rd temp condition
         if (el.hasOwnProperty(Constants.SchemaPropID) && el.hasOwnProperty(Constants.SchemaUrlValue)) {
             const name = el[Constants.SchemaPropID][Constants.SchemaPropID];
             const url = el[Constants.SchemaUrlValue];
@@ -39,13 +37,9 @@ export class PlaceConverter implements JsonCustomConvert<IUrl> {
             const name = el[Constants.SchemaUrlValue][Constants.SchemaPropID][Constants.SchemaPropID];
             const url = el[Constants.SchemaUrlValue][Constants.SchemaUrlValue];
             return { name, url } as IUrl;
-        } else if (el.hasOwnProperty(Constants.SchemaPropID) && !el.hasOwnProperty(Constants.SchemaUrlValue)) {	
-            // temp condition	
-            const name = el[Constants.SchemaPropID][Constants.SchemaPropID];	
-            const url = el[Constants.SchemaPropID][Constants.SchemaUrlValue];	
-            return { name, url } as IUrl;
         } else {
-            throw new Error(`Deserialization Error: missing one of or both properties: "${Constants.SchemaUrlType}", "${Constants.SchemaPropID}."`);
+            throw new Error(`Deserialization Error: missing one or both properties: "${Constants.SchemaUrlType}", 
+                "${Constants.SchemaPropID}."`);
         }
     }
 }

@@ -54,7 +54,9 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert
                     return UnionElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Attribution);
                 case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.DspGrant:
                     return UnionElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Grant);
-                case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.SchemaPlace:
+                case (el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.SchemaPlace) 
+                // below condition is temp solution for data sent from the test app, due to different structure
+                    || el[0].hasOwnProperty(Constants.SchemaUrlValue):
                     return UnionElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Place);
                 default:
                     throw new Error(`Deserialization Error: expected an array of objects with property @type equals to: 
@@ -66,7 +68,9 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert
                     return UnionElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Attribution);
                 case el.hasOwnProperty("@type") && el["@type"] === Constants.DspGrant:
                     return UnionElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Grant);
-                case el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaPlace:
+                case (el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaPlace) 
+                // below condition is temp solution for data sent from the test app, due to different structure
+                    || el.hasOwnProperty(Constants.SchemaUrlValue):
                     return UnionElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Place);
                 default:
                     throw new Error(`Deserialization Error: expected an object with property @type equals to: 
