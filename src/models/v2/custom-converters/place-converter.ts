@@ -23,12 +23,18 @@ export class PlaceConverter implements JsonCustomConvert<IUrl> {
     }
 
     deserialize(val: any): IUrl {
-        if (val.hasOwnProperty(Constants.SchemaUrlValue)) {
+        // TODO: temp working solution, check how SpatialCoverage should be send like
+        // in the model SpatialCoverage is single Place type object, but returned by DSP-API as array of Place objects
+        if (val.hasOwnProperty(Constants.SchemaPropID) && val.hasOwnProperty(Constants.SchemaUrlValue)) {
+            const name = val[Constants.SchemaPropID][Constants.SchemaPropID];
+            const url = val[Constants.SchemaUrlValue][Constants.SchemaUrlValue];
+            return { name, url } as IUrl;
+        } else if (!val.hasOwnProperty(Constants.SchemaPropID) && val.hasOwnProperty(Constants.SchemaUrlValue)) {
             const name = val[Constants.SchemaUrlValue][Constants.SchemaPropID][Constants.SchemaPropID];
             const url = val[Constants.SchemaUrlValue][Constants.SchemaUrlValue];
             return { name, url } as IUrl;
         } else {
-            throw new Error(`Has not ${Constants.SchemaUrlType} type`);
+            throw new Error(`Deserialization Error - unknown type(s): "${Constants.SchemaUrlType}", "${Constants.SchemaPropID}"`);
         }
     }
 }

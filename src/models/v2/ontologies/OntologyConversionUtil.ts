@@ -8,8 +8,8 @@ import { OntologiesMetadata, OntologyMetadata } from "./ontology-metadata";
 import { ReadOntology } from "./read/read-ontology";
 import { ResourceClassDefinition, ResourceClassDefinitionWithAllLanguages } from "./resource-class-definition";
 import { ResourcePropertyDefinition, ResourcePropertyDefinitionWithAllLanguages } from "./resource-property-definition";
-import { StandoffClassDefinition } from "./standoff-class-definition";
-import { SystemPropertyDefinition } from "./system-property-definition";
+import { StandoffClassDefinition, StandoffClassDefinitionWithAllLanguages } from "./standoff-class-definition";
+import { SystemPropertyDefinition, SystemPropertyDefinitionWithAllLanguages } from "./system-property-definition";
 
 /**
  * @category Internal
@@ -148,6 +148,45 @@ export namespace OntologyConversionUtil {
     };
 
     /**
+     * Given an array of entities with labels and comments for all languages,
+     * converts and adds them to the given ontology.
+     *
+     * @param ontology the ontology to which the definitions should be added.
+     * @param entities the entities to be converted and added.
+     * @param jsonConvert instance of JsonConvert to be used.
+     */
+    const convertAndAddEntityDefinitionsWithAllLanguages = (ontology: ReadOntology, entities: object[], jsonConvert: JsonConvert): void => {
+
+        // Convert resource classes
+        entities.filter(filterResourceClassDefinitions).map(resclassJsonld => {
+            return convertEntity(resclassJsonld, ResourceClassDefinitionWithAllLanguages, jsonConvert);
+        }).forEach((resClass: ResourceClassDefinition) => {
+            ontology.classes[resClass.id] = resClass;
+        });
+
+        // Convert standoff classes
+        entities.filter(filterStandoffClassDefinitions).map(standoffclassJsonld => {
+            return convertEntity(standoffclassJsonld, StandoffClassDefinitionWithAllLanguages, jsonConvert);
+        }).forEach((standoffClass: StandoffClassDefinition) => {
+            ontology.classes[standoffClass.id] = standoffClass;
+        });
+
+        // Convert resource properties (properties pointing to Knora values)
+        entities.filter(filterResourcePropertyDefinitions).map(propertyJsonld => {
+            return convertEntity(propertyJsonld, ResourcePropertyDefinitionWithAllLanguages, jsonConvert);
+        }).forEach((prop: ResourcePropertyDefinition) => {
+            ontology.properties[prop.id] = prop;
+        });
+
+        // Convert system properties (properties not pointing to Knora values)
+        entities.filter(filterSystemPropertyDefintions).map(propertyJsonld => {
+            return convertEntity(propertyJsonld, SystemPropertyDefinitionWithAllLanguages, jsonConvert);
+        }).forEach((prop: SystemPropertyDefinition) => {
+            ontology.properties[prop.id] = prop;
+        });
+    };
+
+    /**
      * Given an ontology, analyzes its direct dependencies and adds them to the given ontology.
      *
      * @param ontology the ontology whose direct dependencies should be analyzed.
@@ -205,9 +244,10 @@ export namespace OntologyConversionUtil {
      * @param ontologyJsonld ontology as JSON-LD already processed by the jsonld-processor.
      * @param jsonConvert instance of JsonConvert to use.
      * @param knoraApiConfig config object to use.
+     * @param allLanguages indicates if labels and comments were fetched for all languages.
      * @return the ontology as a `ReadOntology`.
      */
-    export const convertOntology = (ontologyJsonld: object, jsonConvert: JsonConvert, knoraApiConfig: KnoraApiConfig): ReadOntology => {
+    export const convertOntology = (ontologyJsonld: object, jsonConvert: JsonConvert, knoraApiConfig: KnoraApiConfig, allLanguages: boolean): ReadOntology => {
 
         const ontology: ReadOntology = jsonConvert.deserializeObject(ontologyJsonld, ReadOntology);
 
@@ -216,7 +256,11 @@ export namespace OntologyConversionUtil {
 
         if (!Array.isArray(entities)) throw new Error("An ontology is expected to have a member '@graph' containing an array of entities");
 
-        convertAndAddEntityDefinitions(ontology, entities, jsonConvert);
+        if (!allLanguages) {
+            convertAndAddEntityDefinitions(ontology, entities, jsonConvert);
+        } else {
+            convertAndAddEntityDefinitionsWithAllLanguages(ontology, entities, jsonConvert);
+        }
 
         analyzeDirectDependencies(ontology, knoraApiConfig);
 

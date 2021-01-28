@@ -58,17 +58,23 @@ export class OntologiesEndpointV2 extends Endpoint {
      * Requests an ontology from Knora.
      *
      * @param ontologyIri the IRI of the ontology to be requested.
+     * @param allLanguages gets labels and comments in all languages, if  set to true.
      */
-    getOntology(ontologyIri: string): Observable<ReadOntology | ApiResponseError> {
+    getOntology(ontologyIri: string, allLanguages = false): Observable<ReadOntology | ApiResponseError> {
+
+        let allLangSegment = "";
+        if (allLanguages) {
+            allLangSegment = "?allLanguages=true";
+        }
 
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
-        return this.httpGet("/allentities/" + encodeURIComponent(ontologyIri)).pipe(
+        return this.httpGet("/allentities/" + encodeURIComponent(ontologyIri) + allLangSegment).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
-                return OntologyConversionUtil.convertOntology(jsonldobj, this.jsonConvert, this.knoraApiConfig);
+                return OntologyConversionUtil.convertOntology(jsonldobj, this.jsonConvert, this.knoraApiConfig, allLanguages);
             }),
             catchError(error => {
                 return this.handleError(error);
