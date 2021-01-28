@@ -27,7 +27,8 @@ export class UnionPersonOrganizationIdConverter implements JsonCustomConvert<Per
                 "@id": (el as { [index: string]: string })["id"]
             };
         } else {
-            throw new Error("Expected Person or Organization object type, or reference with id key");
+            throw new Error(`Serialziation Error: expected a Person or Organization object type, or reference object 
+                with id key. Instead got ${typeof el}.`);
         }
     }
 
@@ -41,7 +42,8 @@ export class UnionPersonOrganizationIdConverter implements JsonCustomConvert<Per
                 id: (el as { [index: string]: string })["@id"]
             };
         } else {
-            throw new Error(`Expected ${Constants.DspPerson} or ${Constants.DspOrganization} object type, or reference with @id key`);
+            throw new Error(`Deserialization Error: expected an object with ${Constants.DspPerson} or ${Constants.DspOrganization} key, 
+                or reference object with @id key.`);
         }
     }
 
@@ -59,7 +61,7 @@ export class UnionPersonOrganizationIdConverter implements JsonCustomConvert<Per
 
     deserialize(el: any): Person | Organization | object {
         if (Array.isArray(el)) {
-            const newObj = [] as any[];
+            const newObj = [] as Array<Person | Organization | object>;
             el.forEach((
                 (item: any) => newObj.push(this.deserializeElement(item))
             ));

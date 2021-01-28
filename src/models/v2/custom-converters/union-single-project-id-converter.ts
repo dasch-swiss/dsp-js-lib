@@ -17,15 +17,16 @@ export class UnionSingleProjctIdConverter implements JsonCustomConvert<SinglePro
         PropertyMatchingRule.CASE_STRICT
     );
 
-    serialize(el: SingleProject | any): any {
-        if (el.hasOwnProperty("type") && el["type"] === Constants.DspProject) {
+    serialize(el: SingleProject | object): any {
+        if (el.hasOwnProperty("type") && (el as SingleProject)["type"] === Constants.DspProject) {
             return UnionSingleProjctIdConverter.jsonConvert.serializeObject(el, SingleProject);
         } else if (!el.hasOwnProperty("type") && el.hasOwnProperty("id")) {
             return {
                 "@id": (el as { [index: string]: string })["id"]
             };
         } else {
-            throw new Error("Expected SingleProject object type or reference with id property");
+            throw new Error(`Serialization Error: expected SingleProject object type or reference object 
+                with id property. Instead got ${typeof el}.`);
         }
     }
 
@@ -37,7 +38,8 @@ export class UnionSingleProjctIdConverter implements JsonCustomConvert<SinglePro
                 id: (el as { [index: string]: string })["@id"]
             };
         } else {
-            throw new Error(`Expected ${Constants.DspProject} object type or reference with @id property.`);
+            throw new Error(`Deserialization Error: expected an object with @type property equals to 
+                ${Constants.DspProject}, or a reference object with @id property.`);
         }
     }
 }

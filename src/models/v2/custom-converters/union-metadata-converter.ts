@@ -8,7 +8,7 @@ import { Person } from "../project-metadata/person";
  * @category Internal
  */
 @JsonConverter
-export class UnionMetadataConverter implements JsonCustomConvert<[Dataset | Person]> {
+export class UnionMetadataConverter implements JsonCustomConvert<Array<Dataset | Person>> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -23,7 +23,8 @@ export class UnionMetadataConverter implements JsonCustomConvert<[Dataset | Pers
         } else if (el.hasOwnProperty("type") && el["type"] === Constants.DspPerson) {
             return UnionMetadataConverter.jsonConvert.serializeObject(el, Person);
         } else {
-            throw new Error("Expected Dataset or Person object type.");
+            throw new Error(`Serialization Error: expected Dataset or Person object type. 
+                Instead got ${typeof el}.`);
         }
     }
 
@@ -33,11 +34,12 @@ export class UnionMetadataConverter implements JsonCustomConvert<[Dataset | Pers
         } else if (el.hasOwnProperty("@type") && el["@type"] === Constants.DspPerson) {
             return UnionMetadataConverter.jsonConvert.deserializeObject(el, Person);
         } else {
-            throw new Error(`Expected ${Constants.DspDataset} or ${Constants.DspPerson} object type.`);
+            throw new Error(`Deserialization Error: expected object with @type property equals to 
+                ${Constants.DspDataset} or ${Constants.DspPerson}.`);
         }
     }
 
-    serialize(el: [Dataset | Person]): any {
+    serialize(el: Array<Dataset | Person>): any {
         const newObj = [] as any[];
         el.forEach((
             (item: Dataset | Person) => newObj.push(this.serializeElement(item))
@@ -45,11 +47,11 @@ export class UnionMetadataConverter implements JsonCustomConvert<[Dataset | Pers
         return newObj;
     }
 
-    deserialize(el: any): [Dataset | Person] {
-        const newObj = [] as any[];
+    deserialize(el: any): Array<Dataset | Person> {
+        const newObj = [] as Array<Dataset | Person>;
         el.forEach((
             (item: any) => newObj.push(this.deserializeElement(item))
         ));
-        return newObj as [Dataset | Person];
+        return newObj;
     }
 }

@@ -3,7 +3,6 @@ import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { ApiResponseError } from "../../../models/api-response-error";
-import { UnionPersonOrganizationIdConverter } from "../../../models/v2/custom-converters/union-person-organization-id-converter";
 import { MetadataConversionUtil } from "../../../models/v2/project-metadata/metadata-conversion-util";
 import { ProjectsMetadata } from "../../../models/v2/project-metadata/project-metadata";
 import { UpdateProjectMetadataResponse } from "../../../models/v2/project-metadata/update-project-metadata";

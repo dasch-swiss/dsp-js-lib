@@ -6,9 +6,9 @@ import { IUrl } from "./base-url-converter";
  * @category Internal
  */
 @JsonConverter
-export class UnionAdvancedUrlObjectConverter implements JsonCustomConvert<IUrl | string | [IUrl | string]> {
+export class UnionAdvancedUrlObjectConverter implements JsonCustomConvert<IUrl | string | Array<IUrl | string>> {
 
-    serializeElement(el: IUrl | string): any {
+    serializeElement(el: IUrl | string): object | string {
         if (typeof el === "string") {
             return el;
         } else {
@@ -33,11 +33,11 @@ export class UnionAdvancedUrlObjectConverter implements JsonCustomConvert<IUrl |
         }
     }
 
-    serialize(el: IUrl | string | [IUrl | string]): any {
+    serialize(el: IUrl | string | Array<IUrl | string>): object | string {
         if (Array.isArray(el)) {
             const newObj = [] as any[];
             el.forEach((
-                item => newObj.push(this.serializeElement(item))
+                (item: IUrl | string) => newObj.push(this.serializeElement(item))
             ));
             return newObj;
         } else {
@@ -45,15 +45,15 @@ export class UnionAdvancedUrlObjectConverter implements JsonCustomConvert<IUrl |
         }
     }
 
-    deserialize(el: any): IUrl | string | [IUrl | string] {
+    deserialize(el: any): IUrl | string | Array<IUrl | string> {
         if (Array.isArray(el)) {
             const newObj = [] as Array<IUrl | string>;
             el.forEach(
-                (item: IUrl | string) => newObj.push(this.deserializeElement(item))
+                (item: any) => newObj.push(this.deserializeElement(item))
             );
-            return newObj as [IUrl | string];
+            return newObj;
         } else {
-            return this.deserializeElement(el) as IUrl | string;
+            return this.deserializeElement(el);
         }
     }
 }

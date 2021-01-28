@@ -15,7 +15,8 @@ export class UrlToUrlObjectConverter extends BaseUrlConverter {
             obj.value = el[Constants.SchemaUrlValue];
             return obj;
         } else {
-            throw new Error(`Expected object of ${Constants.SchemaUrlType} type.`);
+            throw new Error(`Deserialization Error: expected an object with @type property equals to 
+                ${Constants.SchemaUrlType}.`);
         }
     }
 

@@ -8,17 +8,23 @@ export class UnionStringArrayOfStringsConverter implements JsonCustomConvert<str
 
     serialize(el: string[] | string): any {
         if (Array.isArray(el)) {
-            return el as string[];
-        } else {
+            return el as any[];
+        } else if (!Array.isArray(el)) {
             return el;
+        } else {
+            throw new Error(`Serialization Error: expected string or string[] type. 
+                Instead got ${typeof el}.`);
         }
     }
 
     deserialize(el: any): string[] | string {
         if (Array.isArray(el)) {
             return el as string[];
-        } else {
+        } else if (!Array.isArray(el)) {
             return el;
+        } else {
+            throw new Error(`Deserialization Error: expected string or string[] type. 
+                Instead got ${typeof el}.`);
         }
     }
 }

@@ -24,7 +24,8 @@ export class UnionOrganizationIdConverter implements JsonCustomConvert<Organizat
                 "@id": (el as { [index: string]: string })["id"]
             };
         } else {
-            throw new Error("Expected Organization object type or reference with id key.");
+            throw new Error(`Serialization Error: expected Organization object type or an object with id key. 
+                Instead got ${typeof el}.`);
         }
     }
 
@@ -36,7 +37,8 @@ export class UnionOrganizationIdConverter implements JsonCustomConvert<Organizat
                 id: (el as { [index: string]: string })["@id"]
             };
         } else {
-            throw new Error(`Expected ${Constants.DspOrganization} object type or reference with @id key`);
+            throw new Error(`Deserialization Error: expected an object with property @type equals to 
+                ${Constants.DspOrganization} or an object with @id key.`);
         }
     }
 
@@ -54,7 +56,7 @@ export class UnionOrganizationIdConverter implements JsonCustomConvert<Organizat
 
     deserialize(el: any): Organization | object {
         if (Array.isArray(el)) {
-            const newObj = [] as any[];
+            const newObj = [] as Array<Organization | object>;
             el.forEach((
                 (item: any) => newObj.push(this.deserializeElement(item))
             ));

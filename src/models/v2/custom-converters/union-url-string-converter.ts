@@ -8,10 +8,10 @@ import { BaseUrlConverter, IUrl } from "./base-url-converter";
 @JsonConverter
 export class UnionUrlStringConverter extends BaseUrlConverter {
 
-    serializeElement(el: IUrl | string): any {
+    serializeElement(el: IUrl | string): object | string {
         if (typeof el === "string") {
             return el;
-        } else {
+        } else if (!(typeof el === "string")) {
             return {
                 "@type": Constants.SchemaUrlType,
                 [Constants.SchemaPropID]: {
@@ -20,6 +20,9 @@ export class UnionUrlStringConverter extends BaseUrlConverter {
                 },
                 [Constants.SchemaUrlValue]: el.value
             };
+        } else {
+            throw new Error(`Serialization error: expected string or IUrl object type.
+                Instead got ${typeof el}.`);
         }
     }
 
@@ -32,15 +35,16 @@ export class UnionUrlStringConverter extends BaseUrlConverter {
             obj.value = el[Constants.SchemaUrlValue];
             return obj;
         } else {
-            throw new Error(`Expected object of ${Constants.SchemaUrlType} type or string.`);
+            throw new Error(`Deserialization Error: expected an object with @type property equals 
+                to ${Constants.SchemaUrlType} or string.`);
         }
     }
 
-    serialize(el: IUrl | IUrl[] | string | string[]): any {
+    serialize(el: IUrl | string | Array<IUrl | string>): object | string {
         if (Array.isArray(el)) {
             const newObj = [] as any[];
             el.forEach((
-                (item: any) => newObj.push(this.serializeElement(item))
+                (item: IUrl | string) => newObj.push(this.serializeElement(item))
             ));
             return newObj;
         } else {
@@ -48,13 +52,13 @@ export class UnionUrlStringConverter extends BaseUrlConverter {
         }
     }
 
-    deserialize(el: any): IUrl | IUrl[] | string | string[] {
+    deserialize(el: any): IUrl | string | Array<IUrl | string> {
         if (Array.isArray(el)) {
-            const newObj = [] as any[];
+            const newObj = [] as Array<IUrl | string>;
             el.forEach(
-                (item: IUrl) => newObj.push(this.deserializeElement(item))
+                (item: any) => newObj.push(this.deserializeElement(item))
             );
-            return newObj as IUrl[];
+            return newObj;
         } else {
             return this.deserializeElement(el);
         }
