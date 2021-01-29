@@ -4,6 +4,8 @@ import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ChildNodeInfoResponse } from "../../../models/admin/child-node-info-response";
 import { CreateChildNodeRequest } from "../../../models/admin/create-child-node-request";
 import { CreateListRequest } from "../../../models/admin/create-list-request";
+import { DeleteListNodeResponse } from "../../../models/admin/delete-list-node-response";
+import { DeleteListResponse } from "../../../models/admin/delete-list-response";
 import { ListInfoResponse } from "../../../models/admin/list-info-response";
 import { ListNodeInfoResponse } from "../../../models/admin/list-node-info-response";
 import { ListResponse } from "../../../models/admin/list-response";
@@ -520,6 +522,34 @@ describe("ListsEndpoint", () => {
             expect(request.method).toEqual("GET");
 
             expect(request.requestHeaders).toEqual({ "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" });
+
+        });
+
+    });
+
+    describe("Method deleteListNode", () => {
+
+        it("should delete a list child node", done => {
+
+            knoraApiConnection.admin.listsEndpoint.deleteListNode("http://rdfh.ch/lists/0001/notUsedList015").subscribe(
+                (res: ApiResponseData<DeleteListNodeResponse | DeleteListResponse>) => {
+                    expect(res.body instanceof DeleteListNodeResponse).toBeTruthy();
+                    expect((res.body as DeleteListNodeResponse).node.id).toEqual("http://rdfh.ch/lists/0001/notUsedList");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const listsResponse = require("../../../../test/data/api/admin/lists/delete-list-node-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FnotUsedList015");
+
+            expect(request.method).toEqual("DELETE");
+
+            expect(request.requestHeaders).toEqual({});
 
         });
 

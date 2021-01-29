@@ -7,8 +7,8 @@ import { ListNode } from "./list-node";
  *
  * @category Model Admin
  */
-@JsonObject("ListNodeResponse")
-export class ListNodeResponse {
+@JsonObject("DeleteListNodeResponse")
+export class DeleteListNodeResponse {
 
    /**
     * Provides a list node.
