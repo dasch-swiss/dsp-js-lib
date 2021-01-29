@@ -8,6 +8,7 @@ import { CreateDefaultObjectAccessPermission } from "../../../models/admin/creat
 import { CreatePermission } from "../../../models/admin/create-permission";
 import { DefaultObjectAccessPermissionResponse } from "../../../models/admin/default-object-access-permission-response";
 import { DefaultObjectAccessPermissionsResponse } from "../../../models/admin/default-object-access-permissions-response";
+import { DeletePermissionResponse } from "../../../models/admin/delete-permission-response";
 import { Permission } from "../../../models/admin/permission";
 import { ProjectPermissionsResponse } from "../../../models/admin/project-permissions-response";
 import { ApiResponseData } from "../../../models/api-response-data";
@@ -438,6 +439,34 @@ describe("PermissionsEndpoint", () => {
             const payload = require("../../../../test/data/api/admin/permissions/create-defaultObjectAccess-permission-withCustomIRI-request.json");
 
             expect(request.data()).toEqual(payload);
+        });
+
+    });
+
+    describe("Method deletePermission", () => {
+
+        it("should delete a permission", done => {
+
+            knoraApiConnection.admin.permissionsEndpoint.deletePermission("myPermission").subscribe(
+                (response: ApiResponseData<DeletePermissionResponse>) => {
+                  expect(response.body.deleted).toBeTrue();
+                  done();
+              }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            // const permissionCreationResponse = require("../../../../test/data/api/admin/permissions/create-defaultObjectAccess-permission-withCustomIRI-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
+                permissionIri: "myPermission",
+                deleted: true
+            })));
+
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/myPermission");
+
+            expect(request.method).toEqual("DELETE");
+
         });
 
     });

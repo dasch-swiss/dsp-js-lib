@@ -48,6 +48,7 @@ export { AdministrativePermissionsResponse } from "./models/admin/administrative
 export { Permission } from "./models/admin/permission";
 export { CreatePermission } from "./models/admin/create-permission";
 export { Permissions } from "./models/admin/permissions";
+export { DeletePermissionResponse } from "./models/admin/delete-permission-response";
 
 export { Project } from "./models/admin/project";
 export { ReadProject } from "./models/admin/read-project";

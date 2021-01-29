@@ -71,7 +71,8 @@ import {
     UpdateResourceClassLabel,
     UpdateResourceClassComment,
     UpdateResourcePropertyLabel,
-    UpdateResourcePropertyComment
+    UpdateResourcePropertyComment,
+    DeletePermissionResponse
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -99,6 +100,7 @@ export class AppComponent implements OnInit {
     property: ResourcePropertyDefinitionWithAllLanguages;
     addCard: ResourceClassDefinitionWithAllLanguages;
     permissionStatus: string;
+    permissionIri: string;
 
     // reusable response message
     message: string;
@@ -220,6 +222,7 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.admin.permissionsEndpoint.getAdministrativePermission("http://rdfh.ch/projects/0001", "http://www.knora.org/ontology/knora-admin#ProjectMember").subscribe(
             (response: ApiResponseData<AdministrativePermissionResponse>) => {
                 this.permissionStatus = "getAdministrativePermission ok";
+                this.permissionIri = response.body.administrative_permission.id;
                 console.log(response);
             },
             err => console.error("Error:", err)
@@ -269,6 +272,17 @@ export class AppComponent implements OnInit {
             },
             err => console.error(err)
         )
+
+    }
+
+    deletePermission() {
+
+        this.knoraApiConnection.admin.permissionsEndpoint.deletePermission(this.permissionIri).subscribe(
+            (res: ApiResponseData<DeletePermissionResponse>) => {
+                this.permissionStatus = String(res.body.deleted);
+                console.log(res);
+            }
+        );
 
     }
 
