@@ -8,31 +8,6 @@ import { IUrl } from "./base-url-converter";
 @JsonConverter
 export class UnionAdvancedUrlObjectConverter implements JsonCustomConvert<IUrl | string | Array<IUrl | string>> {
 
-    serializeElement(el: IUrl | string): object | string {
-        if (typeof el === "string") {
-            return el;
-        } else {
-            return {
-                "@type": Constants.SchemaUrlType,
-                [Constants.SchemaPropID]: {
-                    "@type": Constants.SchemaPropVal,
-                    [Constants.SchemaPropID]: el.name
-                },
-                [Constants.SchemaUrlValue]: el.url
-            };
-        }
-    }
-
-    deserializeElement(el: any): IUrl | string {
-        if (el.hasOwnProperty(Constants.SchemaPropID)) {
-            const name = el[Constants.SchemaPropID][Constants.SchemaPropID];
-            const url = el[Constants.SchemaUrlValue];
-            return { name, url } as IUrl;
-        } else {
-            return el as string;
-        }
-    }
-
     serialize(el: IUrl | string | Array<IUrl | string>): object | string {
         if (Array.isArray(el)) {
             const newObj = [] as any[];
@@ -54,6 +29,31 @@ export class UnionAdvancedUrlObjectConverter implements JsonCustomConvert<IUrl |
             return newObj;
         } else {
             return this.deserializeElement(el);
+        }
+    }
+
+    private serializeElement(el: IUrl | string): object | string {
+        if (typeof el === "string") {
+            return el;
+        } else {
+            return {
+                "@type": Constants.SchemaUrlType,
+                [Constants.SchemaPropID]: {
+                    "@type": Constants.SchemaPropVal,
+                    [Constants.SchemaPropID]: el.name
+                },
+                [Constants.SchemaUrlValue]: el.url
+            };
+        }
+    }
+
+    private deserializeElement(el: any): IUrl | string {
+        if (el.hasOwnProperty(Constants.SchemaPropID)) {
+            const name = el[Constants.SchemaPropID][Constants.SchemaPropID];
+            const url = el[Constants.SchemaUrlValue];
+            return { name, url } as IUrl;
+        } else {
+            return el as string;
         }
     }
 }

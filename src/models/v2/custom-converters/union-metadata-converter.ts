@@ -17,28 +17,6 @@ export class UnionMetadataConverter implements JsonCustomConvert<Array<Dataset |
         PropertyMatchingRule.CASE_STRICT
     );
 
-    serializeElement(el: Dataset | Person): any {
-        if (el.hasOwnProperty("type") && el["type"] === Constants.DspDataset) {
-            return UnionMetadataConverter.jsonConvert.serializeObject(el, Dataset);
-        } else if (el.hasOwnProperty("type") && el["type"] === Constants.DspPerson) {
-            return UnionMetadataConverter.jsonConvert.serializeObject(el, Person);
-        } else {
-            throw new Error(`Serialization Error: expected Dataset or Person object type. 
-                Instead got ${typeof el}.`);
-        }
-    }
-
-    deserializeElement(el: any): Dataset | Person {
-        if (el.hasOwnProperty("@type") && el["@type"] === Constants.DspDataset) {
-            return UnionMetadataConverter.jsonConvert.deserializeObject(el, Dataset);
-        } else if (el.hasOwnProperty("@type") && el["@type"] === Constants.DspPerson) {
-            return UnionMetadataConverter.jsonConvert.deserializeObject(el, Person);
-        } else {
-            throw new Error(`Deserialization Error: expected object with @type property equals to 
-                ${Constants.DspDataset} or ${Constants.DspPerson}.`);
-        }
-    }
-
     serialize(el: Array<Dataset | Person>): any {
         const newObj = [] as any[];
         el.forEach((
@@ -53,5 +31,27 @@ export class UnionMetadataConverter implements JsonCustomConvert<Array<Dataset |
             (item: any) => newObj.push(this.deserializeElement(item))
         ));
         return newObj;
+    }
+
+    private serializeElement(el: Dataset | Person): any {
+        if (el.hasOwnProperty("type") && el["type"] === Constants.DspDataset) {
+            return UnionMetadataConverter.jsonConvert.serializeObject(el, Dataset);
+        } else if (el.hasOwnProperty("type") && el["type"] === Constants.DspPerson) {
+            return UnionMetadataConverter.jsonConvert.serializeObject(el, Person);
+        } else {
+            throw new Error(`Serialization Error: expected Dataset or Person object type. 
+                Instead got ${typeof el}.`);
+        }
+    }
+
+    private deserializeElement(el: any): Dataset | Person {
+        if (el.hasOwnProperty("@type") && el["@type"] === Constants.DspDataset) {
+            return UnionMetadataConverter.jsonConvert.deserializeObject(el, Dataset);
+        } else if (el.hasOwnProperty("@type") && el["@type"] === Constants.DspPerson) {
+            return UnionMetadataConverter.jsonConvert.deserializeObject(el, Person);
+        } else {
+            throw new Error(`Deserialization Error: expected object with @type property equals to 
+                ${Constants.DspDataset} or ${Constants.DspPerson}.`);
+        }
     }
 }

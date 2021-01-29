@@ -16,32 +16,6 @@ export class UnionOrganizationIdConverter implements JsonCustomConvert<Organizat
         PropertyMatchingRule.CASE_STRICT
     );
 
-    serializeElement(el: Organization | object): any {
-        if (el.hasOwnProperty("name")) {
-            return UnionOrganizationIdConverter.jsonConvert.serializeObject(el, Organization);
-        } else if (el.hasOwnProperty("id") && !el.hasOwnProperty("name")) {
-            return {
-                "@id": (el as { [index: string]: string })["id"]
-            };
-        } else {
-            throw new Error(`Serialization Error: expected Organization object type or an object with id key. 
-                Instead got ${typeof el}.`);
-        }
-    }
-
-    deserializeElement(el: any): Organization | object {
-        if (el.hasOwnProperty(Constants.DspHasName)) {
-            return UnionOrganizationIdConverter.jsonConvert.deserializeObject(el, Organization);
-        } else if (el.hasOwnProperty("@id") && !el.hasOwnProperty(Constants.DspHasName)) {
-            return {
-                id: (el as { [index: string]: string })["@id"]
-            };
-        } else {
-            throw new Error(`Deserialization Error: expected an object with property @type equals to 
-                ${Constants.DspOrganization} or an object with @id key.`);
-        }
-    }
-
     serialize(el: Organization | object): any {
         if (Array.isArray(el)) {
             const newObj = [] as any[];
@@ -63,6 +37,32 @@ export class UnionOrganizationIdConverter implements JsonCustomConvert<Organizat
             return newObj;
         } else {
             return this.deserializeElement(el);
+        }
+    }
+
+    private serializeElement(el: Organization | object): any {
+        if (el.hasOwnProperty("name")) {
+            return UnionOrganizationIdConverter.jsonConvert.serializeObject(el, Organization);
+        } else if (el.hasOwnProperty("id") && !el.hasOwnProperty("name")) {
+            return {
+                "@id": (el as { [index: string]: string })["id"]
+            };
+        } else {
+            throw new Error(`Serialization Error: expected Organization object type or an object with id key. 
+                Instead got ${typeof el}.`);
+        }
+    }
+
+    private deserializeElement(el: any): Organization | object {
+        if (el.hasOwnProperty(Constants.DspHasName)) {
+            return UnionOrganizationIdConverter.jsonConvert.deserializeObject(el, Organization);
+        } else if (el.hasOwnProperty("@id") && !el.hasOwnProperty(Constants.DspHasName)) {
+            return {
+                id: (el as { [index: string]: string })["@id"]
+            };
+        } else {
+            throw new Error(`Deserialization Error: expected an object with property @type equals to 
+                ${Constants.DspOrganization} or an object with @id key.`);
         }
     }
 }
