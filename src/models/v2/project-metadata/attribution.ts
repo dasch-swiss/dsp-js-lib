@@ -13,10 +13,10 @@ import { Person } from "./person";
 export class Attribution extends BaseProjectMetadata {
 
     @JsonProperty(Constants.DspHasRole, UnionStringArrayOfStringsConverter)
-    role: string[] | string = [];
+    role: string[] = [];
 
     @JsonProperty(Constants.ProvAgent, UnionPersonOrganizationIdConverter)
-    agent: Person | Organization | object = new Person();
+    agent: Person | Organization | object = [];
 
     constructor() {
         super(Constants.ProvAttribution);

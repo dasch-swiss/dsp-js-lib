@@ -6,22 +6,19 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
 @JsonConverter
 export class UnionStringArrayOfStringsConverter implements JsonCustomConvert<string[] | string> {
 
-    serialize(el: string[] | string): any {
+    serialize(el: string[]): any {
         if (Array.isArray(el)) {
             return el as any[];
-        } else if (!Array.isArray(el)) {
-            return el;
         } else {
-            throw new Error(`Serialization Error: expected string or string[] type. 
-                Instead got ${typeof el}.`);
+            throw new Error(`Serialization Error: expected string[] type. Instead got ${typeof el}.`);
         }
     }
 
-    deserialize(el: any): string[] | string {
+    deserialize(el: any): string[] {
         if (Array.isArray(el)) {
             return el as string[];
         } else if (!Array.isArray(el)) {
-            return el;
+            return [el] as string[];
         } else {
             throw new Error(`Deserialization Error: expected string or string[] type. 
                 Instead got ${typeof el}.`);

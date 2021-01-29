@@ -16,27 +16,26 @@ export class UnionOrganizationIdConverter implements JsonCustomConvert<Organizat
         PropertyMatchingRule.CASE_STRICT
     );
 
-    serialize(el: Organization | object): any {
+    serialize(el: Array<Organization | object>): any {
         if (Array.isArray(el)) {
-            const newObj = [] as any[];
+            const newArr = [] as any[];
             el.forEach((
-                (item: Organization | object) => newObj.push(this.serializeElement(item))
+                (item: Organization | object) => newArr.push(this.serializeElement(item))
             ));
-            return newObj;
-        } else {
-            return this.serializeElement(el);
+            return newArr;
         }
     }
 
-    deserialize(el: any): Organization | object {
+    deserialize(el: any): Array<Organization | object> {
+        const newArr = [] as Array<Organization | object>;
         if (Array.isArray(el)) {
-            const newObj = [] as Array<Organization | object>;
             el.forEach((
-                (item: any) => newObj.push(this.deserializeElement(item))
+                (item: any) => newArr.push(this.deserializeElement(item))
             ));
-            return newObj;
+            return newArr;
         } else {
-            return this.deserializeElement(el);
+            newArr.push(this.deserializeElement(el));
+            return newArr;
         }
     }
 

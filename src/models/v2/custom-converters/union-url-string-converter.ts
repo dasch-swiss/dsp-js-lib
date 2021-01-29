@@ -8,27 +8,26 @@ import { BaseUrlConverter, IUrl } from "./base-url-converter";
 @JsonConverter
 export class UnionUrlStringConverter extends BaseUrlConverter {
 
-    serialize(el: IUrl | string | Array<IUrl | string>): object | string {
+    serialize(el: Array<IUrl | string>): any {
         if (Array.isArray(el)) {
-            const newObj = [] as any[];
+            const newArr = [] as any[];
             el.forEach((
-                (item: IUrl | string) => newObj.push(this.serializeElement(item))
+                (item: IUrl | string) => newArr.push(this.serializeElement(item))
             ));
-            return newObj;
-        } else {
-            return this.serializeElement(el);
+            return newArr;
         }
     }
 
-    deserialize(el: any): IUrl | string | Array<IUrl | string> {
+    deserialize(el: any): Array<IUrl | string> {
+        const newArr = [] as Array<IUrl | string>;
         if (Array.isArray(el)) {
-            const newObj = [] as Array<IUrl | string>;
             el.forEach(
-                (item: any) => newObj.push(this.deserializeElement(item))
+                (item: any) => newArr.push(this.deserializeElement(item))
             );
-            return newObj;
+            return newArr;
         } else {
-            return this.deserializeElement(el);
+            newArr.push(this.deserializeElement(el));
+            return newArr;
         }
     }
 
