@@ -1,7 +1,10 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
-import { IdConverter } from "../custom-converters/id-converter";
+import { UnionPersonOrganizationIdConverter } from "../custom-converters/union-person-organization-id-converter";
+import { UnionStringArrayOfStringsConverter } from "../custom-converters/union-string-array-of-strings-converter";
 import { BaseProjectMetadata } from "./base-project-metadata";
+import { Organization } from "./organization";
+import { Person } from "./person";
 
 /** 
  * @category Model V2 
@@ -9,11 +12,11 @@ import { BaseProjectMetadata } from "./base-project-metadata";
 @JsonObject("Attribution")
 export class Attribution extends BaseProjectMetadata {
 
-    @JsonProperty(Constants.DspHasRole, String)
-    role: string = "";
+    @JsonProperty(Constants.DspHasRole, UnionStringArrayOfStringsConverter)
+    role: string[] | string = [];
 
-    @JsonProperty(Constants.ProvAgent, IdConverter)
-    agent: string = "";
+    @JsonProperty(Constants.ProvAgent, UnionPersonOrganizationIdConverter)
+    agent: Person | Organization | object = new Person();
 
     constructor() {
         super(Constants.ProvAttribution);
