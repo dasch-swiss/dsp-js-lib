@@ -1084,7 +1084,7 @@ export class AppComponent implements OnInit {
         testDataset.project.grant = [grant];
         testDataset.project.keywords = ['science'];
         testDataset.project.name = 'Testprojektname (test)';
-        testDataset.project.publication = ['testpublication']
+        testDataset.project.publication = ['testpublication'];
         testDataset.project.shortcode = '0000';
         // testDataset.project.spatialCoverage = [{
         //     'place': {
