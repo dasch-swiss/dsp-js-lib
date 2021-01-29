@@ -282,7 +282,8 @@ export class AppComponent implements OnInit {
             (res: ApiResponseData<DeletePermissionResponse>) => {
                 this.permissionDeleted = res.body.deleted;
                 console.log(res);
-            }
+            },
+            err => console.error(err)
         );
 
     }
