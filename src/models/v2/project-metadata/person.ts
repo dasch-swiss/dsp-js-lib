@@ -21,7 +21,7 @@ export class Person extends BaseProjectMetadata {
     address?: Address = undefined;
 
     @JsonProperty(Constants.DspHasEmail, UnionStringArrayOfStringsConverter, true)
-    email?: string[] | string = undefined;
+    email?: string[] = undefined;
 
     @JsonProperty(Constants.DspHasFamilyName, String, true)
     familyName?: string = undefined;
@@ -30,10 +30,10 @@ export class Person extends BaseProjectMetadata {
     givenName: string = "";
 
     @JsonProperty(Constants.DspHasJobTitle, UnionStringArrayOfStringsConverter)
-    jobTitle: string[] | string = [];
+    jobTitle: string[] = [];
 
     @JsonProperty(Constants.DspIsMemberOf, UnionOrganizationIdConverter)
-    memberOf: Organization[] | Organization = new Organization();
+    memberOf: Organization[] = [];
 
     @JsonProperty(Constants.DspSameAs, UrlToUrlObjectConverter, true)
     sameAs?: IUrl = undefined;

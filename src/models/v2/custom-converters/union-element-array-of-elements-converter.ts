@@ -19,7 +19,7 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert
         PropertyMatchingRule.CASE_STRICT
     );
     
-    serialize(el: Attribution | Attribution[] | Place | Place[] | Grant | Grant[]): any {
+    serialize(el: Attribution[] | Place[] | Grant[]): any {
         if (Array.isArray(el)) {
             switch (true) {
                 case el[0].hasOwnProperty("type") && (el[0] as {type: string})["type"] === Constants.ProvAttribution:
@@ -28,26 +28,14 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert
                     return UnionElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Grant);
                 case el[0].hasOwnProperty("place"):
                     return UnionElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Place);
-                default:
-                    throw new Error(`Serialization Error: expected Attribution[], Grant[] or Place[] type.
-                        Instead got ${typeof el}.`);
             }
         } else {
-            switch (true) {
-                case el.hasOwnProperty("type") && (el as Attribution)["type"] === Constants.ProvAttribution:
-                    return UnionElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Attribution);
-                case el.hasOwnProperty("type") && (el as Grant)["type"] === Constants.DspGrant:
-                    return UnionElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Grant);
-                case el.hasOwnProperty("place"):
-                    return UnionElementArrayOfElementsConverter.jsonConvert.serializeObject(el, Place);
-                default:
-                    throw new Error(`Serialization Error: expected Attribution, Grant or Place type.
-                        Instead got ${typeof el}.`);
-            }
+            throw new Error(`Serialization Error: expected Attribution[], Grant[] or Place[] type.
+                Instead got ${typeof el}.`);
         }
     }
 
-    deserialize(el: any ): Attribution | Grant | Place | Attribution[] | Grant[] | Place[] {
+    deserialize(el: any ): Grant | Place | Attribution[] | Grant[] | Place[] {
         if (Array.isArray(el)) {
             switch (true) {
                 case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.ProvAttribution:
@@ -65,13 +53,13 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert
         } else {
             switch (true) {
                 case el.hasOwnProperty("@type") && el["@type"] === Constants.ProvAttribution:
-                    return UnionElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Attribution);
+                    return UnionElementArrayOfElementsConverter.jsonConvert.deserializeArray([el], Attribution);
                 case el.hasOwnProperty("@type") && el["@type"] === Constants.DspGrant:
-                    return UnionElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Grant);
+                    return UnionElementArrayOfElementsConverter.jsonConvert.deserializeArray([el], Grant);
                 case (el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaPlace) 
                 // below condition is temp solution for data sent from the test app, due to different structure
                     || el.hasOwnProperty(Constants.SchemaUrlValue):
-                    return UnionElementArrayOfElementsConverter.jsonConvert.deserializeObject(el, Place);
+                    return UnionElementArrayOfElementsConverter.jsonConvert.deserializeArray([el], Place);
                 default:
                     throw new Error(`Deserialization Error: expected an object with property @type equals to: 
                         ${Constants.ProvAttribution}, ${Constants.DspGrant}, or ${Constants.SchemaPlace}.`);

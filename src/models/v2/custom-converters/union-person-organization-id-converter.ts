@@ -19,25 +19,26 @@ export class UnionPersonOrganizationIdConverter implements JsonCustomConvert<Per
 
     serialize(el: Person | Organization | object): any {
         if (Array.isArray(el)) {
-            const newObj = [] as any[];
+            const newArr = [] as any[];
             el.forEach((
-                (item: Person | Organization | object) => newObj.push(this.serializeElement(item))
+                (item: Person | Organization | object) => newArr.push(this.serializeElement(item))
             ));
-            return newObj;
+            return newArr;
         } else {
             return this.serializeElement(el);
         }
     }
 
     deserialize(el: any): Person | Organization | object {
+        const newArr = [] as Array<Person | Organization | object>;
         if (Array.isArray(el)) {
-            const newObj = [] as Array<Person | Organization | object>;
             el.forEach((
-                (item: any) => newObj.push(this.deserializeElement(item))
+                (item: any) => newArr.push(this.deserializeElement(item))
             ));
-            return newObj;
+            return newArr;
         } else {
-            return this.deserializeElement(el);
+            newArr.push(this.deserializeElement(el));
+            return newArr;
         }
     }
 

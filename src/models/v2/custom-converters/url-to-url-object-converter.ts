@@ -8,15 +8,16 @@ import { BaseUrlConverter, IUrl } from "./base-url-converter";
 @JsonConverter
 export class UrlToUrlObjectConverter extends BaseUrlConverter {
 
-    deserialize(el: any): IUrl | IUrl[] {
+    deserialize(el: any): IUrl[] {
+        const newArr = [] as IUrl[];
         if (Array.isArray(el)) {
-            const newObj = [] as any[];
             el.forEach(
-                (item: IUrl) => newObj.push(this.deserializeElement(item))
+                (item: any) => newArr.push(this.deserializeElement(item))
             );
-            return newObj as IUrl[];
+            return newArr;
         } else {
-            return this.deserializeElement(el);
+            newArr.push(this.deserializeElement(el));
+            return newArr;
         }
     }
 
