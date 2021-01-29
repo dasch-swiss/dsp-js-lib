@@ -24,10 +24,10 @@ export class SingleProject extends BaseProjectMetadata {
     id: string = "";
     
     @JsonProperty(Constants.DspHasAlternateName, UnionStringArrayOfStringsConverter, true)
-    alternateName?: string[] | string = undefined;
+    alternateName?: string[] = undefined;
 
     @JsonProperty(Constants.DspHasContactPoint, UnionPersonOrganizationIdConverter, true)
-    contactPoint?: Person | Organization = undefined;
+    contactPoint?: Person[] | Organization[] = undefined;
 
     @JsonProperty(Constants.DspHasDataManagementPlan, DataManagementPlan, true)
     dataManagementPlan?: DataManagementPlan = undefined;
@@ -42,25 +42,25 @@ export class SingleProject extends BaseProjectMetadata {
     endDate?: string = undefined;
 
     @JsonProperty(Constants.DspHasFunder, UnionPersonOrganizationIdConverter)
-    funder: [Person | Organization | object] | Person | Organization | object = new Person();
+    funder: Person[] | Organization[] | object[] = [];
 
     @JsonProperty(Constants.DspHasGrant, UnionElementArrayOfElementsConverter, true)
-    grant?: Grant[] | Grant = undefined;
+    grant?: Grant[] = undefined;
 
     @JsonProperty(Constants.DspHasKeywords, UnionStringArrayOfStringsConverter)
-    keywords: string[] | string = [];
+    keywords: string[] = [];
 
     @JsonProperty(Constants.DspHasName, String)
     name: string = "";
 
     @JsonProperty(Constants.DspHasPublication, UnionStringArrayOfStringsConverter, true)
-    publication?: string[] | string = undefined;
+    publication?: string[] = undefined;
 
     @JsonProperty(Constants.DspHasShortcode, String)
     shortcode: string = "";
 
     @JsonProperty(Constants.DspHasSpatialCoverage, UnionElementArrayOfElementsConverter)
-    spatialCoverage: Place[] | Place = [];
+    spatialCoverage: Place[] = [];
 
     @JsonProperty(Constants.DspHasStartDate, DateConverter)
     startDate: string = "";
@@ -69,7 +69,7 @@ export class SingleProject extends BaseProjectMetadata {
     temporalCoverage: IUrl = {} as IUrl;
 
     @JsonProperty(Constants.DspHasURL, UrlToUrlObjectConverter)
-    url: IUrl[] | IUrl = [];
+    url: IUrl[] = [];
 
     constructor() {
         super(Constants.DspProject);

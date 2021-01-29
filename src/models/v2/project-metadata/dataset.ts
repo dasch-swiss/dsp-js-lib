@@ -22,7 +22,7 @@ export class Dataset extends BaseProjectMetadata {
     id: string = "";
 
     @JsonProperty(Constants.DspHasAbstract, UnionUrlStringConverter)
-    abstract: string[] | string = [];
+    abstract: string[] = [];
 
     @JsonProperty(Constants.DspHasAlternativeTitle, String, true)
     alternativeTitle?: string = undefined;
@@ -43,19 +43,19 @@ export class Dataset extends BaseProjectMetadata {
     distribution?: IUrl = undefined;
 
     @JsonProperty(Constants.DspHasDocumentation, UnionUrlStringConverter, true)
-    documentation?: string[] | string = undefined;
+    documentation?: string[] = undefined;
 
     @JsonProperty(Constants.DspHasHowToCite, String)
     howToCite: string = "";
 
     @JsonProperty(Constants.DspHasLanguage, UnionStringArrayOfStringsConverter)
-    language: string[] | string = [];
+    language: string[] = [];
 
     @JsonProperty(Constants.DspHasLicense, UrlToUrlObjectConverter)
-    license: IUrl[] | IUrl = [];
+    license: IUrl[] = [];
 
     @JsonProperty(Constants.DspHasQualifiedAttribution, UnionElementArrayOfElementsConverter)
-    qualifiedAttribution: Attribution[] | Attribution = [];
+    qualifiedAttribution: Attribution[] = [];
 
     @JsonProperty(Constants.DspHasStatus, String)
     status: string = "";
@@ -65,13 +65,13 @@ export class Dataset extends BaseProjectMetadata {
 
     // TODO: add enum >> In planning, Ongoing, On hold, Finished
     @JsonProperty(Constants.DspHasTypeOfData, UnionStringArrayOfStringsConverter)
-    typeOfData: string[] | string = [];
+    typeOfData: string[] = [];
 
     @JsonProperty(Constants.DspIsPartOf, UnionSingleProjctIdConverter)
     project: SingleProject = new SingleProject();
 
     @JsonProperty(Constants.DspSameAs, UrlToUrlObjectConverter, true)
-    sameAs?: IUrl[] | IUrl = undefined;
+    sameAs?: IUrl[] = undefined;
 
     constructor() {
         super(Constants.DspDataset);
