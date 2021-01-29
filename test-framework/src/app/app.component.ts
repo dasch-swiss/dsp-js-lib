@@ -101,6 +101,7 @@ export class AppComponent implements OnInit {
     addCard: ResourceClassDefinitionWithAllLanguages;
     permissionStatus: string;
     permissionIri: string;
+    permissionDeleted: boolean;
 
     // reusable response message
     message: string;
@@ -279,7 +280,7 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.admin.permissionsEndpoint.deletePermission(this.permissionIri).subscribe(
             (res: ApiResponseData<DeletePermissionResponse>) => {
-                this.permissionStatus = String(res.body.deleted);
+                this.permissionDeleted = res.body.deleted;
                 console.log(res);
             }
         );

@@ -105,13 +105,13 @@ describe('workspace-project App', () => {
     button.click();
 
     const label = page.getEle('div#permissions span.status');
-    expect(label.getText()).toEqual('Permission status: true');
+    expect(label.getText()).toEqual('Permission status: getAdministrativePermission ok');
 
     const button2 = page.getEle('div#permissions button.delete-permission');
     button2.click();
 
-    const label2 = page.getEle('div#permissions span.status');
-    expect(label2.getText()).toEqual('Permission status: true');
+    const label2 = page.getEle('div#permissions span.deleted');
+    expect(label2.getText()).toEqual('Permission deleted: true');
 
   });
 
