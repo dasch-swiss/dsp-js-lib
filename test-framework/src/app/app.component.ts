@@ -67,7 +67,11 @@ import {
     UpdateChildNodeRequest,
     ListNodeInfoResponse,
     CreateListRequest,
-    ListResponse
+    ListResponse,
+    UpdateResourceClassLabel,
+    UpdateResourceClassComment,
+    UpdateResourcePropertyLabel,
+    UpdateResourcePropertyComment
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -86,6 +90,7 @@ export class AppComponent implements OnInit {
     healthState: Observable<any>;
 
     ontologies: Map<string, ReadOntology>;
+    ontologyWithAllLangs: ReadOntology;
     anythingOntologies: OntologiesMetadata;
     dokubibOntologies: OntologiesMetadata;
     ontologyMeta: OntologyMetadata;
@@ -321,6 +326,17 @@ export class AppComponent implements OnInit {
         );
     }
 
+    getOntologyWithAllLanguages(iri: string) {
+
+        this.knoraApiConnection.v2.onto.getOntology(iri, true).subscribe(
+            (onto: ReadOntology) => {
+                console.log(onto);
+                this.ontologyWithAllLangs = onto;
+            },
+            err => console.error(err)
+        );
+    }
+
     getAnythingOntologies() {
         this.knoraApiConnection.v2.onto.getOntologiesByProjectIri('http://rdfh.ch/projects/0001').subscribe(
             (response: OntologiesMetadata) => {
@@ -416,6 +432,65 @@ export class AppComponent implements OnInit {
         );
     }
 
+    updateResourceClassLabel() {
+
+        const onto = new UpdateOntology<UpdateResourceClassLabel>();
+
+        onto.id = this.ontology.id;
+        onto.lastModificationDate = this.ontology.lastModificationDate;
+
+        const updateLabel = new UpdateResourceClassLabel();
+
+        updateLabel.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass";
+
+        updateLabel.labels = [
+            {
+                language: "de",
+                value: "Test Klasse neu"
+            }, {
+                language: "en",
+                value: "Test Class new"
+            }
+        ];
+
+        onto.entity = updateLabel;
+
+        this.knoraApiConnection.v2.onto.updateResourceClass(onto).subscribe(
+            (res: ResourceClassDefinitionWithAllLanguages) => {
+                this.resClass = res;
+            }
+        );
+
+    }
+
+    updateResourceClassComment() {
+
+        const onto = new UpdateOntology<UpdateResourceClassComment>();
+
+        onto.id = this.ontology.id;
+        onto.lastModificationDate = this.ontology.lastModificationDate;
+
+        const updateLabel = new UpdateResourceClassComment();
+
+        updateLabel.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass";
+
+        updateLabel.comments = [
+            {
+                language: "de",
+                value: "Just an example of a new resource class new"
+            }
+        ];
+
+        onto.entity = updateLabel;
+
+        this.knoraApiConnection.v2.onto.updateResourceClass(onto).subscribe(
+            (res: ResourceClassDefinitionWithAllLanguages) => {
+                this.resClass = res;
+            }
+        );
+
+    }
+
     deleteResourceClass() {
 
         const deleteResClass: DeleteResourceClass = new DeleteResourceClass();
@@ -483,6 +558,70 @@ export class AppComponent implements OnInit {
                 console.log('new resource property created', response);
             }
         );
+    }
+
+    updateResourcePropertyLabel() {
+
+        const onto = new UpdateOntology<UpdateResourcePropertyLabel>();
+
+        onto.id = this.ontology.id;
+        onto.lastModificationDate = this.ontology.lastModificationDate;
+
+        const updateLabel = new UpdateResourcePropertyLabel();
+
+        updateLabel.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName";
+
+        updateLabel.labels = [
+            {
+                language: "en",
+                value: "has name new"
+            },
+            {
+                language: "de",
+                value: "hat Namen neu"
+            }
+        ];
+
+        onto.entity = updateLabel;
+
+        this.knoraApiConnection.v2.onto.updateResourceProperty(onto).subscribe(
+            (res: ResourcePropertyDefinitionWithAllLanguages) => {
+                this.property = res;
+            }
+        );
+
+    }
+
+    updateResourcePropertyComment() {
+
+        const onto = new UpdateOntology<UpdateResourcePropertyComment>();
+
+        onto.id = this.ontology.id;
+        onto.lastModificationDate = this.ontology.lastModificationDate;
+
+        const updateLabel = new UpdateResourcePropertyComment();
+
+        updateLabel.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName";
+
+        updateLabel.comments = [
+            {
+                language: "en",
+                value: "The name of a Thing new"
+            },
+            {
+                language: "de",
+                value: "Der Name eines Dinges neu"
+            }
+        ];
+
+        onto.entity = updateLabel;
+
+        this.knoraApiConnection.v2.onto.updateResourceProperty(onto).subscribe(
+            (res: ResourcePropertyDefinitionWithAllLanguages) => {
+                this.property = res;
+            }
+        );
+
     }
 
     deleteResourceProperty() {

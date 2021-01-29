@@ -1,5 +1,30 @@
 # Changelog
 
+### [1.2.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v1.2.0...v1.2.1) (2021-01-28)
+
+
+### Bug Fixes
+
+* **lists-endpoint:** getListNodeInfo now returns either a ListInfoResponse or a ListNodeInfoResponse depending on the returned JSON ([#302](https://www.github.com/dasch-swiss/dsp-js-lib/issues/302)) ([a7a7fcd](https://www.github.com/dasch-swiss/dsp-js-lib/commit/a7a7fcdddd0ca5fb689e14fee009216f12d2b4ad))
+
+
+### Maintenance
+
+* **dsp-api:** update to latest version v13.0.0 ([#291](https://www.github.com/dasch-swiss/dsp-js-lib/issues/291)) ([3d41e1a](https://www.github.com/dasch-swiss/dsp-js-lib/commit/3d41e1a98366d2ca06ef80e2e522e0c05a15112a))
+
+## [1.2.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v1.1.0...v1.2.0) (2021-01-25)
+
+
+### Bug Fixes
+
+* metadata endpoint after DSP-API v.13.0.0 release (DSP-1232) ([#294](https://www.github.com/dasch-swiss/dsp-js-lib/issues/294)) ([07c908b](https://www.github.com/dasch-swiss/dsp-js-lib/commit/07c908bc7570b04d0c40afd8b6982b01b2adda16))
+
+
+### Enhancements
+
+* **file value:** export base file value classes ([#299](https://www.github.com/dasch-swiss/dsp-js-lib/issues/299)) ([fdb7799](https://www.github.com/dasch-swiss/dsp-js-lib/commit/fdb7799c74ba1c0c9270b6fc8b59b35fe0b80537))
+* **ontology endpoint:** get ontology in all langs (dsp-1230) ([#297](https://www.github.com/dasch-swiss/dsp-js-lib/issues/297)) ([ba0643f](https://www.github.com/dasch-swiss/dsp-js-lib/commit/ba0643fbb0d0be8d7bcceab3cfd53cb04d8e7d29))
+
 ## [1.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v1.0.1...v1.1.0) (2021-01-12)
 
 

@@ -46,6 +46,8 @@ jobs:
         run: make get-test-data-from-release
       - name: Prepare test data
         run: make prepare-test-data
+      - name: Find ignored tests
+        run: ./find-ignored-tests.sh
       - name: Run unit tests
         run: make unit-tests
       - name: Build lib
