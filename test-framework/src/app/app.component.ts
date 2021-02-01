@@ -971,7 +971,7 @@ export class AppComponent implements OnInit {
         const testDataset = new Dataset();
         testDataset.id = 'http://ns.dasch.swiss/test-dataset';
         testDataset.type = Constants.DspRepoBase + 'Dataset';
-        testDataset.abstract = 'Dies ist ein Testprojekt.';
+        testDataset.abstract = ['Dies ist ein Testprojekt.'];
         // testDataset.alternativeTitle = 'test';
         testDataset.conditionsOfAccess = 'Open Access';
         // testDataset.dateCreated = '2001-09-26';
@@ -981,9 +981,8 @@ export class AppComponent implements OnInit {
         // testDataset.documentation = 'Work in progress';
         // testDataset.documentation = ['Work in progress', 'Dddddd'];
         testDataset.howToCite = 'Testprojekt (test), 2002, https://test.dasch.swiss';
-        // testDataset.language = [ 'EN', 'DE', 'FR' ];
-        testDataset.language = 'EN';
-        testDataset.license = { type: 'https://schema.org/URL', value: 'https://creativecommons.org/licenses/by/3.0' } as IUrl;
+        testDataset.language = [ 'EN', 'DE', 'FR' ];
+        testDataset.license = [{ type: 'https://schema.org/URL', value: 'https://creativecommons.org/licenses/by/3.0' }] as IUrl[];
         testDataset.qualifiedAttribution = [
             {
                 type: Constants.ProvAttribution,
@@ -992,22 +991,22 @@ export class AppComponent implements OnInit {
             },
             {
                 type: Constants.ProvAttribution,
-                role: 'contributor',
+                role: ['contributor'],
                 agent: {id: 'http://ns.dasch.swiss/test-hart'}
             },
             {
                 type: Constants.ProvAttribution,
-                role: 'editor',
+                role: ['editor'],
                 agent: {id: 'http://ns.dasch.swiss/test-abraham'}
             },
             {
                 type: Constants.ProvAttribution,
-                role: 'editor',
+                role: ['editor'],
                 agent: {id: 'http://ns.dasch.swiss/test-coleman'}
             },
             {
                 type: Constants.ProvAttribution,
-                role: 'editor',
+                role: ['editor'],
                 agent: {id: 'http://ns.dasch.swiss/test-jones'}
             }
          ];
@@ -1053,14 +1052,14 @@ export class AppComponent implements OnInit {
             'url': 'http://skos.um.es/unesco6/11'
          };
         // testDataset.project.endDate = '2001-01-26';
-        testDataset.project.funder = {
+        testDataset.project.funder = [{
             'id': 'http://ns.dasch.swiss/test-funder'
-        };
+        }];
         const grant = new Grant();
         grant.id = 'http://ns.dasch.swiss/test-grant';
         grant.type = Constants.DspRepoBase + 'Grant',
         // TODO: why funder is not returnet but only id?
-        grant.funder = {
+        grant.funder = [{
             'id': 'http://ns.dasch.swiss/test-funder',
             type: Constants.DspRepoBase + 'Organization',
             'address': {
@@ -1075,17 +1074,17 @@ export class AppComponent implements OnInit {
                 'type': 'https://schema.org/URL',
                 'value': 'http://www.utoronto.ca/'
             }
-        } as Organization;
+        }] as Organization[];
         // grant.name = 'Prof. test test, Prof. test Harbtestrecht';
         // grant.number = '0123456789';
         // grant.url = {
         //     'type': 'https://schema.org/URL',
         //     'value': 'http://p3.snf.ch/testproject'
         //  };
-        testDataset.project.grant = grant;
-        testDataset.project.keywords = 'science';
+        testDataset.project.grant = [grant];
+        testDataset.project.keywords = ['science'];
         testDataset.project.name = 'Testprojektname (test)';
-        testDataset.project.publication = 'testpublication';
+        testDataset.project.publication = ['testpublication'];
         testDataset.project.shortcode = '0000';
         // testDataset.project.spatialCoverage = [{
         //     'place': {
@@ -1142,10 +1141,10 @@ export class AppComponent implements OnInit {
             'name': 'Chronontology Dainst',
             'url': 'http://chronontology.dainst.org/period/Ef9SyESSafJ1'
         };
-        testDataset.project.url = {
+        testDataset.project.url = [{
             'type': 'https://schema.org/URL',
             'value': 'https://test.dasch.swiss/'
-        };
+        }];
         // const testPersonOne = {
         //     'id': 'http://ns.dasch.swiss/test-jones',
         //     type: Constants.DspRepoBase + 'Person',
