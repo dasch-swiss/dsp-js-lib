@@ -1392,7 +1392,8 @@ export class AppComponent implements OnInit {
             (res: ApiResponseData<DeleteListResponse>) => {
                 console.log(res);
                 this.listNodeDeleted = res.body.deleted;
-            }
+            },
+            err => console.error('Error:', err)
         );
     }
 
