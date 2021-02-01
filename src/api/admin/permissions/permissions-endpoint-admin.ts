@@ -9,6 +9,7 @@ import { DefaultObjectAccessPermissionsResponse } from "../../../models/admin/de
 import { DeletePermissionResponse } from "../../../models/admin/delete-permission-response";
 import { ProjectPermissionsResponse } from "../../../models/admin/project-permissions-response";
 import { UpdateAdministrativePermission } from "../../../models/admin/update-administrative-permission";
+import { UpdateAdministrativePermissionGroup } from "../../../models/admin/update-administrative-permission-group";
 import { UpdateDefaultObjectAccessPermission } from "../../../models/admin/update-default-object-access-permission";
 import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
@@ -93,6 +94,19 @@ export class PermissionsEndpointAdmin extends Endpoint {
      */
     updateAdministrativePermission(permissionIri: string, administrativePermission: UpdateAdministrativePermission): Observable<ApiResponseError | ApiResponseData<AdministrativePermissionResponse>> {
         return this.httpPut("/" + encodeURIComponent(permissionIri) + "/hasPermissions", this.jsonConvert.serializeObject(administrativePermission)).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, AdministrativePermissionResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    }
+
+    /**
+     * Updates an existing administrative permission's group.
+     *
+     * @param permissionIri the Iri of the permission to be updated.
+     * @param updateAdministrativePermissionGroup the new group setting.
+     */
+    updateAdministrativePermissionGroup(permissionIri: string, updateAdministrativePermissionGroup: UpdateAdministrativePermissionGroup) {
+        return this.httpPut("/" + encodeURIComponent(permissionIri) + "/group", this.jsonConvert.serializeObject(updateAdministrativePermissionGroup)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, AdministrativePermissionResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );

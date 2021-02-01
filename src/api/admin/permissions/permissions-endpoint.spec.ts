@@ -12,6 +12,7 @@ import { DeletePermissionResponse } from "../../../models/admin/delete-permissio
 import { Permission } from "../../../models/admin/permission";
 import { ProjectPermissionsResponse } from "../../../models/admin/project-permissions-response";
 import { UpdateAdministrativePermission } from "../../../models/admin/update-administrative-permission";
+import { UpdateAdministrativePermissionGroup } from "../../../models/admin/update-administrative-permission-group";
 import { UpdateDefaultObjectAccessPermission } from "../../../models/admin/update-default-object-access-permission";
 import { ApiResponseData } from "../../../models/api-response-data";
 
@@ -288,6 +289,39 @@ describe("PermissionsEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             const payload = require("../../../../test/data/api/admin/permissions/update-administrative-permission-hasPermissions-request.json");
+
+            expect(request.data()).toEqual(payload);
+
+        });
+
+    });
+
+    describe("Method updateAdministrativePermissionGroup", () => {
+
+        it("should update an administrative permission's group", done => {
+
+            const updateAdminPermGroup = new UpdateAdministrativePermissionGroup();
+
+            updateAdminPermGroup.forGroup = "http://rdfh.ch/groups/00FF/images-reviewer";
+
+            knoraApiConnection.admin.permissionsEndpoint.updateAdministrativePermissionGroup("http://rdfh.ch/groups/00FF/images-reviewer", updateAdminPermGroup).subscribe(
+                (res: ApiResponseData<AdministrativePermissionResponse>) => {
+                    expect(res.body.administrative_permission.id).toEqual("http://rdfh.ch/permissions/00FF/a2");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const permissionUpdateResponse = require("../../../../test/data/api/admin/permissions/update-administrative-permission-forGroup-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionUpdateResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fgroups%2F00FF%2Fimages-reviewer/group");
+
+            expect(request.method).toEqual("PUT");
+
+            const payload = require("../../../../test/data/api/admin/permissions/update-administrative-permission-forGroup-request.json");
 
             expect(request.data()).toEqual(payload);
 
