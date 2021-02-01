@@ -1,6 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
 import { IUrl } from "../custom-converters/base-url-converter";
+import { UnionDataManagementPlanIdConverter } from "../custom-converters/union-data-management-plan-id-converter";
 import { DateConverter } from "../custom-converters/date-converter";
 import { UnionAdvancedUrlObjectConverter } from "../custom-converters/union-advanced-url-object-converter";
 import { UnionElementArrayOfElementsConverter } from "../custom-converters/union-element-array-of-elements-converter";
@@ -29,8 +30,8 @@ export class SingleProject extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasContactPoint, UnionPersonOrganizationIdConverter, true)
     contactPoint?: Person[] | Organization[] = undefined;
 
-    @JsonProperty(Constants.DspHasDataManagementPlan, DataManagementPlan, true)
-    dataManagementPlan?: DataManagementPlan = undefined;
+    @JsonProperty(Constants.DspHasDataManagementPlan, UnionDataManagementPlanIdConverter, true)
+    dataManagementPlan?: DataManagementPlan | object = undefined;
 
     @JsonProperty(Constants.DspHasDescription, String)
     description: string = "";

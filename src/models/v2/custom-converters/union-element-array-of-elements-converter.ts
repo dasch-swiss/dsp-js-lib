@@ -56,9 +56,18 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert
                 // below condition is temp solution for data sent from the test app, due to different structure
                     || el[0].hasOwnProperty(Constants.SchemaUrlValue):
                     return UnionElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Place);
+                case el[0].hasOwnProperty("@id"):
+                    const newArr = [] as Array<object>;
+                    if (Array.isArray(el)) {
+                        el.forEach((
+                            (item: any) => newArr.push({id: (item as { [index: string]: string })["@id"]})
+                        ));
+                    };
+                    return newArr as any[];
                 default:
                     throw new Error(`Deserialization Error: expected an array of objects with property @type equals to: 
-                        ${Constants.ProvAttribution}, ${Constants.DspGrant}, or ${Constants.SchemaPlace}.`);
+                        ${Constants.ProvAttribution}, ${Constants.DspGrant}, ${Constants.SchemaPlace}, or a reference 
+                        object with id key.`);
             }
         } else {
             switch (true) {
@@ -73,10 +82,11 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert
                 case el.hasOwnProperty("@id"):
                     return {
                         id: (el as { [index: string]: string })["@id"]
-                    } as Grant | Attribution | Place;
+                    } as any;
                 default:
                     throw new Error(`Deserialization Error: expected an object with property @type equals to: 
-                        ${Constants.ProvAttribution}, ${Constants.DspGrant}, or ${Constants.SchemaPlace}.`);
+                        ${Constants.ProvAttribution}, ${Constants.DspGrant}, ${Constants.SchemaPlace}, or a reference 
+                        object with id key`);
             }
         }
     }
