@@ -445,9 +445,9 @@ describe("PermissionsEndpoint", () => {
 
     describe("Method deletePermission", () => {
 
-        it("should delete a permission", done => {
+        it("should delete an admin permission", done => {
 
-            knoraApiConnection.admin.permissionsEndpoint.deletePermission("myPermission").subscribe(
+            knoraApiConnection.admin.permissionsEndpoint.deletePermission("http://rdfh.ch/permissions/00FF/a2").subscribe(
                 (response: ApiResponseData<DeletePermissionResponse>) => {
                   expect(response.body.deleted).toBeTrue();
                   done();
@@ -456,14 +456,32 @@ describe("PermissionsEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            // const permissionCreationResponse = require("../../../../test/data/api/admin/permissions/create-defaultObjectAccess-permission-withCustomIRI-response.json");
+            const deleteAdminPermissionResponse = require("../../../../test/data/api/admin/permissions/delete-administrative-permission-response.json");
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({
-                permissionIri: "myPermission",
-                deleted: true
-            })));
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteAdminPermissionResponse)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/myPermission");
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2Fa2");
+
+            expect(request.method).toEqual("DELETE");
+
+        });
+
+        it("should delete an DOA permission", done => {
+
+            knoraApiConnection.admin.permissionsEndpoint.deletePermission("http://rdfh.ch/permissions/00FF/DOAP-with-customIri").subscribe(
+                (response: ApiResponseData<DeletePermissionResponse>) => {
+                    expect(response.body.deleted).toBeTrue();
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const deleteDOAPermissionResponse = require("../../../../test/data/api/admin/permissions/delete-defaultObjectAccess-permission-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteDOAPermissionResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2FDOAP-with-customIri");
 
             expect(request.method).toEqual("DELETE");
 
