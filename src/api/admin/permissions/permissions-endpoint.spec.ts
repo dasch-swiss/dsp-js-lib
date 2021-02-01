@@ -11,6 +11,7 @@ import { DefaultObjectAccessPermissionsResponse } from "../../../models/admin/de
 import { DeletePermissionResponse } from "../../../models/admin/delete-permission-response";
 import { Permission } from "../../../models/admin/permission";
 import { ProjectPermissionsResponse } from "../../../models/admin/project-permissions-response";
+import { UpdateAdministrativePermission } from "../../../models/admin/update-administrative-permission";
 import { ApiResponseData } from "../../../models/api-response-data";
 
 describe("PermissionsEndpoint", () => {
@@ -255,6 +256,44 @@ describe("PermissionsEndpoint", () => {
 
     });
 
+    describe("Method updateAdministrativePermission", () => {
+
+        it("should update an administrative permission", done => {
+
+            const updateAdminPerm = new UpdateAdministrativePermission();
+
+            const perm = new CreatePermission();
+            perm.additionalInformation = null;
+            perm.name = "ProjectAdminGroupAllPermission";
+            perm.permissionCode = null;
+
+            updateAdminPerm.hasPermissions = [perm];
+
+            knoraApiConnection.admin.permissionsEndpoint.updateAdministrativePermission("http://rdfh.ch/permissions/00FF/a2", updateAdminPerm).subscribe(
+                (res: ApiResponseData<AdministrativePermissionResponse>) => {
+                    expect(res.body.administrative_permission.id).toEqual("http://rdfh.ch/permissions/00FF/a2");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const permissionUpdateResponse = require("../../../../test/data/api/admin/permissions/update-administrative-permission-hasPermissions-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionUpdateResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2Fa2/hasPermissions");
+
+            expect(request.method).toEqual("PUT");
+
+            const payload = require("../../../../test/data/api/admin/permissions/update-administrative-permission-hasPermissions-request.json");
+
+            expect(request.data()).toEqual(payload);
+
+        });
+
+    });
+
     describe("Method getDefaultObjectAccessPermissions", () => {
 
         it("should return all default project access permissions", done => {
@@ -400,7 +439,7 @@ describe("PermissionsEndpoint", () => {
 
         });
 
-        it("should create an  default object access permission with a custom Iri", done => {
+        it("should create an default object access permission with a custom Iri", done => {
 
             const permission = new CreatePermission();
             permission.name = "D";

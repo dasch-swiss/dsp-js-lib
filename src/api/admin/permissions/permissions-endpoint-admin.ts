@@ -8,6 +8,7 @@ import { DefaultObjectAccessPermissionResponse } from "../../../models/admin/def
 import { DefaultObjectAccessPermissionsResponse } from "../../../models/admin/default-object-access-permissions-response";
 import { DeletePermissionResponse } from "../../../models/admin/delete-permission-response";
 import { ProjectPermissionsResponse } from "../../../models/admin/project-permissions-response";
+import { UpdateAdministrativePermission } from "../../../models/admin/update-administrative-permission";
 import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { Endpoint } from "../../endpoint";
@@ -81,6 +82,20 @@ export class PermissionsEndpointAdmin extends Endpoint {
             catchError(error => this.handleError(error))
         );
 
+    }
+
+    /**
+     * Updates an existing administrative permission.
+     *
+     *
+     * @param permissionIri the Iri of the permission to be updated.
+     * @param administrativePermission the new permission settings.
+     */
+    updateAdministrativePermission(permissionIri: string, administrativePermission: UpdateAdministrativePermission): Observable<ApiResponseError | ApiResponseData<AdministrativePermissionResponse>> {
+        return this.httpPut("/" + encodeURIComponent(permissionIri) + "/hasPermissions", this.jsonConvert.serializeObject(administrativePermission)).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, AdministrativePermissionResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
     }
 
     /**
