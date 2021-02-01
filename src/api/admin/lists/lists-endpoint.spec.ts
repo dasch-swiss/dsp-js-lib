@@ -531,7 +531,7 @@ describe("ListsEndpoint", () => {
 
         it("should delete a list child node", done => {
 
-            knoraApiConnection.admin.listsEndpoint.deleteListNode("http://rdfh.ch/lists/0001/notUsedList015").subscribe(
+            knoraApiConnection.admin.listsEndpoint.deleteListNode("http://rdfh.ch/lists/0001/notUsedList016").subscribe(
                 (res: ApiResponseData<DeleteListNodeResponse | DeleteListResponse>) => {
                     expect(res.body instanceof DeleteListNodeResponse).toBeTruthy();
                     expect((res.body as DeleteListNodeResponse).node.id).toEqual("http://rdfh.ch/lists/0001/notUsedList");
@@ -545,7 +545,32 @@ describe("ListsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FnotUsedList015");
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FnotUsedList016");
+
+            expect(request.method).toEqual("DELETE");
+
+            expect(request.requestHeaders).toEqual({});
+
+        });
+
+        it("should delete a list root node", done => {
+
+            knoraApiConnection.admin.listsEndpoint.deleteListNode("http://rdfh.ch/lists/0001/notUsedList").subscribe(
+                (res: ApiResponseData<DeleteListResponse | DeleteListResponse>) => {
+                    expect(res.body instanceof DeleteListResponse).toBeTruthy();
+                    expect((res.body as DeleteListResponse).iri).toEqual("http://rdfh.ch/lists/0001/notUsedList");
+                    expect((res.body as DeleteListResponse).deleted).toBeTruthy();
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const listsResponse = require("../../../../test/data/api/admin/lists/delete-list-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FnotUsedList");
 
             expect(request.method).toEqual("DELETE");
 
