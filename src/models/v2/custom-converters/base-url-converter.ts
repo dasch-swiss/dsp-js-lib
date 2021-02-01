@@ -15,16 +15,32 @@ export interface IUrl {
  * @category Internal
  */
 @JsonConverter
-export abstract class BaseUrlConverter implements JsonCustomConvert<IUrl> {
+export abstract class BaseUrlConverter implements JsonCustomConvert<IUrl | string | Array<IUrl | string>> {
 
-    serialize(val: IUrl): object {
-        return {
-            "@type": val.type,
-            [Constants.SchemaUrlValue]: val.value
-        };
+    serialize(el: IUrl | string | Array<IUrl | string>): any {
+        if (Array.isArray(el)) {
+            const newObj = [] as any[];
+            el.forEach((
+                (item: IUrl | string) => newObj.push(this.serializeElement(item))
+            ));
+            return newObj;
+        } else {
+            return this.serializeElement(el);
+        }
     }
 
-    deserialize(val: any): IUrl {
+    deserialize(val: any): IUrl | string | Array<IUrl | string> {
         return val;
+    }
+
+    protected serializeElement(el: IUrl | string): object | string {
+        if (typeof el === "string") {
+            return el;
+        } else {
+            return {
+                "@type": el.type,
+                [Constants.SchemaUrlValue]: el.value
+            };
+        }
     }
 }
