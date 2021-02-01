@@ -1,16 +1,16 @@
 /**
- * Update of an administrative permission.
+ * Update of a default object access permission.
  *
  * @category Model Admin
  */
 import { JsonObject, JsonProperty } from "json2typescript";
 import { CreatePermission } from "./create-permission";
 
-@JsonObject("UpdateAdministrativePermission")
-export class UpdateAdministrativePermission {
+@JsonObject("UpdateDefaultObjectAccessPermission")
+export class UpdateDefaultObjectAccessPermission {
 
     /**
-     * The permissions granted by an AdministrativePermission.
+     * The permissions granted by an default object access permission.
      */
     @JsonProperty("hasPermissions", [CreatePermission])
     hasPermissions: CreatePermission[] = [];

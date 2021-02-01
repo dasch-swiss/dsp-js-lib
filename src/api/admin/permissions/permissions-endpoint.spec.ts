@@ -12,6 +12,7 @@ import { DeletePermissionResponse } from "../../../models/admin/delete-permissio
 import { Permission } from "../../../models/admin/permission";
 import { ProjectPermissionsResponse } from "../../../models/admin/project-permissions-response";
 import { UpdateAdministrativePermission } from "../../../models/admin/update-administrative-permission";
+import { UpdateDefaultObjectAccessPermission } from "../../../models/admin/update-default-object-access-permission";
 import { ApiResponseData } from "../../../models/api-response-data";
 
 describe("PermissionsEndpoint", () => {
@@ -478,6 +479,44 @@ describe("PermissionsEndpoint", () => {
             const payload = require("../../../../test/data/api/admin/permissions/create-defaultObjectAccess-permission-withCustomIRI-request.json");
 
             expect(request.data()).toEqual(payload);
+        });
+
+    });
+
+    describe("Method updateDefaultObjectAccessPermission", () => {
+
+        it("should update an default object access permission", done => {
+
+            const updateDefaultObjectAccessPermission = new UpdateDefaultObjectAccessPermission();
+
+            const perm = new CreatePermission();
+            perm.additionalInformation = "http://www.knora.org/ontology/knora-admin#ProjectMember";
+            perm.name = "D";
+            perm.permissionCode = 7;
+
+            updateDefaultObjectAccessPermission.hasPermissions = [perm];
+
+            knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermission("http://rdfh.ch/permissions/0803/003-d1", updateDefaultObjectAccessPermission).subscribe(
+                (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
+                    expect(res.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/0803/003-d1");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const permissionUpdateResponse = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-hasPermissions-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionUpdateResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F0803%2F003-d1/hasPermissions");
+
+            expect(request.method).toEqual("PUT");
+
+            const payload = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-hasPermissions-request.json");
+
+            expect(request.data()).toEqual(payload);
+
         });
 
     });

@@ -9,6 +9,7 @@ import { DefaultObjectAccessPermissionsResponse } from "../../../models/admin/de
 import { DeletePermissionResponse } from "../../../models/admin/delete-permission-response";
 import { ProjectPermissionsResponse } from "../../../models/admin/project-permissions-response";
 import { UpdateAdministrativePermission } from "../../../models/admin/update-administrative-permission";
+import { UpdateDefaultObjectAccessPermission } from "../../../models/admin/update-default-object-access-permission";
 import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { Endpoint } from "../../endpoint";
@@ -87,7 +88,6 @@ export class PermissionsEndpointAdmin extends Endpoint {
     /**
      * Updates an existing administrative permission.
      *
-     *
      * @param permissionIri the Iri of the permission to be updated.
      * @param administrativePermission the new permission settings.
      */
@@ -147,6 +147,19 @@ export class PermissionsEndpointAdmin extends Endpoint {
             throw new Error("Invalid combination of properties for creation of new default object access permission.");
         }
 
+    }
+
+    /**
+     * Updates an existing default object access permission.
+     *
+     * @param permissionIri the Iri of the permission to be updated.
+     * @param defaultObjectAccessPermission the new permission settings.
+     */
+    updateDefaultObjectAccessPermission(permissionIri: string, defaultObjectAccessPermission: UpdateDefaultObjectAccessPermission): Observable<ApiResponseError | ApiResponseData<DefaultObjectAccessPermissionResponse>> {
+        return this.httpPut("/" + encodeURIComponent(permissionIri) + "/hasPermissions", this.jsonConvert.serializeObject(defaultObjectAccessPermission)).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, DefaultObjectAccessPermissionResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
     }
 
     /**
