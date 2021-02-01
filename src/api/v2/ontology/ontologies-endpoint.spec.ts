@@ -20,11 +20,15 @@ import {
     ResourcePropertyDefinition,
     ResourcePropertyDefinitionWithAllLanguages
 } from "../../../models/v2/ontologies/resource-property-definition";
+import { StandoffClassDefinition } from "../../../models/v2/ontologies/standoff-class-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
 import { UpdateOntologyResourceClassCardinality } from "../../../models/v2/ontologies/update/update-ontology-resource-class-cardinality";
+import { UpdateResourceClassComment } from "../../../models/v2/ontologies/update/update-resource-class-comment";
+import { UpdateResourceClassLabel } from "../../../models/v2/ontologies/update/update-resource-class-label";
+import { UpdateResourcePropertyComment } from "../../../models/v2/ontologies/update/update-resource-property-comment";
+import { UpdateResourcePropertyLabel } from "../../../models/v2/ontologies/update/update-resource-property-label";
 import { StringLiteralV2 } from "../../../models/v2/string-literal-v2";
-import { StandoffClassDefinition } from "../../../models/v2/ontologies/standoff-class-definition";
 
 describe("OntologiesEndpoint", () => {
 
@@ -421,6 +425,232 @@ describe("OntologiesEndpoint", () => {
             expectedPayload["http://api.knora.org/ontology/knora-api/v2#lastModificationDate"]["@value"] = "2020-10-21T23:50:43.379793Z";
 
             expect(request.data()).toEqual(expectedPayload);
+        });
+
+    });
+
+    describe("Method updateResourceClass", () => {
+
+        it("should update a resource class\'s label", done => {
+
+            const onto = new UpdateOntology<UpdateResourceClassLabel>();
+
+            onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
+
+            onto.lastModificationDate = "2020-10-21T23:50:43.379793Z";
+
+            const updateResClassLabel = new UpdateResourceClassLabel();
+
+            updateResClassLabel.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
+
+            const label = new StringLiteralV2();
+
+            label.language = "en";
+            label.value = "nothing";
+
+            const label2 = new StringLiteralV2();
+
+            label2.language = "fr";
+            label2.value = "rien";
+
+            updateResClassLabel.labels = [label, label2];
+
+            onto.entity = updateResClassLabel;
+
+            knoraApiConnection.v2.onto.updateResourceClass(onto).subscribe(
+                (res: ResourceClassDefinitionWithAllLanguages) => {
+                    expect(res.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const createResClassResponse = require("../../../../test/data/api/v2/ontologies/create-class-without-cardinalities-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createResClassResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/classes");
+
+            expect(request.method).toEqual("PUT");
+
+            const expectedPayload = require("../../../../test/data/api/v2/ontologies/change-class-label-request-expanded.json");
+
+            // TODO: remove this bad hack once test data is stable
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#lastModificationDate"]["@value"] = "2020-10-21T23:50:43.379793Z";
+
+            expect(request.data()).toEqual(expectedPayload);
+
+        });
+
+        it("should update a resource class\'s comment", done => {
+
+            const onto = new UpdateOntology<UpdateResourceClassComment>();
+
+            onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
+
+            onto.lastModificationDate = "2020-10-21T23:50:43.379793Z";
+
+            const updateResClassComment = new UpdateResourceClassComment();
+
+            updateResClassComment.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
+
+            const label = new StringLiteralV2();
+
+            label.language = "en";
+            label.value = "Represents nothing";
+
+            const label2 = new StringLiteralV2();
+
+            label2.language = "fr";
+            label2.value = "ne représente rien";
+
+            updateResClassComment.comments = [label, label2];
+
+            onto.entity = updateResClassComment;
+
+            knoraApiConnection.v2.onto.updateResourceClass(onto).subscribe(
+                (res: ResourceClassDefinitionWithAllLanguages) => {
+                    expect(res.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const createResClassResponse = require("../../../../test/data/api/v2/ontologies/create-class-without-cardinalities-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createResClassResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/classes");
+
+            expect(request.method).toEqual("PUT");
+
+            const expectedPayload = require("../../../../test/data/api/v2/ontologies/change-class-comment-request-expanded.json");
+
+            // TODO: remove this bad hack once test data is stable
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#lastModificationDate"]["@value"] = "2020-10-21T23:50:43.379793Z";
+
+            expect(request.data()).toEqual(expectedPayload);
+
+        });
+
+    });
+
+    describe("Method updateProperty", () => {
+
+        it("should update a resource class\'s label", done => {
+
+            const onto = new UpdateOntology<UpdateResourcePropertyLabel>();
+
+            onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
+
+            onto.lastModificationDate = "2020-10-21T23:50:43.379793Z";
+
+            const updateResPropLabel = new UpdateResourcePropertyLabel();
+
+            updateResPropLabel.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasName";
+
+            const label = new StringLiteralV2();
+
+            label.language = "en";
+            label.value = "has name";
+
+            const label2 = new StringLiteralV2();
+
+            label2.language = "fr";
+            label2.value = "a nom";
+
+            const label3 = new StringLiteralV2();
+
+            label3.language = "de";
+            label3.value = "hat Namen";
+
+            updateResPropLabel.labels = [label, label2, label3];
+
+            onto.entity = updateResPropLabel;
+
+            knoraApiConnection.v2.onto.updateResourceProperty(onto).subscribe(
+                (res: ResourcePropertyDefinitionWithAllLanguages) => {
+                    expect(res.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#hasName");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const createResClassResponse = require("../../../../test/data/api/v2/ontologies/create-value-property-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createResClassResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/properties");
+
+            expect(request.method).toEqual("PUT");
+
+            const expectedPayload = require("../../../../test/data/api/v2/ontologies/change-property-label-request-expanded.json");
+
+            // TODO: remove this bad hack once test data is stable
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#lastModificationDate"]["@value"] = "2020-10-21T23:50:43.379793Z";
+
+            expect(request.data()).toEqual(expectedPayload);
+
+        });
+
+        it("should update a resource property\'s comment", done => {
+
+            const onto = new UpdateOntology<UpdateResourcePropertyComment>();
+
+            onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
+
+            onto.lastModificationDate = "2020-10-21T23:50:43.379793Z";
+
+            const updateResPropertyComment = new UpdateResourcePropertyComment();
+
+            updateResPropertyComment.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasName";
+
+            const label = new StringLiteralV2();
+
+            label.language = "en";
+            label.value = "The name of a Thing";
+
+            const label2 = new StringLiteralV2();
+
+            label2.language = "fr";
+            label2.value = "Le nom d'une chose";
+
+            const label3 = new StringLiteralV2();
+
+            label3.language = "de";
+            label3.value = "Der Name eines Dinges";
+
+            updateResPropertyComment.comments = [label, label2, label3];
+
+            onto.entity = updateResPropertyComment;
+
+            knoraApiConnection.v2.onto.updateResourceProperty(onto).subscribe(
+                (res: ResourcePropertyDefinitionWithAllLanguages) => {
+                    expect(res.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#hasName");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const createResClassResponse = require("../../../../test/data/api/v2/ontologies/create-value-property-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createResClassResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/properties");
+
+            expect(request.method).toEqual("PUT");
+
+            const expectedPayload = require("../../../../test/data/api/v2/ontologies/change-property-comment-request-expanded.json");
+
+            // TODO: remove this bad hack once test data is stable
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#lastModificationDate"]["@value"] = "2020-10-21T23:50:43.379793Z";
+
+            expect(request.data()).toEqual(expectedPayload);
+
         });
 
     });
