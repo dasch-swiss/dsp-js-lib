@@ -177,6 +177,19 @@ export class PermissionsEndpointAdmin extends Endpoint {
     }
 
     /**
+     * Updates an existing default object access permission's group.
+     *
+     * @param permissionIri the Iri of the permission to be updated.
+     * @param administrativePermission the new permission settings.
+     */
+    updateDefaultObjectAccessPermissionGroup(permissionIri: string, administrativePermission: UpdateAdministrativePermissionGroup): Observable<ApiResponseError | ApiResponseData<DefaultObjectAccessPermissionResponse>> {
+        return this.httpPut("/" + encodeURIComponent(permissionIri) + "/group", this.jsonConvert.serializeObject(administrativePermission)).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, DefaultObjectAccessPermissionResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    }
+
+    /**
      * Deletes a permission.
      *
      * @param permissionIri the IRI of the permission to be deleted.

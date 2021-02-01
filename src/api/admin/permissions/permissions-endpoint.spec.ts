@@ -14,6 +14,7 @@ import { ProjectPermissionsResponse } from "../../../models/admin/project-permis
 import { UpdateAdministrativePermission } from "../../../models/admin/update-administrative-permission";
 import { UpdateAdministrativePermissionGroup } from "../../../models/admin/update-administrative-permission-group";
 import { UpdateDefaultObjectAccessPermission } from "../../../models/admin/update-default-object-access-permission";
+import { UpdateDefaultObjectAccessPermissionGroup } from "../../../models/admin/update-default-object-access-permission-group";
 import { ApiResponseData } from "../../../models/api-response-data";
 
 describe("PermissionsEndpoint", () => {
@@ -519,7 +520,7 @@ describe("PermissionsEndpoint", () => {
 
     describe("Method updateDefaultObjectAccessPermission", () => {
 
-        it("should update an default object access permission", done => {
+        it("should update a default object access permission", done => {
 
             const updateDefaultObjectAccessPermission = new UpdateDefaultObjectAccessPermission();
 
@@ -548,6 +549,39 @@ describe("PermissionsEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             const payload = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-hasPermissions-request.json");
+
+            expect(request.data()).toEqual(payload);
+
+        });
+
+    });
+
+    describe("Method updateDefaultObjectAccessPermissionGroup", () => {
+
+        it("should update a default object access permission's group", done => {
+
+            const updateDOAPGroup = new UpdateDefaultObjectAccessPermissionGroup();
+
+            updateDOAPGroup.forGroup = "http://rdfh.ch/groups/00FF/images-reviewer";
+
+            knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermissionGroup("http://rdfh.ch/groups/00FF/images-reviewer", updateDOAPGroup).subscribe(
+                (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
+                    expect(res.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/0803/003-d2");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const permissionUpdateResponse = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-forGroup-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionUpdateResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fgroups%2F00FF%2Fimages-reviewer/group");
+
+            expect(request.method).toEqual("PUT");
+
+            const payload = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-forGroup-request.json");
 
             expect(request.data()).toEqual(payload);
 
