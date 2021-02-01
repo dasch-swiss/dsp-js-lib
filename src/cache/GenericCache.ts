@@ -41,10 +41,10 @@ export abstract class GenericCache<T> {
             take(1),
             // DSP-API may return several elements for the request (optimization)
             tap((items: T[]) => {
-                if (items.length === 0) throw Error("No items returned from DSP-API for " + key);
+                if (items.length === 0) throw Error(`No items returned from DSP-API for ${key}`);
 
                 // the first item is expected to be the requested item
-                if (key !== this.getKeyOfItem(items[0])) throw Error("First item of items returned from DSP-API is expected to be " + key);
+                if (key !== this.getKeyOfItem(items[0])) throw Error(`First item of items returned from DSP-API is expected to be {$key}`);
 
                 // save all additional items returned for this request
                 this.saveAdditionalItems(items.slice(1));
