@@ -3,8 +3,8 @@ import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-c
 import { Constants } from "../Constants";
 import { Attribution } from "../project-metadata/attribution";
 import { Grant } from "../project-metadata/grant";
+import { IId } from "../project-metadata/metadata-interfaces";
 import { Place } from "../project-metadata/place";
-import { IId } from "./union-data-management-plan-id-converter";
 
 /**
  * @category Internal

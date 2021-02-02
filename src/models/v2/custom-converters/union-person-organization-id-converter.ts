@@ -1,9 +1,9 @@
 import { JsonConvert, JsonConverter, JsonCustomConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { Constants } from "../Constants";
+import { IId } from "../project-metadata/metadata-interfaces";
 import { Organization } from "../project-metadata/organization";
 import { Person } from "../project-metadata/person";
-import { IId } from "./union-data-management-plan-id-converter";
 
 /**
  * @category Internal

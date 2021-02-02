@@ -1,7 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
-import { IUrl } from "../custom-converters/base-url-converter";
 import { PlaceConverter } from "../custom-converters/place-converter";
+import { IUrl } from "../project-metadata/metadata-interfaces";
 
 /** 
  * @category Model V2 

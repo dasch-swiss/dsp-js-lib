@@ -2,10 +2,7 @@ import { JsonConvert, JsonConverter, JsonCustomConvert, OperationMode, ValueChec
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { Constants } from "../Constants";
 import { DataManagementPlan } from "../project-metadata/data-management-plan";
-
-export interface IId {
-    id: string;
-}
+import { IId } from "../project-metadata/metadata-interfaces";
 
 /**
  * @category Internal

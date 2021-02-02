@@ -1,13 +1,13 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
-import { IUrl } from "../custom-converters/base-url-converter";
 import { DateConverter } from "../custom-converters/date-converter";
 import { UnionAdvancedUrlObjectConverter } from "../custom-converters/union-advanced-url-object-converter";
-import { IId, UnionDataManagementPlanIdConverter } from "../custom-converters/union-data-management-plan-id-converter";
+import { UnionDataManagementPlanIdConverter } from "../custom-converters/union-data-management-plan-id-converter";
 import { UnionElementArrayOfElementsConverter } from "../custom-converters/union-element-array-of-elements-converter";
 import { UnionPersonOrganizationIdConverter } from "../custom-converters/union-person-organization-id-converter";
 import { UnionStringArrayOfStringsConverter } from "../custom-converters/union-string-array-of-strings-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
+import { IId, IUrl } from "../project-metadata/metadata-interfaces";
 import { BaseProjectMetadata } from "./base-project-metadata";
 import { DataManagementPlan } from "./data-management-plan";
 import { Grant } from "./grant";
