@@ -73,6 +73,7 @@ import {
     UpdateResourcePropertyLabel,
     UpdateResourcePropertyComment
 } from '@dasch-swiss/dsp-js';
+import { IId } from '@dasch-swiss/dsp-js/src/models/v2/custom-converters/union-data-management-plan-id-converter';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
