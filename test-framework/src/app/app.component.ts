@@ -73,7 +73,8 @@ import {
     DeletePermissionResponse,
     DeleteListResponse,
     DeleteListNodeResponse,
-    UpdateAdministrativePermission
+    UpdateAdministrativePermission,
+    UpdateDefaultObjectAccessPermission
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -317,6 +318,7 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.admin.permissionsEndpoint.getDefaultObjectAccessPermissions(projectIri).subscribe(
             (res: ApiResponseData<DefaultObjectAccessPermissionsResponse>) => {
                 this.permissionStatus = "getDefaultObjectAccessPermissions ok";
+                this.permissionIri = res.body.defaultObjectAccessPermissions[0].id;
                 console.log(res);
             },
             err => console.error("Error:", err)
@@ -350,6 +352,27 @@ export class AppComponent implements OnInit {
                 console.log(res);
             },
             err => console.error("Error:", err)
+        );
+
+    }
+
+    updateDefaultObjectAccessPermission() {
+
+        const perm = new CreatePermission();
+        perm.additionalInformation = "http://www.knora.org/ontology/knora-admin#ProjectMember";
+        perm.name = "D";
+        perm.permissionCode = 7;
+
+        const updateDefaultObjectAccessPerm = new UpdateDefaultObjectAccessPermission();
+
+        updateDefaultObjectAccessPerm.hasPermissions = [perm];
+
+        this.knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermission(this.permissionIri, updateDefaultObjectAccessPerm).subscribe(
+            (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
+                this.permissionUpdateStatus = "updateDefaultObjectAccessPermission ok";
+                console.log(res);
+            },
+            err => console.error(err)
         );
 
     }

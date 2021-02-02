@@ -197,6 +197,31 @@ describe('workspace-project App', () => {
 
   });
 
+  it('update a default object access permission', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#permissions button.get-default-object-access-permissions');
+    button.click();
+
+    const label = page.getEle('div#permissions span.status');
+    expect(label.getText()).toEqual('Permission status: getDefaultObjectAccessPermissions ok');
+
+    const button2 = page.getEle('div#permissions button.update-default-object-access-permission');
+    button2.click();
+
+    const label2 = page.getEle('div#permissions span.update-status');
+    expect(label2.getText()).toEqual('Permission update status: updateDefaultObjectAccessPermission ok');
+
+  });
+
   it('create a default object access permission', () => {
 
     page.navigateTo();
