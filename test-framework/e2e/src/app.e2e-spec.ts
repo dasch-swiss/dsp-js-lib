@@ -864,7 +864,7 @@ describe('workspace-project App', () => {
     const loginStatus = page.getEle('div section#login span.status');
     expect(loginStatus.getText()).toEqual('logged in');
 
-    const button = page.getEle('div#lists button.update-list-node');
+    const button = page.getEle('div#lists button.update-list-child-node');
 
     button.click();
 
@@ -928,6 +928,33 @@ describe('workspace-project App', () => {
     const listComment = page.getEle('div#lists span.list-comments');
 
     expect(listComment.getText()).toEqual('de/Neuer Kommentar');
+  });
+
+  it('should delete a list child and root node', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    let button = page.getEle('div#lists button.delete-list-child-node');
+
+    button.click();
+
+    const listChildren = page.getEle('div#lists span.list-children');
+
+    expect(listChildren.getText()).toEqual('4');
+
+    button = page.getEle('div#lists button.delete-list-root-node');
+
+    button.click();
+
+    const listDeleted = page.getEle('div#lists span.list-node-deleted');
+
+    expect(listDeleted.getText()).toEqual('true');
   });
 
   afterEach(async () => {
