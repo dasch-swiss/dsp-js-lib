@@ -1,9 +1,10 @@
-import { JsonConvert } from "json2typescript";
 import { Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { ChildNodeInfoResponse } from "../../../models/admin/child-node-info-response";
 import { CreateChildNodeRequest } from "../../../models/admin/create-child-node-request";
 import { CreateListRequest } from "../../../models/admin/create-list-request";
+import { DeleteListNodeResponse } from "../../../models/admin/delete-list-node-response";
+import { DeleteListResponse } from "../../../models/admin/delete-list-response";
 import { ListInfoResponse } from "../../../models/admin/list-info-response";
 import { ListNodeInfoResponse } from "../../../models/admin/list-node-info-response";
 import { ListResponse } from "../../../models/admin/list-response";
@@ -135,6 +136,25 @@ export class ListsEndpointAdmin extends Endpoint {
             catchError(error => this.handleError(error))
         );
     
+    }
+
+    /**
+     * Returns the parent node if an IRI of a child node is given.
+     * Returns a deleted flag and IRI if an IRI of a root node is given.
+     * 
+     * @param iri The IRI of the list.
+     */
+    deleteListNode(iri: string): Observable<ApiResponseData<DeleteListNodeResponse | DeleteListResponse> | ApiResponseError> {
+        return this.httpDelete("/" + encodeURIComponent(iri)).pipe(
+            map(ajaxResponse => {
+                if (ajaxResponse.response.hasOwnProperty("node")) { // child node
+                    return ApiResponseData.fromAjaxResponse(ajaxResponse, DeleteListNodeResponse, this.jsonConvert);
+                } else { // root node
+                    return ApiResponseData.fromAjaxResponse(ajaxResponse, DeleteListResponse, this.jsonConvert)
+                }
+            }),
+            catchError(error => this.handleError(error))
+        );
     }
 
     // *** All methods below this point require the "new-list-admin-routes:1=on" feature toggle ***
