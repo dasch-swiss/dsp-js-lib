@@ -34,7 +34,9 @@
         <div id="lists">
             <h4>Lists</h4>
             <button class="create-list" (click)="createList()">Create a list</button> <br /><br />
-            <button class="update-list-node" (click)="updateChildNode()">Update labels & comments of a child node</button> <br /><br />
+            <button class="delete-list-child-node" (click)="deleteListChildNode()">Delete a list child node</button> <br /><br />
+            <button class="delete-list-root-node" (click)="deleteListRootNode()">Delete a list root node</button> <br /><br />
+            <button class="update-list-child-node" (click)="updateChildNode()">Update labels & comments of a child node</button> <br /><br />
             <button class="update-child-name" (click)="updateChildName()">Update name of a child node</button> <br /><br />
             <button class="update-child-labels" (click)="updateChildLabels()">Update labels of a child node</button> <br /><br />
             <button class="update-child-comments" (click)="updateChildComments()">Update comments of a child node</button> <br /><br />
@@ -54,6 +56,7 @@
                 <div>Labels: <span class="child-labels">{{listChildLabels}}</span></div>
                 <div>Comments: <span class="child-comments">{{listChildComments}}</span></div>
                 <div>ID: <span class="list-node-id">{{listNodeId}}</span></div>
+                <div>Deleted: <span class="list-node-deleted">{{listNodeDeleted}}</span></div>
             </div>
         </div>
     </section>
