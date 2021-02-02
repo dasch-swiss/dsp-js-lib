@@ -267,6 +267,8 @@ describe("SearchEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({ "Content-Type": "application/sparql-query; charset=utf-8" });
 
+            // https://github.com/jasmine/jasmine-ajax#5-inspect-ajax-requests
+            // just check for the params because data() cannot handle this case
             expect(request.params).toEqual(gravsearchQuery);
 
         });
@@ -309,6 +311,8 @@ describe("SearchEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({ "Content-Type": "application/sparql-query; charset=utf-8" });
 
+            // https://github.com/jasmine/jasmine-ajax#5-inspect-ajax-requests
+            // just check for the params because data() cannot handle this case
             expect(request.params).toEqual(gravsearchQuery);
         });
 
@@ -349,6 +353,8 @@ describe("SearchEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({ "Content-Type": "application/sparql-query; charset=utf-8" });
 
+            // https://github.com/jasmine/jasmine-ajax#5-inspect-ajax-requests
+            // just check for the params because data() cannot handle this case
             expect(request.params).toEqual(gravsearchQuery);
 
         });
@@ -391,6 +397,8 @@ describe("SearchEndpoint", () => {
 
             expect(request.requestHeaders).toEqual({ "Content-Type": "application/sparql-query; charset=utf-8" });
 
+            // https://github.com/jasmine/jasmine-ajax#5-inspect-ajax-requests
+            // just check for the params because data() cannot handle this case
             expect(request.params).toEqual(gravsearchQuery);
 
         });

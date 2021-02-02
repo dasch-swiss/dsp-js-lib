@@ -5,7 +5,6 @@
 /dist
 /docs
 .DS_Store
-CHANGELOG.md
 
 ############################
 # PhpStorm/WebStorm ignore #
@@ -22,6 +21,7 @@ CHANGELOG.md
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+*.code-workspace
 
 # Generated files
 .idea/**/contentModel.xml

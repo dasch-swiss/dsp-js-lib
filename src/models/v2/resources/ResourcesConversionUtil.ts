@@ -30,6 +30,9 @@ import { ReadUriValue } from "./values/read/read-uri-value";
 import { ReadValue } from "./values/read/read-value";
 import { ResourceClassAndPropertyDefinitions } from "../../../cache/ontology-cache/resource-class-and-property-definitions";
 
+/**
+ * @category Internal
+ */
 export namespace ResourcesConversionUtil {
 
     /**

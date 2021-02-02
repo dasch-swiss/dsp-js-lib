@@ -211,7 +211,6 @@ describe("OntologyCache", () => {
             knoraApiConnection.v2.ontologyCache.getResourceClassDefinition("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing").subscribe(
                 resClassDef => {
                     const systemProps: SystemPropertyDefinition[] = resClassDef.getPropertyDefinitionsByType(SystemPropertyDefinition);
-
                     expect(systemProps.length).toEqual(13);
                     expect(systemProps.length).toEqual(MockOntologyAssertions.systemPropertyIndexesAnythingThing.length);
                     expect(systemProps.map(prop => prop.id).sort()).toEqual(MockOntologyAssertions.systemPropertyIndexesAnythingThing.sort());

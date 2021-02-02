@@ -23,6 +23,10 @@ import { ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/onto
 import { ResourcePropertyDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-property-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
 import { UpdateOntologyResourceClassCardinality } from "../../../models/v2/ontologies/update/update-ontology-resource-class-cardinality";
+import { UpdateResourceClassComment } from "../../../models/v2/ontologies/update/update-resource-class-comment";
+import { UpdateResourceClassLabel } from "../../../models/v2/ontologies/update/update-resource-class-label";
+import { UpdateResourcePropertyComment } from "../../../models/v2/ontologies/update/update-resource-property-comment";
+import { UpdateResourcePropertyLabel } from "../../../models/v2/ontologies/update/update-resource-property-label";
 import { Endpoint } from "../../endpoint";
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
@@ -30,6 +34,8 @@ const jsonld = require("jsonld/dist/jsonld.js");
 
 /**
  * Handles requests to the ontologies route of the Knora API.
+ *
+ * @category Endpoint V2
  */
 export class OntologiesEndpointV2 extends Endpoint {
 
@@ -56,17 +62,23 @@ export class OntologiesEndpointV2 extends Endpoint {
      * Requests an ontology from Knora.
      *
      * @param ontologyIri the IRI of the ontology to be requested.
+     * @param allLanguages gets labels and comments in all languages, if  set to true.
      */
-    getOntology(ontologyIri: string): Observable<ReadOntology | ApiResponseError> {
+    getOntology(ontologyIri: string, allLanguages = false): Observable<ReadOntology | ApiResponseError> {
+
+        let allLangSegment = "";
+        if (allLanguages) {
+            allLangSegment = "?allLanguages=true";
+        }
 
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
-        return this.httpGet("/allentities/" + encodeURIComponent(ontologyIri)).pipe(
+        return this.httpGet("/allentities/" + encodeURIComponent(ontologyIri) + allLangSegment).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
-                return OntologyConversionUtil.convertOntology(jsonldobj, this.jsonConvert, this.knoraApiConfig);
+                return OntologyConversionUtil.convertOntology(jsonldobj, this.jsonConvert, this.knoraApiConfig, allLanguages);
             }),
             catchError(error => {
                 return this.handleError(error);
@@ -144,19 +156,19 @@ export class OntologiesEndpointV2 extends Endpoint {
     /**
      * Creates a resource class without cardinalities.
      *
-     * @param  resourceClasses The resource class to be created.
+     * @param  resourceClass The resource class to be created.
      */
-    createResourceClass(resourceClasses: UpdateOntology<CreateResourceClass>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+    createResourceClass(resourceClass: UpdateOntology<CreateResourceClass>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
 
         const resClassPay = new CreateResourceClassPayload();
 
-        resClassPay.id = resourceClasses.id + Constants.Delimiter + resourceClasses.entity.name;
-        resClassPay.label = resourceClasses.entity.label;
-        resClassPay.comment = (resourceClasses.entity.comment.length ? resourceClasses.entity.comment : resourceClasses.entity.label);
-        resClassPay.subClassOf = resourceClasses.entity.subClassOf;
+        resClassPay.id = resourceClass.id + Constants.HashDelimiter + resourceClass.entity.name;
+        resClassPay.label = resourceClass.entity.label;
+        resClassPay.comment = (resourceClass.entity.comment.length ? resourceClass.entity.comment : resourceClass.entity.label);
+        resClassPay.subClassOf = resourceClass.entity.subClassOf;
         resClassPay.type = Constants.Class;
 
-        const ontoPayload = this.jsonConvert.serializeObject(resourceClasses);
+        const ontoPayload = this.jsonConvert.serializeObject(resourceClass);
 
         ontoPayload["@graph"] = [this.jsonConvert.serializeObject(resClassPay)];
 
@@ -175,9 +187,61 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
+     * Updates a resource class's label or comment.
+     *
+     * @param updateResourceClass the new label or comment.
+     */
+    updateResourceClass(updateResourceClass: UpdateOntology<UpdateResourceClassLabel | UpdateResourceClassComment>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+
+        const ontoPayload = this.jsonConvert.serializeObject(updateResourceClass);
+
+        ontoPayload["@graph"] = [this.jsonConvert.serializeObject(updateResourceClass.entity)];
+
+        return this.httpPut("/classes", ontoPayload).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
+    }
+
+    /**
+     * Updates a property's label or comment.
+     *
+     * @param updateProperty the new label or comment.
+     */
+    updateResourceProperty(updateProperty: UpdateOntology<UpdateResourcePropertyLabel | UpdateResourcePropertyComment>): Observable<ResourcePropertyDefinitionWithAllLanguages | ApiResponseError> {
+
+        const ontoPayload = this.jsonConvert.serializeObject(updateProperty);
+
+        ontoPayload["@graph"] = [this.jsonConvert.serializeObject(updateProperty.entity)];
+
+        return this.httpPut("/properties", ontoPayload).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return OntologyConversionUtil.convertResourcePropertyResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
+    }
+
+    /**
      * Deletes a resource class.
      *
-     * @param  deleteResourceClass with class IRI.
+     * @param deleteResourceClass with class IRI.
      */
     deleteResourceClass(deleteResourceClass: DeleteResourceClass): Observable<OntologyMetadata | ApiResponseError> {
 
@@ -206,7 +270,7 @@ export class OntologiesEndpointV2 extends Endpoint {
 
         const resPropPay = new CreateResourcePropertyPayload();
 
-        resPropPay.id = resourceProperties.id + Constants.Delimiter + resourceProperties.entity.name;
+        resPropPay.id = resourceProperties.id + Constants.HashDelimiter + resourceProperties.entity.name;
 
         resPropPay.label = resourceProperties.entity.label;
         resPropPay.comment = (resourceProperties.entity.comment.length ? resourceProperties.entity.comment : resourceProperties.entity.label);

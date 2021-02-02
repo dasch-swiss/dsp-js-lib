@@ -83,6 +83,14 @@ export { CreateListRequest } from "./models/admin/create-list-request";
 export { StoredListNodeInfo } from "./models/admin/stored-list-node-info";
 export { StoredListNode } from "./models/admin/stored-list-node";
 export { UpdateListInfoRequest } from "./models/admin/update-list-info-request";
+export { UpdateChildNodeRequest } from "./models/admin/update-child-node-request";
+export { UpdateChildNodeNameRequest } from "./models/admin/update-child-node-name-request";
+export { UpdateChildNodeLabelsRequest } from "./models/admin/update-child-node-labels-request";
+export { UpdateChildNodeCommentsRequest } from "./models/admin/update-child-node-comments-request";
+export { ChildNodeInfoResponse } from "./models/admin/child-node-info-response";
+export { ChildNodeInfo } from "./models/admin/child-node-info";
+export { DeleteListResponse } from "./models/admin/delete-list-response";
+export { DeleteListNodeResponse } from "./models/admin/delete-list-node-response";
 
 export { LoginResponse } from "./models/v2/authentication/login-response";
 export { CredentialsResponse } from "./models/v2/authentication/credentials-response";
@@ -103,6 +111,10 @@ export { DeleteResourceClass } from "./models/v2/ontologies/delete/delete-resour
 export { DeleteResourceProperty } from "./models/v2/ontologies/delete/delete-resource-property";
 export { DeleteOntologyResponse } from "./models/v2/ontologies/delete/delete-ontology-response";
 export { CreateResourceClass } from "./models/v2/ontologies/create/create-resource-class";
+export { UpdateResourceClassLabel } from "./models/v2/ontologies/update/update-resource-class-label";
+export { UpdateResourceClassComment } from "./models/v2/ontologies/update/update-resource-class-comment";
+export { UpdateResourcePropertyLabel } from "./models/v2/ontologies/update/update-resource-property-label";
+export { UpdateResourcePropertyComment } from "./models/v2/ontologies/update/update-resource-property-comment";
 export { ReadOntology } from "./models/v2/ontologies/read/read-ontology";
 export { UpdateOntologyResourceClassCardinality } from "./models/v2/ontologies/update/update-ontology-resource-class-cardinality";
 export { OntologyMetadata, OntologiesMetadata } from "./models/v2/ontologies/ontology-metadata";
@@ -153,6 +165,7 @@ export { UpdateBooleanValue } from "./models/v2/resources/values/update/update-b
 export { UpdateColorValue } from "./models/v2/resources/values/update/update-color-value";
 export { UpdateDateValue } from "./models/v2/resources/values/update/update-date-value";
 export { UpdateDecimalValue } from "./models/v2/resources/values/update/update-decimal-value";
+export { UpdateFileValue } from "./models/v2/resources/values/update/update-file-value";
 export { UpdateStillImageFileValue } from "./models/v2/resources/values/update/update-file-value";
 export { UpdateGeomValue } from "./models/v2/resources/values/update/update-geom-value";
 export { UpdateIntValue } from "./models/v2/resources/values/update/update-int-value";
@@ -169,6 +182,7 @@ export { CreateBooleanValue } from "./models/v2/resources/values/create/create-b
 export { CreateColorValue } from "./models/v2/resources/values/create/create-color-value";
 export { CreateDateValue } from "./models/v2/resources/values/create/create-date-value";
 export { CreateDecimalValue } from "./models/v2/resources/values/create/create-decimal-value";
+export { CreateFileValue } from "./models/v2/resources/values/create/create-file-value";
 export { CreateStillImageFileValue } from "./models/v2/resources/values/create/create-file-value";
 export { CreateGeomValue } from "./models/v2/resources/values/create/create-geom-value";
 export { CreateIntValue } from "./models/v2/resources/values/create/create-int-value";
@@ -185,6 +199,19 @@ export { BaseValue } from "./models/v2/resources/values/base-value";
 export { ListNodeV2 } from "./models/v2/lists/list-node-v2";
 
 export { Constants } from "./models/v2/Constants";
+
+export { ProjectsMetadata } from "./models/v2/project-metadata/project-metadata";
+export { Dataset } from "./models/v2/project-metadata/dataset";
+export { SingleProject } from "./models/v2/project-metadata/single-project";
+export { Person } from "./models/v2/project-metadata/person";
+export { Address } from "./models/v2/project-metadata/address";
+export { Attribution } from "./models/v2/project-metadata/attribution";
+export { DataManagementPlan } from "./models/v2/project-metadata/data-management-plan";
+export { Grant } from "./models/v2/project-metadata/grant";
+export { Organization } from "./models/v2/project-metadata/organization";
+export { Place } from "./models/v2/project-metadata/place";
+export { UpdateProjectMetadataResponse } from "./models/v2/project-metadata/update-project-metadata";
+export { IUrl } from "./models/v2/custom-converters/base-url-converter";
 
 // Utils
 export { CardinalityUtil } from "./models/v2/resources/cardinality-util";

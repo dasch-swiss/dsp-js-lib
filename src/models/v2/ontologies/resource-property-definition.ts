@@ -1,13 +1,17 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
+import { DateTimeStampConverter } from "../custom-converters/date-time-stamp-converter";
 import { GuiAttributeConverter } from "../custom-converters/gui-attribute-converter";
 import { IdConverter } from "../custom-converters/id-converter";
-import { SubPropertyOfConverter } from "../custom-converters/subproperty-of-converter";
-import { PropertyDefinition } from "./property-definition";
 import { StringLiteralToStringConverter } from "../custom-converters/string-literal-to-string-converter";
-import { StringLiteralV2 } from "../string-literal-v2";
 import { StringLiteralToStringLiteralArrayConverter } from "../custom-converters/string-literal-to-string-literal-array-converter";
+import { SubPropertyOfConverter } from "../custom-converters/subproperty-of-converter";
+import { StringLiteralV2 } from "../string-literal-v2";
+import { PropertyDefinition } from "./property-definition";
 
+/**
+ * @category Model V2
+ */
 @JsonObject("ResourcePropertyDefinition")
 export class ResourcePropertyDefinition extends PropertyDefinition {
     @JsonProperty("@id", String)
@@ -44,6 +48,9 @@ export class ResourcePropertyDefinition extends PropertyDefinition {
     guiAttributes: string[] = [];
 }
 
+/**
+ * @category Model V2
+ */
 @JsonObject("ResourcePropertyDefinitionWithAllLanguages")
 export class ResourcePropertyDefinitionWithAllLanguages extends ResourcePropertyDefinition {
 
@@ -58,4 +65,8 @@ export class ResourcePropertyDefinitionWithAllLanguages extends ResourceProperty
 
     @JsonProperty(Constants.Label, StringLiteralToStringLiteralArrayConverter, true)
     labels: StringLiteralV2[] = [];
+
+    @JsonProperty(Constants.LastModificationDate, DateTimeStampConverter, true)
+    lastModificationDate?: string = undefined;
+
 }
