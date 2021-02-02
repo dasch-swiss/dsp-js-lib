@@ -1,12 +1,13 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
-import { IUrl } from "../custom-converters/base-url-converter";
 import { DateConverter } from "../custom-converters/date-converter";
 import { UnionAdvancedUrlObjectConverter } from "../custom-converters/union-advanced-url-object-converter";
+import { UnionDataManagementPlanIdConverter } from "../custom-converters/union-data-management-plan-id-converter";
 import { UnionElementArrayOfElementsConverter } from "../custom-converters/union-element-array-of-elements-converter";
 import { UnionPersonOrganizationIdConverter } from "../custom-converters/union-person-organization-id-converter";
 import { UnionStringArrayOfStringsConverter } from "../custom-converters/union-string-array-of-strings-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
+import { IId, IUrl } from "../project-metadata/metadata-interfaces";
 import { BaseProjectMetadata } from "./base-project-metadata";
 import { DataManagementPlan } from "./data-management-plan";
 import { Grant } from "./grant";
@@ -27,10 +28,10 @@ export class SingleProject extends BaseProjectMetadata {
     alternateName?: string[] = undefined;
 
     @JsonProperty(Constants.DspHasContactPoint, UnionPersonOrganizationIdConverter, true)
-    contactPoint?: Person[] | Organization[] = undefined;
+    contactPoint?: Person[] | Organization[] | IId[] = undefined;
 
-    @JsonProperty(Constants.DspHasDataManagementPlan, DataManagementPlan, true)
-    dataManagementPlan?: DataManagementPlan = undefined;
+    @JsonProperty(Constants.DspHasDataManagementPlan, UnionDataManagementPlanIdConverter, true)
+    dataManagementPlan?: DataManagementPlan | IId = undefined;
 
     @JsonProperty(Constants.DspHasDescription, String)
     description: string = "";
@@ -42,10 +43,10 @@ export class SingleProject extends BaseProjectMetadata {
     endDate?: string = undefined;
 
     @JsonProperty(Constants.DspHasFunder, UnionPersonOrganizationIdConverter)
-    funder: Person[] | Organization[] | object[] = [];
+    funder: Person[] | Organization[] | IId[] = [];
 
     @JsonProperty(Constants.DspHasGrant, UnionElementArrayOfElementsConverter, true)
-    grant?: Grant[] = undefined;
+    grant?: Grant[] | IId[] = undefined;
 
     @JsonProperty(Constants.DspHasKeywords, UnionStringArrayOfStringsConverter)
     keywords: string[] = [];
