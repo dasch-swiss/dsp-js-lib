@@ -15,6 +15,7 @@ import { UpdateAdministrativePermission } from "../../../models/admin/update-adm
 import { UpdateAdministrativePermissionGroup } from "../../../models/admin/update-administrative-permission-group";
 import { UpdateDefaultObjectAccessPermission } from "../../../models/admin/update-default-object-access-permission";
 import { UpdateDefaultObjectAccessPermissionGroup } from "../../../models/admin/update-default-object-access-permission-group";
+import { UpdateDefaultObjectAccessPermissionProperty } from "../../../models/admin/update-default-object-access-permission-property";
 import { UpdateDefaultObjectAccessPermissionResourceClass } from "../../../models/admin/update-default-object-access-permission-resource-class";
 import { ApiResponseData } from "../../../models/api-response-data";
 
@@ -616,6 +617,39 @@ describe("PermissionsEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             const payload = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-forResourceClass-request.json");
+
+            expect(request.data()).toEqual(payload);
+
+        });
+
+    });
+
+    describe("Method updateDefaultObjectAccessPermissionProperty", () => {
+
+        it("should update a default object access permission's property", done => {
+
+            const updateDOAPProperty = new UpdateDefaultObjectAccessPermissionProperty();
+
+            updateDOAPProperty.forProperty = "http://www.knora.org/ontology/00FF/images#titel";
+
+            knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermissionProperty("http://rdfh.ch/permissions/00FF/d1", updateDOAPProperty).subscribe(
+                (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
+                    expect(res.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/00FF/d1");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const permissionUpdateResponse = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-forProperty-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionUpdateResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2Fd1/property");
+
+            expect(request.method).toEqual("PUT");
+
+            const payload = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-forProperty-request.json");
 
             expect(request.data()).toEqual(payload);
 

@@ -11,6 +11,7 @@ import { ProjectPermissionsResponse } from "../../../models/admin/project-permis
 import { UpdateAdministrativePermission } from "../../../models/admin/update-administrative-permission";
 import { UpdateAdministrativePermissionGroup } from "../../../models/admin/update-administrative-permission-group";
 import { UpdateDefaultObjectAccessPermission } from "../../../models/admin/update-default-object-access-permission";
+import { UpdateDefaultObjectAccessPermissionProperty } from "../../../models/admin/update-default-object-access-permission-property";
 import { UpdateDefaultObjectAccessPermissionResourceClass } from "../../../models/admin/update-default-object-access-permission-resource-class";
 import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
@@ -198,6 +199,19 @@ export class PermissionsEndpointAdmin extends Endpoint {
      */
     updateDefaultObjectAccessPermissionResourceClass(permissionIri: string, administrativePermission: UpdateDefaultObjectAccessPermissionResourceClass): Observable<ApiResponseError | ApiResponseData<DefaultObjectAccessPermissionResponse>> {
         return this.httpPut("/" + encodeURIComponent(permissionIri) + "/resourceClass", this.jsonConvert.serializeObject(administrativePermission)).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, DefaultObjectAccessPermissionResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    }
+
+    /**
+     * Updates an existing default object access permission's property.
+     *
+     * @param permissionIri the Iri of the permission to be updated.
+     * @param administrativePermission the new permission settings.
+     */
+    updateDefaultObjectAccessPermissionProperty(permissionIri: string, administrativePermission: UpdateDefaultObjectAccessPermissionProperty): Observable<ApiResponseError | ApiResponseData<DefaultObjectAccessPermissionResponse>> {
+        return this.httpPut("/" + encodeURIComponent(permissionIri) + "/property", this.jsonConvert.serializeObject(administrativePermission)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, DefaultObjectAccessPermissionResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
