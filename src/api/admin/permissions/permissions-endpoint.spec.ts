@@ -306,7 +306,7 @@ describe("PermissionsEndpoint", () => {
 
             updateAdminPermGroup.forGroup = "http://rdfh.ch/groups/00FF/images-reviewer";
 
-            knoraApiConnection.admin.permissionsEndpoint.updateAdministrativePermissionGroup("http://rdfh.ch/groups/00FF/images-reviewer", updateAdminPermGroup).subscribe(
+            knoraApiConnection.admin.permissionsEndpoint.updateAdministrativePermissionGroup("http://rdfh.ch/permissions/00FF/a2", updateAdminPermGroup).subscribe(
                 (res: ApiResponseData<AdministrativePermissionResponse>) => {
                     expect(res.body.administrative_permission.id).toEqual("http://rdfh.ch/permissions/00FF/a2");
                     done();
@@ -319,7 +319,7 @@ describe("PermissionsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionUpdateResponse)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fgroups%2F00FF%2Fimages-reviewer/group");
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2Fa2/group");
 
             expect(request.method).toEqual("PUT");
 
@@ -565,7 +565,7 @@ describe("PermissionsEndpoint", () => {
 
             updateDOAPGroup.forGroup = "http://rdfh.ch/groups/00FF/images-reviewer";
 
-            knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermissionGroup("http://rdfh.ch/groups/00FF/images-reviewer", updateDOAPGroup).subscribe(
+            knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermissionGroup("http://rdfh.ch/permissions/0803/003-d2", updateDOAPGroup).subscribe(
                 (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
                     expect(res.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/0803/003-d2");
                     done();
@@ -578,7 +578,7 @@ describe("PermissionsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionUpdateResponse)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fgroups%2F00FF%2Fimages-reviewer/group");
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F0803%2F003-d2/group");
 
             expect(request.method).toEqual("PUT");
 
