@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.3.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v1.2.1...v1.3.0) (2021-02-02)
+
+
+### Maintenance
+
+* **dsp-api:** update dsp-api to 13.1.1 ([#311](https://www.github.com/dasch-swiss/dsp-js-lib/issues/311)) ([cf0d228](https://www.github.com/dasch-swiss/dsp-js-lib/commit/cf0d228722e805cbb38b9dff90115392482bebcd))
+
+
+### Enhancements
+
+* **lists-endpoint:** add support for deleting a list node(DSP-1049) ([#310](https://www.github.com/dasch-swiss/dsp-js-lib/issues/310)) ([c5a82f5](https://www.github.com/dasch-swiss/dsp-js-lib/commit/c5a82f55abce62be8c229e572b13ed7ad2f8602d))
+* **metadata-endpoint:** expose all x-n properties as arrays (DSP-1306) ([#309](https://www.github.com/dasch-swiss/dsp-js-lib/issues/309)) ([97e7e33](https://www.github.com/dasch-swiss/dsp-js-lib/commit/97e7e336645b72f899993b19052853d406b5a8cc))
+* **metadata-endpoint:** test/implement flat response option (DSP-1223) ([#312](https://www.github.com/dasch-swiss/dsp-js-lib/issues/312)) ([ee986cf](https://www.github.com/dasch-swiss/dsp-js-lib/commit/ee986cfdcb1b647139896a25ef683cfa6748a7fb))
+* **ontology endpoint:** update a resource class's and property's label and comment (DSP-1263 / DSP-1264) ([#303](https://www.github.com/dasch-swiss/dsp-js-lib/issues/303)) ([76a3057](https://www.github.com/dasch-swiss/dsp-js-lib/commit/76a30578ce166542308e2ad677d8af2c9661861d))
+* **ProjectMetadataEndpointV2:** adjust x-n properties and custom converters (DSP-1222) ([#301](https://www.github.com/dasch-swiss/dsp-js-lib/issues/301)) ([b8c0aaa](https://www.github.com/dasch-swiss/dsp-js-lib/commit/b8c0aaa7e65aec9cc5e379c00b2955b434aea4af))
+
 ### [1.2.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v1.2.0...v1.2.1) (2021-01-28)
 
 
