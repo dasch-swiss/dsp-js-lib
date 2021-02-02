@@ -2,12 +2,13 @@ import { JsonConvert, JsonConverter, JsonCustomConvert, OperationMode, ValueChec
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { Constants } from "../Constants";
 import { Organization } from "../project-metadata/organization";
+import { IId } from "./union-data-management-plan-id-converter";
 
 /**
  * @category Internal
  */
 @JsonConverter
-export class UnionOrganizationIdConverter implements JsonCustomConvert<Organization | object> {
+export class UnionOrganizationIdConverter implements JsonCustomConvert<Organization | IId | object> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -26,8 +27,8 @@ export class UnionOrganizationIdConverter implements JsonCustomConvert<Organizat
         }
     }
 
-    deserialize(el: any): Array<Organization | object> {
-        const newArr = [] as Array<Organization | object>;
+    deserialize(el: any): Array<Organization | IId> {
+        const newArr = [] as Array<Organization | IId>;
         if (Array.isArray(el)) {
             el.forEach((
                 (item: any) => newArr.push(this.deserializeElement(item))
@@ -52,13 +53,11 @@ export class UnionOrganizationIdConverter implements JsonCustomConvert<Organizat
         }
     }
 
-    private deserializeElement(el: any): Organization | object {
+    private deserializeElement(el: any): Organization | IId {
         if (el.hasOwnProperty(Constants.DspHasName)) {
             return UnionOrganizationIdConverter.jsonConvert.deserializeObject(el, Organization);
         } else if (el.hasOwnProperty("@id") && !el.hasOwnProperty(Constants.DspHasName)) {
-            return {
-                id: (el as { [index: string]: string })["@id"]
-            };
+            return { id: el };
         } else {
             throw new Error(`Deserialization Error: expected an object with property @type equals to 
                 ${Constants.DspOrganization} or an object with @id key.`);

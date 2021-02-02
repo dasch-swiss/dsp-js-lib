@@ -14,7 +14,7 @@ export type MetadataClasses = Dataset | SingleProject | Person | Organization | 
  * @category Internal
  */
 @JsonConverter
-export class UnionMetadataConverter implements JsonCustomConvert<Array<MetadataClasses>> {
+export class UnionMetadataConverter implements JsonCustomConvert<MetadataClasses[]> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -23,7 +23,7 @@ export class UnionMetadataConverter implements JsonCustomConvert<Array<MetadataC
         PropertyMatchingRule.CASE_STRICT
     );
 
-    serialize(el: Array<MetadataClasses>): any {
+    serialize(el: MetadataClasses[]): any {
         const newObj = [] as any[];
         el.forEach((
             (item: MetadataClasses) => newObj.push(this.serializeElement(item))
@@ -31,8 +31,8 @@ export class UnionMetadataConverter implements JsonCustomConvert<Array<MetadataC
         return newObj;
     }
 
-    deserialize(el: any): Array<MetadataClasses> {
-        const newObj = [] as Array<MetadataClasses>;
+    deserialize(el: any): MetadataClasses[] {
+        const newObj = [] as MetadataClasses[];
         el.forEach((
             (item: any) => newObj.push(this.deserializeElement(item))
         ));
@@ -59,7 +59,6 @@ export class UnionMetadataConverter implements JsonCustomConvert<Array<MetadataC
     }
 
     private deserializeElement(el: any): MetadataClasses {
-        console.log(el);
         if (el.hasOwnProperty("@type") && el["@type"] === Constants.DspDataset) {
             return UnionMetadataConverter.jsonConvert.deserializeObject(el, Dataset);
         } else if (el.hasOwnProperty("@type") && el["@type"] === Constants.DspProject) {

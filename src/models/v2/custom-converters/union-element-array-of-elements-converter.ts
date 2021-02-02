@@ -4,13 +4,14 @@ import { Constants } from "../Constants";
 import { Attribution } from "../project-metadata/attribution";
 import { Grant } from "../project-metadata/grant";
 import { Place } from "../project-metadata/place";
+import { IId } from "./union-data-management-plan-id-converter";
 
 /**
  * @category Internal
  */
 @JsonConverter
 export class UnionElementArrayOfElementsConverter implements JsonCustomConvert
-<Attribution | Attribution[] | Place | Place[] | Grant | Grant[]> {
+<Attribution | Attribution[] | Place | Place[] | Grant | Grant[] | IId | IId[]> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -45,7 +46,7 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert
         }
     }
 
-    deserialize(el: any ): Attribution | Grant | Place | Attribution[] | Grant[] | Place[] {
+    deserialize(el: any ): Attribution | Grant | Place | Attribution[] | Grant[] | Place[] | IId | IId[] {
         if (Array.isArray(el)) {
             switch (true) {
                 case el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.ProvAttribution:
@@ -57,13 +58,13 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert
                     || el[0].hasOwnProperty(Constants.SchemaUrlValue):
                     return UnionElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Place);
                 case el[0].hasOwnProperty("@id"):
-                    const newArr = [] as Array<object>;
+                    const newArr = [] as IId[];
                     if (Array.isArray(el)) {
                         el.forEach((
-                            (item: any) => newArr.push({id: (item as { [index: string]: string })["@id"]})
+                            (item: any) => newArr.push({id: item})
                         ));
-                    };
-                    return newArr as any[];
+                    }
+                    return newArr;
                 default:
                     throw new Error(`Deserialization Error: expected an array of objects with property @type equals to: 
                         ${Constants.ProvAttribution}, ${Constants.DspGrant}, ${Constants.SchemaPlace}, or a reference 
@@ -80,9 +81,7 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert
                     || el.hasOwnProperty(Constants.SchemaUrlValue):
                     return UnionElementArrayOfElementsConverter.jsonConvert.deserializeArray([el], Place);
                 case el.hasOwnProperty("@id"):
-                    return {
-                        id: (el as { [index: string]: string })["@id"]
-                    } as any;
+                    return {id: el};
                 default:
                     throw new Error(`Deserialization Error: expected an object with property @type equals to: 
                         ${Constants.ProvAttribution}, ${Constants.DspGrant}, ${Constants.SchemaPlace}, or a reference 

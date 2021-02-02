@@ -2,13 +2,14 @@ import { JsonConvert, JsonConverter, JsonCustomConvert, OperationMode, ValueChec
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { Constants } from "../Constants";
 import { SingleProject } from "../project-metadata/single-project";
+import { IId } from "./union-data-management-plan-id-converter";
 
 /**
  * Converts SingleProject class or object containing refrence id
  * @category Internal
  */
 @JsonConverter
-export class UnionSingleProjctIdConverter implements JsonCustomConvert<SingleProject | object> {
+export class UnionSingleProjctIdConverter implements JsonCustomConvert<SingleProject | IId | object> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -30,13 +31,11 @@ export class UnionSingleProjctIdConverter implements JsonCustomConvert<SinglePro
         }
     }
 
-    deserialize(el: any): SingleProject | object {
+    deserialize(el: any): SingleProject | IId {
         if (el.hasOwnProperty("@type") && el["@type"] === Constants.DspProject) {
             return UnionSingleProjctIdConverter.jsonConvert.deserializeObject(el, SingleProject);
         } else if (!el.hasOwnProperty("@type") && el.hasOwnProperty("@id")) {
-            return {
-                id: (el as { [index: string]: string })["@id"]
-            };
+            return {id: el};
         } else {
             throw new Error(`Deserialization Error: expected an object with @type property equals to 
                 ${Constants.DspProject}, or a reference object with @id property.`);

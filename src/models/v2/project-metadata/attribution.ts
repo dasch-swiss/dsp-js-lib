@@ -1,5 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
+import { IId } from "../custom-converters/union-data-management-plan-id-converter";
 import { UnionPersonOrganizationIdConverter } from "../custom-converters/union-person-organization-id-converter";
 import { UnionStringArrayOfStringsConverter } from "../custom-converters/union-string-array-of-strings-converter";
 import { BaseProjectMetadata } from "./base-project-metadata";
@@ -16,7 +17,7 @@ export class Attribution extends BaseProjectMetadata {
     role: string[] = [];
 
     @JsonProperty(Constants.ProvAgent, UnionPersonOrganizationIdConverter)
-    agent: Person | Organization | object = [];
+    agent: Person | Organization | IId[] = [];
 
     constructor() {
         super(Constants.ProvAttribution);

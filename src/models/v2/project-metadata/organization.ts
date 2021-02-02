@@ -10,7 +10,7 @@ import { BaseProjectMetadata } from "./base-project-metadata";
  * @category Model V2 
  */ 
 @JsonObject("Organization")
-export class Organization extends BaseProjectMetadata{
+export class Organization extends BaseProjectMetadata {
 
     @JsonProperty("@id", String)
     id: string = "";

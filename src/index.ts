@@ -209,7 +209,6 @@ export { Grant } from "./models/v2/project-metadata/grant";
 export { Organization } from "./models/v2/project-metadata/organization";
 export { Place } from "./models/v2/project-metadata/place";
 export { UpdateProjectMetadataResponse } from "./models/v2/project-metadata/update-project-metadata";
-export { IUrl } from "./models/v2/custom-converters/base-url-converter";
 
 // Utils
 export { CardinalityUtil } from "./models/v2/resources/cardinality-util";
@@ -219,3 +218,5 @@ export { PermissionUtil } from "./models/v2/resources/permission-util";
 export { IPermissions } from "./interfaces/models/admin/i-permissions";
 export { IFulltextSearchParams } from "./interfaces/models/v2/i-fulltext-search-params";
 export { ILabelSearchParams } from "./interfaces/models/v2/i-label-search-params";
+export { IUrl } from "./models/v2/custom-converters/base-url-converter";
+export { IId } from "./models/v2/custom-converters/union-data-management-plan-id-converter";

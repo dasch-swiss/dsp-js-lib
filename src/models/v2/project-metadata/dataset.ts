@@ -3,6 +3,7 @@ import { Constants } from "../Constants";
 import { IUrl } from "../custom-converters/base-url-converter";
 import { DateConverter } from "../custom-converters/date-converter";
 import { DistributionConverter } from "../custom-converters/distribution-converter";
+import { IId } from "../custom-converters/union-data-management-plan-id-converter";
 import { UnionElementArrayOfElementsConverter } from "../custom-converters/union-element-array-of-elements-converter";
 import { UnionSingleProjctIdConverter } from "../custom-converters/union-single-project-id-converter";
 import { UnionStringArrayOfStringsConverter } from "../custom-converters/union-string-array-of-strings-converter";
@@ -68,7 +69,7 @@ export class Dataset extends BaseProjectMetadata {
     typeOfData: string[] = [];
 
     @JsonProperty(Constants.DspIsPartOf, UnionSingleProjctIdConverter)
-    project: SingleProject = new SingleProject();
+    project: SingleProject | IId = new SingleProject();
 
     @JsonProperty(Constants.DspSameAs, UrlToUrlObjectConverter, true)
     sameAs?: IUrl[] = undefined;

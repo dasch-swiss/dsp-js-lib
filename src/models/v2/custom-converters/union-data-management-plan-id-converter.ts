@@ -3,11 +3,15 @@ import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-c
 import { Constants } from "../Constants";
 import { DataManagementPlan } from "../project-metadata/data-management-plan";
 
+export interface IId {
+    id: string;
+}
+
 /**
  * @category Internal
  */
 @JsonConverter
-export class UnionDataManagementPlanIdConverter implements JsonCustomConvert<DataManagementPlan | object> {
+export class UnionDataManagementPlanIdConverter implements JsonCustomConvert<DataManagementPlan | IId | object> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -26,8 +30,8 @@ export class UnionDataManagementPlanIdConverter implements JsonCustomConvert<Dat
         }
     }
 
-    deserialize(el: any): Array<DataManagementPlan | object> {
-        const newArr = [] as Array<DataManagementPlan | object>;
+    deserialize(el: any): Array<DataManagementPlan | IId> {
+        const newArr = [] as Array<DataManagementPlan | IId>;
         if (Array.isArray(el)) {
             el.forEach((
                 (item: any) => newArr.push(this.deserializeElement(item))
@@ -52,13 +56,11 @@ export class UnionDataManagementPlanIdConverter implements JsonCustomConvert<Dat
         }
     }
 
-    private deserializeElement(el: any): DataManagementPlan | object {
+    private deserializeElement(el: any): DataManagementPlan | IId {
         if (el.hasOwnProperty("@type") && el["@type"] === Constants.DspDataManagementPlan) {
             return UnionDataManagementPlanIdConverter.jsonConvert.deserializeObject(el, DataManagementPlan);
         } else if (el.hasOwnProperty("@id") && !el.hasOwnProperty("@type")) {
-            return {
-                id: (el as { [index: string]: string })["@id"]
-            };
+            return { id: el };
         } else {
             throw new Error(`Deserialization Error: expected an object with property @type equals to 
                 ${Constants.DspDataManagementPlan} or an object with @id key.`);
