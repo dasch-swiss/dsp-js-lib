@@ -1,6 +1,7 @@
 import { JsonConverter } from "json2typescript";
 import { Constants } from "../Constants";
-import { BaseUrlConverter, IUrl } from "./base-url-converter";
+import { IUrl } from "../project-metadata/metadata-interfaces";
+import { BaseUrlConverter } from "./base-url-converter";
 
 /**
  * @category Internal
