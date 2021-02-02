@@ -72,7 +72,9 @@ import {
     UpdateResourceClassComment,
     UpdateResourcePropertyLabel,
     UpdateResourcePropertyComment,
-    DeletePermissionResponse
+    DeletePermissionResponse,
+    DeleteListResponse,
+    DeleteListNodeResponse
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -131,11 +133,12 @@ export class AppComponent implements OnInit {
     listName = '';
     listLabels = '';
     listComments = '';
-    listChildren = '';
+    listChildren = 0;
     listChildName = '';
     listChildLabels = '';
     listChildComments = '';
     listNodeId = '';
+    listNodeDeleted = false;
 
     ngOnInit() {
         const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
@@ -1382,11 +1385,32 @@ export class AppComponent implements OnInit {
             (res: ApiResponseData<ListResponse>) => {
                 console.log(res);
                 this.listName = res.body.list.listinfo.name;
-                this.listChildren = res.body.list.children.length.toString();
+                this.listChildren = res.body.list.children.length;
             }
         );
+    }
 
-        
+    deleteListChildNode(): void {
+        const listItemIri = 'http://rdfh.ch/lists/0001/notUsedList015';
+
+        this.knoraApiConnection.admin.listsEndpoint.deleteListNode(listItemIri).subscribe(
+            (res: ApiResponseData<DeleteListNodeResponse>) => {
+                console.log(res);
+                this.listChildren = res.body.node.children.length;
+            }
+        );
+    }
+
+    deleteListRootNode(): void {
+        const listItemIri = 'http://rdfh.ch/lists/0001/notUsedList';
+
+        this.knoraApiConnection.admin.listsEndpoint.deleteListNode(listItemIri).subscribe(
+            (res: ApiResponseData<DeleteListResponse>) => {
+                console.log(res);
+                this.listNodeDeleted = res.body.deleted;
+            },
+            err => console.error('Error:', err)
+        );
     }
 
 }
