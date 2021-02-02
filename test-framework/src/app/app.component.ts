@@ -74,7 +74,8 @@ import {
     UpdateResourcePropertyComment,
     DeletePermissionResponse,
     DeleteListResponse,
-    DeleteListNodeResponse
+    DeleteListNodeResponse,
+    UpdateAdministrativePermission
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -102,6 +103,7 @@ export class AppComponent implements OnInit {
     property: ResourcePropertyDefinitionWithAllLanguages;
     addCard: ResourceClassDefinitionWithAllLanguages;
     permissionStatus: string;
+    permissionUpdateStatus: string;
     permissionIri: string;
     permissionDeleted: boolean;
 
@@ -267,8 +269,6 @@ export class AppComponent implements OnInit {
 
         adminPermission.hasPermissions = [permission, permission2];
 
-        // console.log(this.knoraApiConnection.admin.jsonConvert.serializeObject(permission))
-
         this.knoraApiConnection.admin.permissionsEndpoint.createAdministrativePermission(adminPermission).subscribe(
             (res: ApiResponseData<AdministrativePermissionResponse>) => {
                 this.permissionStatus = "createAdministrativePermission ok";
@@ -276,6 +276,27 @@ export class AppComponent implements OnInit {
             },
             err => console.error(err)
         )
+
+    }
+
+    updateAdministrativePermission() {
+
+        const perm = new CreatePermission();
+        perm.additionalInformation = null;
+        perm.name = "ProjectAdminGroupAllPermission";
+        perm.permissionCode = null;
+
+        const updateAdminPerm = new UpdateAdministrativePermission();
+
+        updateAdminPerm.hasPermissions = [perm];
+
+        this.knoraApiConnection.admin.permissionsEndpoint.updateAdministrativePermission(this.permissionIri, updateAdminPerm).subscribe(
+            (res: ApiResponseData<AdministrativePermissionResponse>) => {
+                this.permissionUpdateStatus = "updateAdministrativePermission ok";
+                console.log(res);
+            },
+            err => console.error(err)
+        );
 
     }
 
