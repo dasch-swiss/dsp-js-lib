@@ -68,6 +68,7 @@ export { DefaultObjectAccessPermissionResponse } from "./models/admin/default-ob
 export { CreateDefaultObjectAccessPermission } from "./models/admin/create-default-object-access-permission";
 export { UpdateDefaultObjectAccessPermission } from "./models/admin/update-default-object-access-permission";
 export { UpdateDefaultObjectAccessPermissionGroup } from "./models/admin/update-default-object-access-permission-group";
+export { UpdateDefaultObjectAccessPermissionResourceClass } from "./models/admin/update-default-object-access-permission-resource-class";
 export { KeywordsResponse } from "./models/admin/keywords-response";
 
 export { User } from "./models/admin/user";
