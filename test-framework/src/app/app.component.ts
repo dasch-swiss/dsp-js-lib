@@ -74,7 +74,8 @@ import {
     DeleteListResponse,
     DeleteListNodeResponse,
     UpdateAdministrativePermission,
-    UpdateDefaultObjectAccessPermission
+    UpdateDefaultObjectAccessPermission,
+    UpdateAdministrativePermissionGroup
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -271,11 +272,26 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.admin.permissionsEndpoint.createAdministrativePermission(adminPermission).subscribe(
             (res: ApiResponseData<AdministrativePermissionResponse>) => {
                 this.permissionStatus = "createAdministrativePermission ok";
+                this.permissionIri = res.body.administrative_permission.id;
                 console.log(res);
             },
             err => console.error(err)
         )
 
+    }
+
+    updateAdministrativePermissionGroup() {
+        const updateAdminPermGroup = new UpdateAdministrativePermissionGroup();
+
+        updateAdminPermGroup.forGroup = "http://rdfh.ch/groups/00FF/images-reviewer";
+
+        this.knoraApiConnection.admin.permissionsEndpoint.updateAdministrativePermissionGroup(this.permissionIri, updateAdminPermGroup).subscribe(
+            (res: ApiResponseData<AdministrativePermissionResponse>) => {
+                this.permissionUpdateStatus = "updateAdministrativePermissionGroup ok";
+                console.log(res);
+            },
+            err => console.error(err)
+        );
     }
 
     updateAdministrativePermission() {
