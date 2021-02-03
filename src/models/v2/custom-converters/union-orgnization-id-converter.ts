@@ -20,9 +20,9 @@ export class UnionOrganizationIdConverter implements JsonCustomConvert<Organizat
     serialize(el: Array<Organization | object>): any {
         if (Array.isArray(el)) {
             const newArr = [] as any[];
-            el.forEach((
+            el.forEach(
                 (item: Organization | object) => newArr.push(this.serializeElement(item))
-            ));
+            );
             return newArr;
         }
     }
@@ -30,9 +30,9 @@ export class UnionOrganizationIdConverter implements JsonCustomConvert<Organizat
     deserialize(el: any): Array<Organization | IId> {
         const newArr = [] as Array<Organization | IId>;
         if (Array.isArray(el)) {
-            el.forEach((
+            el.forEach(
                 (item: any) => newArr.push(this.deserializeElement(item))
-            ));
+            );
             return newArr;
         } else {
             newArr.push(this.deserializeElement(el));

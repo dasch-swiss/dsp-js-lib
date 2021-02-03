@@ -20,9 +20,9 @@ export class UnionDataManagementPlanIdConverter implements JsonCustomConvert<Dat
     serialize(el: Array<DataManagementPlan | object>): any {
         if (Array.isArray(el)) {
             const newArr = [] as any[];
-            el.forEach((
+            el.forEach(
                 (item: DataManagementPlan | object) => newArr.push(this.serializeElement(item))
-            ));
+            );
             return newArr;
         }
     }
@@ -30,9 +30,9 @@ export class UnionDataManagementPlanIdConverter implements JsonCustomConvert<Dat
     deserialize(el: any): Array<DataManagementPlan | IId> {
         const newArr = [] as Array<DataManagementPlan | IId>;
         if (Array.isArray(el)) {
-            el.forEach((
+            el.forEach(
                 (item: any) => newArr.push(this.deserializeElement(item))
-            ));
+            );
             return newArr;
         } else {
             newArr.push(this.deserializeElement(el));

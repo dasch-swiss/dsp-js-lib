@@ -12,9 +12,9 @@ export class UnionUrlStringConverter extends BaseUrlConverter {
     serialize(el: Array<IUrl | string>): any {
         if (Array.isArray(el)) {
             const newArr = [] as any[];
-            el.forEach((
+            el.forEach(
                 (item: IUrl | string) => newArr.push(this.serializeElement(item))
-            ));
+            );
             return newArr;
         }
     }
