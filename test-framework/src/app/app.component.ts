@@ -983,7 +983,7 @@ export class AppComponent implements OnInit {
         // testDataset.documentation = ['Work in progress', 'Dddddd'];
         testDataset.howToCite = 'Testprojekt (test), 2002, https://test.dasch.swiss';
         testDataset.language = [ 'EN', 'DE', 'FR' ];
-        testDataset.license = [{ type: 'https://schema.org/URL', url: 'https://creativecommons.org/licenses/by/3.0' }] as IUrl[];
+        testDataset.license = [{ type: Constants.SchemaUrlType, url: 'https://creativecommons.org/licenses/by/3.0' }] as IUrl[];
         testDataset.qualifiedAttribution = [
             {
                 type: Constants.ProvAttribution,
@@ -1014,7 +1014,7 @@ export class AppComponent implements OnInit {
         testDataset.status = 'ongoing';
         testDataset.title = 'Testprojekt';
         testDataset.typeOfData = ['image', 'text'];
-        // testDataset.sameAs = { type: 'https://schema.org/URL', value: 'https://test.dasch.swiss' } as IUrl;
+        // testDataset.sameAs = { type: Constants.SchemaUrlType, value: 'https://test.dasch.swiss' } as IUrl;
         testDataset.project = new SingleProject();
         testDataset.project.id = 'http://ns.dasch.swiss/test-project';
         testDataset.project.type = Constants.DspRepoBase + 'Project';
@@ -1034,7 +1034,7 @@ export class AppComponent implements OnInit {
         //     'jobTitle': ['Dr.', 'Dre'],
         //     'memberOf': {id: 'http://ns.dasch.swiss/test-dasch'},
         //     'sameAs': {
-        //        'type': 'https://schema.org/URL',
+        //        'type': Constants.SchemaUrlType,
         //        'value': 'https://orcid.org/0000-0002-1825-0097'
         //     }
         //  } as Person;
@@ -1042,7 +1042,7 @@ export class AppComponent implements OnInit {
         //     'id': 'http://ns.dasch.swiss/test-plan',
         //     type: Constants.DspRepoBase + 'DataManagementPlan',
         //     'url': {
-        //        'type': 'https://schema.org/URL',
+        //        'type': Constants.SchemaUrlType,
         //        'value': 'https://snf.ch'
         //     },
         //     'isAvailable': false
@@ -1050,6 +1050,7 @@ export class AppComponent implements OnInit {
         testDataset.project.description = 'Dies ist ein Testprojekt...alle Properties wurden verwendet, um diese zu testen';
         testDataset.project.discipline = {
             'name': 'SKOS UNESCO Nomenclature',
+            'type': Constants.SchemaUrlType,
             'url': 'http://skos.um.es/unesco6/11'
          };
         // testDataset.project.endDate = '2001-01-26';
@@ -1072,14 +1073,14 @@ export class AppComponent implements OnInit {
             'email': 'info@universityoftoronto.ca',
             'name': ['University of Toronto', 'WWW'],
             'url': {
-                'type': 'https://schema.org/URL',
+                'type': Constants.SchemaUrlType,
                 'url': 'http://www.utoronto.ca/'
             }
         }] as Organization[];
         // grant.name = 'Prof. test test, Prof. test Harbtestrecht';
         // grant.number = '0123456789';
         // grant.url = {
-        //     'type': 'https://schema.org/URL',
+        //     'type': Constants.SchemaUrlType,
         //     'value': 'http://p3.snf.ch/testproject'
         //  };
         testDataset.project.grant = [grant];
@@ -1140,10 +1141,11 @@ export class AppComponent implements OnInit {
         testDataset.project.startDate = '2000-07-26';
         testDataset.project.temporalCoverage = {
             'name': 'Chronontology Dainst',
+            'type': Constants.SchemaUrlType,
             'url': 'http://chronontology.dainst.org/period/Ef9SyESSafJ1'
         };
         testDataset.project.url = [{
-            'type': 'https://schema.org/URL',
+            'type': Constants.SchemaUrlType,
             'url': 'https://test.dasch.swiss/'
         }];
         // const testPersonOne = {
