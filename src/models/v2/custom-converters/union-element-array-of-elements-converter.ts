@@ -68,7 +68,7 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert
                 default:
                     throw new Error(`Deserialization Error: expected an array of objects with property @type equals to: 
                         ${Constants.ProvAttribution}, ${Constants.DspGrant}, ${Constants.SchemaPlace}, or a reference 
-                        object with id key.`);
+                        object with @id key.`);
             }
         } else {
             switch (true) {

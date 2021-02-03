@@ -14,11 +14,11 @@ export abstract class BaseUrlConverter implements JsonCustomConvert<IUrl | strin
 
     serialize(el: IUrl | string | Array<IUrl | string>): any {
         if (Array.isArray(el)) {
-            const newObj = [] as any[];
+            const newArr = [] as any[];
             el.forEach((
-                (item: IUrl | string) => newObj.push(this.serializeElement(item))
+                (item: IUrl | string) => newArr.push(this.serializeElement(item))
             ));
-            return newObj;
+            return newArr;
         } else {
             return this.serializeElement(el);
         }
