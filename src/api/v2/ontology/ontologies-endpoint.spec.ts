@@ -924,18 +924,18 @@ describe("OntologiesEndpoint", () => {
 
             onto.lastModificationDate = "2020-10-21T23:50:45.789081Z";
 
-            const addCard = new UpdateOntologyResourceClassCardinality();
+            const replaceCard = new UpdateOntologyResourceClassCardinality();
 
-            addCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
+            replaceCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
 
-            addCard.cardinalities = [
+            replaceCard.cardinalities = [
                 {
                     propertyIndex: "http://0.0.0.0:3333/ontology/0001/anything/v2#hasEmptiness",
                     cardinality: Cardinality._0_1,
                 }
             ];
 
-            onto.entity = addCard;
+            onto.entity = replaceCard;
 
             knoraApiConnection.v2.onto.replaceCardinalityOfResourceClass(onto).subscribe(
                 (res: ResourceClassDefinitionWithAllLanguages) => {
@@ -955,6 +955,47 @@ describe("OntologiesEndpoint", () => {
 
             const createCardResponse = require("../../../../test/data/api/v2/ontologies/add-cardinalities-to-class-nothing-response.json");
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(createCardResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/cardinalities");
+
+            expect(request.method).toEqual("PUT");
+
+        });
+
+        it("should remove all cardinalities when none are provided", done => {
+
+            const onto = new UpdateOntology<UpdateOntologyResourceClassCardinality>();
+
+            onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
+
+            onto.lastModificationDate = "2020-10-21T23:50:45.789081Z";
+
+            const removeCard = new UpdateOntologyResourceClassCardinality();
+
+            removeCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
+
+            removeCard.cardinalities = [];
+
+            onto.entity = removeCard;
+
+            knoraApiConnection.v2.onto.replaceCardinalityOfResourceClass(onto).subscribe(
+                (res: ResourceClassDefinitionWithAllLanguages) => {
+                    expect(res.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const expectedPayload = require("../../../../test/data/api/v2/ontologies/remove-class-cardinalities-request-expanded.json");
+
+            // TODO: remove this bad hack once test data is stable
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#lastModificationDate"]["@value"] = "2020-10-21T23:50:45.789081Z";
+
+            expect(request.data()).toEqual(expectedPayload);
+
+            const removeCardResponse = require("../../../../test/data/api/v2/ontologies/add-cardinalities-to-class-nothing-response.json");
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(removeCardResponse)));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/cardinalities");
 

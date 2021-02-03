@@ -371,7 +371,7 @@ export class OntologiesEndpointV2 extends Endpoint {
 
         const cardinalities = this.jsonConvert.serializeObject(replaceCardinalityOfResourceClass.entity);
 
-        // remove subClassOf if no cards ae provided
+        // remove subClassOf if no cards are provided
         // all cards will be removed from resource class
         if (numberOfCards === 0) {
             delete cardinalities[Constants.SubClassOf];

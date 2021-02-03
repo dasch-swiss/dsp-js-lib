@@ -93,6 +93,10 @@
       "destination": "./test/data/api/v2/ontologies/replace-class-cardinalities-request.json"
     },
     {
+      "source": "/v2/ontologies/remove-class-cardinalities-request.json",
+      "destination": "./test/data/api/v2/ontologies/remove-class-cardinalities-request.json"
+    },
+    {
       "source": "/v2/resources/testding.json",
       "destination": "./test/data/api/v2/resources/testding.json"
     },

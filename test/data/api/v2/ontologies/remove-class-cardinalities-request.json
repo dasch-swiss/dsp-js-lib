@@ -3,18 +3,11 @@
   "@type" : "owl:Ontology",
   "knora-api:lastModificationDate" : {
     "@type" : "xsd:dateTimeStamp",
-    "@value" : "2021-01-31T06:52:29.539595Z"
+    "@value" : "2021-01-31T06:52:30.832552Z"
   },
   "@graph" : [ {
     "@id" : "anything:Nothing",
-    "@type" : "owl:Class",
-    "rdfs:subClassOf" : {
-      "@type": "owl:Restriction",
-      "owl:maxCardinality": 1,
-      "owl:onProperty": {
-        "@id" : "anything:hasEmptiness"
-      }
-    }
+    "@type" : "owl:Class"
   } ],
   "@context" : {
     "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
