@@ -677,13 +677,13 @@ export class AppComponent implements OnInit {
 
     replaceCardinality() {
 
-        const onto = new UpdateOntology<UpdateOntologyResourceClassCardinality>();
+        const onto = new UpdateOntology<UpdateResourceClassCardinality>();
 
         onto.lastModificationDate = this.ontology.lastModificationDate;
 
         onto.id = this.ontology.id;
 
-        const replaceCard = new UpdateOntologyResourceClassCardinality();
+        const replaceCard = new UpdateResourceClassCardinality();
 
         replaceCard.cardinalities = [
             {
