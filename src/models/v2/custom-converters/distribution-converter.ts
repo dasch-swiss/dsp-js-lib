@@ -23,10 +23,9 @@ export class DistributionConverter extends BaseUrlConverter {
 
     deserialize(el: any): IUrl {
         if (el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaDownload) {
-            const obj = {} as IUrl;
-            obj.type = el["@type"];
-            obj.url = el[Constants.SchemaUrlValue];
-            return obj;
+            const type = el["@type"];
+            const url = el[Constants.SchemaUrlValue];
+            return { type, url } as IUrl;
         } else {
             throw new Error(`Deserialization Error: expected an object with property @type 
                 equals to ${Constants.SchemaDownload}.`);

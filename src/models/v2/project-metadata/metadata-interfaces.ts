@@ -10,7 +10,6 @@ export interface IId {
  */
 export interface IUrl {
     type?: string;
-    // value?: string;
     name?: string;
     url: string;
 }
