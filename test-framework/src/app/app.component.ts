@@ -669,7 +669,8 @@ export class AppComponent implements OnInit {
             (res: ResourceClassDefinitionWithAllLanguages) => {
                 this.addCard = res;
                 console.log('added card: ', res)
-            }
+            },
+            err => console.error(err)
         );
 
     }
@@ -699,7 +700,8 @@ export class AppComponent implements OnInit {
             (res: ResourceClassDefinitionWithAllLanguages) => {
                 this.replacedCard = res;
                 console.log('replace card: ', res)
-            }
+            },
+            err => console.error(err)
         );
 
     }
