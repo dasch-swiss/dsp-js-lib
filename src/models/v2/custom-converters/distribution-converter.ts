@@ -9,11 +9,23 @@ import { BaseUrlConverter } from "./base-url-converter";
 @JsonConverter
 export class DistributionConverter extends BaseUrlConverter {
 
-    deserialize(val: any): IUrl {
-        if (val.hasOwnProperty("@type") && val["@type"] === Constants.SchemaDownload) {
+    serialize(el: IUrl): object {
+        if (el.hasOwnProperty("@type") && el["type"] === Constants.SchemaDownload) {
+            return {
+                "@type": el.type,
+                [Constants.SchemaUrlValue]: el.value
+            };
+        } else {
+            throw new Error(`Serialization error: expected IUrl object type.
+                Instead got ${typeof el}.`);
+        }
+    }
+
+    deserialize(el: any): IUrl {
+        if (el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaDownload) {
             const obj = {} as IUrl;
-            obj.type = val["@type"];
-            obj.value = val[Constants.SchemaUrlValue];
+            obj.type = el["@type"];
+            obj.value = el[Constants.SchemaUrlValue];
             return obj;
         } else {
             throw new Error(`Deserialization Error: expected an object with property @type 
