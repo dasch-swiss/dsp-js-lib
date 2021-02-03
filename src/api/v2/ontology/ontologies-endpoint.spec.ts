@@ -912,6 +912,28 @@ describe("OntologiesEndpoint", () => {
 
         });
 
+        it("should attempt to add cardinalities to a resource class without providing any", () => {
+
+            const onto = new UpdateOntology<UpdateOntologyResourceClassCardinality>();
+
+            onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
+
+            onto.lastModificationDate = "2020-10-21T23:50:45.789081Z";
+
+            const addCard = new UpdateOntologyResourceClassCardinality();
+
+            addCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
+
+            addCard.cardinalities = [];
+
+            onto.entity = addCard;
+
+            expect(() =>
+                knoraApiConnection.v2.onto.addCardinalityToResourceClass(onto)
+            ).toThrow(new Error("At least one cardinality must be defined."));
+
+        });
+
     });
 
     describe("Method replaceCardinalityOfResourceClass", () => {

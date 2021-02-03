@@ -334,7 +334,7 @@ export class OntologiesEndpointV2 extends Endpoint {
     addCardinalityToResourceClass(addCardinalityToResourceClass: UpdateOntology<UpdateOntologyResourceClassCardinality>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
 
         if (addCardinalityToResourceClass.entity.cardinalities.length === 0) {
-            throw new Error("At least one cardinality must be defined");
+            throw new Error("At least one cardinality must be defined.");
         }
 
         const onto = this.jsonConvert.serializeObject(addCardinalityToResourceClass);
