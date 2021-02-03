@@ -76,7 +76,8 @@ import {
     UpdateAdministrativePermission,
     UpdateDefaultObjectAccessPermission,
     UpdateAdministrativePermissionGroup,
-    UpdateDefaultObjectAccessPermissionGroup
+    UpdateDefaultObjectAccessPermissionGroup,
+    UpdateDefaultObjectAccessPermissionResourceClass
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -402,6 +403,20 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermissionGroup(this.permissionIri, updateAdminPermGroup).subscribe(
             (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
                 this.permissionUpdateStatus = "updateDefaultObjectAccessPermissionGroup ok";
+                console.log(res);
+            },
+            err => console.error(err)
+        );
+    }
+
+    updateDefaultObjectAccessPermissionResourceClass() {
+        const defaultObjectAccessPermissionResourceClass = new UpdateDefaultObjectAccessPermissionResourceClass();
+
+        defaultObjectAccessPermissionResourceClass.forResourceClass = "http://www.knora.org/ontology/0803/incunabula#book";
+
+        this.knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermissionResourceClass(this.permissionIri, defaultObjectAccessPermissionResourceClass).subscribe(
+            (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
+                this.permissionUpdateStatus = "updateDefaultObjectAccessPermissionResourceClass ok";
                 console.log(res);
             },
             err => console.error(err)
