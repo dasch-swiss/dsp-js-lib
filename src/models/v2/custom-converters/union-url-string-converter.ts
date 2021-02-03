@@ -42,7 +42,7 @@ export class UnionUrlStringConverter extends BaseUrlConverter {
                     "@type": Constants.SchemaPropVal,
                     [Constants.SchemaPropID]: el.type
                 },
-                [Constants.SchemaUrlValue]: el.value
+                [Constants.SchemaUrlValue]: el.url
             };
         } else {
             throw new Error(`Serialization error: expected string or IUrl object type.
@@ -56,7 +56,7 @@ export class UnionUrlStringConverter extends BaseUrlConverter {
         } else if (el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaUrlType) {
             const obj = {} as IUrl;
             obj.type = el["@type"];
-            obj.value = el[Constants.SchemaUrlValue];
+            obj.url = el[Constants.SchemaUrlValue];
             return obj;
         } else {
             throw new Error(`Deserialization Error: expected an object with @type property equals 

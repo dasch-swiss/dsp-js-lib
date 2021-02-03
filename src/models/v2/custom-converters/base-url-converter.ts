@@ -3,10 +3,6 @@ import { Constants } from "../Constants";
 import { IUrl } from "../project-metadata/metadata-interfaces";
 
 /**
- * @category Model V2
- */
-
-/**
  * @category Internal
  */
 @JsonConverter
@@ -34,7 +30,7 @@ export abstract class BaseUrlConverter implements JsonCustomConvert<IUrl | strin
         } else {
             return {
                 "@type": el.type,
-                [Constants.SchemaUrlValue]: el.value
+                [Constants.SchemaUrlValue]: el.url
             };
         }
     }

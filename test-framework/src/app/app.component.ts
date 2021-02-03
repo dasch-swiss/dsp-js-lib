@@ -983,7 +983,7 @@ export class AppComponent implements OnInit {
         // testDataset.documentation = ['Work in progress', 'Dddddd'];
         testDataset.howToCite = 'Testprojekt (test), 2002, https://test.dasch.swiss';
         testDataset.language = [ 'EN', 'DE', 'FR' ];
-        testDataset.license = [{ type: 'https://schema.org/URL', value: 'https://creativecommons.org/licenses/by/3.0' }] as IUrl[];
+        testDataset.license = [{ type: 'https://schema.org/URL', url: 'https://creativecommons.org/licenses/by/3.0' }] as IUrl[];
         testDataset.qualifiedAttribution = [
             {
                 type: Constants.ProvAttribution,
@@ -1073,7 +1073,7 @@ export class AppComponent implements OnInit {
             'name': ['University of Toronto', 'WWW'],
             'url': {
                 'type': 'https://schema.org/URL',
-                'value': 'http://www.utoronto.ca/'
+                'url': 'http://www.utoronto.ca/'
             }
         }] as Organization[];
         // grant.name = 'Prof. test test, Prof. test Harbtestrecht';
@@ -1144,7 +1144,7 @@ export class AppComponent implements OnInit {
         };
         testDataset.project.url = [{
             'type': 'https://schema.org/URL',
-            'value': 'https://test.dasch.swiss/'
+            'url': 'https://test.dasch.swiss/'
         }];
         // const testPersonOne = {
         //     'id': 'http://ns.dasch.swiss/test-jones',

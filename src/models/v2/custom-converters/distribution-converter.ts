@@ -13,7 +13,7 @@ export class DistributionConverter extends BaseUrlConverter {
         if (el.hasOwnProperty("@type") && el["type"] === Constants.SchemaDownload) {
             return {
                 "@type": el.type,
-                [Constants.SchemaUrlValue]: el.value
+                [Constants.SchemaUrlValue]: el.url
             };
         } else {
             throw new Error(`Serialization error: expected IUrl object type.
@@ -25,7 +25,7 @@ export class DistributionConverter extends BaseUrlConverter {
         if (el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaDownload) {
             const obj = {} as IUrl;
             obj.type = el["@type"];
-            obj.value = el[Constants.SchemaUrlValue];
+            obj.url = el[Constants.SchemaUrlValue];
             return obj;
         } else {
             throw new Error(`Deserialization Error: expected an object with property @type 
