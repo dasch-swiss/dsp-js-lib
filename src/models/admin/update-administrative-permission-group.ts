@@ -1,4 +1,5 @@
-import { JsonObject, JsonProperty } from "json2typescript";
+import { JsonObject } from "json2typescript";
+import { UpdatePermissionGroup } from "./update-permission-group";
 
 /**
  * Update of an administrative permission's group.
@@ -6,12 +7,5 @@ import { JsonObject, JsonProperty } from "json2typescript";
  * @category Model Admin
  */
 @JsonObject("UpdateAdministrativePermission")
-export class UpdateAdministrativePermissionGroup {
-
-    /**
-     * The group that the permission applies to.
-     */
-    @JsonProperty("forGroup", String)
-    forGroup: string;
-
+export class UpdateAdministrativePermissionGroup extends UpdatePermissionGroup {
 }
