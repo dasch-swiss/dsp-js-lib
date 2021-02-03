@@ -7,8 +7,8 @@ import { UpdateDeleteEntity } from "../update-delete-entity";
 /**
  * @category Model V2
  */
-@JsonObject("UpdateOntologyResourceClassCardinality")
-export class UpdateOntologyResourceClassCardinality {
+@JsonObject("UpdateResourceClassCardinality")
+export class UpdateResourceClassCardinality {
 
     @JsonProperty("@id", String)
     id: string = "";

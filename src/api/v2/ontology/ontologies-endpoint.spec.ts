@@ -23,7 +23,7 @@ import {
 import { StandoffClassDefinition } from "../../../models/v2/ontologies/standoff-class-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
-import { UpdateOntologyResourceClassCardinality } from "../../../models/v2/ontologies/update/update-ontology-resource-class-cardinality";
+import { UpdateResourceClassCardinality } from "../../../models/v2/ontologies/update/update-resource-class-cardinality";
 import { UpdateResourceClassComment } from "../../../models/v2/ontologies/update/update-resource-class-comment";
 import { UpdateResourceClassLabel } from "../../../models/v2/ontologies/update/update-resource-class-label";
 import { UpdateResourcePropertyComment } from "../../../models/v2/ontologies/update/update-resource-property-comment";
@@ -868,13 +868,13 @@ describe("OntologiesEndpoint", () => {
 
         it("should add a max cardinality 1 to a resource class", done => {
 
-            const onto = new UpdateOntology<UpdateOntologyResourceClassCardinality>();
+            const onto = new UpdateOntology<UpdateResourceClassCardinality>();
 
             onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
 
             onto.lastModificationDate = "2020-10-21T23:50:45.789081Z";
 
-            const addCard = new UpdateOntologyResourceClassCardinality();
+            const addCard = new UpdateResourceClassCardinality();
 
             addCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
 
@@ -914,13 +914,13 @@ describe("OntologiesEndpoint", () => {
 
         it("should attempt to add cardinalities to a resource class without providing any", () => {
 
-            const onto = new UpdateOntology<UpdateOntologyResourceClassCardinality>();
+            const onto = new UpdateOntology<UpdateResourceClassCardinality>();
 
             onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
 
             onto.lastModificationDate = "2020-10-21T23:50:45.789081Z";
 
-            const addCard = new UpdateOntologyResourceClassCardinality();
+            const addCard = new UpdateResourceClassCardinality();
 
             addCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
 
@@ -940,13 +940,13 @@ describe("OntologiesEndpoint", () => {
 
         it("should replace the cardinalities with a max cardinality 1 to a resource class", done => {
 
-            const onto = new UpdateOntology<UpdateOntologyResourceClassCardinality>();
+            const onto = new UpdateOntology<UpdateResourceClassCardinality>();
 
             onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
 
             onto.lastModificationDate = "2020-10-21T23:50:45.789081Z";
 
-            const replaceCard = new UpdateOntologyResourceClassCardinality();
+            const replaceCard = new UpdateResourceClassCardinality();
 
             replaceCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
 
@@ -986,13 +986,13 @@ describe("OntologiesEndpoint", () => {
 
         it("should remove all cardinalities when none are provided", done => {
 
-            const onto = new UpdateOntology<UpdateOntologyResourceClassCardinality>();
+            const onto = new UpdateOntology<UpdateResourceClassCardinality>();
 
             onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
 
             onto.lastModificationDate = "2020-10-21T23:50:45.789081Z";
 
-            const removeCard = new UpdateOntologyResourceClassCardinality();
+            const removeCard = new UpdateResourceClassCardinality();
 
             removeCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
 

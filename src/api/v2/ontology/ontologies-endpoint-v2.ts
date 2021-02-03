@@ -22,7 +22,7 @@ import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
 import { ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-class-definition";
 import { ResourcePropertyDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-property-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
-import { UpdateOntologyResourceClassCardinality } from "../../../models/v2/ontologies/update/update-ontology-resource-class-cardinality";
+import { UpdateResourceClassCardinality } from "../../../models/v2/ontologies/update/update-resource-class-cardinality";
 import { UpdateResourceClassComment } from "../../../models/v2/ontologies/update/update-resource-class-comment";
 import { UpdateResourceClassLabel } from "../../../models/v2/ontologies/update/update-resource-class-label";
 import { UpdateResourcePropertyComment } from "../../../models/v2/ontologies/update/update-resource-property-comment";
@@ -331,7 +331,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param addCardinalityToResourceClass the cardinalities to be added.
      */
-    addCardinalityToResourceClass(addCardinalityToResourceClass: UpdateOntology<UpdateOntologyResourceClassCardinality>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+    addCardinalityToResourceClass(addCardinalityToResourceClass: UpdateOntology<UpdateResourceClassCardinality>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
 
         if (addCardinalityToResourceClass.entity.cardinalities.length === 0) {
             throw new Error("At least one cardinality must be defined.");
@@ -363,7 +363,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param replaceCardinalityOfResourceClass the cardinalities to be added.
      */
-    replaceCardinalityOfResourceClass(replaceCardinalityOfResourceClass: UpdateOntology<UpdateOntologyResourceClassCardinality>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+    replaceCardinalityOfResourceClass(replaceCardinalityOfResourceClass: UpdateOntology<UpdateResourceClassCardinality>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
 
         const onto = this.jsonConvert.serializeObject(replaceCardinalityOfResourceClass);
 
