@@ -17,6 +17,7 @@ import { UpdateDefaultObjectAccessPermission } from "../../../models/admin/updat
 import { UpdateDefaultObjectAccessPermissionGroup } from "../../../models/admin/update-default-object-access-permission-group";
 import { UpdateDefaultObjectAccessPermissionProperty } from "../../../models/admin/update-default-object-access-permission-property";
 import { UpdateDefaultObjectAccessPermissionResourceClass } from "../../../models/admin/update-default-object-access-permission-resource-class";
+import { UpdatePermission } from "../../../models/admin/update-permission";
 import { ApiResponseData } from "../../../models/api-response-data";
 
 describe("PermissionsEndpoint", () => {
@@ -267,7 +268,7 @@ describe("PermissionsEndpoint", () => {
 
             const updateAdminPerm = new UpdateAdministrativePermission();
 
-            const perm = new CreatePermission();
+            const perm = new UpdatePermission();
             perm.additionalInformation = null;
             perm.name = "ProjectAdminGroupAllPermission";
             perm.permissionCode = null;
@@ -526,7 +527,7 @@ describe("PermissionsEndpoint", () => {
 
             const updateDefaultObjectAccessPermission = new UpdateDefaultObjectAccessPermission();
 
-            const perm = new CreatePermission();
+            const perm = new UpdatePermission();
             perm.additionalInformation = "http://www.knora.org/ontology/knora-admin#ProjectMember";
             perm.name = "D";
             perm.permissionCode = 7;

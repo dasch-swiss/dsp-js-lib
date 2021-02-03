@@ -50,6 +50,7 @@ export { AdministrativePermissionResponse } from "./models/admin/administrative-
 export { AdministrativePermissionsResponse } from "./models/admin/administrative-permissions-response";
 export { Permission } from "./models/admin/permission";
 export { CreatePermission } from "./models/admin/create-permission";
+export { UpdatePermission } from "./models/admin/update-permission";
 export { Permissions } from "./models/admin/permissions";
 export { DeletePermissionResponse } from "./models/admin/delete-permission-response";
 

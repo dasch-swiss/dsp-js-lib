@@ -41,6 +41,7 @@ import {
     DeleteResourceProperty,
     UpdateOntologyResourceClassCardinality,
     CreatePermission,
+    UpdatePermission,
     CreateAdministrativePermission,
     ResourcePropertyDefinitionWithAllLanguages,
     CreateResourceProperty,
@@ -299,7 +300,7 @@ export class AppComponent implements OnInit {
 
     updateAdministrativePermission() {
 
-        const perm = new CreatePermission();
+        const perm = new UpdatePermission();
         perm.additionalInformation = null;
         perm.name = "ProjectAdminGroupAllPermission";
         perm.permissionCode = null;
@@ -377,7 +378,7 @@ export class AppComponent implements OnInit {
 
     updateDefaultObjectAccessPermission() {
 
-        const perm = new CreatePermission();
+        const perm = new UpdatePermission();
         perm.additionalInformation = "http://www.knora.org/ontology/knora-admin#ProjectMember";
         perm.name = "D";
         perm.permissionCode = 7;
