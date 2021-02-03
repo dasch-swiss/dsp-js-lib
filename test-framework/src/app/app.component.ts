@@ -39,7 +39,7 @@ import {
     DeleteOntology,
     DeleteResourceClass,
     DeleteResourceProperty,
-    UpdateOntologyResourceClassCardinality,
+    UpdateResourceClassCardinality,
     CreatePermission,
     CreateAdministrativePermission,
     ResourcePropertyDefinitionWithAllLanguages,
@@ -646,13 +646,13 @@ export class AppComponent implements OnInit {
 
     addCardinality() {
 
-        const onto = new UpdateOntology<UpdateOntologyResourceClassCardinality>();
+        const onto = new UpdateOntology<UpdateResourceClassCardinality>();
 
         onto.lastModificationDate = this.ontology.lastModificationDate;
 
         onto.id = this.ontology.id;
 
-        const addCard = new UpdateOntologyResourceClassCardinality();
+        const addCard = new UpdateResourceClassCardinality();
 
         addCard.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass";
 
