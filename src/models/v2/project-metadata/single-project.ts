@@ -6,7 +6,6 @@ import { UnionElementArrayOfElementsConverter } from "../custom-converters/union
 import { UnionPersonOrganizationIdConverter } from "../custom-converters/union-person-organization-id-converter";
 import { UnionStringArrayOfStringsConverter } from "../custom-converters/union-string-array-of-strings-converter";
 import { UnionUrlStringConverter } from "../custom-converters/union-url-string-converter";
-import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
 import { IId, IUrl } from "../project-metadata/metadata-interfaces";
 import { BaseProjectMetadata } from "./base-project-metadata";
 import { DataManagementPlan } from "./data-management-plan";
@@ -69,7 +68,7 @@ export class SingleProject extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasTemporalCoverage, UnionUrlStringConverter)
     temporalCoverage: IUrl = {} as IUrl;
 
-    @JsonProperty(Constants.DspHasURL, UrlToUrlObjectConverter)
+    @JsonProperty(Constants.DspHasURL, UnionUrlStringConverter)
     url: IUrl[] = [];
 
     constructor() {

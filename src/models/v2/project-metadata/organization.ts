@@ -1,7 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
 import { UnionStringArrayOfStringsConverter } from "../custom-converters/union-string-array-of-strings-converter";
-import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
+import { UnionUrlStringConverter } from "../custom-converters/union-url-string-converter";
 import { IUrl } from "../project-metadata/metadata-interfaces";
 import { Address } from "./address";
 import { BaseProjectMetadata } from "./base-project-metadata";
@@ -24,7 +24,7 @@ export class Organization extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasName, UnionStringArrayOfStringsConverter)
     name: string[] = [];
 
-    @JsonProperty(Constants.DspHasURL, UrlToUrlObjectConverter, true)
+    @JsonProperty(Constants.DspHasURL, UnionUrlStringConverter, true)
     url?: IUrl = undefined;
 
     constructor() {

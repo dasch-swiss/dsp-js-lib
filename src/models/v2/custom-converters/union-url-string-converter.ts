@@ -38,14 +38,21 @@ export class UnionUrlStringConverter extends BaseUrlConverter {
         if (typeof el === "string") {
             return el;
         } else if (!(typeof el === "string")) {
-            return {
-                "@type": Constants.SchemaUrlType,
-                [Constants.SchemaPropID]: {
-                    "@type": Constants.SchemaPropVal,
-                    [Constants.SchemaPropID]: el.name
-                },
-                [Constants.SchemaUrlValue]: el.url
-            };
+            if (el.hasOwnProperty(Constants.SchemaPropID)) {
+                return {
+                    "@type": Constants.SchemaUrlType,
+                    [Constants.SchemaPropID]: {
+                        "@type": Constants.SchemaPropVal,
+                        [Constants.SchemaPropID]: el.name
+                    },
+                    [Constants.SchemaUrlValue]: el.url
+                };
+            } else {
+                return {
+                    "@type": el.type,
+                    [Constants.SchemaUrlValue]: el.url
+                };
+            }
         } else {
             throw new Error(`Serialization error: expected string or IUrl object type.
                 Instead got ${typeof el}.`);
@@ -56,10 +63,20 @@ export class UnionUrlStringConverter extends BaseUrlConverter {
         if (typeof el === "string") {
             return el;
         } else if (el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaUrlType) {
-            const name = el[Constants.SchemaPropID][Constants.SchemaPropID];
             const type = el["@type"];
             const url = el[Constants.SchemaUrlValue];
-            return { name, type, url } as IUrl;
+            if (el.hasOwnProperty(Constants.SchemaPropID)) {
+                const name = el[Constants.SchemaPropID][Constants.SchemaPropID];
+                // const type = el["@type"];
+                // const url = el[Constants.SchemaUrlValue];
+                return { name, type, url } as IUrl;   
+            } else {
+                return { type, url } as IUrl;
+            }
+            // const name = el[Constants.SchemaPropID][Constants.SchemaPropID];
+            // const type = el["@type"];
+            // const url = el[Constants.SchemaUrlValue];
+            // return { name, type, url } as IUrl;
         } else {
             throw new Error(`Deserialization Error: expected an object with @type property equals 
                 to ${Constants.SchemaUrlType} or string.`);

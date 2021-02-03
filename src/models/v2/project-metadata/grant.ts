@@ -1,7 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
 import { UnionPersonOrganizationIdConverter } from "../custom-converters/union-person-organization-id-converter";
-import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
+import { UnionUrlStringConverter } from "../custom-converters/union-url-string-converter";
 import { IId, IUrl } from "../project-metadata/metadata-interfaces";
 import { BaseProjectMetadata } from "./base-project-metadata";
 import { Organization } from "./organization";
@@ -25,7 +25,7 @@ export class Grant extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasNumber, String, true)
     number?: string = undefined;
 
-    @JsonProperty(Constants.DspHasURL, UrlToUrlObjectConverter, true)
+    @JsonProperty(Constants.DspHasURL, UnionUrlStringConverter, true)
     url?: IUrl = undefined;
 
     constructor() {

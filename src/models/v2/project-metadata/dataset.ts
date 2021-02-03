@@ -6,7 +6,6 @@ import { UnionElementArrayOfElementsConverter } from "../custom-converters/union
 import { UnionSingleProjctIdConverter } from "../custom-converters/union-single-project-id-converter";
 import { UnionStringArrayOfStringsConverter } from "../custom-converters/union-string-array-of-strings-converter";
 import { UnionUrlStringConverter } from "../custom-converters/union-url-string-converter";
-import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
 import { IUrl } from "../project-metadata/metadata-interfaces";
 import { Attribution } from "./attribution";
 import { BaseProjectMetadata } from "./base-project-metadata";
@@ -51,7 +50,7 @@ export class Dataset extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasLanguage, UnionStringArrayOfStringsConverter)
     language: string[] = [];
 
-    @JsonProperty(Constants.DspHasLicense, UrlToUrlObjectConverter)
+    @JsonProperty(Constants.DspHasLicense, UnionUrlStringConverter)
     license: IUrl[] = [];
 
     @JsonProperty(Constants.DspHasQualifiedAttribution, UnionElementArrayOfElementsConverter)
@@ -70,7 +69,7 @@ export class Dataset extends BaseProjectMetadata {
     @JsonProperty(Constants.DspIsPartOf, UnionSingleProjctIdConverter)
     project: SingleProject = new SingleProject();
 
-    @JsonProperty(Constants.DspSameAs, UrlToUrlObjectConverter, true)
+    @JsonProperty(Constants.DspSameAs, UnionUrlStringConverter, true)
     sameAs?: IUrl[] = undefined;
 
     constructor() {

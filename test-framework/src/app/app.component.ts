@@ -62,6 +62,7 @@ import {
     IUrl,
     Grant,
     Organization,
+    DataManagementPlan,
     UpdateChildNodeRequest,
     ListNodeInfoResponse,
     CreateListRequest,
@@ -1038,15 +1039,15 @@ export class AppComponent implements OnInit {
         //        'url': 'https://orcid.org/0000-0002-1825-0097'
         //     }
         //  } as Person;
-        // testDataset.project.dataManagementPlan = {
-        //     'id': 'http://ns.dasch.swiss/test-plan',
-        //     type: Constants.DspRepoBase + 'DataManagementPlan',
-        //     'url': {
-        //        'type': Constants.SchemaUrlType,
-        //        'url': 'https://snf.ch'
-        //     },
-        //     'isAvailable': false
-        //  } as DataManagementPlan;
+        testDataset.project.dataManagementPlan = {
+            'id': 'http://ns.dasch.swiss/test-plan',
+            type: Constants.DspRepoBase + 'DataManagementPlan',
+            'url': {
+               'type': Constants.SchemaUrlType,
+               'url': 'https://snf.ch'
+            },
+            'isAvailable': false
+         } as DataManagementPlan;
         testDataset.project.description = 'Dies ist ein Testprojekt...alle Properties wurden verwendet, um diese zu testen';
         testDataset.project.discipline = {
             'name': 'SKOS UNESCO Nomenclature',
@@ -1074,6 +1075,7 @@ export class AppComponent implements OnInit {
             'name': ['University of Toronto', 'WWW'],
             'url': {
                 'type': Constants.SchemaUrlType,
+                'name': 'cos',
                 'url': 'http://www.utoronto.ca/'
             }
         }] as Organization[];
