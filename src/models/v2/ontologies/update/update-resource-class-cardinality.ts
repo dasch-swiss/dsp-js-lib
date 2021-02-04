@@ -7,13 +7,16 @@ import { UpdateDeleteEntity } from "../update-delete-entity";
 /**
  * @category Model V2
  */
-@JsonObject("UpdateOntologyResourceClassCardinality")
-export class UpdateOntologyResourceClassCardinality extends UpdateDeleteEntity {
+@JsonObject("UpdateResourceClassCardinality")
+export class UpdateResourceClassCardinality {
+
+    @JsonProperty("@id", String)
+    id: string = "";
 
     @JsonProperty("@type", String)
-    readonly type = Constants.Ontology;
+    type: string = Constants.Class;
 
-    @JsonProperty("@graph", HasCardinalityForPropertyConverter)
+    @JsonProperty(Constants.SubClassOf, HasCardinalityForPropertyConverter)
     cardinalities: IHasProperty[] = [];
 
 }
