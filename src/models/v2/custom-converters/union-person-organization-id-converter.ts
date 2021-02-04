@@ -1,6 +1,7 @@
 import { JsonConvert, JsonConverter, JsonCustomConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { Constants } from "../Constants";
+import { IId } from "../project-metadata/metadata-interfaces";
 import { Organization } from "../project-metadata/organization";
 import { Person } from "../project-metadata/person";
 
@@ -8,7 +9,8 @@ import { Person } from "../project-metadata/person";
  * @category Internal
  */
 @JsonConverter
-export class UnionPersonOrganizationIdConverter implements JsonCustomConvert<Person | Organization | object> {
+export class UnionPersonOrganizationIdConverter implements JsonCustomConvert
+    <Person | Organization | IId | object | Person[] | Organization[] | IId[]> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -29,8 +31,8 @@ export class UnionPersonOrganizationIdConverter implements JsonCustomConvert<Per
         }
     }
 
-    deserialize(el: any): Person | Organization | object {
-        const newArr = [] as Array<Person | Organization | object>;
+    deserialize(el: any): Person[] | Organization[] | IId[] {
+        const newArr = [] as Array<Person | Organization | IId>;
         if (Array.isArray(el)) {
             el.forEach((
                 (item: any) => newArr.push(this.deserializeElement(item))
@@ -57,15 +59,13 @@ export class UnionPersonOrganizationIdConverter implements JsonCustomConvert<Per
         }
     }
 
-    private deserializeElement(el: any): Person | Organization | object {
+    private deserializeElement(el: any): Person | Organization | IId {
         if (el.hasOwnProperty(Constants.DspHasJobTitle)) {
             return UnionPersonOrganizationIdConverter.jsonConvert.deserializeObject(el, Person);
         } else if (el.hasOwnProperty(Constants.DspHasName)) {
             return UnionPersonOrganizationIdConverter.jsonConvert.deserializeObject(el, Organization);
         } else if (el.hasOwnProperty("@id") && (!el.hasOwnProperty(Constants.DspHasJobTitle) || !el.hasOwnProperty(Constants.DspHasName))) {
-            return {
-                id: (el as { [index: string]: string })["@id"]
-            };
+            return {id: el};
         } else {
             throw new Error(`Deserialization Error: expected an object with ${Constants.DspPerson} or ${Constants.DspOrganization} key, 
                 or reference object with @id key.`);
