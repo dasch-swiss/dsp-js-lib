@@ -117,7 +117,7 @@ export { UpdateResourceClassComment } from "./models/v2/ontologies/update/update
 export { UpdateResourcePropertyLabel } from "./models/v2/ontologies/update/update-resource-property-label";
 export { UpdateResourcePropertyComment } from "./models/v2/ontologies/update/update-resource-property-comment";
 export { ReadOntology } from "./models/v2/ontologies/read/read-ontology";
-export { UpdateOntologyResourceClassCardinality } from "./models/v2/ontologies/update/update-ontology-resource-class-cardinality";
+export { UpdateResourceClassCardinality } from "./models/v2/ontologies/update/update-resource-class-cardinality";
 export { OntologyMetadata, OntologiesMetadata } from "./models/v2/ontologies/ontology-metadata";
 export {
     ResourceClassDefinitionWithPropertyDefinition,
