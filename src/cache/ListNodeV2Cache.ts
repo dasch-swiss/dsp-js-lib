@@ -1,5 +1,5 @@
 import { Observable } from "rxjs";
-import { map, tap } from "rxjs/operators";
+import { map } from "rxjs/operators";
 import { V2Endpoint } from "../api/v2/v2-endpoint";
 import { ApiResponseError } from "../models/api-response-error";
 import { ListConversionUtil } from "../models/v2/lists/list-conversion-util";
