@@ -18,23 +18,18 @@ export class UnionOrganizationIdConverter implements JsonCustomConvert<Array<Org
     );
 
     serialize(el: Array<Organization | object>): any {
-        if (Array.isArray(el)) {
-            const newArr = [] as any[];
-            el.forEach(
-                (item: Organization | object) => newArr.push(this.serializeElement(item))
-            );
-            return newArr;
-        }
+        return el.map(
+            (item: Organization | object) => this.serializeElement(item)
+        );
     }
 
     deserialize(el: any): Array<Organization | IId> {
-        const newArr = [] as Array<Organization | IId>;
         if (Array.isArray(el)) {
-            el.forEach(
-                (item: any) => newArr.push(this.deserializeElement(item))
+            return el.map(
+                item => this.deserializeElement(item)
             );
-            return newArr;
         } else {
+            const newArr = [] as Array<Organization | IId>;
             newArr.push(this.deserializeElement(el));
             return newArr;
         }

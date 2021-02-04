@@ -11,24 +11,21 @@ export class UnionUrlStringConverter extends BaseUrlConverter {
 
     serialize(el: IUrl | string | Array<IUrl | string>): any {
         if (Array.isArray(el)) {
-            const newArr = [] as any[];
-            el.forEach(
-                (item: IUrl | string) => newArr.push(this.serializeElement(item))
+            return el.map(
+                (item: IUrl | string) => this.serializeElement(item)
             );
-            return newArr;
         } else {
             return this.serializeElement(el);
         }
     }
 
     deserialize(el: any): Array<IUrl | string> {
-        const newArr = [] as Array<IUrl | string>;
         if (Array.isArray(el)) {
-            el.forEach(
-                (item: any) => newArr.push(this.deserializeElement(item))
+            return el.map(
+                (item: any) => this.deserializeElement(item)
             );
-            return newArr;
         } else {
+            const newArr = [] as Array<IUrl | string>;
             newArr.push(this.deserializeElement(el));
             return newArr;
         }
