@@ -114,7 +114,7 @@ describe("ValuesEndpoint", () => {
 
         getListNodeFromCacheSpy = spyOn(knoraApiConnection.v2.listNodeCache, "getNode").and.callFake(
             (listNodeIri: string) => {
-                return MockList.mockCompletedAsyncSubject(listNodeIri);
+                return of(MockList.mockNode(listNodeIri));
             }
         );
     });
