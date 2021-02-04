@@ -4,7 +4,7 @@ import { JsonConverter, JsonCustomConvert } from "json2typescript";
  * @category Internal
  */
 @JsonConverter
-export class UnionStringArrayOfStringsConverter implements JsonCustomConvert<string[] | string> {
+export class UnionStringArrayOfStringsConverter implements JsonCustomConvert<string[]> {
 
     serialize(el: string[]): any {
         if (Array.isArray(el)) {

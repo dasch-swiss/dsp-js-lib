@@ -10,7 +10,7 @@ import { Person } from "../project-metadata/person";
  */
 @JsonConverter
 export class UnionPersonOrganizationIdConverter implements JsonCustomConvert
-    <Person | Organization | IId | object | Person[] | Organization[] | IId[]> {
+    <Person | Organization | object | Person[] | Organization[] | IId[]> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -54,7 +54,7 @@ export class UnionPersonOrganizationIdConverter implements JsonCustomConvert
                 "@id": (el as { [index: string]: string })["id"]
             };
         } else {
-            throw new Error(`Serialziation Error: expected a Person or Organization object type, or reference object 
+            throw new Error(`Serialziation Error: expected Person or Organization object type, or reference object 
                 with id key. Instead got ${typeof el}.`);
         }
     }

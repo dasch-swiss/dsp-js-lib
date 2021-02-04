@@ -38,7 +38,7 @@ export class UnionSingleProjctIdConverter implements JsonCustomConvert<SinglePro
             return {id: el};
         } else {
             throw new Error(`Deserialization Error: expected an object with @type property equals to 
-                ${Constants.DspProject}, or a reference object with @id property.`);
+                ${Constants.DspProject} or a reference object with @id property.`);
         }
     }
 }

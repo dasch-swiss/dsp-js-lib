@@ -8,7 +8,7 @@ import { Organization } from "../project-metadata/organization";
  * @category Internal
  */
 @JsonConverter
-export class UnionOrganizationIdConverter implements JsonCustomConvert<Organization | IId | object> {
+export class UnionOrganizationIdConverter implements JsonCustomConvert<Array<Organization | IId | object>> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,

@@ -67,16 +67,10 @@ export class UnionUrlStringConverter extends BaseUrlConverter {
             const url = el[Constants.SchemaUrlValue];
             if (el.hasOwnProperty(Constants.SchemaPropID)) {
                 const name = el[Constants.SchemaPropID][Constants.SchemaPropID];
-                // const type = el["@type"];
-                // const url = el[Constants.SchemaUrlValue];
                 return { name, type, url } as IUrl;   
             } else {
                 return { type, url } as IUrl;
             }
-            // const name = el[Constants.SchemaPropID][Constants.SchemaPropID];
-            // const type = el["@type"];
-            // const url = el[Constants.SchemaUrlValue];
-            // return { name, type, url } as IUrl;
         } else {
             throw new Error(`Deserialization Error: expected an object with @type property equals 
                 to ${Constants.SchemaUrlType} or string.`);

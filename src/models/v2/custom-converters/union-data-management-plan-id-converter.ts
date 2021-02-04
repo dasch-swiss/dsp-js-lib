@@ -17,11 +17,11 @@ export class UnionDataManagementPlanIdConverter implements JsonCustomConvert<Dat
         PropertyMatchingRule.CASE_STRICT
     );
 
-    serialize(el: Array<DataManagementPlan | object>): any {
+    serialize(el: Array<DataManagementPlan | IId>): any {
         if (Array.isArray(el)) {
             const newArr = [] as any[];
             el.forEach(
-                (item: DataManagementPlan | object) => newArr.push(this.serializeElement(item))
+                (item: DataManagementPlan | IId) => newArr.push(this.serializeElement(item))
             );
             return newArr;
         }
@@ -40,16 +40,14 @@ export class UnionDataManagementPlanIdConverter implements JsonCustomConvert<Dat
         }
     }
 
-    private serializeElement(el: DataManagementPlan | object): any {
+    private serializeElement(el: DataManagementPlan | IId): any {
         if (el.hasOwnProperty("type") && (el as {type: string})["type"] === Constants.DspDataManagementPlan) {
             return UnionDataManagementPlanIdConverter.jsonConvert.serializeObject(el, DataManagementPlan);
         } else if (el.hasOwnProperty("id") && !el.hasOwnProperty("type")) {
-            return {
-                "@id": (el as { [index: string]: string })["id"]
-            };
+            return { "@id": el.id };
         } else {
-            throw new Error(`Serialization Error: expected DataManagementPlan object type or an object with id key. 
-                Instead got ${typeof el}.`);
+            throw new Error(`Serialization Error: expected DataManagementPlan object type or an object with id 
+                key. Instead got ${typeof el}.`);
         }
     }
 

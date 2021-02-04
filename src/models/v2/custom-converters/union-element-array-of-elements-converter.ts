@@ -11,7 +11,7 @@ import { Place } from "../project-metadata/place";
  */
 @JsonConverter
 export class UnionElementArrayOfElementsConverter implements JsonCustomConvert
-<Attribution | Attribution[] | Place | Place[] | Grant | Grant[] | IId | IId[]> {
+    <Attribution | Attribution[] | Place | Place[] | Grant | Grant[] | IId | IId[]> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -20,7 +20,7 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert
         PropertyMatchingRule.CASE_STRICT
     );
     
-    serialize(el: Attribution[] | Place[] | Grant[]| object): any {
+    serialize(el: Attribution[] | Place[] | Grant[] | IId): any {
         if (Array.isArray(el)) {
             if (el[0].hasOwnProperty("type") && (el[0] as {type: string})["type"] === Constants.ProvAttribution) {
                 return UnionElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Attribution);
@@ -30,20 +30,19 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert
                 return UnionElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Place);
             } else {
                 throw new Error(`Serialization Error: expected Attribution[], Grant[] or Place[] type. 
-                Instead got ${typeof el}.`);
+                    Instead got ${typeof el}.`);
             }
         } else {
             if (el.hasOwnProperty("id")) {
-                return {
-                    "@id": (el as { [index: string]: string })["id"]
-                };
+                return { "@id": el.id };
             } else {
-                throw new Error(`Serialization Error: expected reference object with id key. Instead got ${typeof el}.`);
+                throw new Error(`Serialization Error: expected reference object with id key. Instead got 
+                    ${typeof el}.`);
             }
         }
     }
 
-    deserialize(el: any ): Attribution | Grant | Place | Attribution[] | Grant[] | Place[] | IId | IId[] {
+    deserialize(el: any ): Attribution | Grant | Place | IId | Attribution[] | Grant[] | Place[] | IId[] {
         if (Array.isArray(el)) {
             if (el[0].hasOwnProperty("@type") && el[0]["@type"] === Constants.ProvAttribution) {
                 return UnionElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Attribution);
@@ -76,11 +75,11 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert
                 || el.hasOwnProperty(Constants.SchemaUrlValue)) {
                 return UnionElementArrayOfElementsConverter.jsonConvert.deserializeArray([el], Place);
             } else if (el.hasOwnProperty("@id")) {
-                return {id: el};
+                return { id: el };
             } else {
                 throw new Error(`Deserialization Error: expected an object with property @type equals to: 
-                ${Constants.ProvAttribution}, ${Constants.DspGrant}, ${Constants.SchemaPlace}, or a reference 
-                object with id key`);
+                    ${Constants.ProvAttribution}, ${Constants.DspGrant}, ${Constants.SchemaPlace}, or a reference 
+                    object with @id key`);
             }
         }
     }
