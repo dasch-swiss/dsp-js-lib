@@ -39,7 +39,7 @@ import {
     DeleteOntology,
     DeleteResourceClass,
     DeleteResourceProperty,
-    UpdateOntologyResourceClassCardinality,
+    UpdateResourceClassCardinality,
     CreatePermission,
     UpdatePermission,
     CreateAdministrativePermission,
@@ -106,6 +106,7 @@ export class AppComponent implements OnInit {
     resClass: ResourceClassDefinitionWithAllLanguages;
     property: ResourcePropertyDefinitionWithAllLanguages;
     addCard: ResourceClassDefinitionWithAllLanguages;
+    replacedCard: ResourceClassDefinitionWithAllLanguages;
     permissionStatus: string;
     permissionUpdateStatus: string;
     permissionIri: string;
@@ -767,27 +768,63 @@ export class AppComponent implements OnInit {
 
     addCardinality() {
 
-        const addCard = new UpdateOntologyResourceClassCardinality();
+        const onto = new UpdateOntology<UpdateResourceClassCardinality>();
 
-        addCard.lastModificationDate = this.ontology.lastModificationDate;
+        onto.lastModificationDate = this.ontology.lastModificationDate;
 
-        addCard.id = this.ontology.id;
+        onto.id = this.ontology.id;
+
+        const addCard = new UpdateResourceClassCardinality();
+
+        addCard.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass";
 
         addCard.cardinalities = [
             {
                 propertyIndex: "http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName",
-                cardinality: Cardinality._0_1,
-                resourceClass: "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass"
+                cardinality: Cardinality._0_1
             }
         ];
 
-        this.knoraApiConnection.v2.onto.addCardinalityToResourceClass(addCard).subscribe(
+        onto.entity = addCard;
+
+        this.knoraApiConnection.v2.onto.addCardinalityToResourceClass(onto).subscribe(
             (res: ResourceClassDefinitionWithAllLanguages) => {
                 this.addCard = res;
                 console.log('added card: ', res)
-            }
+            },
+            err => console.error(err)
         );
 
+    }
+
+    replaceCardinality() {
+
+        const onto = new UpdateOntology<UpdateResourceClassCardinality>();
+
+        onto.lastModificationDate = this.ontology.lastModificationDate;
+
+        onto.id = this.ontology.id;
+
+        const replaceCard = new UpdateResourceClassCardinality();
+
+        replaceCard.cardinalities = [
+            {
+                propertyIndex: "http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName",
+                cardinality: Cardinality._1
+            }
+        ];
+
+        replaceCard.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass";
+
+        onto.entity = replaceCard;
+
+        this.knoraApiConnection.v2.onto.replaceCardinalityOfResourceClass(onto).subscribe(
+            (res: ResourceClassDefinitionWithAllLanguages) => {
+                this.replacedCard = res;
+                console.log('replace card: ', res)
+            },
+            err => console.error(err)
+        );
 
     }
 
