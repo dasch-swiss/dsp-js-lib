@@ -1,15 +1,10 @@
 import { JsonConverter, JsonCustomConvert } from "json2typescript";
 import { Constants } from "../Constants";
+import { IUrl } from "../project-metadata/metadata-interfaces";
 
 /**
  * @category Model V2
  */
-export interface IUrl {
-    type?: string;
-    value?: string;
-    name?: string;
-    url?: string;
-}
 
 /**
  * @category Internal

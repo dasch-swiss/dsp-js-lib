@@ -1,7 +1,7 @@
 import { JsonConvert } from "json2typescript";
 import { Constants } from "../Constants";
+import { MetadataClasses } from "../custom-converters/union-metadata-converter";
 import { Dataset } from "./dataset";
-import { Person } from "./person";
 import { ProjectsMetadata } from "./project-metadata";
 
 /**
@@ -68,7 +68,7 @@ export namespace MetadataConversionUtil {
      * @param  {string} ref reference string to look for
      * @param  {Person} replacer class instance for replacement
      */
-    const replaceReference = (obj: Dataset, ref: string, replacer: Person): Dataset => {
+    const replaceReference = (obj: Dataset, ref: string, replacer: MetadataClasses): Dataset => {
         const tempObj = Object.assign(obj);
 
         // TODO: consider other objects placed outside the Dataset object(s) and/or simplify/adjust it to known possibilities
