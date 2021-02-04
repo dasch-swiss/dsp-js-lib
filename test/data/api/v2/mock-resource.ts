@@ -44,9 +44,7 @@ export namespace MockResource {
 
         // use list node mock factory
         listNodeCache.getNode = (listNodeIri: string) => {
-
-            return MockList.mockCompletedAsyncSubject(listNodeIri);
-
+            return of(MockList.mockNode(listNodeIri));
         };
 
         const resSeq: Observable<ReadResourceSequence> = ResourcesConversionUtil.createReadResourceSequence(testthing, ontoCache, listNodeCache, jsonConvert);
