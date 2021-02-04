@@ -1,8 +1,8 @@
 import { JsonObject, JsonProperty } from "json2typescript";
+import { IUrl } from "../../../interfaces/models/v2/project-metadata-interfaces";
 import { Constants } from "../Constants";
 import { UnionStringArrayOfStringsConverter } from "../custom-converters/union-string-array-of-strings-converter";
 import { UnionUrlStringConverter } from "../custom-converters/union-url-string-converter";
-import { IUrl } from "../project-metadata/metadata-interfaces";
 import { Address } from "./address";
 import { BaseProjectMetadata } from "./base-project-metadata";
 

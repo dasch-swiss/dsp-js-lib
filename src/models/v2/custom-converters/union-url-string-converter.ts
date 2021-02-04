@@ -1,6 +1,6 @@
 import { JsonConverter } from "json2typescript";
+import { IUrl } from "../../../interfaces/models/v2/project-metadata-interfaces";
 import { Constants } from "../Constants";
-import { IUrl } from "../project-metadata/metadata-interfaces";
 import { BaseUrlConverter } from "./base-url-converter";
 
 /**

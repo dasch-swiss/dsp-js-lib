@@ -1,4 +1,5 @@
 import { JsonObject, JsonProperty } from "json2typescript";
+import { IId, IUrl } from "../../../interfaces/models/v2/project-metadata-interfaces";
 import { Constants } from "../Constants";
 import { DateConverter } from "../custom-converters/date-converter";
 import { UnionDataManagementPlanIdConverter } from "../custom-converters/union-data-management-plan-id-converter";
@@ -6,7 +7,6 @@ import { UnionElementArrayOfElementsConverter } from "../custom-converters/union
 import { UnionPersonOrganizationIdConverter } from "../custom-converters/union-person-organization-id-converter";
 import { UnionStringArrayOfStringsConverter } from "../custom-converters/union-string-array-of-strings-converter";
 import { UnionUrlStringConverter } from "../custom-converters/union-url-string-converter";
-import { IId, IUrl } from "../project-metadata/metadata-interfaces";
 import { BaseProjectMetadata } from "./base-project-metadata";
 import { DataManagementPlan } from "./data-management-plan";
 import { Grant } from "./grant";

@@ -1,4 +1,5 @@
 import { JsonObject, JsonProperty } from "json2typescript";
+import { IUrl } from "../../../interfaces/models/v2/project-metadata-interfaces";
 import { Constants } from "../Constants";
 import { DateConverter } from "../custom-converters/date-converter";
 import { DistributionConverter } from "../custom-converters/distribution-converter";
@@ -6,7 +7,6 @@ import { UnionElementArrayOfElementsConverter } from "../custom-converters/union
 import { UnionSingleProjctIdConverter } from "../custom-converters/union-single-project-id-converter";
 import { UnionStringArrayOfStringsConverter } from "../custom-converters/union-string-array-of-strings-converter";
 import { UnionUrlStringConverter } from "../custom-converters/union-url-string-converter";
-import { IUrl } from "../project-metadata/metadata-interfaces";
 import { Attribution } from "./attribution";
 import { BaseProjectMetadata } from "./base-project-metadata";
 import { SingleProject } from "./single-project";

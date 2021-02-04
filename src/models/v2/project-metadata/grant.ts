@@ -1,8 +1,8 @@
 import { JsonObject, JsonProperty } from "json2typescript";
+import { IId, IUrl } from "../../../interfaces/models/v2/project-metadata-interfaces";
 import { Constants } from "../Constants";
 import { UnionPersonOrganizationIdConverter } from "../custom-converters/union-person-organization-id-converter";
 import { UnionUrlStringConverter } from "../custom-converters/union-url-string-converter";
-import { IId, IUrl } from "../project-metadata/metadata-interfaces";
 import { BaseProjectMetadata } from "./base-project-metadata";
 import { Organization } from "./organization";
 import { Person } from "./person";
