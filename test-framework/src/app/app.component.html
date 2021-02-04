@@ -134,6 +134,9 @@
         <button class="add-card-to-res-prop" (click)="addCardinality()">Add Cardinality to resource</button><br><br>
         <div><span *ngIf="property">Cardinality added:&nbsp;</span><span class="res-card-added">{{addCard?.label}}</span> </div> <br />
 
+        <button class="replace-card-for-res-prop" (click)="replaceCardinality()">Replace Cardinality of resource</button><br><br>
+        <div><span *ngIf="property">Cardinality replaced:&nbsp;</span><span class="res-card-replaced">{{replacedCard?.label}}</span> </div> <br />
+
         <button class="delete-onto" (click)="deleteOntology()">Delete testonto</button>
         <div>Delete status: <span class="status">{{message}}</span></div> <br />
     </section>
@@ -150,7 +153,8 @@
 
     <section id="listnode">
         <h3>ListNode</h3>
-        <button (click)="getListNode('http://rdfh.ch/lists/0001/treeList01')">Get anything list node</button> <br /><br />
+        <button (click)="getListNode('http://rdfh.ch/lists/0001/treeList01')">Get anything list node 01</button> <br /><br />
+        <button (click)="getListNode('http://rdfh.ch/lists/0001/treeList02')">Get anything list node 02</button> <br /><br />
         <div>The list node's label: <span class="label">{{listNode?.label}}</span> </div> <br/>
     </section>
 

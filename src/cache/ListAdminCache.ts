@@ -3,6 +3,7 @@ import { map } from "rxjs/operators";
 import { AdminEndpoint } from "../api/admin/admin-endpoint";
 import { ListResponse } from "../models/admin/list-response";
 import { ApiResponseData } from "../models/api-response-data";
+import { ApiResponseError } from "../models/api-response-error";
 import { GenericCache } from "./GenericCache";
 
 /**
@@ -23,7 +24,7 @@ export class ListAdminCache extends GenericCache<ListResponse> {
         return this.getItem(listIri);
     }
 
-    protected requestItemFromKnora(key: string, isDependency: boolean): Observable<ListResponse[]> {
+    protected requestItemFromKnora(key: string, isDependency: boolean): Observable<ListResponse[] | ApiResponseError> {
         return this.adminEndpoint.listsEndpoint.getList(key).pipe(
             map((response: ApiResponseData<ListResponse>) => {
                 return [response.body];
