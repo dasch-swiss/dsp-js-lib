@@ -10,6 +10,8 @@ import { ListInfoResponse } from "../../../models/admin/list-info-response";
 import { ListNodeInfoResponse } from "../../../models/admin/list-node-info-response";
 import { ListResponse } from "../../../models/admin/list-response";
 import { ListsResponse } from "../../../models/admin/lists-response";
+import { RepositionChildNodeRequest } from "../../../models/admin/reposition-child-node-request";
+import { RepositionChildNodeResponse } from "../../../models/admin/reposition-child-node-response";
 import { StringLiteral } from "../../../models/admin/string-literal";
 import { UpdateChildNodeCommentsRequest } from "../../../models/admin/update-child-node-comments-request";
 import { UpdateChildNodeLabelsRequest } from "../../../models/admin/update-child-node-labels-request";
@@ -578,6 +580,39 @@ describe("ListsEndpoint", () => {
 
         });
 
+    });
+
+    describe("Method repositionListNode", () => { 
+        it("should reposition a list child node", done => {
+
+            const repositionChildNode = new RepositionChildNodeRequest();
+            repositionChildNode.parentNodeIri = "http://rdfh.ch/lists/0001/notUsedList01";
+            repositionChildNode.position = 1;
+
+            knoraApiConnection.admin.listsEndpoint.repositionChildNode("http://rdfh.ch/lists/0001/notUsedList014", repositionChildNode).subscribe(
+                (res: ApiResponseData<RepositionChildNodeResponse>) => {
+                    expect(res.body.node.children[1].id).toEqual("http://rdfh.ch/lists/0001/notUsedList014");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const repositionListNodeResponse = require("../../../../test/data/api/admin/lists/update-childNode-position-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(repositionListNodeResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FnotUsedList014/position");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+
+            const payload = require("../../../../test/data/api/admin/lists/update-childNode-position-request.json");
+
+            expect(request.data()).toEqual(payload);
+
+        });
     });
 
 });

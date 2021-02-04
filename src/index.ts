@@ -74,6 +74,7 @@ export { UsersResponse } from "./models/admin/users-response";
 export { List } from "./models/admin/list";
 export { ListInfoResponse } from "./models/admin/list-info-response";
 export { ListNode } from "./models/admin/list-node";
+export { ListNodeResponse } from "./models/admin/list-node-response";
 export { ListNodeInfo } from "./models/admin/list-node-info";
 export { ListNodeInfoResponse } from "./models/admin/list-node-info-response";
 export { ListResponse } from "./models/admin/list-response";
@@ -91,6 +92,8 @@ export { ChildNodeInfoResponse } from "./models/admin/child-node-info-response";
 export { ChildNodeInfo } from "./models/admin/child-node-info";
 export { DeleteListResponse } from "./models/admin/delete-list-response";
 export { DeleteListNodeResponse } from "./models/admin/delete-list-node-response";
+export { RepositionChildNodeRequest } from "./models/admin/reposition-child-node-request";
+export { RepositionChildNodeResponse } from "./models/admin/reposition-child-node-response";
 
 export { LoginResponse } from "./models/v2/authentication/login-response";
 export { CredentialsResponse } from "./models/v2/authentication/credentials-response";
