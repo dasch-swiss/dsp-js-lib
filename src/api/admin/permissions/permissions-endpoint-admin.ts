@@ -6,6 +6,7 @@ import { CreateAdministrativePermission } from "../../../models/admin/create-adm
 import { CreateDefaultObjectAccessPermission } from "../../../models/admin/create-default-object-access-permission";
 import { DefaultObjectAccessPermissionResponse } from "../../../models/admin/default-object-access-permission-response";
 import { DefaultObjectAccessPermissionsResponse } from "../../../models/admin/default-object-access-permissions-response";
+import { DeletePermissionResponse } from "../../../models/admin/delete-permission-response";
 import { ProjectPermissionsResponse } from "../../../models/admin/project-permissions-response";
 import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
@@ -131,6 +132,19 @@ export class PermissionsEndpointAdmin extends Endpoint {
             throw new Error("Invalid combination of properties for creation of new default object access permission.");
         }
 
+    }
+
+    /**
+     * Deletes a permission.
+     *
+     * @param permissionIri the IRI of the permission to be deleted.
+     */
+    deletePermission(permissionIri: string): Observable<ApiResponseError | ApiResponseData<DeletePermissionResponse>> {
+
+        return this.httpDelete("/" + encodeURIComponent(permissionIri)).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, DeletePermissionResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
     }
     
 }
