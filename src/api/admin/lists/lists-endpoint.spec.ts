@@ -583,7 +583,7 @@ describe("ListsEndpoint", () => {
     });
 
     describe("Method repositionListNode", () => { 
-        it("should reposition a list child node", done => {
+        it("should reposition a list child node to the second position among its siblings", done => {
 
             const repositionChildNode = new RepositionChildNodeRequest();
             repositionChildNode.parentNodeIri = "http://rdfh.ch/lists/0001/notUsedList01";
@@ -609,6 +609,99 @@ describe("ListsEndpoint", () => {
             expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/lists/update-childNode-position-request.json");
+
+            expect(request.data()).toEqual(payload);
+
+        });
+
+        it("should reposition a list child node to the last position among its siblings", done => {
+
+            const repositionChildNode = new RepositionChildNodeRequest();
+            repositionChildNode.parentNodeIri = "http://rdfh.ch/lists/0001/notUsedList01";
+            repositionChildNode.position = -1;
+
+            knoraApiConnection.admin.listsEndpoint.repositionChildNode("http://rdfh.ch/lists/0001/notUsedList012", repositionChildNode).subscribe(
+                (res: ApiResponseData<RepositionChildNodeResponse>) => {
+                    expect(res.body.node.children[res.body.node.children.length - 1].id).toEqual("http://rdfh.ch/lists/0001/notUsedList012");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const repositionListNodeResponse = require("../../../../test/data/api/admin/lists/update-childNode-position-to-end-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(repositionListNodeResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FnotUsedList012/position");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+
+            const payload = require("../../../../test/data/api/admin/lists/update-childNode-position-to-end-request.json");
+
+            expect(request.data()).toEqual(payload);
+
+        });
+
+        it("should reposition a list child node to the third position with a new parent", done => {
+
+            const repositionChildNode = new RepositionChildNodeRequest();
+            repositionChildNode.parentNodeIri = "http://rdfh.ch/lists/0001/notUsedList";
+            repositionChildNode.position = 2;
+
+            knoraApiConnection.admin.listsEndpoint.repositionChildNode("http://rdfh.ch/lists/0001/notUsedList015", repositionChildNode).subscribe(
+                (res: ApiResponseData<RepositionChildNodeResponse>) => {
+                    expect(res.body.node.children[2].id).toEqual("http://rdfh.ch/lists/0001/notUsedList015");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const repositionListNodeResponse = require("../../../../test/data/api/admin/lists/update-childNode-position-new-parent-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(repositionListNodeResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FnotUsedList015/position");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+
+            const payload = require("../../../../test/data/api/admin/lists/update-childNode-position-new-parent-request.json");
+
+            expect(request.data()).toEqual(payload);
+
+        });
+
+        it("should reposition a list child node to the last position with a new parent", done => {
+
+            const repositionChildNode = new RepositionChildNodeRequest();
+            repositionChildNode.parentNodeIri = "http://rdfh.ch/lists/0001/notUsedList";
+            repositionChildNode.position = -1;
+
+            knoraApiConnection.admin.listsEndpoint.repositionChildNode("http://rdfh.ch/lists/0001/notUsedList015", repositionChildNode).subscribe(
+                (res: ApiResponseData<RepositionChildNodeResponse>) => {
+                    expect(res.body.node.children[res.body.node.children.length - 1].id).toEqual("http://rdfh.ch/lists/0001/notUsedList015");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const repositionListNodeResponse = require("../../../../test/data/api/admin/lists/update-childNode-position-new-parent-to-end-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(repositionListNodeResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FnotUsedList015/position");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+
+            const payload = require("../../../../test/data/api/admin/lists/update-childNode-position-new-parent-to-end-request.json");
 
             expect(request.data()).toEqual(payload);
 
