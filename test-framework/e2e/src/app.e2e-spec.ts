@@ -89,6 +89,32 @@ describe('workspace-project App', () => {
 
   });
 
+  it('delete an administrative permission', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get the admin permission first to assign the Iri
+    const button = page.getEle('div#permissions button.get-administrative-permission');
+    button.click();
+
+    const label = page.getEle('div#permissions span.status');
+    expect(label.getText()).toEqual('Permission status: getAdministrativePermission ok');
+
+    const button2 = page.getEle('div#permissions button.delete-permission');
+    button2.click();
+
+    const label2 = page.getEle('div#permissions span.deleted');
+    expect(label2.getText()).toEqual('Permission deleted: true');
+
+  });
+
   it('request administrative permissions', () => {
 
     page.navigateTo();
@@ -220,6 +246,19 @@ describe('workspace-project App', () => {
 
   });
 
+  it('request the anything project ontologies with all languages', () => {
+
+    page.navigateTo();
+
+    const button = page.getEle('div section#ontologyendpoint button.anything');
+
+    button.click();
+
+    const result = page.getEle('div section#ontologyendpoint span.ontology');
+    expect(result.getText()).toEqual('The anything ontology');
+
+  });
+
   it('request the dokubib project ontologies', () => {
 
     page.navigateTo();
@@ -273,6 +312,50 @@ describe('workspace-project App', () => {
 
   });
 
+  it('change a resource classes\'s comment', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // update res class label
+    const button = page.getEle('div section#ontologyeditor button.update-res-class-comment');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.res-class-comment');
+    expect(label.getText()).toEqual('Just an example of a new resource class new');
+
+  });
+
+  it('change a resource classes\'s label', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // update res class label
+    const button = page.getEle('div section#ontologyeditor button.update-res-class-label');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.res-class-label');
+    expect(label.getText()).toEqual('Test Klasse neu');
+
+  });
+
   it('create a new property in testonto of the anything project', () => {
 
     page.navigateTo();
@@ -295,6 +378,50 @@ describe('workspace-project App', () => {
     expect(label.getText()).toEqual('hat Namen');
   });
 
+  it('change a resource property\'s comment', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // update res class label
+    const button = page.getEle('div section#ontologyeditor button.update-res-prop-comment');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.res-prop-comment');
+    expect(label.getText()).toEqual('Der Name eines Dinges neu');
+
+  });
+
+  it('change a resource property\'s label', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // update res class label
+    const button = page.getEle('div section#ontologyeditor button.update-res-prop-label');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.res-prop-label');
+    expect(label.getText()).toEqual('hat Namen neu');
+
+  });
+
   it('add a cardinality to a resource class in testonto', () => {
 
     page.navigateTo();
@@ -314,7 +441,30 @@ describe('workspace-project App', () => {
     button.click();
     const label = page.getEle('div section#ontologyeditor span.res-card-added');
 
-    expect(label.getText()).toEqual('Test Klasse');
+    expect(label.getText()).toEqual('Test Klasse neu');
+
+  });
+
+  it('replace a cardinality to a resource class in testonto', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // add cardinality
+    const button = page.getEle('div section#ontologyeditor button.replace-card-for-res-prop');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.res-card-replaced');
+
+    expect(label.getText()).toEqual('Test Klasse neu');
 
   });
 
@@ -740,7 +890,7 @@ describe('workspace-project App', () => {
     const loginStatus = page.getEle('div section#login span.status');
     expect(loginStatus.getText()).toEqual('logged in');
 
-    const button = page.getEle('div#lists button.update-list-node');
+    const button = page.getEle('div#lists button.update-list-child-node');
 
     button.click();
 
@@ -804,6 +954,33 @@ describe('workspace-project App', () => {
     const listComment = page.getEle('div#lists span.list-comments');
 
     expect(listComment.getText()).toEqual('de/Neuer Kommentar');
+  });
+
+  it('should delete a list child and root node', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    let button = page.getEle('div#lists button.delete-list-child-node');
+
+    button.click();
+
+    const listChildren = page.getEle('div#lists span.list-children');
+
+    expect(listChildren.getText()).toEqual('4');
+
+    button = page.getEle('div#lists button.delete-list-root-node');
+
+    button.click();
+
+    const listDeleted = page.getEle('div#lists span.list-node-deleted');
+
+    expect(listDeleted.getText()).toEqual('true');
   });
 
   afterEach(async () => {

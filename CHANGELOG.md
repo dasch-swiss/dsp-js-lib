@@ -1,5 +1,66 @@
 # Changelog
 
+## [1.3.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v1.2.1...v1.3.0) (2021-02-02)
+
+
+### Maintenance
+
+* **dsp-api:** update dsp-api to 13.1.1 ([#311](https://www.github.com/dasch-swiss/dsp-js-lib/issues/311)) ([cf0d228](https://www.github.com/dasch-swiss/dsp-js-lib/commit/cf0d228722e805cbb38b9dff90115392482bebcd))
+
+
+### Enhancements
+
+* **lists-endpoint:** add support for deleting a list node(DSP-1049) ([#310](https://www.github.com/dasch-swiss/dsp-js-lib/issues/310)) ([c5a82f5](https://www.github.com/dasch-swiss/dsp-js-lib/commit/c5a82f55abce62be8c229e572b13ed7ad2f8602d))
+* **metadata-endpoint:** expose all x-n properties as arrays (DSP-1306) ([#309](https://www.github.com/dasch-swiss/dsp-js-lib/issues/309)) ([97e7e33](https://www.github.com/dasch-swiss/dsp-js-lib/commit/97e7e336645b72f899993b19052853d406b5a8cc))
+* **metadata-endpoint:** test/implement flat response option (DSP-1223) ([#312](https://www.github.com/dasch-swiss/dsp-js-lib/issues/312)) ([ee986cf](https://www.github.com/dasch-swiss/dsp-js-lib/commit/ee986cfdcb1b647139896a25ef683cfa6748a7fb))
+* **ontology endpoint:** update a resource class's and property's label and comment (DSP-1263 / DSP-1264) ([#303](https://www.github.com/dasch-swiss/dsp-js-lib/issues/303)) ([76a3057](https://www.github.com/dasch-swiss/dsp-js-lib/commit/76a30578ce166542308e2ad677d8af2c9661861d))
+* **metadata-endpoint:** adjust x-n properties and custom converters (DSP-1222) ([#301](https://www.github.com/dasch-swiss/dsp-js-lib/issues/301)) ([b8c0aaa](https://www.github.com/dasch-swiss/dsp-js-lib/commit/b8c0aaa7e65aec9cc5e379c00b2955b434aea4af))
+
+### [1.2.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v1.2.0...v1.2.1) (2021-01-28)
+
+
+### Bug Fixes
+
+* **lists-endpoint:** getListNodeInfo now returns either a ListInfoResponse or a ListNodeInfoResponse depending on the returned JSON ([#302](https://www.github.com/dasch-swiss/dsp-js-lib/issues/302)) ([a7a7fcd](https://www.github.com/dasch-swiss/dsp-js-lib/commit/a7a7fcdddd0ca5fb689e14fee009216f12d2b4ad))
+
+
+### Maintenance
+
+* **dsp-api:** update to latest version v13.0.0 ([#291](https://www.github.com/dasch-swiss/dsp-js-lib/issues/291)) ([3d41e1a](https://www.github.com/dasch-swiss/dsp-js-lib/commit/3d41e1a98366d2ca06ef80e2e522e0c05a15112a))
+
+## [1.2.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v1.1.0...v1.2.0) (2021-01-25)
+
+
+### Bug Fixes
+
+* **metadata-endpoint:** fixes after DSP-API v.13.0.0 release (DSP-1232) ([#294](https://www.github.com/dasch-swiss/dsp-js-lib/issues/294)) ([07c908b](https://www.github.com/dasch-swiss/dsp-js-lib/commit/07c908bc7570b04d0c40afd8b6982b01b2adda16))
+
+
+### Enhancements
+
+* **file value:** export base file value classes ([#299](https://www.github.com/dasch-swiss/dsp-js-lib/issues/299)) ([fdb7799](https://www.github.com/dasch-swiss/dsp-js-lib/commit/fdb7799c74ba1c0c9270b6fc8b59b35fe0b80537))
+* **ontology endpoint:** get ontology in all langs (dsp-1230) ([#297](https://www.github.com/dasch-swiss/dsp-js-lib/issues/297)) ([ba0643f](https://www.github.com/dasch-swiss/dsp-js-lib/commit/ba0643fbb0d0be8d7bcceab3cfd53cb04d8e7d29))
+
+## [1.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v1.0.1...v1.1.0) (2021-01-12)
+
+
+### Maintenance
+
+* **CI:** Bring back release-please-action ([#283](https://www.github.com/dasch-swiss/dsp-js-lib/issues/283)) ([4d1f07b](https://www.github.com/dasch-swiss/dsp-js-lib/commit/4d1f07bf687e8774dda59405cbda92927b198af1))
+* Try to re-activate release pr ([#287](https://www.github.com/dasch-swiss/dsp-js-lib/issues/287)) ([3cf4b42](https://www.github.com/dasch-swiss/dsp-js-lib/commit/3cf4b42a18c3140808e17500ac08442460760ac3))
+* update PR title guideline and templates (DSP-1189) ([#288](https://www.github.com/dasch-swiss/dsp-js-lib/issues/288)) ([d9ab6f6](https://www.github.com/dasch-swiss/dsp-js-lib/commit/d9ab6f6bee0b2156c62f3e1157f0a86eec057d79))
+
+
+### Documentation
+
+* **README:** improve explanation about endpoints (DSP-1192) ([#289](https://www.github.com/dasch-swiss/dsp-js-lib/issues/289)) ([876ff97](https://www.github.com/dasch-swiss/dsp-js-lib/commit/876ff97f6ffdc33773a9a3687b63458f80fc2460))
+
+
+### Enhancements
+
+* **endpoint:** Retry failed HTTP requests (DSP-170) ([#286](https://www.github.com/dasch-swiss/dsp-js-lib/issues/286)) ([c2fa0b3](https://www.github.com/dasch-swiss/dsp-js-lib/commit/c2fa0b3db9f0dcea8e721c240eb717ae62ae251e))
+* Support Edit List Feature Toggle Endpoints (DSP-1180) ([#281](https://www.github.com/dasch-swiss/dsp-js-lib/issues/281)) ([7c09fc1](https://github.com/dasch-swiss/dsp-js-lib/commit/7c09fc1e522a7f4996fd4edeeb0b6fb50df6af14))
+
 ## v1.0.1 (17/12/2020)
 
 #### Enhancements

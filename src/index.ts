@@ -48,6 +48,7 @@ export { AdministrativePermissionsResponse } from "./models/admin/administrative
 export { Permission } from "./models/admin/permission";
 export { CreatePermission } from "./models/admin/create-permission";
 export { Permissions } from "./models/admin/permissions";
+export { DeletePermissionResponse } from "./models/admin/delete-permission-response";
 
 export { Project } from "./models/admin/project";
 export { ReadProject } from "./models/admin/read-project";
@@ -89,6 +90,8 @@ export { UpdateChildNodeLabelsRequest } from "./models/admin/update-child-node-l
 export { UpdateChildNodeCommentsRequest } from "./models/admin/update-child-node-comments-request";
 export { ChildNodeInfoResponse } from "./models/admin/child-node-info-response";
 export { ChildNodeInfo } from "./models/admin/child-node-info";
+export { DeleteListResponse } from "./models/admin/delete-list-response";
+export { DeleteListNodeResponse } from "./models/admin/delete-list-node-response";
 
 export { LoginResponse } from "./models/v2/authentication/login-response";
 export { CredentialsResponse } from "./models/v2/authentication/credentials-response";
@@ -109,8 +112,12 @@ export { DeleteResourceClass } from "./models/v2/ontologies/delete/delete-resour
 export { DeleteResourceProperty } from "./models/v2/ontologies/delete/delete-resource-property";
 export { DeleteOntologyResponse } from "./models/v2/ontologies/delete/delete-ontology-response";
 export { CreateResourceClass } from "./models/v2/ontologies/create/create-resource-class";
+export { UpdateResourceClassLabel } from "./models/v2/ontologies/update/update-resource-class-label";
+export { UpdateResourceClassComment } from "./models/v2/ontologies/update/update-resource-class-comment";
+export { UpdateResourcePropertyLabel } from "./models/v2/ontologies/update/update-resource-property-label";
+export { UpdateResourcePropertyComment } from "./models/v2/ontologies/update/update-resource-property-comment";
 export { ReadOntology } from "./models/v2/ontologies/read/read-ontology";
-export { UpdateOntologyResourceClassCardinality } from "./models/v2/ontologies/update/update-ontology-resource-class-cardinality";
+export { UpdateResourceClassCardinality } from "./models/v2/ontologies/update/update-resource-class-cardinality";
 export { OntologyMetadata, OntologiesMetadata } from "./models/v2/ontologies/ontology-metadata";
 export {
     ResourceClassDefinitionWithPropertyDefinition,
@@ -159,6 +166,7 @@ export { UpdateBooleanValue } from "./models/v2/resources/values/update/update-b
 export { UpdateColorValue } from "./models/v2/resources/values/update/update-color-value";
 export { UpdateDateValue } from "./models/v2/resources/values/update/update-date-value";
 export { UpdateDecimalValue } from "./models/v2/resources/values/update/update-decimal-value";
+export { UpdateFileValue } from "./models/v2/resources/values/update/update-file-value";
 export { UpdateStillImageFileValue } from "./models/v2/resources/values/update/update-file-value";
 export { UpdateGeomValue } from "./models/v2/resources/values/update/update-geom-value";
 export { UpdateIntValue } from "./models/v2/resources/values/update/update-int-value";
@@ -175,6 +183,7 @@ export { CreateBooleanValue } from "./models/v2/resources/values/create/create-b
 export { CreateColorValue } from "./models/v2/resources/values/create/create-color-value";
 export { CreateDateValue } from "./models/v2/resources/values/create/create-date-value";
 export { CreateDecimalValue } from "./models/v2/resources/values/create/create-decimal-value";
+export { CreateFileValue } from "./models/v2/resources/values/create/create-file-value";
 export { CreateStillImageFileValue } from "./models/v2/resources/values/create/create-file-value";
 export { CreateGeomValue } from "./models/v2/resources/values/create/create-geom-value";
 export { CreateIntValue } from "./models/v2/resources/values/create/create-int-value";
@@ -203,7 +212,6 @@ export { Grant } from "./models/v2/project-metadata/grant";
 export { Organization } from "./models/v2/project-metadata/organization";
 export { Place } from "./models/v2/project-metadata/place";
 export { UpdateProjectMetadataResponse } from "./models/v2/project-metadata/update-project-metadata";
-export { IUrl } from "./models/v2/custom-converters/base-url-converter";
 
 // Utils
 export { CardinalityUtil } from "./models/v2/resources/cardinality-util";
@@ -213,3 +221,4 @@ export { PermissionUtil } from "./models/v2/resources/permission-util";
 export { IPermissions } from "./interfaces/models/admin/i-permissions";
 export { IFulltextSearchParams } from "./interfaces/models/v2/i-fulltext-search-params";
 export { ILabelSearchParams } from "./interfaces/models/v2/i-label-search-params";
+export { IId, IUrl } from "./models/v2/project-metadata/metadata-interfaces";

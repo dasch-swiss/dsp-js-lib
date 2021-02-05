@@ -1,10 +1,13 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
-import { AdvancedUrlObjectConverter } from "../custom-converters/advanced-url-object-converter";
 import { DateConverter } from "../custom-converters/date-converter";
-import { PersonOrganizationConverter } from "../custom-converters/person-organization-converter";
+import { UnionAdvancedUrlObjectConverter } from "../custom-converters/union-advanced-url-object-converter";
+import { UnionDataManagementPlanIdConverter } from "../custom-converters/union-data-management-plan-id-converter";
+import { UnionElementArrayOfElementsConverter } from "../custom-converters/union-element-array-of-elements-converter";
+import { UnionPersonOrganizationIdConverter } from "../custom-converters/union-person-organization-id-converter";
+import { UnionStringArrayOfStringsConverter } from "../custom-converters/union-string-array-of-strings-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
-import { IUrl } from "../custom-converters/base-url-converter";
+import { IId, IUrl } from "../project-metadata/metadata-interfaces";
 import { BaseProjectMetadata } from "./base-project-metadata";
 import { DataManagementPlan } from "./data-management-plan";
 import { Grant } from "./grant";
@@ -21,53 +24,53 @@ export class SingleProject extends BaseProjectMetadata {
     @JsonProperty("@id", String)
     id: string = "";
     
-    @JsonProperty(Constants.DspHasAlternateName, String, true)
-    alternateName?: string = undefined;
+    @JsonProperty(Constants.DspHasAlternateName, UnionStringArrayOfStringsConverter, true)
+    alternateName?: string[] = undefined;
 
-    @JsonProperty(Constants.DspHasContactPoint, Person, true)
-    contactPoint?: Person = undefined;
+    @JsonProperty(Constants.DspHasContactPoint, UnionPersonOrganizationIdConverter, true)
+    contactPoint?: Person[] | Organization[] | IId[] = undefined;
 
-    @JsonProperty(Constants.DspHasDataManagementPlan, DataManagementPlan, true)
-    dataManagementPlan?: DataManagementPlan = undefined;
+    @JsonProperty(Constants.DspHasDataManagementPlan, UnionDataManagementPlanIdConverter, true)
+    dataManagementPlan?: DataManagementPlan | IId = undefined;
 
     @JsonProperty(Constants.DspHasDescription, String)
     description: string = "";
 
-    @JsonProperty(Constants.DspHasDiscipline, AdvancedUrlObjectConverter)
+    @JsonProperty(Constants.DspHasDiscipline, UnionAdvancedUrlObjectConverter)
     discipline: IUrl = {} as IUrl;
     
     @JsonProperty(Constants.DspHasEndDate, DateConverter, true)
     endDate?: string = undefined;
 
-    @JsonProperty(Constants.DspHasFunder, PersonOrganizationConverter)
-    funder: Person | Organization | object = new Person();
+    @JsonProperty(Constants.DspHasFunder, UnionPersonOrganizationIdConverter)
+    funder: Person[] | Organization[] | IId[] = [];
 
-    @JsonProperty(Constants.DspHasGrant, Grant, true)
-    grant?: Grant = undefined;
+    @JsonProperty(Constants.DspHasGrant, UnionElementArrayOfElementsConverter, true)
+    grant?: Grant[] | IId[] = undefined;
 
-    @JsonProperty(Constants.DspHasKeywords, [String])
+    @JsonProperty(Constants.DspHasKeywords, UnionStringArrayOfStringsConverter)
     keywords: string[] = [];
 
     @JsonProperty(Constants.DspHasName, String)
     name: string = "";
 
-    @JsonProperty(Constants.DspHasPublication, String, true)
-    publication?: string = undefined;
+    @JsonProperty(Constants.DspHasPublication, UnionStringArrayOfStringsConverter, true)
+    publication?: string[] = undefined;
 
     @JsonProperty(Constants.DspHasShortcode, String)
     shortcode: string = "";
 
-    @JsonProperty(Constants.DspHasSpatialCoverage, [Place])
+    @JsonProperty(Constants.DspHasSpatialCoverage, UnionElementArrayOfElementsConverter)
     spatialCoverage: Place[] = [];
 
     @JsonProperty(Constants.DspHasStartDate, DateConverter)
     startDate: string = "";
 
-    @JsonProperty(Constants.DspHasTemporalCoverage, AdvancedUrlObjectConverter)
+    @JsonProperty(Constants.DspHasTemporalCoverage, UnionAdvancedUrlObjectConverter)
     temporalCoverage: IUrl = {} as IUrl;
 
     @JsonProperty(Constants.DspHasURL, UrlToUrlObjectConverter)
-    url: IUrl = {} as IUrl;
+    url: IUrl[] = [];
 
     constructor() {
         super(Constants.DspProject);

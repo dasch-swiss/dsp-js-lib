@@ -32,11 +32,15 @@
             <button class="get-default-object-access-permissions" (click)="getDefaultObjectAccessPermissions()">Get default object access permissions for a project</button> <br /><br />
             <button class="create-default-object-access-permission" (click)="createDefaultObjectAccessPermission()">Create default object access permission for a project</button> <br /><br />
             <span *ngIf="permissionStatus" class="status">Permission status: {{permissionStatus}}</span>
+            <button class="delete-permission" (click)="deletePermission()">Delete an administrative permission</button> <br /><br />
+            <span *ngIf="permissionDeleted" class="deleted">Permission deleted: {{permissionDeleted}}</span>
         </div>
         <div id="lists">
             <h4>Lists</h4>
             <button class="create-list" (click)="createList()">Create a list</button> <br /><br />
-            <button class="update-list-node" (click)="updateChildNode()">Update labels & comments of a child node</button> <br /><br />
+            <button class="delete-list-child-node" (click)="deleteListChildNode()">Delete a list child node</button> <br /><br />
+            <button class="delete-list-root-node" (click)="deleteListRootNode()">Delete a list root node</button> <br /><br />
+            <button class="update-list-child-node" (click)="updateChildNode()">Update labels & comments of a child node</button> <br /><br />
             <button class="update-child-name" (click)="updateChildName()">Update name of a child node</button> <br /><br />
             <button class="update-child-labels" (click)="updateChildLabels()">Update labels of a child node</button> <br /><br />
             <button class="update-child-comments" (click)="updateChildComments()">Update comments of a child node</button> <br /><br />
@@ -56,6 +60,7 @@
                 <div>Labels: <span class="child-labels">{{listChildLabels}}</span></div>
                 <div>Comments: <span class="child-comments">{{listChildComments}}</span></div>
                 <div>ID: <span class="list-node-id">{{listNodeId}}</span></div>
+                <div>Deleted: <span class="list-node-deleted">{{listNodeDeleted}}</span></div>
             </div>
         </div>
     </section>
@@ -70,6 +75,15 @@
         <div>
             Ontology Information:
             <div>Number of ontologies: <span class="ontology">{{ontologies?.size}}</span></div>
+        </div>
+    </section>
+
+    <section id="ontologyendpoint">
+        <h3>Ontology With All Languages</h3>
+        <button class="knora-api" (click)="getOntologyWithAllLanguages('http://api.knora.org/ontology/knora-api/v2')">Get system ontology</button> <br /><br />
+        <button class="anything" (click)="getOntologyWithAllLanguages('http://0.0.0.0:3333/ontology/0001/anything/v2')">Get anything ontology</button> <br /><br />
+        <div>
+            Ontology with all languages: <span class="ontology">{{ontologyWithAllLangs?.label}}</span>
         </div>
     </section>
 
@@ -96,7 +110,11 @@
         
         <h4>Resource Class</h4>
         <button class="create-res-class" (click)="createResourceClass()">Create resource class</button><br><br>
-        <div><span *ngIf="resClass">Res class created:&nbsp;</span><span class="res-class-label">{{resClass?.label}}</span> </div> <br />
+        <div><span *ngIf="resClass">Res class created:&nbsp;</span><span class="res-class-label">{{resClass?.label}}</span> <br> <span class="res-class-comment">{{resClass?.comment}}</span> </div> <br />
+
+        <button class="update-res-class-label" (click)="updateResourceClassLabel()">Update resource class label</button><br><br>
+
+        <button class="update-res-class-comment" (click)="updateResourceClassComment()">Update resource class comment</button><br><br>
 
         <button class="get-res-class" (click)="getResourceClass('http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass')">Get resource class</button><br><br>
 
@@ -104,7 +122,14 @@
 
         <h4>Resource Property</h4>
         <button class="create-res-prop" (click)="createResourceProperty()">Create resource property</button><br><br>
-        <div><span *ngIf="property">Res property created:&nbsp;</span><span class="res-prop-label">{{property?.label}}</span> </div> <br />
+        <div>
+            <span *ngIf="property">Res property created:&nbsp;</span><span class="res-prop-label">{{property?.label}}</span> <br>
+            <span class="res-prop-comment">{{property?.comment}}</span>
+        </div> <br />
+
+        <button class="update-res-prop-label" (click)="updateResourcePropertyLabel()">Update resource property label</button><br><br>
+
+        <button class="update-res-prop-comment" (click)="updateResourcePropertyComment()">Update resource property comment</button><br><br>
 
         <!-- <button class="get-res-class" (click)="getResourceClass('http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass')">Get resource class</button><br><br> -->
         
@@ -112,6 +137,9 @@
 
         <button class="add-card-to-res-prop" (click)="addCardinality()">Add Cardinality to resource</button><br><br>
         <div><span *ngIf="property">Cardinality added:&nbsp;</span><span class="res-card-added">{{addCard?.label}}</span> </div> <br />
+
+        <button class="replace-card-for-res-prop" (click)="replaceCardinality()">Replace Cardinality of resource</button><br><br>
+        <div><span *ngIf="property">Cardinality replaced:&nbsp;</span><span class="res-card-replaced">{{replacedCard?.label}}</span> </div> <br />
 
         <button class="delete-onto" (click)="deleteOntology()">Delete testonto</button>
         <div>Delete status: <span class="status">{{message}}</span></div> <br />
@@ -129,7 +157,8 @@
 
     <section id="listnode">
         <h3>ListNode</h3>
-        <button (click)="getListNode('http://rdfh.ch/lists/0001/treeList01')">Get anything list node</button> <br /><br />
+        <button (click)="getListNode('http://rdfh.ch/lists/0001/treeList01')">Get anything list node 01</button> <br /><br />
+        <button (click)="getListNode('http://rdfh.ch/lists/0001/treeList02')">Get anything list node 02</button> <br /><br />
         <div>The list node's label: <span class="label">{{listNode?.label}}</span> </div> <br/>
     </section>
 
@@ -159,6 +188,7 @@
 
     <section id="metadata">
         <h3>Project Metadata</h3>
+        <button class="login" (click)="login()">Login</button><br /><br />
         <button class="update" (click)="updateProjectMetadata()">Update project metadata</button> <br /><br />
         <button class="read" (click)="getProjectMetadata()">Get project metadata</button>
         <div>Status: <span class="status">{{projectMetaStatus}}</span></div>

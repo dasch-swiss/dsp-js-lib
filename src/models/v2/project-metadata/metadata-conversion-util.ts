@@ -1,6 +1,7 @@
 import { JsonConvert } from "json2typescript";
+import { Constants } from "../Constants";
+import { MetadataClasses } from "../custom-converters/union-metadata-converter";
 import { Dataset } from "./dataset";
-import { Person } from "./person";
 import { ProjectsMetadata } from "./project-metadata";
 
 /**
@@ -14,9 +15,11 @@ export namespace MetadataConversionUtil {
      * @param jsonConvert instance of JsonConvert to use.
      */
     export const convertProjectsList = (projectsJsonLd: object, jsonConvert: JsonConvert): ProjectsMetadata => {
-        const deserialisedMetadata = jsonConvert.deserializeObject(projectsJsonLd, ProjectsMetadata);
+        
         if (projectsJsonLd.hasOwnProperty("@graph")) {
-            return deserialisedMetadata;
+            const metaObj: object = sortMetadataObjects(projectsJsonLd);            
+            const deserializedMetadata = jsonConvert.deserializeObject(metaObj, ProjectsMetadata);
+            return deserializedMetadata;
         } else {
             const projects: ProjectsMetadata = new ProjectsMetadata();
             // creates the same structure for a single object incoming from the API
@@ -26,8 +29,7 @@ export namespace MetadataConversionUtil {
     };
     
     /**
-     * Maps over ProjectsMetadata array to return only one item array,
-     * which contains Dataset object
+     * Maps over ProjectsMetadata array to return only one item array, which contains Dataset object
      * @param  {ProjectsMetadata} data data to map
      */
     export const mapReferences = (data: ProjectsMetadata): ProjectsMetadata => {
@@ -47,6 +49,18 @@ export namespace MetadataConversionUtil {
         meta.projectsMetadata = datasets;
         return meta;
     };
+    /**
+     * Sorts objects inside `@graph` array of matadata JSON-LD response to set Dataset object as primary
+     * @param  {any} projectsJsonLd JSON-LD response to sort
+     */
+    const sortMetadataObjects = (projectsJsonLd: any): object => {
+        const sortedObj = {} as any;
+        const metaArray = projectsJsonLd["@graph"] as [];
+        const peopleArr = metaArray.filter(el => (el["@type"] !== Constants.DspDataset));
+        const datasetArr = metaArray.filter(el => (el["@type"] === Constants.DspDataset));
+        sortedObj["@graph"] = datasetArr.concat(peopleArr);
+        return sortedObj;
+    };
 
     /**
      * Replaces matched references found in Dataset object with outer object
@@ -54,7 +68,7 @@ export namespace MetadataConversionUtil {
      * @param  {string} ref reference string to look for
      * @param  {Person} replacer class instance for replacement
      */
-    const replaceReference = (obj: Dataset, ref: string, replacer: Person): Dataset => {
+    const replaceReference = (obj: Dataset, ref: string, replacer: MetadataClasses): Dataset => {
         const tempObj = Object.assign(obj);
 
         // TODO: consider other objects placed outside the Dataset object(s) and/or simplify/adjust it to known possibilities

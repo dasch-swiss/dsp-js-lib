@@ -1,6 +1,7 @@
-import { JsonConverter, JsonCustomConvert } from "json2typescript";
+import { JsonConverter } from "json2typescript";
 import { Constants } from "../Constants";
-import { BaseUrlConverter, IUrl } from "./base-url-converter";
+import { IUrl } from "../project-metadata/metadata-interfaces";
+import { BaseUrlConverter } from "./base-url-converter";
 
 /**
  * @category Internal
@@ -15,7 +16,8 @@ export class DistributionConverter extends BaseUrlConverter {
             obj.value = val[Constants.SchemaUrlValue];
             return obj;
         } else {
-            throw new Error(`Expected object of ${Constants.SchemaDownload} type`);
+            throw new Error(`Deserialization Error: expected an object with property @type 
+                equals to ${Constants.SchemaDownload}.`);
         }
     }
 }

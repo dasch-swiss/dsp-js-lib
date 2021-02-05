@@ -39,7 +39,7 @@ import {
     DeleteOntology,
     DeleteResourceClass,
     DeleteResourceProperty,
-    UpdateOntologyResourceClassCardinality,
+    UpdateResourceClassCardinality,
     CreatePermission,
     CreateAdministrativePermission,
     ResourcePropertyDefinitionWithAllLanguages,
@@ -58,17 +58,21 @@ import {
     ProjectsMetadata,
     Dataset,
     SingleProject,
-    DataManagementPlan,
     UpdateProjectMetadataResponse,
     IUrl,
     Grant,
-    Person,
     Organization,
     UpdateChildNodeRequest,
     ListNodeInfoResponse,
     CreateListRequest,
     ListResponse,
-    ListInfoResponse
+    UpdateResourceClassLabel,
+    UpdateResourceClassComment,
+    UpdateResourcePropertyLabel,
+    UpdateResourcePropertyComment,
+    DeletePermissionResponse,
+    DeleteListResponse,
+    DeleteListNodeResponse
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -87,6 +91,7 @@ export class AppComponent implements OnInit {
     healthState: Observable<any>;
 
     ontologies: Map<string, ReadOntology>;
+    ontologyWithAllLangs: ReadOntology;
     anythingOntologies: OntologiesMetadata;
     dokubibOntologies: OntologiesMetadata;
     ontologyMeta: OntologyMetadata;
@@ -94,7 +99,10 @@ export class AppComponent implements OnInit {
     resClass: ResourceClassDefinitionWithAllLanguages;
     property: ResourcePropertyDefinitionWithAllLanguages;
     addCard: ResourceClassDefinitionWithAllLanguages;
+    replacedCard: ResourceClassDefinitionWithAllLanguages;
     permissionStatus: string;
+    permissionIri: string;
+    permissionDeleted: boolean;
 
     // reusable response message
     message: string;
@@ -124,11 +132,12 @@ export class AppComponent implements OnInit {
     listName = '';
     listLabels = '';
     listComments = '';
-    listChildren = '';
+    listChildren = 0;
     listChildName = '';
     listChildLabels = '';
     listChildComments = '';
     listNodeId = '';
+    listNodeDeleted = false;
 
     ngOnInit() {
         const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
@@ -216,6 +225,7 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.admin.permissionsEndpoint.getAdministrativePermission("http://rdfh.ch/projects/0001", "http://www.knora.org/ontology/knora-admin#ProjectMember").subscribe(
             (response: ApiResponseData<AdministrativePermissionResponse>) => {
                 this.permissionStatus = "getAdministrativePermission ok";
+                this.permissionIri = response.body.administrative_permission.id;
                 console.log(response);
             },
             err => console.error("Error:", err)
@@ -265,6 +275,18 @@ export class AppComponent implements OnInit {
             },
             err => console.error(err)
         )
+
+    }
+
+    deletePermission() {
+
+        this.knoraApiConnection.admin.permissionsEndpoint.deletePermission(this.permissionIri).subscribe(
+            (res: ApiResponseData<DeletePermissionResponse>) => {
+                this.permissionDeleted = res.body.deleted;
+                console.log(res);
+            },
+            err => console.error(err)
+        );
 
     }
 
@@ -319,6 +341,17 @@ export class AppComponent implements OnInit {
                 console.log('onto ', onto);
                 this.ontologies = onto;
             }
+        );
+    }
+
+    getOntologyWithAllLanguages(iri: string) {
+
+        this.knoraApiConnection.v2.onto.getOntology(iri, true).subscribe(
+            (onto: ReadOntology) => {
+                console.log(onto);
+                this.ontologyWithAllLangs = onto;
+            },
+            err => console.error(err)
         );
     }
 
@@ -417,6 +450,65 @@ export class AppComponent implements OnInit {
         );
     }
 
+    updateResourceClassLabel() {
+
+        const onto = new UpdateOntology<UpdateResourceClassLabel>();
+
+        onto.id = this.ontology.id;
+        onto.lastModificationDate = this.ontology.lastModificationDate;
+
+        const updateLabel = new UpdateResourceClassLabel();
+
+        updateLabel.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass";
+
+        updateLabel.labels = [
+            {
+                language: "de",
+                value: "Test Klasse neu"
+            }, {
+                language: "en",
+                value: "Test Class new"
+            }
+        ];
+
+        onto.entity = updateLabel;
+
+        this.knoraApiConnection.v2.onto.updateResourceClass(onto).subscribe(
+            (res: ResourceClassDefinitionWithAllLanguages) => {
+                this.resClass = res;
+            }
+        );
+
+    }
+
+    updateResourceClassComment() {
+
+        const onto = new UpdateOntology<UpdateResourceClassComment>();
+
+        onto.id = this.ontology.id;
+        onto.lastModificationDate = this.ontology.lastModificationDate;
+
+        const updateLabel = new UpdateResourceClassComment();
+
+        updateLabel.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass";
+
+        updateLabel.comments = [
+            {
+                language: "de",
+                value: "Just an example of a new resource class new"
+            }
+        ];
+
+        onto.entity = updateLabel;
+
+        this.knoraApiConnection.v2.onto.updateResourceClass(onto).subscribe(
+            (res: ResourceClassDefinitionWithAllLanguages) => {
+                this.resClass = res;
+            }
+        );
+
+    }
+
     deleteResourceClass() {
 
         const deleteResClass: DeleteResourceClass = new DeleteResourceClass();
@@ -486,6 +578,70 @@ export class AppComponent implements OnInit {
         );
     }
 
+    updateResourcePropertyLabel() {
+
+        const onto = new UpdateOntology<UpdateResourcePropertyLabel>();
+
+        onto.id = this.ontology.id;
+        onto.lastModificationDate = this.ontology.lastModificationDate;
+
+        const updateLabel = new UpdateResourcePropertyLabel();
+
+        updateLabel.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName";
+
+        updateLabel.labels = [
+            {
+                language: "en",
+                value: "has name new"
+            },
+            {
+                language: "de",
+                value: "hat Namen neu"
+            }
+        ];
+
+        onto.entity = updateLabel;
+
+        this.knoraApiConnection.v2.onto.updateResourceProperty(onto).subscribe(
+            (res: ResourcePropertyDefinitionWithAllLanguages) => {
+                this.property = res;
+            }
+        );
+
+    }
+
+    updateResourcePropertyComment() {
+
+        const onto = new UpdateOntology<UpdateResourcePropertyComment>();
+
+        onto.id = this.ontology.id;
+        onto.lastModificationDate = this.ontology.lastModificationDate;
+
+        const updateLabel = new UpdateResourcePropertyComment();
+
+        updateLabel.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName";
+
+        updateLabel.comments = [
+            {
+                language: "en",
+                value: "The name of a Thing new"
+            },
+            {
+                language: "de",
+                value: "Der Name eines Dinges neu"
+            }
+        ];
+
+        onto.entity = updateLabel;
+
+        this.knoraApiConnection.v2.onto.updateResourceProperty(onto).subscribe(
+            (res: ResourcePropertyDefinitionWithAllLanguages) => {
+                this.property = res;
+            }
+        );
+
+    }
+
     deleteResourceProperty() {
 
         const deleteResProp: DeleteResourceProperty = new DeleteResourceProperty();
@@ -506,27 +662,63 @@ export class AppComponent implements OnInit {
 
     addCardinality() {
 
-        const addCard = new UpdateOntologyResourceClassCardinality();
+        const onto = new UpdateOntology<UpdateResourceClassCardinality>();
 
-        addCard.lastModificationDate = this.ontology.lastModificationDate;
+        onto.lastModificationDate = this.ontology.lastModificationDate;
 
-        addCard.id = this.ontology.id;
+        onto.id = this.ontology.id;
+
+        const addCard = new UpdateResourceClassCardinality();
+
+        addCard.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass";
 
         addCard.cardinalities = [
             {
                 propertyIndex: "http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName",
-                cardinality: Cardinality._0_1,
-                resourceClass: "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass"
+                cardinality: Cardinality._0_1
             }
         ];
 
-        this.knoraApiConnection.v2.onto.addCardinalityToResourceClass(addCard).subscribe(
+        onto.entity = addCard;
+
+        this.knoraApiConnection.v2.onto.addCardinalityToResourceClass(onto).subscribe(
             (res: ResourceClassDefinitionWithAllLanguages) => {
                 this.addCard = res;
                 console.log('added card: ', res)
-            }
+            },
+            err => console.error(err)
         );
 
+    }
+
+    replaceCardinality() {
+
+        const onto = new UpdateOntology<UpdateResourceClassCardinality>();
+
+        onto.lastModificationDate = this.ontology.lastModificationDate;
+
+        onto.id = this.ontology.id;
+
+        const replaceCard = new UpdateResourceClassCardinality();
+
+        replaceCard.cardinalities = [
+            {
+                propertyIndex: "http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName",
+                cardinality: Cardinality._1
+            }
+        ];
+
+        replaceCard.id = "http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass";
+
+        onto.entity = replaceCard;
+
+        this.knoraApiConnection.v2.onto.replaceCardinalityOfResourceClass(onto).subscribe(
+            (res: ResourceClassDefinitionWithAllLanguages) => {
+                this.replacedCard = res;
+                console.log('replace card: ', res)
+            },
+            err => console.error(err)
+        );
 
     }
 
@@ -817,7 +1009,7 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.metadata.getProjectMetadata(resourceIri).subscribe(
             (res: ProjectsMetadata) => {
-                console.log('GET', JSON.stringify(res));
+                console.log('GET', JSON.stringify(res), res);
                 this.projectMetaStatus = 'OK';
             },
             error => {
@@ -833,124 +1025,127 @@ export class AppComponent implements OnInit {
         const testDataset = new Dataset();
         testDataset.id = 'http://ns.dasch.swiss/test-dataset';
         testDataset.type = Constants.DspRepoBase + 'Dataset';
-        testDataset.abstract = 'Dies ist ein Testprojekt.';
-        testDataset.alternativeTitle = 'test';
+        testDataset.abstract = ['Dies ist ein Testprojekt.'];
+        // testDataset.alternativeTitle = 'test';
         testDataset.conditionsOfAccess = 'Open Access';
-        testDataset.dateCreated = '2001-09-26';
-        testDataset.dateModified = '2020-04-26';
-        testDataset.datePublished = '2002-09-24';
-        testDataset.distribution = { type: 'https://schema.org/DataDownload', value: 'https://test.dasch.swiss' } as IUrl;
-        testDataset.documentation = 'Work in progress';
+        // testDataset.dateCreated = '2001-09-26';
+        // testDataset.dateModified = '2020-04-26';
+        // testDataset.datePublished = '2002-09-24';
+        // testDataset.distribution = { type: 'https://schema.org/DataDownload', value: 'https://test.dasch.swiss' } as IUrl;
+        // testDataset.documentation = 'Work in progress';
+        // testDataset.documentation = ['Work in progress', 'Dddddd'];
         testDataset.howToCite = 'Testprojekt (test), 2002, https://test.dasch.swiss';
         testDataset.language = [ 'EN', 'DE', 'FR' ];
-        testDataset.license = { type: 'https://schema.org/URL', value: 'https://creativecommons.org/licenses/by/3.0' } as IUrl;
+        testDataset.license = [{ type: 'https://schema.org/URL', value: 'https://creativecommons.org/licenses/by/3.0' }] as IUrl[];
         testDataset.qualifiedAttribution = [
             {
                 type: Constants.ProvAttribution,
-                role: 'contributor',
-                agent: 'http://ns.dasch.swiss/test-berry'
+                role: ['contributor', 'watcher'],
+                agent: {id: 'http://ns.dasch.swiss/test-berry'}
             },
             {
                 type: Constants.ProvAttribution,
-                role: 'contributor',
-                agent: 'http://ns.dasch.swiss/test-hart'
+                role: ['contributor'],
+                agent: {id: 'http://ns.dasch.swiss/test-hart'}
             },
             {
                 type: Constants.ProvAttribution,
-                role: 'editor',
-                agent: 'http://ns.dasch.swiss/test-abraham'
+                role: ['editor'],
+                agent: {id: 'http://ns.dasch.swiss/test-abraham'}
             },
             {
                 type: Constants.ProvAttribution,
-                role: 'editor',
-                agent: 'http://ns.dasch.swiss/test-coleman'
+                role: ['editor'],
+                agent: {id: 'http://ns.dasch.swiss/test-coleman'}
             },
             {
                 type: Constants.ProvAttribution,
-                role: 'editor',
-                agent: 'http://ns.dasch.swiss/test-jones'
+                role: ['editor'],
+                agent: {id: 'http://ns.dasch.swiss/test-jones'}
             }
          ];
         testDataset.status = 'ongoing';
         testDataset.title = 'Testprojekt';
         testDataset.typeOfData = ['image', 'text'];
-        testDataset.sameAs = { type: 'https://schema.org/URL', value: 'https://test.dasch.swiss' } as IUrl;
+        // testDataset.sameAs = { type: 'https://schema.org/URL', value: 'https://test.dasch.swiss' } as IUrl;
         testDataset.project = new SingleProject();
         testDataset.project.id = 'http://ns.dasch.swiss/test-project';
         testDataset.project.type = Constants.DspRepoBase + 'Project';
-        testDataset.project.alternateName = 'test';
-        testDataset.project.contactPoint = {
-            'id': 'http://ns.dasch.swiss/test-abraham',
-            type: Constants.DspRepoBase + 'Person',
-            'address': {
-                type: Constants.SchemaBase + 'PostalAddress',
-               'addressLocality': 'Basel',
-               'postalCode': '4000',
-               'streetAddress': 'Teststrasse'
-            },
-            'email': 'stewart.abraham@test.ch',
-            'familyName': 'Abraham',
-            'givenName': 'Stewart',
-            'jobTitle': 'Dr.',
-            'memberOf': 'http://ns.dasch.swiss/test-dasch',
-            'sameAs': {
-               'type': 'https://schema.org/URL',
-               'value': 'https://orcid.org/0000-0002-1825-0097'
-            }
-         } as Person;
-        testDataset.project.dataManagementPlan = {
-            'id': 'http://ns.dasch.swiss/test-plan',
-            type: Constants.DspRepoBase + 'DataManagementPlan',
-            'url': {
-               'type': 'https://schema.org/URL',
-               'value': 'https://snf.ch'
-            },
-            'isAvailable': false
-         } as DataManagementPlan;
+        // testDataset.project.alternateName = 'test';
+        // testDataset.project.contactPoint = {
+        //     'id': 'http://ns.dasch.swiss/test-abraham',
+        //     type: Constants.DspRepoBase + 'Person',
+        //     'address': {
+        //         type: Constants.SchemaPostalAddress,
+        //        'addressLocality': 'Basel',
+        //        'postalCode': '4000',
+        //        'streetAddress': 'Teststrasse'
+        //     },
+        //     'email': ['stewart.abraham@test.ch', 'test@test.ch'],
+        //     'familyName': 'Abraham',
+        //     'givenName': 'Stewart',
+        //     'jobTitle': ['Dr.', 'Dre'],
+        //     'memberOf': {id: 'http://ns.dasch.swiss/test-dasch'},
+        //     'sameAs': {
+        //        'type': 'https://schema.org/URL',
+        //        'value': 'https://orcid.org/0000-0002-1825-0097'
+        //     }
+        //  } as Person;
+        // testDataset.project.dataManagementPlan = {
+        //     'id': 'http://ns.dasch.swiss/test-plan',
+        //     type: Constants.DspRepoBase + 'DataManagementPlan',
+        //     'url': {
+        //        'type': 'https://schema.org/URL',
+        //        'value': 'https://snf.ch'
+        //     },
+        //     'isAvailable': false
+        //  } as DataManagementPlan;
         testDataset.project.description = 'Dies ist ein Testprojekt...alle Properties wurden verwendet, um diese zu testen';
         testDataset.project.discipline = {
             'name': 'SKOS UNESCO Nomenclature',
             'url': 'http://skos.um.es/unesco6/11'
          };
-        testDataset.project.endDate = '2001-01-26';
-        testDataset.project.funder = {
+        // testDataset.project.endDate = '2001-01-26';
+        testDataset.project.funder = [{
             'id': 'http://ns.dasch.swiss/test-funder'
-        };
+        }];
         const grant = new Grant();
         grant.id = 'http://ns.dasch.swiss/test-grant';
         grant.type = Constants.DspRepoBase + 'Grant',
-        grant.funder = {
+        // TODO: why funder is not returnet but only id?
+        grant.funder = [{
             'id': 'http://ns.dasch.swiss/test-funder',
             type: Constants.DspRepoBase + 'Organization',
             'address': {
-                type: Constants.SchemaBase + 'PostalAddress',
+                type: Constants.SchemaPostalAddress,
                 'addressLocality': 'Toronto',
                 'postalCode': '40000',
                 'streetAddress': 'University of Toronto Street'
             },
             'email': 'info@universityoftoronto.ca',
-            'name': 'University of Toronto',
+            'name': ['University of Toronto', 'WWW'],
             'url': {
                 'type': 'https://schema.org/URL',
                 'value': 'http://www.utoronto.ca/'
             }
-        } as Organization;
-        grant.name = 'Prof. test test, Prof. test Harbtestrecht';
-        grant.number = '0123456789';
-        grant.url = {
-            'type': 'https://schema.org/URL',
-            'value': 'http://p3.snf.ch/testproject'
-         };
-        testDataset.project.grant = grant;
-        testDataset.project.keywords = [
-            'science',
-            'mathematics',
-            'history of science',
-            'history of mathematics'
-         ];
+        }] as Organization[];
+        // grant.name = 'Prof. test test, Prof. test Harbtestrecht';
+        // grant.number = '0123456789';
+        // grant.url = {
+        //     'type': 'https://schema.org/URL',
+        //     'value': 'http://p3.snf.ch/testproject'
+        //  };
+        testDataset.project.grant = [grant];
+        testDataset.project.keywords = ['science'];
         testDataset.project.name = 'Testprojektname (test)';
-        testDataset.project.publication = 'testpublication';
+        testDataset.project.publication = ['testpublication'];
         testDataset.project.shortcode = '0000';
+        // testDataset.project.spatialCoverage = [{
+        //     'place': {
+        //         'name': 'Geonames',
+        //         'url': 'https://www.geonames.org/2017370/russian-federation.html'
+        //     }
+        // }];
         testDataset.project.spatialCoverage = [
             {
                'place': {
@@ -1000,71 +1195,71 @@ export class AppComponent implements OnInit {
             'name': 'Chronontology Dainst',
             'url': 'http://chronontology.dainst.org/period/Ef9SyESSafJ1'
         };
-        testDataset.project.url = {
+        testDataset.project.url = [{
             'type': 'https://schema.org/URL',
             'value': 'https://test.dasch.swiss/'
-        };
-        const testPersonOne = {
-            'id': 'http://ns.dasch.swiss/test-jones',
-            type: Constants.DspRepoBase + 'Person',
-            'address': {
-                type: Constants.SchemaBase + 'PostalAddress',
-               'addressLocality': 'Basel',
-               'postalCode': '4000',
-               'streetAddress': 'Teststrasse'
-            },
-            'email': 'benjamin.jones@test.ch',
-            'familyName': 'Jones',
-            'givenName': 'Benjamin',
-            'jobTitle': 'Dr. des.',
-            'memberOf': 'http://ns.dasch.swiss/test-dasch'
-        } as Person;
-        const testPersonTwo = {
-            'id': 'http://ns.dasch.swiss/test-coleman',
-            type: Constants.DspRepoBase + 'Person',
-            'address': {
-                type: Constants.SchemaBase + 'PostalAddress',
-               'addressLocality': 'Basel',
-               'postalCode': '4000',
-               'streetAddress': 'Teststrasse'
-            },
-            'email': 'james.coleman@dasch.swiss',
-            'familyName': 'Coleman',
-            'givenName': 'James',
-            'jobTitle': 'Dr. des.',
-            'memberOf': 'http://ns.dasch.swiss/test-dasch'
-        } as Person;
-        const testPersonThree = {
-            'id': 'http://ns.dasch.swiss/test-berry',
-            type: Constants.DspRepoBase + 'Person',
-            'address': {
-                type: Constants.SchemaBase + 'PostalAddress',
-               'addressLocality': 'Basel',
-               'postalCode': '4000',
-               'streetAddress': 'Teststrasse'
-            },
-            'email': 'lauren.berry@unibas.ch',
-            'familyName': 'Berry',
-            'givenName': 'Lauren',
-            'jobTitle': 'Dr.',
-            'memberOf': 'http://ns.dasch.swiss/test-dasch'
-        } as Person;
-        const testPersonFour = {
-            'id': 'http://ns.dasch.swiss/test-hart',
-            type: Constants.DspRepoBase + 'Person',
-            'address': {
-                type: Constants.SchemaBase + 'PostalAddress',
-               'addressLocality': 'Basel',
-               'postalCode': '4000',
-               'streetAddress': 'Teststrasse'
-            },
-            'email': 'leonhard.hart@test.ch',
-            'familyName': 'Hart',
-            'givenName': 'Leonhard',
-            'jobTitle': 'Prof.',
-            'memberOf': 'http://ns.dasch.swiss/test-dasch'
-        } as Person;
-        testMetadata.projectsMetadata.push(testDataset, testPersonOne, testPersonTwo, testPersonThree, testPersonFour);
+        }];
+        // const testPersonOne = {
+        //     'id': 'http://ns.dasch.swiss/test-jones',
+        //     type: Constants.DspRepoBase + 'Person',
+        //     'address': {
+        //         type: Constants.SchemaPostalAddress,
+        //        'addressLocality': 'Basel',
+        //        'postalCode': '4000',
+        //        'streetAddress': 'Teststrasse'
+        //     },
+        //     'email': 'benjamin.jones@test.ch',
+        //     'familyName': 'Jones',
+        //     'givenName': 'Benjamin',
+        //     'jobTitle': 'Dr. des.',
+        //     'memberOf': {id: 'http://ns.dasch.swiss/test-dasch'},
+        // } as Person;
+        // const testPersonTwo = {
+        //     'id': 'http://ns.dasch.swiss/test-coleman',
+        //     type: Constants.DspRepoBase + 'Person',
+        //     'address': {
+        //         type: Constants.SchemaPostalAddress,
+        //        'addressLocality': 'Basel',
+        //        'postalCode': '4000',
+        //        'streetAddress': 'Teststrasse'
+        //     },
+        //     'email': 'james.coleman@dasch.swiss',
+        //     'familyName': 'Coleman',
+        //     'givenName': 'James',
+        //     'jobTitle': 'Dr. des.',
+        //     'memberOf': {id: 'http://ns.dasch.swiss/test-dasch'},
+        // } as Person;
+        // const testPersonThree = {
+        //     'id': 'http://ns.dasch.swiss/test-berry',
+        //     type: Constants.DspRepoBase + 'Person',
+        //     'address': {
+        //         type: Constants.SchemaPostalAddress,
+        //        'addressLocality': 'Basel',
+        //        'postalCode': '4000',
+        //        'streetAddress': 'Teststrasse'
+        //     },
+        //     'email': 'lauren.berry@unibas.ch',
+        //     'familyName': 'Berry',
+        //     'givenName': 'Lauren',
+        //     'jobTitle': 'Dr.',
+        //     'memberOf': {id: 'http://ns.dasch.swiss/test-dasch'},
+        // } as Person;
+        // const testPersonFour = {
+        //     'id': 'http://ns.dasch.swiss/test-hart',
+        //     type: Constants.DspRepoBase + 'Person',
+        //     'address': {
+        //         type: Constants.SchemaPostalAddress,
+        //        'addressLocality': 'Basel',
+        //        'postalCode': '4000',
+        //        'streetAddress': 'Teststrasse'
+        //     },
+        //     'email': 'leonhard.hart@test.ch',
+        //     'familyName': 'Hart',
+        //     'givenName': 'Leonhard',
+        //     'jobTitle': 'Prof.',
+        //     'memberOf': {id: 'http://ns.dasch.swiss/test-dasch'},
+        // } as Person;
+        testMetadata.projectsMetadata.push(testDataset);
         console.log(testMetadata, JSON.stringify(testMetadata));
         this.knoraApiConnection.v2.metadata.updateProjectMetadata(resourceIri, testMetadata).subscribe(
             (res: UpdateProjectMetadataResponse) => {
@@ -1225,11 +1420,32 @@ export class AppComponent implements OnInit {
             (res: ApiResponseData<ListResponse>) => {
                 console.log(res);
                 this.listName = res.body.list.listinfo.name;
-                this.listChildren = res.body.list.children.length.toString();
+                this.listChildren = res.body.list.children.length;
             }
         );
+    }
 
-        
+    deleteListChildNode(): void {
+        const listItemIri = 'http://rdfh.ch/lists/0001/notUsedList015';
+
+        this.knoraApiConnection.admin.listsEndpoint.deleteListNode(listItemIri).subscribe(
+            (res: ApiResponseData<DeleteListNodeResponse>) => {
+                console.log(res);
+                this.listChildren = res.body.node.children.length;
+            }
+        );
+    }
+
+    deleteListRootNode(): void {
+        const listItemIri = 'http://rdfh.ch/lists/0001/notUsedList';
+
+        this.knoraApiConnection.admin.listsEndpoint.deleteListNode(listItemIri).subscribe(
+            (res: ApiResponseData<DeleteListResponse>) => {
+                console.log(res);
+                this.listNodeDeleted = res.body.deleted;
+            },
+            err => console.error('Error:', err)
+        );
     }
 
 }

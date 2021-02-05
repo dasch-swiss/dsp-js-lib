@@ -1,7 +1,8 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../Constants";
-import { IUrl } from "../custom-converters/base-url-converter";
+import { UnionStringArrayOfStringsConverter } from "../custom-converters/union-string-array-of-strings-converter";
 import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
+import { IUrl } from "../project-metadata/metadata-interfaces";
 import { Address } from "./address";
 import { BaseProjectMetadata } from "./base-project-metadata";
 
@@ -9,7 +10,7 @@ import { BaseProjectMetadata } from "./base-project-metadata";
  * @category Model V2 
  */ 
 @JsonObject("Organization")
-export class Organization extends BaseProjectMetadata{
+export class Organization extends BaseProjectMetadata {
 
     @JsonProperty("@id", String)
     id: string = "";
@@ -20,8 +21,8 @@ export class Organization extends BaseProjectMetadata{
     @JsonProperty(Constants.DspHasEmail, String, true)
     email?: string = undefined;
 
-    @JsonProperty(Constants.DspHasName, String)
-    name: string = "";
+    @JsonProperty(Constants.DspHasName, UnionStringArrayOfStringsConverter)
+    name: string[] = [];
 
     @JsonProperty(Constants.DspHasURL, UrlToUrlObjectConverter, true)
     url?: IUrl = undefined;
