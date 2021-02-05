@@ -30,6 +30,8 @@
             <button class="get-default-object-access-permissions" (click)="getDefaultObjectAccessPermissions()">Get default object access permissions for a project</button> <br /><br />
             <button class="create-default-object-access-permission" (click)="createDefaultObjectAccessPermission()">Create default object access permission for a project</button> <br /><br />
             <span *ngIf="permissionStatus" class="status">Permission status: {{permissionStatus}}</span>
+            <button class="delete-permission" (click)="deletePermission()">Delete an administrative permission</button> <br /><br />
+            <span *ngIf="permissionDeleted" class="deleted">Permission deleted: {{permissionDeleted}}</span>
         </div>
         <div id="lists">
             <h4>Lists</h4>
