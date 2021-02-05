@@ -1,7 +1,7 @@
 import { JsonConvert, JsonConverter, JsonCustomConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+import { IId } from "../../../interfaces/models/v2/project-metadata-interfaces";
 import { Constants } from "../Constants";
-import { IId } from "../project-metadata/metadata-interfaces";
 import { SingleProject } from "../project-metadata/single-project";
 
 /**
@@ -38,7 +38,7 @@ export class UnionSingleProjctIdConverter implements JsonCustomConvert<SinglePro
             return {id: el};
         } else {
             throw new Error(`Deserialization Error: expected an object with @type property equals to 
-                ${Constants.DspProject}, or a reference object with @id property.`);
+                ${Constants.DspProject} or a reference object with @id property.`);
         }
     }
 }

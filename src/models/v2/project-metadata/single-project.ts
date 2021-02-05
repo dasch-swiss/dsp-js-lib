@@ -1,13 +1,12 @@
 import { JsonObject, JsonProperty } from "json2typescript";
+import { IId, IUrl } from "../../../interfaces/models/v2/project-metadata-interfaces";
 import { Constants } from "../Constants";
 import { DateConverter } from "../custom-converters/date-converter";
-import { UnionAdvancedUrlObjectConverter } from "../custom-converters/union-advanced-url-object-converter";
 import { UnionDataManagementPlanIdConverter } from "../custom-converters/union-data-management-plan-id-converter";
 import { UnionElementArrayOfElementsConverter } from "../custom-converters/union-element-array-of-elements-converter";
 import { UnionPersonOrganizationIdConverter } from "../custom-converters/union-person-organization-id-converter";
 import { UnionStringArrayOfStringsConverter } from "../custom-converters/union-string-array-of-strings-converter";
-import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
-import { IId, IUrl } from "../project-metadata/metadata-interfaces";
+import { UnionUrlStringConverter } from "../custom-converters/union-url-string-converter";
 import { BaseProjectMetadata } from "./base-project-metadata";
 import { DataManagementPlan } from "./data-management-plan";
 import { Grant } from "./grant";
@@ -36,7 +35,7 @@ export class SingleProject extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasDescription, String)
     description: string = "";
 
-    @JsonProperty(Constants.DspHasDiscipline, UnionAdvancedUrlObjectConverter)
+    @JsonProperty(Constants.DspHasDiscipline, UnionUrlStringConverter)
     discipline: IUrl = {} as IUrl;
     
     @JsonProperty(Constants.DspHasEndDate, DateConverter, true)
@@ -66,10 +65,10 @@ export class SingleProject extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasStartDate, DateConverter)
     startDate: string = "";
 
-    @JsonProperty(Constants.DspHasTemporalCoverage, UnionAdvancedUrlObjectConverter)
+    @JsonProperty(Constants.DspHasTemporalCoverage, UnionUrlStringConverter)
     temporalCoverage: IUrl = {} as IUrl;
 
-    @JsonProperty(Constants.DspHasURL, UrlToUrlObjectConverter)
+    @JsonProperty(Constants.DspHasURL, UnionUrlStringConverter)
     url: IUrl[] = [];
 
     constructor() {
