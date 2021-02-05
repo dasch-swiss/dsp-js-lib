@@ -89,6 +89,32 @@ describe('workspace-project App', () => {
 
   });
 
+  it('delete an administrative permission', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get the admin permission first to assign the Iri
+    const button = page.getEle('div#permissions button.get-administrative-permission');
+    button.click();
+
+    const label = page.getEle('div#permissions span.status');
+    expect(label.getText()).toEqual('Permission status: getAdministrativePermission ok');
+
+    const button2 = page.getEle('div#permissions button.delete-permission');
+    button2.click();
+
+    const label2 = page.getEle('div#permissions span.deleted');
+    expect(label2.getText()).toEqual('Permission deleted: true');
+
+  });
+
   it('request administrative permissions', () => {
 
     page.navigateTo();

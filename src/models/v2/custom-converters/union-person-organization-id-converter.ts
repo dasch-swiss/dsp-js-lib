@@ -1,7 +1,7 @@
 import { JsonConvert, JsonConverter, JsonCustomConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+import { IId } from "../../../interfaces/models/v2/project-metadata-interfaces";
 import { Constants } from "../Constants";
-import { IId } from "../project-metadata/metadata-interfaces";
 import { Organization } from "../project-metadata/organization";
 import { Person } from "../project-metadata/person";
 
@@ -10,7 +10,7 @@ import { Person } from "../project-metadata/person";
  */
 @JsonConverter
 export class UnionPersonOrganizationIdConverter implements JsonCustomConvert
-    <Person | Organization | IId | object | Person[] | Organization[] | IId[]> {
+    <Person | Organization | object | Person[] | Organization[] | IId[]> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -21,24 +21,21 @@ export class UnionPersonOrganizationIdConverter implements JsonCustomConvert
 
     serialize(el: Person | Organization | object): any {
         if (Array.isArray(el)) {
-            const newArr = [] as any[];
-            el.forEach((
-                (item: Person | Organization | object) => newArr.push(this.serializeElement(item))
-            ));
-            return newArr;
+            return el.map(
+                (item: Person | Organization | object) => this.serializeElement(item)
+            );
         } else {
             return this.serializeElement(el);
         }
     }
 
     deserialize(el: any): Person[] | Organization[] | IId[] {
-        const newArr = [] as Array<Person | Organization | IId>;
         if (Array.isArray(el)) {
-            el.forEach((
-                (item: any) => newArr.push(this.deserializeElement(item))
-            ));
-            return newArr;
+            return el.map(
+                (item: any) => this.deserializeElement(item)
+            );
         } else {
+            const newArr = [] as Array<Person | Organization | IId>;
             newArr.push(this.deserializeElement(el));
             return newArr;
         }
@@ -54,7 +51,7 @@ export class UnionPersonOrganizationIdConverter implements JsonCustomConvert
                 "@id": (el as { [index: string]: string })["id"]
             };
         } else {
-            throw new Error(`Serialziation Error: expected a Person or Organization object type, or reference object 
+            throw new Error(`Serialziation Error: expected Person or Organization object type, or reference object 
                 with id key. Instead got ${typeof el}.`);
         }
     }

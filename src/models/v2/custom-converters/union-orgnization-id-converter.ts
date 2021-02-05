@@ -1,14 +1,14 @@
 import { JsonConvert, JsonConverter, JsonCustomConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+import { IId } from "../../../interfaces/models/v2/project-metadata-interfaces";
 import { Constants } from "../Constants";
-import { IId } from "../project-metadata/metadata-interfaces";
 import { Organization } from "../project-metadata/organization";
 
 /**
  * @category Internal
  */
 @JsonConverter
-export class UnionOrganizationIdConverter implements JsonCustomConvert<Organization | IId | object> {
+export class UnionOrganizationIdConverter implements JsonCustomConvert<Array<Organization | IId | object>> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -18,23 +18,18 @@ export class UnionOrganizationIdConverter implements JsonCustomConvert<Organizat
     );
 
     serialize(el: Array<Organization | object>): any {
-        if (Array.isArray(el)) {
-            const newArr = [] as any[];
-            el.forEach((
-                (item: Organization | object) => newArr.push(this.serializeElement(item))
-            ));
-            return newArr;
-        }
+        return el.map(
+            (item: Organization | object) => this.serializeElement(item)
+        );
     }
 
     deserialize(el: any): Array<Organization | IId> {
-        const newArr = [] as Array<Organization | IId>;
         if (Array.isArray(el)) {
-            el.forEach((
-                (item: any) => newArr.push(this.deserializeElement(item))
-            ));
-            return newArr;
+            return el.map(
+                item => this.deserializeElement(item)
+            );
         } else {
+            const newArr = [] as Array<Organization | IId>;
             newArr.push(this.deserializeElement(el));
             return newArr;
         }

@@ -24,19 +24,15 @@ export class UnionMetadataConverter implements JsonCustomConvert<MetadataClasses
     );
 
     serialize(el: MetadataClasses[]): any {
-        const newObj = [] as any[];
-        el.forEach((
-            (item: MetadataClasses) => newObj.push(this.serializeElement(item))
-        ));
-        return newObj;
+        return el.map(
+            (item: MetadataClasses) => this.serializeElement(item)
+        );
     }
 
     deserialize(el: any): MetadataClasses[] {
-        const newObj = [] as MetadataClasses[];
-        el.forEach((
-            (item: any) => newObj.push(this.deserializeElement(item))
-        ));
-        return newObj;
+        return el.map(
+            (item: any) => this.deserializeElement(item)
+        );
     }
 
     private serializeElement(el: MetadataClasses): any {
