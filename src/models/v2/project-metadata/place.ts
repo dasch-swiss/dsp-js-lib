@@ -1,7 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
+import { IUrl } from "../../../interfaces/models/v2/project-metadata-interfaces";
 import { Constants } from "../Constants";
 import { PlaceConverter } from "../custom-converters/place-converter";
-import { IUrl } from "../project-metadata/metadata-interfaces";
 
 /** 
  * @category Model V2 
