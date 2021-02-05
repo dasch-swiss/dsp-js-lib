@@ -71,7 +71,9 @@ import {
     UpdateResourcePropertyLabel,
     UpdateResourcePropertyComment,
     DeleteListResponse,
-    DeleteListNodeResponse
+    DeleteListNodeResponse,
+    RepositionChildNodeRequest,
+    ListNodeResponse
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -134,6 +136,8 @@ export class AppComponent implements OnInit {
     listChildComments = '';
     listNodeId = '';
     listNodeDeleted = false;
+    listNodePosition = 0;
+    listNodeParentIri = '';
 
     ngOnInit() {
         const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
@@ -1392,6 +1396,38 @@ export class AppComponent implements OnInit {
                 this.listNodeDeleted = res.body.deleted;
             },
             err => console.error('Error:', err)
+        );
+    }
+
+    repositionListChildNode(): void {
+        const childNodeIri = 'http://rdfh.ch/lists/0001/notUsedList01';
+
+        const repositionRequest = new RepositionChildNodeRequest();
+        repositionRequest.parentNodeIri = 'http://rdfh.ch/lists/0001/notUsedList';
+        repositionRequest.position = -1;
+
+        this.knoraApiConnection.admin.listsEndpoint.repositionChildNode(childNodeIri, repositionRequest).subscribe(
+            (res: ApiResponseData<ListNodeResponse>) => {
+                console.log(res);
+                this.listNodePosition = res.body.node.children[res.body.node.children.length - 1].position;
+                this.listNodeParentIri = res.body.node.children[res.body.node.children.length - 1].hasRootNode;
+            }
+        );
+    }
+
+    repositionListChildNodeNewParent(): void {
+        const childNodeIri = 'http://rdfh.ch/lists/0001/notUsedList01';
+
+        const repositionRequest = new RepositionChildNodeRequest();
+        repositionRequest.parentNodeIri = 'http://rdfh.ch/lists/0001/notUsedList02';
+        repositionRequest.position = -1;
+
+        this.knoraApiConnection.admin.listsEndpoint.repositionChildNode(childNodeIri, repositionRequest).subscribe(
+            (res: ApiResponseData<ListNodeResponse>) => {
+                console.log(res);
+                this.listNodePosition = res.body.node.children[res.body.node.children.length - 1].position;
+                this.listNodeParentIri = res.body.node.children[res.body.node.children.length - 1].hasRootNode;
+            }
         );
     }
 

@@ -907,6 +907,52 @@ describe('workspace-project App', () => {
     expect(listComment.getText()).toEqual('de/Neuer Kommentar');
   });
 
+  it('should reposition a child node to the end of its siblings', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#lists button.reposition-list-node-to-end');
+
+    button.click();
+
+    const listNodePosition = page.getEle('div#lists span.list-node-position');
+
+    expect(listNodePosition.getText()).toEqual('2');
+
+    const listNodeParentIri = page.getEle('div#lists span.list-node-parent-iri');
+
+    expect(listNodeParentIri.getText()).toEqual('http://rdfh.ch/lists/0001/notUsedList');
+  });
+
+  it('should reposition a child node to the end of new parent', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#lists button.reposition-list-node-to-end-new-parent');
+
+    button.click();
+
+    const listNodePosition = page.getEle('div#lists span.list-node-position');
+
+    expect(listNodePosition.getText()).toEqual('0');
+
+    const listNodeParentIri = page.getEle('div#lists span.list-node-parent-iri');
+
+    expect(listNodeParentIri.getText()).toEqual('http://rdfh.ch/lists/0001/notUsedList');
+  });
+
   it('should delete a list child and root node', () => {
 
     page.navigateTo();
