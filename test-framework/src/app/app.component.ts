@@ -73,7 +73,7 @@ import {
     DeleteListResponse,
     DeleteListNodeResponse,
     RepositionChildNodeRequest,
-    ListNodeResponse
+    RepositionChildNodeResponse
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -1349,7 +1349,6 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.admin.listsEndpoint.createList(list).subscribe(
             (res: ApiResponseData<ListResponse>) => {
-                console.log(res);
 
                 this.listLabels =
                     res.body.list.listinfo.labels[0].language
@@ -1369,7 +1368,6 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.admin.listsEndpoint.getList(listItemIri).subscribe(
             (res: ApiResponseData<ListResponse>) => {
-                console.log(res);
                 this.listName = res.body.list.listinfo.name;
                 this.listChildren = res.body.list.children.length;
             }
@@ -1381,7 +1379,6 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.admin.listsEndpoint.deleteListNode(listItemIri).subscribe(
             (res: ApiResponseData<DeleteListNodeResponse>) => {
-                console.log(res);
                 this.listChildren = res.body.node.children.length;
             }
         );
@@ -1392,7 +1389,6 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.admin.listsEndpoint.deleteListNode(listItemIri).subscribe(
             (res: ApiResponseData<DeleteListResponse>) => {
-                console.log(res);
                 this.listNodeDeleted = res.body.deleted;
             },
             err => console.error('Error:', err)
@@ -1407,8 +1403,7 @@ export class AppComponent implements OnInit {
         repositionRequest.position = -1;
 
         this.knoraApiConnection.admin.listsEndpoint.repositionChildNode(childNodeIri, repositionRequest).subscribe(
-            (res: ApiResponseData<ListNodeResponse>) => {
-                console.log(res);
+            (res: ApiResponseData<RepositionChildNodeResponse>) => {
                 this.listNodePosition = res.body.node.children[res.body.node.children.length - 1].position;
                 this.listNodeParentIri = res.body.node.children[res.body.node.children.length - 1].hasRootNode;
             }
@@ -1423,8 +1418,7 @@ export class AppComponent implements OnInit {
         repositionRequest.position = -1;
 
         this.knoraApiConnection.admin.listsEndpoint.repositionChildNode(childNodeIri, repositionRequest).subscribe(
-            (res: ApiResponseData<ListNodeResponse>) => {
-                console.log(res);
+            (res: ApiResponseData<RepositionChildNodeResponse>) => {
                 this.listNodePosition = res.body.node.children[res.body.node.children.length - 1].position;
                 this.listNodeParentIri = res.body.node.children[res.body.node.children.length - 1].hasRootNode;
             }
