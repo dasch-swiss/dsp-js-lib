@@ -1,5 +1,30 @@
 # Changelog
 
+## [2.0.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v1.3.0...v2.0.0) (2021-02-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* **metadata-endopoint:** minor improvements + code refactoring (DSP-1307) (#314)
+* **cache:** handle failed requests to dsp-api (DSP-402) (#210)
+* **ontology endpoint:** replace cardinalities (DSP-1265) (#304)
+
+### Bug Fixes
+
+* **cache:** handle failed requests to dsp-api (DSP-402) ([#210](https://www.github.com/dasch-swiss/dsp-js-lib/issues/210)) ([82bbe05](https://www.github.com/dasch-swiss/dsp-js-lib/commit/82bbe05a28f7a1e08a2c5254bfd9ac475f9324ea))
+
+
+### Enhancements
+
+* **metadata-endopoint:** minor improvements + code refactoring (DSP-1307) ([#314](https://www.github.com/dasch-swiss/dsp-js-lib/issues/314)) ([c83624e](https://www.github.com/dasch-swiss/dsp-js-lib/commit/c83624e7764569149b4ea84816d367ef32a11a58))
+* **ontology endpoint:** replace cardinalities (DSP-1265) ([#304](https://www.github.com/dasch-swiss/dsp-js-lib/issues/304)) ([4d9e00a](https://www.github.com/dasch-swiss/dsp-js-lib/commit/4d9e00aa2cdc34619164627adc2dfab37c1cc92c))
+* **permissions endpoint:** Delete Permission (DSP-1304) ([#307](https://www.github.com/dasch-swiss/dsp-js-lib/issues/307)) ([b87309a](https://www.github.com/dasch-swiss/dsp-js-lib/commit/b87309a59b177dc2646ba9233a5ca3031fabfc55))
+
+
+### Maintenance
+
+* **dependency:** update dsp-api to v13.2.0 ([#317](https://www.github.com/dasch-swiss/dsp-js-lib/issues/317)) ([8326d56](https://www.github.com/dasch-swiss/dsp-js-lib/commit/8326d56de4cfb32bb9a91d98612f76bd58cc45b5))
+
 ## [1.3.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v1.2.1...v1.3.0) (2021-02-02)
 
 
