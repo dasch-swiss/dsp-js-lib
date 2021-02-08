@@ -55,11 +55,6 @@ export interface IHasProperty {
      */
     isInherited?: boolean;
 
-    /**
-     * Iri of the resource class the property is defined on.
-     * Only present when writing to Knora.
-     */
-    resourceClass?: string;
 }
 
 /**

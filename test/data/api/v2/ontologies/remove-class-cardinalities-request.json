@@ -3,21 +3,11 @@
   "@type" : "owl:Ontology",
   "knora-api:lastModificationDate" : {
     "@type" : "xsd:dateTimeStamp",
-    "@value" : "2021-02-04T21:54:34.374398Z"
+    "@value" : "2021-02-04T21:54:44.325846Z"
   },
   "@graph" : [ {
-    "@id" : "anything:hasName",
-    "@type" : "owl:ObjectProperty",
-    "rdfs:label" : [ {
-      "@language" : "en",
-      "@value" : "has name"
-    }, {
-      "@language" : "fr",
-      "@value" : "a nom"
-    }, {
-      "@language" : "de",
-      "@value" : "hat Namen"
-    } ]
+    "@id" : "anything:Nothing",
+    "@type" : "owl:Class"
   } ],
   "@context" : {
     "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",

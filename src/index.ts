@@ -48,6 +48,7 @@ export { AdministrativePermissionsResponse } from "./models/admin/administrative
 export { Permission } from "./models/admin/permission";
 export { CreatePermission } from "./models/admin/create-permission";
 export { Permissions } from "./models/admin/permissions";
+export { DeletePermissionResponse } from "./models/admin/delete-permission-response";
 
 export { Project } from "./models/admin/project";
 export { ReadProject } from "./models/admin/read-project";
@@ -119,7 +120,7 @@ export { UpdateResourceClassComment } from "./models/v2/ontologies/update/update
 export { UpdateResourcePropertyLabel } from "./models/v2/ontologies/update/update-resource-property-label";
 export { UpdateResourcePropertyComment } from "./models/v2/ontologies/update/update-resource-property-comment";
 export { ReadOntology } from "./models/v2/ontologies/read/read-ontology";
-export { UpdateOntologyResourceClassCardinality } from "./models/v2/ontologies/update/update-ontology-resource-class-cardinality";
+export { UpdateResourceClassCardinality } from "./models/v2/ontologies/update/update-resource-class-cardinality";
 export { OntologyMetadata, OntologiesMetadata } from "./models/v2/ontologies/ontology-metadata";
 export {
     ResourceClassDefinitionWithPropertyDefinition,
@@ -223,4 +224,4 @@ export { PermissionUtil } from "./models/v2/resources/permission-util";
 export { IPermissions } from "./interfaces/models/admin/i-permissions";
 export { IFulltextSearchParams } from "./interfaces/models/v2/i-fulltext-search-params";
 export { ILabelSearchParams } from "./interfaces/models/v2/i-label-search-params";
-export { IId, IUrl } from "./models/v2/project-metadata/metadata-interfaces";
+export { IId, IUrl } from "./interfaces/models/v2/project-metadata-interfaces";
