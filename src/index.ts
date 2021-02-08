@@ -75,7 +75,6 @@ export { UsersResponse } from "./models/admin/users-response";
 export { List } from "./models/admin/list";
 export { ListInfoResponse } from "./models/admin/list-info-response";
 export { ListNode } from "./models/admin/list-node";
-export { ListNodeResponse } from "./models/admin/list-node-response";
 export { ListNodeInfo } from "./models/admin/list-node-info";
 export { ListNodeInfoResponse } from "./models/admin/list-node-info-response";
 export { ListResponse } from "./models/admin/list-response";

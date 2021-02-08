@@ -1463,7 +1463,8 @@ export class AppComponent implements OnInit {
             (res: ApiResponseData<RepositionChildNodeResponse>) => {
                 this.listNodePosition = res.body.node.children[res.body.node.children.length - 1].position;
                 this.listNodeParentIri = res.body.node.children[res.body.node.children.length - 1].hasRootNode;
-            }
+            },
+            err => console.error('Error:', err)
         );
     }
 
@@ -1478,7 +1479,8 @@ export class AppComponent implements OnInit {
             (res: ApiResponseData<RepositionChildNodeResponse>) => {
                 this.listNodePosition = res.body.node.children[res.body.node.children.length - 1].position;
                 this.listNodeParentIri = res.body.node.children[res.body.node.children.length - 1].hasRootNode;
-            }
+            },
+            err => console.error('Error:', err)
         );
     }
 
