@@ -2,7 +2,7 @@
   "@id" : "http://rdfh.ch/0001/a-thing",
   "@type" : "anything:Thing",
   "anything:hasOtherThingValue" : {
-    "@id": "http://rdfh.ch/0001/a-thing/values/o3EBAaEnRQe0nVVUMix8HQ",
+    "@id": "http://rdfh.ch/0001/a-thing/values/3MD2exFbT3aFtLjibple3g",
     "@type" : "knora-api:LinkValue"
   },
   "@context" : {
