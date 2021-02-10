@@ -44,6 +44,8 @@
             <button class="update-child-comments" (click)="updateChildComments()">Update comments of a child node</button> <br /><br />
             <button class="get-list" (click)="getList()">Get list</button> <br /><br />
             <button class="get-list-node-info" (click)="getListNodeInfo()">Get info of a node</button> <br /><br />
+            <button class="reposition-list-node-to-end" (click)="repositionListChildNode()">Reposition child node to end of siblings</button> <br /><br />
+            <button class="reposition-list-node-to-end-new-parent" (click)="repositionListChildNodeNewParent()">Reposition child node to end of new parent</button> <br /><br />
             <div>
                 List Info:
                 <div>Name: <span class="list-name">{{listName}}</span></div>
@@ -59,6 +61,8 @@
                 <div>Comments: <span class="child-comments">{{listChildComments}}</span></div>
                 <div>ID: <span class="list-node-id">{{listNodeId}}</span></div>
                 <div>Deleted: <span class="list-node-deleted">{{listNodeDeleted}}</span></div>
+                <div>Position: <span class="list-node-position">{{listNodePosition}}</span></div>
+                <div>Parent IRI: <span class="list-node-parent-iri">{{listNodeParentIri}}</span></div>
             </div>
         </div>
     </section>
