@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.0.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.0.0...v2.0.1) (2021-02-10)
+
+
+### Maintenance
+
+* **dependencies:** updates dsp-api to 13.3.1 and updates test data ([#318](https://www.github.com/dasch-swiss/dsp-js-lib/issues/318)) ([38d2d7d](https://www.github.com/dasch-swiss/dsp-js-lib/commit/38d2d7d34aed929b0b93742036620c59265d6891))
+
 ## [2.0.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v1.3.0...v2.0.0) (2021-02-05)
 
 

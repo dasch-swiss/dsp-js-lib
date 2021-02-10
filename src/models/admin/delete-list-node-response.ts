@@ -1,6 +1,6 @@
-import { JsonObject, JsonProperty } from "json2typescript";
+import { JsonObject } from "json2typescript";
 
-import { ListNode } from "./list-node";
+import { ListNodeResponse } from "./list-node-response";
 
 /**
  * A response containing a list node.
@@ -8,12 +8,6 @@ import { ListNode } from "./list-node";
  * @category Model Admin
  */
 @JsonObject("DeleteListNodeResponse")
-export class DeleteListNodeResponse {
-
-   /**
-    * Provides a list node.
-    */
-    @JsonProperty("node", ListNode)
-    node: ListNode = new ListNode();
+export class DeleteListNodeResponse extends ListNodeResponse {
 
 }

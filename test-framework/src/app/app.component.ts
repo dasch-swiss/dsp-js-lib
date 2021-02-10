@@ -80,7 +80,9 @@ import {
     UpdateAdministrativePermissionGroup,
     UpdateDefaultObjectAccessPermissionGroup,
     UpdateDefaultObjectAccessPermissionResourceClass,
-    UpdateDefaultObjectAccessPermissionProperty
+    UpdateDefaultObjectAccessPermissionProperty,
+    RepositionChildNodeRequest,
+    RepositionChildNodeResponse
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -147,6 +149,8 @@ export class AppComponent implements OnInit {
     listChildComments = '';
     listNodeId = '';
     listNodeDeleted = false;
+    listNodePosition = 0;
+    listNodeParentIri = '';
 
     ngOnInit() {
         const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
@@ -1508,7 +1512,6 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.admin.listsEndpoint.createList(list).subscribe(
             (res: ApiResponseData<ListResponse>) => {
-                console.log(res);
 
                 this.listLabels =
                     res.body.list.listinfo.labels[0].language
@@ -1528,7 +1531,6 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.admin.listsEndpoint.getList(listItemIri).subscribe(
             (res: ApiResponseData<ListResponse>) => {
-                console.log(res);
                 this.listName = res.body.list.listinfo.name;
                 this.listChildren = res.body.list.children.length;
             }
@@ -1540,7 +1542,6 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.admin.listsEndpoint.deleteListNode(listItemIri).subscribe(
             (res: ApiResponseData<DeleteListNodeResponse>) => {
-                console.log(res);
                 this.listChildren = res.body.node.children.length;
             }
         );
@@ -1551,8 +1552,39 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.admin.listsEndpoint.deleteListNode(listItemIri).subscribe(
             (res: ApiResponseData<DeleteListResponse>) => {
-                console.log(res);
                 this.listNodeDeleted = res.body.deleted;
+            },
+            err => console.error('Error:', err)
+        );
+    }
+
+    repositionListChildNode(): void {
+        const childNodeIri = 'http://rdfh.ch/lists/0001/notUsedList01';
+
+        const repositionRequest = new RepositionChildNodeRequest();
+        repositionRequest.parentNodeIri = 'http://rdfh.ch/lists/0001/notUsedList';
+        repositionRequest.position = -1;
+
+        this.knoraApiConnection.admin.listsEndpoint.repositionChildNode(childNodeIri, repositionRequest).subscribe(
+            (res: ApiResponseData<RepositionChildNodeResponse>) => {
+                this.listNodePosition = res.body.node.children[res.body.node.children.length - 1].position;
+                this.listNodeParentIri = res.body.node.children[res.body.node.children.length - 1].hasRootNode;
+            },
+            err => console.error('Error:', err)
+        );
+    }
+
+    repositionListChildNodeNewParent(): void {
+        const childNodeIri = 'http://rdfh.ch/lists/0001/notUsedList01';
+
+        const repositionRequest = new RepositionChildNodeRequest();
+        repositionRequest.parentNodeIri = 'http://rdfh.ch/lists/0001/notUsedList02';
+        repositionRequest.position = -1;
+
+        this.knoraApiConnection.admin.listsEndpoint.repositionChildNode(childNodeIri, repositionRequest).subscribe(
+            (res: ApiResponseData<RepositionChildNodeResponse>) => {
+                this.listNodePosition = res.body.node.children[res.body.node.children.length - 1].position;
+                this.listNodeParentIri = res.body.node.children[res.body.node.children.length - 1].hasRootNode;
             },
             err => console.error('Error:', err)
         );

@@ -100,6 +100,8 @@ export { ChildNodeInfoResponse } from "./models/admin/child-node-info-response";
 export { ChildNodeInfo } from "./models/admin/child-node-info";
 export { DeleteListResponse } from "./models/admin/delete-list-response";
 export { DeleteListNodeResponse } from "./models/admin/delete-list-node-response";
+export { RepositionChildNodeRequest } from "./models/admin/reposition-child-node-request";
+export { RepositionChildNodeResponse } from "./models/admin/reposition-child-node-response";
 
 export { LoginResponse } from "./models/v2/authentication/login-response";
 export { CredentialsResponse } from "./models/v2/authentication/credentials-response";
