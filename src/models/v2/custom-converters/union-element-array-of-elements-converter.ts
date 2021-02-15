@@ -54,11 +54,9 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert
                 return UnionElementArrayOfElementsConverter.jsonConvert.deserializeArray(el, Place);
             } else if (el[0].hasOwnProperty("@id")) {
                 const newArr = [] as IId[];
-                if (Array.isArray(el)) {
-                    el.forEach(
-                        (item: any) => newArr.push({id: item})
-                    );
-                }
+                el.forEach(
+                    (item: any) => newArr.push({id: item["@id"]})
+                );
                 return newArr;
             } else {
                 throw new Error(`Deserialization Error: expected an array of objects with property @type equals to: 
@@ -75,7 +73,7 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert
                 || el.hasOwnProperty(Constants.SchemaUrlValue)) {
                 return UnionElementArrayOfElementsConverter.jsonConvert.deserializeArray([el], Place);
             } else if (el.hasOwnProperty("@id")) {
-                return { id: el };
+                return [{ id: el["@id"] }];
             } else {
                 throw new Error(`Deserialization Error: expected an object with property @type equals to: 
                     ${Constants.ProvAttribution}, ${Constants.DspGrant}, ${Constants.SchemaPlace}, or a reference 
