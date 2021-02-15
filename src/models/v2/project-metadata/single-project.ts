@@ -30,7 +30,7 @@ export class SingleProject extends BaseProjectMetadata {
     contactPoint?: Person[] | Organization[] | IId[] = undefined;
 
     @JsonProperty(Constants.DspHasDataManagementPlan, UnionDataManagementPlanIdConverter, true)
-    dataManagementPlan?: DataManagementPlan | IId = undefined;
+    dataManagementPlan?: DataManagementPlan | IId[] = undefined;
 
     @JsonProperty(Constants.DspHasDescription, String)
     description: string = "";
