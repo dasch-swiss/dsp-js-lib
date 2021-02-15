@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.0.2](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.0.1...v2.0.2) (2021-02-15)
+
+
+### Maintenance
+
+* **deps:** Bump socket.io from 2.3.0 to 2.4.1 ([#298](https://www.github.com/dasch-swiss/dsp-js-lib/issues/298)) ([5ce833d](https://www.github.com/dasch-swiss/dsp-js-lib/commit/5ce833da8d7c1590fc1cc12b5f0197cfc271d0cd))
+
 ### [2.0.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.0.0...v2.0.1) (2021-02-10)
 
 
