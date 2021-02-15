@@ -35,7 +35,7 @@ export class UnionSingleProjctIdConverter implements JsonCustomConvert<SinglePro
         if (el.hasOwnProperty("@type") && el["@type"] === Constants.DspProject) {
             return UnionSingleProjctIdConverter.jsonConvert.deserializeObject(el, SingleProject);
         } else if (!el.hasOwnProperty("@type") && el.hasOwnProperty("@id")) {
-            return {id: el};
+            return { id: el["@id"] };
         } else {
             throw new Error(`Deserialization Error: expected an object with @type property equals to 
                 ${Constants.DspProject} or a reference object with @id property.`);
