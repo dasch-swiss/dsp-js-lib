@@ -956,6 +956,64 @@ describe('workspace-project App', () => {
     expect(listComment.getText()).toEqual('de/Neuer Kommentar');
   });
 
+  it('should create a list child node', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#lists button.create-list-child-node');
+
+    button.click();
+
+    const listChildNodeName = page.getEle('div#lists span.child-name');
+
+    expect(listChildNodeName.getText()).toEqual('new child node');
+
+    const listChildNodeLabel = page.getEle('div#lists span.child-labels');
+
+    expect(listChildNodeLabel.getText()).toEqual('en/New Child List Node Value');
+
+    const listChildNodeComment = page.getEle('div#lists span.child-comments');
+
+    expect(listChildNodeComment.getText()).toEqual('en/New Child List Node Comment');
+  });
+
+  it('should create a list child node at position 1', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#lists button.create-list-child-node-at-position');
+
+    button.click();
+
+    const listChildNodeName = page.getEle('div#lists span.child-name');
+
+    expect(listChildNodeName.getText()).toEqual('new child node at position 1');
+
+    const listChildNodeLabel = page.getEle('div#lists span.child-labels');
+
+    expect(listChildNodeLabel.getText()).toEqual('en/New Child List Node at Position 1 Value');
+
+    const listChildNodeComment = page.getEle('div#lists span.child-comments');
+
+    expect(listChildNodeComment.getText()).toEqual('en/New Child List Node at Position 1 Comment');
+
+    const listChildNodePosition = page.getEle('div#lists span.list-node-position');
+
+    expect(listChildNodePosition.getText()).toEqual('1');
+  });
+
   it('should reposition a child node to the end of its siblings', () => {
 
     page.navigateTo();
@@ -972,7 +1030,7 @@ describe('workspace-project App', () => {
 
     const listNodePosition = page.getEle('div#lists span.list-node-position');
 
-    expect(listNodePosition.getText()).toEqual('2');
+    expect(listNodePosition.getText()).toEqual('4');
 
     const listNodeParentIri = page.getEle('div#lists span.list-node-parent-iri');
 

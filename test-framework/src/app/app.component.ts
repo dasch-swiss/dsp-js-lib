@@ -75,7 +75,8 @@ import {
     DeleteListResponse,
     DeleteListNodeResponse,
     RepositionChildNodeRequest,
-    RepositionChildNodeResponse
+    RepositionChildNodeResponse,
+    CreateChildNodeRequest
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -1416,6 +1417,61 @@ export class AppComponent implements OnInit {
                     res.body.list.listinfo.comments[0].language
                     + '/'
                     + res.body.list.listinfo.comments[0].value;
+            }
+        );
+    }
+
+    createListChildNode(): void {
+        const createRequest = new CreateChildNodeRequest();
+        createRequest.parentNodeIri = 'http://rdfh.ch/lists/0001/notUsedList';
+        createRequest.projectIri = 'http://rdfh.ch/projects/0001';
+        createRequest.name = 'new child node';
+        createRequest.labels = [{ 'value': 'New Child List Node Value', 'language': 'en'}];
+        createRequest.comments = [{ 'value': 'New Child List Node Comment', 'language': 'en'}];
+
+        this.knoraApiConnection.admin.listsEndpoint.createChildNode(createRequest).subscribe(
+            (res: ApiResponseData<ListNodeInfoResponse>) => {
+                this.listChildLabels =
+                    res.body.nodeinfo.labels[0].language
+                    + '/'
+                    + res.body.nodeinfo.labels[0].value;
+
+                this.listChildComments =
+                    res.body.nodeinfo.comments[0].language
+                    + '/'
+                    + res.body.nodeinfo.comments[0].value;
+
+                this.listChildName = res.body.nodeinfo.name;
+
+                this.listNodePosition = res.body.nodeinfo.position;
+            }
+        );
+    }
+
+    createListChildNodeAtPosition(): void {
+        const createRequest = new CreateChildNodeRequest();
+        createRequest.parentNodeIri = 'http://rdfh.ch/lists/0001/notUsedList';
+        createRequest.projectIri = 'http://rdfh.ch/projects/0001';
+        createRequest.name = 'new child node at position 1';
+        createRequest.labels = [{ 'value': 'New Child List Node at Position 1 Value', 'language': 'en'}];
+        createRequest.comments = [{ 'value': 'New Child List Node at Position 1 Comment', 'language': 'en'}];
+        createRequest.position = 1;
+
+        this.knoraApiConnection.admin.listsEndpoint.createChildNode(createRequest).subscribe(
+            (res: ApiResponseData<ListNodeInfoResponse>) => {
+                this.listChildLabels =
+                    res.body.nodeinfo.labels[0].language
+                    + '/'
+                    + res.body.nodeinfo.labels[0].value;
+
+                this.listChildComments =
+                    res.body.nodeinfo.comments[0].language
+                    + '/'
+                    + res.body.nodeinfo.comments[0].value;
+
+                this.listChildName = res.body.nodeinfo.name;
+
+                this.listNodePosition = res.body.nodeinfo.position;
             }
         );
     }
