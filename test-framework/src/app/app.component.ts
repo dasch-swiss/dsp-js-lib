@@ -1152,27 +1152,27 @@ export class AppComponent implements OnInit {
             {
                 type: Constants.ProvAttribution,
                 role: ['contributor', 'watcher'],
-                agent: {id: 'http://ns.dasch.swiss/test-berry'}
+                agent: [{id: 'http://ns.dasch.swiss/test-berry'}]
             },
             {
                 type: Constants.ProvAttribution,
                 role: ['contributor'],
-                agent: {id: 'http://ns.dasch.swiss/test-hart'}
+                agent: [{id: 'http://ns.dasch.swiss/test-hart'}]
             },
             {
                 type: Constants.ProvAttribution,
                 role: ['editor'],
-                agent: {id: 'http://ns.dasch.swiss/test-abraham'}
+                agent: [{id: 'http://ns.dasch.swiss/test-abraham'}]
             },
             {
                 type: Constants.ProvAttribution,
                 role: ['editor'],
-                agent: {id: 'http://ns.dasch.swiss/test-coleman'}
+                agent: [{id: 'http://ns.dasch.swiss/test-coleman'}]
             },
             {
                 type: Constants.ProvAttribution,
                 role: ['editor'],
-                agent: {id: 'http://ns.dasch.swiss/test-jones'}
+                agent: [{id: 'http://ns.dasch.swiss/test-jones'}]
             }
          ];
         testDataset.status = 'ongoing';

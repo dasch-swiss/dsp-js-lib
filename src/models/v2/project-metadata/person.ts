@@ -33,7 +33,7 @@ export class Person extends BaseProjectMetadata {
     jobTitle: string[] = [];
 
     @JsonProperty(Constants.DspIsMemberOf, UnionOrganizationIdConverter)
-    memberOf: Organization[] | IId = [];
+    memberOf: Organization[] | IId[] = [];
 
     @JsonProperty(Constants.DspSameAs, UnionUrlStringConverter, true)
     sameAs?: IUrl = undefined;

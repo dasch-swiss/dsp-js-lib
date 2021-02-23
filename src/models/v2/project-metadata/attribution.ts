@@ -17,7 +17,7 @@ export class Attribution extends BaseProjectMetadata {
     role: string[] = [];
 
     @JsonProperty(Constants.ProvAgent, UnionPersonOrganizationIdConverter)
-    agent: Person | Organization | IId = new Person();
+    agent: Array<Person | Organization | IId> = [];
 
     constructor() {
         super(Constants.ProvAttribution);

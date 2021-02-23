@@ -62,7 +62,7 @@ export class UnionPersonOrganizationIdConverter implements JsonCustomConvert
         } else if (el.hasOwnProperty(Constants.DspHasName)) {
             return UnionPersonOrganizationIdConverter.jsonConvert.deserializeObject(el, Organization);
         } else if (el.hasOwnProperty("@id") && (!el.hasOwnProperty(Constants.DspHasJobTitle) || !el.hasOwnProperty(Constants.DspHasName))) {
-            return {id: el};
+            return { id: el["@id"] };
         } else {
             throw new Error(`Deserialization Error: expected an object with ${Constants.DspPerson} or ${Constants.DspOrganization} key, 
                 or reference object with @id key.`);
