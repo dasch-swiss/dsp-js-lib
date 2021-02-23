@@ -44,5 +44,5 @@ export class CreateChildNodeRequest {
    * The position of the node.
    */
   @JsonProperty("position", Number, true)
-  position?: number = -1;
+  position?: number = undefined;
 }
