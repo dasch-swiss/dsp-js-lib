@@ -382,6 +382,7 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.createChildNode(childNode).subscribe(
                 (res: ApiResponseData<ListNodeInfoResponse>) => {
+                    expect(res.body.nodeinfo.id).toEqual('http://rdfh.ch/lists/0001/treeList01');
                     done();
                 }
             );
@@ -431,6 +432,7 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.createChildNode(childNode).subscribe(
                 (res: ApiResponseData<ListNodeInfoResponse>) => {
+                    expect(res.body.nodeinfo.id).toEqual('http://rdfh.ch/lists/0001/fdjCFwqKRXexvrSPYLN0cg');
                     done();
                 }
             );
