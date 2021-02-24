@@ -382,6 +382,7 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.createChildNode(childNode).subscribe(
                 (res: ApiResponseData<ListNodeInfoResponse>) => {
+                    expect(res.body.nodeinfo.id).toEqual('http://rdfh.ch/lists/0001/treeList01');
                     done();
                 }
             );
@@ -399,6 +400,57 @@ describe("ListsEndpoint", () => {
             expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/lists/create-child-node-request.json");
+
+            // TODO: remove this bad hack once test data is stable
+            payload["parentNodeIri"] = "http://rdfh.ch/lists/0001/CeiuqMk_R1-lIOKh-fyddA";
+
+            expect(request.data()).toEqual(payload);
+
+        });
+
+        it("should create a child node at a specific position", done => {
+
+            const childNode = new CreateChildNodeRequest();
+
+            childNode.parentNodeIri = "http://rdfh.ch/lists/0001/CeiuqMk_R1-lIOKh-fyddA";
+            childNode.projectIri = "http://rdfh.ch/projects/0001";
+            childNode.name = "child with position";
+
+            const label1 = new StringLiteral();
+            label1.language = "en";
+            label1.value = "Inserted List Node Label";
+
+            childNode.labels = [label1];
+
+            const comment1 = new StringLiteral();
+            comment1.language = "en";
+            comment1.value = "Inserted List Node Comment";
+
+            childNode.comments = [comment1];
+
+            childNode.position = 1;
+
+            knoraApiConnection.admin.listsEndpoint.createChildNode(childNode).subscribe(
+                (res: ApiResponseData<ListNodeInfoResponse>) => {
+                    expect(res.body.nodeinfo.id).toEqual('http://rdfh.ch/lists/0001/fdjCFwqKRXexvrSPYLN0cg');
+                    expect(res.body.nodeinfo.position).toEqual(1);
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const listsResponse = require("../../../../test/data/api/admin/lists/insert-childNode-in-position-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FCeiuqMk_R1-lIOKh-fyddA");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+
+            const payload = require("../../../../test/data/api/admin/lists/insert-childNode-in-position-request.json");
 
             // TODO: remove this bad hack once test data is stable
             payload["parentNodeIri"] = "http://rdfh.ch/lists/0001/CeiuqMk_R1-lIOKh-fyddA";

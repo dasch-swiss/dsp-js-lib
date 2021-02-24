@@ -10,34 +10,39 @@ import { StringLiteral } from "./string-literal";
 @JsonObject("CreateChildNodeRequest")
 export class CreateChildNodeRequest {
 
-   /**
-     * The comments attached to the enclosing object.
-     */
-    @JsonProperty("comments", [StringLiteral])
-    comments: StringLiteral[] = [];
+  /**
+   * The comments attached to the enclosing object.
+   */
+  @JsonProperty("comments", [StringLiteral])
+  comments: StringLiteral[] = [];
 
-   /**
-     * The labels attached to the enclosing object.
-     */
-    @JsonProperty("labels", [StringLiteral])
-    labels: StringLiteral[] = [];
+  /**
+   * The labels attached to the enclosing object.
+   */
+  @JsonProperty("labels", [StringLiteral])
+  labels: StringLiteral[] = [];
 
-   /**
-     * The name of the enclosing object.
-     */
-    @JsonProperty("name", String, true)
-    name?: string = undefined;
+  /**
+   * The name of the enclosing object.
+   */
+  @JsonProperty("name", String, true)
+  name?: string = undefined;
 
-   /**
-     * Provides a the IRI of a parent list node.
-     */
-    @JsonProperty("parentNodeIri", String)
-    parentNodeIri: string = "";
+  /**
+   * Provides a the IRI of a parent list node.
+   */
+  @JsonProperty("parentNodeIri", String)
+  parentNodeIri: string = "";
 
-   /**
-     * The IRI of a project.
-     */
-    @JsonProperty("projectIri", String)
-    projectIri: string = "";
+  /**
+   * The IRI of a project.
+   */
+  @JsonProperty("projectIri", String)
+  projectIri: string = "";
 
+  /**
+   * The position of the node.
+   */
+  @JsonProperty("position", Number, true)
+  position?: number = undefined;
 }
