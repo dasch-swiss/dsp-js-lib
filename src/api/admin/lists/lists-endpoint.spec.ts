@@ -6,6 +6,7 @@ import { CreateChildNodeRequest } from "../../../models/admin/create-child-node-
 import { CreateListRequest } from "../../../models/admin/create-list-request";
 import { DeleteListNodeResponse } from "../../../models/admin/delete-list-node-response";
 import { DeleteListResponse } from "../../../models/admin/delete-list-response";
+import { ListChildNodeResponse } from "../../../models/admin/list-child-node-response";
 import { ListInfoResponse } from "../../../models/admin/list-info-response";
 import { ListNodeInfoResponse } from "../../../models/admin/list-node-info-response";
 import { ListResponse } from "../../../models/admin/list-response";
@@ -556,11 +557,11 @@ describe("ListsEndpoint", () => {
 
     describe("Method getList", () => {
 
-        it("should return a list", done => {
+        it("should return a list (root node)", done => {
 
             knoraApiConnection.admin.listsEndpoint.getList("http://rdfh.ch/lists/0001/treeList").subscribe(
-                (res: ApiResponseData<ListResponse>) => {
-                    expect(res.body.list.listinfo.id).toEqual("http://rdfh.ch/lists/0001/treeList");
+                (res: ApiResponseData<ListResponse | ListChildNodeResponse>) => {
+                    expect((res.body as ListResponse).list.listinfo.id).toEqual("http://rdfh.ch/lists/0001/treeList");
                     done();
                 }
             );
@@ -572,6 +573,30 @@ describe("ListsEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
 
             expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList");
+
+            expect(request.method).toEqual("GET");
+
+            expect(request.requestHeaders).toEqual({ "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" });
+
+        });
+
+        it("should return a list child node", done => {
+
+            knoraApiConnection.admin.listsEndpoint.getList("http://rdfh.ch/lists/0001/treeList03").subscribe(
+                (res: ApiResponseData<ListResponse | ListChildNodeResponse>) => {
+                    expect((res.body as ListChildNodeResponse).node.nodeinfo.id).toEqual("http://rdfh.ch/lists/0001/treeList03");
+                    expect((res.body as ListChildNodeResponse).node.children.length).toEqual(2);
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const listsResponse = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/get-node-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList03");
 
             expect(request.method).toEqual("GET");
 
