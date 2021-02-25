@@ -433,7 +433,7 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.createChildNode(childNode).subscribe(
                 (res: ApiResponseData<ListNodeInfoResponse>) => {
-                    expect(res.body.nodeinfo.id).toEqual('http://rdfh.ch/lists/0001/fdjCFwqKRXexvrSPYLN0cg');
+                    expect(res.body.nodeinfo.name).toEqual("child with position");
                     expect(res.body.nodeinfo.position).toEqual(1);
                     done();
                 }
