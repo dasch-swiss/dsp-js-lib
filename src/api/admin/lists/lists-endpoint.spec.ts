@@ -560,8 +560,8 @@ describe("ListsEndpoint", () => {
         it("should return a list (root node)", done => {
 
             knoraApiConnection.admin.listsEndpoint.getList("http://rdfh.ch/lists/0001/treeList").subscribe(
-                (res: ApiResponseData<ListResponse | ListChildNodeResponse>) => {
-                    expect((res.body as ListResponse).list.listinfo.id).toEqual("http://rdfh.ch/lists/0001/treeList");
+                (res: ApiResponseData<ListResponse>) => {
+                    expect(res.body.list.listinfo.id).toEqual("http://rdfh.ch/lists/0001/treeList");
                     done();
                 }
             );
@@ -583,9 +583,9 @@ describe("ListsEndpoint", () => {
         it("should return a list child node", done => {
 
             knoraApiConnection.admin.listsEndpoint.getList("http://rdfh.ch/lists/0001/treeList03").subscribe(
-                (res: ApiResponseData<ListResponse | ListChildNodeResponse>) => {
-                    expect((res.body as ListChildNodeResponse).node.nodeinfo.id).toEqual("http://rdfh.ch/lists/0001/treeList03");
-                    expect((res.body as ListChildNodeResponse).node.children.length).toEqual(2);
+                (res: ApiResponseData<ListChildNodeResponse>) => {
+                    expect(res.body.node.nodeinfo.id).toEqual("http://rdfh.ch/lists/0001/treeList03");
+                    expect(res.body.node.children.length).toEqual(2);
                     done();
                 }
             );
