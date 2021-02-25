@@ -1,5 +1,13 @@
 # Changelog
 
+### [2.0.3](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.0.2...v2.0.3) (2021-02-25)
+
+
+### Maintenance
+
+* **create-child-node-request:** add optional position property (DSP-1300) ([#322](https://www.github.com/dasch-swiss/dsp-js-lib/issues/322)) ([df402ae](https://www.github.com/dasch-swiss/dsp-js-lib/commit/df402ae48485e3d5275d5615d07d778942eef0d3))
+* **gh-ci:** update release please configuration ([#323](https://www.github.com/dasch-swiss/dsp-js-lib/issues/323)) ([9092b6b](https://www.github.com/dasch-swiss/dsp-js-lib/commit/9092b6b23b554d83118f60355b258b38a8a5b94c))
+
 ### [2.0.2](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.0.1...v2.0.2) (2021-02-15)
 
 
