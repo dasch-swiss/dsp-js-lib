@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.0.2...v2.1.0) (2021-02-26)
+
+
+### Enhancements
+
+* **lists-endpoint:** Support for receiving a list child node from DSP-API (DSP-1385) ([#324](https://www.github.com/dasch-swiss/dsp-js-lib/issues/324)) ([3be391f](https://www.github.com/dasch-swiss/dsp-js-lib/commit/3be391f9a90d12ea14e3d6fcf479ea10742810c4))
+
+
+### Maintenance
+
+* **create-child-node-request:** add optional position property (DSP-1300) ([#322](https://www.github.com/dasch-swiss/dsp-js-lib/issues/322)) ([df402ae](https://www.github.com/dasch-swiss/dsp-js-lib/commit/df402ae48485e3d5275d5615d07d778942eef0d3))
+* **dependencies:** update dsp-api to 13.4.0 ([#327](https://www.github.com/dasch-swiss/dsp-js-lib/issues/327)) ([768d266](https://www.github.com/dasch-swiss/dsp-js-lib/commit/768d2668de87b7d0abe3a825609fa976f5385760))
+* **gh-ci:** update release please configuration ([#323](https://www.github.com/dasch-swiss/dsp-js-lib/issues/323)) ([9092b6b](https://www.github.com/dasch-swiss/dsp-js-lib/commit/9092b6b23b554d83118f60355b258b38a8a5b94c))
+
 ### [2.0.2](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.0.1...v2.0.2) (2021-02-15)
 
 
