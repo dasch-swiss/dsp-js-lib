@@ -1038,7 +1038,6 @@ export class AppComponent implements OnInit {
         // testDataset.dateModified = '2020-04-26';
         // testDataset.datePublished = '2002-09-24';
         // testDataset.distribution = { type: 'https://schema.org/DataDownload', url: 'https://test.dasch.swiss' } as IUrl;
-        // testDataset.documentation = 'Work in progress';
         // testDataset.documentation = ['Work in progress', 'Dddddd'];
         testDataset.howToCite = 'Testprojekt (test), 2002, https://test.dasch.swiss';
         testDataset.language = [ 'EN', 'DE', 'FR' ];
@@ -1119,7 +1118,6 @@ export class AppComponent implements OnInit {
         const grant = new Grant();
         grant.id = 'http://ns.dasch.swiss/test-grant';
         grant.type = Constants.DspRepoBase + 'Grant',
-        // TODO: why funder is not returnet but only id?
         grant.funder = [{
             'id': 'http://ns.dasch.swiss/test-funder',
             type: Constants.DspRepoBase + 'Organization',
@@ -1148,12 +1146,6 @@ export class AppComponent implements OnInit {
         testDataset.project.name = 'Testprojektname (test)';
         testDataset.project.publication = ['testpublication'];
         testDataset.project.shortcode = '0000';
-        // testDataset.project.spatialCoverage = [{
-        //     'place': {
-        //         'name': 'Geonames',
-        //         'url': 'https://www.geonames.org/2017370/russian-federation.html'
-        //     }
-        // }];
         testDataset.project.spatialCoverage = [
             {
                'place': {
