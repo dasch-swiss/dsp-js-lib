@@ -22,6 +22,7 @@ import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
 import { ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-class-definition";
 import { ResourcePropertyDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-property-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
+import { UpdateOntologyMetadata } from "../../../models/v2/ontologies/update/update-ontology-metadata";
 import { UpdateResourceClassCardinality } from "../../../models/v2/ontologies/update/update-resource-class-cardinality";
 import { UpdateResourceClassComment } from "../../../models/v2/ontologies/update/update-resource-class-comment";
 import { UpdateResourceClassLabel } from "../../../models/v2/ontologies/update/update-resource-class-label";
@@ -151,6 +152,38 @@ export class OntologiesEndpointV2 extends Endpoint {
             catchError(error => this.handleError(error))
         );
 
+    }
+
+    /**
+     * Updates the metadata of an ontology.
+     *
+     * @param ontologyMetadata The ontology metadata to be updated
+     */
+    updateOntology(ontologyMetadata: UpdateOntologyMetadata): Observable<OntologyMetadata | ApiResponseError> {
+
+        if (ontologyMetadata.label === undefined && ontologyMetadata.comment === undefined) {
+            throw new Error("Label and comment cannot both be undefined. At least one must be defined.");
+        }
+
+        if ((ontologyMetadata.label !== undefined && ontologyMetadata.comment !== undefined) &&
+            (ontologyMetadata.label.trim() === "" || ontologyMetadata.comment.trim() === "")) {
+            throw new Error("Label and comment cannot be empty strings.");
+        }
+
+        const onto = this.jsonConvert.serializeObject(ontologyMetadata);
+
+        return this.httpPut("/metadata", onto).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
     }
 
     /**
