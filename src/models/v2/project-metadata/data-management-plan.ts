@@ -14,7 +14,7 @@ export class DataManagementPlan extends BaseProjectMetadata {
     id: string = "";
 
     @JsonProperty(Constants.DspHasURL, UnionUrlStringConverter, true)
-    url?: IUrl = undefined;
+    url?: IUrl[] = undefined;
 
     @JsonProperty(Constants.DspIsAvailable, Boolean, true)
     isAvailable?: boolean = undefined;

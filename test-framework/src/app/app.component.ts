@@ -1100,18 +1100,18 @@ export class AppComponent implements OnInit {
         testDataset.project.dataManagementPlan = {
             'id': 'http://ns.dasch.swiss/test-plan',
             type: Constants.DspRepoBase + 'DataManagementPlan',
-            'url': {
+            'url': [{
                'type': Constants.SchemaUrlType,
                'url': 'https://snf.ch'
-            },
+            }],
             'isAvailable': false
          } as DataManagementPlan;
         testDataset.project.description = 'Dies ist ein Testprojekt...alle Properties wurden verwendet, um diese zu testen';
-        testDataset.project.discipline = {
+        testDataset.project.discipline = [{
             'name': 'SKOS UNESCO Nomenclature',
             'type': Constants.SchemaUrlType,
             'url': 'http://skos.um.es/unesco6/11'
-         };
+         }];
         // testDataset.project.endDate = '2001-01-26';
         testDataset.project.funder = [{
             'id': 'http://ns.dasch.swiss/test-funder'
@@ -1131,11 +1131,11 @@ export class AppComponent implements OnInit {
             },
             'email': 'info@universityoftoronto.ca',
             'name': ['University of Toronto', 'WWW'],
-            'url': {
+            'url': [{
                 'type': Constants.SchemaUrlType,
                 'name': 'cos',
                 'url': 'http://www.utoronto.ca/'
-            }
+            }]
         }] as Organization[];
         // grant.name = 'Prof. test test, Prof. test Harbtestrecht';
         // grant.number = '0123456789';
@@ -1199,11 +1199,11 @@ export class AppComponent implements OnInit {
             }
         ];
         testDataset.project.startDate = '2000-07-26';
-        testDataset.project.temporalCoverage = {
+        testDataset.project.temporalCoverage = [{
             'name': 'Chronontology Dainst',
             'type': Constants.SchemaUrlType,
             'url': 'http://chronontology.dainst.org/period/Ef9SyESSafJ1'
-        };
+        }];
         testDataset.project.url = [{
             'type': Constants.SchemaUrlType,
             'url': 'https://test.dasch.swiss/'

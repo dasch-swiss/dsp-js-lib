@@ -26,7 +26,7 @@ export class Grant extends BaseProjectMetadata {
     number?: string = undefined;
 
     @JsonProperty(Constants.DspHasURL, UnionUrlStringConverter, true)
-    url?: IUrl = undefined;
+    url?: IUrl[] = undefined;
 
     constructor() {
         super(Constants.DspGrant);
