@@ -1053,7 +1053,6 @@ export class AppComponent implements OnInit {
         // testDataset.dateModified = '2020-04-26';
         // testDataset.datePublished = '2002-09-24';
         // testDataset.distribution = { type: 'https://schema.org/DataDownload', url: 'https://test.dasch.swiss' } as IUrl;
-        // testDataset.documentation = 'Work in progress';
         // testDataset.documentation = ['Work in progress', 'Dddddd'];
         testDataset.howToCite = 'Testprojekt (test), 2002, https://test.dasch.swiss';
         testDataset.language = [ 'EN', 'DE', 'FR' ];
@@ -1115,18 +1114,18 @@ export class AppComponent implements OnInit {
         testDataset.project.dataManagementPlan = {
             'id': 'http://ns.dasch.swiss/test-plan',
             type: Constants.DspRepoBase + 'DataManagementPlan',
-            'url': {
+            'url': [{
                'type': Constants.SchemaUrlType,
                'url': 'https://snf.ch'
-            },
+            }],
             'isAvailable': false
          } as DataManagementPlan;
         testDataset.project.description = 'Dies ist ein Testprojekt...alle Properties wurden verwendet, um diese zu testen';
-        testDataset.project.discipline = {
+        testDataset.project.discipline = [{
             'name': 'SKOS UNESCO Nomenclature',
             'type': Constants.SchemaUrlType,
             'url': 'http://skos.um.es/unesco6/11'
-         };
+         }];
         // testDataset.project.endDate = '2001-01-26';
         testDataset.project.funder = [{
             'id': 'http://ns.dasch.swiss/test-funder'
@@ -1134,7 +1133,6 @@ export class AppComponent implements OnInit {
         const grant = new Grant();
         grant.id = 'http://ns.dasch.swiss/test-grant';
         grant.type = Constants.DspRepoBase + 'Grant',
-        // TODO: why funder is not returnet but only id?
         grant.funder = [{
             'id': 'http://ns.dasch.swiss/test-funder',
             type: Constants.DspRepoBase + 'Organization',
@@ -1146,11 +1144,11 @@ export class AppComponent implements OnInit {
             },
             'email': 'info@universityoftoronto.ca',
             'name': ['University of Toronto', 'WWW'],
-            'url': {
+            'url': [{
                 'type': Constants.SchemaUrlType,
                 'name': 'cos',
                 'url': 'http://www.utoronto.ca/'
-            }
+            }]
         }] as Organization[];
         // grant.name = 'Prof. test test, Prof. test Harbtestrecht';
         // grant.number = '0123456789';
@@ -1163,12 +1161,6 @@ export class AppComponent implements OnInit {
         testDataset.project.name = 'Testprojektname (test)';
         testDataset.project.publication = ['testpublication'];
         testDataset.project.shortcode = '0000';
-        // testDataset.project.spatialCoverage = [{
-        //     'place': {
-        //         'name': 'Geonames',
-        //         'url': 'https://www.geonames.org/2017370/russian-federation.html'
-        //     }
-        // }];
         testDataset.project.spatialCoverage = [
             {
                'place': {
@@ -1214,11 +1206,11 @@ export class AppComponent implements OnInit {
             }
         ];
         testDataset.project.startDate = '2000-07-26';
-        testDataset.project.temporalCoverage = {
+        testDataset.project.temporalCoverage = [{
             'name': 'Chronontology Dainst',
             'type': Constants.SchemaUrlType,
             'url': 'http://chronontology.dainst.org/period/Ef9SyESSafJ1'
-        };
+        }];
         testDataset.project.url = [{
             'type': Constants.SchemaUrlType,
             'url': 'https://test.dasch.swiss/'
