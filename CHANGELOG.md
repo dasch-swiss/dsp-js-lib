@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.1.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.1.0...v2.1.1) (2021-03-02)
+
+
+### Bug Fixes
+
+* **metadata-endpoint:** types inconsistency (DSP-1388) ([#328](https://www.github.com/dasch-swiss/dsp-js-lib/issues/328)) ([91b3fd9](https://www.github.com/dasch-swiss/dsp-js-lib/commit/91b3fd9d2609e55695a8dd1a2d85ffbce6e21866))
+
 ## [2.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.0.2...v2.1.0) (2021-02-26)
 
 
