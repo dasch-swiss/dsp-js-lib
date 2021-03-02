@@ -21,7 +21,7 @@ export class Dataset extends BaseProjectMetadata {
     id: string = "";
 
     @JsonProperty(Constants.DspHasAbstract, UnionUrlStringConverter)
-    abstract: string[] = [];
+    abstract: Array<IUrl | string> = [];
 
     @JsonProperty(Constants.DspHasAlternativeTitle, String, true)
     alternativeTitle?: string = undefined;
@@ -42,7 +42,7 @@ export class Dataset extends BaseProjectMetadata {
     distribution?: IUrl = undefined;
 
     @JsonProperty(Constants.DspHasDocumentation, UnionUrlStringConverter, true)
-    documentation?: string[] = undefined;
+    documentation?: Array<IUrl | string> = undefined;
 
     @JsonProperty(Constants.DspHasHowToCite, String)
     howToCite: string = "";
