@@ -25,7 +25,7 @@ export class Organization extends BaseProjectMetadata {
     name: string[] = [];
 
     @JsonProperty(Constants.DspHasURL, UnionUrlStringConverter, true)
-    url?: IUrl = undefined;
+    url?: IUrl[] = undefined;
 
     constructor() {
         super(Constants.DspOrganization);

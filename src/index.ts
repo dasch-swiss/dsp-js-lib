@@ -81,6 +81,8 @@ export { UserResponse } from "./models/admin/user-response";
 export { UsersResponse } from "./models/admin/users-response";
 
 export { List } from "./models/admin/list";
+export { ListChildNode } from "./models/admin/list-child-node";
+export { ListChildNodeResponse } from "./models/admin/list-child-node-response";
 export { ListInfoResponse } from "./models/admin/list-info-response";
 export { ListNode } from "./models/admin/list-node";
 export { ListNodeInfo } from "./models/admin/list-node-info";

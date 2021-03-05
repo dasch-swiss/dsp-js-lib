@@ -82,7 +82,8 @@ import {
     UpdateDefaultObjectAccessPermissionResourceClass,
     UpdateDefaultObjectAccessPermissionProperty,
     RepositionChildNodeRequest,
-    RepositionChildNodeResponse
+    RepositionChildNodeResponse,
+    CreateChildNodeRequest
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -1143,7 +1144,6 @@ export class AppComponent implements OnInit {
         // testDataset.dateModified = '2020-04-26';
         // testDataset.datePublished = '2002-09-24';
         // testDataset.distribution = { type: 'https://schema.org/DataDownload', url: 'https://test.dasch.swiss' } as IUrl;
-        // testDataset.documentation = 'Work in progress';
         // testDataset.documentation = ['Work in progress', 'Dddddd'];
         testDataset.howToCite = 'Testprojekt (test), 2002, https://test.dasch.swiss';
         testDataset.language = [ 'EN', 'DE', 'FR' ];
@@ -1205,18 +1205,18 @@ export class AppComponent implements OnInit {
         testDataset.project.dataManagementPlan = {
             'id': 'http://ns.dasch.swiss/test-plan',
             type: Constants.DspRepoBase + 'DataManagementPlan',
-            'url': {
+            'url': [{
                'type': Constants.SchemaUrlType,
                'url': 'https://snf.ch'
-            },
+            }],
             'isAvailable': false
          } as DataManagementPlan;
         testDataset.project.description = 'Dies ist ein Testprojekt...alle Properties wurden verwendet, um diese zu testen';
-        testDataset.project.discipline = {
+        testDataset.project.discipline = [{
             'name': 'SKOS UNESCO Nomenclature',
             'type': Constants.SchemaUrlType,
             'url': 'http://skos.um.es/unesco6/11'
-         };
+         }];
         // testDataset.project.endDate = '2001-01-26';
         testDataset.project.funder = [{
             'id': 'http://ns.dasch.swiss/test-funder'
@@ -1224,7 +1224,6 @@ export class AppComponent implements OnInit {
         const grant = new Grant();
         grant.id = 'http://ns.dasch.swiss/test-grant';
         grant.type = Constants.DspRepoBase + 'Grant',
-        // TODO: why funder is not returnet but only id?
         grant.funder = [{
             'id': 'http://ns.dasch.swiss/test-funder',
             type: Constants.DspRepoBase + 'Organization',
@@ -1236,11 +1235,11 @@ export class AppComponent implements OnInit {
             },
             'email': 'info@universityoftoronto.ca',
             'name': ['University of Toronto', 'WWW'],
-            'url': {
+            'url': [{
                 'type': Constants.SchemaUrlType,
                 'name': 'cos',
                 'url': 'http://www.utoronto.ca/'
-            }
+            }]
         }] as Organization[];
         // grant.name = 'Prof. test test, Prof. test Harbtestrecht';
         // grant.number = '0123456789';
@@ -1253,12 +1252,6 @@ export class AppComponent implements OnInit {
         testDataset.project.name = 'Testprojektname (test)';
         testDataset.project.publication = ['testpublication'];
         testDataset.project.shortcode = '0000';
-        // testDataset.project.spatialCoverage = [{
-        //     'place': {
-        //         'name': 'Geonames',
-        //         'url': 'https://www.geonames.org/2017370/russian-federation.html'
-        //     }
-        // }];
         testDataset.project.spatialCoverage = [
             {
                'place': {
@@ -1304,11 +1297,11 @@ export class AppComponent implements OnInit {
             }
         ];
         testDataset.project.startDate = '2000-07-26';
-        testDataset.project.temporalCoverage = {
+        testDataset.project.temporalCoverage = [{
             'name': 'Chronontology Dainst',
             'type': Constants.SchemaUrlType,
             'url': 'http://chronontology.dainst.org/period/Ef9SyESSafJ1'
-        };
+        }];
         testDataset.project.url = [{
             'type': Constants.SchemaUrlType,
             'url': 'https://test.dasch.swiss/'
@@ -1522,6 +1515,61 @@ export class AppComponent implements OnInit {
                     res.body.list.listinfo.comments[0].language
                     + '/'
                     + res.body.list.listinfo.comments[0].value;
+            }
+        );
+    }
+
+    createListChildNode(): void {
+        const createRequest = new CreateChildNodeRequest();
+        createRequest.parentNodeIri = 'http://rdfh.ch/lists/0001/notUsedList';
+        createRequest.projectIri = 'http://rdfh.ch/projects/0001';
+        createRequest.name = 'new child node';
+        createRequest.labels = [{ 'value': 'New Child List Node Value', 'language': 'en'}];
+        createRequest.comments = [{ 'value': 'New Child List Node Comment', 'language': 'en'}];
+
+        this.knoraApiConnection.admin.listsEndpoint.createChildNode(createRequest).subscribe(
+            (res: ApiResponseData<ListNodeInfoResponse>) => {
+                this.listChildLabels =
+                    res.body.nodeinfo.labels[0].language
+                    + '/'
+                    + res.body.nodeinfo.labels[0].value;
+
+                this.listChildComments =
+                    res.body.nodeinfo.comments[0].language
+                    + '/'
+                    + res.body.nodeinfo.comments[0].value;
+
+                this.listChildName = res.body.nodeinfo.name;
+
+                this.listNodePosition = res.body.nodeinfo.position;
+            }
+        );
+    }
+
+    createListChildNodeAtPosition(): void {
+        const createRequest = new CreateChildNodeRequest();
+        createRequest.parentNodeIri = 'http://rdfh.ch/lists/0001/notUsedList';
+        createRequest.projectIri = 'http://rdfh.ch/projects/0001';
+        createRequest.name = 'new child node at position 1';
+        createRequest.labels = [{ 'value': 'New Child List Node at Position 1 Value', 'language': 'en'}];
+        createRequest.comments = [{ 'value': 'New Child List Node at Position 1 Comment', 'language': 'en'}];
+        createRequest.position = 1;
+
+        this.knoraApiConnection.admin.listsEndpoint.createChildNode(createRequest).subscribe(
+            (res: ApiResponseData<ListNodeInfoResponse>) => {
+                this.listChildLabels =
+                    res.body.nodeinfo.labels[0].language
+                    + '/'
+                    + res.body.nodeinfo.labels[0].value;
+
+                this.listChildComments =
+                    res.body.nodeinfo.comments[0].language
+                    + '/'
+                    + res.body.nodeinfo.comments[0].value;
+
+                this.listChildName = res.body.nodeinfo.name;
+
+                this.listNodePosition = res.body.nodeinfo.position;
             }
         );
     }
