@@ -17,7 +17,7 @@
                         var releases = data.filter(
                             // check that version is at least v1.0.0
                             // ignore prereleases
-                            rel => rel.tag_name.charAt(1) === "1" && rel.tag_name.indexOf("-rc.") === -1
+                            rel => rel.tag_name.charAt(1) >= 1 && rel.tag_name.indexOf("-rc.") === -1
                         ).reverse();
 
                         releases.forEach(
