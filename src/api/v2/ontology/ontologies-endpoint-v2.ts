@@ -1,6 +1,7 @@
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
+import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { Constants } from "../../../models/v2/Constants";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
@@ -165,25 +166,59 @@ export class OntologiesEndpointV2 extends Endpoint {
             throw new Error("Label and comment cannot both be undefined. At least one must be defined.");
         }
 
-        if ((ontologyMetadata.label !== undefined && ontologyMetadata.comment !== undefined) &&
-            (ontologyMetadata.label.trim() === "" || ontologyMetadata.comment.trim() === "")) {
-            throw new Error("Label and comment cannot be empty strings.");
+        if (ontologyMetadata.label !== undefined && ontologyMetadata.label.trim() === "") {
+            throw new Error("Label cannot be an empty string.");
         }
 
-        const onto = this.jsonConvert.serializeObject(ontologyMetadata);
+        if (ontologyMetadata.comment !== undefined && ontologyMetadata.comment.trim() === "") {
+            ontologyMetadata.comment = undefined;
 
-        return this.httpPut("/metadata", onto).pipe(
-            mergeMap((ajaxResponse: AjaxResponse) => {
-                // TODO: @rosenth Adapt context object
-                // TODO: adapt getOntologyIriFromEntityIri
-                return jsonld.compact(ajaxResponse.response, {});
-            }), map((jsonldobj: object) => {
-                return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
-            }),
-            catchError(error => {
-                return this.handleError(error);
-            })
-        );
+            return this.httpDelete(`/comment/${encodeURIComponent(ontologyMetadata.id)}?lastModificationDate=${encodeURIComponent(ontologyMetadata.lastModificationDate)}`).pipe(
+                mergeMap((ajaxResponse: AjaxResponse) => {
+                    // TODO: @rosenth Adapt context object
+                    // TODO: adapt getOntologyIriFromEntityIri
+                    return jsonld.compact(ajaxResponse.response, {});
+                }), map((jsonldobj: object) => {
+                    return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
+                }),
+                mergeMap((res) => {
+                    console.log('res: ', res);
+                    ontologyMetadata.lastModificationDate = res.lastModificationDate!;
+                    console.log('onto: ', ontologyMetadata);
+
+                    const onto = this.jsonConvert.serializeObject(ontologyMetadata);
+
+                    return this.httpPut("/metadata", onto).pipe(
+                        mergeMap((ajaxResponse: AjaxResponse) => {
+                            // TODO: @rosenth Adapt context object
+                            // TODO: adapt getOntologyIriFromEntityIri
+                            return jsonld.compact(ajaxResponse.response, {});
+                        }), map((jsonldobj: object) => {
+                            return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
+                        }),
+                        catchError(error => {
+                            return this.handleError(error);
+                        })
+                    );
+                })
+                
+            );
+        } else {
+            const onto = this.jsonConvert.serializeObject(ontologyMetadata);
+
+            return this.httpPut("/metadata", onto).pipe(
+                mergeMap((ajaxResponse: AjaxResponse) => {
+                    // TODO: @rosenth Adapt context object
+                    // TODO: adapt getOntologyIriFromEntityIri
+                    return jsonld.compact(ajaxResponse.response, {});
+                }), map((jsonldobj: object) => {
+                    return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
+                }),
+                catchError(error => {
+                    return this.handleError(error);
+                })
+            );
+        }
     }
 
     /**

@@ -407,7 +407,7 @@ export class AppComponent implements OnInit {
         );
     }
 
-    updateOntology() {
+    updateOntologyLabel() {
         const updateOntologyMetadata = new UpdateOntologyMetadata();
         updateOntologyMetadata.id = this.ontology.id;
         updateOntologyMetadata.lastModificationDate = this.ontology.lastModificationDate;
@@ -416,7 +416,33 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.onto.updateOntology(updateOntologyMetadata).subscribe(
             (onto: OntologyMetadata) => {
                 this.ontologyMeta = onto;
-                console.log('onto label changed', onto.label);
+            }
+        );
+    }
+
+    updateOntologyComment() {
+        const updateOntologyMetadata = new UpdateOntologyMetadata();
+        updateOntologyMetadata.id = this.ontology.id;
+        updateOntologyMetadata.lastModificationDate = this.ontology.lastModificationDate;
+        updateOntologyMetadata.comment = '';
+
+        this.knoraApiConnection.v2.onto.updateOntology(updateOntologyMetadata).subscribe(
+            (onto: OntologyMetadata) => {
+                this.ontologyMeta = onto;
+            }
+        );
+    }
+
+    updateOntologyLabelAndComment() {
+        const updateOntologyMetadata = new UpdateOntologyMetadata();
+        updateOntologyMetadata.id = this.ontology.id;
+        updateOntologyMetadata.lastModificationDate = this.ontology.lastModificationDate;
+        updateOntologyMetadata.label = 'Test Onto New Label';
+        updateOntologyMetadata.comment = 'Test Onto New Comment';
+
+        this.knoraApiConnection.v2.onto.updateOntology(updateOntologyMetadata).subscribe(
+            (onto: OntologyMetadata) => {
+                this.ontologyMeta = onto;
             }
         );
     }
