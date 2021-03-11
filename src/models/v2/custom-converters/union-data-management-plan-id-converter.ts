@@ -54,7 +54,7 @@ export class UnionDataManagementPlanIdConverter implements JsonCustomConvert<Dat
         if (el.hasOwnProperty("@type") && el["@type"] === Constants.DspDataManagementPlan) {
             return UnionDataManagementPlanIdConverter.jsonConvert.deserializeObject(el, DataManagementPlan);
         } else if (el.hasOwnProperty("@id") && !el.hasOwnProperty("@type")) {
-            return { id: el };
+            return { id: el["@id"] };
         } else {
             throw new Error(`Deserialization Error: expected an object with property @type equals to 
                 ${Constants.DspDataManagementPlan} or an object with @id key.`);

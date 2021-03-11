@@ -30,13 +30,13 @@ export class SingleProject extends BaseProjectMetadata {
     contactPoint?: Person[] | Organization[] | IId[] = undefined;
 
     @JsonProperty(Constants.DspHasDataManagementPlan, UnionDataManagementPlanIdConverter, true)
-    dataManagementPlan?: DataManagementPlan | IId = undefined;
+    dataManagementPlan?: DataManagementPlan | IId[] = undefined;
 
     @JsonProperty(Constants.DspHasDescription, String)
     description: string = "";
 
     @JsonProperty(Constants.DspHasDiscipline, UnionUrlStringConverter)
-    discipline: IUrl = {} as IUrl;
+    discipline: Array<IUrl | string> = [];
     
     @JsonProperty(Constants.DspHasEndDate, DateConverter, true)
     endDate?: string = undefined;
@@ -66,7 +66,7 @@ export class SingleProject extends BaseProjectMetadata {
     startDate: string = "";
 
     @JsonProperty(Constants.DspHasTemporalCoverage, UnionUrlStringConverter)
-    temporalCoverage: IUrl = {} as IUrl;
+    temporalCoverage: Array<IUrl | string> = [];
 
     @JsonProperty(Constants.DspHasURL, UnionUrlStringConverter)
     url: IUrl[] = [];

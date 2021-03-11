@@ -52,7 +52,7 @@ export class UnionOrganizationIdConverter implements JsonCustomConvert<Array<Org
         if (el.hasOwnProperty(Constants.DspHasName)) {
             return UnionOrganizationIdConverter.jsonConvert.deserializeObject(el, Organization);
         } else if (el.hasOwnProperty("@id") && !el.hasOwnProperty(Constants.DspHasName)) {
-            return { id: el };
+            return { id: el["@id"] };
         } else {
             throw new Error(`Deserialization Error: expected an object with property @type equals to 
                 ${Constants.DspOrganization} or an object with @id key.`);
