@@ -132,8 +132,8 @@ when it is ready while the dependencies are still being resolved.
 `GenericCache` cannot be instantiated because it is an abstract class. It can be implemented for a specific type providing implementations for the following methods:
 
 - `requestItemFromKnora(key: string, isDependency: boolean): : Observable<T[]>`: Requests the specified element from DSP-API, e.g., an ontology by calling the `OntologyEndpoint`.
-- `getKeyOfItem(item: T): string`: Given the element, get the key that identifies it. For example given a `ReadOntology` returns its IRI.
-- `getDependenciesOfItem(item: T): string[]`: Given an element, gets its dependencies. For example given a `ReadOntology` returns the IRIs of ontologies it directly depends on.
+- `getKeyOfItem(item: T): string`: Given the element, get the key that identifies it. For example, given a `ReadOntology` returns its IRI.
+- `getDependenciesOfItem(item: T): string[]`: Given an element, gets its dependencies. For example, given a `ReadOntology` returns the IRIs of ontologies it directly depends on.
 
 ### Admin
 

@@ -6,10 +6,13 @@ import { CreateChildNodeRequest } from "../../../models/admin/create-child-node-
 import { CreateListRequest } from "../../../models/admin/create-list-request";
 import { DeleteListNodeResponse } from "../../../models/admin/delete-list-node-response";
 import { DeleteListResponse } from "../../../models/admin/delete-list-response";
+import { ListChildNodeResponse } from "../../../models/admin/list-child-node-response";
 import { ListInfoResponse } from "../../../models/admin/list-info-response";
 import { ListNodeInfoResponse } from "../../../models/admin/list-node-info-response";
 import { ListResponse } from "../../../models/admin/list-response";
 import { ListsResponse } from "../../../models/admin/lists-response";
+import { RepositionChildNodeRequest } from "../../../models/admin/reposition-child-node-request";
+import { RepositionChildNodeResponse } from "../../../models/admin/reposition-child-node-response";
 import { StringLiteral } from "../../../models/admin/string-literal";
 import { UpdateChildNodeCommentsRequest } from "../../../models/admin/update-child-node-comments-request";
 import { UpdateChildNodeLabelsRequest } from "../../../models/admin/update-child-node-labels-request";
@@ -380,6 +383,7 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.createChildNode(childNode).subscribe(
                 (res: ApiResponseData<ListNodeInfoResponse>) => {
+                    expect(res.body.nodeinfo.id).toEqual('http://rdfh.ch/lists/0001/treeList01');
                     done();
                 }
             );
@@ -397,6 +401,57 @@ describe("ListsEndpoint", () => {
             expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/lists/create-child-node-request.json");
+
+            // TODO: remove this bad hack once test data is stable
+            payload["parentNodeIri"] = "http://rdfh.ch/lists/0001/CeiuqMk_R1-lIOKh-fyddA";
+
+            expect(request.data()).toEqual(payload);
+
+        });
+
+        it("should create a child node at a specific position", done => {
+
+            const childNode = new CreateChildNodeRequest();
+
+            childNode.parentNodeIri = "http://rdfh.ch/lists/0001/CeiuqMk_R1-lIOKh-fyddA";
+            childNode.projectIri = "http://rdfh.ch/projects/0001";
+            childNode.name = "child with position";
+
+            const label1 = new StringLiteral();
+            label1.language = "en";
+            label1.value = "Inserted List Node Label";
+
+            childNode.labels = [label1];
+
+            const comment1 = new StringLiteral();
+            comment1.language = "en";
+            comment1.value = "Inserted List Node Comment";
+
+            childNode.comments = [comment1];
+
+            childNode.position = 1;
+
+            knoraApiConnection.admin.listsEndpoint.createChildNode(childNode).subscribe(
+                (res: ApiResponseData<ListNodeInfoResponse>) => {
+                    expect(res.body.nodeinfo.name).toEqual("child with position");
+                    expect(res.body.nodeinfo.position).toEqual(1);
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const listsResponse = require("../../../../test/data/api/admin/lists/insert-childNode-in-position-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FCeiuqMk_R1-lIOKh-fyddA");
+
+            expect(request.method).toEqual("POST");
+
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+
+            const payload = require("../../../../test/data/api/admin/lists/insert-childNode-in-position-request.json");
 
             // TODO: remove this bad hack once test data is stable
             payload["parentNodeIri"] = "http://rdfh.ch/lists/0001/CeiuqMk_R1-lIOKh-fyddA";
@@ -502,7 +557,7 @@ describe("ListsEndpoint", () => {
 
     describe("Method getList", () => {
 
-        it("should return a list", done => {
+        it("should return a list (root node)", done => {
 
             knoraApiConnection.admin.listsEndpoint.getList("http://rdfh.ch/lists/0001/treeList").subscribe(
                 (res: ApiResponseData<ListResponse>) => {
@@ -518,6 +573,30 @@ describe("ListsEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
 
             expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList");
+
+            expect(request.method).toEqual("GET");
+
+            expect(request.requestHeaders).toEqual({ "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" });
+
+        });
+
+        it("should return a list child node", done => {
+
+            knoraApiConnection.admin.listsEndpoint.getList("http://rdfh.ch/lists/0001/treeList03").subscribe(
+                (res: ApiResponseData<ListChildNodeResponse>) => {
+                    expect(res.body.node.nodeinfo.id).toEqual("http://rdfh.ch/lists/0001/treeList03");
+                    expect(res.body.node.children.length).toEqual(2);
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const listsResponse = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/get-node-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList03");
 
             expect(request.method).toEqual("GET");
 
@@ -578,6 +657,132 @@ describe("ListsEndpoint", () => {
 
         });
 
+    });
+
+    describe("Method repositionListNode", () => { 
+        it("should reposition a list child node to the second position among its siblings", done => {
+
+            const repositionChildNode = new RepositionChildNodeRequest();
+            repositionChildNode.parentNodeIri = "http://rdfh.ch/lists/0001/notUsedList01";
+            repositionChildNode.position = 1;
+
+            knoraApiConnection.admin.listsEndpoint.repositionChildNode("http://rdfh.ch/lists/0001/notUsedList014", repositionChildNode).subscribe(
+                (res: ApiResponseData<RepositionChildNodeResponse>) => {
+                    expect(res.body.node.children[1].id).toEqual("http://rdfh.ch/lists/0001/notUsedList014");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const repositionListNodeResponse = require("../../../../test/data/api/admin/lists/update-childNode-position-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(repositionListNodeResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FnotUsedList014/position");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+
+            const payload = require("../../../../test/data/api/admin/lists/update-childNode-position-request.json");
+
+            expect(request.data()).toEqual(payload);
+
+        });
+
+        it("should reposition a list child node to the last position among its siblings", done => {
+
+            const repositionChildNode = new RepositionChildNodeRequest();
+            repositionChildNode.parentNodeIri = "http://rdfh.ch/lists/0001/notUsedList01";
+            repositionChildNode.position = -1;
+
+            knoraApiConnection.admin.listsEndpoint.repositionChildNode("http://rdfh.ch/lists/0001/notUsedList012", repositionChildNode).subscribe(
+                (res: ApiResponseData<RepositionChildNodeResponse>) => {
+                    expect(res.body.node.children[res.body.node.children.length - 1].id).toEqual("http://rdfh.ch/lists/0001/notUsedList012");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const repositionListNodeResponse = require("../../../../test/data/api/admin/lists/update-childNode-position-to-end-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(repositionListNodeResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FnotUsedList012/position");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+
+            const payload = require("../../../../test/data/api/admin/lists/update-childNode-position-to-end-request.json");
+
+            expect(request.data()).toEqual(payload);
+
+        });
+
+        it("should reposition a list child node to the third position with a new parent", done => {
+
+            const repositionChildNode = new RepositionChildNodeRequest();
+            repositionChildNode.parentNodeIri = "http://rdfh.ch/lists/0001/notUsedList";
+            repositionChildNode.position = 2;
+
+            knoraApiConnection.admin.listsEndpoint.repositionChildNode("http://rdfh.ch/lists/0001/notUsedList015", repositionChildNode).subscribe(
+                (res: ApiResponseData<RepositionChildNodeResponse>) => {
+                    expect(res.body.node.children[2].id).toEqual("http://rdfh.ch/lists/0001/notUsedList015");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const repositionListNodeResponse = require("../../../../test/data/api/admin/lists/update-childNode-position-new-parent-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(repositionListNodeResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FnotUsedList015/position");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+
+            const payload = require("../../../../test/data/api/admin/lists/update-childNode-position-new-parent-request.json");
+
+            expect(request.data()).toEqual(payload);
+
+        });
+
+        it("should reposition a list child node to the last position with a new parent", done => {
+
+            const repositionChildNode = new RepositionChildNodeRequest();
+            repositionChildNode.parentNodeIri = "http://rdfh.ch/lists/0001/notUsedList";
+            repositionChildNode.position = -1;
+
+            knoraApiConnection.admin.listsEndpoint.repositionChildNode("http://rdfh.ch/lists/0001/notUsedList015", repositionChildNode).subscribe(
+                (res: ApiResponseData<RepositionChildNodeResponse>) => {
+                    expect(res.body.node.children[res.body.node.children.length - 1].id).toEqual("http://rdfh.ch/lists/0001/notUsedList015");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const repositionListNodeResponse = require("../../../../test/data/api/admin/lists/update-childNode-position-new-parent-to-end-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(repositionListNodeResponse)));
+
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FnotUsedList015/position");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+
+            const payload = require("../../../../test/data/api/admin/lists/update-childNode-position-new-parent-to-end-request.json");
+
+            expect(request.data()).toEqual(payload);
+
+        });
     });
 
 });

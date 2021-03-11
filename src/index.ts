@@ -48,6 +48,7 @@ export { AdministrativePermissionsResponse } from "./models/admin/administrative
 export { Permission } from "./models/admin/permission";
 export { CreatePermission } from "./models/admin/create-permission";
 export { Permissions } from "./models/admin/permissions";
+export { DeletePermissionResponse } from "./models/admin/delete-permission-response";
 
 export { Project } from "./models/admin/project";
 export { ReadProject } from "./models/admin/read-project";
@@ -72,6 +73,8 @@ export { UserResponse } from "./models/admin/user-response";
 export { UsersResponse } from "./models/admin/users-response";
 
 export { List } from "./models/admin/list";
+export { ListChildNode } from "./models/admin/list-child-node";
+export { ListChildNodeResponse } from "./models/admin/list-child-node-response";
 export { ListInfoResponse } from "./models/admin/list-info-response";
 export { ListNode } from "./models/admin/list-node";
 export { ListNodeInfo } from "./models/admin/list-node-info";
@@ -91,6 +94,8 @@ export { ChildNodeInfoResponse } from "./models/admin/child-node-info-response";
 export { ChildNodeInfo } from "./models/admin/child-node-info";
 export { DeleteListResponse } from "./models/admin/delete-list-response";
 export { DeleteListNodeResponse } from "./models/admin/delete-list-node-response";
+export { RepositionChildNodeRequest } from "./models/admin/reposition-child-node-request";
+export { RepositionChildNodeResponse } from "./models/admin/reposition-child-node-response";
 
 export { LoginResponse } from "./models/v2/authentication/login-response";
 export { CredentialsResponse } from "./models/v2/authentication/credentials-response";
@@ -116,7 +121,7 @@ export { UpdateResourceClassComment } from "./models/v2/ontologies/update/update
 export { UpdateResourcePropertyLabel } from "./models/v2/ontologies/update/update-resource-property-label";
 export { UpdateResourcePropertyComment } from "./models/v2/ontologies/update/update-resource-property-comment";
 export { ReadOntology } from "./models/v2/ontologies/read/read-ontology";
-export { UpdateOntologyResourceClassCardinality } from "./models/v2/ontologies/update/update-ontology-resource-class-cardinality";
+export { UpdateResourceClassCardinality } from "./models/v2/ontologies/update/update-resource-class-cardinality";
 export { OntologyMetadata, OntologiesMetadata } from "./models/v2/ontologies/ontology-metadata";
 export {
     ResourceClassDefinitionWithPropertyDefinition,
@@ -211,7 +216,6 @@ export { Grant } from "./models/v2/project-metadata/grant";
 export { Organization } from "./models/v2/project-metadata/organization";
 export { Place } from "./models/v2/project-metadata/place";
 export { UpdateProjectMetadataResponse } from "./models/v2/project-metadata/update-project-metadata";
-export { IUrl } from "./models/v2/custom-converters/base-url-converter";
 
 // Utils
 export { CardinalityUtil } from "./models/v2/resources/cardinality-util";
@@ -221,3 +225,4 @@ export { PermissionUtil } from "./models/v2/resources/permission-util";
 export { IPermissions } from "./interfaces/models/admin/i-permissions";
 export { IFulltextSearchParams } from "./interfaces/models/v2/i-fulltext-search-params";
 export { ILabelSearchParams } from "./interfaces/models/v2/i-label-search-params";
+export { IId, IUrl } from "./interfaces/models/v2/project-metadata-interfaces";

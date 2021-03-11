@@ -5,10 +5,14 @@ import { CreateChildNodeRequest } from "../../../models/admin/create-child-node-
 import { CreateListRequest } from "../../../models/admin/create-list-request";
 import { DeleteListNodeResponse } from "../../../models/admin/delete-list-node-response";
 import { DeleteListResponse } from "../../../models/admin/delete-list-response";
+import { ListChildNodeResponse } from "../../../models/admin/list-child-node-response";
 import { ListInfoResponse } from "../../../models/admin/list-info-response";
 import { ListNodeInfoResponse } from "../../../models/admin/list-node-info-response";
+import { ListNodeResponse } from "../../../models/admin/list-node-response";
 import { ListResponse } from "../../../models/admin/list-response";
 import { ListsResponse } from "../../../models/admin/lists-response";
+import { RepositionChildNodeRequest } from "../../../models/admin/reposition-child-node-request";
+import { RepositionChildNodeResponse } from "../../../models/admin/reposition-child-node-response";
 import { UpdateChildNodeCommentsRequest } from "../../../models/admin/update-child-node-comments-request";
 import { UpdateChildNodeLabelsRequest } from "../../../models/admin/update-child-node-labels-request";
 import { UpdateChildNodeNameRequest } from "../../../models/admin/update-child-node-name-request";
@@ -150,9 +154,23 @@ export class ListsEndpointAdmin extends Endpoint {
                 if (ajaxResponse.response.hasOwnProperty("node")) { // child node
                     return ApiResponseData.fromAjaxResponse(ajaxResponse, DeleteListNodeResponse, this.jsonConvert);
                 } else { // root node
-                    return ApiResponseData.fromAjaxResponse(ajaxResponse, DeleteListResponse, this.jsonConvert)
+                    return ApiResponseData.fromAjaxResponse(ajaxResponse, DeleteListResponse, this.jsonConvert);
                 }
             }),
+            catchError(error => this.handleError(error))
+        );
+    }
+
+    /**
+     * Move child node to a certain position in a list.
+     * Parent node IRI can be the same but only if the position is different.
+     * 
+     * @param iri The IRI of the list node to move.
+     * @param repositionRequest The parent node IRI and the position the child node should move to.
+     */
+    repositionChildNode(iri: string, repositionRequest: RepositionChildNodeRequest): Observable<ApiResponseData<RepositionChildNodeResponse> | ApiResponseError> {
+        return this.httpPut("/" + encodeURIComponent(iri) + "/position", this.jsonConvert.serializeObject(repositionRequest)).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, RepositionChildNodeResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
     }
@@ -216,10 +234,16 @@ export class ListsEndpointAdmin extends Endpoint {
      * 
      * @param listItemIri The IRI of the list.
      */
-    getList(listItemIri: string): Observable<ApiResponseData<ListResponse> | ApiResponseError> {
+    getList(listItemIri: string): Observable<ApiResponseData<ListResponse | ListChildNodeResponse> | ApiResponseError> {
     
         return this.httpGet("/" + encodeURIComponent(listItemIri), { "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" }).pipe(
-            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListResponse, this.jsonConvert)),
+            map(ajaxResponse => {
+                if (ajaxResponse.response.hasOwnProperty("list")) {
+                    return ApiResponseData.fromAjaxResponse(ajaxResponse, ListResponse, this.jsonConvert);
+                } else {
+                    return ApiResponseData.fromAjaxResponse(ajaxResponse, ListChildNodeResponse, this.jsonConvert);
+                }
+            }),
             catchError(error => this.handleError(error))
         );
     

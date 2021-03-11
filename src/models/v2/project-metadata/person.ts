@@ -1,9 +1,9 @@
 import { JsonObject, JsonProperty } from "json2typescript";
+import { IId, IUrl } from "../../../interfaces/models/v2/project-metadata-interfaces";
 import { Constants } from "../Constants";
-import { IUrl } from "../custom-converters/base-url-converter";
 import { UnionOrganizationIdConverter } from "../custom-converters/union-orgnization-id-converter";
 import { UnionStringArrayOfStringsConverter } from "../custom-converters/union-string-array-of-strings-converter";
-import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
+import { UnionUrlStringConverter } from "../custom-converters/union-url-string-converter";
 import { Address } from "./address";
 import { BaseProjectMetadata } from "./base-project-metadata";
 import { Organization } from "./organization";
@@ -33,10 +33,10 @@ export class Person extends BaseProjectMetadata {
     jobTitle: string[] = [];
 
     @JsonProperty(Constants.DspIsMemberOf, UnionOrganizationIdConverter)
-    memberOf: Organization[] = [];
+    memberOf: Organization[] | IId[] = [];
 
-    @JsonProperty(Constants.DspSameAs, UrlToUrlObjectConverter, true)
-    sameAs?: IUrl = undefined;
+    @JsonProperty(Constants.DspSameAs, UnionUrlStringConverter, true)
+    sameAs?: IUrl[] = undefined;
 
     constructor() {
         super(Constants.DspPerson);

@@ -9,8 +9,7 @@ of `RxJS` which might have breaking changes.
 
 ## Imports from RxJS
 
-- from `rxjs`:    
-   - `AsyncSubject`
+- from `rxjs`:
    - `forkJoin`
    - `throwError`
    - `of`
@@ -26,4 +25,6 @@ of `RxJS` which might have breaking changes.
     - `map`
     - `mergeMap`
     - `take`
+    - `shareReplay`  
+    - `tap`
 

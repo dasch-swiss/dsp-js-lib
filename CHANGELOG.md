@@ -1,5 +1,85 @@
 # Changelog
 
+### [2.1.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.1.0...v2.1.1) (2021-03-02)
+
+
+### Bug Fixes
+
+* **metadata-endpoint:** types inconsistency (DSP-1388) ([#328](https://www.github.com/dasch-swiss/dsp-js-lib/issues/328)) ([91b3fd9](https://www.github.com/dasch-swiss/dsp-js-lib/commit/91b3fd9d2609e55695a8dd1a2d85ffbce6e21866))
+
+## [2.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.0.2...v2.1.0) (2021-02-26)
+
+
+### Enhancements
+
+* **lists-endpoint:** Support for receiving a list child node from DSP-API (DSP-1385) ([#324](https://www.github.com/dasch-swiss/dsp-js-lib/issues/324)) ([3be391f](https://www.github.com/dasch-swiss/dsp-js-lib/commit/3be391f9a90d12ea14e3d6fcf479ea10742810c4))
+
+
+### Maintenance
+
+* **create-child-node-request:** add optional position property (DSP-1300) ([#322](https://www.github.com/dasch-swiss/dsp-js-lib/issues/322)) ([df402ae](https://www.github.com/dasch-swiss/dsp-js-lib/commit/df402ae48485e3d5275d5615d07d778942eef0d3))
+* **dependencies:** update dsp-api to 13.4.0 ([#327](https://www.github.com/dasch-swiss/dsp-js-lib/issues/327)) ([768d266](https://www.github.com/dasch-swiss/dsp-js-lib/commit/768d2668de87b7d0abe3a825609fa976f5385760))
+* **gh-ci:** update release please configuration ([#323](https://www.github.com/dasch-swiss/dsp-js-lib/issues/323)) ([9092b6b](https://www.github.com/dasch-swiss/dsp-js-lib/commit/9092b6b23b554d83118f60355b258b38a8a5b94c))
+
+### [2.0.2](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.0.1...v2.0.2) (2021-02-15)
+
+
+### Maintenance
+
+* **deps:** Bump socket.io from 2.3.0 to 2.4.1 ([#298](https://www.github.com/dasch-swiss/dsp-js-lib/issues/298)) ([5ce833d](https://www.github.com/dasch-swiss/dsp-js-lib/commit/5ce833da8d7c1590fc1cc12b5f0197cfc271d0cd))
+
+### Bug Fixes
+
+* **metadata-endopoint:** ID conversion (DSP-1348) ([#321](https://www.github.com/dasch-swiss/dsp-js-lib/issues/321)) ([82bbe05](https://www.github.com/dasch-swiss/dsp-js-lib/commit/a63b9aa0991dd5dc2cb558a29441011dac3d8714))
+
+### [2.0.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.0.0...v2.0.1) (2021-02-10)
+
+
+### Maintenance
+
+* **dependencies:** updates dsp-api to 13.3.1 and updates test data ([#318](https://www.github.com/dasch-swiss/dsp-js-lib/issues/318)) ([38d2d7d](https://www.github.com/dasch-swiss/dsp-js-lib/commit/38d2d7d34aed929b0b93742036620c59265d6891))
+
+## [2.0.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v1.3.0...v2.0.0) (2021-02-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* **metadata-endopoint:** minor improvements + code refactoring (DSP-1307) (#314)
+* **cache:** handle failed requests to dsp-api (DSP-402) (#210)
+* **ontology endpoint:** replace cardinalities (DSP-1265) (#304)
+
+### Bug Fixes
+
+* **cache:** handle failed requests to dsp-api (DSP-402) ([#210](https://www.github.com/dasch-swiss/dsp-js-lib/issues/210)) ([82bbe05](https://www.github.com/dasch-swiss/dsp-js-lib/commit/82bbe05a28f7a1e08a2c5254bfd9ac475f9324ea))
+
+
+### Enhancements
+
+* **metadata-endopoint:** minor improvements + code refactoring (DSP-1307) ([#314](https://www.github.com/dasch-swiss/dsp-js-lib/issues/314)) ([c83624e](https://www.github.com/dasch-swiss/dsp-js-lib/commit/c83624e7764569149b4ea84816d367ef32a11a58))
+* **ontology endpoint:** replace cardinalities (DSP-1265) ([#304](https://www.github.com/dasch-swiss/dsp-js-lib/issues/304)) ([4d9e00a](https://www.github.com/dasch-swiss/dsp-js-lib/commit/4d9e00aa2cdc34619164627adc2dfab37c1cc92c))
+* **permissions endpoint:** Delete Permission (DSP-1304) ([#307](https://www.github.com/dasch-swiss/dsp-js-lib/issues/307)) ([b87309a](https://www.github.com/dasch-swiss/dsp-js-lib/commit/b87309a59b177dc2646ba9233a5ca3031fabfc55))
+
+
+### Maintenance
+
+* **dependency:** update dsp-api to v13.2.0 ([#317](https://www.github.com/dasch-swiss/dsp-js-lib/issues/317)) ([8326d56](https://www.github.com/dasch-swiss/dsp-js-lib/commit/8326d56de4cfb32bb9a91d98612f76bd58cc45b5))
+
+## [1.3.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v1.2.1...v1.3.0) (2021-02-02)
+
+
+### Maintenance
+
+* **dsp-api:** update dsp-api to 13.1.1 ([#311](https://www.github.com/dasch-swiss/dsp-js-lib/issues/311)) ([cf0d228](https://www.github.com/dasch-swiss/dsp-js-lib/commit/cf0d228722e805cbb38b9dff90115392482bebcd))
+
+
+### Enhancements
+
+* **lists-endpoint:** add support for deleting a list node(DSP-1049) ([#310](https://www.github.com/dasch-swiss/dsp-js-lib/issues/310)) ([c5a82f5](https://www.github.com/dasch-swiss/dsp-js-lib/commit/c5a82f55abce62be8c229e572b13ed7ad2f8602d))
+* **metadata-endpoint:** expose all x-n properties as arrays (DSP-1306) ([#309](https://www.github.com/dasch-swiss/dsp-js-lib/issues/309)) ([97e7e33](https://www.github.com/dasch-swiss/dsp-js-lib/commit/97e7e336645b72f899993b19052853d406b5a8cc))
+* **metadata-endpoint:** test/implement flat response option (DSP-1223) ([#312](https://www.github.com/dasch-swiss/dsp-js-lib/issues/312)) ([ee986cf](https://www.github.com/dasch-swiss/dsp-js-lib/commit/ee986cfdcb1b647139896a25ef683cfa6748a7fb))
+* **ontology endpoint:** update a resource class's and property's label and comment (DSP-1263 / DSP-1264) ([#303](https://www.github.com/dasch-swiss/dsp-js-lib/issues/303)) ([76a3057](https://www.github.com/dasch-swiss/dsp-js-lib/commit/76a30578ce166542308e2ad677d8af2c9661861d))
+* **metadata-endpoint:** adjust x-n properties and custom converters (DSP-1222) ([#301](https://www.github.com/dasch-swiss/dsp-js-lib/issues/301)) ([b8c0aaa](https://www.github.com/dasch-swiss/dsp-js-lib/commit/b8c0aaa7e65aec9cc5e379c00b2955b434aea4af))
+
 ### [1.2.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v1.2.0...v1.2.1) (2021-01-28)
 
 
@@ -17,7 +97,7 @@
 
 ### Bug Fixes
 
-* metadata endpoint after DSP-API v.13.0.0 release (DSP-1232) ([#294](https://www.github.com/dasch-swiss/dsp-js-lib/issues/294)) ([07c908b](https://www.github.com/dasch-swiss/dsp-js-lib/commit/07c908bc7570b04d0c40afd8b6982b01b2adda16))
+* **metadata-endpoint:** fixes after DSP-API v.13.0.0 release (DSP-1232) ([#294](https://www.github.com/dasch-swiss/dsp-js-lib/issues/294)) ([07c908b](https://www.github.com/dasch-swiss/dsp-js-lib/commit/07c908bc7570b04d0c40afd8b6982b01b2adda16))
 
 
 ### Enhancements

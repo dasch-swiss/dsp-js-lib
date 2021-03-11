@@ -1,8 +1,8 @@
 import { JsonObject, JsonProperty } from "json2typescript";
+import { IId, IUrl } from "../../../interfaces/models/v2/project-metadata-interfaces";
 import { Constants } from "../Constants";
-import { IUrl } from "../custom-converters/base-url-converter";
 import { UnionPersonOrganizationIdConverter } from "../custom-converters/union-person-organization-id-converter";
-import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
+import { UnionUrlStringConverter } from "../custom-converters/union-url-string-converter";
 import { BaseProjectMetadata } from "./base-project-metadata";
 import { Organization } from "./organization";
 import { Person } from "./person";
@@ -17,7 +17,7 @@ export class Grant extends BaseProjectMetadata {
     id: string = "";
 
     @JsonProperty(Constants.DspHasFunder, UnionPersonOrganizationIdConverter)
-    funder: Person[] | Organization[] | object[] = [];
+    funder: Person[] | Organization[] | IId[] = [];
 
     @JsonProperty(Constants.DspHasName, String, true)
     name?: string = undefined;
@@ -25,8 +25,8 @@ export class Grant extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasNumber, String, true)
     number?: string = undefined;
 
-    @JsonProperty(Constants.DspHasURL, UrlToUrlObjectConverter, true)
-    url?: IUrl = undefined;
+    @JsonProperty(Constants.DspHasURL, UnionUrlStringConverter, true)
+    url?: IUrl[] = undefined;
 
     constructor() {
         super(Constants.DspGrant);

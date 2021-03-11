@@ -89,6 +89,32 @@ describe('workspace-project App', () => {
 
   });
 
+  it('delete an administrative permission', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get the admin permission first to assign the Iri
+    const button = page.getEle('div#permissions button.get-administrative-permission');
+    button.click();
+
+    const label = page.getEle('div#permissions span.status');
+    expect(label.getText()).toEqual('Permission status: getAdministrativePermission ok');
+
+    const button2 = page.getEle('div#permissions button.delete-permission');
+    button2.click();
+
+    const label2 = page.getEle('div#permissions span.deleted');
+    expect(label2.getText()).toEqual('Permission deleted: true');
+
+  });
+
   it('request administrative permissions', () => {
 
     page.navigateTo();
@@ -414,6 +440,29 @@ describe('workspace-project App', () => {
     const button = page.getEle('div section#ontologyeditor button.add-card-to-res-prop');
     button.click();
     const label = page.getEle('div section#ontologyeditor span.res-card-added');
+
+    expect(label.getText()).toEqual('Test Klasse neu');
+
+  });
+
+  it('replace a cardinality to a resource class in testonto', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // add cardinality
+    const button = page.getEle('div section#ontologyeditor button.replace-card-for-res-prop');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.res-card-replaced');
 
     expect(label.getText()).toEqual('Test Klasse neu');
 
@@ -905,6 +954,110 @@ describe('workspace-project App', () => {
     const listComment = page.getEle('div#lists span.list-comments');
 
     expect(listComment.getText()).toEqual('de/Neuer Kommentar');
+  });
+
+  it('should create a list child node', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#lists button.create-list-child-node');
+
+    button.click();
+
+    const listChildNodeName = page.getEle('div#lists span.child-name');
+
+    expect(listChildNodeName.getText()).toEqual('new child node');
+
+    const listChildNodeLabel = page.getEle('div#lists span.child-labels');
+
+    expect(listChildNodeLabel.getText()).toEqual('en/New Child List Node Value');
+
+    const listChildNodeComment = page.getEle('div#lists span.child-comments');
+
+    expect(listChildNodeComment.getText()).toEqual('en/New Child List Node Comment');
+  });
+
+  it('should create a list child node at position 1', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#lists button.create-list-child-node-at-position');
+
+    button.click();
+
+    const listChildNodeName = page.getEle('div#lists span.child-name');
+
+    expect(listChildNodeName.getText()).toEqual('new child node at position 1');
+
+    const listChildNodeLabel = page.getEle('div#lists span.child-labels');
+
+    expect(listChildNodeLabel.getText()).toEqual('en/New Child List Node at Position 1 Value');
+
+    const listChildNodeComment = page.getEle('div#lists span.child-comments');
+
+    expect(listChildNodeComment.getText()).toEqual('en/New Child List Node at Position 1 Comment');
+
+    const listChildNodePosition = page.getEle('div#lists span.list-node-position');
+
+    expect(listChildNodePosition.getText()).toEqual('1');
+  });
+
+  it('should reposition a child node to the end of its siblings', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#lists button.reposition-list-node-to-end');
+
+    button.click();
+
+    const listNodePosition = page.getEle('div#lists span.list-node-position');
+
+    expect(listNodePosition.getText()).toEqual('4');
+
+    const listNodeParentIri = page.getEle('div#lists span.list-node-parent-iri');
+
+    expect(listNodeParentIri.getText()).toEqual('http://rdfh.ch/lists/0001/notUsedList');
+  });
+
+  it('should reposition a child node to the end of new parent', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    const button = page.getEle('div#lists button.reposition-list-node-to-end-new-parent');
+
+    button.click();
+
+    const listNodePosition = page.getEle('div#lists span.list-node-position');
+
+    expect(listNodePosition.getText()).toEqual('0');
+
+    const listNodeParentIri = page.getEle('div#lists span.list-node-parent-iri');
+
+    expect(listNodeParentIri.getText()).toEqual('http://rdfh.ch/lists/0001/notUsedList');
   });
 
   it('should delete a list child and root node', () => {

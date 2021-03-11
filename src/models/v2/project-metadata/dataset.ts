@@ -1,13 +1,12 @@
 import { JsonObject, JsonProperty } from "json2typescript";
+import { IUrl } from "../../../interfaces/models/v2/project-metadata-interfaces";
 import { Constants } from "../Constants";
-import { IUrl } from "../custom-converters/base-url-converter";
 import { DateConverter } from "../custom-converters/date-converter";
 import { DistributionConverter } from "../custom-converters/distribution-converter";
 import { UnionElementArrayOfElementsConverter } from "../custom-converters/union-element-array-of-elements-converter";
 import { UnionSingleProjctIdConverter } from "../custom-converters/union-single-project-id-converter";
 import { UnionStringArrayOfStringsConverter } from "../custom-converters/union-string-array-of-strings-converter";
 import { UnionUrlStringConverter } from "../custom-converters/union-url-string-converter";
-import { UrlToUrlObjectConverter } from "../custom-converters/url-to-url-object-converter";
 import { Attribution } from "./attribution";
 import { BaseProjectMetadata } from "./base-project-metadata";
 import { SingleProject } from "./single-project";
@@ -22,7 +21,7 @@ export class Dataset extends BaseProjectMetadata {
     id: string = "";
 
     @JsonProperty(Constants.DspHasAbstract, UnionUrlStringConverter)
-    abstract: string[] = [];
+    abstract: Array<IUrl | string> = [];
 
     @JsonProperty(Constants.DspHasAlternativeTitle, String, true)
     alternativeTitle?: string = undefined;
@@ -43,7 +42,7 @@ export class Dataset extends BaseProjectMetadata {
     distribution?: IUrl = undefined;
 
     @JsonProperty(Constants.DspHasDocumentation, UnionUrlStringConverter, true)
-    documentation?: string[] = undefined;
+    documentation?: Array<IUrl | string> = undefined;
 
     @JsonProperty(Constants.DspHasHowToCite, String)
     howToCite: string = "";
@@ -51,7 +50,7 @@ export class Dataset extends BaseProjectMetadata {
     @JsonProperty(Constants.DspHasLanguage, UnionStringArrayOfStringsConverter)
     language: string[] = [];
 
-    @JsonProperty(Constants.DspHasLicense, UrlToUrlObjectConverter)
+    @JsonProperty(Constants.DspHasLicense, UnionUrlStringConverter)
     license: IUrl[] = [];
 
     @JsonProperty(Constants.DspHasQualifiedAttribution, UnionElementArrayOfElementsConverter)
@@ -70,7 +69,7 @@ export class Dataset extends BaseProjectMetadata {
     @JsonProperty(Constants.DspIsPartOf, UnionSingleProjctIdConverter)
     project: SingleProject = new SingleProject();
 
-    @JsonProperty(Constants.DspSameAs, UrlToUrlObjectConverter, true)
+    @JsonProperty(Constants.DspSameAs, UnionUrlStringConverter, true)
     sameAs?: IUrl[] = undefined;
 
     constructor() {

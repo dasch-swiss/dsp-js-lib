@@ -1,6 +1,7 @@
 import { JsonConverter } from "json2typescript";
+import { IUrl } from "../../../interfaces/models/v2/project-metadata-interfaces";
 import { Constants } from "../Constants";
-import { BaseUrlConverter, IUrl } from "./base-url-converter";
+import { BaseUrlConverter } from "./base-url-converter";
 
 /**
  * @category Internal
@@ -8,24 +9,23 @@ import { BaseUrlConverter, IUrl } from "./base-url-converter";
 @JsonConverter
 export class UnionUrlStringConverter extends BaseUrlConverter {
 
-    serialize(el: Array<IUrl | string>): any {
+    serialize(el: IUrl | string | Array<IUrl | string>): any {
         if (Array.isArray(el)) {
-            const newArr = [] as any[];
-            el.forEach((
-                (item: IUrl | string) => newArr.push(this.serializeElement(item))
-            ));
-            return newArr;
+            return el.map(
+                (item: IUrl | string) => this.serializeElement(item)
+            );
+        } else {
+            return this.serializeElement(el);
         }
     }
 
     deserialize(el: any): Array<IUrl | string> {
-        const newArr = [] as Array<IUrl | string>;
         if (Array.isArray(el)) {
-            el.forEach(
-                (item: any) => newArr.push(this.deserializeElement(item))
+            return el.map(
+                (item: any) => this.deserializeElement(item)
             );
-            return newArr;
         } else {
+            const newArr = [] as Array<IUrl | string>;
             newArr.push(this.deserializeElement(el));
             return newArr;
         }
@@ -35,14 +35,21 @@ export class UnionUrlStringConverter extends BaseUrlConverter {
         if (typeof el === "string") {
             return el;
         } else if (!(typeof el === "string")) {
-            return {
-                "@type": Constants.SchemaUrlType,
-                [Constants.SchemaPropID]: {
-                    "@type": Constants.SchemaPropVal,
-                    [Constants.SchemaPropID]: el.type
-                },
-                [Constants.SchemaUrlValue]: el.value
-            };
+            if (el.hasOwnProperty(Constants.SchemaPropID)) {
+                return {
+                    "@type": Constants.SchemaUrlType,
+                    [Constants.SchemaPropID]: {
+                        "@type": Constants.SchemaPropVal,
+                        [Constants.SchemaPropID]: el.name
+                    },
+                    [Constants.SchemaUrlValue]: el.url
+                };
+            } else {
+                return {
+                    "@type": el.type,
+                    [Constants.SchemaUrlValue]: el.url
+                };
+            }
         } else {
             throw new Error(`Serialization error: expected string or IUrl object type.
                 Instead got ${typeof el}.`);
@@ -53,10 +60,14 @@ export class UnionUrlStringConverter extends BaseUrlConverter {
         if (typeof el === "string") {
             return el;
         } else if (el.hasOwnProperty("@type") && el["@type"] === Constants.SchemaUrlType) {
-            const obj = {} as IUrl;
-            obj.type = el["@type"];
-            obj.value = el[Constants.SchemaUrlValue];
-            return obj;
+            const type = el["@type"];
+            const url = el[Constants.SchemaUrlValue];
+            if (el.hasOwnProperty(Constants.SchemaPropID)) {
+                const name = el[Constants.SchemaPropID][Constants.SchemaPropID];
+                return { name, type, url } as IUrl;   
+            } else {
+                return { type, url } as IUrl;
+            }
         } else {
             throw new Error(`Deserialization Error: expected an object with @type property equals 
                 to ${Constants.SchemaUrlType} or string.`);

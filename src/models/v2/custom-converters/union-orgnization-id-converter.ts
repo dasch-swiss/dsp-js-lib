@@ -1,5 +1,6 @@
 import { JsonConvert, JsonConverter, JsonCustomConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+import { IId } from "../../../interfaces/models/v2/project-metadata-interfaces";
 import { Constants } from "../Constants";
 import { Organization } from "../project-metadata/organization";
 
@@ -7,7 +8,7 @@ import { Organization } from "../project-metadata/organization";
  * @category Internal
  */
 @JsonConverter
-export class UnionOrganizationIdConverter implements JsonCustomConvert<Organization | object> {
+export class UnionOrganizationIdConverter implements JsonCustomConvert<Array<Organization | IId | object>> {
 
     static jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -17,23 +18,18 @@ export class UnionOrganizationIdConverter implements JsonCustomConvert<Organizat
     );
 
     serialize(el: Array<Organization | object>): any {
-        if (Array.isArray(el)) {
-            const newArr = [] as any[];
-            el.forEach((
-                (item: Organization | object) => newArr.push(this.serializeElement(item))
-            ));
-            return newArr;
-        }
+        return el.map(
+            (item: Organization | object) => this.serializeElement(item)
+        );
     }
 
-    deserialize(el: any): Array<Organization | object> {
-        const newArr = [] as Array<Organization | object>;
+    deserialize(el: any): Array<Organization | IId> {
         if (Array.isArray(el)) {
-            el.forEach((
-                (item: any) => newArr.push(this.deserializeElement(item))
-            ));
-            return newArr;
+            return el.map(
+                item => this.deserializeElement(item)
+            );
         } else {
+            const newArr = [] as Array<Organization | IId>;
             newArr.push(this.deserializeElement(el));
             return newArr;
         }
@@ -52,13 +48,11 @@ export class UnionOrganizationIdConverter implements JsonCustomConvert<Organizat
         }
     }
 
-    private deserializeElement(el: any): Organization | object {
+    private deserializeElement(el: any): Organization | IId {
         if (el.hasOwnProperty(Constants.DspHasName)) {
             return UnionOrganizationIdConverter.jsonConvert.deserializeObject(el, Organization);
         } else if (el.hasOwnProperty("@id") && !el.hasOwnProperty(Constants.DspHasName)) {
-            return {
-                id: (el as { [index: string]: string })["@id"]
-            };
+            return { id: el["@id"] };
         } else {
             throw new Error(`Deserialization Error: expected an object with property @type equals to 
                 ${Constants.DspOrganization} or an object with @id key.`);

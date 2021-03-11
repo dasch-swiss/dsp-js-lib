@@ -1,15 +1,6 @@
 import { JsonConverter, JsonCustomConvert } from "json2typescript";
+import { IUrl } from "../../../interfaces/models/v2/project-metadata-interfaces";
 import { Constants } from "../Constants";
-
-/**
- * @category Model V2
- */
-export interface IUrl {
-    type?: string;
-    value?: string;
-    name?: string;
-    url?: string;
-}
 
 /**
  * @category Internal
@@ -19,11 +10,9 @@ export abstract class BaseUrlConverter implements JsonCustomConvert<IUrl | strin
 
     serialize(el: IUrl | string | Array<IUrl | string>): any {
         if (Array.isArray(el)) {
-            const newObj = [] as any[];
-            el.forEach((
-                (item: IUrl | string) => newObj.push(this.serializeElement(item))
-            ));
-            return newObj;
+            return el.map(
+                (item: IUrl | string) => this.serializeElement(item)
+            );
         } else {
             return this.serializeElement(el);
         }
@@ -39,7 +28,7 @@ export abstract class BaseUrlConverter implements JsonCustomConvert<IUrl | strin
         } else {
             return {
                 "@type": el.type,
-                [Constants.SchemaUrlValue]: el.value
+                [Constants.SchemaUrlValue]: el.url
             };
         }
     }
