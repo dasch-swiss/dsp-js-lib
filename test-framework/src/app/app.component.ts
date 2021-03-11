@@ -424,6 +424,19 @@ export class AppComponent implements OnInit {
         const updateOntologyMetadata = new UpdateOntologyMetadata();
         updateOntologyMetadata.id = this.ontology.id;
         updateOntologyMetadata.lastModificationDate = this.ontology.lastModificationDate;
+        updateOntologyMetadata.comment = 'Ontology comment updated';
+
+        this.knoraApiConnection.v2.onto.updateOntology(updateOntologyMetadata).subscribe(
+            (onto: OntologyMetadata) => {
+                this.ontologyMeta = onto;
+            }
+        );
+    }
+
+    removeOntologyComment() {
+        const updateOntologyMetadata = new UpdateOntologyMetadata();
+        updateOntologyMetadata.id = this.ontology.id;
+        updateOntologyMetadata.lastModificationDate = this.ontology.lastModificationDate;
         updateOntologyMetadata.comment = '';
 
         this.knoraApiConnection.v2.onto.updateOntology(updateOntologyMetadata).subscribe(
