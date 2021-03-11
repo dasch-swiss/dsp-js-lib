@@ -411,6 +411,36 @@ describe("OntologiesEndpoint", () => {
 
         });
 
+        it("should remove the comment of an ontology", done => {
+
+            const ontoInfo = new UpdateOntologyMetadata();
+
+            ontoInfo.id = "http://0.0.0.0:3333/ontology/0001/foo/v2";
+
+            ontoInfo.lastModificationDate = "2020-06-29T13:33:46.059576Z";
+
+            knoraApiConnection.v2.onto.deleteOntologyComment(ontoInfo).subscribe(
+                (res: OntologyMetadata) => {
+                    expect(res.label).toEqual("Test Onto")
+                    expect(res.comment).toBeUndefined;
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const deleteOntoComment = require("../../../../test/data/api/v2/manually-generated/remove-ontology-comment-reponse.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteOntoComment)));
+
+            const path = "http://0.0.0.0:3333/v2/ontologies/comment/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Ffoo%2Fv2?lastModificationDate=2020-06-29T13%3A33%3A46.059576Z";
+
+            expect(request.url).toBe(path);
+
+            expect(request.method).toEqual("DELETE");
+
+        });
+
     });
 
     describe("Method createResourceClass", () => {

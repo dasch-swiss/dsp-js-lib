@@ -186,7 +186,7 @@ export class OntologiesEndpointV2 extends Endpoint {
                     return this.updateOntologyMetadata(ontologyMetadata)
                 })
             );
-        } else { // if label and comment are both defined and not empty strings, make the API request to update both
+        } else { // if label and/or comment are defined and not empty strings, make the API request to update the metadata
             return this.updateOntologyMetadata(ontologyMetadata);
         }
     }
@@ -197,6 +197,11 @@ export class OntologiesEndpointV2 extends Endpoint {
      * @param ontologyMetadata The ontology metadata to be updated
      */
     deleteOntologyComment(ontologyMetadata: UpdateOntologyMetadata): Observable<OntologyMetadata | ApiResponseError> {
+
+        if(ontologyMetadata.id === undefined || ontologyMetadata.lastModificationDate === undefined) {
+            throw new Error('Missing IRI or lastModificationDate');
+        }
+
         return this.httpDelete(`/comment/${encodeURIComponent(ontologyMetadata.id)}?lastModificationDate=${encodeURIComponent(ontologyMetadata.lastModificationDate)}`).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // TODO: @rosenth Adapt context object
