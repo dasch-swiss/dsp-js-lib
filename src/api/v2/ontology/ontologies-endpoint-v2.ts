@@ -161,64 +161,73 @@ export class OntologiesEndpointV2 extends Endpoint {
      * @param ontologyMetadata The ontology metadata to be updated
      */
     updateOntology(ontologyMetadata: UpdateOntologyMetadata): Observable<OntologyMetadata | ApiResponseError> {
-
+        // label and comment cannot both be undefined
         if (ontologyMetadata.label === undefined && ontologyMetadata.comment === undefined) {
             throw new Error("Label and comment cannot both be undefined. At least one must be defined.");
         }
 
+        // label cannot be an empty string
         if (ontologyMetadata.label !== undefined && ontologyMetadata.label.trim() === "") {
             throw new Error("Label cannot be an empty string.");
         }
 
+        // comment can be an empty string but we must make an additional API request to remove the comment
         if (ontologyMetadata.comment !== undefined && ontologyMetadata.comment.trim() === "") {
+            // set the comment to undefined because the API will not accept an empty string
             ontologyMetadata.comment = undefined;
 
-            return this.httpDelete(`/comment/${encodeURIComponent(ontologyMetadata.id)}?lastModificationDate=${encodeURIComponent(ontologyMetadata.lastModificationDate)}`).pipe(
-                mergeMap((ajaxResponse: AjaxResponse) => {
-                    // TODO: @rosenth Adapt context object
-                    // TODO: adapt getOntologyIriFromEntityIri
-                    return jsonld.compact(ajaxResponse.response, {});
-                }), map((jsonldobj: object) => {
-                    return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
-                }),
-                mergeMap((res) => {
-                    console.log('res: ', res);
+            // request to remove the comment
+            return this.deleteOntologyComment(ontologyMetadata).pipe(
+                mergeMap((res: OntologyMetadata) => {
+                    // update the lastModificationDate since the DELETE request changed it
                     ontologyMetadata.lastModificationDate = res.lastModificationDate!;
-                    console.log('onto: ', ontologyMetadata);
 
-                    const onto = this.jsonConvert.serializeObject(ontologyMetadata);
-
-                    return this.httpPut("/metadata", onto).pipe(
-                        mergeMap((ajaxResponse: AjaxResponse) => {
-                            // TODO: @rosenth Adapt context object
-                            // TODO: adapt getOntologyIriFromEntityIri
-                            return jsonld.compact(ajaxResponse.response, {});
-                        }), map((jsonldobj: object) => {
-                            return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
-                        }),
-                        catchError(error => {
-                            return this.handleError(error);
-                        })
-                    );
-                })
-                
-            );
-        } else {
-            const onto = this.jsonConvert.serializeObject(ontologyMetadata);
-
-            return this.httpPut("/metadata", onto).pipe(
-                mergeMap((ajaxResponse: AjaxResponse) => {
-                    // TODO: @rosenth Adapt context object
-                    // TODO: adapt getOntologyIriFromEntityIri
-                    return jsonld.compact(ajaxResponse.response, {});
-                }), map((jsonldobj: object) => {
-                    return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
-                }),
-                catchError(error => {
-                    return this.handleError(error);
+                    // update the metadata, which in this case is only the label
+                    return this.updateOntologyMetadata(ontologyMetadata)
                 })
             );
+        } else { // if label and comment are both defined and not empty strings, make the API request to update both
+            return this.updateOntologyMetadata(ontologyMetadata);
         }
+    }
+
+    /**
+     * Removes the comment from the metadata of an ontology.
+     *
+     * @param ontologyMetadata The ontology metadata to be updated
+     */
+    deleteOntologyComment(ontologyMetadata: UpdateOntologyMetadata): Observable<OntologyMetadata | ApiResponseError> {
+        return this.httpDelete(`/comment/${encodeURIComponent(ontologyMetadata.id)}?lastModificationDate=${encodeURIComponent(ontologyMetadata.lastModificationDate)}`).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
+            })
+        );
+    }
+
+    /**
+     * The PUT request for updating the metadata of an ontology.
+     *
+     * @param ontologyMetadata The ontology metadata to be updated
+     */
+    private updateOntologyMetadata(ontologyMetadata: UpdateOntologyMetadata): Observable<OntologyMetadata | ApiResponseError> {
+        const onto = this.jsonConvert.serializeObject(ontologyMetadata);
+
+        return this.httpPut("/metadata", onto).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
     }
 
     /**
