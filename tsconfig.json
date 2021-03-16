@@ -8,10 +8,11 @@
       "es6",
       "dom"
     ],
-    "module": "commonjs",
+    "module": "es6",
     "removeComments": false,
     "target": "es5",
     "resolveJsonModule": true,
+    "moduleResolution": "node",
     "sourceMap": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
