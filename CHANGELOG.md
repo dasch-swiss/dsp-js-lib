@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.1.1...v2.2.0) (2021-03-17)
+
+
+### Enhancements
+
+* **ontologies-endpoint:** updateOntology method (DSP-1358) ([#329](https://www.github.com/dasch-swiss/dsp-js-lib/issues/329)) ([a2d1beb](https://www.github.com/dasch-swiss/dsp-js-lib/commit/a2d1beb01f01f259c3f5d14395cd50ed76599b4a))
+
 ### [2.1.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.1.0...v2.1.1) (2021-03-02)
 
 
