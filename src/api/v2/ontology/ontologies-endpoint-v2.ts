@@ -1,6 +1,7 @@
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
+import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { Constants } from "../../../models/v2/Constants";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
@@ -22,6 +23,7 @@ import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
 import { ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-class-definition";
 import { ResourcePropertyDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-property-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
+import { UpdateOntologyMetadata } from "../../../models/v2/ontologies/update/update-ontology-metadata";
 import { UpdateResourceClassCardinality } from "../../../models/v2/ontologies/update/update-resource-class-cardinality";
 import { UpdateResourceClassComment } from "../../../models/v2/ontologies/update/update-resource-class-comment";
 import { UpdateResourceClassLabel } from "../../../models/v2/ontologies/update/update-resource-class-label";
@@ -151,6 +153,86 @@ export class OntologiesEndpointV2 extends Endpoint {
             catchError(error => this.handleError(error))
         );
 
+    }
+
+    /**
+     * Updates the metadata of an ontology.
+     *
+     * @param ontologyMetadata The ontology metadata to be updated
+     */
+    updateOntology(ontologyMetadata: UpdateOntologyMetadata): Observable<OntologyMetadata | ApiResponseError> {
+        // label and comment cannot both be undefined
+        if (ontologyMetadata.label === undefined && ontologyMetadata.comment === undefined) {
+            throw new Error("Label and comment cannot both be undefined. At least one must be defined.");
+        }
+
+        // label cannot be an empty string
+        if (ontologyMetadata.label !== undefined && ontologyMetadata.label.trim() === "") {
+            throw new Error("Label cannot be an empty string.");
+        }
+
+        // comment can be an empty string but we must make an additional API request to remove the comment
+        if (ontologyMetadata.comment !== undefined && ontologyMetadata.comment.trim() === "") {
+            // set the comment to undefined because the API will not accept an empty string
+            ontologyMetadata.comment = undefined;
+
+            // request to remove the comment
+            return this.deleteOntologyComment(ontologyMetadata).pipe(
+                mergeMap((res: OntologyMetadata) => {
+                    // update the lastModificationDate since the DELETE request changed it
+                    ontologyMetadata.lastModificationDate = res.lastModificationDate!;
+
+                    // update the metadata, which in this case is only the label
+                    return this.updateOntologyMetadata(ontologyMetadata)
+                })
+            );
+        } else { // if label and/or comment are defined and not empty strings, make the API request to update the metadata
+            return this.updateOntologyMetadata(ontologyMetadata);
+        }
+    }
+
+    /**
+     * Removes the comment from the metadata of an ontology.
+     *
+     * @param ontologyMetadata The ontology metadata to be updated
+     */
+    deleteOntologyComment(ontologyMetadata: UpdateOntologyMetadata): Observable<OntologyMetadata | ApiResponseError> {
+
+        if(ontologyMetadata.id === undefined || ontologyMetadata.lastModificationDate === undefined) {
+            throw new Error('Missing IRI or lastModificationDate');
+        }
+
+        return this.httpDelete(`/comment/${encodeURIComponent(ontologyMetadata.id)}?lastModificationDate=${encodeURIComponent(ontologyMetadata.lastModificationDate)}`).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
+            })
+        );
+    }
+
+    /**
+     * The PUT request for updating the metadata of an ontology.
+     *
+     * @param ontologyMetadata The ontology metadata to be updated
+     */
+    private updateOntologyMetadata(ontologyMetadata: UpdateOntologyMetadata): Observable<OntologyMetadata | ApiResponseError> {
+        const onto = this.jsonConvert.serializeObject(ontologyMetadata);
+
+        return this.httpPut("/metadata", onto).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
     }
 
     /**

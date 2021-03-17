@@ -111,6 +111,7 @@ export { CreateOntology } from "./models/v2/ontologies/create/create-ontology";
 export { CreateResourceProperty } from "./models/v2/ontologies/create/create-resource-property";
 export { ResourcePropertyDefinitionWithAllLanguages } from "./models/v2/ontologies/resource-property-definition";
 export { UpdateOntology } from "./models/v2/ontologies/update/update-ontology";
+export { UpdateOntologyMetadata } from "./models/v2/ontologies/update/update-ontology-metadata";
 export { DeleteOntology } from "./models/v2/ontologies/delete/delete-ontology";
 export { DeleteResourceClass } from "./models/v2/ontologies/delete/delete-resource-class";
 export { DeleteResourceProperty } from "./models/v2/ontologies/delete/delete-resource-property";

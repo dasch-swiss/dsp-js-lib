@@ -108,9 +108,16 @@
         <button class="create-onto" (click)="createOntology()">Create testonto</button> <br /><br />
         <div><span *ngIf="ontologyMeta">Ontology created:&nbsp;</span><span class="label">{{ontologyMeta?.label}}</span> </div> <br />
         <button class="read-onto" (click)="getTestOnto('http://0.0.0.0:3333/ontology/0001/testonto/v2')">Get testonto</button> <br /><br />
-        <div>The ontology's label: <span class="read-label">{{ontology?.label}}</span> </div> <br />
+        <div>The ontology's label: <span class="read-label">{{ontologyMeta?.label}}</span> </div> <br />
+        <div>The ontology's comment: <span class="read-comment">{{ontologyMeta?.comment}}</span> </div> <br />
 
-        <p>Before clicking on the following resource class or property action buttons, you should click each time on <strong>Get testonto</strong> button above. Because lastModification time is always needed.</p>
+        <p>Before clicking on the following update ontology metadata action buttons, you should click on <strong>Get testonto</strong> button above every time because lastModification time is always needed.</p>
+        <button class="update-onto-metadata-label" (click)="updateOntologyLabel()">Update testonto label</button> <br /><br />
+        <button class="update-onto-metadata-comment" (click)="updateOntologyComment()">Update testonto comment</button> <br /><br />
+        <button class="remove-onto-metadata-comment" (click)="removeOntologyComment()">Remove testonto comment</button> <br /><br />
+        <button class="update-onto-metadata-label-and-comment" (click)="updateOntologyLabelAndComment()">Update testonto label and comment</button> <br /><br />
+
+        <p>Before clicking on the following resource class or property action buttons, you should click on <strong>Get testonto</strong> button above every time because lastModification time is always needed.</p>
         
         <h4>Resource Class</h4>
         <button class="create-res-class" (click)="createResourceClass()">Create resource class</button><br><br>

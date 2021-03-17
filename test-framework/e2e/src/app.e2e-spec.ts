@@ -289,6 +289,91 @@ describe('workspace-project App', () => {
     expect(label.getText()).toEqual('Test Ontology');
 
   });
+
+  it('update "testonto" ontology metadata with a new label', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // update testonto label
+    const button = page.getEle('div section#ontologyeditor button.update-onto-metadata-label');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.read-label');
+    expect(label.getText()).toEqual('Test Onto');
+
+  });
+
+  it('update "testonto" ontology metadata with a new comment', () => {
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // update testonto comment
+    const button = page.getEle('div section#ontologyeditor button.update-onto-metadata-comment');
+    button.click();
+    const comment = page.getEle('div section#ontologyeditor span.read-comment');
+    expect(comment.getText()).toEqual('Ontology comment updated');
+  });
+
+  it('update "testonto" ontology metadata with a new label and comment', () => {
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // update testonto label and comment
+    const button = page.getEle('div section#ontologyeditor button.update-onto-metadata-label-and-comment');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.read-label');
+    expect(label.getText()).toEqual('Test Onto New Label');
+    const comment = page.getEle('div section#ontologyeditor span.read-comment');
+    expect(comment.getText()).toEqual('Test Onto New Comment');
+  });
+
+  it('remove comment from "testonto" ontology metadata', () => {
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // remove testonto comment
+    const button = page.getEle('div section#ontologyeditor button.remove-onto-metadata-comment');
+    button.click();
+    const comment = page.getEle('div section#ontologyeditor span.read-comment');
+    expect(comment.getText()).toEqual('');
+  });
+
   // TODO: create res class / update following example
   it('create new "testclass" resource class in testonto of anything project', () => {
 

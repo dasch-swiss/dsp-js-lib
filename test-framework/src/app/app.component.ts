@@ -76,7 +76,8 @@ import {
     DeleteListNodeResponse,
     RepositionChildNodeRequest,
     RepositionChildNodeResponse,
-    CreateChildNodeRequest
+    CreateChildNodeRequest,
+    UpdateOntologyMetadata
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -402,6 +403,59 @@ export class AppComponent implements OnInit {
             (onto: ReadOntology) => {
                 this.ontology = onto;
                 console.log('get testonto ', onto);
+            }
+        );
+    }
+
+    updateOntologyLabel() {
+        const updateOntologyMetadata = new UpdateOntologyMetadata();
+        updateOntologyMetadata.id = this.ontology.id;
+        updateOntologyMetadata.lastModificationDate = this.ontology.lastModificationDate;
+        updateOntologyMetadata.label = 'Test Onto';
+
+        this.knoraApiConnection.v2.onto.updateOntology(updateOntologyMetadata).subscribe(
+            (onto: OntologyMetadata) => {
+                this.ontologyMeta = onto;
+            }
+        );
+    }
+
+    updateOntologyComment() {
+        const updateOntologyMetadata = new UpdateOntologyMetadata();
+        updateOntologyMetadata.id = this.ontology.id;
+        updateOntologyMetadata.lastModificationDate = this.ontology.lastModificationDate;
+        updateOntologyMetadata.comment = 'Ontology comment updated';
+
+        this.knoraApiConnection.v2.onto.updateOntology(updateOntologyMetadata).subscribe(
+            (onto: OntologyMetadata) => {
+                this.ontologyMeta = onto;
+            }
+        );
+    }
+
+    removeOntologyComment() {
+        const updateOntologyMetadata = new UpdateOntologyMetadata();
+        updateOntologyMetadata.id = this.ontology.id;
+        updateOntologyMetadata.lastModificationDate = this.ontology.lastModificationDate;
+        updateOntologyMetadata.comment = '';
+
+        this.knoraApiConnection.v2.onto.updateOntology(updateOntologyMetadata).subscribe(
+            (onto: OntologyMetadata) => {
+                this.ontologyMeta = onto;
+            }
+        );
+    }
+
+    updateOntologyLabelAndComment() {
+        const updateOntologyMetadata = new UpdateOntologyMetadata();
+        updateOntologyMetadata.id = this.ontology.id;
+        updateOntologyMetadata.lastModificationDate = this.ontology.lastModificationDate;
+        updateOntologyMetadata.label = 'Test Onto New Label';
+        updateOntologyMetadata.comment = 'Test Onto New Comment';
+
+        this.knoraApiConnection.v2.onto.updateOntology(updateOntologyMetadata).subscribe(
+            (onto: OntologyMetadata) => {
+                this.ontologyMeta = onto;
             }
         );
     }

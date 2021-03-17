@@ -1,10 +1,10 @@
-
 {
     "knora-api:lastModificationDate": {
-        "@value": "2021-03-16T17:08:16.003537Z",
+        "@value": "2020-06-29T13:33:46.059576Z",
         "@type": "xsd:dateTimeStamp"
     },
-    "rdfs:label": "The foo ontology",
+    "rdfs:label": "New onto label",
+    "rdfs:comment": "New onto comment",
     "knora-api:attachedToProject": {
         "@id": "http://rdfh.ch/projects/0001"
     },

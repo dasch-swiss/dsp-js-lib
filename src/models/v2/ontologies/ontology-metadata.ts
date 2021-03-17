@@ -18,6 +18,9 @@ export class OntologyMetadata {
     @JsonProperty(Constants.Label, String)
     label: string = "";
 
+    @JsonProperty(Constants.Comment, String, true)
+    comment?: string = undefined;
+
     @JsonProperty(Constants.LastModificationDate, DateTimeStampConverter, true)
     lastModificationDate?: string = undefined;
 

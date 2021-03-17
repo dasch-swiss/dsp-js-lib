@@ -11,6 +11,9 @@ export class CreateOntology {
     @JsonProperty(Constants.Label, String)
     label: string = "";
 
+    @JsonProperty(Constants.Comment, String, true)
+    comment?: string = undefined;
+
     @JsonProperty(Constants.AttachedToProject, IdConverter)
     attachedToProject: string = "";
 

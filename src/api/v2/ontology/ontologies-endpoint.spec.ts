@@ -23,6 +23,7 @@ import {
 import { StandoffClassDefinition } from "../../../models/v2/ontologies/standoff-class-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
+import { UpdateOntologyMetadata } from "../../../models/v2/ontologies/update/update-ontology-metadata";
 import { UpdateResourceClassCardinality } from "../../../models/v2/ontologies/update/update-resource-class-cardinality";
 import { UpdateResourceClassComment } from "../../../models/v2/ontologies/update/update-resource-class-comment";
 import { UpdateResourceClassLabel } from "../../../models/v2/ontologies/update/update-resource-class-label";
@@ -362,6 +363,78 @@ describe("OntologiesEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteOntoResponse)));
 
             const path = "http://0.0.0.0:3333/v2/ontologies/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Ffoo%2Fv2?lastModificationDate=2020-06-29T13%3A33%3A46.059576Z";
+            expect(request.url).toBe(path);
+
+            expect(request.method).toEqual("DELETE");
+
+        });
+
+    });
+
+    describe("Method updateOntology", () => {
+        it("should update the label and comment of an ontology", done => {
+
+            const ontoInfo = new UpdateOntologyMetadata();
+
+            ontoInfo.id = "http://0.0.0.0:3333/ontology/0001/foo/v2";
+
+            ontoInfo.lastModificationDate = "2020-06-29T13:33:46.059576Z";
+
+            ontoInfo.label = "New onto label";
+
+            ontoInfo.comment = "New onto comment";
+
+            knoraApiConnection.v2.onto.updateOntology(ontoInfo).subscribe(
+                (res: OntologyMetadata) => {
+                    expect(res.label).toEqual("New onto label");
+                    expect(res.comment).toEqual("New onto comment");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const updateOntoResponse = require("../../../../test/data/api/v2/manually-generated/update-ontology-label-and-comment-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(updateOntoResponse)));
+
+            const path = "http://0.0.0.0:3333/v2/ontologies/metadata";
+
+            expect(request.url).toBe(path);
+
+            expect(request.method).toEqual("PUT");
+
+            const expectedPayload = require("../../../../test/data/api/v2/manually-generated/update-ontology-label-and-comment-request-expanded.json");
+
+            console.log(request.data());
+            expect(request.data()).toEqual(expectedPayload);
+
+        });
+
+        it("should remove the comment of an ontology", done => {
+
+            const ontoInfo = new UpdateOntologyMetadata();
+
+            ontoInfo.id = "http://0.0.0.0:3333/ontology/0001/foo/v2";
+
+            ontoInfo.lastModificationDate = "2020-06-29T13:33:46.059576Z";
+
+            knoraApiConnection.v2.onto.deleteOntologyComment(ontoInfo).subscribe(
+                (res: OntologyMetadata) => {
+                    expect(res.label).toEqual("Test Onto")
+                    expect(res.comment).toBeUndefined;
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const deleteOntoComment = require("../../../../test/data/api/v2/manually-generated/remove-ontology-comment-reponse.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteOntoComment)));
+
+            const path = "http://0.0.0.0:3333/v2/ontologies/comment/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Ffoo%2Fv2?lastModificationDate=2020-06-29T13%3A33%3A46.059576Z";
+
             expect(request.url).toBe(path);
 
             expect(request.method).toEqual("DELETE");
