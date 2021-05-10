@@ -476,4 +476,29 @@ export class OntologiesEndpointV2 extends Endpoint {
 
     }
 
+    /**
+     * Updates gui order of cardinalities
+     * @param replaceGuiOrder
+     */
+    replaceGuiOrderOfCardinalities(replaceGuiOrder: UpdateOntology<UpdateResourceClassCardinality>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+        const onto = this.jsonConvert.serializeObject(replaceGuiOrder);
+
+        console.log(replaceGuiOrder.entity);
+
+        const cardinalities = this.jsonConvert.serializeObject(replaceGuiOrder.entity);
+
+        onto["@graph"] = [cardinalities];
+
+        return this.httpPut("/guiorder", onto).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+    }
+
 }
