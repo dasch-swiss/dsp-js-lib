@@ -37,7 +37,7 @@ describe("PermissionsEndpoint", () => {
 
                     expect(response.body.permissions.length).toEqual(6);
 
-                    expect(response.body.permissions[0].id).toEqual("http://rdfh.ch/permissions/00FF/a3");
+                    expect(response.body.permissions[0].id).toEqual("http://rdfh.ch/permissions/00FF/a2");
                     expect(response.body.permissions[0].permissionType).toEqual("http://www.knora.org/ontology/knora-admin#AdministrativePermission");
 
                     done();
@@ -68,7 +68,7 @@ describe("PermissionsEndpoint", () => {
 
                     expect(response.body.administrative_permissions.length).toEqual(3);
 
-                    expect(response.body.administrative_permissions[0].hasPermissions.length).toEqual(1);
+                    expect(response.body.administrative_permissions[0].hasPermissions.length).toEqual(2);
 
                     const permissions = new Permission();
                     permissions.name = "ProjectResourceCreateAllPermission";
@@ -267,7 +267,7 @@ describe("PermissionsEndpoint", () => {
                     expect(response.body.defaultObjectAccessPermissions.length).toBe(3);
 
                     expect(response.body.defaultObjectAccessPermissions[0].forProject).toBe("http://rdfh.ch/projects/00FF");
-                    expect(response.body.defaultObjectAccessPermissions[0].forGroup).toBe("http://www.knora.org/ontology/knora-admin#ProjectMember");
+                    expect(response.body.defaultObjectAccessPermissions[0].forGroup).toBe("http://www.knora.org/ontology/knora-admin#KnownUser");
                     expect(response.body.defaultObjectAccessPermissions[0].id).toBe("http://rdfh.ch/permissions/00FF/d1");
                     expect(response.body.defaultObjectAccessPermissions[0].hasPermissions.length).toBe(3);
 
