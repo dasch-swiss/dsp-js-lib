@@ -268,7 +268,7 @@ describe("PermissionsEndpoint", () => {
 
                     expect(response.body.defaultObjectAccessPermissions[0].forProject).toBe("http://rdfh.ch/projects/00FF");
                     expect(response.body.defaultObjectAccessPermissions[0].forGroup).toBe("http://www.knora.org/ontology/knora-admin#KnownUser");
-                    expect(response.body.defaultObjectAccessPermissions[0].id).toBe("http://rdfh.ch/permissions/00FF/d1");
+                    expect(response.body.defaultObjectAccessPermissions[0].id).toBe("http://rdfh.ch/permissions/00FF/d2");
                     expect(response.body.defaultObjectAccessPermissions[0].hasPermissions.length).toBe(3);
 
                     done();
