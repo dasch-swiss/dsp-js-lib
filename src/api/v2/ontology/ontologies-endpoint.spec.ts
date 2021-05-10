@@ -31,7 +31,7 @@ import { UpdateResourcePropertyComment } from "../../../models/v2/ontologies/upd
 import { UpdateResourcePropertyLabel } from "../../../models/v2/ontologies/update/update-resource-property-label";
 import { StringLiteralV2 } from "../../../models/v2/string-literal-v2";
 
-describe("OntologiesEndpoint", () => {
+fdescribe("OntologiesEndpoint", () => {
 
     const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, undefined, true);
     const knoraApiConnection = new KnoraApiConnection(config);
@@ -1093,6 +1093,58 @@ describe("OntologiesEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(removeCardResponse)));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/cardinalities");
+
+            expect(request.method).toEqual("PUT");
+
+        });
+
+    });    
+    
+    describe("Method updateGuiOrderOfCardinalities", () => {
+
+        it("should replace the gui order", done => {
+
+            const onto = new UpdateOntology<UpdateResourceClassCardinality>();
+
+            onto.id = "http://0.0.0.0:3333/ontology/0001/anything/v2";
+
+            onto.lastModificationDate = "2020-10-21T23:50:45.789081Z";
+
+            const replaceCard = new UpdateResourceClassCardinality();
+
+            replaceCard.id = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
+
+            replaceCard.cardinalities = [
+                {
+                    propertyIndex: "http://0.0.0.0:3333/ontology/0001/anything/v2#hasNothingness",
+                    cardinality: Cardinality._0_1,
+                    guiOrder: 2
+                }
+            ];
+
+            onto.entity = replaceCard;
+
+            knoraApiConnection.v2.onto.replaceGuiOrderOfCardinalities(onto).subscribe(
+                (res: ResourceClassDefinitionWithAllLanguages) => {
+                    expect(res.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const expectedPayload = require("../../../../test/data/api/v2/ontologies/change-gui-order-request-expanded.json");
+
+            // TODO: remove this bad hack once test data is stable
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#lastModificationDate"]["@value"] = "2020-10-21T23:50:45.789081Z";
+
+            expect(request.data()).toEqual(expectedPayload);
+
+            // at the moment we do not have the correct (gui order) response, but it doesn't matter because we don't compare those data.
+            const changeGuiOrderResponse = require("../../../../test/data/api/v2/ontologies/add-cardinalities-to-class-nothing-response.json");
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(changeGuiOrderResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/guiorder");
 
             expect(request.method).toEqual("PUT");
 
