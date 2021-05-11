@@ -406,7 +406,6 @@ describe("OntologiesEndpoint", () => {
 
             const expectedPayload = require("../../../../test/data/api/v2/manually-generated/update-ontology-label-and-comment-request-expanded.json");
 
-            console.log(request.data());
             expect(request.data()).toEqual(expectedPayload);
 
         });

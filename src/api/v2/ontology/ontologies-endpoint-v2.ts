@@ -483,8 +483,6 @@ export class OntologiesEndpointV2 extends Endpoint {
     replaceGuiOrderOfCardinalities(replaceGuiOrder: UpdateOntology<UpdateResourceClassCardinality>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
         const onto = this.jsonConvert.serializeObject(replaceGuiOrder);
 
-        console.log(replaceGuiOrder.entity);
-
         const cardinalities = this.jsonConvert.serializeObject(replaceGuiOrder.entity);
 
         onto["@graph"] = [cardinalities];
