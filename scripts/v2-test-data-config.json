@@ -97,6 +97,10 @@
       "destination": "./test/data/api/v2/ontologies/remove-class-cardinalities-request.json"
     },
     {
+      "source": "/v2/ontologies/change-gui-order-request.json",
+      "destination": "./test/data/api/v2/ontologies/change-gui-order-request.json"
+    },
+    {
       "source": "/v2/resources/testding.json",
       "destination": "./test/data/api/v2/resources/testding.json"
     },
