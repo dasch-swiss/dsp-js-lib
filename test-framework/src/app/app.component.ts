@@ -177,7 +177,7 @@ export class AppComponent implements OnInit {
 
     login() {
 
-        this.knoraApiConnection.v2.auth.login('username', 'kilchenmann', 'hcL18iM61').subscribe(
+        this.knoraApiConnection.v2.auth.login('username', 'root', 'test').subscribe(
             (loginResponse: ApiResponseData<LoginResponse>) => {
                 console.log(loginResponse);
                 this.loginStatus = 'logged in';
@@ -802,7 +802,7 @@ export class AppComponent implements OnInit {
 
     }
 
-    updateGuiOrder() {
+    replaceGuiOrder() {
         const onto = new UpdateOntology<UpdateResourceClassCardinality>();
 
         onto.lastModificationDate = this.ontology.lastModificationDate;
@@ -815,7 +815,7 @@ export class AppComponent implements OnInit {
             {
                 propertyIndex: 'http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName',
                 cardinality: Cardinality._1,
-                guiOrder: 7
+                guiOrder: Math.floor(Math.random() * 10) + 1  // returns a random integer from 1 to 10
             }
         ];
 

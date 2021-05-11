@@ -152,8 +152,9 @@
         <button class="replace-card-for-res-prop" (click)="replaceCardinality()">Replace Cardinality of resource</button><br><br>
         <div><span *ngIf="property">Cardinality replaced:&nbsp;</span><span class="res-card-replaced">{{replacedCard?.label}}</span> </div> <br />
 
-        <button class="update-gui-order" (click)="updateGuiOrder()">Update GUI order of resource properties</button><br><br>
-        <div><span *ngIf="property">GUI order replaced:&nbsp;</span><span class="res-card-replaced">{{replacedCard?.label}}</span> </div> <br />
+        <button class="update-gui-order" (click)="replaceGuiOrder()">Update GUI order of resource properties</button><br><br>
+        <div><span *ngIf="ontology">GUI order:&nbsp;</span><span>{{ontology?.classes["http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass"].propertiesList[17].guiOrder}}</span> </div> <br />
+        <div><span *ngIf="replacedCard">Updated GUI order:&nbsp;</span><span class="gui-order-replaced">{{replacedCard?.propertiesList[17].guiOrder}}</span> </div> <br />
 
         <button class="delete-onto" (click)="deleteOntology()">Delete testonto</button>
         <div>Delete status: <span class="status">{{message}}</span></div> <br />
