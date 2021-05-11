@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.3.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.2.0...v2.3.0) (2021-05-11)
+
+
+### Maintenance
+
+* **dependencies:** update dsp-api to 13.7.0 (DSP-1610) ([#342](https://www.github.com/dasch-swiss/dsp-js-lib/issues/342)) ([e9e988d](https://www.github.com/dasch-swiss/dsp-js-lib/commit/e9e988d28f816045046eb7d607a272dbc4107100))
+* **deps:** Bump elliptic from 6.5.3 to 6.5.4 ([#331](https://www.github.com/dasch-swiss/dsp-js-lib/issues/331)) ([ba9dffc](https://www.github.com/dasch-swiss/dsp-js-lib/commit/ba9dffc5941dac88dd2e5b71d3bd3d2fa24f2b76))
+* **deps:** Bump handlebars from 4.7.6 to 4.7.7 ([#338](https://www.github.com/dasch-swiss/dsp-js-lib/issues/338)) ([71e7c5a](https://www.github.com/dasch-swiss/dsp-js-lib/commit/71e7c5a3686e083f93062a52467469e1178e127b))
+* **deps:** Bump lodash from 4.17.19 to 4.17.21 ([#340](https://www.github.com/dasch-swiss/dsp-js-lib/issues/340)) ([187d374](https://www.github.com/dasch-swiss/dsp-js-lib/commit/187d3746f90df1a69f0f4798794fbce50b882845))
+* **deps:** Bump underscore from 1.10.2 to 1.13.1 ([#336](https://www.github.com/dasch-swiss/dsp-js-lib/issues/336)) ([deecf60](https://www.github.com/dasch-swiss/dsp-js-lib/commit/deecf605ff5ff608ee224effd50be6fca27de1ef))
+* **deps:** Bump y18n from 4.0.0 to 4.0.3 ([#339](https://www.github.com/dasch-swiss/dsp-js-lib/issues/339)) ([8474118](https://www.github.com/dasch-swiss/dsp-js-lib/commit/84741180b6c48b307b7386309cebb62f3e3e5bf0))
+* **deps:** update dependencies to fix vulnerability issue (DSP-1606 / DSP-1607) ([#337](https://www.github.com/dasch-swiss/dsp-js-lib/issues/337)) ([834cc01](https://www.github.com/dasch-swiss/dsp-js-lib/commit/834cc018dc4bc518093f97ec2939a11a18b221d1))
+* **update Angular:** update to Angular version 11 (DSP-1479) ([#333](https://www.github.com/dasch-swiss/dsp-js-lib/issues/333)) ([71fdeb7](https://www.github.com/dasch-swiss/dsp-js-lib/commit/71fdeb7c7cc62f8415a3d3d50b8b6c3970d707f0))
+
+
+### Enhancements
+
+* **ontology:** new method to change gui order (DSP-1566) ([#343](https://www.github.com/dasch-swiss/dsp-js-lib/issues/343)) ([84d61b6](https://www.github.com/dasch-swiss/dsp-js-lib/commit/84d61b66f2d9cea5b0bd461e4d9a5bf8db3e7f26))
+
 ## [2.2.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.1.1...v2.2.0) (2021-03-17)
 
 
