@@ -506,8 +506,6 @@ export class AppComponent implements OnInit {
             (response: ResourceClassDefinitionWithAllLanguages) => {
                 console.log('new resource class created', response);
                 this.resClass = response;
-                // get updated test onto (ReadOntology) info
-                this.getTestOnto('http://0.0.0.0:3333/ontology/0001/testonto/v2');
             }
         );
     }
@@ -538,8 +536,6 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.onto.updateResourceClass(onto).subscribe(
             (res: ResourceClassDefinitionWithAllLanguages) => {
                 this.resClass = res;
-                // get updated test onto (ReadOntology) info
-                this.getTestOnto('http://0.0.0.0:3333/ontology/0001/testonto/v2');
             }
         );
 
@@ -568,8 +564,6 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.onto.updateResourceClass(onto).subscribe(
             (res: ResourceClassDefinitionWithAllLanguages) => {
                 this.resClass = res;
-                // get updated test onto (ReadOntology) info
-                this.getTestOnto('http://0.0.0.0:3333/ontology/0001/testonto/v2');
             }
         );
 
@@ -585,8 +579,6 @@ export class AppComponent implements OnInit {
             (response: OntologyMetadata) => {
                 this.message = 'res class has been deleted';
                 console.log('res class deleted', response);
-                // get updated test onto (ReadOntology) info
-                this.getTestOnto('http://0.0.0.0:3333/ontology/0001/testonto/v2');
             },
             (error: ApiResponseError) => {
                 console.error(error);
@@ -642,8 +634,6 @@ export class AppComponent implements OnInit {
             (response: ResourcePropertyDefinitionWithAllLanguages) => {
                 this.property = response;
                 console.log('new resource property created', response);
-                // get updated test onto (ReadOntology) info
-                this.getTestOnto('http://0.0.0.0:3333/ontology/0001/testonto/v2');
             }
         );
     }
@@ -675,8 +665,6 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.onto.updateResourceProperty(onto).subscribe(
             (res: ResourcePropertyDefinitionWithAllLanguages) => {
                 this.property = res;
-                // get updated test onto (ReadOntology) info
-                this.getTestOnto('http://0.0.0.0:3333/ontology/0001/testonto/v2');
             }
         );
 
@@ -709,8 +697,6 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.onto.updateResourceProperty(onto).subscribe(
             (res: ResourcePropertyDefinitionWithAllLanguages) => {
                 this.property = res;
-                // get updated test onto (ReadOntology) info
-                this.getTestOnto('http://0.0.0.0:3333/ontology/0001/testonto/v2');
             }
         );
 
@@ -729,8 +715,6 @@ export class AppComponent implements OnInit {
             },
             (error: ApiResponseError) => {
                 console.error(error);
-                // get updated test onto (ReadOntology) info
-                this.getTestOnto('http://0.0.0.0:3333/ontology/0001/testonto/v2');
             }
         );
 
@@ -761,8 +745,6 @@ export class AppComponent implements OnInit {
             (res: ResourceClassDefinitionWithAllLanguages) => {
                 this.addCard = res;
                 console.log('added card: ', res)
-                // get updated test onto (ReadOntology) info
-                this.getTestOnto('http://0.0.0.0:3333/ontology/0001/testonto/v2');
             },
             err => console.error(err)
         );
@@ -794,8 +776,6 @@ export class AppComponent implements OnInit {
             (res: ResourceClassDefinitionWithAllLanguages) => {
                 this.replacedCard = res;
                 console.log('replace card: ', res)
-                // get updated test onto (ReadOntology) info
-                this.getTestOnto('http://0.0.0.0:3333/ontology/0001/testonto/v2');
             },
             err => console.error(err)
         );
@@ -827,8 +807,6 @@ export class AppComponent implements OnInit {
             (res: ResourceClassDefinitionWithAllLanguages) => {
                 this.replacedCard = res;
                 console.log('update gui order: ', res)
-                // get updated test onto (ReadOntology) info
-                this.getTestOnto('http://0.0.0.0:3333/ontology/0001/testonto/v2');
             },
             err => console.error(err)
         );
