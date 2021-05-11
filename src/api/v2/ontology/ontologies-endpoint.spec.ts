@@ -31,7 +31,7 @@ import { UpdateResourcePropertyComment } from "../../../models/v2/ontologies/upd
 import { UpdateResourcePropertyLabel } from "../../../models/v2/ontologies/update/update-resource-property-label";
 import { StringLiteralV2 } from "../../../models/v2/string-literal-v2";
 
-fdescribe("OntologiesEndpoint", () => {
+describe("OntologiesEndpoint", () => {
 
     const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, undefined, true);
     const knoraApiConnection = new KnoraApiConnection(config);
