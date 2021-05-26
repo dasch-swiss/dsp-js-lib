@@ -333,15 +333,15 @@
                 {
                     "@type": "owl:Restriction",
                     "owl:onProperty": {
-                        "@id": "anything:hasBlueThingValue"
+                        "@id": "anything:hasBlueThing"
                     },
                     "owl:minCardinality": 0,
-                    "salsah-gui:guiOrder": 16
+                    "salsah-gui:guiOrder": 63
                 },
                 {
                     "@type": "owl:Restriction",
                     "owl:onProperty": {
-                        "@id": "anything:hasBlueThing"
+                        "@id": "anything:hasBlueThingValue"
                     },
                     "owl:minCardinality": 0,
                     "salsah-gui:guiOrder": 63
