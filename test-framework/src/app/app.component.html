@@ -156,6 +156,9 @@
         <div><span *ngIf="ontology">GUI order:&nbsp;</span><span>{{ontology?.classes["http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass"]?.propertiesList[17]?.guiOrder}}</span> </div> <br />
         <div><span *ngIf="replacedCard">Updated GUI order:&nbsp;</span><span class="gui-order-replaced">{{replacedCard?.propertiesList[17].guiOrder}}</span> </div> <br />
 
+        <button class="can-delete-onto" (click)="canDeleteOntology()">Can delete testonto</button>
+        <div>Can delete status: <span class="can-do-status">{{canDoResponse}}</span></div> <br />
+
         <button class="delete-onto" (click)="deleteOntology()">Delete testonto</button>
         <div>Delete status: <span class="status">{{message}}</span></div> <br />
     </section>

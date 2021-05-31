@@ -11,6 +11,7 @@ import { DeleteOntologyResponse } from "../../../models/v2/ontologies/delete/del
 import { DeleteResourceClass } from "../../../models/v2/ontologies/delete/delete-resource-class";
 import { DeleteResourceProperty } from "../../../models/v2/ontologies/delete/delete-resource-property";
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
+import { CanDoResponse } from "../../../models/v2/ontologies/read/can-do-response";
 import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
 import {
     ResourceClassDefinition,
@@ -340,7 +341,35 @@ describe("OntologiesEndpoint", () => {
 
     });
 
+    describe("Method canDeleteOntology", () => {
+
+        it("should check if an ontology can be deleted", done => {
+
+            const ontologyIri = "http://0.0.0.0:3333/ontology/0001/foo/v2";
+
+            knoraApiConnection.v2.onto.canDeleteOntology(ontologyIri).subscribe(
+                (res: CanDoResponse) => {
+                    expect(res.canDo).toBeTrue();
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const canDeleteOntoResponse = require("../../../../test/data/api/v2/ontologies/can-do-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(canDeleteOntoResponse)));
+
+            expect(request.url).toEqual("http://0.0.0.0:3333/v2/ontologies/candeleteontology/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Ffoo%2Fv2");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
     describe("Method deleteOntology", () => {
+
         it("should delete an ontology", done => {
 
             const ontoInfo = new DeleteOntology();

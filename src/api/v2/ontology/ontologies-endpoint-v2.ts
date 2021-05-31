@@ -19,6 +19,7 @@ import { DeleteResourceClass } from "../../../models/v2/ontologies/delete/delete
 import { DeleteResourceProperty } from "../../../models/v2/ontologies/delete/delete-resource-property";
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { OntologyConversionUtil } from "../../../models/v2/ontologies/OntologyConversionUtil";
+import { CanDoResponse } from "../../../models/v2/ontologies/read/can-do-response";
 import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
 import { ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-class-definition";
 import { ResourcePropertyDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-property-definition";
@@ -130,6 +131,28 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return this.handleError(error);
             })
         );
+    }
+
+    /**
+     * Checks whether an existing ontology can be deleted.
+     *
+     * @param ontologyIri the Iri of the ontology to be checked.
+     */
+    canDeleteOntology(ontologyIri: string): Observable<CanDoResponse | ApiResponseError> {
+
+        return this.httpGet("/candeleteontology/" + encodeURIComponent(ontologyIri)).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
     }
 
     /**

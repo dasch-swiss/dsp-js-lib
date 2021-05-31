@@ -77,7 +77,8 @@ import {
     UserCache,
     UserResponse,
     UsersResponse,
-    WriteValueResponse
+    WriteValueResponse,
+    CanDoResponse
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -145,6 +146,8 @@ export class AppComponent implements OnInit {
     listNodeDeleted = false;
     listNodePosition = 0;
     listNodeParentIri = '';
+
+    canDoResponse: boolean;
 
     ngOnInit() {
         const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
@@ -456,6 +459,16 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.onto.updateOntology(updateOntologyMetadata).subscribe(
             (onto: OntologyMetadata) => {
                 this.ontologyMeta = onto;
+            }
+        );
+    }
+
+    canDeleteOntology() {
+        const ontologyId = this.ontology.id;
+
+        this.knoraApiConnection.v2.onto.canDeleteOntology(ontologyId).subscribe(
+            (response: CanDoResponse) => {
+               this.canDoResponse = response.canDo;
             }
         );
     }

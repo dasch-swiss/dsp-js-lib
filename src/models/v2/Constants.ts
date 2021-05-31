@@ -119,6 +119,7 @@ export class Constants {
     static ValueHasComment = Constants.KnoraApiV2 + Constants.HashDelimiter + "valueHasComment";
     static DeleteComment = Constants.KnoraApiV2 + Constants.HashDelimiter + "deleteComment";
     static Result = Constants.KnoraApiV2 + Constants.HashDelimiter + "result";
+    static CanDo = Constants.KnoraApiV2 + Constants.HashDelimiter + "canDo";
 
     static OntologyName = Constants.KnoraApiV2 + Constants.HashDelimiter + "ontologyName";
 
