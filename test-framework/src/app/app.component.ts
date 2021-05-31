@@ -582,6 +582,16 @@ export class AppComponent implements OnInit {
 
     }
 
+    canDeleteClass() {
+        const resClassIri = 'http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass';
+
+        this.knoraApiConnection.v2.onto.canDeleteOntology(resClassIri).subscribe(
+            (response: CanDoResponse) => {
+                this.canDoResponse = response.canDo;
+            }
+        );
+    }
+
     deleteResourceClass() {
 
         const deleteResClass: DeleteResourceClass = new DeleteResourceClass();

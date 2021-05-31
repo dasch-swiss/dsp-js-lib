@@ -129,6 +129,9 @@
 
         <button class="get-res-class" (click)="getResourceClass('http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass')">Get resource class</button><br><br>
 
+        <button class="can-delete-class" (click)="canDeleteClass()">Can delete res class</button>
+        <div>Can delete status: <span class="can-do-status-onto">{{canDoResponse}}</span></div> <br />
+
         <button class="delete-res-class" (click)="deleteResourceClass()">Delete resource class</button><br><br>
 
         <h4>Resource Property</h4>
