@@ -598,6 +598,28 @@ describe('workspace-project App', () => {
 
   });
 
+  it('check if test ontology can be deleted', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    const canDelete = page.getEle('div button.can-delete-onto');
+    canDelete.click();
+
+    const msg = page.getEle('div section#ontologyeditor span.can-do-status');
+    expect(msg.getText()).toEqual('false');
+
+  });
+
   it('delete "testonto" ontology', () => {
     
     page.navigateTo();
