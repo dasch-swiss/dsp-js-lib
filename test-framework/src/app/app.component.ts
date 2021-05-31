@@ -725,6 +725,16 @@ export class AppComponent implements OnInit {
 
     }
 
+    canDeleteProperty() {
+        const propIri = 'http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName';
+
+        this.knoraApiConnection.v2.onto.canDeleteResourceProperty(propIri).subscribe(
+            (response: CanDoResponse) => {
+                this.canDoResponse = response.canDo;
+            }
+        );
+    }
+
     deleteResourceProperty() {
 
         const deleteResProp: DeleteResourceProperty = new DeleteResourceProperty();

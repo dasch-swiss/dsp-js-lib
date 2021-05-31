@@ -146,7 +146,10 @@
         <button class="update-res-prop-comment" (click)="updateResourcePropertyComment()">Update resource property comment</button><br><br>
 
         <!-- <button class="get-res-class" (click)="getResourceClass('http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass')">Get resource class</button><br><br> -->
-        
+
+        <button class="can-delete-prop" (click)="canDeleteProperty()">Can delete res property</button>
+        <div>Can delete status: <span class="can-do-status-prop">{{canDoResponse}}</span></div> <br />
+
         <button class="delete-res-prop" (click)="deleteResourceProperty()">Delete resource property</button><br><br>
 
         <button class="add-card-to-res-prop" (click)="addCardinality()">Add Cardinality to resource</button><br><br>
