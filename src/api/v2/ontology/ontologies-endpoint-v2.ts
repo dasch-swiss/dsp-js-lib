@@ -464,7 +464,29 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
-     * Adds cardinalities for properties to a resource class.
+     * Checks whether existing cardinalities can be replaced for a given resource class.
+     *
+     * @param resourceClassIri the iri of the resource class to be checked.
+     */
+    canReplaceCardinalityOfResourceClass(resourceClassIri: string): Observable<CanDoResponse | ApiResponseError> {
+
+        return this.httpGet("/canreplacecardinalities/" + encodeURIComponent(resourceClassIri)).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
+    }
+
+    /**
+     * Replaces cardinalities for properties to a resource class.
      *
      * @param replaceCardinalityOfResourceClass the cardinalities to be added.
      */

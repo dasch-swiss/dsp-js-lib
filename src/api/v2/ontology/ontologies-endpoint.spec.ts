@@ -1037,6 +1037,33 @@ describe("OntologiesEndpoint", () => {
 
     });
 
+    describe("Method canReplaceCardinalityOfResourceClass", () => {
+
+        it("should check if cardinalities can be replaced", done => {
+
+            const resClassIri = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
+
+            knoraApiConnection.v2.onto.canReplaceCardinalityOfResourceClass(resClassIri).subscribe(
+                (res: CanDoResponse) => {
+                    expect(res.canDo).toBeTrue();
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const canDeleteOntoResponse = require("../../../../test/data/api/v2/ontologies/can-do-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(canDeleteOntoResponse)));
+
+            expect(request.url).toEqual("http://0.0.0.0:3333/v2/ontologies/canreplacecardinalities/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Nothing");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
     describe("Method replaceCardinalityOfResourceClass", () => {
 
         it("should replace the cardinalities with a max cardinality 1 to a resource class", done => {
