@@ -155,7 +155,7 @@
         <button class="add-card-to-res-prop" (click)="addCardinality()">Add Cardinality to resource</button><br><br>
         <div><span *ngIf="addCard">Cardinality added:&nbsp;</span><span class="res-card-added">{{addCard?.label}}</span> </div> <br />
 
-        <button class="can-replace-card-for-res-prop" (click)="canReplaceCardinality()">Can replace cardinality of resource</button><br><br>
+        <button class="can-replace-card-for-res-card" (click)="canReplaceCardinality()">Can replace cardinality of resource</button><br><br>
         <div><span *ngIf="canDoResponse">Cardinality can be replaced:&nbsp;</span><span class="can-do-status-card">{{canDoResponse}}</span> </div> <br />
 
         <button class="replace-card-for-res-prop" (click)="replaceCardinality()">Replace Cardinality of resource</button><br><br>

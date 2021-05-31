@@ -344,7 +344,7 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
-     * Checks whether an existing resource class cn be deleted.
+     * Checks whether an existing resource class can be deleted.
      *
      * @param resourceClassIri the iri of the resource class to be checked.
      */

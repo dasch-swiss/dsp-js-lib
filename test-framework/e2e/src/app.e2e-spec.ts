@@ -544,7 +544,7 @@ describe('workspace-project App', () => {
     const getButton = page.getEle('div section#ontologyeditor button.read-onto');
     getButton.click();
 
-    const canDelete = page.getEle('div button.can-replace-card-for-res-prop');
+    const canDelete = page.getEle('div button.can-replace-card-for-res-card');
     canDelete.click();
 
     const msg = page.getEle('div section#ontologyeditor span.can-do-status-card');
