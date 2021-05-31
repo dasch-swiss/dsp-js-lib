@@ -432,6 +432,28 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
+     * Checks whether an existing property can be deleted.
+     *
+     * @param propertyIri the iri of the property to be checked.
+     */
+    canDeleteResourceProperty(propertyIri: string): Observable<CanDoResponse | ApiResponseError> {
+
+        return this.httpGet("/candeleteproperty/" + encodeURIComponent(propertyIri)).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
+    }
+
+    /**
      * Deletes a resource property.
      *
      * @param  deleteResourceProperty with property IRI.
