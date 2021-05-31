@@ -530,6 +530,28 @@ describe('workspace-project App', () => {
 
   });
 
+  it('check if cardinalities can be replaced', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    const canDelete = page.getEle('div button.can-replace-card-for-res-prop');
+    canDelete.click();
+
+    const msg = page.getEle('div section#ontologyeditor span.can-do-status-card');
+    expect(msg.getText()).toEqual('false');
+
+  });
+
   it('replace a cardinality to a resource class in testonto', () => {
 
     page.navigateTo();
@@ -615,7 +637,7 @@ describe('workspace-project App', () => {
     const canDelete = page.getEle('div button.can-delete-onto');
     canDelete.click();
 
-    const msg = page.getEle('div section#ontologyeditor span.can-do-status');
+    const msg = page.getEle('div section#ontologyeditor span.can-do-status-onto');
     expect(msg.getText()).toEqual('false');
 
   });

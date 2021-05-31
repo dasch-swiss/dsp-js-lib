@@ -764,6 +764,18 @@ export class AppComponent implements OnInit {
 
     }
 
+    canReplaceCardinality() {
+
+        const resClassIri = 'http://0.0.0.0:3333/ontology/0001/anything/v2#Thing';
+
+        this.knoraApiConnection.v2.onto.canReplaceCardinalityOfResourceClass(resClassIri).subscribe(
+            (response: CanDoResponse) => {
+                this.canDoResponse = response.canDo;
+            });
+
+
+    }
+
     replaceCardinality() {
 
         const onto = new UpdateOntology<UpdateResourceClassCardinality>();
