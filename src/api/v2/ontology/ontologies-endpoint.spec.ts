@@ -771,9 +771,9 @@ describe("OntologiesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const canDeleteResourceClass = require("../../../../test/data/api/v2/ontologies/can-do-response.json");
+            const canDeleteResourceClassResponse = require("../../../../test/data/api/v2/ontologies/can-do-response.json");
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(canDeleteResourceClass)));
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(canDeleteResourceClassResponse)));
 
             expect(request.url).toEqual("http://0.0.0.0:3333/v2/ontologies/candeleteclass/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Nothing");
 
@@ -975,9 +975,9 @@ describe("OntologiesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const canDeleteResourceClass = require("../../../../test/data/api/v2/ontologies/can-do-response.json");
+            const canDeleteResourcePropertyResponse = require("../../../../test/data/api/v2/ontologies/can-do-response.json");
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(canDeleteResourceClass)));
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(canDeleteResourcePropertyResponse)));
 
             expect(request.url).toEqual("http://0.0.0.0:3333/v2/ontologies/candeleteproperty/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F00FF%2Fimages%2Fv2%23titel");
 
@@ -1006,9 +1006,9 @@ describe("OntologiesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const deleteOntoResponse = require("../../../../test/data/api/v2/ontologies/anything-ontology.json");
+            const deleteResourcePropertyResponse = require("../../../../test/data/api/v2/ontologies/anything-ontology.json");
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteOntoResponse)));
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteResourcePropertyResponse)));
 
             const path = "http://0.0.0.0:3333/v2/ontologies/properties/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F00FF%2Fimages%2Fv2%23titel?lastModificationDate=2017-12-19T15%3A23%3A42.166Z";
             expect(request.url).toBe(path);
@@ -1106,9 +1106,9 @@ describe("OntologiesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const canDeleteOntoResponse = require("../../../../test/data/api/v2/ontologies/can-do-response.json");
+            const canReplaceCardinalityOfResourceClassResponse = require("../../../../test/data/api/v2/ontologies/can-do-response.json");
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(canDeleteOntoResponse)));
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(canReplaceCardinalityOfResourceClassResponse)));
 
             expect(request.url).toEqual("http://0.0.0.0:3333/v2/ontologies/canreplacecardinalities/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Nothing");
 
