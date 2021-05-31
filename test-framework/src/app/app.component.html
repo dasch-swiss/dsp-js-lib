@@ -129,6 +129,9 @@
 
         <button class="get-res-class" (click)="getResourceClass('http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass')">Get resource class</button><br><br>
 
+        <button class="can-delete-class" (click)="canDeleteClass()">Can delete res class</button>
+        <div>Can delete status: <span class="can-do-status-class">{{canDoResponse}}</span></div> <br />
+
         <button class="delete-res-class" (click)="deleteResourceClass()">Delete resource class</button><br><br>
 
         <h4>Resource Property</h4>
@@ -143,11 +146,17 @@
         <button class="update-res-prop-comment" (click)="updateResourcePropertyComment()">Update resource property comment</button><br><br>
 
         <!-- <button class="get-res-class" (click)="getResourceClass('http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass')">Get resource class</button><br><br> -->
-        
+
+        <button class="can-delete-prop" (click)="canDeleteProperty()">Can delete res property</button>
+        <div>Can delete status: <span class="can-do-status-prop">{{canDoResponse}}</span></div> <br />
+
         <button class="delete-res-prop" (click)="deleteResourceProperty()">Delete resource property</button><br><br>
 
         <button class="add-card-to-res-prop" (click)="addCardinality()">Add Cardinality to resource</button><br><br>
         <div><span *ngIf="addCard">Cardinality added:&nbsp;</span><span class="res-card-added">{{addCard?.label}}</span> </div> <br />
+
+        <button class="can-replace-card-for-res-card" (click)="canReplaceCardinality()">Can replace cardinality of resource</button><br><br>
+        <div><span *ngIf="canDoResponse">Cardinality can be replaced:&nbsp;</span><span class="can-do-status-card">{{canDoResponse}}</span> </div> <br />
 
         <button class="replace-card-for-res-prop" (click)="replaceCardinality()">Replace Cardinality of resource</button><br><br>
         <div><span *ngIf="replacedCard">Cardinality replaced:&nbsp;</span><span class="res-card-replaced">{{replacedCard?.label}}</span> </div> <br />
@@ -155,6 +164,9 @@
         <button class="update-gui-order" (click)="replaceGuiOrder()">Update GUI order of resource properties</button><br><br>
         <div><span *ngIf="ontology">GUI order:&nbsp;</span><span>{{ontology?.classes["http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass"]?.propertiesList[17]?.guiOrder}}</span> </div> <br />
         <div><span *ngIf="replacedCard">Updated GUI order:&nbsp;</span><span class="gui-order-replaced">{{replacedCard?.propertiesList[17].guiOrder}}</span> </div> <br />
+
+        <button class="can-delete-onto" (click)="canDeleteOntology()">Can delete testonto</button>
+        <div>Can delete status: <span class="can-do-status-onto">{{canDoResponse}}</span></div> <br />
 
         <button class="delete-onto" (click)="deleteOntology()">Delete testonto</button>
         <div>Delete status: <span class="status">{{message}}</span></div> <br />

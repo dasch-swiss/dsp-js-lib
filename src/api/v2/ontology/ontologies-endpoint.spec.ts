@@ -11,6 +11,7 @@ import { DeleteOntologyResponse } from "../../../models/v2/ontologies/delete/del
 import { DeleteResourceClass } from "../../../models/v2/ontologies/delete/delete-resource-class";
 import { DeleteResourceProperty } from "../../../models/v2/ontologies/delete/delete-resource-property";
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
+import { CanDoResponse } from "../../../models/v2/ontologies/read/can-do-response";
 import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
 import {
     ResourceClassDefinition,
@@ -340,7 +341,35 @@ describe("OntologiesEndpoint", () => {
 
     });
 
+    describe("Method canDeleteOntology", () => {
+
+        it("should check if an ontology can be deleted", done => {
+
+            const ontologyIri = "http://0.0.0.0:3333/ontology/0001/foo/v2";
+
+            knoraApiConnection.v2.onto.canDeleteOntology(ontologyIri).subscribe(
+                (res: CanDoResponse) => {
+                    expect(res.canDo).toBeTrue();
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const canDeleteOntoResponse = require("../../../../test/data/api/v2/ontologies/can-do-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(canDeleteOntoResponse)));
+
+            expect(request.url).toEqual("http://0.0.0.0:3333/v2/ontologies/candeleteontology/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Ffoo%2Fv2");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
     describe("Method deleteOntology", () => {
+
         it("should delete an ontology", done => {
 
             const ontoInfo = new DeleteOntology();
@@ -727,6 +756,33 @@ describe("OntologiesEndpoint", () => {
 
     });
 
+    describe("Method canDeleteResourceClass", () => {
+
+        it("should check if a resource class can be deleted", done => {
+
+            const resClassIri = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
+
+            knoraApiConnection.v2.onto.canDeleteResourceClass(resClassIri).subscribe(
+                (res: CanDoResponse) => {
+                    expect(res.canDo).toBeTrue();
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const canDeleteResourceClassResponse = require("../../../../test/data/api/v2/ontologies/can-do-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(canDeleteResourceClassResponse)));
+
+            expect(request.url).toEqual("http://0.0.0.0:3333/v2/ontologies/candeleteclass/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Nothing");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
     describe("Method deleteResourceClass", () => {
 
         it("should delete a resource class", done => {
@@ -904,6 +960,33 @@ describe("OntologiesEndpoint", () => {
 
     });
 
+    describe("Method canDeleteResourceProperty", () => {
+
+        it("should check if a property can be deleted", done => {
+
+            const propertyIri = "http://0.0.0.0:3333/ontology/00FF/images/v2#titel";
+
+            knoraApiConnection.v2.onto.canDeleteResourceProperty(propertyIri).subscribe(
+                (res: CanDoResponse) => {
+                    expect(res.canDo).toBeTrue();
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const canDeleteResourcePropertyResponse = require("../../../../test/data/api/v2/ontologies/can-do-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(canDeleteResourcePropertyResponse)));
+
+            expect(request.url).toEqual("http://0.0.0.0:3333/v2/ontologies/candeleteproperty/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F00FF%2Fimages%2Fv2%23titel");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
     describe("Method deleteResourceProperty", () => {
 
         it("should delete a resource property", done => {
@@ -923,9 +1006,9 @@ describe("OntologiesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const deleteOntoResponse = require("../../../../test/data/api/v2/ontologies/anything-ontology.json");
+            const deleteResourcePropertyResponse = require("../../../../test/data/api/v2/ontologies/anything-ontology.json");
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteOntoResponse)));
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteResourcePropertyResponse)));
 
             const path = "http://0.0.0.0:3333/v2/ontologies/properties/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F00FF%2Fimages%2Fv2%23titel?lastModificationDate=2017-12-19T15%3A23%3A42.166Z";
             expect(request.url).toBe(path);
@@ -1003,6 +1086,33 @@ describe("OntologiesEndpoint", () => {
             expect(() =>
                 knoraApiConnection.v2.onto.addCardinalityToResourceClass(onto)
             ).toThrow(new Error("At least one cardinality must be defined."));
+
+        });
+
+    });
+
+    describe("Method canReplaceCardinalityOfResourceClass", () => {
+
+        it("should check if cardinalities can be replaced", done => {
+
+            const resClassIri = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
+
+            knoraApiConnection.v2.onto.canReplaceCardinalityOfResourceClass(resClassIri).subscribe(
+                (res: CanDoResponse) => {
+                    expect(res.canDo).toBeTrue();
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const canReplaceCardinalityOfResourceClassResponse = require("../../../../test/data/api/v2/ontologies/can-do-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(canReplaceCardinalityOfResourceClassResponse)));
+
+            expect(request.url).toEqual("http://0.0.0.0:3333/v2/ontologies/canreplacecardinalities/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Nothing");
+
+            expect(request.method).toEqual("GET");
 
         });
 

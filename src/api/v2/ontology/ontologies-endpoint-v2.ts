@@ -19,6 +19,7 @@ import { DeleteResourceClass } from "../../../models/v2/ontologies/delete/delete
 import { DeleteResourceProperty } from "../../../models/v2/ontologies/delete/delete-resource-property";
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { OntologyConversionUtil } from "../../../models/v2/ontologies/OntologyConversionUtil";
+import { CanDoResponse } from "../../../models/v2/ontologies/read/can-do-response";
 import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
 import { ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-class-definition";
 import { ResourcePropertyDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-property-definition";
@@ -130,6 +131,28 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return this.handleError(error);
             })
         );
+    }
+
+    /**
+     * Checks whether an existing ontology can be deleted.
+     *
+     * @param ontologyIri the Iri of the ontology to be checked.
+     */
+    canDeleteOntology(ontologyIri: string): Observable<CanDoResponse | ApiResponseError> {
+
+        return this.httpGet("/candeleteontology/" + encodeURIComponent(ontologyIri)).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
     }
 
     /**
@@ -321,6 +344,28 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
+     * Checks whether an existing resource class can be deleted.
+     *
+     * @param resourceClassIri the iri of the resource class to be checked.
+     */
+    canDeleteResourceClass(resourceClassIri: string): Observable<CanDoResponse | ApiResponseError> {
+
+        return this.httpGet("/candeleteclass/" + encodeURIComponent(resourceClassIri)).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
+    }
+
+    /**
      * Deletes a resource class.
      *
      * @param deleteResourceClass with class IRI.
@@ -387,6 +432,28 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
+     * Checks whether an existing property can be deleted.
+     *
+     * @param propertyIri the iri of the property to be checked.
+     */
+    canDeleteResourceProperty(propertyIri: string): Observable<CanDoResponse | ApiResponseError> {
+
+        return this.httpGet("/candeleteproperty/" + encodeURIComponent(propertyIri)).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
+    }
+
+    /**
      * Deletes a resource property.
      *
      * @param  deleteResourceProperty with property IRI.
@@ -441,7 +508,29 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
-     * Adds cardinalities for properties to a resource class.
+     * Checks whether existing cardinalities can be replaced for a given resource class.
+     *
+     * @param resourceClassIri the iri of the resource class to be checked.
+     */
+    canReplaceCardinalityOfResourceClass(resourceClassIri: string): Observable<CanDoResponse | ApiResponseError> {
+
+        return this.httpGet("/canreplacecardinalities/" + encodeURIComponent(resourceClassIri)).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
+    }
+
+    /**
+     * Replaces cardinalities for properties to a resource class.
      *
      * @param replaceCardinalityOfResourceClass the cardinalities to be added.
      */

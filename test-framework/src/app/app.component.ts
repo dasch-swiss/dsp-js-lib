@@ -77,7 +77,8 @@ import {
     UserCache,
     UserResponse,
     UsersResponse,
-    WriteValueResponse
+    WriteValueResponse,
+    CanDoResponse
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -145,6 +146,8 @@ export class AppComponent implements OnInit {
     listNodeDeleted = false;
     listNodePosition = 0;
     listNodeParentIri = '';
+
+    canDoResponse: boolean;
 
     ngOnInit() {
         const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
@@ -460,6 +463,16 @@ export class AppComponent implements OnInit {
         );
     }
 
+    canDeleteOntology() {
+        const ontologyId = this.ontology.id;
+
+        this.knoraApiConnection.v2.onto.canDeleteOntology(ontologyId).subscribe(
+            (response: CanDoResponse) => {
+               this.canDoResponse = response.canDo;
+            }
+        );
+    }
+
     deleteOntology() {
         const deleteOntology = new DeleteOntology();
         deleteOntology.id = this.ontology.id;
@@ -567,6 +580,16 @@ export class AppComponent implements OnInit {
             }
         );
 
+    }
+
+    canDeleteClass() {
+        const resClassIri = 'http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass';
+
+        this.knoraApiConnection.v2.onto.canDeleteResourceClass(resClassIri).subscribe(
+            (response: CanDoResponse) => {
+                this.canDoResponse = response.canDo;
+            }
+        );
     }
 
     deleteResourceClass() {
@@ -702,6 +725,16 @@ export class AppComponent implements OnInit {
 
     }
 
+    canDeleteProperty() {
+        const propIri = 'http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName';
+
+        this.knoraApiConnection.v2.onto.canDeleteResourceProperty(propIri).subscribe(
+            (response: CanDoResponse) => {
+                this.canDoResponse = response.canDo;
+            }
+        );
+    }
+
     deleteResourceProperty() {
 
         const deleteResProp: DeleteResourceProperty = new DeleteResourceProperty();
@@ -748,6 +781,18 @@ export class AppComponent implements OnInit {
             },
             err => console.error(err)
         );
+
+    }
+
+    canReplaceCardinality() {
+
+        const resClassIri = 'http://0.0.0.0:3333/ontology/0001/anything/v2#Thing';
+
+        this.knoraApiConnection.v2.onto.canReplaceCardinalityOfResourceClass(resClassIri).subscribe(
+            (response: CanDoResponse) => {
+                this.canDoResponse = response.canDo;
+            });
+
 
     }
 

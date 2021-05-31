@@ -112,6 +112,7 @@ export { CreateResourceProperty } from "./models/v2/ontologies/create/create-res
 export { ResourcePropertyDefinitionWithAllLanguages } from "./models/v2/ontologies/resource-property-definition";
 export { UpdateOntology } from "./models/v2/ontologies/update/update-ontology";
 export { UpdateOntologyMetadata } from "./models/v2/ontologies/update/update-ontology-metadata";
+export { CanDoResponse } from "./models/v2/ontologies/read/can-do-response";
 export { DeleteOntology } from "./models/v2/ontologies/delete/delete-ontology";
 export { DeleteResourceClass } from "./models/v2/ontologies/delete/delete-resource-class";
 export { DeleteResourceProperty } from "./models/v2/ontologies/delete/delete-resource-property";
