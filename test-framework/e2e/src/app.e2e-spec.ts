@@ -592,7 +592,7 @@ describe('workspace-project App', () => {
     const canDelete = page.getEle('div button.can-delete-class');
     canDelete.click();
 
-    const msg = page.getEle('div section#ontologyeditor span.can-do-status-onto');
+    const msg = page.getEle('div section#ontologyeditor span.can-do-status-class');
     expect(msg.getText()).toEqual('false');
 
   });
