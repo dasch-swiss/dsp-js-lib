@@ -344,6 +344,28 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
+     * Checks whether an existing resource class cn be deleted.
+     *
+     * @param resourceClassIri the iri of the resource class to be checked.
+     */
+    canDeleteResourceClass(resourceClassIri: string): Observable<CanDoResponse | ApiResponseError> {
+
+        return this.httpGet("/candeleteclass/" + encodeURIComponent(resourceClassIri)).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
+    }
+
+    /**
      * Deletes a resource class.
      *
      * @param deleteResourceClass with class IRI.

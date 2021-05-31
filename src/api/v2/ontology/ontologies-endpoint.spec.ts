@@ -756,6 +756,33 @@ describe("OntologiesEndpoint", () => {
 
     });
 
+    describe("Method canDeleteResourceClass", () => {
+
+        it("should check if a resource class can be deleted", done => {
+
+            const resClassIri = "http://0.0.0.0:3333/ontology/0001/anything/v2#Nothing";
+
+            knoraApiConnection.v2.onto.canDeleteResourceClass(resClassIri).subscribe(
+                (res: CanDoResponse) => {
+                    expect(res.canDo).toBeTrue();
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const canDeleteResourceClass = require("../../../../test/data/api/v2/ontologies/can-do-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(canDeleteResourceClass)));
+
+            expect(request.url).toEqual("http://0.0.0.0:3333/v2/ontologies/candeleteclass/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Nothing");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+    });
+
     describe("Method deleteResourceClass", () => {
 
         it("should delete a resource class", done => {
