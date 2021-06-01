@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.4.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.3.0...v2.4.0) (2021-05-31)
+
+
+### Maintenance
+
+* **deps:** bump DSP-API to v13.9.0 ([#347](https://www.github.com/dasch-swiss/dsp-js-lib/issues/347)) ([55f2f71](https://www.github.com/dasch-swiss/dsp-js-lib/commit/55f2f71843beae1e2c93a28c99db619fb5bd4037))
+* **gihub actions:** replace token ([#345](https://www.github.com/dasch-swiss/dsp-js-lib/issues/345)) ([f8561be](https://www.github.com/dasch-swiss/dsp-js-lib/commit/f8561bea30ad94470877a198d660563cdfeb193c))
+
+
+### Enhancements
+
+* **ontologies endpoint:** check if entity can be deleted (DSP-1673) ([#348](https://www.github.com/dasch-swiss/dsp-js-lib/issues/348)) ([d71d8b5](https://www.github.com/dasch-swiss/dsp-js-lib/commit/d71d8b53ee3dd6873d1798a53458a618d1bd1556))
+
 ## [2.3.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.2.0...v2.3.0) (2021-05-11)
 
 
