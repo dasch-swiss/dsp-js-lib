@@ -138,12 +138,15 @@
         <button class="create-res-prop" (click)="createResourceProperty()">Create resource property</button><br><br>
         <div>
             <span *ngIf="property">Res property created:&nbsp;</span><span class="res-prop-label">{{property?.label}}</span> <br>
-            <span class="res-prop-comment">{{property?.comment}}</span>
+            <span class="res-prop-comment">{{property?.comment}}</span><br>
+            <span class="res-prop-guiele">{{property?.guiElement}}</span>
         </div> <br />
 
         <button class="update-res-prop-label" (click)="updateResourcePropertyLabel()">Update resource property label</button><br><br>
 
         <button class="update-res-prop-comment" (click)="updateResourcePropertyComment()">Update resource property comment</button><br><br>
+
+        <button class="update-res-prop-guiele" (click)="updateResourcePropertyGuielement()">Update resource property gui ele</button><br><br>
 
         <!-- <button class="get-res-class" (click)="getResourceClass('http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass')">Get resource class</button><br><br> -->
 

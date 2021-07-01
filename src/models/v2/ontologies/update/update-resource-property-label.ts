@@ -7,7 +7,7 @@ import { UpdateEntityCommentOrLabel } from "./update-entity-comment-or-label";
 /**
  * @category Model V2
  */
-@JsonObject("UpdateResourceClassLabel")
+@JsonObject("UpdateResourcePropertyLabel")
 export class UpdateResourcePropertyLabel extends UpdateEntityCommentOrLabel {
 
     @JsonProperty(Constants.Label, StringLiteralToStringLiteralArrayConverter)
