@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.4.0...v2.5.0) (2021-07-01)
+
+
+### Enhancements
+
+* **ontology:** new method to update gui element and attributes (DSP-1768) ([#350](https://www.github.com/dasch-swiss/dsp-js-lib/issues/350)) ([8c2c83e](https://www.github.com/dasch-swiss/dsp-js-lib/commit/8c2c83e566a1c3ea48effe9f98060817a9d4be40))
+
 ## [2.4.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.3.0...v2.4.0) (2021-05-31)
 
 
