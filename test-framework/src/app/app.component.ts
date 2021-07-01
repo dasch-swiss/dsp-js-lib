@@ -3,8 +3,7 @@ import {
     AdministrativePermissionResponse,
     AdministrativePermissionsResponse,
     ApiResponseData,
-    ApiResponseError,
-    Cardinality,
+    ApiResponseError, CanDoResponse, Cardinality,
     ChildNodeInfoResponse,
     Constants,
     CountQueryResponse,
@@ -71,14 +70,12 @@ import {
     UpdateResourceClassLabel,
     UpdateResourceMetadata,
     UpdateResourceMetadataResponse,
-    UpdateResourcePropertyComment,
-    UpdateResourcePropertyLabel,
+    UpdateResourcePropertyComment, UpdateResourcePropertyGuiElement, UpdateResourcePropertyLabel,
     UpdateValue,
     UserCache,
     UserResponse,
     UsersResponse,
-    WriteValueResponse,
-    CanDoResponse
+    WriteValueResponse
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -102,6 +99,7 @@ export class AppComponent implements OnInit {
     dokubibOntologies: OntologiesMetadata;
     ontologyMeta: OntologyMetadata;
     ontology: ReadOntology;
+    lastModificationDate: string;
     resClass: ResourceClassDefinitionWithAllLanguages;
     property: ResourcePropertyDefinitionWithAllLanguages;
     addCard: ResourceClassDefinitionWithAllLanguages;
@@ -397,6 +395,7 @@ export class AppComponent implements OnInit {
             (onto: OntologyMetadata) => {
                 this.ontologyMeta = onto;
                 console.log('new ontology created', onto);
+                this.lastModificationDate = onto.lastModificationDate;
             }
         );
     }
@@ -405,6 +404,7 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.onto.getOntology(iri).subscribe(
             (onto: ReadOntology) => {
                 this.ontology = onto;
+                this.lastModificationDate = onto.lastModificationDate;
                 console.log('get testonto ', onto);
             }
         );
@@ -413,12 +413,13 @@ export class AppComponent implements OnInit {
     updateOntologyLabel() {
         const updateOntologyMetadata = new UpdateOntologyMetadata();
         updateOntologyMetadata.id = this.ontology.id;
-        updateOntologyMetadata.lastModificationDate = this.ontology.lastModificationDate;
+        updateOntologyMetadata.lastModificationDate = this.lastModificationDate
         updateOntologyMetadata.label = 'Test Onto';
 
         this.knoraApiConnection.v2.onto.updateOntology(updateOntologyMetadata).subscribe(
             (onto: OntologyMetadata) => {
                 this.ontologyMeta = onto;
+                this.lastModificationDate = onto.lastModificationDate;
             }
         );
     }
@@ -426,12 +427,13 @@ export class AppComponent implements OnInit {
     updateOntologyComment() {
         const updateOntologyMetadata = new UpdateOntologyMetadata();
         updateOntologyMetadata.id = this.ontology.id;
-        updateOntologyMetadata.lastModificationDate = this.ontology.lastModificationDate;
+        updateOntologyMetadata.lastModificationDate = this.lastModificationDate
         updateOntologyMetadata.comment = 'Ontology comment updated';
 
         this.knoraApiConnection.v2.onto.updateOntology(updateOntologyMetadata).subscribe(
             (onto: OntologyMetadata) => {
                 this.ontologyMeta = onto;
+                this.lastModificationDate = onto.lastModificationDate;
             }
         );
     }
@@ -439,12 +441,13 @@ export class AppComponent implements OnInit {
     removeOntologyComment() {
         const updateOntologyMetadata = new UpdateOntologyMetadata();
         updateOntologyMetadata.id = this.ontology.id;
-        updateOntologyMetadata.lastModificationDate = this.ontology.lastModificationDate;
+        updateOntologyMetadata.lastModificationDate = this.lastModificationDate
         updateOntologyMetadata.comment = '';
 
         this.knoraApiConnection.v2.onto.updateOntology(updateOntologyMetadata).subscribe(
             (onto: OntologyMetadata) => {
                 this.ontologyMeta = onto;
+                this.lastModificationDate = onto.lastModificationDate;
             }
         );
     }
@@ -452,13 +455,14 @@ export class AppComponent implements OnInit {
     updateOntologyLabelAndComment() {
         const updateOntologyMetadata = new UpdateOntologyMetadata();
         updateOntologyMetadata.id = this.ontology.id;
-        updateOntologyMetadata.lastModificationDate = this.ontology.lastModificationDate;
+        updateOntologyMetadata.lastModificationDate = this.lastModificationDate
         updateOntologyMetadata.label = 'Test Onto New Label';
         updateOntologyMetadata.comment = 'Test Onto New Comment';
 
         this.knoraApiConnection.v2.onto.updateOntology(updateOntologyMetadata).subscribe(
             (onto: OntologyMetadata) => {
                 this.ontologyMeta = onto;
+                this.lastModificationDate = onto.lastModificationDate;
             }
         );
     }
@@ -468,7 +472,7 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.onto.canDeleteOntology(ontologyId).subscribe(
             (response: CanDoResponse) => {
-               this.canDoResponse = response.canDo;
+                this.canDoResponse = response.canDo;
             }
         );
     }
@@ -476,12 +480,14 @@ export class AppComponent implements OnInit {
     deleteOntology() {
         const deleteOntology = new DeleteOntology();
         deleteOntology.id = this.ontology.id;
-        deleteOntology.lastModificationDate = this.ontology.lastModificationDate;
+        deleteOntology.lastModificationDate = this.lastModificationDate
 
         this.knoraApiConnection.v2.onto.deleteOntology(deleteOntology).subscribe(
             (response: DeleteOntologyResponse) => {
                 this.message = response.result;
                 console.log('ontology deleted', response);
+                this.ontology = undefined;
+                this.lastModificationDate = undefined;
             }
         );
     }
@@ -491,7 +497,7 @@ export class AppComponent implements OnInit {
         const onto = new UpdateOntology<CreateResourceClass>();
 
         onto.id = this.ontology.id;
-        onto.lastModificationDate = this.ontology.lastModificationDate;
+        onto.lastModificationDate = this.lastModificationDate
 
         const newResClass = new CreateResourceClass();
 
@@ -519,6 +525,7 @@ export class AppComponent implements OnInit {
             (response: ResourceClassDefinitionWithAllLanguages) => {
                 console.log('new resource class created', response);
                 this.resClass = response;
+                this.lastModificationDate = response.lastModificationDate;
             }
         );
     }
@@ -528,7 +535,7 @@ export class AppComponent implements OnInit {
         const onto = new UpdateOntology<UpdateResourceClassLabel>();
 
         onto.id = this.ontology.id;
-        onto.lastModificationDate = this.ontology.lastModificationDate;
+        onto.lastModificationDate = this.lastModificationDate
 
         const updateLabel = new UpdateResourceClassLabel();
 
@@ -549,6 +556,7 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.onto.updateResourceClass(onto).subscribe(
             (res: ResourceClassDefinitionWithAllLanguages) => {
                 this.resClass = res;
+                this.lastModificationDate = res.lastModificationDate;
             }
         );
 
@@ -559,7 +567,7 @@ export class AppComponent implements OnInit {
         const onto = new UpdateOntology<UpdateResourceClassComment>();
 
         onto.id = this.ontology.id;
-        onto.lastModificationDate = this.ontology.lastModificationDate;
+        onto.lastModificationDate = this.lastModificationDate
 
         const updateLabel = new UpdateResourceClassComment();
 
@@ -577,6 +585,7 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.onto.updateResourceClass(onto).subscribe(
             (res: ResourceClassDefinitionWithAllLanguages) => {
                 this.resClass = res;
+                this.lastModificationDate = res.lastModificationDate;
             }
         );
 
@@ -596,12 +605,13 @@ export class AppComponent implements OnInit {
 
         const deleteResClass: DeleteResourceClass = new DeleteResourceClass();
         deleteResClass.id = 'http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass';
-        deleteResClass.lastModificationDate = this.ontology.lastModificationDate;
+        deleteResClass.lastModificationDate = this.lastModificationDate
 
         this.knoraApiConnection.v2.onto.deleteResourceClass(deleteResClass).subscribe(
             (response: OntologyMetadata) => {
                 this.message = 'res class has been deleted';
                 console.log('res class deleted', response);
+                this.lastModificationDate = response.lastModificationDate;
             },
             (error: ApiResponseError) => {
                 console.error(error);
@@ -615,7 +625,7 @@ export class AppComponent implements OnInit {
         const onto = new UpdateOntology<CreateResourceProperty>();
 
         onto.id = this.ontology.id;
-        onto.lastModificationDate = this.ontology.lastModificationDate;
+        onto.lastModificationDate = this.lastModificationDate
 
         const newResProp = new CreateResourceProperty();
 
@@ -657,6 +667,7 @@ export class AppComponent implements OnInit {
             (response: ResourcePropertyDefinitionWithAllLanguages) => {
                 this.property = response;
                 console.log('new resource property created', response);
+                this.lastModificationDate = response.lastModificationDate;
             }
         );
     }
@@ -666,7 +677,7 @@ export class AppComponent implements OnInit {
         const onto = new UpdateOntology<UpdateResourcePropertyLabel>();
 
         onto.id = this.ontology.id;
-        onto.lastModificationDate = this.ontology.lastModificationDate;
+        onto.lastModificationDate = this.lastModificationDate
 
         const updateLabel = new UpdateResourcePropertyLabel();
 
@@ -688,6 +699,7 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.onto.updateResourceProperty(onto).subscribe(
             (res: ResourcePropertyDefinitionWithAllLanguages) => {
                 this.property = res;
+                this.lastModificationDate = res.lastModificationDate;
             }
         );
 
@@ -698,7 +710,7 @@ export class AppComponent implements OnInit {
         const onto = new UpdateOntology<UpdateResourcePropertyComment>();
 
         onto.id = this.ontology.id;
-        onto.lastModificationDate = this.ontology.lastModificationDate;
+        onto.lastModificationDate = this.lastModificationDate
 
         const updateLabel = new UpdateResourcePropertyComment();
 
@@ -720,6 +732,30 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.onto.updateResourceProperty(onto).subscribe(
             (res: ResourcePropertyDefinitionWithAllLanguages) => {
                 this.property = res;
+                this.lastModificationDate = res.lastModificationDate;
+            }
+        );
+
+    }
+
+    updateResourcePropertyGuielement() {
+
+        const onto = new UpdateOntology<UpdateResourcePropertyGuiElement>();
+
+        onto.id = this.ontology.id;
+        onto.lastModificationDate = this.lastModificationDate
+
+
+        const updateGuiEle = new UpdateResourcePropertyGuiElement();
+        updateGuiEle.id = 'http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName';
+        updateGuiEle.guiElement = 'http://api.knora.org/ontology/salsah-gui/v2#Textarea';
+
+        onto.entity = updateGuiEle;
+
+        this.knoraApiConnection.v2.onto.replaceGuiElementOfProperty(onto).subscribe(
+            (res: ResourcePropertyDefinitionWithAllLanguages) => {
+                this.property = res;
+                this.lastModificationDate = res.lastModificationDate;
             }
         );
 
@@ -739,12 +775,13 @@ export class AppComponent implements OnInit {
 
         const deleteResProp: DeleteResourceProperty = new DeleteResourceProperty();
         deleteResProp.id = 'http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName';
-        deleteResProp.lastModificationDate = this.ontology.lastModificationDate;
+        deleteResProp.lastModificationDate = this.lastModificationDate
 
         this.knoraApiConnection.v2.onto.deleteResourceProperty(deleteResProp).subscribe(
             (response: OntologyMetadata) => {
                 this.message = 'res property has been deleted';
                 console.log('res property deleted', response);
+                this.lastModificationDate = response.lastModificationDate;
             },
             (error: ApiResponseError) => {
                 console.error(error);
@@ -757,7 +794,7 @@ export class AppComponent implements OnInit {
 
         const onto = new UpdateOntology<UpdateResourceClassCardinality>();
 
-        onto.lastModificationDate = this.ontology.lastModificationDate;
+        onto.lastModificationDate = this.lastModificationDate
 
         onto.id = this.ontology.id;
 
@@ -778,6 +815,7 @@ export class AppComponent implements OnInit {
             (res: ResourceClassDefinitionWithAllLanguages) => {
                 this.addCard = res;
                 console.log('added card: ', res)
+                this.lastModificationDate = res.lastModificationDate;
             },
             err => console.error(err)
         );
@@ -800,7 +838,7 @@ export class AppComponent implements OnInit {
 
         const onto = new UpdateOntology<UpdateResourceClassCardinality>();
 
-        onto.lastModificationDate = this.ontology.lastModificationDate;
+        onto.lastModificationDate = this.lastModificationDate
 
         onto.id = this.ontology.id;
 
@@ -821,6 +859,7 @@ export class AppComponent implements OnInit {
             (res: ResourceClassDefinitionWithAllLanguages) => {
                 this.replacedCard = res;
                 console.log('replace card: ', res)
+                this.lastModificationDate = res.lastModificationDate;
             },
             err => console.error(err)
         );
@@ -830,7 +869,7 @@ export class AppComponent implements OnInit {
     replaceGuiOrder() {
         const onto = new UpdateOntology<UpdateResourceClassCardinality>();
 
-        onto.lastModificationDate = this.ontology.lastModificationDate;
+        onto.lastModificationDate = this.lastModificationDate
 
         onto.id = this.ontology.id;
 
@@ -852,6 +891,7 @@ export class AppComponent implements OnInit {
             (res: ResourceClassDefinitionWithAllLanguages) => {
                 this.replacedCard = res;
                 console.log('update gui order: ', res)
+                this.lastModificationDate = res.lastModificationDate;
             },
             err => console.error(err)
         );

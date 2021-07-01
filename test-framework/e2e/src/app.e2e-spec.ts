@@ -459,8 +459,10 @@ describe('workspace-project App', () => {
     const button = page.getEle('div section#ontologyeditor button.create-res-prop');
     button.click();
     const label = page.getEle('div section#ontologyeditor span.res-prop-label');
-
     expect(label.getText()).toEqual('hat Namen');
+
+    const guiEle = page.getEle('div section#ontologyeditor span.res-prop-guiele');
+    expect(guiEle.getText()).toEqual('http://api.knora.org/ontology/salsah-gui/v2#SimpleText');
   });
 
   it('change a resource property\'s comment', () => {
@@ -504,6 +506,28 @@ describe('workspace-project App', () => {
     button.click();
     const label = page.getEle('div section#ontologyeditor span.res-prop-label');
     expect(label.getText()).toEqual('hat Namen neu');
+
+  });
+
+  it('change a resource property\'s gui element', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // update res property gui ele
+    const button = page.getEle('div section#ontologyeditor button.update-res-prop-guiele');
+    button.click();
+    const guiEle = page.getEle('div section#ontologyeditor span.res-prop-guiele');
+    expect(guiEle.getText()).toEqual('http://api.knora.org/ontology/salsah-gui/v2#Textarea');
 
   });
 
