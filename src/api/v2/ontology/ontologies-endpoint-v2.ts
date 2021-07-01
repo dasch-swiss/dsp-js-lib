@@ -1,7 +1,6 @@
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
-import { ApiResponseData } from "../../../models/api-response-data";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { Constants } from "../../../models/v2/Constants";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
@@ -29,6 +28,7 @@ import { UpdateResourceClassCardinality } from "../../../models/v2/ontologies/up
 import { UpdateResourceClassComment } from "../../../models/v2/ontologies/update/update-resource-class-comment";
 import { UpdateResourceClassLabel } from "../../../models/v2/ontologies/update/update-resource-class-label";
 import { UpdateResourcePropertyComment } from "../../../models/v2/ontologies/update/update-resource-property-comment";
+import { UpdateResourcePropertyGuiElement } from "../../../models/v2/ontologies/update/update-resource-property-gui-element";
 import { UpdateResourcePropertyLabel } from "../../../models/v2/ontologies/update/update-resource-property-label";
 import { Endpoint } from "../../endpoint";
 
@@ -221,7 +221,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      */
     deleteOntologyComment(ontologyMetadata: UpdateOntologyMetadata): Observable<OntologyMetadata | ApiResponseError> {
 
-        if(ontologyMetadata.id === undefined || ontologyMetadata.lastModificationDate === undefined) {
+        if (ontologyMetadata.id === undefined || ontologyMetadata.lastModificationDate === undefined) {
             throw new Error('Missing IRI or lastModificationDate');
         }
 
@@ -430,6 +430,28 @@ export class OntologiesEndpointV2 extends Endpoint {
             })
         );
     }
+
+    /**
+     * Updates the GUI element and/or the GUI attributes of a property
+     * @param replaceGuiElement
+     */
+    replaceGuiElementOfProperty(replaceGuiElement: UpdateOntology<UpdateResourcePropertyGuiElement>): Observable<ResourcePropertyDefinitionWithAllLanguages | ApiResponseError> {
+        const ontoPayload = this.jsonConvert.serializeObject(replaceGuiElement);
+
+        ontoPayload["@graph"] = [this.jsonConvert.serializeObject(replaceGuiElement.entity)];
+
+        return this.httpPut("/properties/guielement", ontoPayload).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return OntologyConversionUtil.convertResourcePropertyResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+    }
+
 
     /**
      * Checks whether an existing property can be deleted.
