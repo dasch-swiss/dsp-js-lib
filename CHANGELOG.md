@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.5.0...v2.6.0) (2021-07-07)
+
+
+### Enhancements
+
+* **file-value:** support all file value types (DSP-1777) ([#352](https://www.github.com/dasch-swiss/dsp-js-lib/issues/352)) ([7af80b2](https://www.github.com/dasch-swiss/dsp-js-lib/commit/7af80b287a247576535430b8c8dce9018534a7fb))
+
 ## [2.5.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.4.0...v2.5.0) (2021-07-01)
 
 
