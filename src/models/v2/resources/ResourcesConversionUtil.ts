@@ -12,7 +12,12 @@ import { ReadBooleanValue } from "./values/read/read-boolean-value";
 import { ReadColorValue } from "./values/read/read-color-value";
 import { ParseReadDateValue, ReadDateValue } from "./values/read/read-date-value";
 import { ReadDecimalValue } from "./values/read/read-decimal-value";
-import { ReadStillImageFileValue } from "./values/read/read-file-value";
+import { 
+    ReadAudioFileValue,
+    ReadDocumentFileValue,
+    ReadMovingImageFileValue,
+    ReadStillImageFileValue
+} from "./values/read/read-file-value";
 import { ParseReadGeomValue, ReadGeomValue } from "./values/read/read-geom-value";
 import { ReadGeonameValue } from "./values/read/read-geoname-value";
 import { ReadIntValue } from "./values/read/read-int-value";
@@ -396,6 +401,32 @@ export namespace ResourcesConversionUtil {
                     ));
                     break;
                 }
+                
+                case Constants.AudioFileValue: {
+                    const audioVal = handleSimpleValue(valueJsonld, ReadAudioFileValue, jsonConvert);
+                    value = audioVal.pipe(map((val: ReadAudioFileValue) => {
+                        val.strval = val.fileUrl;
+                        return val;
+                    }));
+                    break;
+                }                
+
+                case Constants.DocumentFileValue: {
+                    const documentVal = handleSimpleValue(valueJsonld, ReadDocumentFileValue, jsonConvert);
+                    value = documentVal.pipe(map((val: ReadDocumentFileValue) => {
+                        val.strval = val.fileUrl;
+                        return val;
+                    }));
+                    break;
+                }                
+                case Constants.MovingImageFileValue: {
+                    const movingImageVal = handleSimpleValue(valueJsonld, ReadMovingImageFileValue, jsonConvert);
+                    value = movingImageVal.pipe(map((val: ReadMovingImageFileValue) => {
+                        val.strval = val.fileUrl;
+                        return val;
+                    }));
+                    break;
+                }                
 
                 case Constants.StillImageFileValue: {
                     const stillImageVal = handleSimpleValue(valueJsonld, ReadStillImageFileValue, jsonConvert);
