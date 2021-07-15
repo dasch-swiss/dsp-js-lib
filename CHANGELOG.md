@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.6.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.6.0...v2.6.1) (2021-07-15)
+
+
+### Maintenance
+
+* **models:** expand resource conversion (DSP-1795) ([#354](https://www.github.com/dasch-swiss/dsp-js-lib/issues/354)) ([f5bbe8f](https://www.github.com/dasch-swiss/dsp-js-lib/commit/f5bbe8f30052190e5682933889aee55112d2ec74))
+
 ## [2.6.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.5.0...v2.6.0) (2021-07-07)
 
 
