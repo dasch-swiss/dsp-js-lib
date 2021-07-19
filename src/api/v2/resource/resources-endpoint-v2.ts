@@ -178,6 +178,29 @@ export class ResourcesEndpointV2 extends Endpoint {
             catchError(error => this.handleError(error))
         );
 
+    }
+
+    /**
+     * Erases a resource.
+     *
+     * @param resource the resource to be deleted.
+     */
+    eraseResource(resource: DeleteResource): Observable<DeleteResourceResponse | ApiResponseError> {
+
+        const res = this.jsonConvert.serializeObject(resource);
+
+        return this.httpPost("/erase", res).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // console.log(JSON.stringify(ajaxResponse.response));
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }),
+            map(jsonldobj => {
+                return this.jsonConvert.deserializeObject(jsonldobj, DeleteResourceResponse);
+            }),
+            catchError(error => this.handleError(error))
+        );
 
     }
 }

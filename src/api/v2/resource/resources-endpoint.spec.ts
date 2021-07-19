@@ -627,4 +627,50 @@ describe("ResourcesEndpoint", () => {
 
     });
 
+    describe("method eraseResource", () => {
+
+        it("should erase a resource", done => {
+
+            const deleteResource = new DeleteResource();
+
+            deleteResource.id = "http://rdfh.ch/0001/thing-with-history";
+
+            deleteResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
+
+            // comment is not necessary
+            deleteResource.deleteComment = undefined;
+
+            deleteResource.lastModificationDate = "2019-02-13T09:05:10Z";
+
+            knoraApiConnection.v2.res.eraseResource(deleteResource).subscribe(
+                (res: DeleteResourceResponse) => {
+                    // TODO: the following line would be correct, but we
+                    // do not have test data for erase response and
+                    // this is why we use the delete resource response
+                    // expect(res.result).toEqual("Resource erased");
+                    expect(res.result).toEqual("Resource marked as deleted");
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const eraseResResponse = require("../../../../test/data/api/v2/resources/erase-resource-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(eraseResResponse)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/resources/erase");
+
+            expect(request.method).toEqual("POST");
+
+            const expectedPayload = require("../../../../test/data/api/v2/resources/erase-resource-request-expanded.json");
+
+            // TODO: remove this bad hack once test data is stable
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#lastModificationDate"]["@value"] = "2019-02-13T09:05:10Z";
+
+            expect(request.data()).toEqual(expectedPayload);
+
+        });
+    });
+
 });
