@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.6.2](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.6.1...v2.6.2) (2021-07-19)
+
+
+### Bug Fixes
+
+* **resource:** optional file values (DSP-1803) ([#356](https://www.github.com/dasch-swiss/dsp-js-lib/issues/356)) ([f61dee8](https://www.github.com/dasch-swiss/dsp-js-lib/commit/f61dee84e2dc5ef9f4ab1ffd0468f8948200601f))
+
 ### [2.6.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.6.0...v2.6.1) (2021-07-15)
 
 
