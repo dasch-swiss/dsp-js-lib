@@ -23,8 +23,8 @@ export abstract class ReadFileValue extends ReadValue implements IBaseFileValue 
 @JsonObject("ReadAudioFileValue")
 export class ReadAudioFileValue extends ReadFileValue {
 
-    @JsonProperty(Constants.AudioFileValueHasDuration, Number)
-    duration: number = 0;
+    @JsonProperty(Constants.AudioFileValueHasDuration, Number, true)
+    duration?: number = 0;
 
 }
 
@@ -57,11 +57,11 @@ export class ReadMovingImageFileValue extends ReadFileValue {
     @JsonProperty(Constants.MovingImageFileValueHasDimY, Number)
     dimY: number = 0;
 
-    @JsonProperty(Constants.MovingImageFileValueHasDuration, Number)
-    duration: number = 0;
+    @JsonProperty(Constants.MovingImageFileValueHasDuration, Number, true)
+    duration?: number = 0;
 
-    @JsonProperty(Constants.MovingImageFileValueHasFps, Number)
-    fps: number = 0;
+    @JsonProperty(Constants.MovingImageFileValueHasFps, Number, true)
+    fps?: number = 0;
 
 }
 
