@@ -1,5 +1,65 @@
 # Changelog
 
+### [2.6.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.6.0...v2.6.1) (2021-07-15)
+
+
+### Maintenance
+
+* **models:** expand resource conversion (DSP-1795) ([#354](https://www.github.com/dasch-swiss/dsp-js-lib/issues/354)) ([f5bbe8f](https://www.github.com/dasch-swiss/dsp-js-lib/commit/f5bbe8f30052190e5682933889aee55112d2ec74))
+
+## [2.6.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.5.0...v2.6.0) (2021-07-07)
+
+
+### Enhancements
+
+* **file-value:** support all file value types (DSP-1777) ([#352](https://www.github.com/dasch-swiss/dsp-js-lib/issues/352)) ([7af80b2](https://www.github.com/dasch-swiss/dsp-js-lib/commit/7af80b287a247576535430b8c8dce9018534a7fb))
+
+## [2.5.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.4.0...v2.5.0) (2021-07-01)
+
+
+### Enhancements
+
+* **ontology:** new method to update gui element and attributes (DSP-1768) ([#350](https://www.github.com/dasch-swiss/dsp-js-lib/issues/350)) ([8c2c83e](https://www.github.com/dasch-swiss/dsp-js-lib/commit/8c2c83e566a1c3ea48effe9f98060817a9d4be40))
+
+## [2.4.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.3.0...v2.4.0) (2021-05-31)
+
+
+### Maintenance
+
+* **deps:** bump DSP-API to v13.9.0 ([#347](https://www.github.com/dasch-swiss/dsp-js-lib/issues/347)) ([55f2f71](https://www.github.com/dasch-swiss/dsp-js-lib/commit/55f2f71843beae1e2c93a28c99db619fb5bd4037))
+* **gihub actions:** replace token ([#345](https://www.github.com/dasch-swiss/dsp-js-lib/issues/345)) ([f8561be](https://www.github.com/dasch-swiss/dsp-js-lib/commit/f8561bea30ad94470877a198d660563cdfeb193c))
+
+
+### Enhancements
+
+* **ontologies endpoint:** check if entity can be deleted (DSP-1673) ([#348](https://www.github.com/dasch-swiss/dsp-js-lib/issues/348)) ([d71d8b5](https://www.github.com/dasch-swiss/dsp-js-lib/commit/d71d8b53ee3dd6873d1798a53458a618d1bd1556))
+
+## [2.3.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.2.0...v2.3.0) (2021-05-11)
+
+
+### Maintenance
+
+* **dependencies:** update dsp-api to 13.7.0 (DSP-1610) ([#342](https://www.github.com/dasch-swiss/dsp-js-lib/issues/342)) ([e9e988d](https://www.github.com/dasch-swiss/dsp-js-lib/commit/e9e988d28f816045046eb7d607a272dbc4107100))
+* **deps:** Bump elliptic from 6.5.3 to 6.5.4 ([#331](https://www.github.com/dasch-swiss/dsp-js-lib/issues/331)) ([ba9dffc](https://www.github.com/dasch-swiss/dsp-js-lib/commit/ba9dffc5941dac88dd2e5b71d3bd3d2fa24f2b76))
+* **deps:** Bump handlebars from 4.7.6 to 4.7.7 ([#338](https://www.github.com/dasch-swiss/dsp-js-lib/issues/338)) ([71e7c5a](https://www.github.com/dasch-swiss/dsp-js-lib/commit/71e7c5a3686e083f93062a52467469e1178e127b))
+* **deps:** Bump lodash from 4.17.19 to 4.17.21 ([#340](https://www.github.com/dasch-swiss/dsp-js-lib/issues/340)) ([187d374](https://www.github.com/dasch-swiss/dsp-js-lib/commit/187d3746f90df1a69f0f4798794fbce50b882845))
+* **deps:** Bump underscore from 1.10.2 to 1.13.1 ([#336](https://www.github.com/dasch-swiss/dsp-js-lib/issues/336)) ([deecf60](https://www.github.com/dasch-swiss/dsp-js-lib/commit/deecf605ff5ff608ee224effd50be6fca27de1ef))
+* **deps:** Bump y18n from 4.0.0 to 4.0.3 ([#339](https://www.github.com/dasch-swiss/dsp-js-lib/issues/339)) ([8474118](https://www.github.com/dasch-swiss/dsp-js-lib/commit/84741180b6c48b307b7386309cebb62f3e3e5bf0))
+* **deps:** update dependencies to fix vulnerability issue (DSP-1606 / DSP-1607) ([#337](https://www.github.com/dasch-swiss/dsp-js-lib/issues/337)) ([834cc01](https://www.github.com/dasch-swiss/dsp-js-lib/commit/834cc018dc4bc518093f97ec2939a11a18b221d1))
+* **update Angular:** update to Angular version 11 (DSP-1479) ([#333](https://www.github.com/dasch-swiss/dsp-js-lib/issues/333)) ([71fdeb7](https://www.github.com/dasch-swiss/dsp-js-lib/commit/71fdeb7c7cc62f8415a3d3d50b8b6c3970d707f0))
+
+
+### Enhancements
+
+* **ontology:** new method to change gui order (DSP-1566) ([#343](https://www.github.com/dasch-swiss/dsp-js-lib/issues/343)) ([84d61b6](https://www.github.com/dasch-swiss/dsp-js-lib/commit/84d61b66f2d9cea5b0bd461e4d9a5bf8db3e7f26))
+
+## [2.2.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.1.1...v2.2.0) (2021-03-17)
+
+
+### Enhancements
+
+* **ontologies-endpoint:** updateOntology method (DSP-1358) ([#329](https://www.github.com/dasch-swiss/dsp-js-lib/issues/329)) ([a2d1beb](https://www.github.com/dasch-swiss/dsp-js-lib/commit/a2d1beb01f01f259c3f5d14395cd50ed76599b4a))
+
 ### [2.1.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.1.0...v2.1.1) (2021-03-02)
 
 

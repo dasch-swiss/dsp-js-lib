@@ -15,11 +15,59 @@ export abstract class CreateFileValue extends CreateValue implements IBaseFileVa
 /**
  * @category Model V2
  */
+@JsonObject("CreateAudioFileValue")
+export class CreateAudioFileValue extends CreateFileValue {
+
+    constructor() {
+        super(Constants.AudioFileValue);
+    }
+
+}
+
+/**
+ * @category Model V2
+ */
+@JsonObject("CreateDocumentFileValue")
+export class CreateDocumentFileValue extends CreateFileValue {
+
+    constructor() {
+        super(Constants.DocumentFileValue);
+    }
+
+}
+
+/**
+ * @category Model V2
+ */
+@JsonObject("CreateMovingImageFileValue")
+export class CreateMovingImageFileValue extends CreateFileValue {
+
+    constructor() {
+        super(Constants.MovingImageFileValue);
+    }
+
+}
+
+/**
+ * @category Model V2
+ */
 @JsonObject("CreateStillImageFileValue")
 export class CreateStillImageFileValue extends CreateFileValue {
 
     constructor() {
         super(Constants.StillImageFileValue);
+    }
+
+}
+
+/**
+ * @category Model V2
+ */
+@JsonObject("CreateTextFileValue")
+export class CreateTextFileValue extends CreateFileValue {
+
+    constructor() {
+        super(Constants.TextFileValue);
     }
 
 }

@@ -105,6 +105,9 @@ export class Constants {
     static LinkValueHasSourceIri = Constants.KnoraApiV2 + Constants.HashDelimiter + "linkValueHasSourceIri";
     static UriValueAsUri = Constants.KnoraApiV2 + Constants.HashDelimiter + "uriValueAsUri";
     static GeometryValueAsGeometry = Constants.KnoraApiV2 + Constants.HashDelimiter + "geometryValueAsGeometry";
+    static DocumentFileValueHasDimX = Constants.KnoraApiV2 + Constants.HashDelimiter + "documentFileValueHasDimX";
+    static DocumentFileValueHasDimY = Constants.KnoraApiV2 + Constants.HashDelimiter + "documentFileValueHasDimY";
+    static DocumentFileValueHasPageCount = Constants.KnoraApiV2 + Constants.HashDelimiter + "documentFileValueHasPageCount";
     static StillImageFileValueHasDimX = Constants.KnoraApiV2 + Constants.HashDelimiter + "stillImageFileValueHasDimX";
     static StillImageFileValueHasDimY = Constants.KnoraApiV2 + Constants.HashDelimiter + "stillImageFileValueHasDimY";
     static StillImageFileValueHasIIIFBaseUrl = Constants.KnoraApiV2 + Constants.HashDelimiter + "stillImageFileValueHasIIIFBaseUrl";
@@ -119,6 +122,7 @@ export class Constants {
     static ValueHasComment = Constants.KnoraApiV2 + Constants.HashDelimiter + "valueHasComment";
     static DeleteComment = Constants.KnoraApiV2 + Constants.HashDelimiter + "deleteComment";
     static Result = Constants.KnoraApiV2 + Constants.HashDelimiter + "result";
+    static CanDo = Constants.KnoraApiV2 + Constants.HashDelimiter + "canDo";
 
     static OntologyName = Constants.KnoraApiV2 + Constants.HashDelimiter + "ontologyName";
 

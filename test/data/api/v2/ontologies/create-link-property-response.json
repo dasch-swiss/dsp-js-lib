@@ -1,7 +1,7 @@
 
 {
     "knora-api:lastModificationDate": {
-        "@value": "2021-02-18T15:12:14.249469Z",
+        "@value": "2021-05-26T16:31:39.263498Z",
         "@type": "xsd:dateTimeStamp"
     },
     "rdfs:label": "The anything ontology",
@@ -16,6 +16,11 @@
             },
             "knora-api:isEditable": true,
             "knora-api:isResourceProperty": true,
+            "@type": "owl:ObjectProperty",
+            "knora-api:objectType": {
+                "@id": "anything:Nothing"
+            },
+            "@id": "anything:hasOtherNothing",
             "knora-api:subjectType": {
                 "@id": "anything:Nothing"
             },
@@ -23,12 +28,7 @@
             "rdfs:comment": {
                 "@value": "Refers to the other Nothing of a Nothing",
                 "@language": "en"
-            },
-            "@type": "owl:ObjectProperty",
-            "knora-api:objectType": {
-                "@id": "anything:Nothing"
-            },
-            "@id": "anything:hasOtherNothing"
+            }
         }
     ],
     "knora-api:attachedToProject": {

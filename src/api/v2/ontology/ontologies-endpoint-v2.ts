@@ -18,14 +18,17 @@ import { DeleteResourceClass } from "../../../models/v2/ontologies/delete/delete
 import { DeleteResourceProperty } from "../../../models/v2/ontologies/delete/delete-resource-property";
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { OntologyConversionUtil } from "../../../models/v2/ontologies/OntologyConversionUtil";
+import { CanDoResponse } from "../../../models/v2/ontologies/read/can-do-response";
 import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
 import { ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-class-definition";
 import { ResourcePropertyDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-property-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
+import { UpdateOntologyMetadata } from "../../../models/v2/ontologies/update/update-ontology-metadata";
 import { UpdateResourceClassCardinality } from "../../../models/v2/ontologies/update/update-resource-class-cardinality";
 import { UpdateResourceClassComment } from "../../../models/v2/ontologies/update/update-resource-class-comment";
 import { UpdateResourceClassLabel } from "../../../models/v2/ontologies/update/update-resource-class-label";
 import { UpdateResourcePropertyComment } from "../../../models/v2/ontologies/update/update-resource-property-comment";
+import { UpdateResourcePropertyGuiElement } from "../../../models/v2/ontologies/update/update-resource-property-gui-element";
 import { UpdateResourcePropertyLabel } from "../../../models/v2/ontologies/update/update-resource-property-label";
 import { Endpoint } from "../../endpoint";
 
@@ -131,6 +134,28 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
+     * Checks whether an existing ontology can be deleted.
+     *
+     * @param ontologyIri the Iri of the ontology to be checked.
+     */
+    canDeleteOntology(ontologyIri: string): Observable<CanDoResponse | ApiResponseError> {
+
+        return this.httpGet("/candeleteontology/" + encodeURIComponent(ontologyIri)).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
+    }
+
+    /**
      * Deletes an ontology.
      *
      * @param ontology the ontology to be deleted.
@@ -151,6 +176,86 @@ export class OntologiesEndpointV2 extends Endpoint {
             catchError(error => this.handleError(error))
         );
 
+    }
+
+    /**
+     * Updates the metadata of an ontology.
+     *
+     * @param ontologyMetadata The ontology metadata to be updated
+     */
+    updateOntology(ontologyMetadata: UpdateOntologyMetadata): Observable<OntologyMetadata | ApiResponseError> {
+        // label and comment cannot both be undefined
+        if (ontologyMetadata.label === undefined && ontologyMetadata.comment === undefined) {
+            throw new Error("Label and comment cannot both be undefined. At least one must be defined.");
+        }
+
+        // label cannot be an empty string
+        if (ontologyMetadata.label !== undefined && ontologyMetadata.label.trim() === "") {
+            throw new Error("Label cannot be an empty string.");
+        }
+
+        // comment can be an empty string but we must make an additional API request to remove the comment
+        if (ontologyMetadata.comment !== undefined && ontologyMetadata.comment.trim() === "") {
+            // set the comment to undefined because the API will not accept an empty string
+            ontologyMetadata.comment = undefined;
+
+            // request to remove the comment
+            return this.deleteOntologyComment(ontologyMetadata).pipe(
+                mergeMap((res: OntologyMetadata) => {
+                    // update the lastModificationDate since the DELETE request changed it
+                    ontologyMetadata.lastModificationDate = res.lastModificationDate!;
+
+                    // update the metadata, which in this case is only the label
+                    return this.updateOntologyMetadata(ontologyMetadata)
+                })
+            );
+        } else { // if label and/or comment are defined and not empty strings, make the API request to update the metadata
+            return this.updateOntologyMetadata(ontologyMetadata);
+        }
+    }
+
+    /**
+     * Removes the comment from the metadata of an ontology.
+     *
+     * @param ontologyMetadata The ontology metadata to be updated
+     */
+    deleteOntologyComment(ontologyMetadata: UpdateOntologyMetadata): Observable<OntologyMetadata | ApiResponseError> {
+
+        if (ontologyMetadata.id === undefined || ontologyMetadata.lastModificationDate === undefined) {
+            throw new Error('Missing IRI or lastModificationDate');
+        }
+
+        return this.httpDelete(`/comment/${encodeURIComponent(ontologyMetadata.id)}?lastModificationDate=${encodeURIComponent(ontologyMetadata.lastModificationDate)}`).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
+            })
+        );
+    }
+
+    /**
+     * The PUT request for updating the metadata of an ontology.
+     *
+     * @param ontologyMetadata The ontology metadata to be updated
+     */
+    private updateOntologyMetadata(ontologyMetadata: UpdateOntologyMetadata): Observable<OntologyMetadata | ApiResponseError> {
+        const onto = this.jsonConvert.serializeObject(ontologyMetadata);
+
+        return this.httpPut("/metadata", onto).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
     }
 
     /**
@@ -239,6 +344,28 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
+     * Checks whether an existing resource class can be deleted.
+     *
+     * @param resourceClassIri the iri of the resource class to be checked.
+     */
+    canDeleteResourceClass(resourceClassIri: string): Observable<CanDoResponse | ApiResponseError> {
+
+        return this.httpGet("/candeleteclass/" + encodeURIComponent(resourceClassIri)).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
+    }
+
+    /**
      * Deletes a resource class.
      *
      * @param deleteResourceClass with class IRI.
@@ -305,6 +432,50 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
+     * Updates the GUI element and/or the GUI attributes of a property
+     * @param replaceGuiElement
+     */
+    replaceGuiElementOfProperty(replaceGuiElement: UpdateOntology<UpdateResourcePropertyGuiElement>): Observable<ResourcePropertyDefinitionWithAllLanguages | ApiResponseError> {
+        const ontoPayload = this.jsonConvert.serializeObject(replaceGuiElement);
+
+        ontoPayload["@graph"] = [this.jsonConvert.serializeObject(replaceGuiElement.entity)];
+
+        return this.httpPut("/properties/guielement", ontoPayload).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return OntologyConversionUtil.convertResourcePropertyResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+    }
+
+
+    /**
+     * Checks whether an existing property can be deleted.
+     *
+     * @param propertyIri the iri of the property to be checked.
+     */
+    canDeleteResourceProperty(propertyIri: string): Observable<CanDoResponse | ApiResponseError> {
+
+        return this.httpGet("/candeleteproperty/" + encodeURIComponent(propertyIri)).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
+    }
+
+    /**
      * Deletes a resource property.
      *
      * @param  deleteResourceProperty with property IRI.
@@ -359,7 +530,29 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
-     * Adds cardinalities for properties to a resource class.
+     * Checks whether existing cardinalities can be replaced for a given resource class.
+     *
+     * @param resourceClassIri the iri of the resource class to be checked.
+     */
+    canReplaceCardinalityOfResourceClass(resourceClassIri: string): Observable<CanDoResponse | ApiResponseError> {
+
+        return this.httpGet("/canreplacecardinalities/" + encodeURIComponent(resourceClassIri)).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
+    }
+
+    /**
+     * Replaces cardinalities for properties to a resource class.
      *
      * @param replaceCardinalityOfResourceClass the cardinalities to be added.
      */
@@ -392,6 +585,29 @@ export class OntologiesEndpointV2 extends Endpoint {
             })
         );
 
+    }
+
+    /**
+     * Updates gui order of cardinalities
+     * @param replaceGuiOrder
+     */
+    replaceGuiOrderOfCardinalities(replaceGuiOrder: UpdateOntology<UpdateResourceClassCardinality>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+        const onto = this.jsonConvert.serializeObject(replaceGuiOrder);
+
+        const cardinalities = this.jsonConvert.serializeObject(replaceGuiOrder.entity);
+
+        onto["@graph"] = [cardinalities];
+
+        return this.httpPut("/guiorder", onto).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
     }
 
 }

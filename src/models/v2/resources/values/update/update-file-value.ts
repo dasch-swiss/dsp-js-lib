@@ -17,6 +17,42 @@ export abstract class UpdateFileValue extends UpdateValue implements IBaseFileVa
 /**
  * @category Model V2
  */
+@JsonObject("UpdateAudioFileValue")
+export class UpdateAudioFileValue extends UpdateFileValue {
+
+    constructor() {
+        super(Constants.AudioFileValue);
+    }
+
+}
+
+/**
+ * @category Model V2
+ */
+@JsonObject("UpdateDocumentFileValue")
+export class UpdateDocumentFileValue extends UpdateFileValue {
+
+    constructor() {
+        super(Constants.DocumentFileValue);
+    }
+
+}
+
+/**
+ * @category Model V2
+ */
+@JsonObject("UpdateMovingImageFileValue")
+export class UpdateMovingImageFileValue extends UpdateFileValue {
+
+    constructor() {
+        super(Constants.MovingImageFileValue);
+    }
+
+}
+
+/**
+ * @category Model V2
+ */
 @JsonObject("UpdateStillImageFileValue")
 export class UpdateStillImageFileValue extends UpdateFileValue {
 
@@ -25,3 +61,16 @@ export class UpdateStillImageFileValue extends UpdateFileValue {
     }
 
 }
+
+/**
+ * @category Model V2
+ */
+@JsonObject("UpdateTextFileValue")
+export class UpdateTextFileValue extends UpdateFileValue {
+
+    constructor() {
+        super(Constants.TextFileValue);
+    }
+
+}
+

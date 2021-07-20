@@ -119,6 +119,8 @@ export { CreateOntology } from "./models/v2/ontologies/create/create-ontology";
 export { CreateResourceProperty } from "./models/v2/ontologies/create/create-resource-property";
 export { ResourcePropertyDefinitionWithAllLanguages } from "./models/v2/ontologies/resource-property-definition";
 export { UpdateOntology } from "./models/v2/ontologies/update/update-ontology";
+export { UpdateOntologyMetadata } from "./models/v2/ontologies/update/update-ontology-metadata";
+export { CanDoResponse } from "./models/v2/ontologies/read/can-do-response";
 export { DeleteOntology } from "./models/v2/ontologies/delete/delete-ontology";
 export { DeleteResourceClass } from "./models/v2/ontologies/delete/delete-resource-class";
 export { DeleteResourceProperty } from "./models/v2/ontologies/delete/delete-resource-property";
@@ -128,6 +130,7 @@ export { UpdateResourceClassLabel } from "./models/v2/ontologies/update/update-r
 export { UpdateResourceClassComment } from "./models/v2/ontologies/update/update-resource-class-comment";
 export { UpdateResourcePropertyLabel } from "./models/v2/ontologies/update/update-resource-property-label";
 export { UpdateResourcePropertyComment } from "./models/v2/ontologies/update/update-resource-property-comment";
+export { UpdateResourcePropertyGuiElement } from "./models/v2/ontologies/update/update-resource-property-gui-element";
 export { ReadOntology } from "./models/v2/ontologies/read/read-ontology";
 export { UpdateResourceClassCardinality } from "./models/v2/ontologies/update/update-resource-class-cardinality";
 export { OntologyMetadata, OntologiesMetadata } from "./models/v2/ontologies/ontology-metadata";
@@ -159,14 +162,23 @@ export { ReadBooleanValue } from "./models/v2/resources/values/read/read-boolean
 export { ReadColorValue } from "./models/v2/resources/values/read/read-color-value";
 export { ReadDateValue, KnoraDate, KnoraPeriod, Precision } from "./models/v2/resources/values/read/read-date-value";
 export { ReadDecimalValue } from "./models/v2/resources/values/read/read-decimal-value";
-export { ReadFileValue, ReadStillImageFileValue } from "./models/v2/resources/values/read/read-file-value";
+export { 
+    ReadFileValue,
+    ReadAudioFileValue,
+    ReadDocumentFileValue,
+    ReadMovingImageFileValue,
+    ReadStillImageFileValue
+} from "./models/v2/resources/values/read/read-file-value";
 export { ReadGeomValue, RegionGeometry, Point2D } from "./models/v2/resources/values/read/read-geom-value";
 export { ReadIntValue } from "./models/v2/resources/values/read/read-int-value";
 export { ReadIntervalValue } from "./models/v2/resources/values/read/read-interval-value";
 export { ReadLinkValue } from "./models/v2/resources/values/read/read-link-value";
 export { ReadListValue } from "./models/v2/resources/values/read/read-list-value";
 export {
-    ReadTextValue, ReadTextValueAsString, ReadTextValueAsHtml, ReadTextValueAsXml
+    ReadTextValue, 
+    ReadTextValueAsString, 
+    ReadTextValueAsHtml, 
+    ReadTextValueAsXml
 } from "./models/v2/resources/values/read/read-text-value";
 export { ReadUriValue } from "./models/v2/resources/values/read/read-uri-value";
 export { ReadTimeValue } from "./models/v2/resources/values/read/read-time-value";
@@ -178,8 +190,14 @@ export { UpdateBooleanValue } from "./models/v2/resources/values/update/update-b
 export { UpdateColorValue } from "./models/v2/resources/values/update/update-color-value";
 export { UpdateDateValue } from "./models/v2/resources/values/update/update-date-value";
 export { UpdateDecimalValue } from "./models/v2/resources/values/update/update-decimal-value";
-export { UpdateFileValue } from "./models/v2/resources/values/update/update-file-value";
-export { UpdateStillImageFileValue } from "./models/v2/resources/values/update/update-file-value";
+export { 
+    UpdateFileValue,
+    UpdateAudioFileValue,
+    UpdateDocumentFileValue,
+    UpdateMovingImageFileValue,
+    UpdateStillImageFileValue,
+    UpdateTextFileValue
+} from "./models/v2/resources/values/update/update-file-value";
 export { UpdateGeomValue } from "./models/v2/resources/values/update/update-geom-value";
 export { UpdateIntValue } from "./models/v2/resources/values/update/update-int-value";
 export { UpdateIntervalValue } from "./models/v2/resources/values/update/update-interval-value";
@@ -195,8 +213,14 @@ export { CreateBooleanValue } from "./models/v2/resources/values/create/create-b
 export { CreateColorValue } from "./models/v2/resources/values/create/create-color-value";
 export { CreateDateValue } from "./models/v2/resources/values/create/create-date-value";
 export { CreateDecimalValue } from "./models/v2/resources/values/create/create-decimal-value";
-export { CreateFileValue } from "./models/v2/resources/values/create/create-file-value";
-export { CreateStillImageFileValue } from "./models/v2/resources/values/create/create-file-value";
+export { 
+    CreateFileValue,
+    CreateAudioFileValue,
+    CreateDocumentFileValue,
+    CreateMovingImageFileValue,
+    CreateStillImageFileValue,
+    CreateTextFileValue
+} from "./models/v2/resources/values/create/create-file-value";
 export { CreateGeomValue } from "./models/v2/resources/values/create/create-geom-value";
 export { CreateIntValue } from "./models/v2/resources/values/create/create-int-value";
 export { CreateIntervalValue } from "./models/v2/resources/values/create/create-interval-value";

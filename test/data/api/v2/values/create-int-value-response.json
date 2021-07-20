@@ -1,10 +1,10 @@
 
 {
-    "@id": "http://rdfh.ch/0001/a-thing/values/1x3aD9x-SMenkUJG27acUg",
+    "@id": "http://rdfh.ch/0001/a-thing/values/OVRXkgPwQqCWwQr-vsWp8g",
     "@type": "knora-api:IntValue",
-    "knora-api:valueHasUUID": "Bayl9fXgS-q-BWcg4lOxiw",
+    "knora-api:valueHasUUID": "hVLo9VK1Qo6_NkdL446qGQ",
     "knora-api:valueCreationDate": {
-        "@value": "2021-02-18T14:57:04.066320Z",
+        "@value": "2021-05-26T16:42:23.013865Z",
         "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp"
     },
     "@context": {

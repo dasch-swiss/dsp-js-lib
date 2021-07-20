@@ -439,6 +439,91 @@ describe('workspace-project App', () => {
     expect(label.getText()).toEqual('Test Ontology');
 
   });
+
+  it('update "testonto" ontology metadata with a new label', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // update testonto label
+    const button = page.getEle('div section#ontologyeditor button.update-onto-metadata-label');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.read-label');
+    expect(label.getText()).toEqual('Test Onto');
+
+  });
+
+  it('update "testonto" ontology metadata with a new comment', () => {
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // update testonto comment
+    const button = page.getEle('div section#ontologyeditor button.update-onto-metadata-comment');
+    button.click();
+    const comment = page.getEle('div section#ontologyeditor span.read-comment');
+    expect(comment.getText()).toEqual('Ontology comment updated');
+  });
+
+  it('update "testonto" ontology metadata with a new label and comment', () => {
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // update testonto label and comment
+    const button = page.getEle('div section#ontologyeditor button.update-onto-metadata-label-and-comment');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.read-label');
+    expect(label.getText()).toEqual('Test Onto New Label');
+    const comment = page.getEle('div section#ontologyeditor span.read-comment');
+    expect(comment.getText()).toEqual('Test Onto New Comment');
+  });
+
+  it('remove comment from "testonto" ontology metadata', () => {
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // remove testonto comment
+    const button = page.getEle('div section#ontologyeditor button.remove-onto-metadata-comment');
+    button.click();
+    const comment = page.getEle('div section#ontologyeditor span.read-comment');
+    expect(comment.getText()).toEqual('');
+  });
+
   // TODO: create res class / update following example
   it('create new "testclass" resource class in testonto of anything project', () => {
 
@@ -524,8 +609,10 @@ describe('workspace-project App', () => {
     const button = page.getEle('div section#ontologyeditor button.create-res-prop');
     button.click();
     const label = page.getEle('div section#ontologyeditor span.res-prop-label');
-
     expect(label.getText()).toEqual('hat Namen');
+
+    const guiEle = page.getEle('div section#ontologyeditor span.res-prop-guiele');
+    expect(guiEle.getText()).toEqual('http://api.knora.org/ontology/salsah-gui/v2#SimpleText');
   });
 
   it('change a resource property\'s comment', () => {
@@ -572,6 +659,28 @@ describe('workspace-project App', () => {
 
   });
 
+  it('change a resource property\'s gui element', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // update res property gui ele
+    const button = page.getEle('div section#ontologyeditor button.update-res-prop-guiele');
+    button.click();
+    const guiEle = page.getEle('div section#ontologyeditor span.res-prop-guiele');
+    expect(guiEle.getText()).toEqual('http://api.knora.org/ontology/salsah-gui/v2#Textarea');
+
+  });
+
   it('add a cardinality to a resource class in testonto', () => {
 
     page.navigateTo();
@@ -592,6 +701,28 @@ describe('workspace-project App', () => {
     const label = page.getEle('div section#ontologyeditor span.res-card-added');
 
     expect(label.getText()).toEqual('Test Klasse neu');
+
+  });
+
+  it('check if cardinalities can be replaced', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    const canDelete = page.getEle('div button.can-replace-card-for-res-card');
+    canDelete.click();
+
+    const msg = page.getEle('div section#ontologyeditor span.can-do-status-card');
+    expect(msg.getText()).toEqual('false');
 
   });
 
@@ -618,6 +749,28 @@ describe('workspace-project App', () => {
 
   });
 
+  it('check if a resource class can be deleted', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    const canDelete = page.getEle('div button.can-delete-class');
+    canDelete.click();
+
+    const msg = page.getEle('div section#ontologyeditor span.can-do-status-class');
+    expect(msg.getText()).toEqual('false');
+
+  });
+
   it('delete "testclass" resource class', () => {
     
     page.navigateTo();
@@ -637,6 +790,28 @@ describe('workspace-project App', () => {
     button.click();
     const msg = page.getEle('div section#ontologyeditor span.status');
     expect(msg.getText()).toEqual('res class has been deleted');
+
+  });
+
+  it('check if a property can be deleted', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    const canDelete = page.getEle('div button.can-delete-prop');
+    canDelete.click();
+
+    const msg = page.getEle('div section#ontologyeditor span.can-do-status-prop');
+    expect(msg.getText()).toEqual('false');
 
   });
 
@@ -660,6 +835,28 @@ describe('workspace-project App', () => {
     const msg = page.getEle('div section#ontologyeditor span.status');
     expect(msg.getText()).toEqual('res property has been deleted');
 
+
+  });
+
+  it('check if test ontology can be deleted', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    const canDelete = page.getEle('div button.can-delete-onto');
+    canDelete.click();
+
+    const msg = page.getEle('div section#ontologyeditor span.can-do-status-onto');
+    expect(msg.getText()).toEqual('false');
 
   });
 

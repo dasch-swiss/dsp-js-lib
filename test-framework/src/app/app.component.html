@@ -115,9 +115,16 @@
         <button class="create-onto" (click)="createOntology()">Create testonto</button> <br /><br />
         <div><span *ngIf="ontologyMeta">Ontology created:&nbsp;</span><span class="label">{{ontologyMeta?.label}}</span> </div> <br />
         <button class="read-onto" (click)="getTestOnto('http://0.0.0.0:3333/ontology/0001/testonto/v2')">Get testonto</button> <br /><br />
-        <div>The ontology's label: <span class="read-label">{{ontology?.label}}</span> </div> <br />
+        <div>The ontology's label: <span class="read-label">{{ontologyMeta?.label}}</span> </div> <br />
+        <div>The ontology's comment: <span class="read-comment">{{ontologyMeta?.comment}}</span> </div> <br />
 
-        <p>Before clicking on the following resource class or property action buttons, you should click each time on <strong>Get testonto</strong> button above. Because lastModification time is always needed.</p>
+        <p>Before clicking on the following update ontology metadata action buttons, you should click on <strong>Get testonto</strong> button above every time because lastModification time is always needed.</p>
+        <button class="update-onto-metadata-label" (click)="updateOntologyLabel()">Update testonto label</button> <br /><br />
+        <button class="update-onto-metadata-comment" (click)="updateOntologyComment()">Update testonto comment</button> <br /><br />
+        <button class="remove-onto-metadata-comment" (click)="removeOntologyComment()">Remove testonto comment</button> <br /><br />
+        <button class="update-onto-metadata-label-and-comment" (click)="updateOntologyLabelAndComment()">Update testonto label and comment</button> <br /><br />
+
+        <p>Before clicking on the following resource class or property action buttons, you should click on <strong>Get testonto</strong> button above every time because lastModification time is always needed.</p>
         
         <h4>Resource Class</h4>
         <button class="create-res-class" (click)="createResourceClass()">Create resource class</button><br><br>
@@ -129,28 +136,47 @@
 
         <button class="get-res-class" (click)="getResourceClass('http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass')">Get resource class</button><br><br>
 
+        <button class="can-delete-class" (click)="canDeleteClass()">Can delete res class</button>
+        <div>Can delete status: <span class="can-do-status-class">{{canDoResponse}}</span></div> <br />
+
         <button class="delete-res-class" (click)="deleteResourceClass()">Delete resource class</button><br><br>
 
         <h4>Resource Property</h4>
         <button class="create-res-prop" (click)="createResourceProperty()">Create resource property</button><br><br>
         <div>
             <span *ngIf="property">Res property created:&nbsp;</span><span class="res-prop-label">{{property?.label}}</span> <br>
-            <span class="res-prop-comment">{{property?.comment}}</span>
+            <span class="res-prop-comment">{{property?.comment}}</span><br>
+            <span class="res-prop-guiele">{{property?.guiElement}}</span>
         </div> <br />
 
         <button class="update-res-prop-label" (click)="updateResourcePropertyLabel()">Update resource property label</button><br><br>
 
         <button class="update-res-prop-comment" (click)="updateResourcePropertyComment()">Update resource property comment</button><br><br>
 
+        <button class="update-res-prop-guiele" (click)="updateResourcePropertyGuielement()">Update resource property gui ele</button><br><br>
+
         <!-- <button class="get-res-class" (click)="getResourceClass('http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass')">Get resource class</button><br><br> -->
-        
+
+        <button class="can-delete-prop" (click)="canDeleteProperty()">Can delete res property</button>
+        <div>Can delete status: <span class="can-do-status-prop">{{canDoResponse}}</span></div> <br />
+
         <button class="delete-res-prop" (click)="deleteResourceProperty()">Delete resource property</button><br><br>
 
         <button class="add-card-to-res-prop" (click)="addCardinality()">Add Cardinality to resource</button><br><br>
-        <div><span *ngIf="property">Cardinality added:&nbsp;</span><span class="res-card-added">{{addCard?.label}}</span> </div> <br />
+        <div><span *ngIf="addCard">Cardinality added:&nbsp;</span><span class="res-card-added">{{addCard?.label}}</span> </div> <br />
+
+        <button class="can-replace-card-for-res-card" (click)="canReplaceCardinality()">Can replace cardinality of resource</button><br><br>
+        <div><span *ngIf="canDoResponse">Cardinality can be replaced:&nbsp;</span><span class="can-do-status-card">{{canDoResponse}}</span> </div> <br />
 
         <button class="replace-card-for-res-prop" (click)="replaceCardinality()">Replace Cardinality of resource</button><br><br>
-        <div><span *ngIf="property">Cardinality replaced:&nbsp;</span><span class="res-card-replaced">{{replacedCard?.label}}</span> </div> <br />
+        <div><span *ngIf="replacedCard">Cardinality replaced:&nbsp;</span><span class="res-card-replaced">{{replacedCard?.label}}</span> </div> <br />
+
+        <button class="update-gui-order" (click)="replaceGuiOrder()">Update GUI order of resource properties</button><br><br>
+        <div><span *ngIf="ontology">GUI order:&nbsp;</span><span>{{ontology?.classes["http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass"]?.propertiesList[17]?.guiOrder}}</span> </div> <br />
+        <div><span *ngIf="replacedCard">Updated GUI order:&nbsp;</span><span class="gui-order-replaced">{{replacedCard?.propertiesList[17].guiOrder}}</span> </div> <br />
+
+        <button class="can-delete-onto" (click)="canDeleteOntology()">Can delete testonto</button>
+        <div>Can delete status: <span class="can-do-status-onto">{{canDoResponse}}</span></div> <br />
 
         <button class="delete-onto" (click)="deleteOntology()">Delete testonto</button>
         <div>Delete status: <span class="status">{{message}}</span></div> <br />

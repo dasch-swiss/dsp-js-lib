@@ -1,89 +1,88 @@
 import { Component, OnInit } from '@angular/core';
 import {
+    AdministrativePermissionResponse,
+    AdministrativePermissionsResponse,
     ApiResponseData,
-    ApiResponseError,
+    ApiResponseError, CanDoResponse, Cardinality,
+    ChildNodeInfoResponse,
     Constants,
     CountQueryResponse,
+    CreateAdministrativePermission,
     CreateBooleanValue,
+    CreateChildNodeRequest,
+    CreateDefaultObjectAccessPermission,
     CreateIntValue,
+    CreateListRequest,
     CreateOntology,
+    CreatePermission,
     CreateResource,
     CreateResourceClass,
+    CreateResourceProperty,
     CreateValue,
+    DataManagementPlan,
+    Dataset,
+    DefaultObjectAccessPermissionResponse,
+    DefaultObjectAccessPermissionsResponse,
+    DeleteListNodeResponse,
+    DeleteListResponse,
+    DeleteOntology,
     DeleteOntologyResponse,
+    DeletePermissionResponse,
     DeleteResource,
+    DeleteResourceClass,
+    DeleteResourceProperty,
     DeleteResourceResponse,
     DeleteValue,
     DeleteValueResponse,
+    Grant,
+    IUrl,
     KnoraApiConfig,
     KnoraApiConnection,
+    ListNodeInfoResponse,
     ListNodeV2,
+    ListResponse,
     LoginResponse,
     OntologiesMetadata,
     OntologyMetadata,
+    Organization,
+    ProjectPermissionsResponse,
+    ProjectsMetadata,
     ReadOntology,
     ReadResource,
     ReadResourceSequence,
+    RepositionChildNodeRequest,
+    RepositionChildNodeResponse,
     ResourceClassDefinitionWithAllLanguages,
+    ResourcePropertyDefinitionWithAllLanguages,
+    SingleProject,
+    StringLiteral,
+    UpdateAdministrativePermission,
+    UpdateAdministrativePermissionGroup,
+    UpdateChildNodeCommentsRequest,
+    UpdateChildNodeLabelsRequest,
+    UpdateChildNodeNameRequest,
+    UpdateChildNodeRequest,
+    UpdateDefaultObjectAccessPermission,
+    UpdateDefaultObjectAccessPermissionGroup,
+    UpdateDefaultObjectAccessPermissionProperty,
+    UpdateDefaultObjectAccessPermissionResourceClass,
     UpdateIntValue,
     UpdateOntology,
+    UpdateOntologyMetadata,
+    UpdatePermission,
+    UpdateProjectMetadataResponse,
     UpdateResource,
+    UpdateResourceClassCardinality,
+    UpdateResourceClassComment,
+    UpdateResourceClassLabel,
     UpdateResourceMetadata,
     UpdateResourceMetadataResponse,
+    UpdateResourcePropertyComment, UpdateResourcePropertyGuiElement, UpdateResourcePropertyLabel,
     UpdateValue,
     UserCache,
     UserResponse,
     UsersResponse,
-    WriteValueResponse,
-    Cardinality,
-    DeleteOntology,
-    DeleteResourceClass,
-    DeleteResourceProperty,
-    UpdateResourceClassCardinality,
-    CreatePermission,
-    UpdatePermission,
-    CreateAdministrativePermission,
-    ResourcePropertyDefinitionWithAllLanguages,
-    CreateResourceProperty,
-    CreateDefaultObjectAccessPermission,
-    AdministrativePermissionResponse,
-    DefaultObjectAccessPermissionsResponse,
-    DefaultObjectAccessPermissionResponse,
-    ProjectPermissionsResponse,
-    AdministrativePermissionsResponse,
-    UpdateChildNodeNameRequest,
-    ChildNodeInfoResponse,
-    StringLiteral,
-    UpdateChildNodeLabelsRequest,
-    UpdateChildNodeCommentsRequest,
-    ProjectsMetadata,
-    Dataset,
-    SingleProject,
-    UpdateProjectMetadataResponse,
-    IUrl,
-    Grant,
-    Organization,
-    DataManagementPlan,
-    UpdateChildNodeRequest,
-    ListNodeInfoResponse,
-    CreateListRequest,
-    ListResponse,
-    UpdateResourceClassLabel,
-    UpdateResourceClassComment,
-    UpdateResourcePropertyLabel,
-    UpdateResourcePropertyComment,
-    DeletePermissionResponse,
-    DeleteListResponse,
-    DeleteListNodeResponse,
-    UpdateAdministrativePermission,
-    UpdateDefaultObjectAccessPermission,
-    UpdateAdministrativePermissionGroup,
-    UpdateDefaultObjectAccessPermissionGroup,
-    UpdateDefaultObjectAccessPermissionResourceClass,
-    UpdateDefaultObjectAccessPermissionProperty,
-    RepositionChildNodeRequest,
-    RepositionChildNodeResponse,
-    CreateChildNodeRequest
+    WriteValueResponse
 } from '@dasch-swiss/dsp-js';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -107,6 +106,7 @@ export class AppComponent implements OnInit {
     dokubibOntologies: OntologiesMetadata;
     ontologyMeta: OntologyMetadata;
     ontology: ReadOntology;
+    lastModificationDate: string;
     resClass: ResourceClassDefinitionWithAllLanguages;
     property: ResourcePropertyDefinitionWithAllLanguages;
     addCard: ResourceClassDefinitionWithAllLanguages;
@@ -152,6 +152,8 @@ export class AppComponent implements OnInit {
     listNodeDeleted = false;
     listNodePosition = 0;
     listNodeParentIri = '';
+
+    canDoResponse: boolean;
 
     ngOnInit() {
         const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
@@ -499,6 +501,7 @@ export class AppComponent implements OnInit {
             (onto: OntologyMetadata) => {
                 this.ontologyMeta = onto;
                 console.log('new ontology created', onto);
+                this.lastModificationDate = onto.lastModificationDate;
             }
         );
     }
@@ -507,7 +510,75 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.onto.getOntology(iri).subscribe(
             (onto: ReadOntology) => {
                 this.ontology = onto;
+                this.lastModificationDate = onto.lastModificationDate;
                 console.log('get testonto ', onto);
+            }
+        );
+    }
+
+    updateOntologyLabel() {
+        const updateOntologyMetadata = new UpdateOntologyMetadata();
+        updateOntologyMetadata.id = this.ontology.id;
+        updateOntologyMetadata.lastModificationDate = this.lastModificationDate
+        updateOntologyMetadata.label = 'Test Onto';
+
+        this.knoraApiConnection.v2.onto.updateOntology(updateOntologyMetadata).subscribe(
+            (onto: OntologyMetadata) => {
+                this.ontologyMeta = onto;
+                this.lastModificationDate = onto.lastModificationDate;
+            }
+        );
+    }
+
+    updateOntologyComment() {
+        const updateOntologyMetadata = new UpdateOntologyMetadata();
+        updateOntologyMetadata.id = this.ontology.id;
+        updateOntologyMetadata.lastModificationDate = this.lastModificationDate
+        updateOntologyMetadata.comment = 'Ontology comment updated';
+
+        this.knoraApiConnection.v2.onto.updateOntology(updateOntologyMetadata).subscribe(
+            (onto: OntologyMetadata) => {
+                this.ontologyMeta = onto;
+                this.lastModificationDate = onto.lastModificationDate;
+            }
+        );
+    }
+
+    removeOntologyComment() {
+        const updateOntologyMetadata = new UpdateOntologyMetadata();
+        updateOntologyMetadata.id = this.ontology.id;
+        updateOntologyMetadata.lastModificationDate = this.lastModificationDate
+        updateOntologyMetadata.comment = '';
+
+        this.knoraApiConnection.v2.onto.updateOntology(updateOntologyMetadata).subscribe(
+            (onto: OntologyMetadata) => {
+                this.ontologyMeta = onto;
+                this.lastModificationDate = onto.lastModificationDate;
+            }
+        );
+    }
+
+    updateOntologyLabelAndComment() {
+        const updateOntologyMetadata = new UpdateOntologyMetadata();
+        updateOntologyMetadata.id = this.ontology.id;
+        updateOntologyMetadata.lastModificationDate = this.lastModificationDate
+        updateOntologyMetadata.label = 'Test Onto New Label';
+        updateOntologyMetadata.comment = 'Test Onto New Comment';
+
+        this.knoraApiConnection.v2.onto.updateOntology(updateOntologyMetadata).subscribe(
+            (onto: OntologyMetadata) => {
+                this.ontologyMeta = onto;
+                this.lastModificationDate = onto.lastModificationDate;
+            }
+        );
+    }
+
+    canDeleteOntology() {
+        const ontologyId = this.ontology.id;
+
+        this.knoraApiConnection.v2.onto.canDeleteOntology(ontologyId).subscribe(
+            (response: CanDoResponse) => {
+                this.canDoResponse = response.canDo;
             }
         );
     }
@@ -515,12 +586,14 @@ export class AppComponent implements OnInit {
     deleteOntology() {
         const deleteOntology = new DeleteOntology();
         deleteOntology.id = this.ontology.id;
-        deleteOntology.lastModificationDate = this.ontology.lastModificationDate;
+        deleteOntology.lastModificationDate = this.lastModificationDate
 
         this.knoraApiConnection.v2.onto.deleteOntology(deleteOntology).subscribe(
             (response: DeleteOntologyResponse) => {
                 this.message = response.result;
                 console.log('ontology deleted', response);
+                this.ontology = undefined;
+                this.lastModificationDate = undefined;
             }
         );
     }
@@ -530,7 +603,7 @@ export class AppComponent implements OnInit {
         const onto = new UpdateOntology<CreateResourceClass>();
 
         onto.id = this.ontology.id;
-        onto.lastModificationDate = this.ontology.lastModificationDate;
+        onto.lastModificationDate = this.lastModificationDate
 
         const newResClass = new CreateResourceClass();
 
@@ -558,6 +631,7 @@ export class AppComponent implements OnInit {
             (response: ResourceClassDefinitionWithAllLanguages) => {
                 console.log('new resource class created', response);
                 this.resClass = response;
+                this.lastModificationDate = response.lastModificationDate;
             }
         );
     }
@@ -567,7 +641,7 @@ export class AppComponent implements OnInit {
         const onto = new UpdateOntology<UpdateResourceClassLabel>();
 
         onto.id = this.ontology.id;
-        onto.lastModificationDate = this.ontology.lastModificationDate;
+        onto.lastModificationDate = this.lastModificationDate
 
         const updateLabel = new UpdateResourceClassLabel();
 
@@ -588,6 +662,7 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.onto.updateResourceClass(onto).subscribe(
             (res: ResourceClassDefinitionWithAllLanguages) => {
                 this.resClass = res;
+                this.lastModificationDate = res.lastModificationDate;
             }
         );
 
@@ -598,7 +673,7 @@ export class AppComponent implements OnInit {
         const onto = new UpdateOntology<UpdateResourceClassComment>();
 
         onto.id = this.ontology.id;
-        onto.lastModificationDate = this.ontology.lastModificationDate;
+        onto.lastModificationDate = this.lastModificationDate
 
         const updateLabel = new UpdateResourceClassComment();
 
@@ -616,21 +691,33 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.onto.updateResourceClass(onto).subscribe(
             (res: ResourceClassDefinitionWithAllLanguages) => {
                 this.resClass = res;
+                this.lastModificationDate = res.lastModificationDate;
             }
         );
 
+    }
+
+    canDeleteClass() {
+        const resClassIri = 'http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass';
+
+        this.knoraApiConnection.v2.onto.canDeleteResourceClass(resClassIri).subscribe(
+            (response: CanDoResponse) => {
+                this.canDoResponse = response.canDo;
+            }
+        );
     }
 
     deleteResourceClass() {
 
         const deleteResClass: DeleteResourceClass = new DeleteResourceClass();
         deleteResClass.id = 'http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass';
-        deleteResClass.lastModificationDate = this.ontology.lastModificationDate;
+        deleteResClass.lastModificationDate = this.lastModificationDate
 
         this.knoraApiConnection.v2.onto.deleteResourceClass(deleteResClass).subscribe(
             (response: OntologyMetadata) => {
                 this.message = 'res class has been deleted';
                 console.log('res class deleted', response);
+                this.lastModificationDate = response.lastModificationDate;
             },
             (error: ApiResponseError) => {
                 console.error(error);
@@ -644,7 +731,7 @@ export class AppComponent implements OnInit {
         const onto = new UpdateOntology<CreateResourceProperty>();
 
         onto.id = this.ontology.id;
-        onto.lastModificationDate = this.ontology.lastModificationDate;
+        onto.lastModificationDate = this.lastModificationDate
 
         const newResProp = new CreateResourceProperty();
 
@@ -686,6 +773,7 @@ export class AppComponent implements OnInit {
             (response: ResourcePropertyDefinitionWithAllLanguages) => {
                 this.property = response;
                 console.log('new resource property created', response);
+                this.lastModificationDate = response.lastModificationDate;
             }
         );
     }
@@ -695,7 +783,7 @@ export class AppComponent implements OnInit {
         const onto = new UpdateOntology<UpdateResourcePropertyLabel>();
 
         onto.id = this.ontology.id;
-        onto.lastModificationDate = this.ontology.lastModificationDate;
+        onto.lastModificationDate = this.lastModificationDate
 
         const updateLabel = new UpdateResourcePropertyLabel();
 
@@ -717,6 +805,7 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.onto.updateResourceProperty(onto).subscribe(
             (res: ResourcePropertyDefinitionWithAllLanguages) => {
                 this.property = res;
+                this.lastModificationDate = res.lastModificationDate;
             }
         );
 
@@ -727,7 +816,7 @@ export class AppComponent implements OnInit {
         const onto = new UpdateOntology<UpdateResourcePropertyComment>();
 
         onto.id = this.ontology.id;
-        onto.lastModificationDate = this.ontology.lastModificationDate;
+        onto.lastModificationDate = this.lastModificationDate
 
         const updateLabel = new UpdateResourcePropertyComment();
 
@@ -749,21 +838,56 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.onto.updateResourceProperty(onto).subscribe(
             (res: ResourcePropertyDefinitionWithAllLanguages) => {
                 this.property = res;
+                this.lastModificationDate = res.lastModificationDate;
             }
         );
 
+    }
+
+    updateResourcePropertyGuielement() {
+
+        const onto = new UpdateOntology<UpdateResourcePropertyGuiElement>();
+
+        onto.id = this.ontology.id;
+        onto.lastModificationDate = this.lastModificationDate
+
+
+        const updateGuiEle = new UpdateResourcePropertyGuiElement();
+        updateGuiEle.id = 'http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName';
+        updateGuiEle.guiElement = 'http://api.knora.org/ontology/salsah-gui/v2#Textarea';
+
+        onto.entity = updateGuiEle;
+
+        this.knoraApiConnection.v2.onto.replaceGuiElementOfProperty(onto).subscribe(
+            (res: ResourcePropertyDefinitionWithAllLanguages) => {
+                this.property = res;
+                this.lastModificationDate = res.lastModificationDate;
+            }
+        );
+
+    }
+
+    canDeleteProperty() {
+        const propIri = 'http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName';
+
+        this.knoraApiConnection.v2.onto.canDeleteResourceProperty(propIri).subscribe(
+            (response: CanDoResponse) => {
+                this.canDoResponse = response.canDo;
+            }
+        );
     }
 
     deleteResourceProperty() {
 
         const deleteResProp: DeleteResourceProperty = new DeleteResourceProperty();
         deleteResProp.id = 'http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName';
-        deleteResProp.lastModificationDate = this.ontology.lastModificationDate;
+        deleteResProp.lastModificationDate = this.lastModificationDate
 
         this.knoraApiConnection.v2.onto.deleteResourceProperty(deleteResProp).subscribe(
             (response: OntologyMetadata) => {
                 this.message = 'res property has been deleted';
                 console.log('res property deleted', response);
+                this.lastModificationDate = response.lastModificationDate;
             },
             (error: ApiResponseError) => {
                 console.error(error);
@@ -776,7 +900,7 @@ export class AppComponent implements OnInit {
 
         const onto = new UpdateOntology<UpdateResourceClassCardinality>();
 
-        onto.lastModificationDate = this.ontology.lastModificationDate;
+        onto.lastModificationDate = this.lastModificationDate
 
         onto.id = this.ontology.id;
 
@@ -797,9 +921,22 @@ export class AppComponent implements OnInit {
             (res: ResourceClassDefinitionWithAllLanguages) => {
                 this.addCard = res;
                 console.log('added card: ', res)
+                this.lastModificationDate = res.lastModificationDate;
             },
             err => console.error(err)
         );
+
+    }
+
+    canReplaceCardinality() {
+
+        const resClassIri = 'http://0.0.0.0:3333/ontology/0001/anything/v2#Thing';
+
+        this.knoraApiConnection.v2.onto.canReplaceCardinalityOfResourceClass(resClassIri).subscribe(
+            (response: CanDoResponse) => {
+                this.canDoResponse = response.canDo;
+            });
+
 
     }
 
@@ -807,7 +944,7 @@ export class AppComponent implements OnInit {
 
         const onto = new UpdateOntology<UpdateResourceClassCardinality>();
 
-        onto.lastModificationDate = this.ontology.lastModificationDate;
+        onto.lastModificationDate = this.lastModificationDate
 
         onto.id = this.ontology.id;
 
@@ -828,10 +965,42 @@ export class AppComponent implements OnInit {
             (res: ResourceClassDefinitionWithAllLanguages) => {
                 this.replacedCard = res;
                 console.log('replace card: ', res)
+                this.lastModificationDate = res.lastModificationDate;
             },
             err => console.error(err)
         );
 
+    }
+
+    replaceGuiOrder() {
+        const onto = new UpdateOntology<UpdateResourceClassCardinality>();
+
+        onto.lastModificationDate = this.lastModificationDate
+
+        onto.id = this.ontology.id;
+
+        const updateGO = new UpdateResourceClassCardinality();
+
+        updateGO.cardinalities = [
+            {
+                propertyIndex: 'http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName',
+                cardinality: Cardinality._1,
+                guiOrder: Math.floor(Math.random() * 10) + 1  // returns a random integer from 1 to 10
+            }
+        ];
+
+        updateGO.id = 'http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass';
+
+        onto.entity = updateGO;
+
+        this.knoraApiConnection.v2.onto.replaceGuiOrderOfCardinalities(onto).subscribe(
+            (res: ResourceClassDefinitionWithAllLanguages) => {
+                this.replacedCard = res;
+                console.log('update gui order: ', res)
+                this.lastModificationDate = res.lastModificationDate;
+            },
+            err => console.error(err)
+        );
     }
 
 
@@ -1146,35 +1315,35 @@ export class AppComponent implements OnInit {
         // testDataset.distribution = { type: 'https://schema.org/DataDownload', url: 'https://test.dasch.swiss' } as IUrl;
         // testDataset.documentation = ['Work in progress', 'Dddddd'];
         testDataset.howToCite = 'Testprojekt (test), 2002, https://test.dasch.swiss';
-        testDataset.language = [ 'EN', 'DE', 'FR' ];
+        testDataset.language = ['EN', 'DE', 'FR'];
         testDataset.license = [{ type: Constants.SchemaUrlType, url: 'https://creativecommons.org/licenses/by/3.0' }] as IUrl[];
         testDataset.qualifiedAttribution = [
             {
                 type: Constants.ProvAttribution,
                 role: ['contributor', 'watcher'],
-                agent: [{id: 'http://ns.dasch.swiss/test-berry'}]
+                agent: [{ id: 'http://ns.dasch.swiss/test-berry' }]
             },
             {
                 type: Constants.ProvAttribution,
                 role: ['contributor'],
-                agent: [{id: 'http://ns.dasch.swiss/test-hart'}]
+                agent: [{ id: 'http://ns.dasch.swiss/test-hart' }]
             },
             {
                 type: Constants.ProvAttribution,
                 role: ['editor'],
-                agent: [{id: 'http://ns.dasch.swiss/test-abraham'}]
+                agent: [{ id: 'http://ns.dasch.swiss/test-abraham' }]
             },
             {
                 type: Constants.ProvAttribution,
                 role: ['editor'],
-                agent: [{id: 'http://ns.dasch.swiss/test-coleman'}]
+                agent: [{ id: 'http://ns.dasch.swiss/test-coleman' }]
             },
             {
                 type: Constants.ProvAttribution,
                 role: ['editor'],
-                agent: [{id: 'http://ns.dasch.swiss/test-jones'}]
+                agent: [{ id: 'http://ns.dasch.swiss/test-jones' }]
             }
-         ];
+        ];
         testDataset.status = 'ongoing';
         testDataset.title = 'Testprojekt';
         testDataset.typeOfData = ['image', 'text'];
@@ -1206,17 +1375,17 @@ export class AppComponent implements OnInit {
             'id': 'http://ns.dasch.swiss/test-plan',
             type: Constants.DspRepoBase + 'DataManagementPlan',
             'url': [{
-               'type': Constants.SchemaUrlType,
-               'url': 'https://snf.ch'
+                'type': Constants.SchemaUrlType,
+                'url': 'https://snf.ch'
             }],
             'isAvailable': false
-         } as DataManagementPlan;
+        } as DataManagementPlan;
         testDataset.project.description = 'Dies ist ein Testprojekt...alle Properties wurden verwendet, um diese zu testen';
         testDataset.project.discipline = [{
             'name': 'SKOS UNESCO Nomenclature',
             'type': Constants.SchemaUrlType,
             'url': 'http://skos.um.es/unesco6/11'
-         }];
+        }];
         // testDataset.project.endDate = '2001-01-26';
         testDataset.project.funder = [{
             'id': 'http://ns.dasch.swiss/test-funder'
@@ -1224,23 +1393,23 @@ export class AppComponent implements OnInit {
         const grant = new Grant();
         grant.id = 'http://ns.dasch.swiss/test-grant';
         grant.type = Constants.DspRepoBase + 'Grant',
-        grant.funder = [{
-            'id': 'http://ns.dasch.swiss/test-funder',
-            type: Constants.DspRepoBase + 'Organization',
-            'address': {
-                type: Constants.SchemaPostalAddress,
-                'addressLocality': 'Toronto',
-                'postalCode': '40000',
-                'streetAddress': 'University of Toronto Street'
-            },
-            'email': 'info@universityoftoronto.ca',
-            'name': ['University of Toronto', 'WWW'],
-            'url': [{
-                'type': Constants.SchemaUrlType,
-                'name': 'cos',
-                'url': 'http://www.utoronto.ca/'
-            }]
-        }] as Organization[];
+            grant.funder = [{
+                'id': 'http://ns.dasch.swiss/test-funder',
+                type: Constants.DspRepoBase + 'Organization',
+                'address': {
+                    type: Constants.SchemaPostalAddress,
+                    'addressLocality': 'Toronto',
+                    'postalCode': '40000',
+                    'streetAddress': 'University of Toronto Street'
+                },
+                'email': 'info@universityoftoronto.ca',
+                'name': ['University of Toronto', 'WWW'],
+                'url': [{
+                    'type': Constants.SchemaUrlType,
+                    'name': 'cos',
+                    'url': 'http://www.utoronto.ca/'
+                }]
+            }] as Organization[];
         // grant.name = 'Prof. test test, Prof. test Harbtestrecht';
         // grant.number = '0123456789';
         // grant.url = {
@@ -1254,46 +1423,46 @@ export class AppComponent implements OnInit {
         testDataset.project.shortcode = '0000';
         testDataset.project.spatialCoverage = [
             {
-               'place': {
-                  'name': 'Geonames',
-                  'url': 'https://www.geonames.org/2017370/russian-federation.html'
-               }
+                'place': {
+                    'name': 'Geonames',
+                    'url': 'https://www.geonames.org/2017370/russian-federation.html'
+                }
             },
             {
-               'place': {
-                  'name': 'Geonames',
-                  'url': 'https://www.geonames.org/2658434/switzerland.html'
-               }
+                'place': {
+                    'name': 'Geonames',
+                    'url': 'https://www.geonames.org/2658434/switzerland.html'
+                }
             },
             {
-               'place': {
-                  'name': 'Geonames',
-                  'url': 'https://www.geonames.org/3175395/italian-republic.html'
-               }
+                'place': {
+                    'name': 'Geonames',
+                    'url': 'https://www.geonames.org/3175395/italian-republic.html'
+                }
             },
             {
-               'place': {
-                  'name': 'Geonames',
-                  'url': 'https://www.geonames.org/2921044/federal-republic-of-germany.html'
-               }
+                'place': {
+                    'name': 'Geonames',
+                    'url': 'https://www.geonames.org/2921044/federal-republic-of-germany.html'
+                }
             },
             {
-               'place': {
-                  'name': 'Geonames',
-                  'url': 'https://www.geonames.org/3017382/republic-of-france.html'
-               }
+                'place': {
+                    'name': 'Geonames',
+                    'url': 'https://www.geonames.org/3017382/republic-of-france.html'
+                }
             },
             {
-               'place': {
-                  'name': 'Geonames',
-                  'url': 'https://www.geonames.org/6269131/england.html'
-               }
+                'place': {
+                    'name': 'Geonames',
+                    'url': 'https://www.geonames.org/6269131/england.html'
+                }
             },
             {
-               'place': {
-                  'name': 'Geonames',
-                  'url': 'https://www.geonames.org/6255148/europe.html'
-               }
+                'place': {
+                    'name': 'Geonames',
+                    'url': 'https://www.geonames.org/6255148/europe.html'
+                }
             }
         ];
         testDataset.project.startDate = '2000-07-26';
@@ -1524,8 +1693,8 @@ export class AppComponent implements OnInit {
         createRequest.parentNodeIri = 'http://rdfh.ch/lists/0001/notUsedList';
         createRequest.projectIri = 'http://rdfh.ch/projects/0001';
         createRequest.name = 'new child node';
-        createRequest.labels = [{ 'value': 'New Child List Node Value', 'language': 'en'}];
-        createRequest.comments = [{ 'value': 'New Child List Node Comment', 'language': 'en'}];
+        createRequest.labels = [{ 'value': 'New Child List Node Value', 'language': 'en' }];
+        createRequest.comments = [{ 'value': 'New Child List Node Comment', 'language': 'en' }];
 
         this.knoraApiConnection.admin.listsEndpoint.createChildNode(createRequest).subscribe(
             (res: ApiResponseData<ListNodeInfoResponse>) => {
@@ -1551,8 +1720,8 @@ export class AppComponent implements OnInit {
         createRequest.parentNodeIri = 'http://rdfh.ch/lists/0001/notUsedList';
         createRequest.projectIri = 'http://rdfh.ch/projects/0001';
         createRequest.name = 'new child node at position 1';
-        createRequest.labels = [{ 'value': 'New Child List Node at Position 1 Value', 'language': 'en'}];
-        createRequest.comments = [{ 'value': 'New Child List Node at Position 1 Comment', 'language': 'en'}];
+        createRequest.labels = [{ 'value': 'New Child List Node at Position 1 Value', 'language': 'en' }];
+        createRequest.comments = [{ 'value': 'New Child List Node at Position 1 Comment', 'language': 'en' }];
         createRequest.position = 1;
 
         this.knoraApiConnection.admin.listsEndpoint.createChildNode(createRequest).subscribe(
