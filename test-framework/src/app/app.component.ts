@@ -56,13 +56,20 @@ import {
     ResourcePropertyDefinitionWithAllLanguages,
     SingleProject,
     StringLiteral,
+    UpdateAdministrativePermission,
+    UpdateAdministrativePermissionGroup,
     UpdateChildNodeCommentsRequest,
     UpdateChildNodeLabelsRequest,
     UpdateChildNodeNameRequest,
     UpdateChildNodeRequest,
+    UpdateDefaultObjectAccessPermission,
+    UpdateDefaultObjectAccessPermissionGroup,
+    UpdateDefaultObjectAccessPermissionProperty,
+    UpdateDefaultObjectAccessPermissionResourceClass,
     UpdateIntValue,
     UpdateOntology,
     UpdateOntologyMetadata,
+    UpdatePermission,
     UpdateProjectMetadataResponse,
     UpdateResource,
     UpdateResourceClassCardinality,
@@ -105,6 +112,7 @@ export class AppComponent implements OnInit {
     addCard: ResourceClassDefinitionWithAllLanguages;
     replacedCard: ResourceClassDefinitionWithAllLanguages;
     permissionStatus: string;
+    permissionUpdateStatus: string;
     permissionIri: string;
     permissionDeleted: boolean;
 
@@ -274,11 +282,45 @@ export class AppComponent implements OnInit {
 
         adminPermission.hasPermissions = [permission, permission2];
 
-        // console.log(this.knoraApiConnection.admin.jsonConvert.serializeObject(permission))
-
         this.knoraApiConnection.admin.permissionsEndpoint.createAdministrativePermission(adminPermission).subscribe(
             (res: ApiResponseData<AdministrativePermissionResponse>) => {
-                this.permissionStatus = 'createAdministrativePermission ok';
+                this.permissionStatus = "createAdministrativePermission ok";
+                this.permissionIri = res.body.administrative_permission.id;
+                console.log(res);
+            },
+            err => console.error(err)
+        );
+
+    }
+
+    updateAdministrativePermissionGroup() {
+        const updateAdminPermGroup = new UpdateAdministrativePermissionGroup();
+
+        updateAdminPermGroup.forGroup = "http://rdfh.ch/groups/00FF/images-reviewer";
+
+        this.knoraApiConnection.admin.permissionsEndpoint.updateAdministrativePermissionGroup(this.permissionIri, updateAdminPermGroup).subscribe(
+            (res: ApiResponseData<AdministrativePermissionResponse>) => {
+                this.permissionUpdateStatus = "updateAdministrativePermissionGroup ok";
+                console.log(res);
+            },
+            err => console.error(err)
+        );
+    }
+
+    updateAdministrativePermission() {
+
+        const perm = new UpdatePermission();
+        perm.additionalInformation = null;
+        perm.name = "ProjectAdminGroupAllPermission";
+        perm.permissionCode = null;
+
+        const updateAdminPerm = new UpdateAdministrativePermission();
+
+        updateAdminPerm.hasPermissions = [perm];
+
+        this.knoraApiConnection.admin.permissionsEndpoint.updateAdministrativePermission(this.permissionIri, updateAdminPerm).subscribe(
+            (res: ApiResponseData<AdministrativePermissionResponse>) => {
+                this.permissionUpdateStatus = "updateAdministrativePermission ok";
                 console.log(res);
             },
             err => console.error(err)
@@ -304,7 +346,8 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.admin.permissionsEndpoint.getDefaultObjectAccessPermissions(projectIri).subscribe(
             (res: ApiResponseData<DefaultObjectAccessPermissionsResponse>) => {
-                this.permissionStatus = 'getDefaultObjectAccessPermissions ok';
+                this.permissionStatus = "getDefaultObjectAccessPermissions ok";
+                this.permissionIri = res.body.defaultObjectAccessPermissions[0].id;
                 console.log(res);
             },
             err => console.error('Error:', err)
@@ -340,6 +383,69 @@ export class AppComponent implements OnInit {
             err => console.error('Error:', err)
         );
 
+    }
+
+    updateDefaultObjectAccessPermission() {
+
+        const perm = new UpdatePermission();
+        perm.additionalInformation = "http://www.knora.org/ontology/knora-admin#ProjectMember";
+        perm.name = "D";
+        perm.permissionCode = 7;
+
+        const updateDefaultObjectAccessPerm = new UpdateDefaultObjectAccessPermission();
+
+        updateDefaultObjectAccessPerm.hasPermissions = [perm];
+
+        this.knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermission(this.permissionIri, updateDefaultObjectAccessPerm).subscribe(
+            (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
+                this.permissionUpdateStatus = "updateDefaultObjectAccessPermission ok";
+                console.log(res);
+            },
+            err => console.error(err)
+        );
+
+    }
+
+    updateDefaultObjectAccessPermissionGroup() {
+        const updateAdminPermGroup = new UpdateDefaultObjectAccessPermissionGroup();
+
+        updateAdminPermGroup.forGroup = "http://rdfh.ch/groups/00FF/images-reviewer";
+
+        this.knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermissionGroup(this.permissionIri, updateAdminPermGroup).subscribe(
+            (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
+                this.permissionUpdateStatus = "updateDefaultObjectAccessPermissionGroup ok";
+                console.log(res);
+            },
+            err => console.error(err)
+        );
+    }
+
+    updateDefaultObjectAccessPermissionResourceClass() {
+        const defaultObjectAccessPermissionResourceClass = new UpdateDefaultObjectAccessPermissionResourceClass();
+
+        defaultObjectAccessPermissionResourceClass.forResourceClass = "http://www.knora.org/ontology/0803/incunabula#book";
+
+        this.knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermissionResourceClass(this.permissionIri, defaultObjectAccessPermissionResourceClass).subscribe(
+            (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
+                this.permissionUpdateStatus = "updateDefaultObjectAccessPermissionResourceClass ok";
+                console.log(res);
+            },
+            err => console.error(err)
+        );
+    }
+
+    updateDefaultObjectAccessPermissionProperty() {
+        const defaultObjectAccessPermissionProperty = new UpdateDefaultObjectAccessPermissionProperty();
+
+        defaultObjectAccessPermissionProperty.forProperty = "http://www.knora.org/ontology/00FF/images#titel";
+
+        this.knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermissionProperty(this.permissionIri, defaultObjectAccessPermissionProperty).subscribe(
+            (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
+                this.permissionUpdateStatus = "updateDefaultObjectAccessPermissionProperty ok";
+                console.log(res);
+            },
+            err => console.error(err)
+        );
     }
 
     getOntology(iri: string) {
