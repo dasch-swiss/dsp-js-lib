@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.7.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.6.1...v2.7.0) (2021-07-20)
+
+
+### Bug Fixes
+
+* **resource:** optional file values (DSP-1803) ([#356](https://www.github.com/dasch-swiss/dsp-js-lib/issues/356)) ([f61dee8](https://www.github.com/dasch-swiss/dsp-js-lib/commit/f61dee84e2dc5ef9f4ab1ffd0468f8948200601f))
+
+
+### Enhancements
+
+* **permissions:** update permissions (DSP-1317) ([#313](https://www.github.com/dasch-swiss/dsp-js-lib/issues/313)) ([c1d5df8](https://www.github.com/dasch-swiss/dsp-js-lib/commit/c1d5df81fc49d2ee0462f68738b14403b6a1a57c))
+* **resource:** add erase resource method (DSP-1807) ([#357](https://www.github.com/dasch-swiss/dsp-js-lib/issues/357)) ([4cd3097](https://www.github.com/dasch-swiss/dsp-js-lib/commit/4cd3097291f2858c845b70ce50de2f6fb2a9002e))
+
 ### [2.6.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.6.0...v2.6.1) (2021-07-15)
 
 
