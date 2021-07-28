@@ -2,7 +2,7 @@
   "@id" : "http://rdfh.ch/0001/a-thing",
   "@type" : "anything:Thing",
   "anything:hasUri" : {
-    "@id" : "http://rdfh.ch/0001/a-thing/values/G1ZCChduSAKIO9JQOKsBmg",
+    "@id" : "http://rdfh.ch/0001/a-thing/values/gceJJCDYQHWncMjuAjgUsw",
     "@type" : "knora-api:UriValue",
     "knora-api:uriValueAsUri" : {
       "@type" : "xsd:anyURI",
