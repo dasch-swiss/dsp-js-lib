@@ -1,5 +1,21 @@
 # Changelog
 
+## [3.0.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.7.0...v3.0.0) (2021-07-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* **endpoint:** resolve set-cookie issue (DSP-1827) (#361)
+
+### Bug Fixes
+
+* **endpoint:** resolve set-cookie issue (DSP-1827) ([#361](https://www.github.com/dasch-swiss/dsp-js-lib/issues/361)) ([a5cde5d](https://www.github.com/dasch-swiss/dsp-js-lib/commit/a5cde5d8cf654c2dc0730ea8417fa5c65d669f68))
+
+
+### Maintenance
+
+* **deps:** bump dsp-api to latest version ([#363](https://www.github.com/dasch-swiss/dsp-js-lib/issues/363)) ([f32f92a](https://www.github.com/dasch-swiss/dsp-js-lib/commit/f32f92ac17f444205b026a4eab46638445a23437))
+
 ## [2.7.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v2.6.1...v2.7.0) (2021-07-20)
 
 
