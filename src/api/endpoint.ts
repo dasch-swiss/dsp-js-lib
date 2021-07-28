@@ -1,8 +1,7 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
-import { Observable, of, throwError } from "rxjs";
-import { ajax, AjaxError, AjaxResponse } from "rxjs/ajax";
-
+import { Observable, throwError } from "rxjs";
+import { ajax, AjaxError, AjaxRequest, AjaxResponse } from "rxjs/ajax";
 import { KnoraApiConfig } from "../knora-api-config";
 import { ApiResponseError } from "../models/api-response-error";
 import { DataError } from "../models/data-error";
@@ -71,7 +70,7 @@ export class Endpoint {
 
         if (path === undefined) path = "";
 
-        return ajax.get(this.knoraApiConfig.apiUrl + this.path + path, this.constructHeader(undefined, headerOpts))
+        return ajax(this.setAjaxRequest(path, "GET", undefined, this.constructHeader(undefined, headerOpts)))
             .pipe(
                 retryOnError(this.delay, this.maxRetries, this.retryOnErrorStatus, this.knoraApiConfig.logErrors)
             );
@@ -90,7 +89,7 @@ export class Endpoint {
 
         if (path === undefined) path = "";
 
-        return ajax.post(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentType, headerOpts))
+        return ajax(this.setAjaxRequest(path, "POST", body, this.constructHeader(contentType, headerOpts)))
             .pipe(
                 retryOnError(this.delay, this.maxRetries, this.retryOnErrorStatus, this.knoraApiConfig.logErrors)
             );
@@ -109,7 +108,7 @@ export class Endpoint {
 
         if (path === undefined) path = "";
 
-        return ajax.put(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentType, headerOpts))
+        return ajax(this.setAjaxRequest(path, "PUT", body, this.constructHeader(contentType, headerOpts)))
             .pipe(
                 retryOnError(this.delay, this.maxRetries, this.retryOnErrorStatus, this.knoraApiConfig.logErrors)
             );
@@ -128,7 +127,7 @@ export class Endpoint {
 
         if (path === undefined) path = "";
 
-        return ajax.patch(this.knoraApiConfig.apiUrl + this.path + path, body, this.constructHeader(contentType, headerOpts))
+        return ajax(this.setAjaxRequest(path, "PATCH", body, this.constructHeader(contentType, headerOpts)))
             .pipe(
                 retryOnError(this.delay, this.maxRetries, this.retryOnErrorStatus, this.knoraApiConfig.logErrors)
             );
@@ -145,7 +144,7 @@ export class Endpoint {
 
         if (path === undefined) path = "";
 
-        return ajax.delete(this.knoraApiConfig.apiUrl + this.path + path, this.constructHeader(undefined, headerOpts))
+        return ajax(this.setAjaxRequest(path, "DELETE", undefined, this.constructHeader(undefined, headerOpts)))
             .pipe(
                 retryOnError(this.delay, this.maxRetries, this.retryOnErrorStatus, this.knoraApiConfig.logErrors)
             );
@@ -194,11 +193,14 @@ export class Endpoint {
      * @param contentType Sets the content type, if any.
      * @param headerOpts additional headers, if any.
      */
-    private constructHeader(contentType?: "json" | "sparql", headerOpts?: IHeaderOptions): object {
+    private constructHeader(contentType?: "json" | "sparql", headerOpts?: IHeaderOptions): IHeaderOptions {
 
         const header: IHeaderOptions = {};
 
         if (this.jsonWebToken !== "") {
+            // NOTE: I think this is not needed anymore because with the `withCredentials = true` 
+            // the cookie will always be sent with each request.
+            // But for the moment I'll keep it
             header["Authorization"] = "Bearer " + this.jsonWebToken;
         }
 
@@ -220,6 +222,28 @@ export class Endpoint {
         }
 
         return header;
+    }
+
+    /**
+     * Sets ajax request
+     * @param path string
+     * @param method 'GET', 'POST', 'PUT', 'PATCH' or 'DELETE'
+     * @param [body] any
+     * @param [headers] IHeaderOptions
+     * @returns AjaxRequest object
+     */
+    private setAjaxRequest(path: string, method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE", body?: any, headers?: IHeaderOptions): AjaxRequest {
+
+        let ajaxRequest: AjaxRequest = {
+            url: this.knoraApiConfig.apiUrl + this.path + path,
+            method: method,
+            body: body,
+            async: true,
+            withCredentials: true,
+            headers: headers
+        };
+
+        return ajaxRequest;
     }
 
 }
