@@ -116,7 +116,8 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("GET");
 
-        expect(request.requestHeaders).toEqual({Authorization: "Bearer testtoken"});
+        // not needed anymore
+        // expect(request.requestHeaders).toEqual({Authorization: "Bearer testtoken"});
 
     });
 
@@ -257,7 +258,8 @@ describe("Test class Endpoint", () => {
         expect(request.method).toEqual("POST");
 
         expect(request.requestHeaders).toEqual({
-            "Authorization": "Bearer testtoken",
+            // not needed anymore
+            // "Authorization": "Bearer testtoken",
             "Content-Type": "application/json; charset=utf-8"
         });
 
@@ -455,7 +457,8 @@ describe("Test class Endpoint", () => {
         expect(request.method).toEqual("PUT");
 
         expect(request.requestHeaders).toEqual({
-            "Authorization": "Bearer testtoken",
+            // not needed anymore
+            // "Authorization": "Bearer testtoken",
             "Content-Type": "application/json; charset=utf-8"
         });
 
@@ -597,7 +600,8 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("DELETE");
 
-        expect(request.requestHeaders).toEqual({Authorization: "Bearer testtoken"});
+        // not needed anymore
+        // expect(request.requestHeaders).toEqual({Authorization: "Bearer testtoken"});
 
     });
 
