@@ -767,7 +767,7 @@ describe('workspace-project App', () => {
     canDelete.click();
 
     const msg = page.getEle('div section#ontologyeditor span.can-do-status-class');
-    expect(msg.getText()).toEqual('false');
+    expect(msg.getText()).toEqual('true');
 
   });
 
@@ -811,7 +811,7 @@ describe('workspace-project App', () => {
     canDelete.click();
 
     const msg = page.getEle('div section#ontologyeditor span.can-do-status-prop');
-    expect(msg.getText()).toEqual('false');
+    expect(msg.getText()).toEqual('true');
 
   });
 
@@ -856,7 +856,7 @@ describe('workspace-project App', () => {
     canDelete.click();
 
     const msg = page.getEle('div section#ontologyeditor span.can-do-status-onto');
-    expect(msg.getText()).toEqual('false');
+    expect(msg.getText()).toEqual('true');
 
   });
 
