@@ -449,11 +449,15 @@ describe("ResourcesEndpoint", () => {
 
             updateResourceMetadata.hasPermissions = "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:ProjectMember";
 
-            updateResourceMetadata.newModificationDate = "2020-10-22T23:52:01.991413Z";
+            updateResourceMetadata.newModificationDate = "2021-08-04T14:31:27.525981Z";
 
             knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
                 (res: UpdateResourceMetadataResponse) => {
-                    expect(res.result).toEqual("Resource metadata updated");
+                    expect(res.label).toEqual("test thing with modified label");
+                    expect(res.resourceIri).toEqual("http://rdfh.ch/0001/a-thing");
+                    expect(res.resourceClassIri).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+                    expect(res.hasPermissions).toEqual("CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:ProjectMember");
+                    expect(res.lastModificationDate).toEqual("2021-08-04T14:31:27.525981Z");
                     done();
                 }
             );
@@ -469,7 +473,7 @@ describe("ResourcesEndpoint", () => {
             const expectedPayload = require("../../../../test/data/api/v2/resources/update-resource-metadata-request-expanded.json");
 
             // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://api.knora.org/ontology/knora-api/v2#newModificationDate"]["@value"] = "2020-10-22T23:52:01.991413Z";
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#newModificationDate"]["@value"] = "2021-08-04T14:31:27.525981Z";
 
             expect(request.data()).toEqual(expectedPayload);
 
@@ -514,13 +518,17 @@ describe("ResourcesEndpoint", () => {
 
             updateResourceMetadata.hasPermissions = "CR knora-admin:ProjectMember|V knora-admin:ProjectMember";
 
-            updateResourceMetadata.lastModificationDate = "2020-10-22T23:52:01.991413Z";
+            updateResourceMetadata.lastModificationDate = "2021-08-04T14:31:27.525981Z";
 
-            updateResourceMetadata.newModificationDate = "2020-10-22T23:52:02.920220Z";
+            updateResourceMetadata.newModificationDate = "2021-08-04T14:31:28.283127Z";
 
             knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
                 (res: UpdateResourceMetadataResponse) => {
-                    expect(res.result).toEqual("Resource metadata updated");
+                    expect(res.resourceIri).toEqual("http://rdfh.ch/0001/a-thing");
+                    expect(res.resourceClassIri).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
+                    expect(res.label).toEqual("test thing with modified label again");
+                    expect(res.hasPermissions).toEqual("CR knora-admin:ProjectMember|V knora-admin:ProjectMember");
+                    expect(res.lastModificationDate).toEqual("2021-08-04T14:31:28.283127Z");
                     done();
                 }
             );
@@ -536,8 +544,8 @@ describe("ResourcesEndpoint", () => {
             const expectedPayload = require("../../../../test/data/api/v2/resources/update-resource-metadata-request-with-last-mod-date-expanded.json");
 
             // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://api.knora.org/ontology/knora-api/v2#lastModificationDate"]["@value"] = "2020-10-22T23:52:01.991413Z";
-            expectedPayload["http://api.knora.org/ontology/knora-api/v2#newModificationDate"]["@value"] = "2020-10-22T23:52:02.920220Z";
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#lastModificationDate"]["@value"] = "2021-08-04T14:31:27.525981Z";
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#newModificationDate"]["@value"] = "2021-08-04T14:31:28.283127Z";
 
             expect(request.data()).toEqual(expectedPayload);
 
