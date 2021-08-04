@@ -436,6 +436,7 @@ describe("ResourcesEndpoint", () => {
     describe("method updateResourceMetadata", () => {
 
         const updateResResponse = require("../../../../test/data/api/v2/resources/update-resource-metadata-response.json");
+        const updateResResponseWithLastModificationDate = require("../../../../test/data/api/v2/resources/update-resource-metadata-response-with-last-mod-date.json");
 
         it("should update a resource's label", done => {
 
@@ -471,9 +472,6 @@ describe("ResourcesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             const expectedPayload = require("../../../../test/data/api/v2/resources/update-resource-metadata-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://api.knora.org/ontology/knora-api/v2#newModificationDate"]["@value"] = "2021-08-04T14:31:27.525981Z";
 
             expect(request.data()).toEqual(expectedPayload);
 
@@ -535,17 +533,13 @@ describe("ResourcesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(updateResResponse)));
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(updateResResponseWithLastModificationDate)));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/resources");
 
             expect(request.method).toEqual("PUT");
 
             const expectedPayload = require("../../../../test/data/api/v2/resources/update-resource-metadata-request-with-last-mod-date-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://api.knora.org/ontology/knora-api/v2#lastModificationDate"]["@value"] = "2021-08-04T14:31:27.525981Z";
-            expectedPayload["http://api.knora.org/ontology/knora-api/v2#newModificationDate"]["@value"] = "2021-08-04T14:31:28.283127Z";
 
             expect(request.data()).toEqual(expectedPayload);
 
