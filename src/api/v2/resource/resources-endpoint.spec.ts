@@ -450,7 +450,7 @@ describe("ResourcesEndpoint", () => {
 
             updateResourceMetadata.hasPermissions = "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:ProjectMember";
 
-            updateResourceMetadata.newModificationDate = "2021-08-04T14:31:27.525981Z";
+            updateResourceMetadata.newModificationDate = "2021-08-05T18:26:31.978759Z";
 
             knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
                 (res: UpdateResourceMetadataResponse) => {
@@ -458,7 +458,7 @@ describe("ResourcesEndpoint", () => {
                     expect(res.resourceIri).toEqual("http://rdfh.ch/0001/a-thing");
                     expect(res.resourceClassIri).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
                     expect(res.hasPermissions).toEqual("CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:ProjectMember");
-                    expect(res.lastModificationDate).toEqual("2021-08-04T14:31:27.525981Z");
+                    expect(res.lastModificationDate).toEqual("2021-08-05T18:26:31.978759Z");
                     done();
                 }
             );
@@ -516,9 +516,9 @@ describe("ResourcesEndpoint", () => {
 
             updateResourceMetadata.hasPermissions = "CR knora-admin:ProjectMember|V knora-admin:ProjectMember";
 
-            updateResourceMetadata.lastModificationDate = "2021-08-04T14:31:27.525981Z";
+            updateResourceMetadata.lastModificationDate = "2021-08-05T18:26:31.978759Z";
 
-            updateResourceMetadata.newModificationDate = "2021-08-04T14:31:28.283127Z";
+            updateResourceMetadata.newModificationDate = "2021-08-05T18:26:32.994096Z";
 
             knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
                 (res: UpdateResourceMetadataResponse) => {
@@ -526,7 +526,7 @@ describe("ResourcesEndpoint", () => {
                     expect(res.resourceClassIri).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
                     expect(res.label).toEqual("test thing with modified label again");
                     expect(res.hasPermissions).toEqual("CR knora-admin:ProjectMember|V knora-admin:ProjectMember");
-                    expect(res.lastModificationDate).toEqual("2021-08-04T14:31:28.283127Z");
+                    expect(res.lastModificationDate).toEqual("2021-08-05T18:26:32.994096Z");
                     done();
                 }
             );
