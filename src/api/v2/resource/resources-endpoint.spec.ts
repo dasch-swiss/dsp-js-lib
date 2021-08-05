@@ -473,6 +473,9 @@ describe("ResourcesEndpoint", () => {
 
             const expectedPayload = require("../../../../test/data/api/v2/resources/update-resource-metadata-request-expanded.json");
 
+            // has to be done in order not to have to update this test after every release of dsp-api
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#newModificationDate"]["@value"] = "2021-08-05T18:26:31.978759Z";
+
             expect(request.data()).toEqual(expectedPayload);
 
         });
@@ -540,6 +543,10 @@ describe("ResourcesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             const expectedPayload = require("../../../../test/data/api/v2/resources/update-resource-metadata-request-with-last-mod-date-expanded.json");
+
+            // has to be done in order not to have to update this test after every release of dsp-api
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#lastModificationDate"]["@value"] = "2021-08-05T18:26:31.978759Z";
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#newModificationDate"]["@value"] = "2021-08-05T18:26:32.994096Z";
 
             expect(request.data()).toEqual(expectedPayload);
 
