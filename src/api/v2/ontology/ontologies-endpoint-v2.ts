@@ -610,4 +610,79 @@ export class OntologiesEndpointV2 extends Endpoint {
         );
     }
 
+
+    /**
+     * Checks whether an existing cardinality of resource class can be deleted.
+     *
+     * @param resourceClassIri the iri of the resource class to be checked.
+     */
+     canDeleteCardinalityOfResourceClass(deleteCardinalityOfResourceClass: UpdateOntology<UpdateResourceClassCardinality>): Observable<CanDoResponse | ApiResponseError> {
+
+        const onto = this.jsonConvert.serializeObject(deleteCardinalityOfResourceClass);
+
+        const numberOfCards = deleteCardinalityOfResourceClass.entity.cardinalities.length;
+
+        const cardinalities = this.jsonConvert.serializeObject(deleteCardinalityOfResourceClass.entity);
+
+        // remove subClassOf if no cards are provided
+        // all cards will be removed from resource class
+        if (numberOfCards === 0) {
+            delete cardinalities[Constants.SubClassOf];
+        }
+
+        onto["@graph"] = [cardinalities];
+
+        return this.httpDelete("/candeletedinalities", onto).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
+    }
+
+    /**
+     * Deletes cardinality of resource class.
+     *
+     * @param deleteCardinalityOfResourceClass
+     */
+    deleteCardinalityOfResourceClass(deleteCardinalityOfResourceClass: UpdateOntology<UpdateResourceClassCardinality>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+
+        const onto = this.jsonConvert.serializeObject(deleteCardinalityOfResourceClass);
+
+        const numberOfCards = deleteCardinalityOfResourceClass.entity.cardinalities.length;
+
+        const cardinalities = this.jsonConvert.serializeObject(deleteCardinalityOfResourceClass.entity);
+
+        // remove subClassOf if no cards are provided
+        // all cards will be removed from resource class
+        if (numberOfCards === 0) {
+            delete cardinalities[Constants.SubClassOf];
+        }
+
+        onto["@graph"] = [cardinalities];
+
+
+        console.log('DELETE body', JSON.stringify(onto));
+
+        return this.httpDelete("/cardinalities", onto).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }),
+            map((jsonldobj: object) => {
+                return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => this.handleError(error))
+        );
+
+    }
+
 }
