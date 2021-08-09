@@ -228,14 +228,14 @@ describe("PermissionsEndpoint", () => {
             const adminPermission = new CreateAdministrativePermission();
             adminPermission.forGroup = groupIri;
             adminPermission.forProject = projectIri;
-            adminPermission.id = "http://rdfh.ch/permissions/0001/AP-with-customIri";
+            adminPermission.id = "http://rdfh.ch/permissions/0001/u0PRnDl3kgcbrehZnRlEfA";
 
             adminPermission.hasPermissions = [permission];
 
             knoraApiConnection.admin.permissionsEndpoint.createAdministrativePermission(adminPermission).subscribe(
                 (response: ApiResponseData<AdministrativePermissionResponse>) => {
 
-                    expect(response.body.administrative_permission.id).toEqual("http://rdfh.ch/permissions/0001/AP-with-customIri");
+                    expect(response.body.administrative_permission.id).toEqual("http://rdfh.ch/permissions/0001/u0PRnDl3kgcbrehZnRlEfA");
                     expect(response.body.administrative_permission.forGroup).toEqual("http://rdfh.ch/groups/0001/thing-searcher");
                     expect(response.body.administrative_permission.forProject).toEqual("http://rdfh.ch/projects/0001");
                     expect(response.body.administrative_permission.hasPermissions.length).toEqual(1);
@@ -490,14 +490,14 @@ describe("PermissionsEndpoint", () => {
             const defObjAccPermission = new CreateDefaultObjectAccessPermission();
             defObjAccPermission.forProject = projectIri;
             defObjAccPermission.forResourceClass = "http://www.knora.org/ontology/00FF/images#bild";
-            defObjAccPermission.id = "http://rdfh.ch/permissions/00FF/DOAP-with-customIri";
+            defObjAccPermission.id = "http://rdfh.ch/permissions/00FF/eIAywlYBJA3a_5yI77UsMQ";
             defObjAccPermission.hasPermissions = [permission];
 
             knoraApiConnection.admin.permissionsEndpoint.createDefaultObjectAccessPermission(defObjAccPermission).subscribe(
                 (response: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
 
                     expect(response.body.defaultObjectAccessPermission.forProject).toEqual("http://rdfh.ch/projects/00FF");
-                    expect(response.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/00FF/DOAP-with-customIri");
+                    expect(response.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/00FF/eIAywlYBJA3a_5yI77UsMQ");
                     expect(response.body.defaultObjectAccessPermission.hasPermissions.length).toBe(1);
 
                     done();

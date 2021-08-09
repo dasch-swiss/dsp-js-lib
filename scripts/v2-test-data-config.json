@@ -385,6 +385,10 @@
       "destination": "./test/data/api/v2/resources/update-resource-metadata-request-with-last-mod-date.json"
     },
     {
+      "source": "/v2/resources/update-resource-metadata-response-with-last-mod-date.json",
+      "destination": "./test/data/api/v2/resources/update-resource-metadata-response-with-last-mod-date.json"
+    },
+    {
       "source": "/v2/resources/update-resource-metadata-response.json",
       "destination": "./test/data/api/v2/resources/update-resource-metadata-response.json"
     },
