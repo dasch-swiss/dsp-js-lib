@@ -1209,6 +1209,50 @@ describe("OntologiesEndpoint", () => {
 
     });    
     
+
+    describe("Method canDeleteCardinalitiesFromClass", () => {
+
+        it("should check if cardinality can be deleted", done => {
+
+            const deleteCardinalitiesFromClassRequest = new UpdateOntology<UpdateResourceClassCardinality>();
+
+            deleteCardinalitiesFromClassRequest.id = "http://0.0.0.0:3333/ontology/0001/freetest/v2";
+
+            deleteCardinalitiesFromClassRequest.lastModificationDate = "2012-12-12T12:12:12.12Z";
+
+            const cardinalityToRemove = new UpdateResourceClassCardinality();
+
+            cardinalityToRemove.id = "http://0.0.0.0:3333/ontology/0001/freetest/v2#FreeTest";
+
+            cardinalityToRemove.cardinalities = [
+                {
+                    propertyIndex: "http://0.0.0.0:3333/ontology/0001/freetest/v2#hasInteger",
+                    cardinality: Cardinality._0_1,
+                }
+            ];
+
+            deleteCardinalitiesFromClassRequest.entity = cardinalityToRemove;
+
+            knoraApiConnection.v2.onto.canDeleteCardinalitiesFromClass(deleteCardinalitiesFromClassRequest).subscribe(
+                (res: CanDoResponse) => {
+                    expect(res.canDo).toBeTrue();
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const canReplaceCardinalityOfResourceClassResponse = require("../../../../test/data/api/v2/ontologies/can-do-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(canReplaceCardinalityOfResourceClassResponse)));
+
+            expect(request.url).toEqual("http://0.0.0.0:3333/v2/ontologies/candeletecardinalities");
+
+            expect(request.method).toEqual("POST");
+        });
+
+    });
+
     describe("Method updateGuiOrderOfCardinalities", () => {
 
         it("should replace the gui order", done => {

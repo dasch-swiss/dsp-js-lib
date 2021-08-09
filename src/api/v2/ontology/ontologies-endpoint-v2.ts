@@ -588,6 +588,70 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
+     * Checks wether a cardinality can be removed from a class even in presence of resources of this class.
+     * A cardinality can be removed in the case that the property is not used in any resources.
+     * For now, DSP-API allows only one cardinality at a time to delete.
+     * @param deleteCardinalitiesFromClass the cardinalities that need to be checked.
+     */
+    canDeleteCardinalitiesFromClass(deleteCardinalitiesFromClass: UpdateOntology<UpdateResourceClassCardinality>): Observable<CanDoResponse | ApiResponseError> {
+        const deleteCardinalitiesFromClassRequest = this.jsonConvert.serializeObject(deleteCardinalitiesFromClass);
+
+        const numberOfCardinalities = deleteCardinalitiesFromClass.entity.cardinalities.length
+
+        if (numberOfCardinalities > 1) {
+            // FIXME: Return error - currently only one cardinality at a time can be deleted
+        }
+
+        const cardinalities = this.jsonConvert.serializeObject(deleteCardinalitiesFromClass.entity)
+
+        deleteCardinalitiesFromClassRequest["@graph"] = [cardinalities];
+
+        return this.httpPost("candeletecardinalities", deleteCardinalitiesFromClassRequest).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse); 
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
+    }
+
+    /**
+     * Deletes cardinalities from a class even in presence of resources of this class.
+     * A cardinality can be removed in the case that the property is not used in any resources.
+     * For now, DSP-API allows only one cardinality at a time to be deleted.
+     * @param deleteCardinalitiesFromClass the cardinalities that need to be checked.
+     */
+     deleteCardinalitiesFromClass(deleteCardinalitiesFromClass: UpdateOntology<UpdateResourceClassCardinality>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+        const deleteCardinalitiesFromClassRequest = this.jsonConvert.serializeObject(deleteCardinalitiesFromClass);
+
+        const numberOfCardinalities = deleteCardinalitiesFromClass.entity.cardinalities.length
+
+        if (numberOfCardinalities > 1) {
+            // FIXME: Return error - currently only one cardinality at a time can be deleted
+        }
+
+        const cardinalities = this.jsonConvert.serializeObject(deleteCardinalitiesFromClass.entity)
+
+        deleteCardinalitiesFromClassRequest["@graph"] = [cardinalities];
+
+        return this.httpDelete("cardinalities", deleteCardinalitiesFromClassRequest).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert); 
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
+    }
+
+    /**
      * Updates gui order of cardinalities
      * @param replaceGuiOrder
      */
