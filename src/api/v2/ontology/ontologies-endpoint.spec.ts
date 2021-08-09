@@ -1242,9 +1242,9 @@ describe("OntologiesEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const canReplaceCardinalityOfResourceClassResponse = require("../../../../test/data/api/v2/ontologies/can-do-response.json");
+            const canDeleteCardinalitiesFromClassResponse = require("../../../../test/data/api/v2/ontologies/can-do-response.json");
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(canReplaceCardinalityOfResourceClassResponse)));
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(canDeleteCardinalitiesFromClassResponse)));
 
             expect(request.url).toEqual("http://0.0.0.0:3333/v2/ontologies/candeletecardinalities");
 

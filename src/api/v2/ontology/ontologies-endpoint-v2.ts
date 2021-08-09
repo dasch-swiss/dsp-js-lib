@@ -606,7 +606,7 @@ export class OntologiesEndpointV2 extends Endpoint {
 
         deleteCardinalitiesFromClassRequest["@graph"] = [cardinalities];
 
-        return this.httpPost("candeletecardinalities", deleteCardinalitiesFromClassRequest).pipe(
+        return this.httpPost("/candeletecardinalities", deleteCardinalitiesFromClassRequest).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
@@ -638,7 +638,7 @@ export class OntologiesEndpointV2 extends Endpoint {
 
         deleteCardinalitiesFromClassRequest["@graph"] = [cardinalities];
 
-        return this.httpDelete("cardinalities", deleteCardinalitiesFromClassRequest).pipe(
+        return this.httpDelete("/cardinalities", deleteCardinalitiesFromClassRequest).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
