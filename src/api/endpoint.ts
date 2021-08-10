@@ -140,7 +140,7 @@ export class Endpoint {
      * @param path the relative URL for the request.
      * @param headerOpts additional headers, if any.
      */
-    protected httpDelete(path?: string, headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
+    protected httpDelete(path?: string, body?: any, contentType: "json" | "sparql" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
 
