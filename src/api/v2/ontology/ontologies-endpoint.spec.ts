@@ -1233,7 +1233,7 @@ describe("OntologiesEndpoint", () => {
 
             deleteCardinalitiesFromClassRequest.entity = cardinalityToRemove;
 
-            knoraApiConnection.v2.onto.canDeleteCardinalitiesFromClass(deleteCardinalitiesFromClassRequest).subscribe(
+            knoraApiConnection.v2.onto.canDeleteCardinalityFromResourceClass(deleteCardinalitiesFromClassRequest).subscribe(
                 (res: CanDoResponse) => {
                     expect(res.canDo).toBeTrue();
                     done();
