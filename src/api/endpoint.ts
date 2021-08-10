@@ -144,7 +144,7 @@ export class Endpoint {
 
         if (path === undefined) path = "";
 
-        return ajax(this.setAjaxRequest(path, "DELETE", undefined, this.constructHeader(undefined, headerOpts)))
+        return ajax(this.setAjaxRequest(path, "DELETE", body, this.constructHeader(contentType, headerOpts)))
             .pipe(
                 retryOnError(this.delay, this.maxRetries, this.retryOnErrorStatus, this.knoraApiConfig.logErrors)
             );
