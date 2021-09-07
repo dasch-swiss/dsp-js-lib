@@ -1,5 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../Constants";
+import { DateTimeStampConverter } from "../../custom-converters/date-time-stamp-converter";
 
 /**
  * @category Model V2
@@ -7,7 +8,18 @@ import { Constants } from "../../Constants";
 @JsonObject("UpdateResourceMetadataResponse")
 export class UpdateResourceMetadataResponse {
 
-    @JsonProperty(Constants.Result, String)
-    result: string = "";
+    @JsonProperty(Constants.ResourceIri, String)
+    resourceIri: string = "";
 
+    @JsonProperty(Constants.ResourceClassIri, String)
+    resourceClassIri: string = "";
+
+    @JsonProperty(Constants.Label, String, true)
+    label?: string = "";
+
+    @JsonProperty(Constants.LastModificationDate, DateTimeStampConverter, true)
+    lastModificationDate?: string = "";
+
+    @JsonProperty(Constants.HasPermissions, String, true)
+    hasPermissions?: string = "";
 }

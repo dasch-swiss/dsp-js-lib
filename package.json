@@ -1,6 +1,6 @@
 {
   "name": "@dasch-swiss/dsp-js",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "JavaScript library that handles API requests to Knora",
   "main": "index.js",
   "files": [
@@ -9,7 +9,11 @@
     "src/**/*.js",
     "index.d.ts",
     "index.js.map",
-    "index.js"
+    "index.js",
+    "test/**/*.d.ts",
+    "test/**/*.js.map",
+    "test/**/*.js",
+    "test/**/*.json"
   ],
   "scripts": {
     "integrate-admin-test-data": "node scripts/integrate-files-admin.js",
@@ -44,6 +48,7 @@
   },
   "homepage": "https://github.com/dasch-swiss/knora-api-js-lib#readme",
   "devDependencies": {
+    "@babel/helper-hoist-variables": "^7.14.5",
     "@types/jasmine": "^3.4.0",
     "@types/jasmine-ajax": "^3.3.0",
     "@types/node": "^12.7.7",
@@ -54,13 +59,14 @@
     "karma-jasmine": "^2.0.1",
     "karma-jasmine-ajax": "^0.1.13",
     "karma-mocha-reporter": "^2.2.5",
-    "karma-typescript": "^5.0.3",
+    "karma-typescript": "^5.5.1",
     "phantomjs-prebuilt": "^2.1.16",
     "tslint": "^5.20.0",
     "typedoc": "^0.15.0",
     "typescript": "~3.6.3"
   },
   "dependencies": {
+    "@babel/helper-compilation-targets": "^7.14.5",
     "@types/jsonld": "^1.5.0",
     "json2typescript": "1.4.1",
     "jsonld": "^5.2.0"
