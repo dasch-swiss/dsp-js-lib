@@ -19,7 +19,7 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert
         PropertyMatchingRule.CASE_STRICT
     );
     
-    serialize(el: Attribution): any {
+    serialize(el: Attribution[] | Place[] | Grant[] | IId): any {
         if (Array.isArray(el)) {
             if (el[0].hasOwnProperty("type") && (el[0] as {type: string})["type"] === Constants.ProvAttribution) {
                 return UnionElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Attribution);
