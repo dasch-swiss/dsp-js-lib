@@ -1,10 +1,9 @@
-import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
-import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
-import { OntologiesMetadata } from "../../../../src/models/v2/ontologies/ontology-metadata";
+import { JsonConvert, OperationMode, PropertyMatchingRule, ValueCheckingMode } from "json2typescript";
 import { ResourceClassAndPropertyDefinitions } from "../../../../src/cache/ontology-cache/resource-class-and-property-definitions";
 import { ResourceClassDefinitionWithPropertyDefinition } from "../../../../src/cache/ontology-cache/resource-class-definition-with-property-definition";
 import { Constants } from "../../../../src/models/v2/Constants";
 import { IHasProperty } from "../../../../src/models/v2/ontologies/class-definition";
+import { OntologiesMetadata } from "../../../../src/models/v2/ontologies/ontology-metadata";
 import { OntologyConversionUtil } from "../../../../src/models/v2/ontologies/OntologyConversionUtil";
 import { PropertyDefinition } from "../../../../src/models/v2/ontologies/property-definition";
 import { ReadOntology } from "../../../../src/models/v2/ontologies/read/read-ontology";
@@ -14,9 +13,9 @@ import { StandoffClassDefinition } from "../../../../src/models/v2/ontologies/st
 import { SystemPropertyDefinition } from "../../../../src/models/v2/ontologies/system-property-definition";
 import ontologiesMetadata from "../v2/ontologies/all-ontology-metadata-response-expanded.json";
 import anythingOntologyExpanded from "../v2/ontologies/anything-ontology-expanded.json";
-import minimalOntologyExpanded from "../v2/ontologies/minimal-ontology-expanded.json";
 import incunabulaOntologyExpanded from "../v2/ontologies/incunabula-ontology-expanded.json";
 import knoraApiOntologyExpanded from "../v2/ontologies/knora-api-ontology-expanded.json";
+import minimalOntologyExpanded from "../v2/ontologies/minimal-ontology-expanded.json";
 
 export namespace MockOntology {
 

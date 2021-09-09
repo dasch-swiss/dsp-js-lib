@@ -1,5 +1,4 @@
-import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
-import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+import { JsonConvert, OperationMode, PropertyMatchingRule, ValueCheckingMode } from "json2typescript";
 import { forkJoin, Observable, of } from "rxjs";
 import { map } from "rxjs/operators";
 import { V2Endpoint } from "../../../../src/api/v2/v2-endpoint";

@@ -1,5 +1,4 @@
-import { JsonConvert, JsonConverter, JsonCustomConvert, OperationMode, ValueCheckingMode } from "json2typescript";
-import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+import { JsonConvert, JsonConverter, JsonCustomConvert, OperationMode, PropertyMatchingRule, ValueCheckingMode } from "json2typescript";
 import { IId } from "../../../interfaces/models/v2/project-metadata-interfaces";
 import { Constants } from "../Constants";
 import { Attribution } from "../project-metadata/attribution";
@@ -20,7 +19,7 @@ export class UnionElementArrayOfElementsConverter implements JsonCustomConvert
         PropertyMatchingRule.CASE_STRICT
     );
     
-    serialize(el: Attribution[] | Place[] | Grant[] | IId): any {
+    serialize(el: Attribution): any {
         if (Array.isArray(el)) {
             if (el[0].hasOwnProperty("type") && (el[0] as {type: string})["type"] === Constants.ProvAttribution) {
                 return UnionElementArrayOfElementsConverter.jsonConvert.serializeArray(el, Attribution);

@@ -1,11 +1,9 @@
-import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
-import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+import { JsonConvert, OperationMode, PropertyMatchingRule, ValueCheckingMode } from "json2typescript";
 import { of } from "rxjs";
 import { MockList } from "../../test/data/api/v2/mock-list";
 import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { ListNodeV2 } from "../models/v2/lists/list-node-v2";
-import { ListNodeV2Cache } from "./ListNodeV2Cache";
 
 describe("ListNodeV2Cache", () => {
 

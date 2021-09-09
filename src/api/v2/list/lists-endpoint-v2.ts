@@ -29,7 +29,7 @@ export class ListsEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(
-                res => {
+                (res: object) => {
                     return this.jsonConvert.deserialize(res, ListNodeV2) as ListNodeV2;
                 }
             ),
@@ -53,7 +53,7 @@ export class ListsEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(
-                res => {
+                (res: object) => {
                     return this.jsonConvert.deserialize(res, ListNodeV2) as ListNodeV2;
                 }
             ),

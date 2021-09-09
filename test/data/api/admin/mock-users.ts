@@ -1,12 +1,10 @@
-import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
-import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+import { JsonConvert, OperationMode, PropertyMatchingRule, ValueCheckingMode } from "json2typescript";
 import { AjaxResponse } from "rxjs/ajax";
-import { ApiResponseData } from "../../../../src/models/api-response-data";
-import { UsersResponse } from "../../../../src/models/admin/users-response";
 import { UserResponse } from "../../../../src/models/admin/user-response";
-
-import users from "./users/get-users-response.json";
+import { UsersResponse } from "../../../../src/models/admin/users-response";
+import { ApiResponseData } from "../../../../src/models/api-response-data";
 import user from "./users/get-user-response.json";
+import users from "./users/get-users-response.json";
 
 export namespace MockUsers {
 
