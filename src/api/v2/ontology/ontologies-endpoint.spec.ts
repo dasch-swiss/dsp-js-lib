@@ -51,7 +51,7 @@ describe("OntologiesEndpoint", () => {
 
             knoraApiConnection.v2.onto.getOntologiesMetadata().subscribe(
                 (response: OntologiesMetadata) => {
-                    expect(response.ontologies.length).toEqual(14);
+                    expect(response.ontologies.length).toEqual(15);
                     expect(response.ontologies[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
                     done();
                 }
@@ -245,10 +245,11 @@ describe("OntologiesEndpoint", () => {
 
             knoraApiConnection.v2.onto.getOntologiesByProjectIri("http://rdfh.ch/projects/0001").subscribe(
                 (response: OntologiesMetadata) => {
-                    expect(response.ontologies.length).toEqual(3);
+                    expect(response.ontologies.length).toEqual(4);
                     expect(response.ontologies[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
-                    expect(response.ontologies[1].id).toEqual("http://0.0.0.0:3333/ontology/0001/minimal/v2");
-                    expect(response.ontologies[2].id).toEqual("http://0.0.0.0:3333/ontology/0001/something/v2");
+                    expect(response.ontologies[1].id).toEqual("http://0.0.0.0:3333/ontology/0001/freetest/v2");
+                    expect(response.ontologies[2].id).toEqual("http://0.0.0.0:3333/ontology/0001/minimal/v2");
+                    expect(response.ontologies[3].id).toEqual("http://0.0.0.0:3333/ontology/0001/something/v2");
                     done();
                 }
             );
