@@ -1,5 +1,5 @@
 {
-    "parentNodeIri": "http://rdfh.ch/lists/0001/F6xGF70bQxO40GZIyiWwNQ",
+    "parentNodeIri": "http://rdfh.ch/lists/0001/ABAWPXWISWOZrRjz9LPJhg",
     "projectIri": "http://rdfh.ch/projects/0001",
     "name": "third",
     "labels": [{ "value": "New Third Child List Node Value", "language": "en"}],

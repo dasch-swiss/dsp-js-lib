@@ -1,8 +1,8 @@
 
 {
-    "@id": "http://rdfh.ch/0001/a-thing/values/D3zIGiBRT0KcJRB0GUbGmw",
+    "@id": "http://rdfh.ch/0001/a-thing/values/Sk1fbdnjRcK-yxG5_aHqhQ",
     "@type": "knora-api:IntValue",
-    "knora-api:valueHasUUID": "qd6GgsZHSjyxu1htEOJL7g",
+    "knora-api:valueHasUUID": "fIwsjsr5R5O3Azl52Mk8cg",
     "@context": {
         "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
     }

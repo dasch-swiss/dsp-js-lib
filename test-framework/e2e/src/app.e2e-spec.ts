@@ -392,7 +392,7 @@ describe('workspace-project App', () => {
     button.click();
 
     const result = page.getEle('div section#ontologymetadata span.anything');
-    expect(result.getText()).toEqual('3 ontologies');
+    expect(result.getText()).toEqual('4 ontologies');
 
   });
 
