@@ -1,5 +1,14 @@
 # Changelog
 
+### [4.0.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v4.0.0...v4.0.1) (2021-09-22)
+
+
+### Maintenance
+
+* **deps:** bump dsp-api to latest version (v15.0.0) ([#373](https://www.github.com/dasch-swiss/dsp-js-lib/issues/373)) ([36d649d](https://www.github.com/dasch-swiss/dsp-js-lib/commit/36d649dd337f39a9cb305fe7e46ea921b2beb380))
+* **deps:** fix security vulnerability ([#369](https://www.github.com/dasch-swiss/dsp-js-lib/issues/369)) ([d668e5b](https://www.github.com/dasch-swiss/dsp-js-lib/commit/d668e5bd477a14960991e4e2e0ac1e79c687bf17))
+* **gh-ci:** add code ql analysis as suggested by github ([#368](https://www.github.com/dasch-swiss/dsp-js-lib/issues/368)) ([6dcfde3](https://www.github.com/dasch-swiss/dsp-js-lib/commit/6dcfde35d1713ec31d2571b0a7d9254f680770a5))
+
 ## [4.0.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v3.0.0...v4.0.0) (2021-08-09)
 
 
