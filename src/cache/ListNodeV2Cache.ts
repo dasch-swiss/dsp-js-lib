@@ -28,6 +28,16 @@ export class ListNodeV2Cache extends GenericCache<ListNodeV2> {
         return this.getItem(nodeIri);
     }
 
+    /**
+     * Public method to access the reloadItem method
+     * 
+     * @param key the id of the information to be returned.
+     * @return the item
+     */
+     reloadCachedItem(key: string): Observable<ListNodeV2> {
+        return this.reloadItem(key);
+    }
+
     protected getKeyOfItem(item: ListNodeV2): string {
         return item.id;
     }

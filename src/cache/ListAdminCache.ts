@@ -24,6 +24,16 @@ export class ListAdminCache extends GenericCache<ListResponse> {
         return this.getItem(listIri);
     }
 
+    /**
+     * Public method to access the reloadItem method
+     * 
+     * @param key the id of the information to be returned.
+     * @return the item
+     */
+     reloadCachedItem(key: string): Observable<ListResponse> {
+        return this.reloadItem(key);
+    }
+
     protected requestItemFromKnora(key: string, isDependency: boolean): Observable<ListResponse[] | ApiResponseError> {
         return this.adminEndpoint.listsEndpoint.getList(key).pipe(
             map((response: ApiResponseData<ListResponse>) => {
