@@ -24,6 +24,16 @@ export class UserCache extends GenericCache<UserResponse> {
         return this.getItem(iri);
     }
 
+    /**
+     * Public method to access the reloadItem method
+     * 
+     * @param key the id of the information to be returned.
+     * @return the item
+     */
+     reloadCachedItem(key: string): Observable<UserResponse> {
+        return this.reloadItem(key);
+    }
+
     protected requestItemFromKnora(key: string, isDependency: boolean): Observable<UserResponse[] | ApiResponseError> {
         return this.knoraApiConnection.admin.usersEndpoint.getUser("iri", key).pipe(
             map((response: ApiResponseData<UserResponse>) => {
