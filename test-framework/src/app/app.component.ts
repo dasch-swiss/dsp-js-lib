@@ -117,6 +117,12 @@ export class AppComponent implements OnInit {
     permissionIri: string;
     permissionDeleted: boolean;
 
+    canDeletePropertyResponse: boolean;
+    canDeleteClassResponse: boolean;
+    canDeleteCardinalityResponse: boolean;
+    canReplaceCardinalityResponse: boolean;
+    canDeleteOntologyResponse: boolean;
+
     // reusable response message
     message: string;
 
@@ -154,7 +160,7 @@ export class AppComponent implements OnInit {
     listNodePosition = 0;
     listNodeParentIri = '';
 
-    canDoResponse: boolean;
+    // canDoResponse: boolean;
 
     ngOnInit() {
         const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
@@ -589,7 +595,7 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.onto.canDeleteOntology(ontologyId).subscribe(
             (response: CanDoResponse) => {
-                this.canDoResponse = response.canDo;
+                this.canDeleteOntologyResponse = response.canDo;
             }
         );
     }
@@ -713,7 +719,7 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.onto.canDeleteResourceClass(resClassIri).subscribe(
             (response: CanDoResponse) => {
-                this.canDoResponse = response.canDo;
+                this.canDeleteClassResponse = response.canDo;
             }
         );
     }
@@ -883,7 +889,7 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.onto.canDeleteResourceProperty(propIri).subscribe(
             (response: CanDoResponse) => {
-                this.canDoResponse = response.canDo;
+                this.canDeletePropertyResponse = response.canDo;
             }
         );
     }
@@ -945,7 +951,7 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.onto.canReplaceCardinalityOfResourceClass(resClassIri).subscribe(
             (response: CanDoResponse) => {
-                this.canDoResponse = response.canDo;
+                this.canReplaceCardinalityResponse = response.canDo;
             });
 
 
@@ -1038,7 +1044,7 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.onto.canDeleteCardinalityFromResourceClass(onto).subscribe(
             (res: CanDoResponse) => {
-                console.log('delete cardinality: ', res)
+                this.canDeleteCardinalityResponse = res.canDo;
             },
             (err: ApiResponseError) => console.error(err)
         );
