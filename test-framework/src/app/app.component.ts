@@ -111,6 +111,7 @@ export class AppComponent implements OnInit {
     property: ResourcePropertyDefinitionWithAllLanguages;
     addCard: ResourceClassDefinitionWithAllLanguages;
     replacedCard: ResourceClassDefinitionWithAllLanguages;
+    cardinality = Cardinality._0_1; 
     permissionStatus: string;
     permissionUpdateStatus: string;
     permissionIri: string;
@@ -921,7 +922,7 @@ export class AppComponent implements OnInit {
         addCard.cardinalities = [
             {
                 propertyIndex: 'http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName',
-                cardinality: Cardinality._0_1
+                cardinality: this.cardinality
             }
         ];
 
@@ -952,6 +953,8 @@ export class AppComponent implements OnInit {
 
     replaceCardinality() {
 
+        this.cardinality = Cardinality._1;
+
         const onto = new UpdateOntology<UpdateResourceClassCardinality>();
 
         onto.lastModificationDate = this.lastModificationDate
@@ -963,7 +966,7 @@ export class AppComponent implements OnInit {
         replaceCard.cardinalities = [
             {
                 propertyIndex: 'http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName',
-                cardinality: Cardinality._1
+                cardinality: this.cardinality
             }
         ];
 
@@ -994,7 +997,7 @@ export class AppComponent implements OnInit {
         updateGO.cardinalities = [
             {
                 propertyIndex: 'http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName',
-                cardinality: Cardinality._1,
+                cardinality: this.cardinality,
                 guiOrder: Math.floor(Math.random() * 10) + 1  // returns a random integer from 1 to 10
             }
         ];
@@ -1010,6 +1013,34 @@ export class AppComponent implements OnInit {
                 this.lastModificationDate = res.lastModificationDate;
             },
             err => console.error(err)
+        );
+    }
+
+    canDeleteCardinality() {
+        const onto = new UpdateOntology<UpdateResourceClassCardinality>();
+
+        onto.lastModificationDate = this.lastModificationDate
+
+        onto.id = this.ontology.id;
+
+        const deleteCard = new UpdateResourceClassCardinality();
+
+        deleteCard.cardinalities = [
+            {
+                propertyIndex: 'http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName',
+                cardinality: this.cardinality
+            }
+        ];
+
+        deleteCard.id = 'http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass';
+
+        onto.entity = deleteCard;
+
+        this.knoraApiConnection.v2.onto.canDeleteCardinalityFromResourceClass(onto).subscribe(
+            (res: CanDoResponse) => {
+                console.log('delete cardinality: ', res)
+            },
+            (err: ApiResponseError) => console.error(err)
         );
     }
 
