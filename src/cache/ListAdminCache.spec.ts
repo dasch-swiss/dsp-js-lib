@@ -97,4 +97,20 @@ describe("ListCache", () => {
 
     });
 
+    describe("Method reloadCachedItem", () => {
+        it("should reload the item in the cache", done => {
+
+            listCache["reloadCachedItem"]("http://rdfh.ch/lists/0001/treeList").subscribe((res: ListResponse) => {
+
+                expect(res.list.listinfo.id).toEqual("http://rdfh.ch/lists/0001/treeList");
+
+                expect(getListSpy).toHaveBeenCalledTimes(1);
+
+                expect(listCache["cache"]["http://rdfh.ch/lists/0001/treeList"]).not.toBeUndefined();
+
+                done();
+            });
+        });
+    });
+
 });

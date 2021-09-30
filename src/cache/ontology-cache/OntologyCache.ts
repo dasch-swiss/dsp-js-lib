@@ -141,6 +141,16 @@ export class OntologyCache extends GenericCache<ReadOntology> {
 
     }
 
+    /**
+     * Public method to access the reloadItem method
+     * 
+     * @param key the id of the information to be returned.
+     * @return the item
+     */
+     reloadCachedItem(key: string): Observable<ReadOntology> {
+        return this.reloadItem(key);
+    }
+
     protected requestItemFromKnora(key: string, isDependency: boolean): Observable<ReadOntology[] | ApiResponseError> {
         return this.v2Endpoint.onto.getOntology(key).pipe(
             map((onto: ReadOntology) => [onto])

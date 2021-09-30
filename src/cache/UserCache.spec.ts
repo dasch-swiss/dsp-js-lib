@@ -124,4 +124,20 @@ describe("UserCache", () => {
 
     });
 
+    describe("Method reloadCachedItem", () => {
+
+        it("should get reload a user from the cache", done => {
+            userCache["reloadCachedItem"]("http://rdfh.ch/users/root").subscribe((res: UserResponse) => {
+
+                expect(res.user.id).toEqual("http://rdfh.ch/users/root");
+                expect(getUserSpy).toHaveBeenCalledTimes(1);
+
+                expect(userCache["cache"]["http://rdfh.ch/users/root"]).not.toBeUndefined();
+                done();
+
+            });
+        });
+
+    });
+
 });

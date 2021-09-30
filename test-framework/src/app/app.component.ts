@@ -452,8 +452,18 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.ontologyCache.getOntology(iri).subscribe(
             onto => {
-                console.log('onto ', onto);
+                console.log('cached onto ', onto);
                 this.ontologies = onto;
+            }
+        );
+    }
+
+    reloadOntologyCache(iri: string) {
+
+        this.knoraApiConnection.v2.ontologyCache.reloadCachedItem(iri).subscribe(
+            onto => {
+                console.log('reloaded cached onto ', onto);
+                this.ontologies[onto.id] = onto;
             }
         );
     }

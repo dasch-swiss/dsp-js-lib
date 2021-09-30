@@ -257,6 +257,27 @@ describe("OntologyCache", () => {
             });
 
         });
+
+        describe("Method reloadCachedItem()", () => {
+            it("should reload a cached ontology", done => {
+
+                // should return the same item as the getOntology() method
+                knoraApiConnection.v2.ontologyCache["reloadCachedItem"]("http://0.0.0.0:3333/ontology/0001/anything/v2").subscribe((onto: ReadOntology) => {
+
+                    expect(onto.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
+
+                    expect(getOntoSpy).toHaveBeenCalledTimes(2);
+                    expect(getOntoSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2");
+                    expect(getOntoSpy).toHaveBeenCalledWith("http://api.knora.org/ontology/knora-api/v2"); // anything onto depends on knora-api
+
+                    expect(knoraApiConnection.v2.ontologyCache["cache"]["http://0.0.0.0:3333/ontology/0001/anything/v2"]).not.toBeUndefined();
+                    expect(knoraApiConnection.v2.ontologyCache["cache"]["http://api.knora.org/ontology/knora-api/v2"]).not.toBeUndefined(); // anything onto depends on knora-api
+                    
+                    done();
+
+                });
+            });
+        });
     });
 
     describe("unsuccessful HTTP request", () => {
