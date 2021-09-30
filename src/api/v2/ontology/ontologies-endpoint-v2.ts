@@ -601,7 +601,8 @@ export class OntologiesEndpointV2 extends Endpoint {
         const numberOfCardinalities = deleteCardinalityFromClass.entity.cardinalities.length
 
         if (numberOfCardinalities > 1) {
-            // FIXME: Return error - currently only one cardinality at a time can be deleted
+            // only one cardinality at a time can be deleted; return an error
+            return this._badCardinalityRequest("canDeleteCardinalityFromClass");
         }
 
         const cardinalities = this.jsonConvert.serializeObject(deleteCardinalityFromClass.entity)
@@ -633,15 +634,8 @@ export class OntologiesEndpointV2 extends Endpoint {
         const numberOfCardinalities = deleteCardinalityFromClass.entity.cardinalities.length
 
         if (numberOfCardinalities > 1) {
-            // should already return an ApiResponseError; but the following lines do not work as expected
-            const response: ApiResponseError = {
-                error: 'Only one cardinality can be deleted at a time.',
-                url: "/cardinalities",
-                status: 400,
-                method: "deleteCardinalityFromResourceClass"
-            };
-            const error: DataError = new DataError('Bad request', response);
-            return this.handleError(error);
+            // only one cardinality at a time can be deleted; return an error
+            return this._badCardinalityRequest("deleteCardinalityFromClass");
         }
 
         const cardinalities = this.jsonConvert.serializeObject(deleteCardinalityFromClass.entity)
@@ -684,14 +678,14 @@ export class OntologiesEndpointV2 extends Endpoint {
         );
     }
 
-    private _badRequest(url: string, method: string): Observable<ApiResponseError> {
+    private _badCardinalityRequest(method: string): Observable<ApiResponseError> {
         const response: ApiResponseError = {
-            error: 'Only one cardinality can be deleted at a time.',
-            url: url,
+            error: "Only one cardinality can be deleted at a time.",
+            url: "/cardinalities",
             status: 400,
             method: method
         };
-        const error: DataError = new DataError('Bad request', response);
+        const error: DataError = new DataError("Bad request", response);
         return this.handleError(error);
     }
 
