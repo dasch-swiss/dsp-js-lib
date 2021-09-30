@@ -111,10 +111,17 @@ export class AppComponent implements OnInit {
     property: ResourcePropertyDefinitionWithAllLanguages;
     addCard: ResourceClassDefinitionWithAllLanguages;
     replacedCard: ResourceClassDefinitionWithAllLanguages;
+    cardinality = Cardinality._0_1; 
     permissionStatus: string;
     permissionUpdateStatus: string;
     permissionIri: string;
     permissionDeleted: boolean;
+
+    canDeletePropertyResponse: boolean;
+    canDeleteClassResponse: boolean;
+    canDeleteCardinalityResponse: boolean;
+    canReplaceCardinalityResponse: boolean;
+    canDeleteOntologyResponse: boolean;
 
     // reusable response message
     message: string;
@@ -153,7 +160,7 @@ export class AppComponent implements OnInit {
     listNodePosition = 0;
     listNodeParentIri = '';
 
-    canDoResponse: boolean;
+    // canDoResponse: boolean;
 
     ngOnInit() {
         const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
@@ -588,7 +595,7 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.onto.canDeleteOntology(ontologyId).subscribe(
             (response: CanDoResponse) => {
-                this.canDoResponse = response.canDo;
+                this.canDeleteOntologyResponse = response.canDo;
             }
         );
     }
@@ -712,7 +719,7 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.onto.canDeleteResourceClass(resClassIri).subscribe(
             (response: CanDoResponse) => {
-                this.canDoResponse = response.canDo;
+                this.canDeleteClassResponse = response.canDo;
             }
         );
     }
@@ -882,7 +889,7 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.onto.canDeleteResourceProperty(propIri).subscribe(
             (response: CanDoResponse) => {
-                this.canDoResponse = response.canDo;
+                this.canDeletePropertyResponse = response.canDo;
             }
         );
     }
@@ -921,7 +928,7 @@ export class AppComponent implements OnInit {
         addCard.cardinalities = [
             {
                 propertyIndex: 'http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName',
-                cardinality: Cardinality._0_1
+                cardinality: this.cardinality
             }
         ];
 
@@ -944,13 +951,15 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.onto.canReplaceCardinalityOfResourceClass(resClassIri).subscribe(
             (response: CanDoResponse) => {
-                this.canDoResponse = response.canDo;
+                this.canReplaceCardinalityResponse = response.canDo;
             });
 
 
     }
 
     replaceCardinality() {
+
+        this.cardinality = Cardinality._1;
 
         const onto = new UpdateOntology<UpdateResourceClassCardinality>();
 
@@ -963,7 +972,7 @@ export class AppComponent implements OnInit {
         replaceCard.cardinalities = [
             {
                 propertyIndex: 'http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName',
-                cardinality: Cardinality._1
+                cardinality: this.cardinality
             }
         ];
 
@@ -994,7 +1003,7 @@ export class AppComponent implements OnInit {
         updateGO.cardinalities = [
             {
                 propertyIndex: 'http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName',
-                cardinality: Cardinality._1,
+                cardinality: this.cardinality,
                 guiOrder: Math.floor(Math.random() * 10) + 1  // returns a random integer from 1 to 10
             }
         ];
@@ -1010,6 +1019,34 @@ export class AppComponent implements OnInit {
                 this.lastModificationDate = res.lastModificationDate;
             },
             err => console.error(err)
+        );
+    }
+
+    canDeleteCardinality() {
+        const onto = new UpdateOntology<UpdateResourceClassCardinality>();
+
+        onto.lastModificationDate = this.lastModificationDate
+
+        onto.id = this.ontology.id;
+
+        const deleteCard = new UpdateResourceClassCardinality();
+
+        deleteCard.cardinalities = [
+            {
+                propertyIndex: 'http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName',
+                cardinality: this.cardinality
+            }
+        ];
+
+        deleteCard.id = 'http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass';
+
+        onto.entity = deleteCard;
+
+        this.knoraApiConnection.v2.onto.canDeleteCardinalityFromResourceClass(onto).subscribe(
+            (res: CanDoResponse) => {
+                this.canDeleteCardinalityResponse = res.canDo;
+            },
+            (err: ApiResponseError) => console.error(err)
         );
     }
 

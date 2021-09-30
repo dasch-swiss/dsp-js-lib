@@ -721,8 +721,30 @@ describe('workspace-project App', () => {
     const canDelete = page.getEle('div button.can-replace-card-for-res-card');
     canDelete.click();
 
-    const msg = page.getEle('div section#ontologyeditor span.can-do-status-card');
+    const msg = page.getEle('div section#ontologyeditor span.can-replace-card');
     expect(msg.getText()).toEqual('false');
+
+  });
+
+  it('check if cardinality can be removed', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    const canDelete = page.getEle('div button.can-delete-card-from-res-card');
+    canDelete.click();
+
+    const msg = page.getEle('div section#ontologyeditor span.can-delete-card');
+    expect(msg.getText()).toEqual('true');
 
   });
 
@@ -766,7 +788,7 @@ describe('workspace-project App', () => {
     const canDelete = page.getEle('div button.can-delete-class');
     canDelete.click();
 
-    const msg = page.getEle('div section#ontologyeditor span.can-do-status-class');
+    const msg = page.getEle('div section#ontologyeditor span.can-delete-class');
     expect(msg.getText()).toEqual('true');
 
   });
@@ -810,7 +832,7 @@ describe('workspace-project App', () => {
     const canDelete = page.getEle('div button.can-delete-prop');
     canDelete.click();
 
-    const msg = page.getEle('div section#ontologyeditor span.can-do-status-prop');
+    const msg = page.getEle('div section#ontologyeditor span.can-delete-prop');
     expect(msg.getText()).toEqual('true');
 
   });
@@ -855,7 +877,7 @@ describe('workspace-project App', () => {
     const canDelete = page.getEle('div button.can-delete-onto');
     canDelete.click();
 
-    const msg = page.getEle('div section#ontologyeditor span.can-do-status-onto');
+    const msg = page.getEle('div section#ontologyeditor span.can-delete-onto');
     expect(msg.getText()).toEqual('true');
 
   });
