@@ -1,5 +1,21 @@
 # Changelog
 
+## [4.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v4.0.0...v4.1.0) (2021-09-30)
+
+
+### Enhancements
+
+* **cache:** reload cache methods (DSP-1913) ([#374](https://www.github.com/dasch-swiss/dsp-js-lib/issues/374)) ([aef97da](https://www.github.com/dasch-swiss/dsp-js-lib/commit/aef97daf3264ac312d404abbf219c6a85b009c99))
+
+
+### Maintenance
+
+* **deps:** bump dsp-api to latest v15.0.1 ([#376](https://www.github.com/dasch-swiss/dsp-js-lib/issues/376)) ([db08455](https://www.github.com/dasch-swiss/dsp-js-lib/commit/db0845594f2e386fa10706148186c246a7f10898))
+* **deps:** bump dsp-api to latest version (v15.0.0) ([#373](https://www.github.com/dasch-swiss/dsp-js-lib/issues/373)) ([36d649d](https://www.github.com/dasch-swiss/dsp-js-lib/commit/36d649dd337f39a9cb305fe7e46ea921b2beb380))
+* **deps:** fix security vulnerability ([#369](https://www.github.com/dasch-swiss/dsp-js-lib/issues/369)) ([d668e5b](https://www.github.com/dasch-swiss/dsp-js-lib/commit/d668e5bd477a14960991e4e2e0ac1e79c687bf17))
+* **gh-ci:** add code ql analysis as suggested by github ([#368](https://www.github.com/dasch-swiss/dsp-js-lib/issues/368)) ([6dcfde3](https://www.github.com/dasch-swiss/dsp-js-lib/commit/6dcfde35d1713ec31d2571b0a7d9254f680770a5))
+* **ontology:** new method to remove single cardinalities from res class (DSP-1912) ([#372](https://www.github.com/dasch-swiss/dsp-js-lib/issues/372)) ([a2ca5b3](https://www.github.com/dasch-swiss/dsp-js-lib/commit/a2ca5b3a3161339d38c187b956d45e69a5846a2c))
+
 ## [4.0.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v3.0.0...v4.0.0) (2021-08-09)
 
 
