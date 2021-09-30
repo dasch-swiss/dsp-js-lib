@@ -726,6 +726,28 @@ describe('workspace-project App', () => {
 
   });
 
+  it('check if cardinality can be removed', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    const canDelete = page.getEle('div button.can-delete-card-from-res-card');
+    canDelete.click();
+
+    const msg = page.getEle('div section#ontologyeditor span.can-do-delete-card');
+    expect(msg.getText()).toEqual('false');
+
+  });
+
   it('replace a cardinality to a resource class in testonto', () => {
 
     page.navigateTo();
