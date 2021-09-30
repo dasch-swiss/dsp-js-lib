@@ -41,20 +41,16 @@
       "destination": "./test/data/api/v2/ontologies/can-do-response.json"
     },
     {
+      "source": "/v2/ontologies/candeletecardinalities-false-response.json",
+      "destination": "./test/data/api/v2/ontologies/cannot-do-response.json"
+    },
+    {
       "source": "/v2/ontologies/candeletecardinalities-false-request.json",
       "destination": "./test/data/api/v2/ontologies/candeletecardinalities-false-request.json"
     },
     {
-      "source": "/v2/ontologies/candeletecardinalities-false-response.json",
-      "destination": "./test/data/api/v2/ontologies/candeletecardinalities-false-response.json"
-    },
-    {
       "source": "/v2/ontologies/candeletecardinalities-true-request.json",
       "destination": "./test/data/api/v2/ontologies/candeletecardinalities-true-request.json"
-    },
-    {
-      "source": "/v2/ontologies/candeletecardinalities-true-response.json",
-      "destination": "./test/data/api/v2/ontologies/candeletecardinalities-true-response.json"
     },
     {
       "source": "/v2/ontologies/delete-ontology-response.json",
