@@ -99,6 +99,7 @@ export class AppComponent implements OnInit {
     userCache: UserCache;
 
     healthState: Observable<any>;
+    version: Observable<any>;
 
     ontologies: Map<string, ReadOntology>;
     ontologyWithAllLangs: ReadOntology;
@@ -169,6 +170,7 @@ export class AppComponent implements OnInit {
         this.userCache = new UserCache(this.knoraApiConnection);
 
         this.getHealthStatus();
+        this.getVersion();
 
     }
 
@@ -189,6 +191,24 @@ export class AppComponent implements OnInit {
                 )
             );
 
+    }
+
+    getVersion() {
+        this.version = 
+            this.knoraApiConnection.system.versionEndpoint.getVersion().pipe(
+                tap(
+                    res => console.log(res)
+                ),
+                map(
+                    res => {
+                        if (res instanceof ApiResponseData) {
+                            return res.body;
+                        } else {
+                            return res;
+                        }
+                    }
+                )
+            );
     }
 
     login() {
