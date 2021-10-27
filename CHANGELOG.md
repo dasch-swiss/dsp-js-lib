@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.2.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v4.1.0...v4.2.0) (2021-10-27)
+
+
+### Enhancements
+
+* **system:** add version endpoint (DEV-156) ([#377](https://www.github.com/dasch-swiss/dsp-js-lib/issues/377)) ([85716f7](https://www.github.com/dasch-swiss/dsp-js-lib/commit/85716f7fd8c2ad87cb9bbd8a1bc7b0004c537f28))
+
 ## [4.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v4.0.0...v4.1.0) (2021-09-30)
 
 
