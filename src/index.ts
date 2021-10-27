@@ -8,6 +8,7 @@ export { KnoraApiConfig } from "./knora-api-config";
 
 // System Endpoints
 export { HealthEndpointSystem } from "./api/system/health/health-endpoint-system";
+export { VersionEndpointSystem } from "./api/system/version/version-endpoint-system";
 
 // Admin Endpoints
 export { GroupsEndpointAdmin } from "./api/admin/groups/groups-endpoint-admin";
@@ -30,6 +31,7 @@ export { ListAdminCache } from "./cache/ListAdminCache";
 
 // Classes
 export { HealthResponse } from "./models/system/health-response";
+export { VersionResponse } from "./models/system/version-response";
 
 export { Group } from "./models/admin/group";
 export { ReadGroup } from "./models/admin/read-group";
