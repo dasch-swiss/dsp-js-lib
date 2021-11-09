@@ -2,7 +2,7 @@
   "@id" : "http://rdfh.ch/0001/a-thing",
   "@type" : "anything:Thing",
   "anything:hasBoolean" : {
-    "@id" : "http://rdfh.ch/0001/a-thing/values/HMVZ8Oj_TnyakT3vnHVwYQ",
+    "@id" : "http://rdfh.ch/0001/a-thing/values/z0UTLCYVR6ep3V5lSWTAkA",
     "@type" : "knora-api:BooleanValue",
     "knora-api:booleanValueAsBoolean" : false
   },
