@@ -1,8 +1,0 @@
-
-{   "id": "http://rdfh.ch/lists/0001/JbKZ-L_i5rTwHlv4dSNp4A",
-    "parentNodeIri": "http://rdfh.ch/lists/0001/WYHQu7y6BGrTBcnRtg76Tg",
-    "projectIri": "http://rdfh.ch/projects/0001",
-    "name": "node with a custom IRI",
-    "labels": [{ "value": "New List Node", "language": "en"}],
-    "comments": []
-}

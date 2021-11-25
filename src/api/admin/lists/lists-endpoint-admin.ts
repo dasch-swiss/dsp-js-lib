@@ -188,7 +188,7 @@ export class ListsEndpointAdmin extends Endpoint {
             throw new Error("At least one property is expected from the following properties: name, labels, comments.");
         }
 
-        return this.httpPut("/" + encodeURIComponent(nodeInfo.listIri), this.jsonConvert.serializeObject(nodeInfo), undefined, { "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" }).pipe(
+        return this.httpPut("/" + encodeURIComponent(nodeInfo.listIri), this.jsonConvert.serializeObject(nodeInfo)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ChildNodeInfoResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
@@ -202,7 +202,7 @@ export class ListsEndpointAdmin extends Endpoint {
      */
     getListNodeInfo(listItemIri: string): Observable<ApiResponseData<ListNodeInfoResponse | ListInfoResponse> | ApiResponseError> {
     
-        return this.httpGet("/" + encodeURIComponent(listItemIri) + "/info", { "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" }).pipe(
+        return this.httpGet("/" + encodeURIComponent(listItemIri) + "/info").pipe(
             map(ajaxResponse => {
                 if (ajaxResponse.response.hasOwnProperty("listinfo")) { // root node
                     return ApiResponseData.fromAjaxResponse(ajaxResponse, ListInfoResponse, this.jsonConvert);
@@ -222,7 +222,7 @@ export class ListsEndpointAdmin extends Endpoint {
      */
     createList(listInfo: CreateListRequest): Observable<ApiResponseData<ListResponse> | ApiResponseError> {
     
-        return this.httpPost("", this.jsonConvert.serializeObject(listInfo), undefined, { "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" }).pipe(
+        return this.httpPost("", this.jsonConvert.serializeObject(listInfo)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
@@ -236,7 +236,7 @@ export class ListsEndpointAdmin extends Endpoint {
      */
     getList(listItemIri: string): Observable<ApiResponseData<ListResponse | ListChildNodeResponse> | ApiResponseError> {
     
-        return this.httpGet("/" + encodeURIComponent(listItemIri), { "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" }).pipe(
+        return this.httpGet("/" + encodeURIComponent(listItemIri)).pipe(
             map(ajaxResponse => {
                 if (ajaxResponse.response.hasOwnProperty("list")) {
                     return ApiResponseData.fromAjaxResponse(ajaxResponse, ListResponse, this.jsonConvert);
