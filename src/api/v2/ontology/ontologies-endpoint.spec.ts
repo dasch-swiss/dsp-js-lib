@@ -1211,7 +1211,7 @@ describe("OntologiesEndpoint", () => {
 
     });    
     
-    fdescribe("Method canDeleteCardinalitiesFromClass", () => {
+    describe("Method canDeleteCardinalitiesFromClass", () => {
 
         it("should check if cardinality can be deleted; response should be true", done => {
 
