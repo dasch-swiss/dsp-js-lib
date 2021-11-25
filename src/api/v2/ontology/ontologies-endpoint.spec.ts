@@ -1211,7 +1211,7 @@ describe("OntologiesEndpoint", () => {
 
     });    
     
-    describe("Method canDeleteCardinalitiesFromClass", () => {
+    fdescribe("Method canDeleteCardinalitiesFromClass", () => {
 
         it("should check if cardinality can be deleted; response should be true", done => {
 
@@ -1219,7 +1219,7 @@ describe("OntologiesEndpoint", () => {
 
             deleteCardinalitiesFromClassRequest.id = "http://0.0.0.0:3333/ontology/0001/freetest/v2";
 
-            deleteCardinalitiesFromClassRequest.lastModificationDate = "2021-11-25T08:58:06.668397Z";
+            deleteCardinalitiesFromClassRequest.lastModificationDate = "2021-11-22T16:03:53.273834Z";
 
             const cardinalityToRemove = new UpdateResourceClassCardinality();
 
@@ -1263,7 +1263,7 @@ describe("OntologiesEndpoint", () => {
 
             deleteCardinalitiesFromClassRequest.id = "http://0.0.0.0:3333/ontology/0001/freetest/v2";
 
-            deleteCardinalitiesFromClassRequest.lastModificationDate = "2021-11-25T08:58:06.668397Z";
+            deleteCardinalitiesFromClassRequest.lastModificationDate = "2021-11-22T16:03:53.273834Z";
 
             const cardinalityToRemove = new UpdateResourceClassCardinality();
 
