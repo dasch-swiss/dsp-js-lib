@@ -5,6 +5,7 @@ import { CreateGroupRequest } from "../../../models/admin/create-group-request";
 import { GroupResponse } from "../../../models/admin/group-response";
 import { GroupsResponse } from "../../../models/admin/groups-response";
 import { MembersResponse } from "../../../models/admin/members-response";
+import { StringLiteral } from "../../../models/admin/string-literal";
 import { UpdateGroupRequest } from "../../../models/admin/update-group-request";
 import { ApiResponseData } from "../../../models/api-response-data";
 
@@ -56,13 +57,18 @@ describe("GroupsEndpoint", () => {
 
             group.name = "NewGroup";
             group.project = "http://rdfh.ch/projects/00FF";
-            group.description = "NewGroupDescription";
             group.status = true;
             group.selfjoin = false;
 
+            const descriptions = new StringLiteral();
+            descriptions.language = "en";
+            descriptions.value = "NewGroupDescription";
+
+            group.descriptions = [descriptions];
+
             knoraApiConnection.admin.groupsEndpoint.createGroup(group).subscribe(
                 (response: ApiResponseData<GroupResponse>) => {
-
+                    console.log(response.body.group);
                     expect(response.body.group.name).toEqual("Image reviewer");
 
                     done();
@@ -124,7 +130,12 @@ describe("GroupsEndpoint", () => {
             const groupInfo = new UpdateGroupRequest();
 
             groupInfo.name = "UpdatedGroupName";
-            groupInfo.description = "UpdatedGroupDescription";
+
+            const descriptions = new StringLiteral();
+            descriptions.language = "en";
+            descriptions.value = "UpdatedGroupDescription";
+
+            groupInfo.descriptions = [descriptions];
 
             knoraApiConnection.admin.groupsEndpoint.updateGroup(groupIri, groupInfo).subscribe(
                 (response: ApiResponseData<GroupResponse>) => {
