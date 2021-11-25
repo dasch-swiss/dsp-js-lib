@@ -68,7 +68,6 @@ describe("GroupsEndpoint", () => {
 
             knoraApiConnection.admin.groupsEndpoint.createGroup(group).subscribe(
                 (response: ApiResponseData<GroupResponse>) => {
-                    console.log(response.body.group);
                     expect(response.body.group.name).toEqual("Image reviewer");
 
                     done();
