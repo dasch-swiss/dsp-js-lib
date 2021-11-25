@@ -550,7 +550,6 @@ describe("ListsEndpoint", () => {
 
             const payload = require("../../../../test/data/api/admin/lists/create-list-request.json");
             
-            console.log(request.data().toString);
             expect(request.data()).toEqual(payload);
 
         });
