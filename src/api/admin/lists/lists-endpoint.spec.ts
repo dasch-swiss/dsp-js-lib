@@ -186,7 +186,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8", "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" });
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/manually-generated/update-node-info-name-comment-label-request.json");
 
@@ -211,7 +211,7 @@ describe("ListsEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const childNodeResponse = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/update-node-info-name-response.json");
+            const childNodeResponse = require("../../../../test/data/api/admin/lists/update-node-info-name-response.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(childNodeResponse)));
 
@@ -219,9 +219,9 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8", "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" });
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
-            const payload = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/update-node-info-name-request.json");
+            const payload = require("../../../../test/data/api/admin/lists/update-node-info-name-request.json");
 
             expect(request.data()).toEqual(payload);
         });
@@ -476,15 +476,13 @@ describe("ListsEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const listsResponse = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/get-list-node-info-response.json");
+            const listsResponse = require("../../../../test/data/api/admin/lists/get-list-node-info-response.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
 
             expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList01/info");
 
             expect(request.method).toEqual("GET");
-
-            expect(request.requestHeaders).toEqual({ "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" });
 
         });
 
@@ -500,15 +498,13 @@ describe("ListsEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const listsResponse = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/get-list-info-response.json");
+            const listsResponse = require("../../../../test/data/api/admin/lists/get-list-info-response.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
 
             expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList/info");
 
             expect(request.method).toEqual("GET");
-
-            expect(request.requestHeaders).toEqual({ "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" });
 
         });
     });
@@ -519,7 +515,12 @@ describe("ListsEndpoint", () => {
 
             const list = new CreateListRequest();
 
-            list.comments = [];
+            const comments = new StringLiteral();
+            comments.language = "en";
+            comments.value = "XXXXX";
+
+            list.comments = [comments];
+
             list.projectIri = "http://rdfh.ch/projects/0001";
 
             const label = new StringLiteral();
@@ -537,7 +538,7 @@ describe("ListsEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const listsResponse = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/create-list-response.json");
+            const listsResponse = require("../../../../test/data/api/admin/lists/create-list-response.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
 
@@ -545,10 +546,10 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8", "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" });
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8"});
 
-            const payload = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/create-list-request.json");
-
+            const payload = require("../../../../test/data/api/admin/lists/create-list-request.json");
+            
             expect(request.data()).toEqual(payload);
 
         });
@@ -568,15 +569,13 @@ describe("ListsEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const listsResponse = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/get-list-response.json");
+            const listsResponse = require("../../../../test/data/api/admin/lists/get-list-response.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
 
             expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList");
 
             expect(request.method).toEqual("GET");
-
-            expect(request.requestHeaders).toEqual({ "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" });
 
         });
 
@@ -592,15 +591,13 @@ describe("ListsEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const listsResponse = require("../../../../test/data/api/admin/lists/toggle_new-list-admin-routes_v1/get-node-response.json");
+            const listsResponse = require("../../../../test/data/api/admin/lists/get-node-response.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
 
             expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList03");
 
             expect(request.method).toEqual("GET");
-
-            expect(request.requestHeaders).toEqual({ "X-Knora-Feature-Toggles": "new-list-admin-routes:1=on" });
 
         });
 

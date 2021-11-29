@@ -1,4 +1,5 @@
 import { JsonObject, JsonProperty } from "json2typescript";
+import { StringLiteral } from "./string-literal";
 
 /**
  * A request to update a group.
@@ -9,10 +10,10 @@ import { JsonObject, JsonProperty } from "json2typescript";
 export class UpdateGroupRequest {
 
     /**
-     * A description of a user group
+     * Descriptions of a user group
      */
-    @JsonProperty("description", String, true)
-    description?: string = undefined;
+    @JsonProperty("descriptions", [StringLiteral], true)
+    descriptions?: StringLiteral[] = undefined;
 
     /**
      * The name of the enclosing object.

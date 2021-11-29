@@ -1,4 +1,4 @@
 {
     "name": "UpdatedGroupName",
-    "description": "UpdatedGroupDescription"
+    "descriptions": [{"value": "UpdatedGroupDescription", "language": "en"}]
 }

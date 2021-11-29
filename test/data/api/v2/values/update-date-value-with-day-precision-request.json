@@ -2,7 +2,7 @@
   "@id" : "http://rdfh.ch/0001/a-thing",
   "@type" : "anything:Thing",
   "anything:hasDate" : {
-    "@id" : "http://rdfh.ch/0001/a-thing/values/8VlZPUbHT5yjAHqx__v0Cw",
+    "@id" : "http://rdfh.ch/0001/a-thing/values/T2fkWeX_SAWNzNM0bCX5zQ",
     "@type" : "knora-api:DateValue",
     "knora-api:dateValueHasCalendar" : "GREGORIAN",
     "knora-api:dateValueHasStartYear" : 2018,

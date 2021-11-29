@@ -4,5 +4,5 @@
     "projectIri": "http://rdfh.ch/projects/0001",
     "name": "node with a custom IRI",
     "labels": [{ "value": "New List Node", "language": "en"}],
-    "comments": []
+    "comments": [{ "value": "XXXXX", "language": "en"}]
 }

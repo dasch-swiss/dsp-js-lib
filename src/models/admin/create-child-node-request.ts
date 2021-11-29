@@ -13,8 +13,8 @@ export class CreateChildNodeRequest {
   /**
    * The comments attached to the enclosing object.
    */
-  @JsonProperty("comments", [StringLiteral])
-  comments: StringLiteral[] = [];
+  @JsonProperty("comments", [StringLiteral], true)
+  comments?: StringLiteral[] = undefined;
 
   /**
    * The labels attached to the enclosing object.

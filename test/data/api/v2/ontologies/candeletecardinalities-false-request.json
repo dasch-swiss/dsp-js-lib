@@ -4,18 +4,22 @@
   "@type" : "owl:Ontology",
   "knora-api:lastModificationDate" : {
     "@type" : "xsd:dateTimeStamp",
-    "@value" : "2021-09-29T16:22:39.044331Z"
+    "@value" : "2021-11-22T16:03:53.273834Z"
   },
   "@graph" : [ {
     "@id" : "freetest:FreeTest",
     "@type" : "owl:Class",
-    "rdfs:subClassOf" :  {
-      "@type": "owl:Restriction",
-      "owl:minCardinality" : 1,
-      "owl:onProperty" : {
-        "@id" : "freetest:hasText"
-      }
+    "rdfs:subClassOf" : [
+      
+ {
+    "@type": "owl:Restriction",
+    "owl:minCardinality" : 1,
+    "owl:onProperty" : {
+      "@id" : "freetest:hasText"
     }
+ }
+
+    ]
   } ],
   "@context" : {
     "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
