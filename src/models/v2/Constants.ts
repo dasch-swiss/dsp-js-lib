@@ -48,6 +48,7 @@ export class Constants {
     static StillImageFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "StillImageFileValue";
     static MovingImageFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "MovingImageFileValue";
     static TextFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "TextFileValue";
+    static ArchiveFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "ArchiveFileValue";
     static IsRootNode = Constants.KnoraApiV2 + Constants.HashDelimiter + "isRootNode";
     static HasRootNode = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasRootNode";
     static HasSubListNode = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasSubListNode";
@@ -58,6 +59,7 @@ export class Constants {
     static HasDocumentFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasDocumentFileValue";
     static HasDDDFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasDDDFileValue";
     static HasAudioFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasAudioFileValue";
+    static HasArchiveFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasArchiveFileValue";
 
     static StillImageRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "StillImageRepresentation";
     static MovingImageRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "MovingImageRepresentation";
@@ -65,6 +67,7 @@ export class Constants {
     static DDDrepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "DDDrepresentation";
     static TextRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "TextRepresentation";
     static DocumentRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "DocumentRepresentation";
+    static ArchiveRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "ArchiveRepresentation";
 
     static HasGeometry = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasGeometry";
 

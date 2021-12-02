@@ -74,3 +74,14 @@ export class UpdateTextFileValue extends UpdateFileValue {
 
 }
 
+/**
+ * @category Model V2
+ */
+ @JsonObject("UpdateArchiveFileValue")
+ export class UpdateArchiveFileValue extends UpdateFileValue {
+ 
+     constructor() {
+         super(Constants.ArchiveFileValue);
+     }
+ 
+ }
