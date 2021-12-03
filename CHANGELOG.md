@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v5.0.0...v5.1.0) (2021-12-03)
+
+
+### Enhancements
+
+* **file-values:** bump DSP-API to v17.0.0 and add support for archive files (DEV-122) ([#384](https://www.github.com/dasch-swiss/dsp-js-lib/issues/384)) ([12a97d8](https://www.github.com/dasch-swiss/dsp-js-lib/commit/12a97d8840806eefeff1642076c047a8ff144273))
+
 ## [5.0.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v4.2.0...v5.0.0) (2021-11-29)
 
 
