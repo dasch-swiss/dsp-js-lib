@@ -38,11 +38,11 @@ knora-stack: ## runs the knora-stack
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-logs-api-no-follow
 
 .PHONY: get-test-data-from-release 
-get-test-data-from-release: ## get the test-data from assets in github release
+get-test-data-from-release: ## get the test-data from assets in github release corresponding to the DSP-API version in vars.mk
 	@$(call download-test-data,$(API_REPO),$(API_VERSION))
 
 .PHONY: generate-test-data
-generate-test-data: ## prepare test data from Knora-API
+generate-test-data: ## generate test data from Knora-API
 	@rm -rf $(CURRENT_DIR)/.tmp/typescript
 	mkdir -p $(CURRENT_DIR)/.tmp/typescript
 	unzip $(CURRENT_DIR)/client-test-data.zip -d $(CURRENT_DIR)/.tmp/typescript

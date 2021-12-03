@@ -71,3 +71,15 @@ export class CreateTextFileValue extends CreateFileValue {
     }
 
 }
+
+/**
+ * @category Model V2
+ */
+ @JsonObject("CreateArchiveFileValue")
+ export class CreateArchiveFileValue extends CreateFileValue {
+ 
+     constructor() {
+         super(Constants.ArchiveFileValue);
+     }
+ 
+ }

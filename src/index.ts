@@ -169,7 +169,8 @@ export {
     ReadAudioFileValue,
     ReadDocumentFileValue,
     ReadMovingImageFileValue,
-    ReadStillImageFileValue
+    ReadStillImageFileValue,
+    ReadArchiveFileValue
 } from "./models/v2/resources/values/read/read-file-value";
 export { ReadGeomValue, RegionGeometry, Point2D } from "./models/v2/resources/values/read/read-geom-value";
 export { ReadIntValue } from "./models/v2/resources/values/read/read-int-value";
@@ -198,7 +199,8 @@ export {
     UpdateDocumentFileValue,
     UpdateMovingImageFileValue,
     UpdateStillImageFileValue,
-    UpdateTextFileValue
+    UpdateTextFileValue,
+    UpdateArchiveFileValue
 } from "./models/v2/resources/values/update/update-file-value";
 export { UpdateGeomValue } from "./models/v2/resources/values/update/update-geom-value";
 export { UpdateIntValue } from "./models/v2/resources/values/update/update-int-value";
@@ -221,7 +223,8 @@ export {
     CreateDocumentFileValue,
     CreateMovingImageFileValue,
     CreateStillImageFileValue,
-    CreateTextFileValue
+    CreateTextFileValue,
+    CreateArchiveFileValue
 } from "./models/v2/resources/values/create/create-file-value";
 export { CreateGeomValue } from "./models/v2/resources/values/create/create-geom-value";
 export { CreateIntValue } from "./models/v2/resources/values/create/create-int-value";

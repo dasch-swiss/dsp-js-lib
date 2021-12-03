@@ -13,6 +13,7 @@ import { ReadColorValue } from "./values/read/read-color-value";
 import { ParseReadDateValue, ReadDateValue } from "./values/read/read-date-value";
 import { ReadDecimalValue } from "./values/read/read-decimal-value";
 import {
+    ReadArchiveFileValue,
     ReadAudioFileValue,
     ReadDocumentFileValue,
     ReadMovingImageFileValue,
@@ -432,6 +433,15 @@ export namespace ResourcesConversionUtil {
             case Constants.StillImageFileValue: {
                 const stillImageVal = handleSimpleValue(valueJsonld, ReadStillImageFileValue, jsonConvert);
                 value = stillImageVal.pipe(map((val: ReadStillImageFileValue) => {
+                    val.strval = val.fileUrl;
+                    return val;
+                }));
+                break;
+            }
+
+            case Constants.ArchiveFileValue: {
+                const archiveVal = handleSimpleValue(valueJsonld, ReadArchiveFileValue, jsonConvert);
+                value = archiveVal.pipe(map((val: ReadArchiveFileValue) => {
                     val.strval = val.fileUrl;
                     return val;
                 }));

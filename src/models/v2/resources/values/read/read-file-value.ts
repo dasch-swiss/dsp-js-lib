@@ -81,3 +81,11 @@ export class ReadStillImageFileValue extends ReadFileValue {
     iiifBaseUrl: string = "";
 
 }
+
+/**
+ * @category Model V2
+ */
+ @JsonObject("ReadArchiveFileValue")
+ export class ReadArchiveFileValue extends ReadFileValue {
+ 
+ }
