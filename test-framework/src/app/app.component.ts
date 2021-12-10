@@ -32,7 +32,6 @@ import {
     DeleteResourceResponse,
     DeleteValue,
     DeleteValueResponse,
-    IUrl,
     KnoraApiConfig,
     KnoraApiConnection,
     ListNodeInfoResponse,
