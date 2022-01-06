@@ -1,5 +1,12 @@
 # Changelog
 
+### [5.1.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v5.1.0...v5.1.1) (2021-12-10)
+
+
+### Maintenance
+
+* **project-metadata:** remove project metadata implementation (DEV-282) ([#386](https://www.github.com/dasch-swiss/dsp-js-lib/issues/386)) ([b7f9dd6](https://www.github.com/dasch-swiss/dsp-js-lib/commit/b7f9dd6107137cfb15f80f049a221ba5992b7644))
+
 ## [5.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v5.0.0...v5.1.0) (2021-12-03)
 
 
