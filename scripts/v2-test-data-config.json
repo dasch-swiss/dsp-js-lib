@@ -415,6 +415,10 @@
     {
       "source": "/v2/resources/erase-resource-request.json",
       "destination": "./test/data/api/v2/resources/erase-resource-request.json"
+    },
+    {
+      "source": "/v2/resources/deleted-resource-preview-response.json",
+      "destination": "./test/data/api/v2/resources/deleted-resource-response.json"
     }
   ]
 }
