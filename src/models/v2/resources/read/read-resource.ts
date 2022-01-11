@@ -42,6 +42,12 @@ export class ReadResource extends ReadWriteResource {
     @JsonProperty(Constants.LastModificationDate, DateTimeStampConverter, true)
     lastModificationDate?: string = undefined;
 
+    @JsonProperty(Constants.DeleteDate, DateTimeStampConverter, true)
+    deleteDate?: string = undefined;
+
+    @JsonProperty(Constants.IsDeleted, Boolean, true)
+    isDeleted?: boolean = false;
+
     resourceClassLabel?: string;
 
     resourceClassComment?: string;
