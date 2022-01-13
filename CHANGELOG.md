@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [6.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v6.0.0...v6.1.0) (2022-01-13)
+
+
+### Enhancements
+
+* **resource:** support deleted resource response (DEV-299) ([#392](https://www.github.com/dasch-swiss/dsp-js-lib/issues/392)) ([9db0bb9](https://www.github.com/dasch-swiss/dsp-js-lib/commit/9db0bb997baa0f36bf92b8ebf219eac02c0f8483))
+
 ## [6.0.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v5.1.1...v6.0.0) (2022-01-06)
 
 
