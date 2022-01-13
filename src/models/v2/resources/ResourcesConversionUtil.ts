@@ -103,9 +103,19 @@ export namespace ResourcesConversionUtil {
                         return entitiyDefs.properties[propIri] instanceof ResourcePropertyDefinition;
                     });
 
-                // add information from ontology
-                resource.resourceClassLabel = entitiyDefs.classes[resource.type].label;
-                resource.resourceClassComment = entitiyDefs.classes[resource.type].comment;
+                // add information from ontology (if exists)
+                if (entitiyDefs.classes[resource.type]) {
+                    resource.resourceClassLabel = entitiyDefs.classes[resource.type].label;
+                    resource.resourceClassComment = entitiyDefs.classes[resource.type].comment;
+                } else {
+                    // the label is not defined in this ontology
+                    if (resource.type === Constants.DeletedResource) {
+                        resource.resourceClassLabel = resource.label;
+                    } else {
+                        console.warn('unsupported type: ', resource.type)
+                        resource.resourceClassLabel = resource.type;
+                    }
+                }
                 resource.entityInfo = entitiyDefs;
 
                 if (resourceProps.length > 0) {

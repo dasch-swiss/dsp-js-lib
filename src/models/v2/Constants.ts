@@ -4,6 +4,7 @@ export class Constants {
     static KnoraApi = "http://api.knora.org";
     static KnoraApiV2 = Constants.KnoraApi + "/ontology/knora-api/v2";
     static HashDelimiter = "#";
+    static IsDeleted = Constants.KnoraApiV2 + Constants.HashDelimiter + "isDeleted";
     static IsResourceClass = Constants.KnoraApiV2 + Constants.HashDelimiter + "isResourceClass";
     static IsStandoffClass = Constants.KnoraApiV2 + Constants.HashDelimiter + "isStandoffClass";
     static IsResourceProperty = Constants.KnoraApiV2 + Constants.HashDelimiter + "isResourceProperty";
@@ -82,6 +83,8 @@ export class Constants {
     static NewModificationDate = Constants.KnoraApiV2 + Constants.HashDelimiter + "newModificationDate";
     static HasPermissions = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasPermissions";
     static UserHasPermission = Constants.KnoraApiV2 + Constants.HashDelimiter + "userHasPermission";
+    static DeletedResource = Constants.KnoraApiV2 + Constants.HashDelimiter + "DeletedResource";
+    static DeleteDate = Constants.KnoraApiV2 + Constants.HashDelimiter + "deleteDate";
 
     static BooleanValueAsBoolean = Constants.KnoraApiV2 + Constants.HashDelimiter + "booleanValueAsBoolean";
     static ColorValueAsColor = Constants.KnoraApiV2 + Constants.HashDelimiter + "colorValueAsColor";
