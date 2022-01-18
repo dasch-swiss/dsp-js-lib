@@ -3,9 +3,7 @@
   "readme": "none",
   "name": "@dasch-swiss/dsp-js API Documentation",
   "exclude": "**/*.spec.*",
-  "mode": "file",
   "excludeExternals": true,
-  "excludeNotExported": true,
   "excludePrivate": true,
   "categoryOrder": [
     "Config",
