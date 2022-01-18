@@ -1,6 +1,13 @@
 # Changelog
 
 
+### [6.1.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v6.1.0...v6.1.1) (2022-01-18)
+
+
+### Bug Fixes
+
+* **docs:** fix typedoc build issue ([#394](https://www.github.com/dasch-swiss/dsp-js-lib/issues/394)) ([c602a92](https://www.github.com/dasch-swiss/dsp-js-lib/commit/c602a923d8e3a1cd81817331f992b92a5334ad30))
+
 ## [6.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v6.0.0...v6.1.0) (2022-01-13)
 
 
