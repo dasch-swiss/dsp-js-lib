@@ -29,6 +29,7 @@ export class Constants {
     static ForbiddenResource = Constants.KnoraApiV2 + Constants.HashDelimiter + "ForbiddenResource";
     static HasValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasValue";
     static HasLinkTo = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasLinkTo";
+    static IsPartOf = Constants.KnoraApiV2 + Constants.HashDelimiter + "isPartOf";
     static BooleanValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "BooleanValue";
     static ColorValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "ColorValue";
     static GeonameValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "GeonameValue";
@@ -62,6 +63,7 @@ export class Constants {
     static HasAudioFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasAudioFileValue";
     static HasArchiveFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasArchiveFileValue";
 
+    static HasRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasRepresentation";
     static StillImageRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "StillImageRepresentation";
     static MovingImageRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "MovingImageRepresentation";
     static AudioRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "AudioRepresentation";
@@ -99,6 +101,7 @@ export class Constants {
     static DateValueHasStartMonth = Constants.KnoraApiV2 + Constants.HashDelimiter + "dateValueHasStartMonth";
     static DateValueHasStartYear = Constants.KnoraApiV2 + Constants.HashDelimiter + "dateValueHasStartYear";
     static IntValueAsInt = Constants.KnoraApiV2 + Constants.HashDelimiter + "intValueAsInt";
+    static SeqNum = Constants.KnoraApiV2 + Constants.HashDelimiter + "seqnum";
     static DecimalValueAsDecimal = Constants.KnoraApiV2 + Constants.HashDelimiter + "decimalValueAsDecimal";
     static IntervalValueHasStart = Constants.KnoraApiV2 + Constants.HashDelimiter + "intervalValueHasStart";
     static IntervalValueHasEnd = Constants.KnoraApiV2 + Constants.HashDelimiter + "intervalValueHasEnd";
@@ -145,6 +148,24 @@ export class Constants {
     static GuiAttribute = Constants.SalsahGui + Constants.HashDelimiter + "guiAttribute";
     static GuiOrder = Constants.SalsahGui + Constants.HashDelimiter + "guiOrder";
     static GuiElement = Constants.SalsahGui + Constants.HashDelimiter + "guiElement";
+
+    static GuiSimpleText = Constants.SalsahGui + Constants.HashDelimiter + "SimpleText";
+    static GuiTextArea = Constants.SalsahGui + Constants.HashDelimiter + "Textarea";
+    static GuiRichText = Constants.SalsahGui + Constants.HashDelimiter + "Richtext";
+    static GuiList = Constants.SalsahGui + Constants.HashDelimiter + "List";
+    static GuiPulldown = Constants.SalsahGui + Constants.HashDelimiter + "Pulldown";
+    static GuiRadio = Constants.SalsahGui + Constants.HashDelimiter + "Radio";
+    static GuiCheckbox = Constants.SalsahGui + Constants.HashDelimiter + "Checkbox";
+    static GuiDatePicker = Constants.SalsahGui + Constants.HashDelimiter + "Date";
+    static GuiTimeStamp = Constants.SalsahGui + Constants.HashDelimiter + "TimeStamp";
+    static GuiInterval = Constants.SalsahGui + Constants.HashDelimiter + "Interval";
+    static GuiSlider = Constants.SalsahGui + Constants.HashDelimiter + "Slider";
+    static GuiSpinbox = Constants.SalsahGui + Constants.HashDelimiter + "Spinbox";
+    static GuiSearchbox = Constants.SalsahGui + Constants.HashDelimiter + "Searchbox";
+    static GuiGeonames = Constants.SalsahGui + Constants.HashDelimiter + "Geonames";
+    static GuiColorPicker = Constants.SalsahGui + Constants.HashDelimiter + "Colorpicker";
+    static GuiGeometry = Constants.SalsahGui + Constants.HashDelimiter + "Geometry";
+    static GuiFileUpload = Constants.SalsahGui + Constants.HashDelimiter + "Fileupload";
 
     static Owl = "http://www.w3.org/2002/07/owl";
     static Ontology = Constants.Owl + Constants.HashDelimiter + "Ontology";
