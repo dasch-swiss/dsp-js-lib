@@ -1,6 +1,23 @@
 # Changelog
 
 
+## [6.2.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v6.1.0...v6.2.0) (2022-01-28)
+
+
+### Bug Fixes
+
+* **docs:** fix typedoc build issue ([#394](https://www.github.com/dasch-swiss/dsp-js-lib/issues/394)) ([c602a92](https://www.github.com/dasch-swiss/dsp-js-lib/commit/c602a923d8e3a1cd81817331f992b92a5334ad30))
+
+
+### Enhancements
+
+* **constants:** add missing constants ([#396](https://www.github.com/dasch-swiss/dsp-js-lib/issues/396)) ([28f109b](https://www.github.com/dasch-swiss/dsp-js-lib/commit/28f109b20c1dd8aa2bfe6f4df36b332f1dab05d5))
+
+
+### Maintenance
+
+* **deps:** bump api to latest ([#398](https://www.github.com/dasch-swiss/dsp-js-lib/issues/398)) ([764c806](https://www.github.com/dasch-swiss/dsp-js-lib/commit/764c806d07525e9e4a73a641ed69315f99ca2bfa))
+
 ## [6.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v6.0.0...v6.1.0) (2022-01-13)
 
 
