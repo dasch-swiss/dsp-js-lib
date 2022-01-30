@@ -1,4 +1,6 @@
 name: CI
+env:
+  NV: 12.x  # node version
 
 on:
   push:
@@ -6,17 +8,23 @@ on:
     types: [published]
 
 jobs:
-  build-test:
-    name: Build and Test
+
+  find-ignored-tests:
+    name: Find ignored tests
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
     steps:
       - name: Checkout source
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
+      - name: Run the script
+        run: ./find-ignored-tests.sh
+
+  unit-tests:
+    name: Run unit tests
+    needs: [find-ignored-tests]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v2
       - name: Checkout private ci-assets
         uses: actions/checkout@v2
         with:
@@ -32,24 +40,59 @@ jobs:
             ${{ runner.OS }}-build-${{ env.cache-name }}-
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
+      - name: Set up Node.js ${{ env.NV }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.NV }}
       - name: Install requirements
         run: |
           sudo apt-get install expect
           sudo npm install --global @bazel/bazelisk
-      - name: Setup node
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
       - name: Install dependencies
         run: make npm-install
       - name: Get api client test data from knora-api (makefile variant)
         run: make get-test-data-from-release
       - name: Prepare test data
         run: make prepare-test-data
-      - name: Find ignored tests
-        run: ./find-ignored-tests.sh
       - name: Run unit tests
         run: make unit-tests
+
+  e2e-tests:
+    name: Run unit tests incl. build lib
+    needs: [find-ignored-tests]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v2
+      - name: Checkout private ci-assets
+        uses: actions/checkout@v2
+        with:
+          repository: dasch-swiss/dsp-ci-assets
+          token: ${{ secrets.GH_TOKEN }}
+          path: ci
+      - name: Cache node_modules artifacts
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+      - name: Set up Node.js ${{ env.NV }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.NV }}
+      - name: Install requirements
+        run: |
+          sudo apt-get install expect
+          sudo npm install --global @bazel/bazelisk
+      - name: Install dependencies
+        run: make npm-install
+      - name: Get api client test data from knora-api (makefile variant)
+        run: make get-test-data-from-release
+      - name: Prepare test data
+        run: make prepare-test-data
       - name: Build lib
         run: make build
       - name: Prepare test environment
@@ -71,17 +114,21 @@ jobs:
 
   build:
     name: Build package and publish (on release only)
-    needs: [build-test]
+    needs: [
+      unit-tests,
+      e2e-tests
+    ]
     runs-on: ubuntu-latest
     env:
       dist-directory: ./build/
     if: github.event_name == 'release' && startsWith(github.ref, 'refs/tags')
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - name: Cehckout source
+        uses: actions/checkout@v2
+      - name: Set up Node.js ${{ env.NV }}
+        uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
-          registry-url: https://registry.npmjs.org/
+          node-version: ${{ env.NV }}
       - name: Install dependencies
         run: |
           sudo npm install --global @bazel/bazelisk
