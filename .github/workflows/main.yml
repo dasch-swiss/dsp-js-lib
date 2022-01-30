@@ -58,7 +58,7 @@ jobs:
         run: make unit-tests
 
   e2e-tests:
-    name: Run unit tests incl. build lib
+    name: Run e2e tests incl. build lib
     needs: [find-ignored-tests]
     runs-on: ubuntu-latest
     steps:
