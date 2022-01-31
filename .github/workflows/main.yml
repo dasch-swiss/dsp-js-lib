@@ -25,21 +25,21 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v2
-      - name: Checkout private ci-assets
-        uses: actions/checkout@v2
-        with:
-          repository: dasch-swiss/dsp-ci-assets
-          token: ${{ secrets.GH_TOKEN }}
-          path: ci
-      - name: Cache node_modules artifacts
-        uses: actions/cache@v1
-        with:
-          path: node_modules
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-build-${{ env.cache-name }}-
-            ${{ runner.OS }}-build-
-            ${{ runner.OS }}-
+      # - name: Checkout private ci-assets
+      #   uses: actions/checkout@v2
+      #   with:
+      #     repository: dasch-swiss/dsp-ci-assets
+      #     token: ${{ secrets.GH_TOKEN }}
+      #     path: ci
+      # - name: Cache node_modules artifacts
+      #   uses: actions/cache@v1
+      #   with:
+      #     path: node_modules
+      #     key: ${{ runner.OS }}-build-${{ hashFiles('**/package.json') }}
+      #     restore-keys: |
+      #       ${{ runner.OS }}-build-${{ env.cache-name }}-
+      #       ${{ runner.OS }}-build-
+      #       ${{ runner.OS }}-
       - name: Set up Node.js ${{ env.NV }}
         uses: actions/setup-node@v1
         with:
@@ -64,12 +64,12 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v2
-      - name: Checkout private ci-assets
-        uses: actions/checkout@v2
-        with:
-          repository: dasch-swiss/dsp-ci-assets
-          token: ${{ secrets.GH_TOKEN }}
-          path: ci
+      # - name: Checkout private ci-assets
+      #   uses: actions/checkout@v2
+      #   with:
+      #     repository: dasch-swiss/dsp-ci-assets
+      #     token: ${{ secrets.GH_TOKEN }}
+      #     path: ci
       - name: Cache node_modules artifacts
         uses: actions/cache@v1
         with:
