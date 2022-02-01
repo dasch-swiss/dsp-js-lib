@@ -4,10 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build-app": "ng build --prod=true --buildOptimizer=true --progress=true",
+    "build-app": "ng build --configuration production --buildOptimizer=true --progress=true",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e --prod=true --protractor-config=./e2e/protractor.conf.js --webdriver-update=false",
+    "e2e": "ng e2e --configuration production --protractor-config=./e2e/protractor.conf.js --webdriver-update=false",
     "e2e-local": "yalc add @dasch-swiss/dsp-js && npm install && npm run webdriver-update && npm run e2e",
     "webdriver-update": "webdriver-manager update --standalone false --gecko false --versions.chrome 2.37",
     "yalc-add": "yalc remove --all && yalc add @dasch-swiss/dsp-js"
