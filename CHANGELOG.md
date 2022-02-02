@@ -1,6 +1,6 @@
 # Changelog
 
-### [6.2.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v6.2.0...v6.2.1) (2022-02-02)
+## [6.2.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v6.2.0...v6.2.1) (2022-02-02)
 
 
 ### Maintenance
