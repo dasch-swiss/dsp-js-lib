@@ -1,6 +1,13 @@
 # Changelog
 
 
+### [6.2.2](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v6.2.1...v6.2.2) (2022-02-02)
+
+
+### Maintenance
+
+* **gh-ci:** clean up workflow ([#405](https://www.github.com/dasch-swiss/dsp-js-lib/issues/405)) ([302696d](https://www.github.com/dasch-swiss/dsp-js-lib/commit/302696dedef79980dc62961d812510798f6c15a2))
+
 ## [6.2.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v6.1.0...v6.2.0) (2022-01-28)
 
 
