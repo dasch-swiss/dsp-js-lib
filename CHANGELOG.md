@@ -1,17 +1,6 @@
 # Changelog
 
 
-### [6.2.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v6.2.0...v6.2.1) (2022-02-02)
-
-
-### Maintenance
-
-* **deps:** Bump log4js from 6.3.0 to 6.4.1 in /test-framework ([#400](https://www.github.com/dasch-swiss/dsp-js-lib/issues/400)) ([ec2cdd9](https://www.github.com/dasch-swiss/dsp-js-lib/commit/ec2cdd93e511a92aaf1101837ed3d304de8d7231))
-* **deps:** Bump nanoid from 3.1.30 to 3.2.0 in /test-framework ([#399](https://www.github.com/dasch-swiss/dsp-js-lib/issues/399)) ([18c37ba](https://www.github.com/dasch-swiss/dsp-js-lib/commit/18c37bab448077f6ebbc9990143c48dbb0828267))
-* **deps:** fix security vulnerabilities ([#403](https://www.github.com/dasch-swiss/dsp-js-lib/issues/403)) ([926a911](https://www.github.com/dasch-swiss/dsp-js-lib/commit/926a9112de44e79e0637a01d5cbe22f37a50ec07))
-* **deps:** update packages (DEV-453) ([#404](https://www.github.com/dasch-swiss/dsp-js-lib/issues/404)) ([b564b11](https://www.github.com/dasch-swiss/dsp-js-lib/commit/b564b110cc44294081690811e9eb9c2222c4deee))
-* **gh:** update gh-actions workflow ([#401](https://www.github.com/dasch-swiss/dsp-js-lib/issues/401)) ([8c60833](https://www.github.com/dasch-swiss/dsp-js-lib/commit/8c60833b7eccdbe7d4bc181dc1592a9923061a37))
-
 ## [6.2.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v6.1.0...v6.2.0) (2022-01-28)
 
 
