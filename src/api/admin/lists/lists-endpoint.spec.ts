@@ -197,7 +197,7 @@ describe("ListsEndpoint", () => {
 
             const childNode = new UpdateChildNodeRequest();
 
-            childNode.listIri = "http://rdfh.ch/lists/0001/JbKZ-L_i5rTwHlv4dSNp4A";
+            childNode.listIri = "http://rdfh.ch/lists/0001/vQgijJZKSqawFooJPyhYkw";
 
             childNode.projectIri = "http://rdfh.ch/projects/0001";
 
@@ -215,7 +215,7 @@ describe("ListsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(childNodeResponse)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FJbKZ-L_i5rTwHlv4dSNp4A");
+            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FvQgijJZKSqawFooJPyhYkw");
 
             expect(request.method).toEqual("PUT");
 

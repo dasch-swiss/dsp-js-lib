@@ -2,7 +2,7 @@
   "@id" : "http://rdfh.ch/0001/a-thing",
   "@type" : "anything:Thing",
   "anything:hasGeoname" : {
-    "@id" : "http://rdfh.ch/0001/a-thing/values/Td-QmXWVS--bwHkmPKBw_Q",
+    "@id" : "http://rdfh.ch/0001/a-thing/values/FdA2z6U4SBy8YM56-pznsA",
     "@type" : "knora-api:GeonameValue",
     "knora-api:geonameValueAsGeonameCode" : "2988507"
   },

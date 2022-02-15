@@ -490,14 +490,14 @@ describe("PermissionsEndpoint", () => {
             const defObjAccPermission = new CreateDefaultObjectAccessPermission();
             defObjAccPermission.forProject = projectIri;
             defObjAccPermission.forResourceClass = "http://www.knora.org/ontology/00FF/images#bild";
-            defObjAccPermission.id = "http://rdfh.ch/permissions/00FF/eIAywlYBJA3a_5yI77UsMQ";
+            defObjAccPermission.id = "http://rdfh.ch/permissions/00FF/zTOK3HlWTLGgTO8ZWVnotg";
             defObjAccPermission.hasPermissions = [permission];
 
             knoraApiConnection.admin.permissionsEndpoint.createDefaultObjectAccessPermission(defObjAccPermission).subscribe(
                 (response: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
 
                     expect(response.body.defaultObjectAccessPermission.forProject).toEqual("http://rdfh.ch/projects/00FF");
-                    expect(response.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/00FF/eIAywlYBJA3a_5yI77UsMQ");
+                    expect(response.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/00FF/zTOK3HlWTLGgTO8ZWVnotg");
                     expect(response.body.defaultObjectAccessPermission.hasPermissions.length).toBe(1);
 
                     done();
