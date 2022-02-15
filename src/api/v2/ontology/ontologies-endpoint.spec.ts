@@ -1219,7 +1219,7 @@ describe("OntologiesEndpoint", () => {
 
             deleteCardinalitiesFromClassRequest.id = "http://0.0.0.0:3333/ontology/0001/freetest/v2";
 
-            deleteCardinalitiesFromClassRequest.lastModificationDate = "2022-01-28T09:00:17.029380Z";
+            deleteCardinalitiesFromClassRequest.lastModificationDate = "2022-02-14T11:28:15.145146Z";
 
             const cardinalityToRemove = new UpdateResourceClassCardinality();
 
@@ -1263,7 +1263,7 @@ describe("OntologiesEndpoint", () => {
 
             deleteCardinalitiesFromClassRequest.id = "http://0.0.0.0:3333/ontology/0001/freetest/v2";
 
-            deleteCardinalitiesFromClassRequest.lastModificationDate = "2022-01-28T09:00:17.029380Z";
+            deleteCardinalitiesFromClassRequest.lastModificationDate = "2022-02-14T11:28:15.145146Z";
 
             const cardinalityToRemove = new UpdateResourceClassCardinality();
 

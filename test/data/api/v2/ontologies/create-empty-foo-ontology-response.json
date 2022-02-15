@@ -1,7 +1,6 @@
-
 {
     "knora-api:lastModificationDate": {
-        "@value": "2022-01-28T08:59:48.874720Z",
+        "@value": "2022-02-14T11:27:46.937896Z",
         "@type": "xsd:dateTimeStamp"
     },
     "rdfs:label": "The foo ontology",
