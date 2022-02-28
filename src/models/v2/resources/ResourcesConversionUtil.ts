@@ -205,13 +205,13 @@ export namespace ResourcesConversionUtil {
             const textValue =
                 jsonConvert.deserialize(valueJsonld, ReadTextValueAsString) as ReadTextValueAsString;
             return of(textValue);
-        } else if (valueJsonld.hasOwnProperty(Constants.TextValueAsXml)) {
-            const textValue =
-                jsonConvert.deserialize(valueJsonld, ReadTextValueAsXml) as ReadTextValueAsXml;
-            return of(textValue);
         } else if (valueJsonld.hasOwnProperty(Constants.TextValueAsHtml)) {
             const textValue =
                 jsonConvert.deserialize(valueJsonld, ReadTextValueAsHtml) as ReadTextValueAsHtml;
+            return of(textValue);
+        } else if (valueJsonld.hasOwnProperty(Constants.TextValueAsXml)) {
+            const textValue =
+                jsonConvert.deserialize(valueJsonld, ReadTextValueAsXml) as ReadTextValueAsXml;
             return of(textValue);
         } else {
             throw new Error("Invalid Text value");
