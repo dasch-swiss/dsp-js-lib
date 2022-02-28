@@ -1,5 +1,22 @@
 # Changelog
 
+### [6.2.2](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v6.2.1...v6.2.2) (2022-02-28)
+
+
+### Bug Fixes
+
+* identify TextValueAsHtml as such even if it contains XML ([#415](https://www.github.com/dasch-swiss/dsp-js-lib/issues/415)) ([fba7342](https://www.github.com/dasch-swiss/dsp-js-lib/commit/fba7342759e04631305f8f46d81894a1ab631feb))
+
+
+### Maintenance
+
+* **deps-dev:** Bump karma from 6.3.13 to 6.3.14 ([#408](https://www.github.com/dasch-swiss/dsp-js-lib/issues/408)) ([cb4a56c](https://www.github.com/dasch-swiss/dsp-js-lib/commit/cb4a56cfd34059ec0d4f5af74d21a8fe960f7444))
+* **deps-dev:** Bump karma from 6.3.13 to 6.3.14 in /test-framework ([#409](https://www.github.com/dasch-swiss/dsp-js-lib/issues/409)) ([00cd9ae](https://www.github.com/dasch-swiss/dsp-js-lib/commit/00cd9aec2579edc771b7726d2c60e4a8177752dd))
+* **deps:** Bump ajv from 6.12.2 to 6.12.6 ([#410](https://www.github.com/dasch-swiss/dsp-js-lib/issues/410)) ([7970075](https://www.github.com/dasch-swiss/dsp-js-lib/commit/797007511441472e3ce2462529cb8857b8a40d4d))
+* **deps:** bump api to latest ([#414](https://www.github.com/dasch-swiss/dsp-js-lib/issues/414)) ([1bc8d78](https://www.github.com/dasch-swiss/dsp-js-lib/commit/1bc8d785edb096e135688544a52b114b424c4ebd))
+* **deps:** Bump follow-redirects from 1.14.7 to 1.14.8 ([#411](https://www.github.com/dasch-swiss/dsp-js-lib/issues/411)) ([fe59e9b](https://www.github.com/dasch-swiss/dsp-js-lib/commit/fe59e9b2f68e341e05acdd5b041fcaa3ca528d51))
+* **deps:** Bump follow-redirects in /test-framework ([#413](https://www.github.com/dasch-swiss/dsp-js-lib/issues/413)) ([2c5e4ff](https://www.github.com/dasch-swiss/dsp-js-lib/commit/2c5e4ff3a524efd1ba7d347bb22569dc30c00220))
+
 ## [6.2.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v6.2.0...v6.2.1) (2022-02-02)
 
 
