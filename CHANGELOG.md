@@ -1,5 +1,13 @@
 # Changelog
 
+### [6.2.3](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v6.2.2...v6.2.3) (2022-03-16)
+
+
+### Maintenance
+
+* **deps-dev:** Bump karma from 6.3.14 to 6.3.16 ([#416](https://www.github.com/dasch-swiss/dsp-js-lib/issues/416)) ([65eaee1](https://www.github.com/dasch-swiss/dsp-js-lib/commit/65eaee19e4686dbf3fc902a352de07bca1c949b1))
+* **deps-dev:** Bump karma from 6.3.14 to 6.3.16 in /test-framework ([#418](https://www.github.com/dasch-swiss/dsp-js-lib/issues/418)) ([53e1cef](https://www.github.com/dasch-swiss/dsp-js-lib/commit/53e1cef95dda51cd5ea43f77e7a2d59d5ceee7c7))
+
 ### [6.2.2](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v6.2.1...v6.2.2) (2022-02-28)
 
 
