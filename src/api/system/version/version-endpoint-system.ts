@@ -22,8 +22,6 @@ export class VersionEndpointSystem extends Endpoint {
                 const versionResponse =  ApiResponseData.fromAjaxResponse(ajaxResponse, VersionResponse, this.jsonConvert);
 
                 return versionResponse;
-                // const serverHeader = ajaxResponse.xhr.getResponseHeader("server");
-                // return HealthConversionUtil.addHeaderInfoToHealthResponse(healthResponse, serverHeader);
             }),
             catchError(error => this.handleError(error))
         );
