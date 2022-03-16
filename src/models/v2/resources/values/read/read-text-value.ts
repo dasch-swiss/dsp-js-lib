@@ -51,7 +51,4 @@ export class ReadTextValueAsHtml extends ReadTextValue implements IBaseTextValue
     @JsonProperty(Constants.TextValueAsHtml, String)
     html: string = "";
 
-    @JsonProperty(Constants.TextValueAsXml, String)
-    xml: string = "";
-
 }
