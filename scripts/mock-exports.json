@@ -3,5 +3,6 @@
   "export { MockList } from \"./test/data/api/v2/mock-list\";\n",
   "export { MockResource } from \"./test/data/api/v2/mock-resource\";\n",
   "export { MockProjects } from \"./test/data/api/admin/mock-projects\";\n",
-  "export { MockUsers } from \"./test/data/api/admin/mock-users\";\n"
+  "export { MockUsers } from \"./test/data/api/admin/mock-users\";\n",
+  "export { MockHealth } from \"./test/data/api/system/mock-health\";\n"
 ]
