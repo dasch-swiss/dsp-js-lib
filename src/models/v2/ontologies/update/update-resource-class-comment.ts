@@ -10,8 +10,8 @@ import { UpdateEntityCommentOrLabel } from "./update-entity-comment-or-label";
 @JsonObject("UpdateResourceClassComment")
 export class UpdateResourceClassComment extends UpdateEntityCommentOrLabel {
 
-    @JsonProperty(Constants.Comment, StringLiteralToStringLiteralArrayConverter)
-    comments: StringLiteralV2[] = [];
+    @JsonProperty(Constants.Comment, StringLiteralToStringLiteralArrayConverter, true)
+    comments?: StringLiteralV2[] = [];
 
     constructor() {
         super(Constants.Class);
