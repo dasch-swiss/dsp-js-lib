@@ -32,14 +32,5 @@ export class HealthResponse {
     @JsonProperty("status", String)
     status: string = "";
 
-    /**
-     * The version of webapi being used.
-     */
-    webapiVersion: string = "";
-
-    /**
-     * The version of akka being used.
-     */
-    akkaVersion: string = "";
 
 }
