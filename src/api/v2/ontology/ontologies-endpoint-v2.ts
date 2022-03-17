@@ -401,7 +401,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         resPropPay.id = resourceProperties.id + Constants.HashDelimiter + resourceProperties.entity.name;
 
         resPropPay.label = resourceProperties.entity.label;
-        resPropPay.comment = (resourceProperties.entity.comment.length ? resourceProperties.entity.comment : resourceProperties.entity.label);
+        resPropPay.comment = resourceProperties.entity.comment;
         resPropPay.subPropertyOf = resourceProperties.entity.subPropertyOf;
 
         resPropPay.subjectType = resourceProperties.entity.subjectType;
