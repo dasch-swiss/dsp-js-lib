@@ -270,7 +270,7 @@ export class OntologiesEndpointV2 extends Endpoint {
 
         resClassPay.id = resourceClass.id + Constants.HashDelimiter + resourceClass.entity.name;
         resClassPay.label = resourceClass.entity.label;
-        resClassPay.comment = (resourceClass.entity.comment.length ? resourceClass.entity.comment : resourceClass.entity.label);
+        resClassPay.comment = resourceClass.entity.comment;
         resClassPay.subClassOf = resourceClass.entity.subClassOf;
         resClassPay.type = Constants.Class;
 
