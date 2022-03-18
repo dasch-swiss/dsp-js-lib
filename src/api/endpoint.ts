@@ -24,7 +24,7 @@ export interface IHeaderOptions {
  */
 export class Endpoint {
 
-    readonly maxRetries = 5;
+    readonly maxRetries = 0;
 
     readonly delay = 500;
 
