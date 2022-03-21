@@ -51,11 +51,11 @@ export class ReadDocumentFileValue extends ReadFileValue {
 @JsonObject("ReadMovingImageFileValue")
 export class ReadMovingImageFileValue extends ReadFileValue {
 
-    @JsonProperty(Constants.MovingImageFileValueHasDimX, Number)
-    dimX: number = 0;
+    @JsonProperty(Constants.MovingImageFileValueHasDimX, Number, true)
+    dimX?: number = 0;
 
-    @JsonProperty(Constants.MovingImageFileValueHasDimY, Number)
-    dimY: number = 0;
+    @JsonProperty(Constants.MovingImageFileValueHasDimY, Number, true)
+    dimY?: number = 0;
 
     @JsonProperty(Constants.MovingImageFileValueHasDuration, Number, true)
     duration?: number = 0;
