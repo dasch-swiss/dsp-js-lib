@@ -1,5 +1,12 @@
 # Changelog
 
+### [7.0.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.0.0...v7.0.1) (2022-03-18)
+
+
+### Maintenance
+
+* remove query retries in case of failure (DEV-669) ([#423](https://www.github.com/dasch-swiss/dsp-js-lib/issues/423)) ([fb58c8f](https://www.github.com/dasch-swiss/dsp-js-lib/commit/fb58c8f7fdba0939d53ce83fb5aeef46c899ba1f))
+
 ## [7.0.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v6.2.2...v7.0.0) (2022-03-17)
 
 
