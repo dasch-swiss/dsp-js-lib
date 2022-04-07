@@ -1,5 +1,12 @@
 # Changelog
 
+### [7.0.3](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.0.2...v7.0.3) (2022-04-07)
+
+
+### Maintenance
+
+* **deps:** bump api version to v20.1.0 ([#431](https://www.github.com/dasch-swiss/dsp-js-lib/issues/431)) ([52bc4b9](https://www.github.com/dasch-swiss/dsp-js-lib/commit/52bc4b9d2d8ba6dfaa756f6c99e7f6bdd48959bc))
+
 ### [7.0.2](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.0.1...v7.0.2) (2022-04-01)
 
 
