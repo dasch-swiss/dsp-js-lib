@@ -19,9 +19,10 @@ export class Constants {
     static ResourceClassIri = Constants.KnoraApiV2 + Constants.HashDelimiter + "resourceClassIri";
 
     static StandoffOntology = Constants.KnoraApi + "/ontology/standoff/v2";
-
+    
     static HasStandoffLinkToValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasStandoffLinkToValue";
     static XMLToStandoffMapping = Constants.KnoraApiV2 + Constants.HashDelimiter + "XMLToStandoffMapping";
+    static HasIncomingLinkValue = Constants.KnoraApiV2 + Constants.HashDelimiter + 'hasIncomingLinkValue';
     static Resource = Constants.KnoraApiV2 + Constants.HashDelimiter + "Resource";
     static MayHaveMoreResults = Constants.KnoraApiV2 + Constants.HashDelimiter + "mayHaveMoreResults";
     static ResourceIcon = Constants.KnoraApiV2 + Constants.HashDelimiter + "ResourceIcon";
@@ -41,6 +42,7 @@ export class Constants {
     static ListNode = Constants.KnoraApiV2 + Constants.HashDelimiter + "ListNode";
     static TextValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "TextValue";
     static LinkValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "LinkValue";
+    static HasLinkToValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasLinkToValue";
     static UriValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "UriValue";
     static GeomValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "GeomValue";
     static FileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "FileValue";
@@ -71,6 +73,8 @@ export class Constants {
     static TextRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "TextRepresentation";
     static DocumentRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "DocumentRepresentation";
     static ArchiveRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "ArchiveRepresentation";
+    
+    static LinkObj = Constants.KnoraApiV2 + Constants.HashDelimiter + "LinkObj";
 
     static HasGeometry = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasGeometry";
     static HasColor = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasColor";
@@ -136,6 +140,7 @@ export class Constants {
     static DeleteComment = Constants.KnoraApiV2 + Constants.HashDelimiter + "deleteComment";
     static Result = Constants.KnoraApiV2 + Constants.HashDelimiter + "result";
     static CanDo = Constants.KnoraApiV2 + Constants.HashDelimiter + "canDo";
+    static MatchText = Constants.KnoraApiV2 + Constants.HashDelimiter + "matchText";
 
     static OntologyName = Constants.KnoraApiV2 + Constants.HashDelimiter + "ontologyName";
 
