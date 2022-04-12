@@ -19,14 +19,12 @@ export class Constants {
     static ResourceClassIri = Constants.KnoraApiV2 + Constants.HashDelimiter + "resourceClassIri";
 
     static StandoffOntology = Constants.KnoraApi + "/ontology/standoff/v2";
-    
     static HasStandoffLinkToValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasStandoffLinkToValue";
     static XMLToStandoffMapping = Constants.KnoraApiV2 + Constants.HashDelimiter + "XMLToStandoffMapping";
     static HasIncomingLinkValue = Constants.KnoraApiV2 + Constants.HashDelimiter + 'hasIncomingLinkValue';
     static Resource = Constants.KnoraApiV2 + Constants.HashDelimiter + "Resource";
     static MayHaveMoreResults = Constants.KnoraApiV2 + Constants.HashDelimiter + "mayHaveMoreResults";
     static ResourceIcon = Constants.KnoraApiV2 + Constants.HashDelimiter + "ResourceIcon";
-    static Region = Constants.KnoraApiV2 + Constants.HashDelimiter + "Region";
     static ForbiddenResource = Constants.KnoraApiV2 + Constants.HashDelimiter + "ForbiddenResource";
     static HasValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasValue";
     static HasLinkTo = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasLinkTo";
@@ -73,9 +71,9 @@ export class Constants {
     static TextRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "TextRepresentation";
     static DocumentRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "DocumentRepresentation";
     static ArchiveRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "ArchiveRepresentation";
-    
-    static LinkObj = Constants.KnoraApiV2 + Constants.HashDelimiter + "LinkObj";
 
+    static LinkObj = Constants.KnoraApiV2 + Constants.HashDelimiter + "LinkObj";
+    static Region = Constants.KnoraApiV2 + Constants.HashDelimiter + "Region";
     static HasGeometry = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasGeometry";
     static HasColor = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasColor";
     static HasComment = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasComment";
