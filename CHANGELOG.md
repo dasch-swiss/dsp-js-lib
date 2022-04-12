@@ -1,5 +1,17 @@
 # Changelog
 
+## [7.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.0.2...v7.1.0) (2022-04-12)
+
+
+### Maintenance
+
+* **deps:** bump api version to v20.1.0 ([#431](https://www.github.com/dasch-swiss/dsp-js-lib/issues/431)) ([52bc4b9](https://www.github.com/dasch-swiss/dsp-js-lib/commit/52bc4b9d2d8ba6dfaa756f6c99e7f6bdd48959bc))
+
+
+### Enhancements
+
+* **knora-base:** add missing constants (DEV-799) ([#433](https://www.github.com/dasch-swiss/dsp-js-lib/issues/433)) ([0e432eb](https://www.github.com/dasch-swiss/dsp-js-lib/commit/0e432eb4b856b186acbfe06c7d180327af494c8c))
+
 ### [7.0.2](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.0.1...v7.0.2) (2022-04-01)
 
 
