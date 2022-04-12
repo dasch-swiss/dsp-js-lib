@@ -73,6 +73,8 @@ export class Constants {
     static ArchiveRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "ArchiveRepresentation";
 
     static HasGeometry = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasGeometry";
+    static HasColor = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasColor";
+    static HasComment = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasComment";
 
     static AttachedToProject = Constants.KnoraApiV2 + Constants.HashDelimiter + "attachedToProject";
     static AttachedToUser = Constants.KnoraApiV2 + Constants.HashDelimiter + "attachedToUser";
@@ -140,9 +142,14 @@ export class Constants {
     static KnoraAdmin = "http://www.knora.org/ontology/knora-admin";
     static DefaultSharedOntologyIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "DefaultSharedOntologiesProject";
     static SystemProjectIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "SystemProject";
-    static SystemAdminGroupIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "SystemAdmin";
-    static ProjectAdminGroupIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "ProjectAdmin";
+
+    static UnknownUserGroupIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "UnknownUser";
+    static KnownUserGroupIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "KnownUser";
+    static CreatorGroupIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "Creator";
     static ProjectMemberGroupIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "ProjectMember";
+    static ProjectAdminGroupIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "ProjectAdmin";
+    static SystemAdminGroupIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "SystemAdmin";
+    static UserGroupIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "UserGroup";
 
     static SalsahGui = "http://api.knora.org/ontology/salsah-gui/v2";
     static GuiAttribute = Constants.SalsahGui + Constants.HashDelimiter + "guiAttribute";
