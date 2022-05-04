@@ -11,7 +11,7 @@ import { UpdateEntityCommentOrLabel } from "./update-entity-comment-or-label";
 export class UpdateResourceClassComment extends UpdateEntityCommentOrLabel {
 
     @JsonProperty(Constants.Comment, StringLiteralToStringLiteralArrayConverter, true)
-    comments?: StringLiteralV2[] = [];
+    comments?: StringLiteralV2[] = undefined;
 
     constructor() {
         super(Constants.Class);
