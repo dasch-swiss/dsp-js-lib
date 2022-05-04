@@ -569,6 +569,28 @@ describe('workspace-project App', () => {
 
   });
 
+  it('delete a resource classes\'s comment', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // delete res class label
+    const button = page.getEle('div section#ontologyeditor button.delete-res-class-comment');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.res-class-comment');
+    expect(label.getText()).toBeUndefined;
+
+  });
+
   it('change a resource classes\'s label', () => {
 
     page.navigateTo();
@@ -629,11 +651,33 @@ describe('workspace-project App', () => {
     const getButton = page.getEle('div section#ontologyeditor button.read-onto');
     getButton.click();
 
-    // update res class label
+    // update res property label
     const button = page.getEle('div section#ontologyeditor button.update-res-prop-comment');
     button.click();
     const label = page.getEle('div section#ontologyeditor span.res-prop-comment');
     expect(label.getText()).toEqual('Der Name eines Dinges neu');
+
+  });
+
+  it('delete a resource property\'s comment', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    // delete res property label
+    const button = page.getEle('div section#ontologyeditor button.delete-res-prop-comment');
+    button.click();
+    const label = page.getEle('div section#ontologyeditor span.res-prop-comment');
+    expect(label.getText()).toBeUndefined;
 
   });
 

@@ -125,7 +125,9 @@ export { UpdateOntologyMetadata } from "./models/v2/ontologies/update/update-ont
 export { CanDoResponse } from "./models/v2/ontologies/read/can-do-response";
 export { DeleteOntology } from "./models/v2/ontologies/delete/delete-ontology";
 export { DeleteResourceClass } from "./models/v2/ontologies/delete/delete-resource-class";
+export { DeleteResourceClassComment } from "./models/v2/ontologies/delete/delete-resource-class-comment"
 export { DeleteResourceProperty } from "./models/v2/ontologies/delete/delete-resource-property";
+export { DeleteResourcePropertyComment } from "./models/v2/ontologies/delete/delete-resource-property-comment"
 export { DeleteOntologyResponse } from "./models/v2/ontologies/delete/delete-ontology-response";
 export { CreateResourceClass } from "./models/v2/ontologies/create/create-resource-class";
 export { UpdateResourceClassLabel } from "./models/v2/ontologies/update/update-resource-class-label";

@@ -28,7 +28,9 @@ import {
     DeletePermissionResponse,
     DeleteResource,
     DeleteResourceClass,
+    DeleteResourceClassComment,
     DeleteResourceProperty,
+    DeleteResourcePropertyComment,
     DeleteResourceResponse,
     DeleteValue,
     DeleteValueResponse,
@@ -755,6 +757,22 @@ export class AppComponent implements OnInit {
 
     }
 
+    deleteResourceClassComment() {
+        const deleteResClassComment: DeleteResourceClassComment = new DeleteResourceClassComment();
+        deleteResClassComment.id = 'http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass';
+        deleteResClassComment.lastModificationDate = this.lastModificationDate;
+
+        this.knoraApiConnection.v2.onto.deleteResourceClassComment(deleteResClassComment).subscribe(
+            (response: ResourceClassDefinitionWithAllLanguages) => {
+                this.resClass = response;
+                this.lastModificationDate = response.lastModificationDate;
+            },
+            (error: ApiResponseError) => {
+                console.error(error);
+            }
+        )
+    }
+
 
     createResourceProperty() {
         const onto = new UpdateOntology<CreateResourceProperty>();
@@ -915,7 +933,6 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.v2.onto.deleteResourceProperty(deleteResProp).subscribe(
             (response: OntologyMetadata) => {
                 this.message = 'res property has been deleted';
-                console.log('res property deleted', response);
                 this.lastModificationDate = response.lastModificationDate;
             },
             (error: ApiResponseError) => {
@@ -923,6 +940,23 @@ export class AppComponent implements OnInit {
             }
         );
 
+    }
+
+    deleteResourcePropertyComment() {
+        const deleteResPropertyComment: DeleteResourcePropertyComment = new DeleteResourcePropertyComment();
+        deleteResPropertyComment.id = 'http://0.0.0.0:3333/ontology/0001/testonto/v2#hasName';
+        deleteResPropertyComment.lastModificationDate = this.lastModificationDate;
+
+        this.knoraApiConnection.v2.onto.deleteResourcePropertyComment(deleteResPropertyComment).subscribe(
+            (response: ResourcePropertyDefinitionWithAllLanguages) => {
+                console.log('response: ', response);
+                this.property = response;
+                this.lastModificationDate = response.lastModificationDate;
+            },
+            (error: ApiResponseError) => {
+                console.error(error);
+            }
+        )
     }
 
     addCardinality() {
