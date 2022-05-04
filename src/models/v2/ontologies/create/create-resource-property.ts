@@ -22,8 +22,8 @@ export class CreateResourceProperty {
     @JsonProperty(Constants.Label, StringLiteralToStringLiteralArrayConverter)
     label: StringLiteralV2[] = [];
 
-    @JsonProperty(Constants.Comment, StringLiteralToStringLiteralArrayConverter)
-    comment: StringLiteralV2[] = [];
+    @JsonProperty(Constants.Comment, StringLiteralToStringLiteralArrayConverter, true)
+    comment?: StringLiteralV2[] = undefined;
 
     @JsonProperty(Constants.SubPropertyOf, SubClassOfConverter)
     subPropertyOf: string[] = [];
