@@ -19,13 +19,12 @@ export class Constants {
     static ResourceClassIri = Constants.KnoraApiV2 + Constants.HashDelimiter + "resourceClassIri";
 
     static StandoffOntology = Constants.KnoraApi + "/ontology/standoff/v2";
-
     static HasStandoffLinkToValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasStandoffLinkToValue";
     static XMLToStandoffMapping = Constants.KnoraApiV2 + Constants.HashDelimiter + "XMLToStandoffMapping";
+    static HasIncomingLinkValue = Constants.KnoraApiV2 + Constants.HashDelimiter + 'hasIncomingLinkValue';
     static Resource = Constants.KnoraApiV2 + Constants.HashDelimiter + "Resource";
     static MayHaveMoreResults = Constants.KnoraApiV2 + Constants.HashDelimiter + "mayHaveMoreResults";
     static ResourceIcon = Constants.KnoraApiV2 + Constants.HashDelimiter + "ResourceIcon";
-    static Region = Constants.KnoraApiV2 + Constants.HashDelimiter + "Region";
     static ForbiddenResource = Constants.KnoraApiV2 + Constants.HashDelimiter + "ForbiddenResource";
     static HasValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasValue";
     static HasLinkTo = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasLinkTo";
@@ -41,6 +40,7 @@ export class Constants {
     static ListNode = Constants.KnoraApiV2 + Constants.HashDelimiter + "ListNode";
     static TextValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "TextValue";
     static LinkValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "LinkValue";
+    static HasLinkToValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasLinkToValue";
     static UriValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "UriValue";
     static GeomValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "GeomValue";
     static FileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "FileValue";
@@ -72,7 +72,12 @@ export class Constants {
     static DocumentRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "DocumentRepresentation";
     static ArchiveRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "ArchiveRepresentation";
 
+    static LinkObj = Constants.KnoraApiV2 + Constants.HashDelimiter + "LinkObj";
+    static Region = Constants.KnoraApiV2 + Constants.HashDelimiter + "Region";
     static HasGeometry = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasGeometry";
+    static HasColor = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasColor";
+    static HasComment = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasComment";
+    static IsRegionOfValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "isRegionOfValue";
 
     static AttachedToProject = Constants.KnoraApiV2 + Constants.HashDelimiter + "attachedToProject";
     static AttachedToUser = Constants.KnoraApiV2 + Constants.HashDelimiter + "attachedToUser";
@@ -134,15 +139,21 @@ export class Constants {
     static DeleteComment = Constants.KnoraApiV2 + Constants.HashDelimiter + "deleteComment";
     static Result = Constants.KnoraApiV2 + Constants.HashDelimiter + "result";
     static CanDo = Constants.KnoraApiV2 + Constants.HashDelimiter + "canDo";
+    static MatchText = Constants.KnoraApiV2 + Constants.HashDelimiter + "matchText";
 
     static OntologyName = Constants.KnoraApiV2 + Constants.HashDelimiter + "ontologyName";
 
     static KnoraAdmin = "http://www.knora.org/ontology/knora-admin";
     static DefaultSharedOntologyIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "DefaultSharedOntologiesProject";
     static SystemProjectIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "SystemProject";
-    static SystemAdminGroupIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "SystemAdmin";
-    static ProjectAdminGroupIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "ProjectAdmin";
+
+    static UnknownUserGroupIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "UnknownUser";
+    static KnownUserGroupIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "KnownUser";
+    static CreatorGroupIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "Creator";
     static ProjectMemberGroupIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "ProjectMember";
+    static ProjectAdminGroupIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "ProjectAdmin";
+    static SystemAdminGroupIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "SystemAdmin";
+    static UserGroupIRI = Constants.KnoraAdmin + Constants.HashDelimiter + "UserGroup";
 
     static SalsahGui = "http://api.knora.org/ontology/salsah-gui/v2";
     static GuiAttribute = Constants.SalsahGui + Constants.HashDelimiter + "guiAttribute";

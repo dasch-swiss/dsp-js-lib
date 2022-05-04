@@ -39,6 +39,7 @@ knora-stack: ## runs the knora-stack
 
 .PHONY: get-test-data-from-release 
 get-test-data-from-release: ## get the test-data from assets in github release corresponding to the DSP-API version in vars.mk
+	@rm -rf client-test-data.zip
 	@$(call download-test-data,$(API_REPO),$(API_VERSION))
 
 .PHONY: generate-test-data

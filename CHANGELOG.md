@@ -1,5 +1,28 @@
 # Changelog
 
+## [7.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.0.2...v7.1.0) (2022-04-12)
+
+
+### Maintenance
+
+* **deps:** bump api version to v20.1.0 ([#431](https://www.github.com/dasch-swiss/dsp-js-lib/issues/431)) ([52bc4b9](https://www.github.com/dasch-swiss/dsp-js-lib/commit/52bc4b9d2d8ba6dfaa756f6c99e7f6bdd48959bc))
+
+
+### Enhancements
+
+* **knora-base:** add missing constants (DEV-799) ([#433](https://www.github.com/dasch-swiss/dsp-js-lib/issues/433)) ([0e432eb](https://www.github.com/dasch-swiss/dsp-js-lib/commit/0e432eb4b856b186acbfe06c7d180327af494c8c))
+
+### [7.0.2](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.0.1...v7.0.2) (2022-04-01)
+
+
+### Maintenance
+
+* **deps:** Bump ansi-regex from 3.0.0 to 3.0.1 ([#430](https://www.github.com/dasch-swiss/dsp-js-lib/issues/430)) ([d5ff61c](https://www.github.com/dasch-swiss/dsp-js-lib/commit/d5ff61c652f6865f6bd354bcdda91243b935a526))
+* **deps:** Bump minimist from 1.2.5 to 1.2.6 ([#427](https://www.github.com/dasch-swiss/dsp-js-lib/issues/427)) ([1f43ae3](https://www.github.com/dasch-swiss/dsp-js-lib/commit/1f43ae341308390dab53278f80299f384f833248))
+* **deps:** Bump minimist from 1.2.5 to 1.2.6 in /test-framework ([#428](https://www.github.com/dasch-swiss/dsp-js-lib/issues/428)) ([f891d37](https://www.github.com/dasch-swiss/dsp-js-lib/commit/f891d375226fb5a96eb5de904a62989d4ff48606))
+* **deps:** Bump node-forge from 1.2.1 to 1.3.0 in /test-framework ([#429](https://www.github.com/dasch-swiss/dsp-js-lib/issues/429)) ([a98db1b](https://www.github.com/dasch-swiss/dsp-js-lib/commit/a98db1bd13f345fa5bb7d9a03450d5f04cccadd4))
+* **value:** optional dimension in moving image file value (DEV-676) ([#425](https://www.github.com/dasch-swiss/dsp-js-lib/issues/425)) ([4eed087](https://www.github.com/dasch-swiss/dsp-js-lib/commit/4eed087cecb23cef2df33cbbc485e04e4bb232b6))
+
 ### [7.0.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.0.0...v7.0.1) (2022-03-18)
 
 
