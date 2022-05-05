@@ -394,7 +394,7 @@ export class OntologiesEndpointV2 extends Endpoint {
     /**
      * Deletes a resource class's comment
      * 
-     * @param deleteResourceClassComment with property IRI and lastModificationDate
+     * @param deleteResourceClassComment with class IRI and lastModificationDate
      */
     deleteResourceClassComment(deleteResourceClassComment: DeleteResourceClassComment): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
         const path = "/classes/comment/" + encodeURIComponent(deleteResourceClassComment.id) + "?lastModificationDate=" + encodeURIComponent(deleteResourceClassComment.lastModificationDate);
