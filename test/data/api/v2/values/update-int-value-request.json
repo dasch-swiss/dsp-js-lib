@@ -2,7 +2,7 @@
   "@id" : "http://rdfh.ch/0001/a-thing",
   "@type" : "anything:Thing",
   "anything:hasInteger" : {
-    "@id" : "http://rdfh.ch/0001/a-thing/values/kENivPxIQ-eibZpv7msEfw",
+    "@id" : "http://rdfh.ch/0001/a-thing/values/PIOmFmEnTY-T8fJU27O1cA",
     "@type" : "knora-api:IntValue",
     "knora-api:intValueAsInt" : 5
   },
