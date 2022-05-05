@@ -1,5 +1,20 @@
 # Changelog
 
+## [7.2.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.1.0...v7.2.0) (2022-05-05)
+
+
+### Maintenance
+
+* **deps:** bump api version to v20.2.0 ([#439](https://www.github.com/dasch-swiss/dsp-js-lib/issues/439)) ([f24e33a](https://www.github.com/dasch-swiss/dsp-js-lib/commit/f24e33a89bf7d4297bdd8b40ff9838873b3ff9bd))
+* **deps:** Bump async from 2.6.3 to 2.6.4 in /test-framework ([#436](https://www.github.com/dasch-swiss/dsp-js-lib/issues/436)) ([3ab2173](https://www.github.com/dasch-swiss/dsp-js-lib/commit/3ab2173a9eccac0d285baf901a50d671528d8ea5))
+* **deps:** Bump async from 3.2.0 to 3.2.3 ([#435](https://www.github.com/dasch-swiss/dsp-js-lib/issues/435)) ([68daff2](https://www.github.com/dasch-swiss/dsp-js-lib/commit/68daff2c59a8c960c4057964a6b77e084c3996d2))
+* **ontology:** optional comment in property and class (DEV-501) ([#422](https://www.github.com/dasch-swiss/dsp-js-lib/issues/422)) ([1c8eea9](https://www.github.com/dasch-swiss/dsp-js-lib/commit/1c8eea91d8c76906d65fa15f5f20d6e36835e3ae))
+
+
+### Enhancements
+
+* **ontologies-endpoint:** delete resource class and property comments (DEV-697) ([#438](https://www.github.com/dasch-swiss/dsp-js-lib/issues/438)) ([876510a](https://www.github.com/dasch-swiss/dsp-js-lib/commit/876510a69080dc5863c30747f9fd86ba1fc2cbab))
+
 ## [7.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.0.2...v7.1.0) (2022-04-12)
 
 
