@@ -141,6 +141,8 @@
 
         <button class="update-res-class-comment" (click)="updateResourceClassComment()">Update resource class comment</button><br><br>
 
+        <button class="delete-res-class-comment" (click)="deleteResourceClassComment()">Delete resource class comment</button><br><br>
+        
         <button class="get-res-class" (click)="getResourceClass('http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass')">Get resource class</button><br><br>
 
         <button class="can-delete-class" (click)="canDeleteClass()">Can delete res class</button>
@@ -162,7 +164,7 @@
 
         <button class="update-res-prop-guiele" (click)="updateResourcePropertyGuielement()">Update resource property gui ele</button><br><br>
 
-        <!-- <button class="get-res-class" (click)="getResourceClass('http://0.0.0.0:3333/ontology/0001/testonto/v2#testclass')">Get resource class</button><br><br> -->
+        <button class="delete-res-prop-comment" (click)="deleteResourcePropertyComment()">Delete resource property comment</button><br><br>
 
         <button class="can-delete-prop" (click)="canDeleteProperty()">Can delete res property</button>
         <div>Can delete status: <span class="can-delete-prop">{{canDeletePropertyResponse}}</span></div> <br />

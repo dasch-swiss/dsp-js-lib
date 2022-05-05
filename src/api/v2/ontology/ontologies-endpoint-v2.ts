@@ -16,7 +16,9 @@ import {
 import { DeleteOntology } from "../../../models/v2/ontologies/delete/delete-ontology";
 import { DeleteOntologyResponse } from "../../../models/v2/ontologies/delete/delete-ontology-response";
 import { DeleteResourceClass } from "../../../models/v2/ontologies/delete/delete-resource-class";
+import { DeleteResourceClassComment } from "../../../models/v2/ontologies/delete/delete-resource-class-comment";
 import { DeleteResourceProperty } from "../../../models/v2/ontologies/delete/delete-resource-property";
+import { DeleteResourcePropertyComment } from "../../../models/v2/ontologies/delete/delete-resource-property-comment";
 import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { OntologyConversionUtil } from "../../../models/v2/ontologies/OntologyConversionUtil";
 import { CanDoResponse } from "../../../models/v2/ontologies/read/can-do-response";
@@ -390,6 +392,25 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
+     * Deletes a resource class's comment
+     * 
+     * @param deleteResourceClassComment with class IRI and lastModificationDate
+     */
+    deleteResourceClassComment(deleteResourceClassComment: DeleteResourceClassComment): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+        const path = "/classes/comment/" + encodeURIComponent(deleteResourceClassComment.id) + "?lastModificationDate=" + encodeURIComponent(deleteResourceClassComment.lastModificationDate);
+
+        return this.httpDelete(path).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                return jsonld.compact(ajaxResponse.response, {})
+            }),
+            map((jsonldobj: object) => {
+                return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => this.handleError(error))
+        );
+    }
+
+    /**
      * Creates a resource property.
      *
      * @param  resourceProperties the resource property to be created.
@@ -493,6 +514,26 @@ export class OntologiesEndpointV2 extends Endpoint {
             }),
             map(jsonldobj => {
                 return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
+            }),
+            catchError(error => this.handleError(error))
+        );
+    }
+
+
+    /**
+     * Deletes a resource property's comment
+     * 
+     * @param deleteResourcePropertyComment with property IRI and lastModificationDate
+     */
+    deleteResourcePropertyComment(deleteResourcePropertyComment: DeleteResourcePropertyComment): Observable<ResourcePropertyDefinitionWithAllLanguages | ApiResponseError> {
+        const path = "/properties/comment/" + encodeURIComponent(deleteResourcePropertyComment.id) + "?lastModificationDate=" + encodeURIComponent(deleteResourcePropertyComment.lastModificationDate);
+
+        return this.httpDelete(path).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                return jsonld.compact(ajaxResponse.response, {})
+            }),
+            map((jsonldobj: object) => {
+                return OntologyConversionUtil.convertResourcePropertyResponse(jsonldobj, this.jsonConvert);
             }),
             catchError(error => this.handleError(error))
         );
