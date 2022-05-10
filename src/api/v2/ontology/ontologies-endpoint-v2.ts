@@ -272,7 +272,7 @@ export class OntologiesEndpointV2 extends Endpoint {
 
         resClassPay.id = resourceClass.id + Constants.HashDelimiter + resourceClass.entity.name;
         resClassPay.label = resourceClass.entity.label;
-        resClassPay.comment = resourceClass.entity.comment;
+        resClassPay.comment = (resourceClass.entity.comment?.length ? resourceClass.entity.comment : undefined);
         resClassPay.subClassOf = resourceClass.entity.subClassOf;
         resClassPay.type = Constants.Class;
 
@@ -422,7 +422,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         resPropPay.id = resourceProperties.id + Constants.HashDelimiter + resourceProperties.entity.name;
 
         resPropPay.label = resourceProperties.entity.label;
-        resPropPay.comment = resourceProperties.entity.comment;
+        resPropPay.comment = (resourceProperties.entity.comment?.length ? resourceProperties.entity.comment : undefined);
         resPropPay.subPropertyOf = resourceProperties.entity.subPropertyOf;
 
         resPropPay.subjectType = resourceProperties.entity.subjectType;
