@@ -1,5 +1,17 @@
 # Changelog
 
+### [7.2.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.2.0...v7.2.1) (2022-05-12)
+
+
+### Bug Fixes
+
+* **ontologies-endpoint:** allow comments of class and properties to be undefined ([#441](https://www.github.com/dasch-swiss/dsp-js-lib/issues/441)) ([316ec08](https://www.github.com/dasch-swiss/dsp-js-lib/commit/316ec088fedaedb53f521ffccc1175bde96ad5c5))
+
+
+### Maintenance
+
+* **deps:** bump api version to v20.3.0 ([#443](https://www.github.com/dasch-swiss/dsp-js-lib/issues/443)) ([aaa6521](https://www.github.com/dasch-swiss/dsp-js-lib/commit/aaa6521e6ba98ff33be58939194c3a8aeb70d5c8))
+
 ## [7.2.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.1.0...v7.2.0) (2022-05-05)
 
 
