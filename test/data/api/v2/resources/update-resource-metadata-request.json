@@ -5,7 +5,7 @@
   "knora-api:hasPermissions" : "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:ProjectMember",
   "knora-api:newModificationDate" : {
     "@type" : "xsd:dateTimeStamp",
-    "@value" : "2022-04-29T07:00:56.820991Z"
+    "@value" : "2022-05-13T06:30:26.783390225Z"
   },
   "@context" : {
     "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
