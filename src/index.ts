@@ -172,7 +172,8 @@ export {
     ReadDocumentFileValue,
     ReadMovingImageFileValue,
     ReadStillImageFileValue,
-    ReadArchiveFileValue
+    ReadArchiveFileValue,
+    ReadTextFileValue
 } from "./models/v2/resources/values/read/read-file-value";
 export { ReadGeomValue, RegionGeometry, Point2D } from "./models/v2/resources/values/read/read-geom-value";
 export { ReadIntValue } from "./models/v2/resources/values/read/read-int-value";
