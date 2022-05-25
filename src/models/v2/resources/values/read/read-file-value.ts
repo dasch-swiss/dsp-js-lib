@@ -89,3 +89,11 @@ export class ReadStillImageFileValue extends ReadFileValue {
  export class ReadArchiveFileValue extends ReadFileValue {
  
  }
+
+ /**
+ * @category Model V2
+ */
+  @JsonObject("ReadTextFileValue")
+  export class ReadTextFileValue extends ReadFileValue {
+  
+  }
