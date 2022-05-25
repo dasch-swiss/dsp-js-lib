@@ -17,7 +17,8 @@ import {
     ReadAudioFileValue,
     ReadDocumentFileValue,
     ReadMovingImageFileValue,
-    ReadStillImageFileValue
+    ReadStillImageFileValue,
+    ReadTextFileValue
 } from "./values/read/read-file-value";
 import { ParseReadGeomValue, ReadGeomValue } from "./values/read/read-geom-value";
 import { ReadGeonameValue } from "./values/read/read-geoname-value";
@@ -452,6 +453,15 @@ export namespace ResourcesConversionUtil {
             case Constants.ArchiveFileValue: {
                 const archiveVal = handleSimpleValue(valueJsonld, ReadArchiveFileValue, jsonConvert);
                 value = archiveVal.pipe(map((val: ReadArchiveFileValue) => {
+                    val.strval = val.fileUrl;
+                    return val;
+                }));
+                break;
+            }
+
+            case Constants.TextFileValue: {
+                const textVal = handleSimpleValue(valueJsonld, ReadTextFileValue, jsonConvert);
+                value = textVal.pipe(map((val: ReadTextFileValue) => {
                     val.strval = val.fileUrl;
                     return val;
                 }));
