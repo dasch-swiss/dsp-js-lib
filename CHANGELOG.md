@@ -1,5 +1,17 @@
 # Changelog
 
+## [7.3.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.2.1...v7.3.0) (2022-05-25)
+
+
+### Bug Fixes
+
+* **resource-conversion-util:** add case for TextFileValue ([#446](https://www.github.com/dasch-swiss/dsp-js-lib/issues/446)) ([ebd597c](https://www.github.com/dasch-swiss/dsp-js-lib/commit/ebd597c718e0e68a3b138c95f1bbc75ddca18add))
+
+
+### Enhancements
+
+* **read-file-value:** add ReadTextFileValue class ([#444](https://www.github.com/dasch-swiss/dsp-js-lib/issues/444)) ([99cbca7](https://www.github.com/dasch-swiss/dsp-js-lib/commit/99cbca7686c7aa8df525fdb446aadf4a454a1d78))
+
 ### [7.2.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.2.0...v7.2.1) (2022-05-12)
 
 
