@@ -460,8 +460,8 @@ export namespace ResourcesConversionUtil {
             }
 
             case Constants.TextFileValue: {
-                const archiveVal = handleSimpleValue(valueJsonld, ReadTextFileValue, jsonConvert);
-                value = archiveVal.pipe(map((val: ReadTextFileValue) => {
+                const textVal = handleSimpleValue(valueJsonld, ReadTextFileValue, jsonConvert);
+                value = textVal.pipe(map((val: ReadTextFileValue) => {
                     val.strval = val.fileUrl;
                     return val;
                 }));
