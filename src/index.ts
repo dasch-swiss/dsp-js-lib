@@ -106,6 +106,7 @@ export { DeleteListResponse } from "./models/admin/delete-list-response";
 export { DeleteListNodeResponse } from "./models/admin/delete-list-node-response";
 export { RepositionChildNodeRequest } from "./models/admin/reposition-child-node-request";
 export { RepositionChildNodeResponse } from "./models/admin/reposition-child-node-response";
+export { DeleteChildNodeCommentsResponse } from "./models/admin/delete-child-node-comments-response";
 
 export { LoginResponse } from "./models/v2/authentication/login-response";
 export { CredentialsResponse } from "./models/v2/authentication/credentials-response";

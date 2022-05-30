@@ -4,6 +4,7 @@ import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ChildNodeInfoResponse } from "../../../models/admin/child-node-info-response";
 import { CreateChildNodeRequest } from "../../../models/admin/create-child-node-request";
 import { CreateListRequest } from "../../../models/admin/create-list-request";
+import { DeleteChildNodeCommentsResponse } from "../../../models/admin/delete-child-node-comments-response";
 import { DeleteListNodeResponse } from "../../../models/admin/delete-list-node-response";
 import { DeleteListResponse } from "../../../models/admin/delete-list-response";
 import { ListChildNodeResponse } from "../../../models/admin/list-child-node-response";
@@ -358,6 +359,35 @@ describe("ListsEndpoint", () => {
         });
 
     });
+
+    // describe("Method DeleteChildComments", () => {
+
+    //     it("should delete the comments of an existing child node", done => {
+
+    //         const listItemIri = "http://rdfh.ch/lists/0001/treeList01";
+
+    //         knoraApiConnection.admin.listsEndpoint.deleteChildComments(listItemIri).subscribe(
+    //             (res: ApiResponseData<DeleteChildNodeCommentsResponse>) => {
+    //                 expect(res.body.commentsDeleted).toBeTruthy();
+    //                 done();
+    //             }
+    //         );
+
+    //         const request = jasmine.Ajax.requests.mostRecent();
+
+    //         // CHANGE THIS
+    //         const deleteCommentsResponse = require("../../../../test/data/api/admin/lists/update-childNode-comments-response.json");
+
+    //         request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteCommentsResponse)));
+
+    //         expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FtreeList01/comments");
+
+    //         expect(request.method).toEqual("DELETE");
+
+    //         expect(request.requestHeaders).toEqual({});
+    //     });
+
+    // });
 
     describe("Method CreateChildNode", () => {
 
