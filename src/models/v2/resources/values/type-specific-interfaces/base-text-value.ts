@@ -24,4 +24,7 @@ export interface IBaseTextValueAsXml {
 export interface IBaseTextValueAsHtml {
 
     html: string;
+
+    xml?: string;
+
 }
