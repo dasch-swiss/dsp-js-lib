@@ -2,7 +2,7 @@
   "@id" : "http://rdfh.ch/0001/a-thing",
   "@type" : "anything:Thing",
   "anything:hasListItem" : {
-    "@id" : "http://rdfh.ch/0001/a-thing/values/fKIWULj3Ru6eVMZ2cMUNiQ",
+    "@id" : "http://rdfh.ch/0001/a-thing/values/AmHJ-BG0REmIlxEFMNmfWQ",
     "@type" : "knora-api:ListValue",
     "knora-api:listValueAsListNode" : {
       "@id" : "http://rdfh.ch/lists/0001/treeList02"

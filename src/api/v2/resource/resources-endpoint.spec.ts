@@ -476,7 +476,7 @@ describe("ResourcesEndpoint", () => {
 
             updateResourceMetadata.hasPermissions = "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:ProjectMember";
 
-            updateResourceMetadata.newModificationDate = "2022-05-13T06:30:26.783390225Z";
+            updateResourceMetadata.newModificationDate = "2022-05-26T17:13:19.143635827Z";
 
             knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
                 (res: UpdateResourceMetadataResponse) => {
@@ -484,7 +484,7 @@ describe("ResourcesEndpoint", () => {
                     expect(res.resourceIri).toEqual("http://rdfh.ch/0001/a-thing");
                     expect(res.resourceClassIri).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
                     expect(res.hasPermissions).toEqual("CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:ProjectMember");
-                    expect(res.lastModificationDate).toEqual("2022-05-13T06:30:26.783390225Z");
+                    expect(res.lastModificationDate).toEqual("2022-05-26T17:13:19.143635827Z");
                     done();
                 }
             );
@@ -500,7 +500,7 @@ describe("ResourcesEndpoint", () => {
             const expectedPayload = require("../../../../test/data/api/v2/resources/update-resource-metadata-request-expanded.json");
 
             // has to be done in order not to have to update this test after every release of dsp-api
-            expectedPayload["http://api.knora.org/ontology/knora-api/v2#newModificationDate"]["@value"] = "2022-05-13T06:30:26.783390225Z";
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#newModificationDate"]["@value"] = "2022-05-26T17:13:19.143635827Z";
 
             expect(request.data()).toEqual(expectedPayload);
 
@@ -547,7 +547,7 @@ describe("ResourcesEndpoint", () => {
 
             updateResourceMetadata.lastModificationDate = "2021-09-30T16:41:46.980756Z";
 
-            updateResourceMetadata.newModificationDate = "2022-05-13T06:30:27.847887835Z";
+            updateResourceMetadata.newModificationDate = "2022-05-26T17:13:20.255559185Z";
 
             knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
                 (res: UpdateResourceMetadataResponse) => {
@@ -555,7 +555,7 @@ describe("ResourcesEndpoint", () => {
                     expect(res.resourceClassIri).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
                     expect(res.label).toEqual("test thing with modified label again");
                     expect(res.hasPermissions).toEqual("CR knora-admin:ProjectMember|V knora-admin:ProjectMember");
-                    expect(res.lastModificationDate).toEqual("2022-05-13T06:30:27.847887835Z");
+                    expect(res.lastModificationDate).toEqual("2022-05-26T17:13:20.255559185Z");
                     done();
                 }
             );
@@ -572,7 +572,7 @@ describe("ResourcesEndpoint", () => {
 
             // has to be done in order not to have to update this test after every release of dsp-api
             expectedPayload["http://api.knora.org/ontology/knora-api/v2#lastModificationDate"]["@value"] = "2021-09-30T16:41:46.980756Z";
-            expectedPayload["http://api.knora.org/ontology/knora-api/v2#newModificationDate"]["@value"] = "2022-05-13T06:30:27.847887835Z";
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#newModificationDate"]["@value"] = "2022-05-26T17:13:20.255559185Z";
 
             expect(request.data()).toEqual(expectedPayload);
 

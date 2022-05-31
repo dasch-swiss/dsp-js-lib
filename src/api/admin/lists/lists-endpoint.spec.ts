@@ -40,7 +40,8 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.getLists().subscribe(
                 (res: ApiResponseData<ListsResponse>) => {
-                    expect(res.body.lists.length).toEqual(8);
+                    console.log('lists: ', res.body.lists);
+                    expect(res.body.lists.length).toEqual(9);
                     done();
                 }
             );
@@ -65,7 +66,7 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.getListsInProject("http://rdfh.ch/projects/0001").subscribe(
                 (res: ApiResponseData<ListsResponse>) => {
-                    expect(res.body.lists.length).toEqual(8);
+                    expect(res.body.lists.length).toEqual(9);
                     done();
                 }
             );
