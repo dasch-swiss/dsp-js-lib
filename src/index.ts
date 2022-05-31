@@ -210,7 +210,11 @@ export { UpdateIntValue } from "./models/v2/resources/values/update/update-int-v
 export { UpdateIntervalValue } from "./models/v2/resources/values/update/update-interval-value";
 export { UpdateLinkValue } from "./models/v2/resources/values/update/update-link-value";
 export { UpdateListValue } from "./models/v2/resources/values/update/update-list-value";
-export { UpdateTextValueAsString, UpdateTextValueAsXml } from "./models/v2/resources/values/update/update-text-value";
+export { 
+    UpdateTextValueAsString,
+    UpdateTextValueAsXml,
+    UpdateTextValueAsHtml
+} from "./models/v2/resources/values/update/update-text-value";
 export { UpdateUriValue } from "./models/v2/resources/values/update/update-uri-value";
 export { UpdateTimeValue } from "./models/v2/resources/values/update/update-time-value";
 export { UpdateGeonameValue } from "./models/v2/resources/values/update/update-geoname-value";
@@ -234,7 +238,10 @@ export { CreateIntValue } from "./models/v2/resources/values/create/create-int-v
 export { CreateIntervalValue } from "./models/v2/resources/values/create/create-interval-value";
 export { CreateLinkValue } from "./models/v2/resources/values/create/create-link-value";
 export { CreateListValue } from "./models/v2/resources/values/create/create-list-value";
-export { CreateTextValueAsString, CreateTextValueAsXml } from "./models/v2/resources/values/create/create-text-value";
+export { 
+    CreateTextValueAsString,
+    CreateTextValueAsXml
+} from "./models/v2/resources/values/create/create-text-value";
 export { CreateUriValue } from "./models/v2/resources/values/create/create-uri-value";
 export { CreateTimeValue } from "./models/v2/resources/values/create/create-time-value";
 export { CreateGeonameValue } from "./models/v2/resources/values/create/create-geoname-value";
