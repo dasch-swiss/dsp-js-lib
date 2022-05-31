@@ -1,7 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../../Constants";
 import { IdConverter } from "../../../custom-converters/id-converter";
-import { IBaseTextValueAsString, IBaseTextValueAsXml } from "../type-specific-interfaces/base-text-value";
+import { IBaseTextValueAsHtml, IBaseTextValueAsString, IBaseTextValueAsXml } from "../type-specific-interfaces/base-text-value";
 import { UpdateValue } from "./update-value";
 
 /**
@@ -30,6 +30,23 @@ export class UpdateTextValueAsXml extends UpdateValue implements IBaseTextValueA
 
     @JsonProperty(Constants.TextValueHasMapping, IdConverter)
     mapping: string = "";
+
+    constructor() {
+        super(Constants.TextValue);
+    }
+}
+
+/**
+ * @category Model V2
+ */
+@JsonObject("UpdateTextValueAsHtml")
+export class UpdateTextValueAsHtml extends UpdateValue implements IBaseTextValueAsHtml {
+
+    @JsonProperty(Constants.TextValueAsHtml, String, true)
+    html: string = "";
+
+    @JsonProperty(Constants.TextValueAsXml, String)
+    xml: string = "";
 
     constructor() {
         super(Constants.TextValue);
