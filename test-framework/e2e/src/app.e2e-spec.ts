@@ -1280,6 +1280,34 @@ describe('workspace-project App', () => {
     expect(childComment.getText()).toEqual('en/updated comment');
   });
 
+  it('should delete the comments of a list child node', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // ensure a comment exists before deleting it
+    const updateButton = page.getEle('div#lists button.update-child-comments');
+
+    updateButton.click();
+
+    let childName = page.getEle('div#lists span.child-comments');
+
+    expect(childName.getText()).toEqual('en/new comment');
+
+    const deleteButton = page.getEle('div#lists button.delete-child-comments');
+
+    deleteButton.click();
+
+    childName = page.getEle('div#lists span.child-comments');
+
+    expect(childName.getText()).toEqual('');
+  });
+
   it('should get a list', () => {
 
     page.navigateTo();
