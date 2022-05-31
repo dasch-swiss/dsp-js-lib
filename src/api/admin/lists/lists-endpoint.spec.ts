@@ -40,7 +40,6 @@ describe("ListsEndpoint", () => {
 
             knoraApiConnection.admin.listsEndpoint.getLists().subscribe(
                 (res: ApiResponseData<ListsResponse>) => {
-                    console.log('lists: ', res.body.lists);
                     expect(res.body.lists.length).toEqual(9);
                     done();
                 }
