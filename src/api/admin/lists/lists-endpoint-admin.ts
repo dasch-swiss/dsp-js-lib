@@ -3,6 +3,7 @@ import { catchError, map } from "rxjs/operators";
 import { ChildNodeInfoResponse } from "../../../models/admin/child-node-info-response";
 import { CreateChildNodeRequest } from "../../../models/admin/create-child-node-request";
 import { CreateListRequest } from "../../../models/admin/create-list-request";
+import { DeleteChildNodeCommentsResponse } from "../../../models/admin/delete-child-node-comments-response";
 import { DeleteListNodeResponse } from "../../../models/admin/delete-list-node-response";
 import { DeleteListResponse } from "../../../models/admin/delete-list-response";
 import { ListChildNodeResponse } from "../../../models/admin/list-child-node-response";
@@ -109,6 +110,20 @@ export class ListsEndpointAdmin extends Endpoint {
     
         return this.httpPut("/" + encodeURIComponent(listItemIri) + "/comments", this.jsonConvert.serializeObject(comments)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ChildNodeInfoResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
+        );
+    
+    }
+
+    /**
+     * Deletes the comments of an existing child node.
+     * 
+     * @param listItemIri the Iri of the list item.
+     */
+     deleteChildComments(listItemIri: string): Observable<ApiResponseData<DeleteChildNodeCommentsResponse> | ApiResponseError> {
+    
+        return this.httpDelete("/comments/" + encodeURIComponent(listItemIri)).pipe(
+            map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, DeleteChildNodeCommentsResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
     

@@ -21,6 +21,7 @@ import {
     CreateValue,
     DefaultObjectAccessPermissionResponse,
     DefaultObjectAccessPermissionsResponse,
+    DeleteChildNodeCommentsResponse,
     DeleteListNodeResponse,
     DeleteListResponse,
     DeleteOntology,
@@ -1468,6 +1469,16 @@ export class AppComponent implements OnInit {
                     res.body.nodeinfo.comments[0].language
                     + '/'
                     + res.body.nodeinfo.comments[0].value;
+            }
+        );
+    }
+
+    deleteChildComments(): void {
+        const listItemIri = 'http://rdfh.ch/lists/0001/treeList01';
+
+        this.knoraApiConnection.admin.listsEndpoint.deleteChildComments(listItemIri).subscribe(
+            (res: ApiResponseData<DeleteChildNodeCommentsResponse>) => {
+                this.listChildComments = undefined;
             }
         );
     }

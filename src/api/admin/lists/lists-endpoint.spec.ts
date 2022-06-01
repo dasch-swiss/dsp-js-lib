@@ -4,6 +4,7 @@ import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ChildNodeInfoResponse } from "../../../models/admin/child-node-info-response";
 import { CreateChildNodeRequest } from "../../../models/admin/create-child-node-request";
 import { CreateListRequest } from "../../../models/admin/create-list-request";
+import { DeleteChildNodeCommentsResponse } from "../../../models/admin/delete-child-node-comments-response";
 import { DeleteListNodeResponse } from "../../../models/admin/delete-list-node-response";
 import { DeleteListResponse } from "../../../models/admin/delete-list-response";
 import { ListChildNodeResponse } from "../../../models/admin/list-child-node-response";
