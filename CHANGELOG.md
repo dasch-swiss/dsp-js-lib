@@ -1,5 +1,18 @@
 # Changelog
 
+## [7.4.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.3.0...v7.4.0) (2022-06-01)
+
+
+### Maintenance
+
+* **deps:** bump api version to v20.4.0 ([#450](https://www.github.com/dasch-swiss/dsp-js-lib/issues/450)) ([8c3ae64](https://www.github.com/dasch-swiss/dsp-js-lib/commit/8c3ae643655671a76cc29df1d0836668d4c0403d))
+
+
+### Enhancements
+
+* **admin-list-endpoint:** Delete child node comments (DEV-728) ([#447](https://www.github.com/dasch-swiss/dsp-js-lib/issues/447)) ([6c4f30d](https://www.github.com/dasch-swiss/dsp-js-lib/commit/6c4f30dc72826bb9b256f857150dc34048025bfe))
+* **value:** support xml without standard mapping ([#448](https://www.github.com/dasch-swiss/dsp-js-lib/issues/448)) ([0576590](https://www.github.com/dasch-swiss/dsp-js-lib/commit/05765903bd8432236dc5c837f7599dedda2f4021))
+
 ## [7.3.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.2.1...v7.3.0) (2022-05-25)
 
 
