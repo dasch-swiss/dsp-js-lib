@@ -1,1 +1,1 @@
-{"error":"org.knora.webapi.exceptions.DuplicateValueException: User with the username 'donald.duck' already exists"}
+{"error":"dsp.errors.DuplicateValueException: User with the username 'donald.duck' already exists"}

@@ -492,7 +492,7 @@ describe("ListsEndpoint", () => {
             knoraApiConnection.admin.listsEndpoint.getListNodeInfo("http://rdfh.ch/lists/0001/treeList").subscribe(
                 (res: ApiResponseData<ListNodeInfoResponse | ListInfoResponse>) => {
                     expect(res.body instanceof ListInfoResponse).toBeTruthy();
-                    expect((res.body as ListInfoResponse).listinfo.labels[1].value).toEqual("Tree list root");
+                    expect((res.body as ListInfoResponse).listinfo.labels[0].value).toEqual("Tree list root");
                     done();
                 }
             );
