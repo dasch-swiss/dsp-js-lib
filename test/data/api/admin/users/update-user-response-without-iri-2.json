@@ -1,1 +1,1 @@
-{"error":"org.knora.webapi.exceptions.BadRequestException: Invalid user IRI None"}
+{"error":"dsp.errors.BadRequestException: Invalid user IRI None"}

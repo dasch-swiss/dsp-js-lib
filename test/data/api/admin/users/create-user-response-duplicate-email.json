@@ -1,1 +1,1 @@
-{"error":"org.knora.webapi.exceptions.DuplicateValueException: User with the email 'donald.duck@example.org' already exists"}
+{"error":"dsp.errors.DuplicateValueException: User with the email 'donald.duck@example.org' already exists"}
