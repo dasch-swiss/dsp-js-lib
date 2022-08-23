@@ -1209,8 +1209,8 @@ describe("OntologiesEndpoint", () => {
 
         });
 
-    });    
-    
+    });
+
     describe("Method canDeleteCardinalitiesFromClass", () => {
 
         it("should check if cardinality can be deleted; response should be true", done => {
@@ -1220,7 +1220,7 @@ describe("OntologiesEndpoint", () => {
             deleteCardinalitiesFromClassRequest.id = "http://0.0.0.0:3333/ontology/0001/freetest/v2";
 
             // update this timestamp after every release of dsp-api
-            deleteCardinalitiesFromClassRequest.lastModificationDate = "2022-06-30T07:11:42.640612518Z";
+            deleteCardinalitiesFromClassRequest.lastModificationDate = "2022-07-14T10:06:47.261085550Z";
 
             const cardinalityToRemove = new UpdateResourceClassCardinality();
 
@@ -1257,7 +1257,7 @@ describe("OntologiesEndpoint", () => {
             expect(request.data()).toEqual(expectedPayload);
 
         });
-        
+
         it("should check if cardinality can be deleted; response should be false", done => {
 
             const deleteCardinalitiesFromClassRequest = new UpdateOntology<UpdateResourceClassCardinality>();
@@ -1265,7 +1265,7 @@ describe("OntologiesEndpoint", () => {
             deleteCardinalitiesFromClassRequest.id = "http://0.0.0.0:3333/ontology/0001/freetest/v2";
 
             // update this timestamp after every release of dsp-api
-            deleteCardinalitiesFromClassRequest.lastModificationDate = "2022-06-30T07:11:42.640612518Z";
+            deleteCardinalitiesFromClassRequest.lastModificationDate = "2022-07-14T10:06:47.261085550Z";
 
             const cardinalityToRemove = new UpdateResourceClassCardinality();
 
@@ -1304,7 +1304,7 @@ describe("OntologiesEndpoint", () => {
         });
 
     });
-    
+
     describe("Method updateGuiOrderOfCardinalities", () => {
 
         it("should replace the gui order", done => {
