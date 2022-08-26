@@ -152,13 +152,13 @@ describe("OntologiesEndpoint", () => {
                     expect((response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem"] as ResourcePropertyDefinition).guiAttributes).toEqual(["hlist=<http://rdfh.ch/lists/0001/treeList>"]);
 
                     const classDefs = response.getAllClassDefinitions();
-                    expect(classDefs.length).toEqual(9);
+                    expect(classDefs.length).toEqual(13);
                     expect(classDefs[0] instanceof ResourceClassDefinition).toBeTruthy();
-                    expect((classDefs[0] as ResourceClassDefinition).id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#BlueThing");
+                    expect((classDefs[0] as ResourceClassDefinition).id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#AudioSequenceThing");
 
                     const resClassDefs = response.getClassDefinitionsByType(ResourceClassDefinition);
-                    expect(resClassDefs.length).toEqual(8);
-                    expect(resClassDefs[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#BlueThing");
+                    expect(resClassDefs.length).toEqual(12);
+                    expect(resClassDefs[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#AudioSequenceThing");
 
                     const standoffClassDefs = response.getClassDefinitionsByType(StandoffClassDefinition);
                     expect(standoffClassDefs.length).toEqual(1);
@@ -170,7 +170,7 @@ describe("OntologiesEndpoint", () => {
                     expect(systemProps[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#standoffEventTagHasDescription");
 
                     const resourceProps: ResourcePropertyDefinition[] = response.getPropertyDefinitionsByType(ResourcePropertyDefinition);
-                    expect(resourceProps.length).toEqual(28);
+                    expect(resourceProps.length).toEqual(29);
                     expect(resourceProps[0] instanceof ResourcePropertyDefinition).toBe(true);
 
                     done();
@@ -1220,7 +1220,7 @@ describe("OntologiesEndpoint", () => {
             deleteCardinalitiesFromClassRequest.id = "http://0.0.0.0:3333/ontology/0001/freetest/v2";
 
             // update this timestamp after every release of dsp-api
-            deleteCardinalitiesFromClassRequest.lastModificationDate = "2022-07-14T10:06:47.261085550Z";
+            deleteCardinalitiesFromClassRequest.lastModificationDate = "2022-08-26T10:48:20.010264475Z";
 
             const cardinalityToRemove = new UpdateResourceClassCardinality();
 
@@ -1265,7 +1265,7 @@ describe("OntologiesEndpoint", () => {
             deleteCardinalitiesFromClassRequest.id = "http://0.0.0.0:3333/ontology/0001/freetest/v2";
 
             // update this timestamp after every release of dsp-api
-            deleteCardinalitiesFromClassRequest.lastModificationDate = "2022-07-14T10:06:47.261085550Z";
+            deleteCardinalitiesFromClassRequest.lastModificationDate = "2022-08-26T10:48:20.010264475Z";
 
             const cardinalityToRemove = new UpdateResourceClassCardinality();
 
