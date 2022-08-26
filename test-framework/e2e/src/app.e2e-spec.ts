@@ -1,5 +1,5 @@
-import {AppPage} from './app.po';
-import {browser, logging} from 'protractor';
+import { AppPage } from './app.po';
+import { browser, logging } from 'protractor';
 
 /**
  * Attempts to convert a string to a number.
@@ -392,7 +392,7 @@ describe('workspace-project App', () => {
     button.click();
 
     const result = page.getEle('div section#ontologymetadata span.anything');
-    expect(result.getText()).toEqual('4 ontologies');
+    expect(result.getText()).toEqual('5 ontologies');
 
   });
 
@@ -838,7 +838,7 @@ describe('workspace-project App', () => {
   });
 
   it('delete "testclass" resource class', () => {
-    
+
     page.navigateTo();
 
     // login
@@ -927,7 +927,7 @@ describe('workspace-project App', () => {
   });
 
   it('delete "testonto" ontology', () => {
-    
+
     page.navigateTo();
 
     // login
