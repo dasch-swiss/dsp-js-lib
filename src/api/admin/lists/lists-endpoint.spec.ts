@@ -194,38 +194,38 @@ describe("ListsEndpoint", () => {
             expect(request.data()).toEqual(payload);
         });
 
-        it("should update the name of an existing child node", done => {
+        // it("should update the name of an existing child node", done => {
 
-            const childNode = new UpdateChildNodeRequest();
+        //     const childNode = new UpdateChildNodeRequest();
 
-            childNode.listIri = "http://rdfh.ch/lists/0001/vQgijJZKSqawFooJPyhYkw";
+        //     childNode.listIri = "http://rdfh.ch/lists/0001/vQgijJZKSqawFooJPyhYkw";
 
-            childNode.projectIri = "http://rdfh.ch/projects/0001";
+        //     childNode.projectIri = "http://rdfh.ch/projects/0001";
 
-            childNode.name = "modified third child";
+        //     childNode.name = "modified third child";
 
-            knoraApiConnection.admin.listsEndpoint.updateChildNode(childNode).subscribe(
-                (res: ApiResponseData<ChildNodeInfoResponse>) => {
-                    done();
-                }
-            );
+        //     knoraApiConnection.admin.listsEndpoint.updateChildNode(childNode).subscribe(
+        //         (res: ApiResponseData<ChildNodeInfoResponse>) => {
+        //             done();
+        //         }
+        //     );
 
-            const request = jasmine.Ajax.requests.mostRecent();
+        //     const request = jasmine.Ajax.requests.mostRecent();
 
-            const childNodeResponse = require("../../../../test/data/api/admin/lists/update-node-info-name-response.json");
+        //     const childNodeResponse = require("../../../../test/data/api/admin/lists/update-node-info-name-response.json");
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(childNodeResponse)));
+        //     request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(childNodeResponse)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FvQgijJZKSqawFooJPyhYkw");
+        //     expect(request.url).toBe("http://localhost:3333/admin/lists/http%3A%2F%2Frdfh.ch%2Flists%2F0001%2FvQgijJZKSqawFooJPyhYkw");
 
-            expect(request.method).toEqual("PUT");
+        //     expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+        //     expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
-            const payload = require("../../../../test/data/api/admin/lists/update-node-info-name-request.json");
+        //     const payload = require("../../../../test/data/api/admin/lists/update-node-info-name-request.json");
 
-            expect(request.data()).toEqual(payload);
-        });
+        //     expect(request.data()).toEqual(payload);
+        // });
 
         it("should throw an error if given an incomplete UpdateChildNodeRequest", () => {
 
@@ -547,10 +547,10 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8"});
+            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/lists/create-list-request.json");
-            
+
             expect(request.data()).toEqual(payload);
 
         });
@@ -657,7 +657,7 @@ describe("ListsEndpoint", () => {
 
     });
 
-    describe("Method repositionListNode", () => { 
+    describe("Method repositionListNode", () => {
         it("should reposition a list child node to the second position among its siblings", done => {
 
             const repositionChildNode = new RepositionChildNodeRequest();
