@@ -1,5 +1,12 @@
 # Changelog
 
+### [7.4.3](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.4.2...v7.4.3) (2022-08-30)
+
+
+### Maintenance
+
+* **read-file-value:** make the properties for a ReadDocumentFileValue optional (DEV-1304) ([#456](https://www.github.com/dasch-swiss/dsp-js-lib/issues/456)) ([38f548b](https://www.github.com/dasch-swiss/dsp-js-lib/commit/38f548b950195d1a74faaab4e653032663ebb4e4))
+
 ### [7.4.2](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.4.1...v7.4.2) (2022-08-26)
 
 
