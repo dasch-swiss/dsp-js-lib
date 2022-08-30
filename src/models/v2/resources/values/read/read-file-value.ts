@@ -34,14 +34,14 @@ export class ReadAudioFileValue extends ReadFileValue {
 @JsonObject("ReadDocumentFileValue")
 export class ReadDocumentFileValue extends ReadFileValue {
 
-    @JsonProperty(Constants.DocumentFileValueHasDimX, Number)
-    dimX: number = 0;
+    @JsonProperty(Constants.DocumentFileValueHasDimX, Number, true)
+    dimX?: number = 0;
 
-    @JsonProperty(Constants.DocumentFileValueHasDimY, Number)
-    dimY: number = 0;
+    @JsonProperty(Constants.DocumentFileValueHasDimY, Number, true)
+    dimY?: number = 0;
 
-    @JsonProperty(Constants.DocumentFileValueHasPageCount, Number)
-    pageCount: number = 0;
+    @JsonProperty(Constants.DocumentFileValueHasPageCount, Number, true)
+    pageCount?: number = 0;
 
 }
 
@@ -85,15 +85,15 @@ export class ReadStillImageFileValue extends ReadFileValue {
 /**
  * @category Model V2
  */
- @JsonObject("ReadArchiveFileValue")
- export class ReadArchiveFileValue extends ReadFileValue {
- 
- }
+@JsonObject("ReadArchiveFileValue")
+export class ReadArchiveFileValue extends ReadFileValue {
 
- /**
- * @category Model V2
- */
-  @JsonObject("ReadTextFileValue")
-  export class ReadTextFileValue extends ReadFileValue {
-  
-  }
+}
+
+/**
+* @category Model V2
+*/
+@JsonObject("ReadTextFileValue")
+export class ReadTextFileValue extends ReadFileValue {
+
+}
