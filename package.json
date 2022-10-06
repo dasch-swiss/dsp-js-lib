@@ -68,7 +68,7 @@
     "@babel/helper-compilation-targets": "^7.16.7",
     "@types/jsonld": "^1.5.6",
     "json2typescript": "1.4.1",
-    "jsonld": "^5.2.0"
+    "jsonld": "^8.1.0"
   },
   "peerDependencies": {
     "rxjs": "6.x"
