@@ -65,7 +65,7 @@ describe("OntologyCache", () => {
                 });
             });
 
-            it("should get an ontology with dependencies from the cache several times asynchronously", () => {
+            it("should get an ontology with dependencies from the cache several times asynchronously", done => {
                 knoraApiConnection.v2.ontologyCache["getItem"]("http://0.0.0.0:3333/ontology/0001/anything/v2").subscribe((onto: ReadOntology) => {
                     expect(onto.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
 
@@ -97,6 +97,7 @@ describe("OntologyCache", () => {
 
                     expect(knoraApiConnection.v2.ontologyCache["cache"]["http://0.0.0.0:3333/ontology/0001/anything/v2"]).not.toBeUndefined();
                     expect(knoraApiConnection.v2.ontologyCache["cache"]["http://api.knora.org/ontology/knora-api/v2"]).not.toBeUndefined(); // anything onto depends on knora-api
+                    done();
                 });
             });
 
