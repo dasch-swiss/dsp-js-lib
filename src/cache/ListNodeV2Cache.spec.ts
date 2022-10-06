@@ -1,11 +1,8 @@
-import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
-import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { of } from "rxjs";
 import { MockList } from "../../test/data/api/v2/mock-list";
 import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { ListNodeV2 } from "../models/v2/lists/list-node-v2";
-import { ListNodeV2Cache } from "./ListNodeV2Cache";
 
 describe("ListNodeV2Cache", () => {
 
@@ -15,17 +12,10 @@ describe("ListNodeV2Cache", () => {
     let getNodeSpy: jasmine.Spy;
     let getListSpy: jasmine.Spy;
 
-    const jsonConvert: JsonConvert = new JsonConvert(
-        OperationMode.ENABLE,
-        ValueCheckingMode.DISALLOW_NULL,
-        false,
-        PropertyMatchingRule.CASE_STRICT
-    );
-
     beforeEach(() => {
         jasmine.Ajax.install();
 
-        knoraApiConnection  = new KnoraApiConnection(config);
+        knoraApiConnection = new KnoraApiConnection(config);
 
         getNodeSpy = spyOn(knoraApiConnection.v2.list, "getNode").and.callFake(
             (nodeIri: string) => {
@@ -78,10 +68,8 @@ describe("ListNodeV2Cache", () => {
             });
         });
 
-        it("should get a list node from the cache several times asynchronously", done => {
-
+        it("should get a list node from the cache several times asynchronously", () => {
             knoraApiConnection.v2.listNodeCache["getItem"]("http://rdfh.ch/lists/0001/treeList01").subscribe((node: ListNodeV2) => {
-
                 expect(node.id).toEqual("http://rdfh.ch/lists/0001/treeList01");
 
                 expect(getNodeSpy).toHaveBeenCalledTimes(1);
@@ -99,13 +87,9 @@ describe("ListNodeV2Cache", () => {
                 expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList03"]).not.toBeUndefined();
                 expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList10"]).not.toBeUndefined();
                 expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList11"]).not.toBeUndefined();
-
-                done();
-
             });
 
             knoraApiConnection.v2.listNodeCache["getItem"]("http://rdfh.ch/lists/0001/treeList01").subscribe((node: ListNodeV2) => {
-
                 expect(node.id).toEqual("http://rdfh.ch/lists/0001/treeList01");
 
                 expect(getNodeSpy).toHaveBeenCalledTimes(1);
@@ -123,13 +107,9 @@ describe("ListNodeV2Cache", () => {
                 expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList03"]).not.toBeUndefined();
                 expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList10"]).not.toBeUndefined();
                 expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList11"]).not.toBeUndefined();
-
-                done();
-
             });
 
             knoraApiConnection.v2.listNodeCache["getItem"]("http://rdfh.ch/lists/0001/treeList01").subscribe((node: ListNodeV2) => {
-
                 expect(node.id).toEqual("http://rdfh.ch/lists/0001/treeList01");
 
                 expect(getNodeSpy).toHaveBeenCalledTimes(1);
@@ -147,12 +127,8 @@ describe("ListNodeV2Cache", () => {
                 expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList03"]).not.toBeUndefined();
                 expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList10"]).not.toBeUndefined();
                 expect(knoraApiConnection.v2.listNodeCache["cache"]["http://rdfh.ch/lists/0001/treeList11"]).not.toBeUndefined();
-
-                done();
-
             });
         });
-
     });
 
     describe("Method getNode()", () => {

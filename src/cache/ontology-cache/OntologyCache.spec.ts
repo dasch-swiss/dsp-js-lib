@@ -65,10 +65,8 @@ describe("OntologyCache", () => {
                 });
             });
 
-            it("should get an ontology with dependencies from the cache several times asynchronously", done => {
-
+            it("should get an ontology with dependencies from the cache several times asynchronously", () => {
                 knoraApiConnection.v2.ontologyCache["getItem"]("http://0.0.0.0:3333/ontology/0001/anything/v2").subscribe((onto: ReadOntology) => {
-
                     expect(onto.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
 
                     expect(getOntoSpy).toHaveBeenCalledTimes(2);
@@ -77,12 +75,9 @@ describe("OntologyCache", () => {
 
                     expect(knoraApiConnection.v2.ontologyCache["cache"]["http://0.0.0.0:3333/ontology/0001/anything/v2"]).not.toBeUndefined();
                     expect(knoraApiConnection.v2.ontologyCache["cache"]["http://api.knora.org/ontology/knora-api/v2"]).not.toBeUndefined(); // anything onto depends on knora-api
-                    done();
-
                 });
 
                 knoraApiConnection.v2.ontologyCache["getItem"]("http://0.0.0.0:3333/ontology/0001/anything/v2").subscribe((onto: ReadOntology) => {
-
                     expect(onto.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
 
                     expect(getOntoSpy).toHaveBeenCalledTimes(2);
@@ -91,12 +86,9 @@ describe("OntologyCache", () => {
 
                     expect(knoraApiConnection.v2.ontologyCache["cache"]["http://0.0.0.0:3333/ontology/0001/anything/v2"]).not.toBeUndefined();
                     expect(knoraApiConnection.v2.ontologyCache["cache"]["http://api.knora.org/ontology/knora-api/v2"]).not.toBeUndefined(); // anything onto depends on knora-api
-                    done();
-
                 });
 
                 knoraApiConnection.v2.ontologyCache["getItem"]("http://0.0.0.0:3333/ontology/0001/anything/v2").subscribe((onto: ReadOntology) => {
-
                     expect(onto.id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
 
                     expect(getOntoSpy).toHaveBeenCalledTimes(2);
@@ -105,8 +97,6 @@ describe("OntologyCache", () => {
 
                     expect(knoraApiConnection.v2.ontologyCache["cache"]["http://0.0.0.0:3333/ontology/0001/anything/v2"]).not.toBeUndefined();
                     expect(knoraApiConnection.v2.ontologyCache["cache"]["http://api.knora.org/ontology/knora-api/v2"]).not.toBeUndefined(); // anything onto depends on knora-api
-                    done();
-
                 });
             });
 
@@ -272,7 +262,7 @@ describe("OntologyCache", () => {
 
                     expect(knoraApiConnection.v2.ontologyCache["cache"]["http://0.0.0.0:3333/ontology/0001/anything/v2"]).not.toBeUndefined();
                     expect(knoraApiConnection.v2.ontologyCache["cache"]["http://api.knora.org/ontology/knora-api/v2"]).not.toBeUndefined(); // anything onto depends on knora-api
-                    
+
                     done();
 
                 });
@@ -309,7 +299,7 @@ describe("OntologyCache", () => {
 
                 knoraApiConnection.v2.ontologyCache.getOntology("http://api.knora.org/ontology/knora-api/v2").subscribe(ontos => {
 
-                    },
+                },
                     (err: ApiResponseError) => {
                         expect(getOntoSpy).toHaveBeenCalledTimes(1);
                         expect(getOntoSpy).toHaveBeenCalledWith("http://api.knora.org/ontology/knora-api/v2");
