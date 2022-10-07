@@ -1,5 +1,13 @@
 # Changelog
 
+### [7.4.6](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.4.5...v7.4.6) (2022-10-07)
+
+
+### Maintenance
+
+* **deps:** bump DSP-API to 24.0.7 ([#464](https://www.github.com/dasch-swiss/dsp-js-lib/issues/464)) ([84b0b5b](https://www.github.com/dasch-swiss/dsp-js-lib/commit/84b0b5bd5819332147475f264084d3d776b33954))
+* maintain dependencies ([#462](https://www.github.com/dasch-swiss/dsp-js-lib/issues/462)) ([049ad73](https://www.github.com/dasch-swiss/dsp-js-lib/commit/049ad73b88fda013cf88e30716157de96b1776d9))
+
 ### [7.4.5](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.4.4...v7.4.5) (2022-09-23)
 
 
