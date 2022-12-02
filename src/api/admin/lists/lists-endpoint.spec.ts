@@ -92,7 +92,7 @@ describe("ListsEndpoint", () => {
             const listInfo = new UpdateListInfoRequest();
 
             listInfo.listIri = "http://rdfh.ch/lists/0001/CeiuqMk_R1-lIOKh-fyddA";
-            listInfo.projectIri = "http://rdfh.ch/projects/0001";
+            listInfo.projectIri = "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ";
 
             const label1 = new StringLiteral();
             label1.language = "de";
@@ -334,7 +334,7 @@ describe("ListsEndpoint", () => {
             const childNode = new CreateChildNodeRequest();
 
             childNode.parentNodeIri = "http://rdfh.ch/lists/0001/CeiuqMk_R1-lIOKh-fyddA";
-            childNode.projectIri = "http://rdfh.ch/projects/0001";
+            childNode.projectIri = "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ";
             childNode.name = "first";
 
             const label1 = new StringLiteral();
@@ -382,7 +382,7 @@ describe("ListsEndpoint", () => {
             const childNode = new CreateChildNodeRequest();
 
             childNode.parentNodeIri = "http://rdfh.ch/lists/0001/CeiuqMk_R1-lIOKh-fyddA";
-            childNode.projectIri = "http://rdfh.ch/projects/0001";
+            childNode.projectIri = "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ";
             childNode.name = "child with position";
 
             const label1 = new StringLiteral();
@@ -489,7 +489,7 @@ describe("ListsEndpoint", () => {
 
             list.comments = [comments];
 
-            list.projectIri = "http://rdfh.ch/projects/0001";
+            list.projectIri = "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ";
 
             const label = new StringLiteral();
             label.language = "de";

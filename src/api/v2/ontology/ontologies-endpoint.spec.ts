@@ -315,7 +315,7 @@ describe("OntologiesEndpoint", () => {
         it("should create a new ontology", done => {
 
             const newOntology: CreateOntology = new CreateOntology();
-            newOntology.attachedToProject = "http://rdfh.ch/projects/0001";
+            newOntology.attachedToProject = "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ";
             newOntology.label = "The foo ontology";
             newOntology.name = "foo";
 
@@ -1220,7 +1220,7 @@ describe("OntologiesEndpoint", () => {
             deleteCardinalitiesFromClassRequest.id = "http://0.0.0.0:3333/ontology/0001/freetest/v2";
 
             // update this timestamp after every release of dsp-api
-            deleteCardinalitiesFromClassRequest.lastModificationDate = "2022-10-21T07:33:27.635272792Z";
+            deleteCardinalitiesFromClassRequest.lastModificationDate = "2022-12-02T09:06:13.588742167Z";
 
             const cardinalityToRemove = new UpdateResourceClassCardinality();
 
@@ -1265,7 +1265,7 @@ describe("OntologiesEndpoint", () => {
             deleteCardinalitiesFromClassRequest.id = "http://0.0.0.0:3333/ontology/0001/freetest/v2";
 
             // update this timestamp after every release of dsp-api
-            deleteCardinalitiesFromClassRequest.lastModificationDate = "2022-10-21T07:33:27.635272792Z";
+            deleteCardinalitiesFromClassRequest.lastModificationDate = "2022-12-02T09:06:13.588742167Z";
 
             const cardinalityToRemove = new UpdateResourceClassCardinality();
 

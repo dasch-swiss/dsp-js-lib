@@ -32,7 +32,7 @@ describe("ProjectsEndpoint", () => {
                 (response: ApiResponseData<ProjectsResponse>) => {
 
                     expect(response.body.projects.length).toEqual(8);
-                    expect(response.body.projects[0].id).toEqual("http://rdfh.ch/projects/0001");
+                    expect(response.body.projects[0].id).toEqual("http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ");
 
                     done();
                 });
@@ -74,7 +74,7 @@ describe("ProjectsEndpoint", () => {
             knoraApiConnection.admin.projectsEndpoint.createProject(project).subscribe(
                 (response: ApiResponseData<ProjectResponse>) => {
 
-                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/XXGE9wShT864EZ6iZ9vYtA");
 
                     done();
                 }
@@ -82,9 +82,9 @@ describe("ProjectsEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const user = require("../../../../test/data/api/admin/projects/get-project-response.json");
+            const projectResponse = require("../../../../test/data/api/admin/projects/create-project-response.json");
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(user)));
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projectResponse)));
 
             expect(request.url).toBe("http://localhost:3333/admin/projects");
 
@@ -158,7 +158,7 @@ describe("ProjectsEndpoint", () => {
 
         it("should update a project", done => {
 
-            const projectIri = "http://rdfh.ch/projects/00FF";
+            const projectIri = "http://rdfh.ch/projects/XXGE9wShT864EZ6iZ9vYtA";
             const projectInfo = new UpdateProjectRequest();
 
             projectInfo.shortname = "newproject";
@@ -178,7 +178,9 @@ describe("ProjectsEndpoint", () => {
             knoraApiConnection.admin.projectsEndpoint.updateProject(projectIri, projectInfo).subscribe(
                 (response: ApiResponseData<ProjectResponse>) => {
 
-                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/XXGE9wShT864EZ6iZ9vYtA");
+                    expect(response.body.project.description[0].value).toEqual("updated project description");
+                    expect(response.body.project.longname).toEqual("updated project longname");
 
                     done();
                 }
@@ -186,11 +188,11 @@ describe("ProjectsEndpoint", () => {
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const user = require("../../../../test/data/api/admin/projects/get-project-response.json");
+            const projectResponse = require("../../../../test/data/api/admin/projects/update-project-response.json");
 
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(user)));
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projectResponse)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF");
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2FXXGE9wShT864EZ6iZ9vYtA");
 
             expect(request.method).toEqual("PUT");
 
@@ -208,21 +210,21 @@ describe("ProjectsEndpoint", () => {
 
         it("should delete a project", done => {
 
-            knoraApiConnection.admin.projectsEndpoint.deleteProject("http://rdfh.ch/projects/00FF").subscribe(
+            knoraApiConnection.admin.projectsEndpoint.deleteProject("http://rdfh.ch/projects/XXGE9wShT864EZ6iZ9vYtA").subscribe(
                 (response: ApiResponseData<ProjectResponse>) => {
 
-                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/XXGE9wShT864EZ6iZ9vYtA");
 
                     done();
                 });
 
             const request = jasmine.Ajax.requests.mostRecent();
 
-            const project = require("../../../../test/data/api/admin/projects/get-project-response.json");
+            const project = require("../../../../test/data/api/admin/projects/delete-project-response.json");
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(project)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF");
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2FXXGE9wShT864EZ6iZ9vYtA");
 
             expect(request.method).toEqual("DELETE");
 
@@ -234,10 +236,10 @@ describe("ProjectsEndpoint", () => {
 
         it("should return a project by its IRI", done => {
 
-            knoraApiConnection.admin.projectsEndpoint.getProject("iri", "http://rdfh.ch/projects/00FF").subscribe(
+            knoraApiConnection.admin.projectsEndpoint.getProject("iri", "http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA").subscribe(
                 (response: ApiResponseData<ProjectResponse>) => {
 
-                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA");
 
                     done();
                 });
@@ -248,7 +250,7 @@ describe("ProjectsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF");
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2FMTvoB0EJRrqovzRkWXqfkA");
 
             expect(request.method).toEqual("GET");
 
@@ -259,7 +261,7 @@ describe("ProjectsEndpoint", () => {
             knoraApiConnection.admin.projectsEndpoint.getProject("shortname", "images").subscribe(
                 (response: ApiResponseData<ProjectResponse>) => {
 
-                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA");
 
                     done();
                 });
@@ -281,7 +283,7 @@ describe("ProjectsEndpoint", () => {
             knoraApiConnection.admin.projectsEndpoint.getProject("shortcode", "00FF").subscribe(
                 (response: ApiResponseData<ProjectResponse>) => {
 
-                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA");
 
                     done();
                 });
@@ -304,10 +306,10 @@ describe("ProjectsEndpoint", () => {
 
         it("should return a project by its IRI", done => {
 
-            knoraApiConnection.admin.projectsEndpoint.getProjectByIri("http://rdfh.ch/projects/00FF").subscribe(
+            knoraApiConnection.admin.projectsEndpoint.getProjectByIri("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA").subscribe(
                 (response: ApiResponseData<ProjectResponse>) => {
 
-                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA");
 
                     done();
                 });
@@ -318,7 +320,7 @@ describe("ProjectsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF");
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2FMTvoB0EJRrqovzRkWXqfkA");
 
             expect(request.method).toEqual("GET");
 
@@ -333,7 +335,7 @@ describe("ProjectsEndpoint", () => {
             knoraApiConnection.admin.projectsEndpoint.getProjectByShortname("images").subscribe(
                 (response: ApiResponseData<ProjectResponse>) => {
 
-                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA");
 
                     done();
                 });
@@ -359,7 +361,7 @@ describe("ProjectsEndpoint", () => {
             knoraApiConnection.admin.projectsEndpoint.getProjectByShortcode("00FF").subscribe(
                 (response: ApiResponseData<ProjectResponse>) => {
 
-                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA");
 
                     done();
                 });

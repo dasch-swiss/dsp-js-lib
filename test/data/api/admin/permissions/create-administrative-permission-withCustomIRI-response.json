@@ -1,7 +1,7 @@
 {
     "administrative_permission": {
         "forGroup": "http://rdfh.ch/groups/0001/thing-searcher",
-        "forProject": "http://rdfh.ch/projects/0001",
+        "forProject": "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ",
         "hasPermissions": [
             {
                 "additionalInformation": null,
