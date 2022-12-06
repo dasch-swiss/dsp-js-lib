@@ -37,7 +37,7 @@ describe("PermissionsEndpoint", () => {
 
         it("should return all permissions", done => {
 
-            const projectIri = "http://rdfh.ch/projects/00FF";
+            const projectIri = "http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA";
 
             knoraApiConnection.admin.permissionsEndpoint.getProjectPermissions(projectIri).subscribe(
                 (response: ApiResponseData<ProjectPermissionsResponse>) => {
@@ -68,7 +68,7 @@ describe("PermissionsEndpoint", () => {
 
         it("should return all administrative permissions", done => {
 
-            const projectIri = "http://rdfh.ch/projects/00FF";
+            const projectIri = "http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA";
 
             knoraApiConnection.admin.permissionsEndpoint.getAdministrativePermissions(projectIri).subscribe(
                 (response: ApiResponseData<AdministrativePermissionsResponse>) => {
@@ -103,7 +103,7 @@ describe("PermissionsEndpoint", () => {
 
         it("should return an administrative permission", done => {
 
-            const projectIri = "http://rdfh.ch/projects/00FF";
+            const projectIri = "http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA";
 
             const groupIri = "http://www.knora.org/ontology/knora-admin#ProjectMember";
 
@@ -337,14 +337,14 @@ describe("PermissionsEndpoint", () => {
 
         it("should return all default project access permissions", done => {
 
-            const projectIri = "http://rdfh.ch/projects/00FF";
+            const projectIri = "http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA";
 
             knoraApiConnection.admin.permissionsEndpoint.getDefaultObjectAccessPermissions(projectIri).subscribe(
                 (response: ApiResponseData<DefaultObjectAccessPermissionsResponse>) => {
 
                     expect(response.body.defaultObjectAccessPermissions.length).toBe(3);
 
-                    expect(response.body.defaultObjectAccessPermissions[0].forProject).toBe("http://rdfh.ch/projects/00FF");
+                    expect(response.body.defaultObjectAccessPermissions[0].forProject).toBe("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA");
                     expect(response.body.defaultObjectAccessPermissions[0].forGroup).toBe("http://www.knora.org/ontology/knora-admin#KnownUser");
                     expect(response.body.defaultObjectAccessPermissions[0].id).toBe("http://rdfh.ch/permissions/00FF/d2");
                     expect(response.body.defaultObjectAccessPermissions[0].hasPermissions.length).toBe(3);
@@ -485,7 +485,7 @@ describe("PermissionsEndpoint", () => {
             permission.permissionCode = 7;
             permission.additionalInformation = "http://www.knora.org/ontology/knora-admin#ProjectMember";
 
-            const projectIri = "http://rdfh.ch/projects/00FF";
+            const projectIri = "http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA";
 
             const defObjAccPermission = new CreateDefaultObjectAccessPermission();
             defObjAccPermission.forProject = projectIri;
@@ -496,7 +496,7 @@ describe("PermissionsEndpoint", () => {
             knoraApiConnection.admin.permissionsEndpoint.createDefaultObjectAccessPermission(defObjAccPermission).subscribe(
                 (response: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
 
-                    expect(response.body.defaultObjectAccessPermission.forProject).toEqual("http://rdfh.ch/projects/00FF");
+                    expect(response.body.defaultObjectAccessPermission.forProject).toEqual("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA");
                     expect(response.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/00FF/zTOK3HlWTLGgTO8ZWVnotg");
                     expect(response.body.defaultObjectAccessPermission.hasPermissions.length).toBe(1);
 
@@ -664,9 +664,9 @@ describe("PermissionsEndpoint", () => {
 
             knoraApiConnection.admin.permissionsEndpoint.deletePermission("http://rdfh.ch/permissions/00FF/a2").subscribe(
                 (response: ApiResponseData<DeletePermissionResponse>) => {
-                  expect(response.body.deleted).toBeTrue();
-                  done();
-              }
+                    expect(response.body.deleted).toBeTrue();
+                    done();
+                }
             );
 
             const request = jasmine.Ajax.requests.mostRecent();

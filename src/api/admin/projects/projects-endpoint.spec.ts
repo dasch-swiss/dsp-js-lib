@@ -74,7 +74,7 @@ describe("ProjectsEndpoint", () => {
             knoraApiConnection.admin.projectsEndpoint.createProject(project).subscribe(
                 (response: ApiResponseData<ProjectResponse>) => {
 
-                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA");
 
                     done();
                 }
@@ -131,7 +131,7 @@ describe("ProjectsEndpoint", () => {
 
         it("should return a project's keywords", done => {
 
-            knoraApiConnection.admin.projectsEndpoint.getProjectKeywords("http://rdfh.ch/projects/00FF").subscribe(
+            knoraApiConnection.admin.projectsEndpoint.getProjectKeywords("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA").subscribe(
                 (response: ApiResponseData<KeywordsResponse>) => {
 
                     expect(response.body.keywords.length).toEqual(14);
@@ -158,7 +158,7 @@ describe("ProjectsEndpoint", () => {
 
         it("should update a project", done => {
 
-            const projectIri = "http://rdfh.ch/projects/00FF";
+            const projectIri = "http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA";
             const projectInfo = new UpdateProjectRequest();
 
             projectInfo.shortname = "newproject";
@@ -178,7 +178,7 @@ describe("ProjectsEndpoint", () => {
             knoraApiConnection.admin.projectsEndpoint.updateProject(projectIri, projectInfo).subscribe(
                 (response: ApiResponseData<ProjectResponse>) => {
 
-                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA");
 
                     done();
                 }
@@ -208,10 +208,10 @@ describe("ProjectsEndpoint", () => {
 
         it("should delete a project", done => {
 
-            knoraApiConnection.admin.projectsEndpoint.deleteProject("http://rdfh.ch/projects/00FF").subscribe(
+            knoraApiConnection.admin.projectsEndpoint.deleteProject("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA").subscribe(
                 (response: ApiResponseData<ProjectResponse>) => {
 
-                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA");
 
                     done();
                 });
@@ -234,10 +234,10 @@ describe("ProjectsEndpoint", () => {
 
         it("should return a project by its IRI", done => {
 
-            knoraApiConnection.admin.projectsEndpoint.getProject("iri", "http://rdfh.ch/projects/00FF").subscribe(
+            knoraApiConnection.admin.projectsEndpoint.getProject("iri", "http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA").subscribe(
                 (response: ApiResponseData<ProjectResponse>) => {
 
-                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA");
 
                     done();
                 });
@@ -259,7 +259,7 @@ describe("ProjectsEndpoint", () => {
             knoraApiConnection.admin.projectsEndpoint.getProject("shortname", "images").subscribe(
                 (response: ApiResponseData<ProjectResponse>) => {
 
-                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA");
 
                     done();
                 });
@@ -281,7 +281,7 @@ describe("ProjectsEndpoint", () => {
             knoraApiConnection.admin.projectsEndpoint.getProject("shortcode", "00FF").subscribe(
                 (response: ApiResponseData<ProjectResponse>) => {
 
-                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA");
 
                     done();
                 });
@@ -304,10 +304,10 @@ describe("ProjectsEndpoint", () => {
 
         it("should return a project by its IRI", done => {
 
-            knoraApiConnection.admin.projectsEndpoint.getProjectByIri("http://rdfh.ch/projects/00FF").subscribe(
+            knoraApiConnection.admin.projectsEndpoint.getProjectByIri("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA").subscribe(
                 (response: ApiResponseData<ProjectResponse>) => {
 
-                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA");
 
                     done();
                 });
@@ -333,7 +333,7 @@ describe("ProjectsEndpoint", () => {
             knoraApiConnection.admin.projectsEndpoint.getProjectByShortname("images").subscribe(
                 (response: ApiResponseData<ProjectResponse>) => {
 
-                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA");
 
                     done();
                 });
@@ -359,7 +359,7 @@ describe("ProjectsEndpoint", () => {
             knoraApiConnection.admin.projectsEndpoint.getProjectByShortcode("00FF").subscribe(
                 (response: ApiResponseData<ProjectResponse>) => {
 
-                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/00FF");
+                    expect(response.body.project.id).toEqual("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA");
 
                     done();
                 });
@@ -382,7 +382,7 @@ describe("ProjectsEndpoint", () => {
 
         it("should return members of a project identified by its iri", done => {
 
-            knoraApiConnection.admin.projectsEndpoint.getProjectMembers("iri", "http://rdfh.ch/projects/00FF").subscribe(
+            knoraApiConnection.admin.projectsEndpoint.getProjectMembers("iri", "http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA").subscribe(
                 (response: ApiResponseData<MembersResponse>) => {
 
                     expect(response.body.members.length).toEqual(4);
@@ -452,7 +452,7 @@ describe("ProjectsEndpoint", () => {
 
         it("should return members of a project identified by its iri", done => {
 
-            knoraApiConnection.admin.projectsEndpoint.getProjectMembersByIri("http://rdfh.ch/projects/00FF").subscribe(
+            knoraApiConnection.admin.projectsEndpoint.getProjectMembersByIri("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA").subscribe(
                 (response: ApiResponseData<MembersResponse>) => {
 
                     expect(response.body.members.length).toEqual(4);
@@ -530,7 +530,7 @@ describe("ProjectsEndpoint", () => {
 
         it("should return admin members of a project identified by its iri", done => {
 
-            knoraApiConnection.admin.projectsEndpoint.getProjectAdminMembers("iri", "http://rdfh.ch/projects/00FF").subscribe(
+            knoraApiConnection.admin.projectsEndpoint.getProjectAdminMembers("iri", "http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA").subscribe(
                 (response: ApiResponseData<MembersResponse>) => {
 
                     expect(response.body.members.length).toEqual(2);
@@ -600,7 +600,7 @@ describe("ProjectsEndpoint", () => {
 
         it("should return members of a project identified by its iri", done => {
 
-            knoraApiConnection.admin.projectsEndpoint.getProjectAdminMembersByIri("http://rdfh.ch/projects/00FF").subscribe(
+            knoraApiConnection.admin.projectsEndpoint.getProjectAdminMembersByIri("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA").subscribe(
                 (response: ApiResponseData<MembersResponse>) => {
 
                     expect(response.body.members.length).toEqual(2);
@@ -678,7 +678,7 @@ describe("ProjectsEndpoint", () => {
 
         it("should return restricted view settings of a project identified by its iri", done => {
 
-            knoraApiConnection.admin.projectsEndpoint.getProjectRestrictedViewSettings("iri", "http://rdfh.ch/projects/00FF").subscribe(
+            knoraApiConnection.admin.projectsEndpoint.getProjectRestrictedViewSettings("iri", "http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA").subscribe(
                 (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
 
                     expect(response.body.settings.size).toEqual("!512,512");
@@ -751,7 +751,7 @@ describe("ProjectsEndpoint", () => {
 
         it("should return restricted view settings of a project identified by its iri", done => {
 
-            knoraApiConnection.admin.projectsEndpoint.getProjectRestrictedViewSettingByIri("http://rdfh.ch/projects/00FF").subscribe(
+            knoraApiConnection.admin.projectsEndpoint.getProjectRestrictedViewSettingByIri("http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA").subscribe(
                 (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
 
                     expect(response.body.settings.size).toEqual("!512,512");

@@ -1,7 +1,13 @@
-{   "id": "http://rdfh.ch/groups/00FF/gNdJSNYrTDu2lGpPUs94nQ",
+{
+    "id": "http://rdfh.ch/groups/00FF/gNdJSNYrTDu2lGpPUs94nQ",
     "name": "NewGroupWithCustomIri",
-    "descriptions": [{"value": "A new group with a custom Iri", "language": "en"}],
-    "project": "http://rdfh.ch/projects/00FF",
+    "descriptions": [
+        {
+            "value": "A new group with a custom Iri",
+            "language": "en"
+        }
+    ],
+    "project": "http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA",
     "status": true,
     "selfjoin": false
 }

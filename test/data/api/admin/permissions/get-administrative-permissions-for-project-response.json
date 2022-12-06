@@ -1,1 +1,50 @@
-{"administrative_permissions":[{"forGroup":"http://www.knora.org/ontology/knora-admin#ProjectAdmin","forProject":"http://rdfh.ch/projects/00FF","hasPermissions":[{"additionalInformation":null,"name":"ProjectResourceCreateAllPermission","permissionCode":null},{"additionalInformation":null,"name":"ProjectAdminAllPermission","permissionCode":null}],"iri":"http://rdfh.ch/permissions/00FF/a2"},{"forGroup":"http://rdfh.ch/groups/00FF/images-reviewer","forProject":"http://rdfh.ch/projects/00FF","hasPermissions":[{"additionalInformation":"http://www.knora.org/ontology/00FF/images#bild","name":"ProjectResourceCreateRestrictedPermission","permissionCode":null},{"additionalInformation":"http://www.knora.org/ontology/00FF/images#bildformat","name":"ProjectResourceCreateRestrictedPermission","permissionCode":null}],"iri":"http://rdfh.ch/permissions/00FF/a3"},{"forGroup":"http://www.knora.org/ontology/knora-admin#ProjectMember","forProject":"http://rdfh.ch/projects/00FF","hasPermissions":[{"additionalInformation":null,"name":"ProjectResourceCreateAllPermission","permissionCode":null}],"iri":"http://rdfh.ch/permissions/00FF/a1"}]}
+{
+    "administrative_permissions": [
+        {
+            "forGroup": "http://www.knora.org/ontology/knora-admin#ProjectAdmin",
+            "forProject": "http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA",
+            "hasPermissions": [
+                {
+                    "additionalInformation": null,
+                    "name": "ProjectResourceCreateAllPermission",
+                    "permissionCode": null
+                },
+                {
+                    "additionalInformation": null,
+                    "name": "ProjectAdminAllPermission",
+                    "permissionCode": null
+                }
+            ],
+            "iri": "http://rdfh.ch/permissions/00FF/a2"
+        },
+        {
+            "forGroup": "http://rdfh.ch/groups/00FF/images-reviewer",
+            "forProject": "http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA",
+            "hasPermissions": [
+                {
+                    "additionalInformation": "http://www.knora.org/ontology/00FF/images#bild",
+                    "name": "ProjectResourceCreateRestrictedPermission",
+                    "permissionCode": null
+                },
+                {
+                    "additionalInformation": "http://www.knora.org/ontology/00FF/images#bildformat",
+                    "name": "ProjectResourceCreateRestrictedPermission",
+                    "permissionCode": null
+                }
+            ],
+            "iri": "http://rdfh.ch/permissions/00FF/a3"
+        },
+        {
+            "forGroup": "http://www.knora.org/ontology/knora-admin#ProjectMember",
+            "forProject": "http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA",
+            "hasPermissions": [
+                {
+                    "additionalInformation": null,
+                    "name": "ProjectResourceCreateAllPermission",
+                    "permissionCode": null
+                }
+            ],
+            "iri": "http://rdfh.ch/permissions/00FF/a1"
+        }
+    ]
+}
