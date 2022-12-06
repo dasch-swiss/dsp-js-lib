@@ -32,7 +32,7 @@ describe("ProjectsEndpoint", () => {
                 (response: ApiResponseData<ProjectsResponse>) => {
 
                     expect(response.body.projects.length).toEqual(8);
-                    expect(response.body.projects[0].id).toEqual("http://rdfh.ch/projects/0001");
+                    expect(response.body.projects[0].id).toEqual("http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ");
 
                     done();
                 });

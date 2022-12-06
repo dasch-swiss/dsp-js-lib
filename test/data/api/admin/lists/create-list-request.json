@@ -1,5 +1,15 @@
 {
-    "projectIri": "http://rdfh.ch/projects/0001",
-    "labels": [{ "value": "Neue Liste", "language": "de"}],
-    "comments": [{ "value": "XXXXX", "language": "en"}]
+    "projectIri": "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ",
+    "labels": [
+        {
+            "value": "Neue Liste",
+            "language": "de"
+        }
+    ],
+    "comments": [
+        {
+            "value": "XXXXX",
+            "language": "en"
+        }
+    ]
 }

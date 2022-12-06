@@ -169,7 +169,7 @@
                             "permissionCode": null
                         }
                     ],
-                    "http://rdfh.ch/projects/0001": [
+                    "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ": [
                         {
                             "additionalInformation": null,
                             "name": "ProjectResourceCreateAllPermission",
@@ -200,7 +200,7 @@
                         "http://www.knora.org/ontology/knora-admin#ProjectMember",
                         "http://www.knora.org/ontology/knora-admin#ProjectAdmin"
                     ],
-                    "http://rdfh.ch/projects/0001": [
+                    "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ": [
                         "http://www.knora.org/ontology/knora-admin#ProjectMember",
                         "http://www.knora.org/ontology/knora-admin#ProjectAdmin"
                     ],
@@ -217,7 +217,7 @@
                             "value": "Anything Project"
                         }
                     ],
-                    "id": "http://rdfh.ch/projects/0001",
+                    "id": "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ",
                     "keywords": [
                         "arbitrary test data",
                         "things"

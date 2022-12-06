@@ -1,7 +1,17 @@
 {
     "parentNodeIri": "http://rdfh.ch/lists/0001/Kz6Tq-leRMCTxJW5C1qZhw",
-    "projectIri": "http://rdfh.ch/projects/0001",
+    "projectIri": "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ",
     "name": "first",
-    "labels": [{ "value": "New First Child List Node Value", "language": "en"}],
-    "comments": [{ "value": "New First Child List Node Comment", "language": "en"}]
+    "labels": [
+        {
+            "value": "New First Child List Node Value",
+            "language": "en"
+        }
+    ],
+    "comments": [
+        {
+            "value": "New First Child List Node Comment",
+            "language": "en"
+        }
+    ]
 }

@@ -142,7 +142,7 @@ describe("PermissionsEndpoint", () => {
             permission.name = "ProjectAdminGroupAllPermission";
 
             const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
-            const projectIri = "http://rdfh.ch/projects/0001";
+            const projectIri = "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ";
 
             const adminPermission = new CreateAdministrativePermission();
             adminPermission.forGroup = groupIri;
@@ -156,7 +156,7 @@ describe("PermissionsEndpoint", () => {
                     // TODO: remove this bad hack once test data is stable
                     expect(response.body.administrative_permission.id).toBeDefined(); //.toEqual("http://rdfh.ch/permissions/0001/cYBzgOcHSR6kNocj5osOJA");
                     expect(response.body.administrative_permission.forGroup).toEqual("http://rdfh.ch/groups/0001/thing-searcher");
-                    expect(response.body.administrative_permission.forProject).toEqual("http://rdfh.ch/projects/0001");
+                    expect(response.body.administrative_permission.forProject).toEqual("http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ");
                     expect(response.body.administrative_permission.hasPermissions.length).toEqual(1);
                     expect(response.body.administrative_permission.hasPermissions[0].name).toEqual("ProjectAdminGroupAllPermission");
 
@@ -202,7 +202,7 @@ describe("PermissionsEndpoint", () => {
             const permission = new CreatePermission();
             permission.name = "ProjectAdminGroupAllPermission";
 
-            const projectIri = "http://rdfh.ch/projects/0001";
+            const projectIri = "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ";
 
             const adminPermission = new CreateAdministrativePermission();
             adminPermission.forProject = projectIri;
@@ -223,7 +223,7 @@ describe("PermissionsEndpoint", () => {
             permission.additionalInformation = null;
 
             const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
-            const projectIri = "http://rdfh.ch/projects/0001";
+            const projectIri = "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ";
 
             const adminPermission = new CreateAdministrativePermission();
             adminPermission.forGroup = groupIri;
@@ -237,7 +237,7 @@ describe("PermissionsEndpoint", () => {
 
                     expect(response.body.administrative_permission.id).toEqual("http://rdfh.ch/permissions/0001/u0PRnDl3kgcbrehZnRlEfA");
                     expect(response.body.administrative_permission.forGroup).toEqual("http://rdfh.ch/groups/0001/thing-searcher");
-                    expect(response.body.administrative_permission.forProject).toEqual("http://rdfh.ch/projects/0001");
+                    expect(response.body.administrative_permission.forProject).toEqual("http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ");
                     expect(response.body.administrative_permission.hasPermissions.length).toEqual(1);
                     expect(response.body.administrative_permission.hasPermissions[0].name).toEqual("ProjectAdminGroupAllPermission");
 
@@ -376,7 +376,7 @@ describe("PermissionsEndpoint", () => {
             permission.additionalInformation = "http://www.knora.org/ontology/knora-admin#ProjectMember";
 
             const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
-            const projectIri = "http://rdfh.ch/projects/0001";
+            const projectIri = "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ";
 
             const defObjAccPermission = new CreateDefaultObjectAccessPermission();
             defObjAccPermission.forGroup = groupIri;
@@ -388,7 +388,7 @@ describe("PermissionsEndpoint", () => {
                 (response: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
 
                     expect(response.body.defaultObjectAccessPermission.forGroup).toEqual("http://rdfh.ch/groups/0001/thing-searcher");
-                    expect(response.body.defaultObjectAccessPermission.forProject).toEqual("http://rdfh.ch/projects/0001");
+                    expect(response.body.defaultObjectAccessPermission.forProject).toEqual("http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ");
                     // TODO: remove this bad hack once test data is stable
                     expect(response.body.defaultObjectAccessPermission.id).toBeDefined(); //.toEqual("http://rdfh.ch/permissions/0001/7fKkJ8DKTdew5x0139W78g");
                     expect(response.body.defaultObjectAccessPermission.hasPermissions.length).toBe(1);
@@ -440,7 +440,7 @@ describe("PermissionsEndpoint", () => {
             permission.additionalInformation = "http://www.knora.org/ontology/knora-admin#ProjectMember";
 
             const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
-            const projectIri = "http://rdfh.ch/projects/0001";
+            const projectIri = "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ";
 
             const defObjAccPermission = new CreateDefaultObjectAccessPermission();
             defObjAccPermission.forGroup = groupIri;
@@ -463,7 +463,7 @@ describe("PermissionsEndpoint", () => {
             permission.additionalInformation = "http://www.knora.org/ontology/knora-admin#ProjectMember";
 
             const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
-            const projectIri = "http://rdfh.ch/projects/0001";
+            const projectIri = "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ";
 
             const defObjAccPermission = new CreateDefaultObjectAccessPermission();
             defObjAccPermission.forGroup = groupIri;

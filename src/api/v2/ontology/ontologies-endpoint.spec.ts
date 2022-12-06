@@ -244,7 +244,7 @@ describe("OntologiesEndpoint", () => {
 
         it("should return all ontologies from 'anything' project", done => {
 
-            knoraApiConnection.v2.onto.getOntologiesByProjectIri("http://rdfh.ch/projects/0001").subscribe(
+            knoraApiConnection.v2.onto.getOntologiesByProjectIri("http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ").subscribe(
                 (response: OntologiesMetadata) => {
                     expect(response.ontologies.length).toEqual(4);
                     expect(response.ontologies[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
@@ -269,7 +269,7 @@ describe("OntologiesEndpoint", () => {
 
         it("should return an empty list when no ontologies exist yet for a given project", done => {
 
-            knoraApiConnection.v2.onto.getOntologiesByProjectIri("http://rdfh.ch/projects/0001").subscribe(
+            knoraApiConnection.v2.onto.getOntologiesByProjectIri("http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ").subscribe(
                 (response: OntologiesMetadata) => {
                     expect(response.ontologies.length).toEqual(0);
                     done();
@@ -315,7 +315,7 @@ describe("OntologiesEndpoint", () => {
         it("should create a new ontology", done => {
 
             const newOntology: CreateOntology = new CreateOntology();
-            newOntology.attachedToProject = "http://rdfh.ch/projects/0001";
+            newOntology.attachedToProject = "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ";
             newOntology.label = "The foo ontology";
             newOntology.name = "foo";
 

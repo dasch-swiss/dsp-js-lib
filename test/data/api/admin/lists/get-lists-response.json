@@ -32,7 +32,7 @@
                 }
             ],
             "name": "notUsedList",
-            "projectIri": "http://rdfh.ch/projects/0001"
+            "projectIri": "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ"
         },
         {
             "comments": [],
@@ -77,7 +77,7 @@
                     "language": "en"
                 }
             ],
-            "projectIri": "http://rdfh.ch/projects/0001"
+            "projectIri": "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ"
         },
         {
             "comments": [
@@ -95,7 +95,7 @@
                 }
             ],
             "name": "Test list root for comments",
-            "projectIri": "http://rdfh.ch/projects/0001"
+            "projectIri": "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ"
         },
         {
             "comments": [
@@ -142,7 +142,7 @@
                 }
             ],
             "name": "treelistroot",
-            "projectIri": "http://rdfh.ch/projects/0001"
+            "projectIri": "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ"
         },
         {
             "comments": [
