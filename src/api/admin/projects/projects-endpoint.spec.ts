@@ -146,7 +146,7 @@ describe("ProjectsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF/Keywords");
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2FMTvoB0EJRrqovzRkWXqfkA/Keywords");
 
             expect(request.method).toEqual("GET");
 
@@ -190,7 +190,7 @@ describe("ProjectsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(user)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF");
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2FMTvoB0EJRrqovzRkWXqfkA");
 
             expect(request.method).toEqual("PUT");
 
@@ -222,7 +222,7 @@ describe("ProjectsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(project)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF");
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2FMTvoB0EJRrqovzRkWXqfkA");
 
             expect(request.method).toEqual("DELETE");
 
@@ -248,7 +248,7 @@ describe("ProjectsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF");
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2FMTvoB0EJRrqovzRkWXqfkA");
 
             expect(request.method).toEqual("GET");
 
@@ -318,7 +318,7 @@ describe("ProjectsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF");
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2FMTvoB0EJRrqovzRkWXqfkA");
 
             expect(request.method).toEqual("GET");
 
@@ -396,7 +396,7 @@ describe("ProjectsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF/members");
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2FMTvoB0EJRrqovzRkWXqfkA/members");
 
             expect(request.method).toEqual("GET");
 
@@ -466,7 +466,7 @@ describe("ProjectsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF/members");
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2FMTvoB0EJRrqovzRkWXqfkA/members");
 
             expect(request.method).toEqual("GET");
 
@@ -544,7 +544,7 @@ describe("ProjectsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF/admin-members");
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2FMTvoB0EJRrqovzRkWXqfkA/admin-members");
 
             expect(request.method).toEqual("GET");
 
@@ -614,7 +614,7 @@ describe("ProjectsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF/admin-members");
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2FMTvoB0EJRrqovzRkWXqfkA/admin-members");
 
             expect(request.method).toEqual("GET");
 
@@ -693,7 +693,7 @@ describe("ProjectsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF/RestrictedViewSettings");
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2FMTvoB0EJRrqovzRkWXqfkA/RestrictedViewSettings");
 
             expect(request.method).toEqual("GET");
 
@@ -766,7 +766,7 @@ describe("ProjectsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projects)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF/RestrictedViewSettings");
+            expect(request.url).toBe("http://localhost:3333/admin/projects/iri/http%3A%2F%2Frdfh.ch%2Fprojects%2FMTvoB0EJRrqovzRkWXqfkA/RestrictedViewSettings");
 
             expect(request.method).toEqual("GET");
 

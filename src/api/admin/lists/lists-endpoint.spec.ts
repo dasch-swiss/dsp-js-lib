@@ -77,7 +77,7 @@ describe("ListsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(listsResponse)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/lists?projectIri=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
+            expect(request.url).toBe("http://localhost:3333/admin/lists?projectIri=http%3A%2F%2Frdfh.ch%2Fprojects%2FLw3FC39BSzCwvmdOaTyLqQ");
 
             expect(request.method).toEqual("GET");
 

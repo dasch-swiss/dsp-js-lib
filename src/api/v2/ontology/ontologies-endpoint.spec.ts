@@ -261,7 +261,7 @@ describe("OntologiesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(ontoMetadata)));
 
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/metadata/http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/metadata/http%3A%2F%2Frdfh.ch%2Fprojects%2FLw3FC39BSzCwvmdOaTyLqQ");
 
             expect(request.method).toEqual("GET");
 
@@ -281,7 +281,7 @@ describe("OntologiesEndpoint", () => {
             // empty response because no ontologies exist for the project
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({})));
 
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/metadata/http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/metadata/http%3A%2F%2Frdfh.ch%2Fprojects%2FLw3FC39BSzCwvmdOaTyLqQ");
 
             expect(request.method).toEqual("GET");
 
