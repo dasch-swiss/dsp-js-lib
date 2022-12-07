@@ -513,7 +513,7 @@ export class AppComponent implements OnInit {
         );
     }
     getDokubibOntologies() {
-        this.knoraApiConnection.v2.onto.getOntologiesByProjectIri('http://rdfh.ch/projects/0804').subscribe(
+        this.knoraApiConnection.v2.onto.getOntologiesByProjectIri('http://rdfh.ch/projects/oIjhUsZmQLuJ0VMGvJ2pfg').subscribe(
             (response: OntologiesMetadata) => {
                 console.log('dokubibOntologies ', response);
                 this.dokubibOntologies = response;
