@@ -83,7 +83,7 @@ describe("ResourcesConversionUtil", () => {
                     expect(resSeq.resources[0].type).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#Thing");
                     expect(resSeq.resources[0].label).toEqual("testding");
 
-                    expect(resSeq.resources[0].attachedToProject).toEqual("http://rdfh.ch/projects/0001");
+                    expect(resSeq.resources[0].attachedToProject).toEqual("http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ");
                     expect(resSeq.resources[0].attachedToUser).toEqual("http://rdfh.ch/users/BhkfBc3hTeS_IDo-JgXRbQ");
                     expect(resSeq.resources[0].hasPermissions).toEqual("CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:KnownUser|RV knora-admin:UnknownUser");
                     expect(resSeq.resources[0].userHasPermission).toEqual("RV");

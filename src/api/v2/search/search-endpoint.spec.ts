@@ -50,8 +50,8 @@ describe("SearchEndpoint", () => {
 
             expect(SearchEndpointV2["encodeFulltextParams"](1)).toEqual("?offset=1");
 
-            expect(SearchEndpointV2["encodeFulltextParams"](0, { limitToProject: "http://rdfh.ch/projects/0001" }))
-                .toEqual("?offset=0&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
+            expect(SearchEndpointV2["encodeFulltextParams"](0, { limitToProject: "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ" }))
+                .toEqual("?offset=0&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2FLw3FC39BSzCwvmdOaTyLqQ");
 
             expect(SearchEndpointV2["encodeFulltextParams"](0, { limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing" }))
                 .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing");
@@ -60,17 +60,17 @@ describe("SearchEndpoint", () => {
                 .toEqual("?offset=0&limitToStandoffClass=http%3A%2F%2Fapi.knora.org%2Fontology%2Fstandoff%2Fv2%23StandoffParagraphTag");
 
             expect(SearchEndpointV2["encodeFulltextParams"](0, {
-                limitToProject: "http://rdfh.ch/projects/0001",
+                limitToProject: "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ",
                 limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
             }))
-                .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
+                .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2FLw3FC39BSzCwvmdOaTyLqQ");
 
             expect(SearchEndpointV2["encodeFulltextParams"](0, {
-                limitToProject: "http://rdfh.ch/projects/0001",
+                limitToProject: "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ",
                 limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing",
                 limitToStandoffClass: "http://api.knora.org/ontology/standoff/v2#StandoffParagraphTag"
             }))
-                .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001&limitToStandoffClass=http%3A%2F%2Fapi.knora.org%2Fontology%2Fstandoff%2Fv2%23StandoffParagraphTag");
+                .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2FLw3FC39BSzCwvmdOaTyLqQ&limitToStandoffClass=http%3A%2F%2Fapi.knora.org%2Fontology%2Fstandoff%2Fv2%23StandoffParagraphTag");
 
         });
 
@@ -163,7 +163,7 @@ describe("SearchEndpoint", () => {
 
         it("should do a fulltext search with a simple search term restricting the search to a specific project", done => {
 
-            knoraApiConnection.v2.search.doFulltextSearch("thing", 1, { limitToProject: "http://rdfh.ch/projects/0001" }).subscribe((response: ReadResourceSequence) => {
+            knoraApiConnection.v2.search.doFulltextSearch("thing", 1, { limitToProject: "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ" }).subscribe((response: ReadResourceSequence) => {
 
                 expect(response.resources.length).toEqual(2);
 
@@ -177,7 +177,7 @@ describe("SearchEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
             expect(request.url)
-                .toEqual("http://0.0.0.0:3333/v2/search/thing?offset=1&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
+                .toEqual("http://0.0.0.0:3333/v2/search/thing?offset=1&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2FLw3FC39BSzCwvmdOaTyLqQ");
 
             expect(request.method).toEqual("GET");
 
@@ -413,17 +413,17 @@ describe("SearchEndpoint", () => {
 
             expect(SearchEndpointV2["encodeLabelParams"](1)).toEqual("?offset=1");
 
-            expect(SearchEndpointV2["encodeLabelParams"](0, { limitToProject: "http://rdfh.ch/projects/0001" }))
-                .toEqual("?offset=0&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
+            expect(SearchEndpointV2["encodeLabelParams"](0, { limitToProject: "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ" }))
+                .toEqual("?offset=0&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2FLw3FC39BSzCwvmdOaTyLqQ");
 
             expect(SearchEndpointV2["encodeLabelParams"](0, { limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing" }))
                 .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing");
 
             expect(SearchEndpointV2["encodeLabelParams"](0, {
-                limitToProject: "http://rdfh.ch/projects/0001",
+                limitToProject: "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ",
                 limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing"
             }))
-                .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
+                .toEqual("?offset=0&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2FLw3FC39BSzCwvmdOaTyLqQ");
 
         });
 
@@ -515,7 +515,7 @@ describe("SearchEndpoint", () => {
 
         it("should do a label search with a simple search term restricting the search to a specific project", done => {
 
-            knoraApiConnection.v2.search.doSearchByLabel("thing", 1, { limitToProject: "http://rdfh.ch/projects/0001" }).subscribe((response: ReadResourceSequence) => {
+            knoraApiConnection.v2.search.doSearchByLabel("thing", 1, { limitToProject: "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ" }).subscribe((response: ReadResourceSequence) => {
 
                 expect(response.resources.length).toEqual(2);
 
@@ -529,7 +529,7 @@ describe("SearchEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
             expect(request.url)
-                .toEqual("http://0.0.0.0:3333/v2/searchbylabel/thing?offset=1&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
+                .toEqual("http://0.0.0.0:3333/v2/searchbylabel/thing?offset=1&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2FLw3FC39BSzCwvmdOaTyLqQ");
 
             expect(request.method).toEqual("GET");
 

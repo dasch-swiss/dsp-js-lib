@@ -1,1 +1,14 @@
-{"administrative_permission":{"forGroup":"http://www.knora.org/ontology/knora-admin#ProjectMember","forProject":"http://rdfh.ch/projects/00FF","hasPermissions":[{"additionalInformation":null,"name":"ProjectResourceCreateAllPermission","permissionCode":null}],"iri":"http://rdfh.ch/permissions/00FF/a1"}}
+{
+    "administrative_permission": {
+        "forGroup": "http://www.knora.org/ontology/knora-admin#ProjectMember",
+        "forProject": "http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA",
+        "hasPermissions": [
+            {
+                "additionalInformation": null,
+                "name": "ProjectResourceCreateAllPermission",
+                "permissionCode": null
+            }
+        ],
+        "iri": "http://rdfh.ch/permissions/00FF/a1"
+    }
+}
