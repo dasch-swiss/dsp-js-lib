@@ -11,7 +11,5 @@ export class ReadResourceSequence {
      * @param resources sequence of resources.
      * @param mayHaveMoreResults flag whether there are more results to be fetched, i.e. for search results.
      */
-    constructor(readonly resources: ReadResource[], readonly mayHaveMoreResults = false) {
-    }
-
+    constructor(readonly resources: ReadResource[], readonly mayHaveMoreResults = false) { }
 }

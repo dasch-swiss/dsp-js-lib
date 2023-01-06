@@ -43,31 +43,40 @@ import { ResourceClassAndPropertyDefinitions } from "../../../cache/ontology-cac
 export namespace ResourcesConversionUtil {
 
     /**
-     * Given a JSON-LD representing zero, one more resources, converts it to an array of ReadResource.
+     * Given a JSON-LD representing zero, one or more resources, converts it to an array of ReadResource.
      *
      * JSON-LD is expected to have expanded prefixes (processed by jsonld processor).
      *
-     * @param resourcesJsonld a JSON-LD object  with expanded prefixes representing zero, one or more resources.
+     * @param resourcesJsonld a JSON-LD object with expanded prefixes representing zero, one or more resources.
      * @param ontologyCache instance of OntologyCache to be used.
      * @param listNodeCache instance of ListNodeCache to be used.
      * @param jsonConvert instance of JsonConvert to be used.
      */
     export const createReadResourceSequence = (resourcesJsonld: object, ontologyCache: OntologyCache, listNodeCache: ListNodeV2Cache, jsonConvert: JsonConvert): Observable<ReadResourceSequence> => {
-
         if (resourcesJsonld.hasOwnProperty("@graph")) {
-            // sequence of resources
-            return forkJoin((resourcesJsonld as { [index: string]: object[] })["@graph"]
-                .map((res: { [index: string]: object[] | string }) => createReadResource(res, ontologyCache, listNodeCache, jsonConvert))).pipe(
-                    map((resources: ReadResource[]) => {
-                        // check for mayHaveMoreResults
-                        if (resourcesJsonld.hasOwnProperty(Constants.MayHaveMoreResults)) {
-                            // presence of knora-api:mayHaveMoreResults implicitly means true
-                            return new ReadResourceSequence(resources, true);
-                        } else {
-                            return new ReadResourceSequence(resources);
-                        }
-                    })
-                );
+            let graphLength: number = (resourcesJsonld as { [index: string]: object[] })["@graph"].length
+
+            if (graphLength > 0) {
+                // sequence of resources
+                return forkJoin((resourcesJsonld as { [index: string]: object[] })["@graph"]
+                    .map((res: { [index: string]: object[] | string }) => createReadResource(res, ontologyCache, listNodeCache, jsonConvert))).pipe(
+                        map((resources: ReadResource[]) => {
+                            // check for mayHaveMoreResults
+                            if (resourcesJsonld.hasOwnProperty(Constants.MayHaveMoreResults)) {
+                                // presence of knora-api:mayHaveMoreResults implicitly means true
+                                return new ReadResourceSequence(resources, true);
+                            } else {
+                                return new ReadResourceSequence(resources);
+                            }
+                        })
+                    );
+            } else {
+                if (resourcesJsonld.hasOwnProperty(Constants.MayHaveMoreResults)) {
+                    return of(new ReadResourceSequence([], true));
+                } else {
+                    return of(new ReadResourceSequence([]));
+                }
+            }
         } else {
             //  one or no resource
             if (Object.keys(resourcesJsonld).length === 0) {
