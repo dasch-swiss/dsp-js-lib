@@ -33,7 +33,7 @@ describe("HealthEndpoint", () => {
                     expect(response.body.name).toEqual("AppState");
                     expect(response.body.message).toEqual("Application is healthy");
                     expect(response.body.severity).toEqual("non fatal");
-                    expect(response.body.status).toEqual("healthy");
+                    expect(response.body.status).toEqual(true);
 
                     done();
                 });
@@ -66,7 +66,7 @@ describe("HealthEndpoint", () => {
                     expect(response.body.name).toEqual("AppState");
                     expect(response.body.message).toEqual("Application is in maintenance mode. Please retry later.");
                     expect(response.body.severity).toEqual("non fatal");
-                    expect(response.body.status).toEqual("unhealthy");
+                    expect(response.body.status).toEqual(false);
 
                     done();
                 });
@@ -99,7 +99,7 @@ describe("HealthEndpoint", () => {
                     expect(response.body.name).toEqual("AppState");
                     expect(response.body.message).toEqual("Stopped. Please retry later.");
                     expect(response.body.severity).toEqual("non fatal");
-                    expect(response.body.status).toEqual("unhealthy");
+                    expect(response.body.status).toEqual(false);
 
                     done();
                 });

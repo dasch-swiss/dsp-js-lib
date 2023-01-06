@@ -56,7 +56,7 @@ describe("GroupsEndpoint", () => {
             const group = new CreateGroupRequest();
 
             group.name = "NewGroup";
-            group.project = "http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA";
+            group.project = "http://rdfh.ch/projects/00FF";
             group.status = true;
             group.selfjoin = false;
 

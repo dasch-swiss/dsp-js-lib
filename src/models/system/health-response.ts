@@ -29,8 +29,6 @@ export class HealthResponse {
     /**
      * Status
      */
-    @JsonProperty("status", String)
-    status: string = "";
-
-
+    @JsonProperty("status", Boolean)
+    status: boolean = false;
 }

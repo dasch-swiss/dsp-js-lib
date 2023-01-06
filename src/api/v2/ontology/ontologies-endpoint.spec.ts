@@ -244,7 +244,7 @@ describe("OntologiesEndpoint", () => {
 
         it("should return all ontologies from 'anything' project", done => {
 
-            knoraApiConnection.v2.onto.getOntologiesByProjectIri("http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ").subscribe(
+            knoraApiConnection.v2.onto.getOntologiesByProjectIri("http://rdfh.ch/projects/0001").subscribe(
                 (response: OntologiesMetadata) => {
                     expect(response.ontologies.length).toEqual(4);
                     expect(response.ontologies[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
@@ -261,7 +261,7 @@ describe("OntologiesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(ontoMetadata)));
 
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/metadata/http%3A%2F%2Frdfh.ch%2Fprojects%2FLw3FC39BSzCwvmdOaTyLqQ");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/metadata/http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
 
             expect(request.method).toEqual("GET");
 
@@ -269,7 +269,7 @@ describe("OntologiesEndpoint", () => {
 
         it("should return an empty list when no ontologies exist yet for a given project", done => {
 
-            knoraApiConnection.v2.onto.getOntologiesByProjectIri("http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ").subscribe(
+            knoraApiConnection.v2.onto.getOntologiesByProjectIri("http://rdfh.ch/projects/0001").subscribe(
                 (response: OntologiesMetadata) => {
                     expect(response.ontologies.length).toEqual(0);
                     done();
@@ -281,7 +281,7 @@ describe("OntologiesEndpoint", () => {
             // empty response because no ontologies exist for the project
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({})));
 
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/metadata/http%3A%2F%2Frdfh.ch%2Fprojects%2FLw3FC39BSzCwvmdOaTyLqQ");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/metadata/http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
 
             expect(request.method).toEqual("GET");
 
@@ -315,7 +315,7 @@ describe("OntologiesEndpoint", () => {
         it("should create a new ontology", done => {
 
             const newOntology: CreateOntology = new CreateOntology();
-            newOntology.attachedToProject = "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ";
+            newOntology.attachedToProject = "http://rdfh.ch/projects/0001";
             newOntology.label = "The foo ontology";
             newOntology.name = "foo";
 
@@ -1220,7 +1220,7 @@ describe("OntologiesEndpoint", () => {
             deleteCardinalitiesFromClassRequest.id = "http://0.0.0.0:3333/ontology/0001/freetest/v2";
 
             // update this timestamp after every release of dsp-api
-            deleteCardinalitiesFromClassRequest.lastModificationDate = "2022-12-02T09:06:13.588742167Z";
+            deleteCardinalitiesFromClassRequest.lastModificationDate = "2023-01-06T08:33:52.785382981Z";
 
             const cardinalityToRemove = new UpdateResourceClassCardinality();
 
@@ -1265,7 +1265,7 @@ describe("OntologiesEndpoint", () => {
             deleteCardinalitiesFromClassRequest.id = "http://0.0.0.0:3333/ontology/0001/freetest/v2";
 
             // update this timestamp after every release of dsp-api
-            deleteCardinalitiesFromClassRequest.lastModificationDate = "2022-12-02T09:06:13.588742167Z";
+            deleteCardinalitiesFromClassRequest.lastModificationDate = "2023-01-06T08:33:52.785382981Z";
 
             const cardinalityToRemove = new UpdateResourceClassCardinality();
 
