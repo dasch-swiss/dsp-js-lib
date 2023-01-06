@@ -173,7 +173,7 @@ export class AppComponent implements OnInit {
         this.healthState =
             this.knoraApiConnection.system.healthEndpoint.getHealthStatus().pipe(
                 tap(
-                    res => console.log(res)
+                    res => console.log("HEALTH", res)
                 ),
                 map(
                     res => {
@@ -192,7 +192,7 @@ export class AppComponent implements OnInit {
         this.version =
             this.knoraApiConnection.system.versionEndpoint.getVersion().pipe(
                 tap(
-                    res => console.log(res)
+                    res => console.log("VERSION", res)
                 ),
                 map(
                     res => {
