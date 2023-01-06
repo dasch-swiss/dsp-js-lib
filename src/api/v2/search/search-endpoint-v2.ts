@@ -139,7 +139,6 @@ export class SearchEndpointV2 extends Endpoint {
      */
     doExtendedSearch(gravsearchQuery: string): Observable<ReadResourceSequence | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
-
         // TODO: check if content-type have to be set to text/plain
 
         return this.httpPost("/searchextended", gravsearchQuery, "sparql").pipe(
