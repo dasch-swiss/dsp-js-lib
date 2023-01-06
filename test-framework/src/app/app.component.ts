@@ -249,7 +249,7 @@ export class AppComponent implements OnInit {
 
     getPermissions() {
 
-        this.knoraApiConnection.admin.permissionsEndpoint.getProjectPermissions('http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ').subscribe(
+        this.knoraApiConnection.admin.permissionsEndpoint.getProjectPermissions('http://rdfh.ch/projects/0001').subscribe(
             (response: ApiResponseData<ProjectPermissionsResponse>) => {
                 this.permissionStatus = 'getPermissions ok';
                 console.log(response);
@@ -260,7 +260,7 @@ export class AppComponent implements OnInit {
 
     getAdministrativePermission() {
 
-        this.knoraApiConnection.admin.permissionsEndpoint.getAdministrativePermission('http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ', 'http://www.knora.org/ontology/knora-admin#ProjectMember').subscribe(
+        this.knoraApiConnection.admin.permissionsEndpoint.getAdministrativePermission('http://rdfh.ch/projects/0001', 'http://www.knora.org/ontology/knora-admin#ProjectMember').subscribe(
             (response: ApiResponseData<AdministrativePermissionResponse>) => {
                 this.permissionStatus = 'getAdministrativePermission ok';
                 this.permissionIri = response.body.administrative_permission.id;
@@ -273,7 +273,7 @@ export class AppComponent implements OnInit {
 
     getAdministrativePermissions() {
 
-        this.knoraApiConnection.admin.permissionsEndpoint.getAdministrativePermissions('http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ').subscribe(
+        this.knoraApiConnection.admin.permissionsEndpoint.getAdministrativePermissions('http://rdfh.ch/projects/0001').subscribe(
             (response: ApiResponseData<AdministrativePermissionsResponse>) => {
                 this.permissionStatus = 'getAdministrativePermissions ok';
                 console.log(response);
@@ -296,7 +296,7 @@ export class AppComponent implements OnInit {
         permission2.permissionCode = null;
 
         const groupIri = 'http://rdfh.ch/groups/0001/thing-searcher';
-        const projectIri = 'http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ';
+        const projectIri = 'http://rdfh.ch/projects/0001';
 
         const adminPermission = new CreateAdministrativePermission();
         adminPermission.forGroup = groupIri;
@@ -364,7 +364,7 @@ export class AppComponent implements OnInit {
 
     getDefaultObjectAccessPermissions() {
 
-        const projectIri = 'http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ';
+        const projectIri = 'http://rdfh.ch/projects/0001';
 
         this.knoraApiConnection.admin.permissionsEndpoint.getDefaultObjectAccessPermissions(projectIri).subscribe(
             (res: ApiResponseData<DefaultObjectAccessPermissionsResponse>) => {
@@ -389,7 +389,7 @@ export class AppComponent implements OnInit {
         permission2.additionalInformation = 'http://www.knora.org/ontology/knora-admin#KnownUser';
 
         const groupIri = 'http://rdfh.ch/groups/0001/thing-searcher';
-        const projectIri = 'http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ';
+        const projectIri = 'http://rdfh.ch/projects/0001';
 
         const adminPermission = new CreateDefaultObjectAccessPermission();
         adminPermission.forGroup = groupIri;
@@ -502,7 +502,7 @@ export class AppComponent implements OnInit {
     }
 
     getAnythingOntologies() {
-        this.knoraApiConnection.v2.onto.getOntologiesByProjectIri('http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ').subscribe(
+        this.knoraApiConnection.v2.onto.getOntologiesByProjectIri('http://rdfh.ch/projects/0001').subscribe(
             (response: OntologiesMetadata) => {
                 console.log('anythingOntologies ', response);
                 this.anythingOntologies = response;
@@ -528,7 +528,7 @@ export class AppComponent implements OnInit {
         const createOntology = new CreateOntology();
         createOntology.label = 'Test Ontology';
         createOntology.name = 'testonto';
-        createOntology.attachedToProject = 'http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ';
+        createOntology.attachedToProject = 'http://rdfh.ch/projects/0001';
         this.knoraApiConnection.v2.onto.createOntology(createOntology).subscribe(
             (onto: OntologyMetadata) => {
                 this.ontologyMeta = onto;
@@ -1135,7 +1135,7 @@ export class AppComponent implements OnInit {
 
         createResource.type = 'http://0.0.0.0:3333/ontology/0001/anything/v2#Thing';
 
-        createResource.attachedToProject = 'http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ';
+        createResource.attachedToProject = 'http://rdfh.ch/projects/0001';
 
         const boolVal = new CreateBooleanValue();
         boolVal.bool = true;
@@ -1396,7 +1396,7 @@ export class AppComponent implements OnInit {
 
         childNode.listIri = 'http://rdfh.ch/lists/0001/treeList01';
 
-        childNode.projectIri = 'http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ';
+        childNode.projectIri = 'http://rdfh.ch/projects/0001';
 
         this.knoraApiConnection.admin.listsEndpoint.updateChildNode(childNode).subscribe(
             (res: ApiResponseData<ChildNodeInfoResponse>) => {
@@ -1499,7 +1499,7 @@ export class AppComponent implements OnInit {
     createList(): void {
         const list = new CreateListRequest();
 
-        list.projectIri = 'http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ';
+        list.projectIri = 'http://rdfh.ch/projects/0001';
 
         const label = new StringLiteral();
         label.language = 'de';
@@ -1532,7 +1532,7 @@ export class AppComponent implements OnInit {
     createListChildNode(): void {
         const createRequest = new CreateChildNodeRequest();
         createRequest.parentNodeIri = 'http://rdfh.ch/lists/0001/notUsedList';
-        createRequest.projectIri = 'http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ';
+        createRequest.projectIri = 'http://rdfh.ch/projects/0001';
         createRequest.name = 'new child node';
         createRequest.labels = [{ 'value': 'New Child List Node Value', 'language': 'en' }];
         createRequest.comments = [{ 'value': 'New Child List Node Comment', 'language': 'en' }];
@@ -1559,7 +1559,7 @@ export class AppComponent implements OnInit {
     createListChildNodeAtPosition(): void {
         const createRequest = new CreateChildNodeRequest();
         createRequest.parentNodeIri = 'http://rdfh.ch/lists/0001/notUsedList';
-        createRequest.projectIri = 'http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ';
+        createRequest.projectIri = 'http://rdfh.ch/projects/0001';
         createRequest.name = 'new child node at position 1';
         createRequest.labels = [{ 'value': 'New Child List Node at Position 1 Value', 'language': 'en' }];
         createRequest.comments = [{ 'value': 'New Child List Node at Position 1 Comment', 'language': 'en' }];

@@ -194,7 +194,7 @@ describe("ResourcesEndpoint", () => {
 
             createResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
 
-            createResource.attachedToProject = "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ";
+            createResource.attachedToProject = "http://rdfh.ch/projects/0001";
 
             const boolVal = new CreateBooleanValue();
             boolVal.bool = true;
@@ -354,7 +354,7 @@ describe("ResourcesEndpoint", () => {
 
             createResource.label = "test thing";
 
-            createResource.attachedToProject = "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ";
+            createResource.attachedToProject = "http://rdfh.ch/projects/0001";
 
             createResource.attachedToUser = "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q";
 
@@ -398,7 +398,7 @@ describe("ResourcesEndpoint", () => {
 
             createResource.label = "test thing";
 
-            createResource.attachedToProject = "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ";
+            createResource.attachedToProject = "http://rdfh.ch/projects/0001";
 
             createResource.creationDate = "2019-01-09T15:45:54.502951Z";
 
@@ -442,7 +442,7 @@ describe("ResourcesEndpoint", () => {
 
             createResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
 
-            createResource.attachedToProject = "http://rdfh.ch/projects/Lw3FC39BSzCwvmdOaTyLqQ";
+            createResource.attachedToProject = "http://rdfh.ch/projects/0001";
 
             const props = {
                 "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean": []

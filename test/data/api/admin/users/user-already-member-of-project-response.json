@@ -1,3 +1,1 @@
-{
-    "error": "dsp.errors.BadRequestException: User http://rdfh.ch/users/normaluser is already member of project http://rdfh.ch/projects/MTvoB0EJRrqovzRkWXqfkA."
-}
+{"error":"dsp.errors.BadRequestException: User http://rdfh.ch/users/normaluser is already member of project http://rdfh.ch/projects/00FF."}

@@ -1,1 +1,1 @@
-{"message":"Application is in maintenance mode. Please retry later.","name":"AppState","severity":"non fatal","status":"unhealthy"}
+{"name":"AppState","severity":"non fatal","status":false,"message":"Application is in maintenance mode. Please retry later."}
