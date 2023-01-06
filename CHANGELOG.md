@@ -1,5 +1,17 @@
 # Changelog
 
+### [7.4.9](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.4.8...v7.4.9) (2023-01-06)
+
+
+### Bug Fixes
+
+* fix gravsearch results infinite loading ([#480](https://www.github.com/dasch-swiss/dsp-js-lib/issues/480)) ([68aa686](https://www.github.com/dasch-swiss/dsp-js-lib/commit/68aa686074403ea42a315b5006976a492f1f44b3))
+
+
+### Maintenance
+
+* **deps:** bump dsp-api to v26.0.0  ([#482](https://www.github.com/dasch-swiss/dsp-js-lib/issues/482)) ([4752306](https://www.github.com/dasch-swiss/dsp-js-lib/commit/4752306e021b29eacff47f98e814b07266d1fce6))
+
 ### [7.4.8](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.4.7...v7.4.8) (2022-12-07)
 
 
