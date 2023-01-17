@@ -8,6 +8,7 @@ describe("Test class KnoraApiConfig", () => {
             apiProtocol: "http" | "https";
             apiHost: string;
             apiPort?: number | null;
+            zioApiPort?: number | null;
             apiPath?: string;
             jsonWebToken?: string;
             logErrors?: boolean;
@@ -38,6 +39,7 @@ describe("Test class KnoraApiConfig", () => {
                     apiProtocol: "http",
                     apiHost: "localhost",
                     apiPort: 1234,
+                    zioApiPort: 4321,
                     apiPath: "/api",
                     jsonWebToken: "GAGA"
                 },
@@ -45,6 +47,7 @@ describe("Test class KnoraApiConfig", () => {
                     apiProtocol: "http",
                     apiHost: "localhost",
                     apiPort: 1234,
+                    zioApiPort: 4321,
                     apiPath: "/api",
                     jsonWebToken: "GAGA",
                     logErrors: false
@@ -53,15 +56,16 @@ describe("Test class KnoraApiConfig", () => {
                     apiProtocol: "http",
                     apiHost: "localhost",
                     apiPort: 1234,
+                    zioApiPort: 4321,
                     apiPath: "/api",
                     jsonWebToken: "GAGA",
                     logErrors: true
                 }
             ];
 
-            params.forEach(({apiProtocol, apiHost, apiPort, apiPath, jsonWebToken, logErrors}) => {
+            params.forEach(({apiProtocol, apiHost, apiPort, zioApiPort, apiPath, jsonWebToken, logErrors}) => {
 
-                const config = new KnoraApiConfig(apiProtocol, apiHost, apiPort, apiPath, jsonWebToken, logErrors);
+                const config = new KnoraApiConfig(apiProtocol, apiHost, apiPort, zioApiPort, apiPath, jsonWebToken, logErrors);
 
                 expect(config).toEqual(jasmine.any(KnoraApiConfig));
                 expect(config.apiProtocol).toEqual(apiProtocol);
@@ -77,6 +81,7 @@ describe("Test class KnoraApiConfig", () => {
                     expect(config.apiPort).toEqual(apiPort === undefined ? null : apiPort);
                 }
 
+                expect(config.zioApiPort).toEqual(zioApiPort === undefined ? null : zioApiPort)
                 expect(config.apiPath).toEqual(apiPath === undefined ? "" : apiPath);
                 expect(config.jsonWebToken).toEqual(jsonWebToken === undefined ? "" : jsonWebToken);
                 expect(config.logErrors).toEqual(logErrors === undefined ? false : logErrors);
@@ -94,6 +99,7 @@ describe("Test class KnoraApiConfig", () => {
                 apiProtocol: "http" | "https",
                 apiHost: string,
                 apiPort?: number | null,
+                zioApiPort?: number | null,
                 apiPath?: string,
                 jsonWebToken?: string,
                 logErrors?: boolean
@@ -121,21 +127,21 @@ describe("Test class KnoraApiConfig", () => {
                     result: "https://localhost"
                 },
                 {
-                    param: {apiProtocol: "https", apiHost: "domain.com", apiPort: 1234},
+                    param: {apiProtocol: "https", apiHost: "domain.com", apiPort: 1234, zioApiPort: 4321},
                     result: "https://domain.com:1234"
                 },
                 {
-                    param: {apiProtocol: "https", apiHost: "domain.com", apiPort: 1234, apiPath: "/api"},
+                    param: {apiProtocol: "https", apiHost: "domain.com", apiPort: 1234, zioApiPort: 4321, apiPath: "/api"},
                     result: "https://domain.com:1234/api"
                 },
                 {
-                    param: {apiProtocol: "https", apiHost: "domain.com", apiPort: 1234, apiPath: "/api"},
+                    param: {apiProtocol: "https", apiHost: "domain.com", apiPort: 1234, zioApiPort: 4321, apiPath: "/api"},
                     result: "https://domain.com:1234/api"
                 }
             ];
 
             data.forEach(({param, result}) => {
-                const config = new KnoraApiConfig(param.apiProtocol, param.apiHost, param.apiPort, param.apiPath);
+                const config = new KnoraApiConfig(param.apiProtocol, param.apiHost, param.apiPort, param.zioApiPort, param.apiPath);
                 expect(config.apiUrl).toBe(result);
             });
 

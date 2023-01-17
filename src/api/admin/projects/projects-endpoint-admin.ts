@@ -24,9 +24,10 @@ export class ProjectsEndpointAdmin extends Endpoint {
     /**
      * Returns a list of all projects.
      */
-    getProjects(): Observable<ApiResponseData<ProjectsResponse> | ApiResponseError> {
-    
-        return this.httpGet("").pipe(
+    getProjects(zioRequest?: boolean): Observable<ApiResponseData<ProjectsResponse> | ApiResponseError> {
+        if (zioRequest === undefined) zioRequest = false;
+        
+        return this.httpGet("", undefined, zioRequest).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectsResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
@@ -110,7 +111,7 @@ export class ProjectsEndpointAdmin extends Endpoint {
      */
     getProject(property: "iri" | "shortname" | "shortcode", value: string): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
     
-        return this.httpGet("/" + encodeURIComponent(property) + "/" + encodeURIComponent(value)).pipe(
+        return this.httpGet("/" + encodeURIComponent(property) + "/" + encodeURIComponent(value), undefined, false).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );

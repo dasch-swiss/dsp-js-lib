@@ -5,7 +5,7 @@ import { KnoraApiConnection } from "./knora-api-connection";
 
 describe("Test class KnoraApiConnection", () => {
 
-    const config = new KnoraApiConfig("http", "localhost");
+    const config = new KnoraApiConfig("http", "localhost", 4321);
 
     describe("Test method constructor()", () => {
 
