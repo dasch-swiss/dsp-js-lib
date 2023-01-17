@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProjectsResponse } from '@dasch-swiss/dsp-js';
 import {
     AdministrativePermissionResponse,
     AdministrativePermissionsResponse,
@@ -159,7 +160,7 @@ export class AppComponent implements OnInit {
     // canDoResponse: boolean;
 
     ngOnInit() {
-        const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
+        const config = new KnoraApiConfig('http', '0.0.0.0', 3333, 5555, undefined, undefined, true);
         this.knoraApiConnection = new KnoraApiConnection(config);
         // console.log(this.knoraApiConnection);
         this.userCache = new UserCache(this.knoraApiConnection);
@@ -244,6 +245,15 @@ export class AppComponent implements OnInit {
         this.userCache.getUser(iri).subscribe(
             (a: UserResponse) => console.log(a.user),
             b => console.error(b)
+        );
+    }
+
+    getProjects() {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjects(true).subscribe(
+            (response: ApiResponseData<ProjectsResponse>) => {
+                console.log(response);
+            },
+            err => console.error('Error:', err)
         );
     }
 
