@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectsResponse } from '@dasch-swiss/dsp-js';
+import { Project, ProjectResponse, ProjectsResponse } from '@dasch-swiss/dsp-js';
 import {
     AdministrativePermissionResponse,
     AdministrativePermissionsResponse,
@@ -255,6 +255,48 @@ export class AppComponent implements OnInit {
             },
             err => console.error('Error:', err)
         );
+    }
+
+    getProjectByIri(iri: string, zio: boolean) {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjectByIri(iri, zio).subscribe(
+            (response: ApiResponseData<ProjectResponse>) => {
+                console.log(response);
+            },
+            err => console.error('Error:', err)
+        );
+    }
+
+    getProjectByShortname(shortname: string, zio: boolean) {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjectByShortname(shortname, zio).subscribe(
+            (response: ApiResponseData<ProjectResponse>) => {
+                console.log(response);
+            },
+            err => console.error('Error:', err)
+        );
+    }
+
+    getProjectByShortcode(shortcode: string, zio: boolean) {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjectByShortcode(shortcode, zio).subscribe(
+            (response: ApiResponseData<ProjectResponse>) => {
+                console.log(response);
+            },
+            err => console.error('Error:', err)
+        );
+    }
+
+    createProject(zio: boolean) {
+        const project = new Project();
+        project.shortcode = "0123";
+        project.shortname = "testProject";
+        project.keywords = ["test"];
+        project.description = [{ language: 'en', value: 'test project'}];
+
+        this.knoraApiConnection.admin.projectsEndpoint.createProject(project, zio).subscribe(
+            (response: ApiResponseData<ProjectResponse>) => {
+                console.log(response);
+            },
+            err => console.error('Error:', err)
+        )
     }
 
     getPermissions() {

@@ -39,9 +39,10 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * 
      * @param project The project to be created.
      */
-    createProject(project: Project): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
-    
-        return this.httpPost("", this.jsonConvert.serializeObject(project)).pipe(
+    createProject(project: Project, zioRequest?: boolean): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
+        if (zioRequest === undefined) zioRequest = false;
+
+        return this.httpPost("", this.jsonConvert.serializeObject(project), undefined, undefined, zioRequest).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
@@ -109,9 +110,10 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * @param property The name of the property by which the project is identified.
      * @param value The value of the property by which the project is identified.
      */
-    getProject(property: "iri" | "shortname" | "shortcode", value: string): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
-    
-        return this.httpGet("/" + encodeURIComponent(property) + "/" + encodeURIComponent(value), undefined, false).pipe(
+    getProject(property: "iri" | "shortname" | "shortcode", value: string, zioRequest?: boolean): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
+        if (zioRequest === undefined) zioRequest = false;
+
+        return this.httpGet("/" + encodeURIComponent(property) + "/" + encodeURIComponent(value), undefined, zioRequest).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
@@ -123,9 +125,9 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * 
      * @param iri The IRI of the project.
      */
-    getProjectByIri(iri: string): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
+    getProjectByIri(iri: string, zioRequest?: boolean): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
     
-        return this.getProject("iri", iri);
+        return this.getProject("iri", iri, zioRequest);
     
     }
     
@@ -134,9 +136,9 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * 
      * @param shortname The shortname of the project.
      */
-    getProjectByShortname(shortname: string): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
+    getProjectByShortname(shortname: string, zioRequest?: boolean): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
     
-        return this.getProject("shortname", shortname);
+        return this.getProject("shortname", shortname, zioRequest);
     
     }
     
@@ -145,9 +147,9 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * 
      * @param shortcode The shortcode of the project.
      */
-    getProjectByShortcode(shortcode: string): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
+    getProjectByShortcode(shortcode: string, zioRequest?: boolean): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
     
-        return this.getProject("shortcode", shortcode);
+        return this.getProject("shortcode", shortcode , zioRequest);
     
     }
     
