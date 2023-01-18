@@ -248,8 +248,8 @@ export class AppComponent implements OnInit {
         );
     }
 
-    getProjects() {
-        this.knoraApiConnection.admin.projectsEndpoint.getProjects(true).subscribe(
+    getProjects(zio: boolean) {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjects(zio).subscribe(
             (response: ApiResponseData<ProjectsResponse>) => {
                 console.log(response);
             },
