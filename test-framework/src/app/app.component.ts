@@ -157,6 +157,8 @@ export class AppComponent implements OnInit {
     listNodePosition = 0;
     listNodeParentIri = '';
 
+    projectCount = 0;
+
     // canDoResponse: boolean;
 
     ngOnInit() {
@@ -252,6 +254,7 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.admin.projectsEndpoint.getProjects(zio).subscribe(
             (response: ApiResponseData<ProjectsResponse>) => {
                 console.log(response);
+                this.projectCount = response.body.projects.length;
             },
             err => console.error('Error:', err)
         );

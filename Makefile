@@ -34,7 +34,7 @@ npm-install: ## runs 'npm install'
 .PHONY: knora-stack
 knora-stack: ## runs the knora-stack
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack init-db-test
-	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-up
+	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-without-app
 	$(MAKE) -C $(CURRENT_DIR)/.tmp/knora-stack stack-logs-api-no-follow
 
 .PHONY: get-test-data-from-release 
