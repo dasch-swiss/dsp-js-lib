@@ -1,6 +1,6 @@
 {
     "knora-api:lastModificationDate": {
-        "@value": "2023-01-07T08:26:27.498398265Z",
+        "@value": "2023-01-21T08:23:52.165531525Z",
         "@type": "xsd:dateTimeStamp"
     },
     "rdfs:label": "test thing with modified label",
