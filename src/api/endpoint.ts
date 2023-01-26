@@ -233,6 +233,7 @@ export class Endpoint {
      * Sets ajax request
      * @param path string
      * @param method 'GET', 'POST', 'PUT', 'PATCH' or 'DELETE'
+     * @param zioRequest boolean
      * @param [body] any
      * @param [headers] IHeaderOptions
      * @returns AjaxRequest object
