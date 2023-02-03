@@ -1220,7 +1220,7 @@ describe("OntologiesEndpoint", () => {
             deleteCardinalitiesFromClassRequest.id = "http://0.0.0.0:3333/ontology/0001/freetest/v2";
 
             // update this timestamp after every release of dsp-api
-            deleteCardinalitiesFromClassRequest.lastModificationDate = "2023-01-20T08:31:20.811220803Z";
+            deleteCardinalitiesFromClassRequest.lastModificationDate = "2023-02-03T09:14:21.914610454Z";
 
             const cardinalityToRemove = new UpdateResourceClassCardinality();
 
@@ -1265,7 +1265,7 @@ describe("OntologiesEndpoint", () => {
             deleteCardinalitiesFromClassRequest.id = "http://0.0.0.0:3333/ontology/0001/freetest/v2";
 
             // update this timestamp after every release of dsp-api
-            deleteCardinalitiesFromClassRequest.lastModificationDate = "2023-01-20T08:31:20.811220803Z";
+            deleteCardinalitiesFromClassRequest.lastModificationDate = "2023-02-03T09:14:21.914610454Z";
 
             const cardinalityToRemove = new UpdateResourceClassCardinality();
 

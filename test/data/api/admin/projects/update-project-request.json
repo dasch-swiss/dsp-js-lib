@@ -1,5 +1,5 @@
 {
-    "shortname": "newproject",
+    "shortname": "updatedproject",
     "longname": "updated project longname",
     "description": [{"value": "updated project description", "language": "en"}],
     "keywords": ["updated", "keywords"],

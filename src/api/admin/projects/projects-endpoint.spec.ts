@@ -161,7 +161,7 @@ describe("ProjectsEndpoint", () => {
             const projectIri = "http://rdfh.ch/projects/00FF";
             const projectInfo = new UpdateProjectRequest();
 
-            projectInfo.shortname = "newproject";
+            projectInfo.shortname = "updatedproject";
             projectInfo.longname = "updated project longname";
 
             const description = new StringLiteral();
