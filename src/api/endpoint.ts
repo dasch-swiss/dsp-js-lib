@@ -65,11 +65,11 @@ export class Endpoint {
      *
      * @param path the relative URL for the request
      * @param headerOpts additional headers, if any.
+     * @param zioRequest optional boolean to specify whether or not to use the zio http port
      */
-    protected httpGet(path?: string, headerOpts?: IHeaderOptions, zioRequest?: boolean): Observable<AjaxResponse> {
+    protected httpGet(path?: string, headerOpts?: IHeaderOptions, zioRequest: boolean = false): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
-        if (zioRequest === undefined) zioRequest = false;
 
         return ajax(this.setAjaxRequest(path, "GET", zioRequest, undefined, this.constructHeader(undefined, headerOpts)))
             .pipe(
@@ -85,11 +85,11 @@ export class Endpoint {
      * @param body the body of the request, if any.
      * @param contentType content content type of body, if any.
      * @param headerOpts additional headers, if any.
+     * @param zioRequest optional boolean to specify whether or not to use the zio http port, defaults to false
      */
-    protected httpPost(path?: string, body?: any, contentType: "json" | "sparql" = "json", headerOpts?: IHeaderOptions, zioRequest?: boolean): Observable<AjaxResponse> {
+    protected httpPost(path?: string, body?: any, contentType: "json" | "sparql" = "json", headerOpts?: IHeaderOptions, zioRequest: boolean = false): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
-        if (zioRequest === undefined) zioRequest = false;
 
         return ajax(this.setAjaxRequest(path, "POST", zioRequest, body, this.constructHeader(contentType, headerOpts)))
             .pipe(
@@ -105,11 +105,11 @@ export class Endpoint {
      * @param body the body of the request
      * @param contentType content content type of body, if any.
      * @param headerOpts additional headers, if any.
+     * @param zioRequest optional boolean to specify whether or not to use the zio http port, defaults to false
      */
-    protected httpPut(path?: string, body?: any, contentType: "json" = "json", headerOpts?: IHeaderOptions, zioRequest?: boolean): Observable<AjaxResponse> {
+    protected httpPut(path?: string, body?: any, contentType: "json" = "json", headerOpts?: IHeaderOptions, zioRequest: boolean = false): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
-        if (zioRequest === undefined) zioRequest = false;
 
         return ajax(this.setAjaxRequest(path, "PUT", zioRequest, body, this.constructHeader(contentType, headerOpts)))
             .pipe(
@@ -125,11 +125,11 @@ export class Endpoint {
      * @param body the body of the request
      * @param contentType content content type of body, if any.
      * @param headerOpts additional headers, if any.
+     * @param zioRequest optional boolean to specify whether or not to use the zio http port, defaults to false
      */
-    protected httpPatch(path?: string, body?: any, contentType: "json" = "json", headerOpts?: IHeaderOptions, zioRequest?: boolean): Observable<AjaxResponse> {
+    protected httpPatch(path?: string, body?: any, contentType: "json" = "json", headerOpts?: IHeaderOptions, zioRequest: boolean = false): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
-        if (zioRequest === undefined) zioRequest = false;
 
         return ajax(this.setAjaxRequest(path, "PATCH", zioRequest, body, this.constructHeader(contentType, headerOpts)))
             .pipe(
@@ -143,11 +143,11 @@ export class Endpoint {
      *
      * @param path the relative URL for the request.
      * @param headerOpts additional headers, if any.
+     * @param zioRequest optional boolean to specify whether or not to use the zio http port, defaults to false
      */
-    protected httpDelete(path?: string, headerOpts?: IHeaderOptions, zioRequest?: boolean): Observable<AjaxResponse> {
+    protected httpDelete(path?: string, headerOpts?: IHeaderOptions, zioRequest: boolean = false): Observable<AjaxResponse> {
 
         if (path === undefined) path = "";
-        if (zioRequest === undefined) zioRequest = false;
 
         return ajax(this.setAjaxRequest(path, "DELETE", zioRequest, undefined, this.constructHeader(undefined, headerOpts)))
             .pipe(
