@@ -19,7 +19,7 @@ describe("OntologyCache", () => {
 
     describe("successful HTTP request", () => {
 
-        const config = new KnoraApiConfig("http", "0.0.0.0", 3333, "", "", true);
+        const config = new KnoraApiConfig("http", "0.0.0.0", 3333, 5555, "", "", true);
         let knoraApiConnection: KnoraApiConnection;
 
         let getOntoSpy: jasmine.Spy;
@@ -273,7 +273,7 @@ describe("OntologyCache", () => {
 
     describe("unsuccessful HTTP request", () => {
 
-        const config = new KnoraApiConfig("http", "0.0.0.0", 3333, "", "", true);
+        const config = new KnoraApiConfig("http", "0.0.0.0", 3333, 5555, "", "", true);
         let knoraApiConnection: KnoraApiConnection;
 
         let getOntoSpy: jasmine.Spy;

@@ -51,6 +51,20 @@ describe('workspace-project App', () => {
 
   });
 
+  it('request projects', () => {
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+
+    const button = page.getEle('div#projects button.get-projects');
+    button.click();
+
+    const projectCount = page.getEle('div#projects span.project-count');
+    expect(projectCount.getText()).toEqual('8');
+  })
+
   it('request a project\'s permissions', () => {
 
     page.navigateTo();

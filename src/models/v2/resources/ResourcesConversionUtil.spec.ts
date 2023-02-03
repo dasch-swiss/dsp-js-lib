@@ -25,7 +25,7 @@ import { ReadUriValue } from "./values/read/read-uri-value";
 
 describe("ResourcesConversionUtil", () => {
 
-    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, "", true);
+    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, 5555, undefined, "", true);
     let knoraApiConnection: KnoraApiConnection;
 
     let getResourceClassDefinitionFromCacheSpy: jasmine.Spy;

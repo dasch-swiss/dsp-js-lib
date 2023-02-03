@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Project, ProjectResponse, ProjectsResponse } from '@dasch-swiss/dsp-js';
 import {
     AdministrativePermissionResponse,
     AdministrativePermissionsResponse,
@@ -156,10 +157,12 @@ export class AppComponent implements OnInit {
     listNodePosition = 0;
     listNodeParentIri = '';
 
+    projectCount = 0;
+
     // canDoResponse: boolean;
 
     ngOnInit() {
-        const config = new KnoraApiConfig('http', '0.0.0.0', 3333, undefined, undefined, true);
+        const config = new KnoraApiConfig('http', '0.0.0.0', 3333, 5555, undefined, undefined, true);
         this.knoraApiConnection = new KnoraApiConnection(config);
         // console.log(this.knoraApiConnection);
         this.userCache = new UserCache(this.knoraApiConnection);
@@ -245,6 +248,58 @@ export class AppComponent implements OnInit {
             (a: UserResponse) => console.log(a.user),
             b => console.error(b)
         );
+    }
+
+    getProjects(zio: boolean) {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjects(zio).subscribe(
+            (response: ApiResponseData<ProjectsResponse>) => {
+                console.log(response);
+                this.projectCount = response.body.projects.length;
+            },
+            err => console.error('Error:', err)
+        );
+    }
+
+    getProjectByIri(iri: string, zio: boolean) {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjectByIri(iri, zio).subscribe(
+            (response: ApiResponseData<ProjectResponse>) => {
+                console.log(response);
+            },
+            err => console.error('Error:', err)
+        );
+    }
+
+    getProjectByShortname(shortname: string, zio: boolean) {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjectByShortname(shortname, zio).subscribe(
+            (response: ApiResponseData<ProjectResponse>) => {
+                console.log(response);
+            },
+            err => console.error('Error:', err)
+        );
+    }
+
+    getProjectByShortcode(shortcode: string, zio: boolean) {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjectByShortcode(shortcode, zio).subscribe(
+            (response: ApiResponseData<ProjectResponse>) => {
+                console.log(response);
+            },
+            err => console.error('Error:', err)
+        );
+    }
+
+    createProject(zio: boolean) {
+        const project = new Project();
+        project.shortcode = "0123";
+        project.shortname = "testProject";
+        project.keywords = ["test"];
+        project.description = [{ language: 'en', value: 'test project'}];
+
+        this.knoraApiConnection.admin.projectsEndpoint.createProject(project, zio).subscribe(
+            (response: ApiResponseData<ProjectResponse>) => {
+                console.log(response);
+            },
+            err => console.error('Error:', err)
+        )
     }
 
     getPermissions() {

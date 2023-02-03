@@ -122,8 +122,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "knora-api-js-lib-test:serve",
-            "port": 4201
+            "devServerTarget": "knora-api-js-lib-test:serve"
           },
           "configurations": {
             "production": {
