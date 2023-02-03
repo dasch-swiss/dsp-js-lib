@@ -1,5 +1,17 @@
 # Changelog
 
+## [7.5.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.4.10...v7.5.0) (2023-02-03)
+
+
+### Maintenance
+
+* **deps:** bump api version to 26.2.0 ([#491](https://www.github.com/dasch-swiss/dsp-js-lib/issues/491)) ([d3f84e7](https://www.github.com/dasch-swiss/dsp-js-lib/commit/d3f84e798b52587e1c24424dc2816e7def6fe44d))
+
+
+### Enhancements
+
+* **config:** extend api config to use a second port (DEV-1609) ([#485](https://www.github.com/dasch-swiss/dsp-js-lib/issues/485)) ([093dc82](https://www.github.com/dasch-swiss/dsp-js-lib/commit/093dc822cc6c00e7e6388a31f62675799b43464a))
+
 ### [7.4.10](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.4.9...v7.4.10) (2023-01-20)
 
 
