@@ -2,7 +2,7 @@
   "@id" : "http://rdfh.ch/0001/a-thing",
   "@type" : "anything:Thing",
   "anything:hasGeometry" : {
-    "@id" : "http://rdfh.ch/0001/a-thing/values/6zDg0UVoSm26G6I9CBe7Ew",
+    "@id" : "http://rdfh.ch/0001/a-thing/values/ENpJA92mQ1iaL9E3Was1Gw",
     "@type" : "knora-api:GeomValue",
     "knora-api:geometryValueAsGeometry" : "{\"status\":\"active\",\"lineColor\":\"#ff3344\",\"lineWidth\":2,\"points\":[{\"x\":0.08098591549295775,\"y\":0.16741071428571427},{\"x\":0.7394366197183099,\"y\":0.7299107142857143}],\"type\":\"rectangle\",\"original_index\":0}"
   },
