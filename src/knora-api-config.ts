@@ -25,7 +25,7 @@ export class KnoraApiConfig {
     get zioApiUrl(): string {
         return (
             (this.apiProtocol + "://" + this.apiHost) +
-            (this.apiPort !== null ? ":" + this.zioApiPort : "") +
+            (this.zioApiPort !== null ? ":" + this.zioApiPort : ":5555") +
             this.apiPath
         );
     }
@@ -33,8 +33,8 @@ export class KnoraApiConfig {
     /**
      * @param apiProtocol the protocol of the API (http or https)
      * @param apiHost the DSP-API base URL
-     * @param zioApiPort the port of ZIO DSP-API endpoints
      * @param apiPort the port of DSP-API
+     * @param zioApiPort the port of ZIO DSP-API endpoints
      * @param apiPath the base path following host and port, if any.
      * @param jsonWebToken token to identify the user
      * @param logErrors determines whether errors should be logged to the console
