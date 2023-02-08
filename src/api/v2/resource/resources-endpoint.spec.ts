@@ -32,7 +32,7 @@ import { CreateUriValue } from "../../../models/v2/resources/values/create/creat
 
 describe("ResourcesEndpoint", () => {
 
-    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, 5555, undefined, "", true);
+    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, "", true);
     let knoraApiConnection: KnoraApiConnection;
 
     let getResourceClassDefinitionFromCacheSpy: jasmine.Spy;

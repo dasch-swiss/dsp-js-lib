@@ -12,7 +12,7 @@ import { ApiResponseError } from "../../../models/api-response-error";
 
 describe("UsersEndpoint", () => {
 
-    const config = new KnoraApiConfig("http", "localhost", 3333, 5555, undefined, undefined, true);
+    const config = new KnoraApiConfig("http", "localhost", 3333, undefined, undefined, true);
     const knoraApiConnection = new KnoraApiConnection(config);
 
     beforeEach(() => {

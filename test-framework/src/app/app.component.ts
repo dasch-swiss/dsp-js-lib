@@ -162,7 +162,15 @@ export class AppComponent implements OnInit {
     // canDoResponse: boolean;
 
     ngOnInit() {
-        const config = new KnoraApiConfig('http', '0.0.0.0', 3333, 5555, undefined, undefined, true);
+        const config = new KnoraApiConfig(
+            'http',
+            '0.0.0.0',
+            3333,
+            undefined,
+            undefined,
+            true,
+            ":5555",
+            ['/admin/projects']);
         this.knoraApiConnection = new KnoraApiConnection(config);
         // console.log(this.knoraApiConnection);
         this.userCache = new UserCache(this.knoraApiConnection);
@@ -250,8 +258,8 @@ export class AppComponent implements OnInit {
         );
     }
 
-    getProjects(zio: boolean) {
-        this.knoraApiConnection.admin.projectsEndpoint.getProjects(zio).subscribe(
+    getProjects() {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjects().subscribe(
             (response: ApiResponseData<ProjectsResponse>) => {
                 console.log(response);
                 this.projectCount = response.body.projects.length;
@@ -260,8 +268,8 @@ export class AppComponent implements OnInit {
         );
     }
 
-    getProjectByIri(iri: string, zio: boolean) {
-        this.knoraApiConnection.admin.projectsEndpoint.getProjectByIri(iri, zio).subscribe(
+    getProjectByIri(iri: string) {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjectByIri(iri).subscribe(
             (response: ApiResponseData<ProjectResponse>) => {
                 console.log(response);
             },
@@ -269,8 +277,8 @@ export class AppComponent implements OnInit {
         );
     }
 
-    getProjectByShortname(shortname: string, zio: boolean) {
-        this.knoraApiConnection.admin.projectsEndpoint.getProjectByShortname(shortname, zio).subscribe(
+    getProjectByShortname(shortname: string) {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjectByShortname(shortname).subscribe(
             (response: ApiResponseData<ProjectResponse>) => {
                 console.log(response);
             },
@@ -278,8 +286,8 @@ export class AppComponent implements OnInit {
         );
     }
 
-    getProjectByShortcode(shortcode: string, zio: boolean) {
-        this.knoraApiConnection.admin.projectsEndpoint.getProjectByShortcode(shortcode, zio).subscribe(
+    getProjectByShortcode(shortcode: string) {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjectByShortcode(shortcode).subscribe(
             (response: ApiResponseData<ProjectResponse>) => {
                 console.log(response);
             },
@@ -287,14 +295,14 @@ export class AppComponent implements OnInit {
         );
     }
 
-    createProject(zio: boolean) {
+    createProject() {
         const project = new Project();
         project.shortcode = "0123";
         project.shortname = "testProject";
         project.keywords = ["test"];
         project.description = [{ language: 'en', value: 'test project'}];
 
-        this.knoraApiConnection.admin.projectsEndpoint.createProject(project, zio).subscribe(
+        this.knoraApiConnection.admin.projectsEndpoint.createProject(project).subscribe(
             (response: ApiResponseData<ProjectResponse>) => {
                 console.log(response);
             },

@@ -28,12 +28,11 @@
         </div>
         <div id="projects">
             <h4>Projects</h4>
-            <button class="get-projects" (click)="getProjects(true)">All projects zio</button> <br /><br />
-            <button (click)="getProjects(false)">All projects</button> <br /><br />
-            <button (click)="getProjectByIri('http://rdfh.ch/projects/0001', true)">Get anything project by IRI zio</button> <br /><br />
-            <button (click)="getProjectByShortname('anything', true)">Get anything project by shortname zio</button> <br /><br />
-            <button (click)="getProjectByShortcode('0001', true)">Get anything project by shortcode zio</button> <br /><br />
-            <button (click)="createProject(true)">Create test project zio</button>
+            <button (click)="getProjects()">All projects</button> <br /><br />
+            <button (click)="getProjectByIri('http://rdfh.ch/projects/0001')">Get anything project by IRI</button> <br /><br />
+            <button (click)="getProjectByShortname('anything')">Get anything project by shortname</button> <br /><br />
+            <button (click)="getProjectByShortcode('0001')">Get anything project by shortcode</button> <br /><br />
+            <button (click)="createProject()">Create test project</button>
             <div>
                 Project Info:
                 <div>Project count: <span class="project-count">{{projectCount}}</span></div>
