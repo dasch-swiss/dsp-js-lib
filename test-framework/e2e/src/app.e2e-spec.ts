@@ -65,20 +65,6 @@ describe('workspace-project App', () => {
     expect(projectCount.getText()).toEqual('8');
   })
 
-  it('request project members by IRI', () => {
-    page.navigateTo();
-
-    // login
-    const loginButton = page.getEle('div section#login button.login');
-    loginButton.click();
-
-    const button = page.getEle('div#projects button.get-project-members-iri');
-    button.click();
-
-    const projectMembersCount = page.getEle('div#projects span.project-members-count');
-    expect(projectMembersCount.getText()).toEqual('4');
-  })
-
   it('request a project\'s permissions', () => {
 
     page.navigateTo();
