@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Project, ProjectResponse, ProjectsResponse } from '@dasch-swiss/dsp-js';
+import { KeywordsResponse, MembersResponse, Project, ProjectResponse, ProjectRestrictedViewSettingsResponse, ProjectsResponse, UpdateProjectRequest } from '@dasch-swiss/dsp-js';
 import {
     AdministrativePermissionResponse,
     AdministrativePermissionsResponse,
@@ -157,7 +157,14 @@ export class AppComponent implements OnInit {
     listNodePosition = 0;
     listNodeParentIri = '';
 
+
+    allProjectsKeywordsCount = 0;
+
     projectCount = 0;
+    projectInfo = '';
+    projectKeywordsCount = 0;
+    projectMembersCount = 0;
+    projectAdminMembersCount = 0;
 
     // canDoResponse: boolean;
 
@@ -169,7 +176,7 @@ export class AppComponent implements OnInit {
             undefined,
             undefined,
             true,
-            ":5555",
+            ':5555',
             ['/admin/projects']);
         this.knoraApiConnection = new KnoraApiConnection(config);
         // console.log(this.knoraApiConnection);
@@ -272,6 +279,7 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.admin.projectsEndpoint.getProjectByIri(iri).subscribe(
             (response: ApiResponseData<ProjectResponse>) => {
                 console.log(response);
+                this.projectInfo = response.body.project.id;
             },
             err => console.error('Error:', err)
         );
@@ -281,6 +289,7 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.admin.projectsEndpoint.getProjectByShortname(shortname).subscribe(
             (response: ApiResponseData<ProjectResponse>) => {
                 console.log(response);
+                this.projectInfo = response.body.project.shortname;
             },
             err => console.error('Error:', err)
         );
@@ -290,21 +299,158 @@ export class AppComponent implements OnInit {
         this.knoraApiConnection.admin.projectsEndpoint.getProjectByShortcode(shortcode).subscribe(
             (response: ApiResponseData<ProjectResponse>) => {
                 console.log(response);
+                this.projectInfo = response.body.project.shortcode;
             },
             err => console.error('Error:', err)
         );
     }
 
+    getProjectKeywords(iri: string) {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjectKeywords(iri).subscribe(
+            (response: ApiResponseData<KeywordsResponse>) => {
+                console.log(response);
+                this.projectKeywordsCount = response.body.keywords.length;
+            },
+            err => console.error('Error:', err)
+        )
+    }
+
+    getProjectMembersByIri(iri: string) {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjectMembersByIri(iri).subscribe(
+            (response: ApiResponseData<MembersResponse>) => {
+                console.log(response);
+                this.projectMembersCount = response.body.members.length;
+            },
+            err => console.log('Error: ', err)
+        )
+    }
+
+    getProjectMembersByShortname(shortname: string) {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjectMembersByShortname(shortname).subscribe(
+            (response: ApiResponseData<MembersResponse>) => {
+                console.log(response);
+                this.projectMembersCount = response.body.members.length;
+            },
+            err => console.log('Error: ', err)
+        )
+    }
+
+    getProjectMembersByShortcode(shortcode: string) {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjectMembersByShortcode(shortcode).subscribe(
+            (response: ApiResponseData<MembersResponse>) => {
+                console.log(response);
+                this.projectMembersCount = response.body.members.length;
+            },
+            err => console.log('Error: ', err)
+        )
+    }
+
+    getProjectAdminMembersByIri(iri: string) {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjectAdminMembersByIri(iri).subscribe(
+            (response: ApiResponseData<MembersResponse>) => {
+                console.log(response);
+                this.projectAdminMembersCount = response.body.members.length;
+            },
+            err => console.log('Error: ', err)
+        )
+    }
+
+    getProjectAdminMembersByShortname(shortname: string) {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjectAdminMembersByShortname(shortname).subscribe(
+            (response: ApiResponseData<MembersResponse>) => {
+                console.log(response);
+                this.projectAdminMembersCount = response.body.members.length;
+            },
+            err => console.log('Error: ', err)
+        )
+    }
+
+    getProjectAdminMembersByShortcode(shortcode: string) {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjectAdminMembersByShortcode(shortcode).subscribe(
+            (response: ApiResponseData<MembersResponse>) => {
+                console.log(response);
+                this.projectAdminMembersCount = response.body.members.length;
+            },
+            err => console.log('Error: ', err)
+        )
+    }
+
+    getProjectRestrictedViewSettingByIri(iri: string) {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjectRestrictedViewSettingByIri(iri).subscribe(
+            (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
+                console.log(response);
+            },
+            err => console.log('Error: ', err)
+        )
+    }
+
+    getProjectRestrictedViewSettingByShortname(shortname: string) {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjectRestrictedViewSettingByShortname(shortname).subscribe(
+            (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
+                console.log(response);
+            },
+            err => console.log('Error: ', err)
+        )
+    }
+
+    getProjectRestrictedViewSettingByShortcode(shortcode: string) {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjectRestrictedViewSettingByShortcode(shortcode).subscribe(
+            (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
+                console.log(response);
+            },
+            err => console.log('Error: ', err)
+        )
+    }
+
+    updateProject() {
+        const upr = new UpdateProjectRequest();
+        upr.description = [{ language: 'en', value: 'updated anything project description'}];
+
+        this.knoraApiConnection.admin.projectsEndpoint.updateProject('http://rdfh.ch/projects/0001', upr).subscribe(
+            (response: ApiResponseData<ProjectResponse>) => {
+                console.log(response);
+            },
+            err => console.error('Error:', err)
+        )
+    }
+
+    getAllProjectsKeywords() {
+        this.knoraApiConnection.admin.projectsEndpoint.getKeywords().subscribe(
+            (response: ApiResponseData<KeywordsResponse>) => {
+                console.log(response);
+                this.allProjectsKeywordsCount = response.body.keywords.length;
+            },
+            err => console.error('Error:', err)
+        )
+    }
+
     createProject() {
         const project = new Project();
-        project.shortcode = "0123";
-        project.shortname = "testProject";
-        project.keywords = ["test"];
+        project.shortcode = '4567';
+        project.shortname = 'testProject';
+        project.longname = 'Test Project 4567'
+        project.keywords = ['test'];
         project.description = [{ language: 'en', value: 'test project'}];
 
         this.knoraApiConnection.admin.projectsEndpoint.createProject(project).subscribe(
             (response: ApiResponseData<ProjectResponse>) => {
                 console.log(response);
+            },
+            err => console.error('Error:', err)
+        )
+    }
+
+    deleteProject() {
+        this.knoraApiConnection.admin.projectsEndpoint.getProjectByShortcode('4567').subscribe(
+            (response: ApiResponseData<ProjectResponse>) => {
+                const projectIri = response.body.project.id;
+
+                this.knoraApiConnection.admin.projectsEndpoint.deleteProject(projectIri).subscribe(
+                    (response: ApiResponseData<ProjectResponse>) => {
+                        console.log(response);
+                    },
+                    err => console.error('Error:', err)
+                )
             },
             err => console.error('Error:', err)
         )

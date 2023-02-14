@@ -28,14 +28,43 @@
         </div>
         <div id="projects">
             <h4>Projects</h4>
+            <!-- get projects/project -->
             <button class="get-projects" (click)="getProjects()">All projects</button> <br /><br />
-            <button (click)="getProjectByIri('http://rdfh.ch/projects/0001')">Get anything project by IRI zio</button> <br /><br />
-            <button (click)="getProjectByShortname('anything')">Get anything project by shortname zio</button> <br /><br />
-            <button (click)="getProjectByShortcode('0001')">Get anything project by shortcode zio</button> <br /><br />
-            <button (click)="createProject()">Create test project zio</button>
+            <button (click)="getProjectByIri('http://rdfh.ch/projects/0001')">Get Anything project by IRI</button> <br /><br />
+            <button (click)="getProjectByShortname('anything')">Get Anything project by shortname</button> <br /><br />
+            <button (click)="getProjectByShortcode('0001')">Get Anything project by shortcode</button> <br /><br />
+
+            <!-- get keywords -->
+            <button (click)="getProjectKeywords('http://rdfh.ch/projects/0001')">Get Anything project keywords</button> <br /><br />
+            <button (click)="getAllProjectsKeywords()">Get all projects keywords</button> <br /><br />
+
+            <!-- get project members -->
+            <button class="get-project-members-iri" (click)="getProjectMembersByIri('http://rdfh.ch/projects/0001')">Get Anything project members by IRI</button> <br /><br />
+            <button (click)="getProjectMembersByShortname('anything')">Get Anything project members by shortname</button> <br /><br />
+            <button (click)="getProjectMembersByShortcode('0001')">Get Anything project members by shortcode</button> <br /><br />
+
+            <!-- get project admin members -->
+            <button (click)="getProjectAdminMembersByIri('http://rdfh.ch/projects/0001')">Get Anything project admin members by IRI</button> <br /><br />
+            <button (click)="getProjectAdminMembersByShortname('anything')">Get Anything project admin members by shortname</button> <br /><br />
+            <button (click)="getProjectAdminMembersByShortcode('0001')">Get Anything project admin members by shortcode</button> <br /><br />
+
+            <!-- get project restricted view settings -->
+            <button (click)="getProjectRestrictedViewSettingByIri('http://rdfh.ch/projects/0001')">Get Anything project restricted view setting by IRI</button> <br /><br />
+            <button (click)="getProjectRestrictedViewSettingByShortname('anything')">Get Anything project restricted view setting by shortname</button> <br /><br />
+            <button (click)="getProjectRestrictedViewSettingByShortcode('0001')">Get Anything project restricted view setting by shortcode</button> <br /><br />
+
+            <!-- crud operations -->
+            <button (click)="updateProject()">Update Anything project description</button><br /><br />
+            <button (click)="createProject()">Create test project</button> <br /><br />
+            <button (click)="deleteProject()">Delete test project</button> <br /><br />
             <div>
-                Project Info:
+                Project:
                 <div>Project count: <span class="project-count">{{projectCount}}</span></div>
+                <div>Project info: <span class="project-info">{{projectInfo}}</span></div>
+                <div>Project keywords count: <span class="project-keywords-count">{{projectKeywordsCount}}</span></div>
+                <div>All projects keywords count: <span class="all-projects-keywords-count">{{allProjectsKeywordsCount}}</span></div>
+                <div>Project members count: <span class="project-members-count">{{projectMembersCount}}</span></div>
+                <div>Project admin members count: <span class="project-admin-members-count">{{projectAdminMembersCount}}</span></div>
             </div>
         </div>
         <div id="permissions">
