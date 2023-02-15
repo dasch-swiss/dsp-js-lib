@@ -6,7 +6,7 @@ import { ListNodeV2 } from "../models/v2/lists/list-node-v2";
 
 describe("ListNodeV2Cache", () => {
 
-    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, "", "", true);
+    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, 5555, "", "", true);
     let knoraApiConnection: KnoraApiConnection;
 
     let getNodeSpy: jasmine.Spy;

@@ -8,11 +8,10 @@ describe("Test class KnoraApiConfig", () => {
             apiProtocol: "http" | "https";
             apiHost: string;
             apiPort?: number | null;
+            zioApiPort?: number | null;
             apiPath?: string;
             jsonWebToken?: string;
             logErrors?: boolean;
-            zioPrefix?: "/zio" | ":5555";
-            zioEndpoints?: string[]
         }
 
         it("should verify parameters", () => {
@@ -40,36 +39,33 @@ describe("Test class KnoraApiConfig", () => {
                     apiProtocol: "http",
                     apiHost: "localhost",
                     apiPort: 1234,
+                    zioApiPort: 4321,
                     apiPath: "/api",
-                    jsonWebToken: "GAGA",
-                    zioPrefix: "/zio",
-                    zioEndpoints: ['/admin/projects'],
+                    jsonWebToken: "GAGA"
                 },
                 {
                     apiProtocol: "http",
                     apiHost: "localhost",
                     apiPort: 1234,
+                    zioApiPort: 4321,
                     apiPath: "/api",
                     jsonWebToken: "GAGA",
-                    logErrors: false,
-                    zioPrefix: ":5555",
-                    zioEndpoints: ['/admin/projects'],
+                    logErrors: false
                 },
                 {
                     apiProtocol: "http",
                     apiHost: "localhost",
                     apiPort: 1234,
+                    zioApiPort: 4321,
                     apiPath: "/api",
                     jsonWebToken: "GAGA",
-                    logErrors: true,
-                    zioPrefix: ":5555",
-                    zioEndpoints: ['/admin/projects'],
+                    logErrors: true
                 }
             ];
 
-            params.forEach(({apiProtocol, apiHost, apiPort, apiPath, jsonWebToken, logErrors, zioPrefix, zioEndpoints}) => {
+            params.forEach(({apiProtocol, apiHost, apiPort, zioApiPort, apiPath, jsonWebToken, logErrors}) => {
 
-                const config = new KnoraApiConfig(apiProtocol, apiHost, apiPort, apiPath, jsonWebToken, logErrors , zioPrefix, zioEndpoints);
+                const config = new KnoraApiConfig(apiProtocol, apiHost, apiPort, zioApiPort, apiPath, jsonWebToken, logErrors);
 
                 expect(config).toEqual(jasmine.any(KnoraApiConfig));
                 expect(config.apiProtocol).toEqual(apiProtocol);
@@ -85,11 +81,10 @@ describe("Test class KnoraApiConfig", () => {
                     expect(config.apiPort).toEqual(apiPort === undefined ? null : apiPort);
                 }
 
+                expect(config.zioApiPort).toEqual(zioApiPort === undefined ? null : zioApiPort)
                 expect(config.apiPath).toEqual(apiPath === undefined ? "" : apiPath);
                 expect(config.jsonWebToken).toEqual(jsonWebToken === undefined ? "" : jsonWebToken);
                 expect(config.logErrors).toEqual(logErrors === undefined ? false : logErrors);
-                expect(config.zioPrefix).toEqual(zioPrefix === undefined ? "/zio" : zioPrefix)
-                expect(config.zioEndpoints).toEqual(zioEndpoints === undefined ? [] : zioEndpoints)
 
             });
 
@@ -104,7 +99,10 @@ describe("Test class KnoraApiConfig", () => {
                 apiProtocol: "http" | "https",
                 apiHost: string,
                 apiPort?: number | null,
-                apiPath?: string
+                zioApiPort?: number | null,
+                apiPath?: string,
+                jsonWebToken?: string,
+                logErrors?: boolean
             };
             result: string;
         }
@@ -129,64 +127,22 @@ describe("Test class KnoraApiConfig", () => {
                     result: "https://localhost"
                 },
                 {
-                    param: {apiProtocol: "https", apiHost: "domain.com", apiPort: 1234},
+                    param: {apiProtocol: "https", apiHost: "domain.com", apiPort: 1234, zioApiPort: 4321},
                     result: "https://domain.com:1234"
                 },
                 {
-                    param: {apiProtocol: "https", apiHost: "domain.com", apiPort: 1234, apiPath: "/api"},
+                    param: {apiProtocol: "https", apiHost: "domain.com", apiPort: 1234, zioApiPort: 4321, apiPath: "/api"},
                     result: "https://domain.com:1234/api"
                 },
                 {
-                    param: {apiProtocol: "https", apiHost: "domain.com", apiPort: 1234, apiPath: "/api"},
+                    param: {apiProtocol: "https", apiHost: "domain.com", apiPort: 1234, zioApiPort: 4321, apiPath: "/api"},
                     result: "https://domain.com:1234/api"
                 }
             ];
 
             data.forEach(({param, result}) => {
-                const config = new KnoraApiConfig(param.apiProtocol, param.apiHost, param.apiPort, param.apiPath);
+                const config = new KnoraApiConfig(param.apiProtocol, param.apiHost, param.apiPort, param.zioApiPort, param.apiPath);
                 expect(config.apiUrl).toBe(result);
-            });
-
-        });
-
-    });
-
-    describe("Test property zioApiUrl", () => {
-
-        interface IZioApiUrlData {
-            param: {
-                apiProtocol: "http" | "https",
-                apiHost: string,
-                zioPrefix?: "/zio" | ":5555",
-                apiPath?: string,
-            };
-            result: string;
-        }
-
-        it("should return correct value", () => {
-
-            const data: IZioApiUrlData[] = [
-                {
-                    param: {apiProtocol: "http", apiHost: "domain.com", zioPrefix: "/zio"},
-                    result: "http://domain.com/zio"
-                },
-                {
-                    param: {apiProtocol: "http", apiHost: "domain.com", zioPrefix: ":5555"},
-                    result: "http://domain.com:5555"
-                },
-                {
-                    param: {apiProtocol: "http", apiHost: "domain.com", zioPrefix: "/zio", apiPath: "/api"},
-                    result: "http://domain.com/zio/api"
-                },
-                {
-                    param: {apiProtocol: "http", apiHost: "domain.com", zioPrefix: ":5555", apiPath: "/api"},
-                    result: "http://domain.com:5555/api"
-                }
-            ];
-
-            data.forEach(({param, result}) => {
-                const config = new KnoraApiConfig(param.apiProtocol, param.apiHost, null, param.apiPath, undefined, false, param.zioPrefix);
-                expect(config.zioApiUrl).toBe(result);
             });
 
         });
