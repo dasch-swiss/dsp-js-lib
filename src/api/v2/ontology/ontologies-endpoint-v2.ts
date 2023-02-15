@@ -608,8 +608,6 @@ export class OntologiesEndpointV2 extends Endpoint {
 
         return this.httpGet("/canreplacecardinalities/" + encodeURIComponent(resourceClassIri) + "?propertyIri=" + encodeURIComponent(propertyIri) +"&newCardinality=" + card).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
-                // TODO: @rosenth Adapt context object
-                // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
