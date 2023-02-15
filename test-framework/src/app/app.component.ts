@@ -1213,6 +1213,36 @@ export class AppComponent implements OnInit {
 
     }
 
+    canReplaceCardinalityWith(cardinality: string) {
+        let card: Cardinality;
+
+        switch (cardinality) {
+            case '0-1':
+                card = Cardinality._0_1;
+                break;
+            case '0-n':
+                card = Cardinality._0_n;
+                break;
+            case '1':
+                card = Cardinality._1;
+                break;
+            case '1-n':
+                card = Cardinality._1_n;
+                break;
+        }
+
+        const resClassIri = 'http://0.0.0.0:3333/ontology/0001/anything/v2#Thing';
+        const propIri = 'http://0.0.0.0:3333/ontology/0001/anything/v2#hasText'
+
+        this.knoraApiConnection.v2.onto.canReplaceCardinalityOfResourceClassWith(resClassIri, propIri, card).subscribe(
+            (response: CanDoResponse) => {
+                console.log('response: ', response);
+                this.canReplaceCardinalityResponse = response.canDo;
+            });
+
+
+    }
+
     replaceCardinality() {
 
         this.cardinality = Cardinality._1;

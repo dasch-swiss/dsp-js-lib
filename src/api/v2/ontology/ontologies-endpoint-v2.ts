@@ -4,6 +4,7 @@ import { catchError, map, mergeMap } from "rxjs/operators";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { DataError } from "../../../models/data-error";
 import { Constants } from "../../../models/v2/Constants";
+import { Cardinality } from "../../../models/v2/ontologies/class-definition";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
 import {
     CreateResourceClass,
@@ -33,6 +34,7 @@ import { UpdateResourceClassLabel } from "../../../models/v2/ontologies/update/u
 import { UpdateResourcePropertyComment } from "../../../models/v2/ontologies/update/update-resource-property-comment";
 import { UpdateResourcePropertyGuiElement } from "../../../models/v2/ontologies/update/update-resource-property-gui-element";
 import { UpdateResourcePropertyLabel } from "../../../models/v2/ontologies/update/update-resource-property-label";
+import { CardinalityUtil } from "../../../models/v2/resources/cardinality-util";
 import { Endpoint } from "../../endpoint";
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
@@ -574,11 +576,37 @@ export class OntologiesEndpointV2 extends Endpoint {
     /**
      * Checks whether existing cardinalities can be replaced for a given resource class.
      *
+     * @deprecated use canReplaceCardinalityOfResourceClassWith instead
      * @param resourceClassIri the iri of the resource class to be checked.
      */
     canReplaceCardinalityOfResourceClass(resourceClassIri: string): Observable<CanDoResponse | ApiResponseError> {
 
         return this.httpGet("/canreplacecardinalities/" + encodeURIComponent(resourceClassIri)).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // TODO: @rosenth Adapt context object
+                // TODO: adapt getOntologyIriFromEntityIri
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+
+    }
+
+    /**
+     * Checks whether existing cardinalities can be replaced for a given resource class, propertyIri, and desired cardinality
+     *
+     * @param resourceClassIri the iri of the resource class to be checked.
+     * @param propertyIri the iri of the property to be checked.
+     * @param desiredCardinality the desired cardinality.
+     */
+    canReplaceCardinalityOfResourceClassWith(resourceClassIri: string, propertyIri: string, desiredCardinality: Cardinality): Observable<CanDoResponse | ApiResponseError> {
+        const card = CardinalityUtil.getCardinalityString(desiredCardinality);
+
+        return this.httpGet("/canreplacecardinalities/" + encodeURIComponent(resourceClassIri) + "?propertyIri=" + encodeURIComponent(propertyIri) +"&newCardinality=" + card).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
