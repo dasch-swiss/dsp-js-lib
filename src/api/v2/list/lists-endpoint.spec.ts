@@ -5,7 +5,7 @@ import { ListNodeV2 } from "../../../models/v2/lists/list-node-v2";
 
 describe("ListsEndpoint", () => {
 
-    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, undefined, true);
+    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, 5555, undefined, undefined, true);
     const knoraApiConnection = new KnoraApiConnection(config);
 
     beforeEach(() => {
