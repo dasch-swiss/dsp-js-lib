@@ -64,7 +64,7 @@ import { UpdateValue } from "../../../models/v2/resources/values/update/update-v
 import { UpdateValuePermissions } from "../../../models/v2/resources/values/update/update-value-permissions";
 import { WriteValueResponse } from "../../../models/v2/resources/values/write-value-response";
 
-const config = new KnoraApiConfig("http", "0.0.0.0", 3333, 5555, undefined, undefined, true);
+const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, undefined, true);
 let knoraApiConnection: KnoraApiConnection;
 
 let getResourceClassDefinitionFromCacheSpy: jasmine.Spy;

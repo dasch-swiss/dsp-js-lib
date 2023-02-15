@@ -12,7 +12,7 @@ import { SearchEndpointV2 } from "./search-endpoint-v2";
 
 describe("SearchEndpoint", () => {
 
-    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, 5555, undefined, "", true);
+    const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, "", true);
     let knoraApiConnection: KnoraApiConnection;
 
     let getResourceClassSpy: jasmine.Spy;
