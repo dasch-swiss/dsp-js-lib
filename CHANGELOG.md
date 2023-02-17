@@ -1,5 +1,21 @@
 # Changelog
 
+## [8.0.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.5.0...v8.0.0) (2023-02-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **zio-http:** additional zio http support (DEV-1705) (#497)
+
+### Enhancements
+
+* **zio-http:** additional zio http support (DEV-1705) ([#497](https://www.github.com/dasch-swiss/dsp-js-lib/issues/497)) ([b03c005](https://www.github.com/dasch-swiss/dsp-js-lib/commit/b03c005984ac6125ddc3b03a2dbed83a5541b949))
+
+
+### Maintenance
+
+* bump dsp-api to 27.0.0 ([#501](https://www.github.com/dasch-swiss/dsp-js-lib/issues/501)) ([7beb09a](https://www.github.com/dasch-swiss/dsp-js-lib/commit/7beb09a832834a5d35ac6793097df773d93d176d))
+
 ## [7.5.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.4.10...v7.5.0) (2023-02-03)
 
 
