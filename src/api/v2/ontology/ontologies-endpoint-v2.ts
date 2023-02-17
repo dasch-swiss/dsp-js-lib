@@ -604,7 +604,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      * @param desiredCardinality the desired cardinality.
      */
     canReplaceCardinalityOfResourceClassWith(resourceClassIri: string, propertyIri: string, desiredCardinality: Cardinality): Observable<CanDoResponse | ApiResponseError> {
-        const card = CardinalityUtil.getCardinalityString(desiredCardinality);
+        const card = CardinalityUtil.cardinalities.get(desiredCardinality);
 
         return this.httpGet("/canreplacecardinalities/" + encodeURIComponent(resourceClassIri) + "?propertyIri=" + encodeURIComponent(propertyIri) +"&newCardinality=" + card).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {

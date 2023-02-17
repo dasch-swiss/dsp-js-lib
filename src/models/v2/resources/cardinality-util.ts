@@ -24,18 +24,12 @@ export namespace CardinalityUtil {
         return cardinalityForProp[0].cardinality;
     };
 
-    export const getCardinalityString = (cardinality: Cardinality): string => {
-        switch(cardinality) {
-            case Cardinality._0_1:
-                return "0-1"
-            case Cardinality._0_n:
-                return "0-n"
-            case Cardinality._1:
-                return "1"
-            case Cardinality._1_n:
-                return "1-n"
-        }
-    }
+    export const cardinalities: Map<Cardinality, string> = new Map<Cardinality, string>([
+        [Cardinality._0_1, "0-1"],
+        [Cardinality._0_n, "0-n"],
+        [Cardinality._1, "1"],
+        [Cardinality._1_n, "1-n"]
+    ])
 
     /**
      * Determines if a value can be created for a given property.
