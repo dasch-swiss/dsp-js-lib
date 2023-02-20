@@ -42,6 +42,7 @@ This package provides the following short-hand scripts:
 1. `npm run prepare-dev-publication`: prepares a dev version of the library **before** building it. The dev version contains code to create mocked data to be used in unit tests of projects using DSP-JS-LIB.
 1. `npm run build`: Builds the whole library without testing and puts the files into the `./build/` folder.
 1. `npm run yalc-publish`: Builds and publishes the package to the yalc app store (local publication of the lib).
+1. `npm run yalc-publish-and-update`: Builds and publishes the package to the yalc app store (local publication of the lib) and updates any local repositories using the package with this newly created package.
 1. `npm run npm-pack`: Tests and builds the library and then packs the `./build/` folder into an NPM tgz package. The package is moved into a `./dist/` folder.
 
 ### Build and Publish a Local Version
