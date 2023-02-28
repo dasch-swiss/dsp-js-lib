@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { KeywordsResponse, MembersResponse, Project, ProjectResponse, ProjectRestrictedViewSettingsResponse, ProjectsResponse, UpdateProjectRequest } from '@dasch-swiss/dsp-js';
+import { CardinalityUtil, KeywordsResponse, MembersResponse, Project, ProjectResponse, ProjectRestrictedViewSettingsResponse, ProjectsResponse, UpdateProjectRequest } from '@dasch-swiss/dsp-js';
 import {
     AdministrativePermissionResponse,
     AdministrativePermissionsResponse,
@@ -1207,6 +1207,25 @@ export class AppComponent implements OnInit {
 
         this.knoraApiConnection.v2.onto.canReplaceCardinalityOfResourceClass(resClassIri).subscribe(
             (response: CanDoResponse) => {
+                this.canReplaceCardinalityResponse = response.canDo;
+            });
+
+
+    }
+
+    canReplaceCardinalityWith(cardinality: string) {
+        let card: Cardinality;
+
+        CardinalityUtil.cardinalities.forEach((value, key) => {
+            if (value === cardinality) card = key
+        });
+
+        const resClassIri = 'http://0.0.0.0:3333/ontology/0001/anything/v2#Thing';
+        const propIri = 'http://0.0.0.0:3333/ontology/0001/anything/v2#hasText'
+
+        this.knoraApiConnection.v2.onto.canReplaceCardinalityOfResourceClassWith(resClassIri, propIri, card).subscribe(
+            (response: CanDoResponse) => {
+                console.log('response: ', response);
                 this.canReplaceCardinalityResponse = response.canDo;
             });
 

@@ -24,6 +24,13 @@ export namespace CardinalityUtil {
         return cardinalityForProp[0].cardinality;
     };
 
+    export const cardinalities: Map<Cardinality, string> = new Map<Cardinality, string>([
+        [Cardinality._0_1, "0-1"],
+        [Cardinality._0_n, "0-n"],
+        [Cardinality._1, "1"],
+        [Cardinality._1_n, "1-n"]
+    ])
+
     /**
      * Determines if a value can be created for a given property.
      *

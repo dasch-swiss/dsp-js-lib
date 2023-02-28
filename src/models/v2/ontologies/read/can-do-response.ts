@@ -10,4 +10,7 @@ export class CanDoResponse {
     @JsonProperty(Constants.CanDo, Boolean)
     canDo: boolean = true;
 
+    @JsonProperty(Constants.CannotDoReason, String, true)
+    cannotDoReason?: string = undefined
+
 }

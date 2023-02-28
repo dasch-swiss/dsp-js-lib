@@ -776,8 +776,96 @@ describe('workspace-project App', () => {
     const getButton = page.getEle('div section#ontologyeditor button.read-onto');
     getButton.click();
 
-    const canDelete = page.getEle('div button.can-replace-card-for-res-card');
-    canDelete.click();
+    const canReplace = page.getEle('div button.can-replace-card-for-res-card');
+    canReplace.click();
+
+    const msg = page.getEle('div section#ontologyeditor span.can-replace-card');
+    expect(msg.getText()).toEqual('false');
+
+  });
+
+  it('check if cardinalities can be replaced with 0-1', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    const canReplace = page.getEle('div button.can-replace-card-for-res-card-with-0-1');
+    canReplace.click();
+
+    const msg = page.getEle('div section#ontologyeditor span.can-replace-card');
+    expect(msg.getText()).toEqual('false');
+
+  });
+
+  it('check if cardinalities can be replaced with 0-n', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    const canReplace = page.getEle('div button.can-replace-card-for-res-card-with-0-n');
+    canReplace.click();
+
+    const msg = page.getEle('div section#ontologyeditor span.can-replace-card');
+    expect(msg.getText()).toEqual('true');
+
+  });
+
+  it('check if cardinalities can be replaced with 1', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    const canReplace = page.getEle('div button.can-replace-card-for-res-card-with-1');
+    canReplace.click();
+
+    const msg = page.getEle('div section#ontologyeditor span.can-replace-card');
+    expect(msg.getText()).toEqual('false');
+
+  });
+
+  it('check if cardinalities can be replaced with 1-n', () => {
+
+    page.navigateTo();
+
+    // login
+    const loginButton = page.getEle('div section#login button.login');
+    loginButton.click();
+    const loginStatus = page.getEle('div section#login span.status');
+    expect(loginStatus.getText()).toEqual('logged in');
+
+    // get testonto to have lastModificationDate
+    const getButton = page.getEle('div section#ontologyeditor button.read-onto');
+    getButton.click();
+
+    const canReplace = page.getEle('div button.can-replace-card-for-res-card-with-1-n');
+    canReplace.click();
 
     const msg = page.getEle('div section#ontologyeditor span.can-replace-card');
     expect(msg.getText()).toEqual('false');

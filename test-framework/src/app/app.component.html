@@ -217,7 +217,11 @@
         <div><span *ngIf="addCard">Cardinality added:&nbsp;</span><span class="res-card-added">{{addCard?.label}}</span> </div> <br />
 
         <button class="can-replace-card-for-res-card" (click)="canReplaceCardinality()">Can replace cardinality of resource</button><br><br>
-        <div><span *ngIf="canReplaceCardinalityResponse">Cardinality can be replaced:&nbsp;</span><span class="can-replace-card">{{canReplaceCardinalityResponse}}</span> </div> <br />
+        <button class="can-replace-card-for-res-card-with-0-1" (click)="canReplaceCardinalityWith('0-1')">Can replace cardinality of resource with 0-1</button><br><br>
+        <button class="can-replace-card-for-res-card-with-0-n" (click)="canReplaceCardinalityWith('0-n')">Can replace cardinality of resource with 0-n</button><br><br>
+        <button class="can-replace-card-for-res-card-with-1" (click)="canReplaceCardinalityWith('1')">Can replace cardinality of resource with 1</button><br><br>
+        <button class="can-replace-card-for-res-card-with-1-n" (click)="canReplaceCardinalityWith('1-n')">Can replace cardinality of resource with 1-n</button><br><br>
+        <div><span>Cardinality can be replaced:&nbsp;</span><span class="can-replace-card">{{canReplaceCardinalityResponse}}</span> </div> <br />
 
         <button class="replace-card-for-res-prop" (click)="replaceCardinality()">Replace Cardinality of resource</button><br><br>
         <div><span *ngIf="replacedCard">Cardinality replaced:&nbsp;</span><span class="res-card-replaced">{{replacedCard?.label}}</span> </div> <br />
