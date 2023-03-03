@@ -1,5 +1,18 @@
 # Changelog
 
+## [8.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v8.0.0...v8.1.0) (2023-03-03)
+
+
+### Enhancements
+
+* **ontologies-endpoint:** add new cardinalities check route (DEV-1704) ([#499](https://www.github.com/dasch-swiss/dsp-js-lib/issues/499)) ([fef23cf](https://www.github.com/dasch-swiss/dsp-js-lib/commit/fef23cf5793e6a8695891f81ee6e27a3ff6fc6cc))
+* **package.json:** modify and add new yalc npm scripts ([#504](https://www.github.com/dasch-swiss/dsp-js-lib/issues/504)) ([d150703](https://www.github.com/dasch-swiss/dsp-js-lib/commit/d150703a1e1bce9d07ceea2b63eab40ea7b2fee2))
+
+
+### Maintenance
+
+* **deps:** update DSP-API version to 27.1.0 ([#509](https://www.github.com/dasch-swiss/dsp-js-lib/issues/509)) ([0fc9ebc](https://www.github.com/dasch-swiss/dsp-js-lib/commit/0fc9ebc407b2482b3a83d753e98b460ffddaf776))
+
 ## [8.0.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v7.5.0...v8.0.0) (2023-02-17)
 
 
