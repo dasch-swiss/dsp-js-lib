@@ -4,7 +4,7 @@
     "http://api.knora.org/ontology/knora-api/v2#hasPermissions": "CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:ProjectMember",
     "http://api.knora.org/ontology/knora-api/v2#newModificationDate": {
         "@type": "http://www.w3.org/2001/XMLSchema#dateTimeStamp",
-        "@value": "2023-03-04T10:05:30.224209032Z"
+        "@value": "2023-03-18T10:53:46.484214551Z"
     },
     "http://www.w3.org/2000/01/rdf-schema#label": "test thing with modified label"
 }
