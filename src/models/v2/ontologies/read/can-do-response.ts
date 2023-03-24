@@ -1,4 +1,4 @@
-import { JsonObject, JsonProperty, Any } from "json2typescript";
+import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../Constants";
 import { CannotDoContext } from "./cannot-do-context";
 
