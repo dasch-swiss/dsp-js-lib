@@ -145,6 +145,8 @@ export class Constants {
     static CanSetCardinalityOntologySubclassCheckFailed = Constants.KnoraApiV2 + Constants.HashDelimiter + "canSetCardinalityOntologySubclassCheckFailed";
     static CanSetCardinalityOntologySuperClassCheckFailed = Constants.KnoraApiV2 + Constants.HashDelimiter + "canSetCardinalityOntologySuperClassCheckFailed";
     static CanSetCardinalityPersistenceCheckFailed = Constants.KnoraApiV2 + Constants.HashDelimiter + "canSetCardinalityPersistenceCheckFailed";
+    static CanSetCardinalityKnoraOntologyCheckFailed = Constants.KnoraApiV2 + Constants.HashDelimiter + "canSetCardinalityKnoraOntologyCheckFailed";
+
     static MatchText = Constants.KnoraApiV2 + Constants.HashDelimiter + "matchText";
 
     static OntologyName = Constants.KnoraApiV2 + Constants.HashDelimiter + "ontologyName";

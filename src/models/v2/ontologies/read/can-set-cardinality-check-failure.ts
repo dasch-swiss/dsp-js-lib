@@ -61,5 +61,8 @@ export class CanSetCardinalityCheckFailure {
 
     @JsonProperty(Constants.CanSetCardinalityPersistenceCheckFailed, CheckFailedConverter, true)
     canSetCardinalityPersistenceCheckFailed?: ResourceClass[] = undefined;
+
+    @JsonProperty(Constants.CanSetCardinalityKnoraOntologyCheckFailed, CheckFailedConverter, true)
+    CanSetCardinalityKnoraOntologyCheckFailed?: ResourceClass[] = undefined;
     
 }
