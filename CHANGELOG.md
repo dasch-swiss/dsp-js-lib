@@ -1,5 +1,17 @@
 # Changelog
 
+## [8.2.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v8.1.1...v8.2.0) (2023-03-31)
+
+
+### Enhancements
+
+* **cardinalities:** add models for cannotDoContext property (DEV-1779) ([#510](https://www.github.com/dasch-swiss/dsp-js-lib/issues/510)) ([e6664b4](https://www.github.com/dasch-swiss/dsp-js-lib/commit/e6664b47222cc6af5ce21e07f0bffd52b8242e1a))
+
+
+### Maintenance
+
+* bump DSP-API to 28.1.0 ([#514](https://www.github.com/dasch-swiss/dsp-js-lib/issues/514)) ([dcd18c2](https://www.github.com/dasch-swiss/dsp-js-lib/commit/dcd18c2b4d370479a8a9a1d2a6d07cf10a28c5da))
+
 ### [8.1.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v8.1.0...v8.1.1) (2023-03-17)
 
 
