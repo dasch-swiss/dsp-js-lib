@@ -1,5 +1,12 @@
 # Changelog
 
+### [8.2.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v8.2.0...v8.2.1) (2023-04-14)
+
+
+### Maintenance
+
+* update dsp-api to v28.1.1 ([#518](https://www.github.com/dasch-swiss/dsp-js-lib/issues/518)) ([45027ed](https://www.github.com/dasch-swiss/dsp-js-lib/commit/45027ed1c4b5e0e950ff3003076c40df0697b58d))
+
 ## [8.2.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v8.1.1...v8.2.0) (2023-03-31)
 
 
