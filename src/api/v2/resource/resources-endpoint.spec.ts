@@ -486,7 +486,7 @@ describe("ResourcesEndpoint", () => {
                     expect(res.hasPermissions).toEqual("CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:ProjectMember");
 
                     // update this timestamp after every release of dsp-api
-                    expect(res.lastModificationDate).toEqual("2023-03-04T10:05:30.224209032Z");
+                    expect(res.lastModificationDate).toEqual("2023-04-15T07:20:50.321304635Z");
                     done();
                 }
             );
@@ -550,7 +550,7 @@ describe("ResourcesEndpoint", () => {
             updateResourceMetadata.lastModificationDate = "2021-09-30T16:41:46.980756Z";
 
             // update this timestamp after every release of dsp-api
-            updateResourceMetadata.newModificationDate = "2023-03-04T10:05:31.294953640Z";
+            updateResourceMetadata.newModificationDate = "2023-04-15T07:20:51.393023726Z";
 
             knoraApiConnection.v2.res.updateResourceMetadata(updateResourceMetadata).subscribe(
                 (res: UpdateResourceMetadataResponse) => {
@@ -560,7 +560,7 @@ describe("ResourcesEndpoint", () => {
                     expect(res.hasPermissions).toEqual("CR knora-admin:ProjectMember|V knora-admin:ProjectMember");
 
                     // update this timestamp after every release of dsp-api
-                    expect(res.lastModificationDate).toEqual("2023-03-04T10:05:31.294953640Z");
+                    expect(res.lastModificationDate).toEqual("2023-04-15T07:20:51.393023726Z");
                     done();
                 }
             );
@@ -578,7 +578,7 @@ describe("ResourcesEndpoint", () => {
             expectedPayload["http://api.knora.org/ontology/knora-api/v2#lastModificationDate"]["@value"] = "2021-09-30T16:41:46.980756Z";
 
             // update this timestamp after every release of dsp-api
-            expectedPayload["http://api.knora.org/ontology/knora-api/v2#newModificationDate"]["@value"] = "2023-03-04T10:05:31.294953640Z";
+            expectedPayload["http://api.knora.org/ontology/knora-api/v2#newModificationDate"]["@value"] = "2023-04-15T07:20:51.393023726Z";
 
             expect(request.data()).toEqual(expectedPayload);
 
