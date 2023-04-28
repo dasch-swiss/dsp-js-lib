@@ -31,7 +31,7 @@ describe("ProjectsEndpoint", () => {
             knoraApiConnection.admin.projectsEndpoint.getProjects().subscribe(
                 (response: ApiResponseData<ProjectsResponse>) => {
 
-                    expect(response.body.projects.length).toEqual(8);
+                    expect(response.body.projects.length).toEqual(6);
                     expect(response.body.projects[0].id).toEqual("http://rdfh.ch/projects/00FF");
 
                     done();
