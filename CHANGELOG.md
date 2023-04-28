@@ -1,5 +1,28 @@
 # Changelog
 
+### [8.2.2](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v8.2.1...v8.2.2) (2023-04-28)
+
+
+### Maintenance
+
+* **deps:** Bump decode-uri-component in /test-framework ([#477](https://www.github.com/dasch-swiss/dsp-js-lib/issues/477)) ([aaa1050](https://www.github.com/dasch-swiss/dsp-js-lib/commit/aaa105060f2189f4cab00c4c185255e7c6abde5c))
+* **deps:** Bump engine.io and socket.io ([#508](https://www.github.com/dasch-swiss/dsp-js-lib/issues/508)) ([192fcb2](https://www.github.com/dasch-swiss/dsp-js-lib/commit/192fcb297b2e6f10977d13a12c222801079cb9b5))
+* **deps:** Bump engine.io and socket.io in /test-framework ([#507](https://www.github.com/dasch-swiss/dsp-js-lib/issues/507)) ([169fc5b](https://www.github.com/dasch-swiss/dsp-js-lib/commit/169fc5b06477945c0db7dfa84bb128e55baa840f))
+* **deps:** Bump express from 4.17.2 to 4.18.2 in /test-framework ([#478](https://www.github.com/dasch-swiss/dsp-js-lib/issues/478)) ([98891e8](https://www.github.com/dasch-swiss/dsp-js-lib/commit/98891e82f93a1321dafe1e392c0fd65455d9d229))
+* **deps:** Bump http-cache-semantics in /test-framework ([#494](https://www.github.com/dasch-swiss/dsp-js-lib/issues/494)) ([4683554](https://www.github.com/dasch-swiss/dsp-js-lib/commit/4683554a29a41fb880959f8cccb34d9c94753a26))
+* **deps:** Bump json5 from 1.0.1 to 1.0.2 in /test-framework ([#484](https://www.github.com/dasch-swiss/dsp-js-lib/issues/484)) ([2943a95](https://www.github.com/dasch-swiss/dsp-js-lib/commit/2943a956f59e59cb4ba766122d90577e13e7eb65))
+* **deps:** Bump json5 from 2.2.0 to 2.2.3 ([#483](https://www.github.com/dasch-swiss/dsp-js-lib/issues/483)) ([e099026](https://www.github.com/dasch-swiss/dsp-js-lib/commit/e099026206f45d1dd3a610038edf212b22ff77d8))
+* **deps:** Bump jszip from 3.7.1 to 3.10.1 in /test-framework ([#490](https://www.github.com/dasch-swiss/dsp-js-lib/issues/490)) ([4a869b1](https://www.github.com/dasch-swiss/dsp-js-lib/commit/4a869b1565e9944ce6a1f3c18127b2273643a00f))
+* **deps:** Bump loader-utils from 1.4.0 to 1.4.2 in /test-framework ([#470](https://www.github.com/dasch-swiss/dsp-js-lib/issues/470)) ([291a953](https://www.github.com/dasch-swiss/dsp-js-lib/commit/291a9530bb10bb0d2617833acee21aa9a79755cf))
+* **deps:** Bump minimatch from 3.0.4 to 3.1.2 ([#523](https://www.github.com/dasch-swiss/dsp-js-lib/issues/523)) ([b3fd077](https://www.github.com/dasch-swiss/dsp-js-lib/commit/b3fd077783275ea0ed1c64e809512319f7522356))
+* **deps:** Bump qs from 6.5.2 to 6.5.3 ([#476](https://www.github.com/dasch-swiss/dsp-js-lib/issues/476)) ([d724b71](https://www.github.com/dasch-swiss/dsp-js-lib/commit/d724b7107c5a53782710be9efcacf58eaabe8c73))
+* **deps:** Bump socket.io-parser from 4.0.4 to 4.0.5 ([#468](https://www.github.com/dasch-swiss/dsp-js-lib/issues/468)) ([f52e96c](https://www.github.com/dasch-swiss/dsp-js-lib/commit/f52e96c8e3ef0d622230673652a51377f0b36e4c))
+* **deps:** Bump socket.io-parser in /test-framework ([#469](https://www.github.com/dasch-swiss/dsp-js-lib/issues/469)) ([7caa649](https://www.github.com/dasch-swiss/dsp-js-lib/commit/7caa6492322920600625eb48550755ee6dc7e15d))
+* **deps:** Bump ua-parser-js from 0.7.31 to 0.7.33 ([#489](https://www.github.com/dasch-swiss/dsp-js-lib/issues/489)) ([089a768](https://www.github.com/dasch-swiss/dsp-js-lib/commit/089a768e9a02d796b5724a46392aa2e85e643a3e))
+* **deps:** Bump ua-parser-js from 0.7.31 to 0.7.33 in /test-framework ([#488](https://www.github.com/dasch-swiss/dsp-js-lib/issues/488)) ([d2142cf](https://www.github.com/dasch-swiss/dsp-js-lib/commit/d2142cf788ca13768afb1c3eada990c958e8bd1e))
+* **deps:** Bump undici from 5.11.0 to 5.21.2 ([#521](https://www.github.com/dasch-swiss/dsp-js-lib/issues/521)) ([7fb86c0](https://www.github.com/dasch-swiss/dsp-js-lib/commit/7fb86c069f9dffa7cc02cc9fea573e82791f3870))
+* update dsp-api to v28.1.2 ([#524](https://www.github.com/dasch-swiss/dsp-js-lib/issues/524)) ([ffc40b3](https://www.github.com/dasch-swiss/dsp-js-lib/commit/ffc40b3553e7a339cac45e44a9a108230befc298))
+
 ### [8.2.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v8.2.0...v8.2.1) (2023-04-14)
 
 
