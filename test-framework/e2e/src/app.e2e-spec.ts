@@ -62,7 +62,7 @@ describe('workspace-project App', () => {
     button.click();
 
     const projectCount = page.getEle('div#projects span.project-count');
-    expect(projectCount.getText()).toEqual('8');
+    expect(projectCount.getText()).toEqual('6');
   })
 
   it('request a project\'s permissions', () => {
