@@ -1,5 +1,14 @@
 # Changelog
 
+### [8.2.4](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v8.2.3...v8.2.4) (2023-05-26)
+
+
+### Maintenance
+
+* **deps:** bump DSP-API to 28.3.0 ([#533](https://www.github.com/dasch-swiss/dsp-js-lib/issues/533)) ([4fc7bfb](https://www.github.com/dasch-swiss/dsp-js-lib/commit/4fc7bfb4bfd3010164c356a708f74eb72935a25b))
+* **deps:** Bump engine.io from 6.4.1 to 6.4.2 ([#525](https://www.github.com/dasch-swiss/dsp-js-lib/issues/525)) ([2975262](https://www.github.com/dasch-swiss/dsp-js-lib/commit/2975262b897131ba004851a5dfba34f09a287c81))
+* **deps:** Bump engine.io from 6.4.1 to 6.4.2 in /test-framework ([#526](https://www.github.com/dasch-swiss/dsp-js-lib/issues/526)) ([9d0e9af](https://www.github.com/dasch-swiss/dsp-js-lib/commit/9d0e9afec9a94381291f7c0acc7bcdbab8b3e8bc))
+
 ### [8.2.3](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v8.2.2...v8.2.3) (2023-05-15)
 
 
