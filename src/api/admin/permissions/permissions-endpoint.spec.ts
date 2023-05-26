@@ -44,8 +44,8 @@ describe("PermissionsEndpoint", () => {
 
                     expect(response.body.permissions.length).toEqual(6);
 
-                    expect(response.body.permissions[0].id).toEqual("http://rdfh.ch/permissions/00FF/a2");
-                    expect(response.body.permissions[0].permissionType).toEqual("http://www.knora.org/ontology/knora-admin#AdministrativePermission");
+                    expect(response.body.permissions[0].id).toEqual("http://rdfh.ch/permissions/00FF/PNTn7ZvsS_OabbexCxr_Eg");
+                    expect(response.body.permissions[0].permissionType).toEqual("http://www.knora.org/ontology/knora-admin#DefaultObjectAccessPermission");
 
                     done();
                 });
@@ -75,7 +75,7 @@ describe("PermissionsEndpoint", () => {
 
                     expect(response.body.administrative_permissions.length).toEqual(3);
 
-                    expect(response.body.administrative_permissions[0].hasPermissions.length).toEqual(2);
+                    expect(response.body.administrative_permissions[0].hasPermissions.length).toEqual(1);
 
                     const permissions = new Permission();
                     permissions.name = "ProjectResourceCreateAllPermission";
@@ -275,9 +275,9 @@ describe("PermissionsEndpoint", () => {
 
             updateAdminPerm.hasPermissions = [perm];
 
-            knoraApiConnection.admin.permissionsEndpoint.updateAdministrativePermission("http://rdfh.ch/permissions/00FF/a2", updateAdminPerm).subscribe(
+            knoraApiConnection.admin.permissionsEndpoint.updateAdministrativePermission("http://rdfh.ch/permissions/00FF/buxHAlz8SHuu0FuiLN_tKQ", updateAdminPerm).subscribe(
                 (res: ApiResponseData<AdministrativePermissionResponse>) => {
-                    expect(res.body.administrative_permission.id).toEqual("http://rdfh.ch/permissions/00FF/a2");
+                    expect(res.body.administrative_permission.id).toEqual("http://rdfh.ch/permissions/00FF/buxHAlz8SHuu0FuiLN_tKQ");
                     done();
                 }
             );
@@ -288,7 +288,7 @@ describe("PermissionsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionUpdateResponse)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2Fa2/hasPermissions");
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2FbuxHAlz8SHuu0FuiLN_tKQ/hasPermissions");
 
             expect(request.method).toEqual("PUT");
 
@@ -308,9 +308,9 @@ describe("PermissionsEndpoint", () => {
 
             updateAdminPermGroup.forGroup = "http://rdfh.ch/groups/00FF/images-reviewer";
 
-            knoraApiConnection.admin.permissionsEndpoint.updateAdministrativePermissionGroup("http://rdfh.ch/permissions/00FF/a2", updateAdminPermGroup).subscribe(
+            knoraApiConnection.admin.permissionsEndpoint.updateAdministrativePermissionGroup("http://rdfh.ch/permissions/00FF/buxHAlz8SHuu0FuiLN_tKQ", updateAdminPermGroup).subscribe(
                 (res: ApiResponseData<AdministrativePermissionResponse>) => {
-                    expect(res.body.administrative_permission.id).toEqual("http://rdfh.ch/permissions/00FF/a2");
+                    expect(res.body.administrative_permission.id).toEqual("http://rdfh.ch/permissions/00FF/buxHAlz8SHuu0FuiLN_tKQ");
                     done();
                 }
             );
@@ -321,7 +321,7 @@ describe("PermissionsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionUpdateResponse)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2Fa2/group");
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2FbuxHAlz8SHuu0FuiLN_tKQ/group");
 
             expect(request.method).toEqual("PUT");
 
@@ -346,7 +346,7 @@ describe("PermissionsEndpoint", () => {
 
                     expect(response.body.defaultObjectAccessPermissions[0].forProject).toBe("http://rdfh.ch/projects/00FF");
                     expect(response.body.defaultObjectAccessPermissions[0].forGroup).toBe("http://www.knora.org/ontology/knora-admin#KnownUser");
-                    expect(response.body.defaultObjectAccessPermissions[0].id).toBe("http://rdfh.ch/permissions/00FF/d2");
+                    expect(response.body.defaultObjectAccessPermissions[0].id).toBe("http://rdfh.ch/permissions/00FF/9XTMKHm_ScmwtgDXbF6Onw");
                     expect(response.body.defaultObjectAccessPermissions[0].hasPermissions.length).toBe(3);
 
                     done();
@@ -534,9 +534,9 @@ describe("PermissionsEndpoint", () => {
 
             updateDefaultObjectAccessPermission.hasPermissions = [perm];
 
-            knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermission("http://rdfh.ch/permissions/0803/003-d1", updateDefaultObjectAccessPermission).subscribe(
+            knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermission("http://rdfh.ch/permissions/00FF/Q3OMWyFqStGYK8EXmC7KhQ", updateDefaultObjectAccessPermission).subscribe(
                 (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
-                    expect(res.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/0803/003-d1");
+                    expect(res.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/00FF/Q3OMWyFqStGYK8EXmC7KhQ");
                     done();
                 }
             );
@@ -547,7 +547,7 @@ describe("PermissionsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionUpdateResponse)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F0803%2F003-d1/hasPermissions");
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2FQ3OMWyFqStGYK8EXmC7KhQ/hasPermissions");
 
             expect(request.method).toEqual("PUT");
 
@@ -567,9 +567,9 @@ describe("PermissionsEndpoint", () => {
 
             updateDOAPGroup.forGroup = "http://rdfh.ch/groups/00FF/images-reviewer";
 
-            knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermissionGroup("http://rdfh.ch/permissions/0803/003-d2", updateDOAPGroup).subscribe(
+            knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermissionGroup("http://rdfh.ch/permissions/00FF/sdHG20U6RoiwSu8MeAT1vA", updateDOAPGroup).subscribe(
                 (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
-                    expect(res.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/0803/003-d2");
+                    expect(res.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/00FF/sdHG20U6RoiwSu8MeAT1vA");
                     done();
                 }
             );
@@ -580,7 +580,7 @@ describe("PermissionsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionUpdateResponse)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F0803%2F003-d2/group");
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2FsdHG20U6RoiwSu8MeAT1vA/group");
 
             expect(request.method).toEqual("PUT");
 
@@ -600,9 +600,9 @@ describe("PermissionsEndpoint", () => {
 
             updateDOAPResClass.forResourceClass = "http://www.knora.org/ontology/0803/incunabula#book";
 
-            knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermissionResourceClass("http://rdfh.ch/permissions/0803/003-d1", updateDOAPResClass).subscribe(
+            knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermissionResourceClass("http://rdfh.ch/permissions/00FF/Q3OMWyFqStGYK8EXmC7KhQ", updateDOAPResClass).subscribe(
                 (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
-                    expect(res.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/0803/003-d1");
+                    expect(res.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/00FF/Q3OMWyFqStGYK8EXmC7KhQ");
                     done();
                 }
             );
@@ -613,7 +613,7 @@ describe("PermissionsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionUpdateResponse)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F0803%2F003-d1/resourceClass");
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2FQ3OMWyFqStGYK8EXmC7KhQ/resourceClass");
 
             expect(request.method).toEqual("PUT");
 
@@ -633,9 +633,9 @@ describe("PermissionsEndpoint", () => {
 
             updateDOAPProperty.forProperty = "http://www.knora.org/ontology/00FF/images#titel";
 
-            knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermissionProperty("http://rdfh.ch/permissions/00FF/d1", updateDOAPProperty).subscribe(
+            knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermissionProperty("http://rdfh.ch/permissions/00FF/Mck2xJDjQ_Oimi_9z4aFaA", updateDOAPProperty).subscribe(
                 (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
-                    expect(res.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/00FF/d1");
+                    expect(res.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/00FF/Mck2xJDjQ_Oimi_9z4aFaA");
                     done();
                 }
             );
@@ -646,7 +646,7 @@ describe("PermissionsEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionUpdateResponse)));
 
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2Fd1/property");
+            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2FMck2xJDjQ_Oimi_9z4aFaA/property");
 
             expect(request.method).toEqual("PUT");
 
