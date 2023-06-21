@@ -45,7 +45,7 @@ export class CreateTextValueAsXml extends CreateValue implements IBaseTextValueA
 /**
  * @category Model V2
  */
-@JsonObject("CreateTextValueAsString")
+@JsonObject("CreateUnformattedTextValue")
 export class CreateUnformattedTextValue extends CreateValue implements IBaseUnformattedTextValue {
 
     @JsonProperty(Constants.ValueAsString, String)
@@ -60,7 +60,7 @@ export class CreateUnformattedTextValue extends CreateValue implements IBaseUnfo
 /**
  * @category Model V2
  */
-@JsonObject("CreateTextValueAsXml")
+@JsonObject("CreateFormattedTextValue")
 export class CreateFormattedTextValue extends CreateValue implements IBaseFormattedTextValue {
 
     @JsonProperty(Constants.TextValueAsXml, String)

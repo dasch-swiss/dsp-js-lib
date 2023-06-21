@@ -62,7 +62,7 @@ export class UpdateTextValueAsHtml extends UpdateValue implements IBaseTextValue
 /**
  * @category Model V2
  */
-@JsonObject("UpdateTextValueAsString")
+@JsonObject("UpdateUnformattedTextValue")
 export class UpdateUnformattedTextValue extends UpdateValue implements IBaseUnformattedTextValue {
 
     @JsonProperty(Constants.ValueAsString, String)
@@ -77,7 +77,7 @@ export class UpdateUnformattedTextValue extends UpdateValue implements IBaseUnfo
 /**
  * @category Model V2
  */
-@JsonObject("UpdateTextValueAsXml")
+@JsonObject("UpdateFormattedTextValue")
 export class UpdateFormattedTextValue extends UpdateValue implements IBaseFormattedTextValue {
 
     @JsonProperty(Constants.TextValueAsXml, String)

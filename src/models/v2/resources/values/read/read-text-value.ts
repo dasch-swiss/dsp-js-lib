@@ -61,7 +61,7 @@ export class ReadTextValueAsHtml extends ReadTextValue implements IBaseTextValue
 /**
  * @category Model V2
  */
-@JsonObject("ReadTextValueAsString")
+@JsonObject("ReadUnformattedTextValue")
 export class ReadUnformattedTextValue extends ReadTextValue implements IBaseUnformattedTextValue {
 
     // TODO: query standoff, if any.
@@ -74,7 +74,7 @@ export class ReadUnformattedTextValue extends ReadTextValue implements IBaseUnfo
 /**
  * @category Model V2
  */
-@JsonObject("ReadTextValueAsXml")
+@JsonObject("ReadFormattedTextValue")
 export class ReadFormattedTextValue extends ReadTextValue implements IBaseFormattedTextValue {
 
     @JsonProperty(Constants.TextValueAsXml, String)
