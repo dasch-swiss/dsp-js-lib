@@ -27,10 +27,11 @@ import { ReadIntervalValue } from "./values/read/read-interval-value";
 import { ReadLinkValue } from "./values/read/read-link-value";
 import { ReadListValue } from "./values/read/read-list-value";
 import {
+    ReadFormattedTextValue,
     ReadTextValue,
     ReadTextValueAsHtml,
     ReadTextValueAsString,
-    ReadTextValueAsXml
+    ReadTextValueAsXml, ReadUnformattedTextValue
 } from "./values/read/read-text-value";
 import { ReadTimeValue } from "./values/read/read-time-value";
 import { ReadUriValue } from "./values/read/read-uri-value";
@@ -378,6 +379,24 @@ export namespace ResourcesConversionUtil {
                 const uriVal = handleSimpleValue(valueJsonld, ReadUriValue, jsonConvert);
                 value = uriVal.pipe(map((val: ReadUriValue) => {
                     val.strval = val.uri;
+                    return val;
+                }));
+                break;
+            }
+
+            case Constants.UnformattedTextValue: {
+                const unformattedTextVal = handleSimpleValue(valueJsonld, ReadUnformattedTextValue, jsonConvert);
+                value = unformattedTextVal.pipe(map((val: ReadUnformattedTextValue) => {
+                    val.strval = val.text;
+                    return val;
+                }));
+                break;
+            }
+
+            case Constants.FormattedTextValue: {
+                const formattedTextVal = handleSimpleValue(valueJsonld, ReadFormattedTextValue, jsonConvert);
+                value = formattedTextVal.pipe(map((val: ReadFormattedTextValue) => {
+                    val.strval = val.xml;
                     return val;
                 }));
                 break;

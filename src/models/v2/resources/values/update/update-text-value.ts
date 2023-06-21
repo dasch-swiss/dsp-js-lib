@@ -1,7 +1,13 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../../Constants";
 import { IdConverter } from "../../../custom-converters/id-converter";
-import { IBaseTextValueAsHtml, IBaseTextValueAsString, IBaseTextValueAsXml } from "../type-specific-interfaces/base-text-value";
+import {
+    IBaseFormattedTextValue,
+    IBaseTextValueAsHtml,
+    IBaseTextValueAsString,
+    IBaseTextValueAsXml,
+    IBaseUnformattedTextValue
+} from "../type-specific-interfaces/base-text-value";
 import { UpdateValue } from "./update-value";
 
 /**
@@ -50,5 +56,37 @@ export class UpdateTextValueAsHtml extends UpdateValue implements IBaseTextValue
 
     constructor() {
         super(Constants.TextValue);
+    }
+}
+
+/**
+ * @category Model V2
+ */
+@JsonObject("UpdateTextValueAsString")
+export class UpdateUnformattedTextValue extends UpdateValue implements IBaseUnformattedTextValue {
+
+    @JsonProperty(Constants.ValueAsString, String)
+    text: string = "";
+
+    constructor() {
+        super(Constants.UnformattedTextValue);
+    }
+
+}
+
+/**
+ * @category Model V2
+ */
+@JsonObject("UpdateTextValueAsXml")
+export class UpdateFormattedTextValue extends UpdateValue implements IBaseFormattedTextValue {
+
+    @JsonProperty(Constants.TextValueAsXml, String)
+    xml: string = "";
+
+    @JsonProperty(Constants.TextValueHasMapping, IdConverter)
+    mapping: string = "";
+
+    constructor() {
+        super(Constants.FormattedTextValue);
     }
 }

@@ -39,6 +39,9 @@ export class Constants {
     static ListValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "ListValue";
     static ListNode = Constants.KnoraApiV2 + Constants.HashDelimiter + "ListNode";
     static TextValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "TextValue";
+    static FormattedTextValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "FormattedTextValue";
+    static UnformattedTextValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "UnformattedTextValue";
+    static CustomFormattedTextValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "CustomFormattedTextValue";
     static LinkValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "LinkValue";
     static HasLinkToValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasLinkToValue";
     static UriValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "UriValue";
