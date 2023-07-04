@@ -24,8 +24,8 @@ import { CreateIntervalValue } from "../../../models/v2/resources/values/create/
 import { CreateLinkValue } from "../../../models/v2/resources/values/create/create-link-value";
 import { CreateListValue } from "../../../models/v2/resources/values/create/create-list-value";
 import {
-    CreateTextValueAsString,
-    CreateTextValueAsXml
+    CreateFormattedTextValue,
+    CreateUnformattedTextValue,
 } from "../../../models/v2/resources/values/create/create-text-value";
 import { CreateTimeValue } from "../../../models/v2/resources/values/create/create-time-value";
 import { CreateUriValue } from "../../../models/v2/resources/values/create/create-uri-value";
@@ -237,11 +237,11 @@ describe("ResourcesEndpoint", () => {
             const linkVal = new CreateLinkValue();
             linkVal.linkedResourceIri = "http://rdfh.ch/0001/a-thing";
 
-            const textValStandoff = new CreateTextValueAsXml();
+            const textValStandoff = new CreateFormattedTextValue();
             textValStandoff.xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<text><p><strong>this is</strong> text</p> with standoff</text>";
             textValStandoff.mapping = "http://rdfh.ch/standoff/mappings/StandardMapping";
 
-            const textValString = new CreateTextValueAsString();
+            const textValString = new CreateUnformattedTextValue();
             textValString.text = "this is text without standoff";
 
             const uriVal = new CreateUriValue();

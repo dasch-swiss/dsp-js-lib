@@ -1,7 +1,6 @@
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
-import { ApiResponseError } from "../../../models/api-response-error";
 import { Constants } from "../../../models/v2/Constants";
 import { Cardinality } from "../../../models/v2/ontologies/class-definition";
 import { CreateOntology } from "../../../models/v2/ontologies/create/create-ontology";
@@ -16,11 +15,11 @@ import { CanDoResponse } from "../../../models/v2/ontologies/read/can-do-respons
 import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
 import {
     ResourceClassDefinition,
-    ResourceClassDefinitionWithAllLanguages
+    ResourceClassDefinitionWithAllLanguages,
 } from "../../../models/v2/ontologies/resource-class-definition";
 import {
     ResourcePropertyDefinition,
-    ResourcePropertyDefinitionWithAllLanguages
+    ResourcePropertyDefinitionWithAllLanguages,
 } from "../../../models/v2/ontologies/resource-property-definition";
 import { StandoffClassDefinition } from "../../../models/v2/ontologies/standoff-class-definition";
 import { SystemPropertyDefinition } from "../../../models/v2/ontologies/system-property-definition";
@@ -865,7 +864,7 @@ describe("OntologiesEndpoint", () => {
                 "http://schema.org/name"
             ];
 
-            newResProp.objectType = Constants.TextValue;
+            newResProp.objectType = Constants.UnformattedTextValue;
 
             newResProp.subjectType = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
 

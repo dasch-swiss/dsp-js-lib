@@ -18,7 +18,7 @@ import {
     ReadDocumentFileValue,
     ReadMovingImageFileValue,
     ReadStillImageFileValue,
-    ReadTextFileValue
+    ReadTextFileValue,
 } from "./values/read/read-file-value";
 import { ParseReadGeomValue, ReadGeomValue } from "./values/read/read-geom-value";
 import { ReadGeonameValue } from "./values/read/read-geoname-value";
@@ -28,10 +28,7 @@ import { ReadLinkValue } from "./values/read/read-link-value";
 import { ReadListValue } from "./values/read/read-list-value";
 import {
     ReadFormattedTextValue,
-    ReadTextValue,
-    ReadTextValueAsHtml,
-    ReadTextValueAsString,
-    ReadTextValueAsXml, ReadUnformattedTextValue
+    ReadUnformattedTextValue,
 } from "./values/read/read-text-value";
 import { ReadTimeValue } from "./values/read/read-time-value";
 import { ReadUriValue } from "./values/read/read-uri-value";
@@ -201,32 +198,6 @@ export namespace ResourcesConversionUtil {
      */
     const handleSimpleValue = <T extends ReadValue>(valueJsonld: object, dataType: { new(): T }, jsonConvert: JsonConvert): Observable<T> => {
         return of(jsonConvert.deserialize(valueJsonld, dataType) as T);
-    };
-
-    /**
-     * Converts a text value serialized as JSON-LD to a `ReadTextValue`.
-     *
-     * @param valueJsonld text value as JSON-LD to be converted.
-     * @param jsonConvert jsonConvert the converter to be used.
-     */
-    const handleTextValue = (valueJsonld: object, jsonConvert: JsonConvert): Observable<ReadTextValue> => {
-
-        if (valueJsonld.hasOwnProperty(Constants.ValueAsString)) {
-            // TODO: query standoff, if any.
-            const textValue =
-                jsonConvert.deserialize(valueJsonld, ReadTextValueAsString) as ReadTextValueAsString;
-            return of(textValue);
-        } else if (valueJsonld.hasOwnProperty(Constants.TextValueAsHtml)) {
-            const textValue =
-                jsonConvert.deserialize(valueJsonld, ReadTextValueAsHtml) as ReadTextValueAsHtml;
-            return of(textValue);
-        } else if (valueJsonld.hasOwnProperty(Constants.TextValueAsXml)) {
-            const textValue =
-                jsonConvert.deserialize(valueJsonld, ReadTextValueAsXml) as ReadTextValueAsXml;
-            return of(textValue);
-        } else {
-            throw new Error("Invalid Text value");
-        }
     };
 
     /**
@@ -402,23 +373,6 @@ export namespace ResourcesConversionUtil {
                 break;
             }
 
-            case Constants.TextValue: {
-                const textVal = handleTextValue(valueJsonld, jsonConvert);
-                value = textVal.pipe(map((val: ReadTextValue) => {
-                    if (val instanceof ReadTextValueAsString) {
-                        val.strval = val.text;
-                    } else if (val instanceof ReadTextValueAsXml) {
-                        val.strval = val.xml;
-                    } else if (val instanceof ReadTextValueAsHtml) {
-                        val.strval = val.html;
-                    } else {
-                        console.error("String representation for a ReadTextValue could not be constructed for: ", type);
-                    }
-                    return val;
-                }));
-                break;
-            }
-
             case Constants.LinkValue: {
                 const linkVal = handleLinkValue(valueJsonld, ontologyCache, listNodeCache, jsonConvert);
                 value = linkVal.pipe(map((val: ReadLinkValue) => {
@@ -548,4 +502,3 @@ export namespace ResourcesConversionUtil {
     };
 
 }
-;
