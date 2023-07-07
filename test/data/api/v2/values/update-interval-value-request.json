@@ -2,7 +2,7 @@
   "@id" : "http://rdfh.ch/0001/a-thing",
   "@type" : "anything:Thing",
   "anything:hasInterval" : {
-    "@id" : "http://rdfh.ch/0001/a-thing/values/mFtBDeLqRQ6ugZ_E_Uvfew",
+    "@id" : "http://rdfh.ch/0001/a-thing/values/KpMXzHNtQleo9sPxq58p5w",
     "@type" : "knora-api:IntervalValue",
     "knora-api:intervalValueHasStart" : {
       "@type" : "xsd:decimal",
