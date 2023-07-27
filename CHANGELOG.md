@@ -1,5 +1,16 @@
 # Changelog
 
+### [8.2.8](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v8.2.7...v8.2.8) (2023-07-27)
+
+
+### Maintenance
+
+* **deps:** bump DSP-API version to 29.1.1 ([#546](https://www.github.com/dasch-swiss/dsp-js-lib/issues/546)) ([85cd40b](https://www.github.com/dasch-swiss/dsp-js-lib/commit/85cd40b653606f5ce94b4f5fa327c7e59fb9f3e9))
+* **deps:** Bump semver from 5.7.1 to 5.7.2 ([#544](https://www.github.com/dasch-swiss/dsp-js-lib/issues/544)) ([3d11cd7](https://www.github.com/dasch-swiss/dsp-js-lib/commit/3d11cd76cc35052b87f5dd81507b087a8388192a))
+* **deps:** Bump semver from 5.7.1 to 5.7.2 in /test-framework ([#543](https://www.github.com/dasch-swiss/dsp-js-lib/issues/543)) ([857c11a](https://www.github.com/dasch-swiss/dsp-js-lib/commit/857c11a63f75edbf700c2a7bed7170d333ddccac))
+* **deps:** Bump socket.io-parser from 4.2.2 to 4.2.4 ([#536](https://www.github.com/dasch-swiss/dsp-js-lib/issues/536)) ([c8ac304](https://www.github.com/dasch-swiss/dsp-js-lib/commit/c8ac3047e4feeb41e586f09af3b47cb32728a24d))
+* **deps:** Bump socket.io-parser in /test-framework ([#537](https://www.github.com/dasch-swiss/dsp-js-lib/issues/537)) ([978c71c](https://www.github.com/dasch-swiss/dsp-js-lib/commit/978c71cb12b943af8679869e3d2579a2d7ae19f0))
+
 ### [8.2.7](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v8.2.6...v8.2.7) (2023-07-07)
 
 
