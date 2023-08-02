@@ -1460,6 +1460,16 @@ export class AppComponent implements OnInit {
         );
     }
 
+    labelSearchCount(searchTerm: string) {
+        
+        this.knoraApiConnection.v2.search.doSearchByLabelCountQuery(searchTerm).subscribe(
+            (res: CountQueryResponse) => {
+                console.log(res);
+                this.size = res.numberOfResults;
+            }
+        );
+    }
+
     extendedSearch() {
 
         const gravsearchQuery = `

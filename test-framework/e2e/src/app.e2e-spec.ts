@@ -1142,6 +1142,20 @@ describe('workspace-project App', () => {
 
   });
 
+  it('perform a label search count query', () => {
+
+    page.navigateTo();
+
+    const button = page.getEle('div section#search button.labelsearchcount');
+
+    button.click();
+
+    const size = page.getEle('div section#search span.size');
+
+    expect(size.getText().then(convertTextToNumber)).toBeGreaterThan(0);
+
+  });
+
   it('perform an extended search', () => {
 
     page.navigateTo();
