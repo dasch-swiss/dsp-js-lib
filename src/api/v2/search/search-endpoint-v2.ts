@@ -207,4 +207,25 @@ export class SearchEndpointV2 extends Endpoint {
         );
     }
 
+    /**
+     * Performs a query to get the count of results when performing a search by label.
+     *
+     * @param searchTerm the label to search for.
+     * @param params parameters for fulltext search, if any.
+     */
+    doSearchByLabelCountQuery(searchTerm: string, params?: ILabelSearchParams): Observable<CountQueryResponse | ApiResponseError> {
+        return this.httpGet("/searchbylabel/count/" + encodeURIComponent(searchTerm) + SearchEndpointV2.encodeLabelParams(0, params)).pipe(
+            mergeMap((ajaxResponse: AjaxResponse) => {
+                // console.log(JSON.stringify(ajaxResponse.response));
+                return jsonld.compact(ajaxResponse.response, {});
+            }), map((jsonldobj: object) => {
+                // console.log(JSON.stringify(jsonldobj));
+                return ResourcesConversionUtil.createCountQueryResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
+            })
+        );
+    }
+
 }
