@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.3.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v8.2.8...v8.3.0) (2023-08-03)
+
+
+### Enhancements
+
+* **search-endpoint:** add method for search by label count ([#547](https://www.github.com/dasch-swiss/dsp-js-lib/issues/547)) ([47fbaf4](https://www.github.com/dasch-swiss/dsp-js-lib/commit/47fbaf4b8ea98d94506c9be938a9ee4f87b63829))
+
 ### [8.2.8](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v8.2.7...v8.2.8) (2023-07-26)
 
 
