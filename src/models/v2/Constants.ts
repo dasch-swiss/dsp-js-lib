@@ -169,10 +169,6 @@ export class Constants {
     static GuiAttribute = Constants.SalsahGui + Constants.HashDelimiter + "guiAttribute";
     static GuiOrder = Constants.SalsahGui + Constants.HashDelimiter + "guiOrder";
     static GuiElement = Constants.SalsahGui + Constants.HashDelimiter + "guiElement";
-
-    static GuiSimpleText = Constants.SalsahGui + Constants.HashDelimiter + "SimpleText";
-    static GuiTextarea = Constants.SalsahGui + Constants.HashDelimiter + "Textarea";
-    static GuiRichText = Constants.SalsahGui + Constants.HashDelimiter + "Richtext";
     static GuiList = Constants.SalsahGui + Constants.HashDelimiter + "List";
     static GuiPulldown = Constants.SalsahGui + Constants.HashDelimiter + "Pulldown";
     static GuiRadio = Constants.SalsahGui + Constants.HashDelimiter + "Radio";
