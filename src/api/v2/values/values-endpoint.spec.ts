@@ -19,8 +19,8 @@ import { CreateIntervalValue } from "../../../models/v2/resources/values/create/
 import { CreateLinkValue } from "../../../models/v2/resources/values/create/create-link-value";
 import { CreateListValue } from "../../../models/v2/resources/values/create/create-list-value";
 import {
-    CreateTextValueAsString,
-    CreateTextValueAsXml
+    CreateFormattedTextValue,
+    CreateUnformattedTextValue,
 } from "../../../models/v2/resources/values/create/create-text-value";
 import { CreateTimeValue } from "../../../models/v2/resources/values/create/create-time-value";
 import { CreateUriValue } from "../../../models/v2/resources/values/create/create-uri-value";
@@ -39,8 +39,8 @@ import { ReadIntervalValue } from "../../../models/v2/resources/values/read/read
 import { ReadLinkValue } from "../../../models/v2/resources/values/read/read-link-value";
 import { ReadListValue } from "../../../models/v2/resources/values/read/read-list-value";
 import {
-    ReadTextValueAsString,
-    ReadTextValueAsXml
+    ReadFormattedTextValue,
+    ReadUnformattedTextValue,
 } from "../../../models/v2/resources/values/read/read-text-value";
 import { ReadTimeValue } from "../../../models/v2/resources/values/read/read-time-value";
 import { UpdateBooleanValue } from "../../../models/v2/resources/values/update/update-boolean-value";
@@ -55,8 +55,8 @@ import { UpdateIntervalValue } from "../../../models/v2/resources/values/update/
 import { UpdateLinkValue } from "../../../models/v2/resources/values/update/update-link-value";
 import { UpdateListValue } from "../../../models/v2/resources/values/update/update-list-value";
 import {
-    UpdateTextValueAsString,
-    UpdateTextValueAsXml
+    UpdateFormattedTextValue,
+    UpdateUnformattedTextValue,
 } from "../../../models/v2/resources/values/update/update-text-value";
 import { UpdateTimeValue } from "../../../models/v2/resources/values/update/update-time-value";
 import { UpdateUriValue } from "../../../models/v2/resources/values/update/update-uri-value";
@@ -335,7 +335,7 @@ describe("ValuesEndpoint", () => {
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "SZyeLLmOTcCCuS3B0VksHQ").subscribe(
                 (res: ReadResource) => {
-                    const textVal = res.getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasText", ReadTextValueAsString);
+                    const textVal = res.getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasText", ReadUnformattedTextValue);
                     expect(textVal.length).toEqual(1);
                     expect(textVal[0].text).toEqual("test");
 
@@ -364,7 +364,7 @@ describe("ValuesEndpoint", () => {
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "rvB4eQ5MTF-Qxq0YgkwaDg").subscribe(
                 (res: ReadResource) => {
-                    const textVal = res.getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasRichtext", ReadTextValueAsXml);
+                    const textVal = res.getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasRichtext", ReadFormattedTextValue);
                     expect(textVal.length).toEqual(1);
                     expect(textVal[0].xml).toEqual("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<text><p>test with <strong>markup</strong></p></text>");
                     expect(textVal[0].mapping).toEqual("http://rdfh.ch/standoff/mappings/StandardMapping");
@@ -947,7 +947,7 @@ describe("ValuesEndpoint", () => {
 
         it("should update a text value as string", done => {
 
-            const updateTextVal = new UpdateTextValueAsString();
+            const updateTextVal = new UpdateUnformattedTextValue();
 
             updateTextVal.id = "http://rdfh.ch/0001/a-thing/values/pHuFhBelROGexp2IhaLQAg";
             updateTextVal.text = "text without standoff updated";
@@ -962,7 +962,7 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
-                    expect(res.type).toEqual(Constants.TextValue);
+                    expect(res.type).toEqual(Constants.UnformattedTextValue);
                     done();
                 }
             );
@@ -971,7 +971,7 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.TextValue,
+                Constants.UnformattedTextValue,
                 "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -990,7 +990,7 @@ describe("ValuesEndpoint", () => {
 
         it("should update a text value as XML", done => {
 
-            const updateTextVal = new UpdateTextValueAsXml();
+            const updateTextVal = new UpdateFormattedTextValue();
 
             updateTextVal.id = "http://rdfh.ch/0001/a-thing/values/I4OWMilwQwaYvaN5wlUIqg";
             updateTextVal.xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<text>\n   This updated text links to another <a class=\"salsah-link\" href=\"http://rdfh.ch/0001/another-thing\">resource</a>.\n</text>";
@@ -1006,7 +1006,7 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
-                    expect(res.type).toEqual(Constants.TextValue);
+                    expect(res.type).toEqual(Constants.FormattedTextValue);
                     done();
                 }
             );
@@ -1015,7 +1015,7 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
                 "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.TextValue,
+                Constants.FormattedTextValue,
                 "uuid")));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
@@ -1353,7 +1353,7 @@ describe("ValuesEndpoint", () => {
 
         it("should update an integer value with a comment", done => {
 
-            const updateTextVal = new UpdateTextValueAsString();
+            const updateTextVal = new UpdateUnformattedTextValue();
 
             updateTextVal.id = "http://rdfh.ch/0001/a-thing/values/NVRw0-VkQL2YdI_kgkV33Q";
             updateTextVal.text = "text without standoff updated";
@@ -1832,7 +1832,7 @@ describe("ValuesEndpoint", () => {
 
         it("should create a text value as string", done => {
 
-            const updateTextVal = new CreateTextValueAsString();
+            const updateTextVal = new CreateUnformattedTextValue();
 
             updateTextVal.text = "text without standoff";
 
@@ -1846,7 +1846,7 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.createValue(createResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
-                    expect(res.type).toEqual(Constants.TextValue);
+                    expect(res.type).toEqual(Constants.UnformattedTextValue);
                     done();
                 }
             );
@@ -1855,7 +1855,7 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                Constants.TextValue,
+                Constants.UnformattedTextValue,
                 "uuid",
                 "2019-01-09T15:45:54.502951Z")));
 
@@ -1872,7 +1872,7 @@ describe("ValuesEndpoint", () => {
 
         it("should create a text value as XML", done => {
 
-            const createTextVal = new CreateTextValueAsXml();
+            const createTextVal = new CreateFormattedTextValue();
 
             createTextVal.xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<text>\n   This text links to another <a class=\"salsah-link\" href=\"http://rdfh.ch/0001/another-thing\">resource</a>.\n   And this <strong id=\"link_id\">strong value</strong> is linked by this <a class=\"internal-link\" href=\"#link_id\">link</a>\n</text>";
             createTextVal.mapping = "http://rdfh.ch/standoff/mappings/StandardMapping";
@@ -1887,7 +1887,7 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
-                    expect(res.type).toEqual(Constants.TextValue);
+                    expect(res.type).toEqual(Constants.FormattedTextValue);
                     done();
                 }
             );
@@ -1896,7 +1896,7 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                Constants.TextValue,
+                Constants.FormattedTextValue,
                 "uuid",
                 "2019-01-09T15:45:54.502951Z")));
 
@@ -2193,7 +2193,7 @@ describe("ValuesEndpoint", () => {
 
         it("should create a text value with a comment", done => {
 
-            const createTextVal = new CreateTextValueAsString();
+            const createTextVal = new CreateUnformattedTextValue();
 
             createTextVal.text = "this is a text value that has a comment";
             createTextVal.valueHasComment = "this is a comment";
@@ -2208,7 +2208,7 @@ describe("ValuesEndpoint", () => {
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
-                    expect(res.type).toEqual(Constants.TextValue);
+                    expect(res.type).toEqual(Constants.UnformattedTextValue);
                     done();
                 }
             );
@@ -2217,7 +2217,7 @@ describe("ValuesEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
                 "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                Constants.TextValue,
+                Constants.UnformattedTextValue,
                 "uuid",
                 "2019-01-09T15:45:54.502951Z")));
 

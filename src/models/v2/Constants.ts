@@ -38,7 +38,9 @@ export class Constants {
     static IntervalValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "IntervalValue";
     static ListValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "ListValue";
     static ListNode = Constants.KnoraApiV2 + Constants.HashDelimiter + "ListNode";
-    static TextValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "TextValue";
+    static FormattedTextValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "FormattedTextValue";
+    static UnformattedTextValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "UnformattedTextValue";
+    static CustomFormattedTextValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "CustomFormattedTextValue";
     static LinkValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "LinkValue";
     static HasLinkToValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasLinkToValue";
     static UriValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "UriValue";
@@ -167,10 +169,6 @@ export class Constants {
     static GuiAttribute = Constants.SalsahGui + Constants.HashDelimiter + "guiAttribute";
     static GuiOrder = Constants.SalsahGui + Constants.HashDelimiter + "guiOrder";
     static GuiElement = Constants.SalsahGui + Constants.HashDelimiter + "guiElement";
-
-    static GuiSimpleText = Constants.SalsahGui + Constants.HashDelimiter + "SimpleText";
-    static GuiTextarea = Constants.SalsahGui + Constants.HashDelimiter + "Textarea";
-    static GuiRichText = Constants.SalsahGui + Constants.HashDelimiter + "Richtext";
     static GuiList = Constants.SalsahGui + Constants.HashDelimiter + "List";
     static GuiPulldown = Constants.SalsahGui + Constants.HashDelimiter + "Pulldown";
     static GuiRadio = Constants.SalsahGui + Constants.HashDelimiter + "Radio";

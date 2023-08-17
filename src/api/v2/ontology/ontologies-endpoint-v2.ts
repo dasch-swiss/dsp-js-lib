@@ -656,10 +656,10 @@ export class OntologiesEndpointV2 extends Endpoint {
     }
 
     /**
-     * Checks wether a cardinality can be removed from a class even in presence of resources of this class.
+     * Checks whether a cardinality can be removed from a class even in presence of resources of this class.
      * A cardinality can be removed in the case that the property is not used in any resources.
      * For now, DSP-API allows only one cardinality at a time to delete.
-     * @param deleteCardinalitiesFromClass the cardinalities that need to be checked.
+     * @param deleteCardinalityFromClass the cardinalities that need to be checked.
      */
     canDeleteCardinalityFromResourceClass(deleteCardinalityFromClass: UpdateOntology<UpdateResourceClassCardinality>): Observable<CanDoResponse | ApiResponseError> {
 

@@ -1,20 +1,23 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../../Constants";
 import { IdConverter } from "../../../custom-converters/id-converter";
-import { IBaseTextValueAsString, IBaseTextValueAsXml } from "../type-specific-interfaces/base-text-value";
+import {
+    IBaseFormattedTextValue,
+    IBaseUnformattedTextValue,
+} from "../type-specific-interfaces/base-text-value";
 import { CreateValue } from "./create-value";
 
 /**
  * @category Model V2
  */
-@JsonObject("CreateTextValueAsString")
-export class CreateTextValueAsString extends CreateValue implements IBaseTextValueAsString {
+@JsonObject("CreateUnformattedTextValue")
+export class CreateUnformattedTextValue extends CreateValue implements IBaseUnformattedTextValue {
 
     @JsonProperty(Constants.ValueAsString, String)
     text: string = "";
 
     constructor() {
-        super(Constants.TextValue);
+        super(Constants.UnformattedTextValue);
     }
 
 }
@@ -22,8 +25,8 @@ export class CreateTextValueAsString extends CreateValue implements IBaseTextVal
 /**
  * @category Model V2
  */
-@JsonObject("CreateTextValueAsXml")
-export class CreateTextValueAsXml extends CreateValue implements IBaseTextValueAsXml {
+@JsonObject("CreateFormattedTextValue")
+export class CreateFormattedTextValue extends CreateValue implements IBaseFormattedTextValue {
 
     @JsonProperty(Constants.TextValueAsXml, String)
     xml: string = "";
@@ -32,7 +35,7 @@ export class CreateTextValueAsXml extends CreateValue implements IBaseTextValueA
     mapping: string = "";
 
     constructor() {
-        super(Constants.TextValue);
+        super(Constants.FormattedTextValue);
     }
 
 }

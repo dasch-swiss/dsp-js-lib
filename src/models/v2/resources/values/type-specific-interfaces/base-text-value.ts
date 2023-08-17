@@ -1,7 +1,7 @@
 /**
  * @category Internal
  */
-export interface IBaseTextValueAsString {
+export interface IBaseUnformattedTextValue {
 
     text: string;
 
@@ -10,7 +10,7 @@ export interface IBaseTextValueAsString {
 /**
  * @category Internal
  */
-export interface IBaseTextValueAsXml {
+export interface IBaseFormattedTextValue {
 
     xml: string;
 
@@ -21,7 +21,7 @@ export interface IBaseTextValueAsXml {
 /**
  * @category Internal
  */
-export interface IBaseTextValueAsHtml {
+export interface IBaseCustomFormattedTextValue {
 
     html: string;
 

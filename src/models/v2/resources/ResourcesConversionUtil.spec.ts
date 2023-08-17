@@ -19,7 +19,10 @@ import { ReadIntValue } from "./values/read/read-int-value";
 import { ReadIntervalValue } from "./values/read/read-interval-value";
 import { ReadLinkValue } from "./values/read/read-link-value";
 import { ReadListValue } from "./values/read/read-list-value";
-import { ReadTextValueAsString, ReadTextValueAsXml } from "./values/read/read-text-value";
+import {
+    ReadFormattedTextValue,
+    ReadUnformattedTextValue,
+} from "./values/read/read-text-value";
 import { ReadTimeValue } from "./values/read/read-time-value";
 import { ReadUriValue } from "./values/read/read-uri-value";
 
@@ -190,11 +193,11 @@ describe("ResourcesConversionUtil", () => {
                     //
                     const rtextVals = resSeq.resources[0].getValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasRichtext");
                     expect(rtextVals.length).toEqual(1);
-                    expect(rtextVals[0].type).toEqual("http://api.knora.org/ontology/knora-api/v2#TextValue");
+                    expect(rtextVals[0].type).toEqual("http://api.knora.org/ontology/knora-api/v2#FormattedTextValue");
                     expect(rtextVals[0].strval).toEqual("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<text><p>test with <strong>markup</strong></p></text>");
-                    expect(rtextVals[0] instanceof ReadTextValueAsXml).toBeTruthy();
-                    if (rtextVals[0] instanceof ReadTextValueAsXml) {
-                        const rtextValsTyped: ReadTextValueAsXml[] = resSeq.resources[0].getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasRichtext", ReadTextValueAsXml);
+                    expect(rtextVals[0] instanceof ReadFormattedTextValue).toBeTruthy();
+                    if (rtextVals[0] instanceof ReadFormattedTextValue) {
+                        const rtextValsTyped: ReadFormattedTextValue[] = resSeq.resources[0].getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasRichtext", ReadFormattedTextValue);
                         expect(rtextValsTyped[0].xml).toEqual("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<text><p>test with <strong>markup</strong></p></text>");
                         expect(rtextValsTyped[0].mapping).toEqual("http://rdfh.ch/standoff/mappings/StandardMapping");
                     }
@@ -204,11 +207,11 @@ describe("ResourcesConversionUtil", () => {
                     //
                     const textVals = resSeq.resources[0].getValues("http://0.0.0.0:3333/ontology/0001/anything/v2#hasText");
                     expect(textVals.length).toEqual(1);
-                    expect(textVals[0].type).toEqual("http://api.knora.org/ontology/knora-api/v2#TextValue");
+                    expect(textVals[0].type).toEqual("http://api.knora.org/ontology/knora-api/v2#UnformattedTextValue");
                     expect(textVals[0].strval).toEqual("test");
-                    expect(textVals[0] instanceof ReadTextValueAsString).toBeTruthy();
-                    if (textVals[0] instanceof ReadTextValueAsString) {
-                        const textValsTyped: ReadTextValueAsString[] = resSeq.resources[0].getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasText", ReadTextValueAsString);
+                    expect(textVals[0] instanceof ReadUnformattedTextValue).toBeTruthy();
+                    if (textVals[0] instanceof ReadUnformattedTextValue) {
+                        const textValsTyped: ReadUnformattedTextValue[] = resSeq.resources[0].getValuesAs("http://0.0.0.0:3333/ontology/0001/anything/v2#hasText", ReadUnformattedTextValue);
                         expect(textValsTyped[0].text).toEqual("test");
                     }
 
