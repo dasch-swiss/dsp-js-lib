@@ -373,6 +373,15 @@ export namespace ResourcesConversionUtil {
                 break;
             }
 
+            case Constants.CustomFormattedTextValue: {
+                const formattedTextVal = handleSimpleValue(valueJsonld, ReadFormattedTextValue, jsonConvert);
+                value = formattedTextVal.pipe(map((val: ReadFormattedTextValue) => {
+                    val.strval = val.xml;
+                    return val;
+                }));
+                break;
+            }
+
             case Constants.LinkValue: {
                 const linkVal = handleLinkValue(valueJsonld, ontologyCache, listNodeCache, jsonConvert);
                 value = linkVal.pipe(map((val: ReadLinkValue) => {
