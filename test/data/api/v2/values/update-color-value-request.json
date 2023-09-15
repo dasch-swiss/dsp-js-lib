@@ -2,7 +2,7 @@
   "@id" : "http://rdfh.ch/0001/a-thing",
   "@type" : "anything:Thing",
   "anything:hasColor" : {
-    "@id" : "http://rdfh.ch/0001/a-thing/values/X9BuVqWTTTW-K_6jKs_OYg",
+    "@id" : "http://rdfh.ch/0001/a-thing/values/xlgMM_YfSPWf-vbdP5NX7Q",
     "@type" : "knora-api:ColorValue",
     "knora-api:colorValueAsColor" : "#ff3344"
   },
