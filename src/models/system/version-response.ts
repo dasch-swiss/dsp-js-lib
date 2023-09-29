@@ -9,10 +9,10 @@ import { JsonObject, JsonProperty } from "json2typescript";
 export class VersionResponse {
 
     /**
-     * akkaHttp
+     * pekkoHttp
      */
-    @JsonProperty("akkaHttp", String)
-    akkaHttp: string = "";
+    @JsonProperty("pekkoHttp", String)
+    pekkoHttp: string = "";
 
     /**
      * fuseki
