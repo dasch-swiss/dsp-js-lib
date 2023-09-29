@@ -1,11 +1,11 @@
 {
     "knora-api:lastModificationDate": {
-        "@value": "2023-09-15T09:17:38.862571507Z",
+        "@value": "2023-09-29T07:36:23.473222172Z",
         "@type": "xsd:dateTimeStamp"
     },
     "rdfs:label": "Deleted Resource",
     "knora-api:versionArkUrl": {
-        "@value": "http://0.0.0.0:3336/ark:/72163/1/0001/a=thingO.20230915T091738862571507Z",
+        "@value": "http://0.0.0.0:3336/ark:/72163/1/0001/a=thingO.20230929T073623473222172Z",
         "@type": "xsd:anyURI"
     },
     "knora-api:attachedToProject": {
@@ -30,7 +30,7 @@
     },
     "knora-api:deleteDate": {
         "@type": "xsd:dateTimeStamp",
-        "@value": "2023-09-15T09:17:38.862571507Z"
+        "@value": "2023-09-29T07:36:23.473222172Z"
     },
     "@context": {
         "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
