@@ -8,7 +8,7 @@ import { HealthResponse } from "../../../models/system/health-response";
 export namespace HealthConversionUtil {
 
     /**
-     * Adds the versions of webapi and akka to the health response.
+     * Adds the versions of webapi and Pekka to the health response.
      * Throws an error if the header information received from Knora is invalid.
      *
      * @param healthResponse the health response reveived from Knora.
