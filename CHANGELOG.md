@@ -5,7 +5,7 @@
 
 ### Maintenance
 
-* chore: update dsp-api to 30.4.0 ([#560](https://www.github.com/dasch-swiss/dsp-js-lib/issues/560)) ([f6ec37e](https://www.github.com/dasch-swiss/dsp-js-lib/commit/f6ec37e4b533e9fccb07e2f5009e899ea3f06dd7))
+* update dsp-api to 30.4.0 ([#560](https://www.github.com/dasch-swiss/dsp-js-lib/issues/560)) ([f6ec37e](https://www.github.com/dasch-swiss/dsp-js-lib/commit/f6ec37e4b533e9fccb07e2f5009e899ea3f06dd7))
 
 * fix release ([#561](https://www.github.com/dasch-swiss/dsp-js-lib/issues/561)) ([5843055](https://www.github.com/dasch-swiss/dsp-js-lib/commit/5843055b6aa3d85ae0358b006ea5f0b4cee12fed))
 
