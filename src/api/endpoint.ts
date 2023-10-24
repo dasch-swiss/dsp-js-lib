@@ -233,7 +233,7 @@ export class Endpoint {
      */
     private setAjaxRequest(path: string, method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE", body?: any, headers?: IHeaderOptions): AjaxRequest {
 
-        let apiUrl = this.knoraApiConfig.zioEndpointsList.includes(this.path) ? this.knoraApiConfig.zioApiUrl : this.knoraApiConfig.apiUrl;
+        let apiUrl = this.knoraApiConfig.apiUrl;
 
         let ajaxRequest: AjaxRequest = {
             url: apiUrl + this.path + path,
