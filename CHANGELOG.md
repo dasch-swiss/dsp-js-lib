@@ -1,5 +1,16 @@
 # Changelog
 
+## [9.0.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v8.3.6...v9.0.0) (2023-10-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove zio endpoint implementation (#567)
+
+### Maintenance
+
+* remove zio endpoint implementation ([#567](https://www.github.com/dasch-swiss/dsp-js-lib/issues/567)) ([10157a2](https://www.github.com/dasch-swiss/dsp-js-lib/commit/10157a2275cbb78130ebe22b4f41b860446026ca))
+
 ### [8.3.6](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v8.3.5...v8.3.6) (2023-10-13)
 
 
