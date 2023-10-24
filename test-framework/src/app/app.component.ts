@@ -176,8 +176,7 @@ export class AppComponent implements OnInit {
             undefined,
             undefined,
             true,
-            ':5555',
-            ['/admin/projects']);
+        );
         this.knoraApiConnection = new KnoraApiConnection(config);
         // console.log(this.knoraApiConnection);
         this.userCache = new UserCache(this.knoraApiConnection);
