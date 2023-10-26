@@ -72,6 +72,6 @@
     "jsonld": "^8.1.0"
   },
   "peerDependencies": {
-    "rxjs": "6.x"
+    "rxjs": "~7.5.0"
   }
 }
