@@ -1,5 +1,13 @@
 # Changelog
 
+### [9.0.2](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.0.1...v9.0.2) (2023-11-10)
+
+
+### Maintenance
+
+* add PR title check workflow ([#578](https://www.github.com/dasch-swiss/dsp-js-lib/issues/578)) ([b0065b8](https://www.github.com/dasch-swiss/dsp-js-lib/commit/b0065b874068be535e61da0fc7360239e37971ed))
+* update dsp-api to v30.5.1 ([#577](https://www.github.com/dasch-swiss/dsp-js-lib/issues/577)) ([0eb0746](https://www.github.com/dasch-swiss/dsp-js-lib/commit/0eb07461e016aa7772c85b1a5720f9825a22463e))
+
 ### [9.0.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.0.0...v9.0.1) (2023-10-27)
 
 
