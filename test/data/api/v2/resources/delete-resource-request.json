@@ -3,7 +3,7 @@
   "@type" : "anything:Thing",
   "knora-api:lastModificationDate" : {
     "@type" : "xsd:dateTimeStamp",
-    "@value" : "2023-11-11T07:54:32.592453176Z"
+    "@value" : "2023-11-24T06:54:10.351235655Z"
   },
   "knora-api:deleteComment" : "This resource is too boring.",
   "@context" : {
