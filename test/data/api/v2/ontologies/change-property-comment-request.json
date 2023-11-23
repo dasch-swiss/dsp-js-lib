@@ -3,7 +3,7 @@
   "@type" : "owl:Ontology",
   "knora-api:lastModificationDate" : {
     "@type" : "xsd:dateTimeStamp",
-    "@value" : "2023-11-10T07:57:19.000923699Z"
+    "@value" : "2023-11-23T06:56:48.854727283Z"
   },
   "@graph" : [ {
     "@id" : "anything:hasName",
