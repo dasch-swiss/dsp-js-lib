@@ -128,12 +128,18 @@ jobs:
       - name: Build
         run: npm run build
       - if: "github.event.release.prerelease"
-        name: Publish pre-release to npm
-        run: npm publish ${{env.DistDirectory}} --tag rc --access public
+        name: Publish pre-release to npm and Github packages
+        run: npm |
+          # Publish to npm
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
+          npm publish ${{env.DistDirectory}} --tag rc --access public
+          # Publish to GitHub Packages
+          echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" > .npmrc
+          npm publish --tag --rc --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_DASCHBOT}}
       - if: "!github.event.release.prerelease"
-        name: Publish release to npm
+        name: Publish release to npm and Github packages
         run: npm publish ${{env.DistDirectory}} --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_DASCHBOT}}
