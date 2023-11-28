@@ -1,5 +1,13 @@
 # Changelog
 
+### [9.1.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.0...v9.1.1) (2023-11-28)
+
+
+### Maintenance
+
+* **deps:** Bump @babel/traverse from 7.10.1 to 7.23.4 ([#584](https://www.github.com/dasch-swiss/dsp-js-lib/issues/584)) ([fc2a6f7](https://www.github.com/dasch-swiss/dsp-js-lib/commit/fc2a6f7dd7b880b21ecc2e9a7a54a3d090a55c76))
+* **deps:** Bump undici from 5.21.2 to 5.28.1 ([#588](https://www.github.com/dasch-swiss/dsp-js-lib/issues/588)) ([b87d19b](https://www.github.com/dasch-swiss/dsp-js-lib/commit/b87d19b1c6b5e25d7e52cf60d9e9cd8c11e53181))
+
 ## [9.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.0.3...v9.1.0) (2023-11-28)
 
 
