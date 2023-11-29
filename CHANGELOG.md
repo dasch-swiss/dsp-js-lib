@@ -1,5 +1,12 @@
 # Changelog
 
+### [9.1.5](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.4...v9.1.5) (2023-11-29)
+
+
+### Bug Fixes
+
+* use GITHUB_TOKEN secret ([#596](https://www.github.com/dasch-swiss/dsp-js-lib/issues/596)) ([750406e](https://www.github.com/dasch-swiss/dsp-js-lib/commit/750406e23d3f75fd85e30ad5513959dbb5bf92dc))
+
 ### [9.1.4](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.3...v9.1.4) (2023-11-29)
 
 
