@@ -1,5 +1,12 @@
 # Changelog
 
+### [9.1.6](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.5...v9.1.6) (2023-11-29)
+
+
+### Bug Fixes
+
+* use NPM_TOKEN env var ([#598](https://www.github.com/dasch-swiss/dsp-js-lib/issues/598)) ([32e4d09](https://www.github.com/dasch-swiss/dsp-js-lib/commit/32e4d0933df091b47b7f97320bbdfe493aed4ead))
+
 ### [9.1.5](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.4...v9.1.5) (2023-11-29)
 
 
