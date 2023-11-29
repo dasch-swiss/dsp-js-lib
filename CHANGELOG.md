@@ -1,5 +1,12 @@
 # Changelog
 
+### [9.1.8](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.7...v9.1.8) (2023-11-29)
+
+
+### Bug Fixes
+
+* reset e2e ([#602](https://www.github.com/dasch-swiss/dsp-js-lib/issues/602)) ([6a37d45](https://www.github.com/dasch-swiss/dsp-js-lib/commit/6a37d454cd241ec77ee7d9328c13b22aa00295fc))
+
 ### [9.1.7](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.6...v9.1.7) (2023-11-29)
 
 
