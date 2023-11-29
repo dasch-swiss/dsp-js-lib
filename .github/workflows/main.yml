@@ -139,7 +139,7 @@ jobs:
         name: Publish release to GitHub packages
         run: npm publish ${{env.DistDirectory}} --registry=https://npm.pkg.github.com/ --access public
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NPM_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
   notification:
     name: Google chat notification about release and published version
