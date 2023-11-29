@@ -83,6 +83,12 @@ jobs:
       #   run: make get-test-data-from-release
       # - name: Prepare test data
       #   run: make prepare-test-data
+      - name: Build lib
+        run: make build
+      - name: Prepare test environment
+        run: make prepare-test-ci
+      - name: Run e2e tests
+        run: make e2e-tests
 
   release-please:
     name: Prepare next release
@@ -123,12 +129,7 @@ jobs:
         run: npm run build
       - if: "github.event.release.prerelease"
         name: Publish pre-release to GitHub packages
-        run: |
-          echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" >> .npmrc
-          
-          npm publish ${{env.DistDirectory}} --tag rc --access public
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_DASCHBOT}}
+        run: npm publish ${{env.DistDirectory}} --registry=https://npm.pkg.github.com/ --_authToken=${{secrets.GITHUB_TOKEN}} --tag rc --access public
       - if: "!github.event.release.prerelease"
         name: Publish release to GitHub packages
         run: npm publish ${{env.DistDirectory}} --registry=https://npm.pkg.github.com/ --_authToken=${{secrets.GITHUB_TOKEN}} --access public
