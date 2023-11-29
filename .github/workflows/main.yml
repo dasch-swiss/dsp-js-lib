@@ -130,7 +130,7 @@ jobs:
       - if: "github.event.release.prerelease"
         name: Publish pre-release to GitHub packages
         run: |
-          echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" > .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" >> .npmrc
           
           npm publish ${{env.DistDirectory}} --tag rc --access public
         env:
@@ -138,7 +138,7 @@ jobs:
       - if: "!github.event.release.prerelease"
         name: Publish release to GitHub packages
         run: |
-          echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" > .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" >> .npmrc
           
           npm publish ${{env.DistDirectory}} --access public
         env:
