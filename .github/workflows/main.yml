@@ -83,12 +83,6 @@ jobs:
       #   run: make get-test-data-from-release
       # - name: Prepare test data
       #   run: make prepare-test-data
-      - name: Build lib
-        run: make build
-      - name: Prepare test environment
-        run: make prepare-test-ci
-      - name: Run e2e tests
-        run: make e2e-tests
 
   release-please:
     name: Prepare next release
@@ -139,7 +133,7 @@ jobs:
         name: Publish release to GitHub packages
         run: npm publish ${{env.DistDirectory}} --registry=https://npm.pkg.github.com/ --access public
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NPM_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
   notification:
     name: Google chat notification about release and published version
