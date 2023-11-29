@@ -131,9 +131,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN_DASCHBOT}}
       - if: "!github.event.release.prerelease"
         name: Publish release to GitHub packages
-        run: npm publish ${{env.DistDirectory}} --registry=https://npm.pkg.github.com/ --access public
-        env:
-          NPM_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        run: npm publish ${{env.DistDirectory}} --registry=https://npm.pkg.github.com/ --_authToken=${{secrets.GITHUB_TOKEN}} --access public
 
   notification:
     name: Google chat notification about release and published version
