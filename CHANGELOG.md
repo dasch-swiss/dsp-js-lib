@@ -1,5 +1,12 @@
 # Changelog
 
+### [9.1.3](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.2...v9.1.3) (2023-11-29)
+
+
+### Bug Fixes
+
+* temporary push only to github packages ([#592](https://www.github.com/dasch-swiss/dsp-js-lib/issues/592)) ([2b578f9](https://www.github.com/dasch-swiss/dsp-js-lib/commit/2b578f902315d375bb0f9d141a8a471d25acb7e0))
+
 ### [9.1.2](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.1...v9.1.2) (2023-11-28)
 
 
