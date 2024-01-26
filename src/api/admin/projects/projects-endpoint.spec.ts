@@ -682,7 +682,7 @@ describe("ProjectsEndpoint", () => {
                 (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
 
                     expect(response.body.settings.size).toEqual("!512,512");
-                    expect(response.body.settings.watermark).toEqual("path_to_image");
+                    expect(response.body.settings.watermark).toEqual(true);
 
                     done();
                 });
@@ -705,7 +705,7 @@ describe("ProjectsEndpoint", () => {
                 (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
 
                     expect(response.body.settings.size).toEqual("!512,512");
-                    expect(response.body.settings.watermark).toEqual("path_to_image");
+                    expect(response.body.settings.watermark).toEqual(true);
 
                     done();
                 });
@@ -728,7 +728,7 @@ describe("ProjectsEndpoint", () => {
                 (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
 
                     expect(response.body.settings.size).toEqual("!512,512");
-                    expect(response.body.settings.watermark).toEqual("path_to_image");
+                    expect(response.body.settings.watermark).toEqual(true);
 
                     done();
                 });
@@ -755,7 +755,7 @@ describe("ProjectsEndpoint", () => {
                 (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
 
                     expect(response.body.settings.size).toEqual("!512,512");
-                    expect(response.body.settings.watermark).toEqual("path_to_image");
+                    expect(response.body.settings.watermark).toEqual(true);
 
                     done();
                 });
@@ -781,8 +781,10 @@ describe("ProjectsEndpoint", () => {
             knoraApiConnection.admin.projectsEndpoint.getProjectRestrictedViewSettingByShortname("images").subscribe(
                 (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
 
+                    console.log(111111, response.body)
+
                     expect(response.body.settings.size).toEqual("!512,512");
-                    expect(response.body.settings.watermark).toEqual("path_to_image");
+                    expect(response.body.settings.watermark).toEqual(true);
 
                     done();
                 });
@@ -809,7 +811,7 @@ describe("ProjectsEndpoint", () => {
                 (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
 
                     expect(response.body.settings.size).toEqual("!512,512");
-                    expect(response.body.settings.watermark).toEqual("path_to_image");
+                    expect(response.body.settings.watermark).toEqual(true);
 
                     done();
                 });
