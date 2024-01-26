@@ -682,7 +682,7 @@ describe("ProjectsEndpoint", () => {
                 (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
 
                     expect(response.body.settings.size).toEqual("!512,512");
-                    expect(response.body.settings.watermark).toEqual("true");
+                    expect(response.body.settings.watermark).toEqual(true);
 
                     done();
                 });
@@ -705,7 +705,7 @@ describe("ProjectsEndpoint", () => {
                 (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
 
                     expect(response.body.settings.size).toEqual("!512,512");
-                    expect(response.body.settings.watermark).toEqual("true");
+                    expect(response.body.settings.watermark).toEqual(true);
 
                     done();
                 });
@@ -728,7 +728,7 @@ describe("ProjectsEndpoint", () => {
                 (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
 
                     expect(response.body.settings.size).toEqual("!512,512");
-                    expect(response.body.settings.watermark).toEqual("true");
+                    expect(response.body.settings.watermark).toEqual(true);
 
                     done();
                 });
@@ -755,7 +755,7 @@ describe("ProjectsEndpoint", () => {
                 (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
 
                     expect(response.body.settings.size).toEqual("!512,512");
-                    expect(response.body.settings.watermark).toEqual("true");
+                    expect(response.body.settings.watermark).toEqual(true);
 
                     done();
                 });
@@ -784,7 +784,7 @@ describe("ProjectsEndpoint", () => {
                     console.log(111111, response.body)
 
                     expect(response.body.settings.size).toEqual("!512,512");
-                    expect(response.body.settings.watermark).toEqual("true");
+                    expect(response.body.settings.watermark).toEqual(true);
 
                     done();
                 });
@@ -811,7 +811,7 @@ describe("ProjectsEndpoint", () => {
                 (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
 
                     expect(response.body.settings.size).toEqual("!512,512");
-                    expect(response.body.settings.watermark).toEqual("true");
+                    expect(response.body.settings.watermark).toEqual(true);
 
                     done();
                 });
