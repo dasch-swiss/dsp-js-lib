@@ -6,4 +6,4 @@ else
 endif
 
 API_REPO := dasch-swiss/dsp-api
-API_VERSION := v30.7.0
+API_VERSION := v30.8.1

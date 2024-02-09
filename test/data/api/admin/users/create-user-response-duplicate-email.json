@@ -1,1 +1,1 @@
-{"error":"dsp.errors.DuplicateValueException: User with the email 'donald.duck@example.org' already exists"}
+{"message":"User with the email 'donald.duck@example.org' already exists"}

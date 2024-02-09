@@ -1,1 +1,1 @@
-{"error":"dsp.errors.DuplicateValueException: User with the username 'donald.duck' already exists"}
+{"message":"User with the username 'donald.duck' already exists"}
