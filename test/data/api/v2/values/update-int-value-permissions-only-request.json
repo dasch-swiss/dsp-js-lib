@@ -2,7 +2,7 @@
   "@id" : "http://rdfh.ch/0001/a-thing",
   "@type" : "anything:Thing",
   "anything:hasInteger" : {
-    "@id" : "http://rdfh.ch/0001/a-thing/values/PyV7JPqfSOqzg6aL7zjqog",
+    "@id" : "http://rdfh.ch/0001/a-thing/values/k0HXRiveQAWIhcMzaG2ORQ",
     "@type" : "knora-api:IntValue",
     "knora-api:hasPermissions" : "CR http://rdfh.ch/groups/0001/thing-searcher|V knora-admin:KnownUser"
   },

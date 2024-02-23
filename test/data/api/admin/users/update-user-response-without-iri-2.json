@@ -1,1 +1,1 @@
-{"error":"dsp.errors.BadRequestException: User IRI is invalid."}
+{"error":"Invalid value for: path parameter userIri"}
