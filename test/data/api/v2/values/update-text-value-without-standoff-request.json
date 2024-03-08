@@ -2,7 +2,7 @@
   "@id" : "http://rdfh.ch/0001/a-thing",
   "@type" : "anything:Thing",
   "anything:hasText" : {
-    "@id" : "http://rdfh.ch/0001/a-thing/values/X3YxxcqfTlWa1kDp2d16zQ",
+    "@id" : "http://rdfh.ch/0001/a-thing/values/O6XImH0USaKG1Faf1fVNow",
     "@type" : "knora-api:TextValue",
     "knora-api:valueAsString" : "text without standoff updated"
   },
