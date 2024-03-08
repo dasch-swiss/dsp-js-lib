@@ -1,5 +1,12 @@
 # Changelog
 
+### [9.1.13](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.12...v9.1.13) (2024-03-08)
+
+
+### Maintenance
+
+* Update api to v.30.9.0 ([#619](https://www.github.com/dasch-swiss/dsp-js-lib/issues/619)) ([b662847](https://www.github.com/dasch-swiss/dsp-js-lib/commit/b662847363f332cca515fa263c20cc5ebc7fb5e3))
+
 ### [9.1.12](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.11...v9.1.12) (2024-02-23)
 
 
