@@ -25,10 +25,6 @@
       "destination": "./test/data/api/v2/ontologies/get-ontologies-project-anything-response.json"
     },
     {
-      "source": "/v2/ontologies/get-ontologies-project-incunabula-response.json",
-      "destination": "./test/data/api/v2/ontologies/get-ontologies-project-incunabula-response.json"
-    },
-    {
       "source": "/v2/ontologies/create-empty-foo-ontology-request.json",
       "destination": "./test/data/api/v2/ontologies/create-empty-foo-ontology-request.json"
     },
