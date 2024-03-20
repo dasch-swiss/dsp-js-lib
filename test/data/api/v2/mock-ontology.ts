@@ -14,7 +14,6 @@ import { StandoffClassDefinition } from "../../../../src/models/v2/ontologies/st
 import { SystemPropertyDefinition } from "../../../../src/models/v2/ontologies/system-property-definition";
 import ontologiesMetadata from "../v2/ontologies/all-ontology-metadata-response-expanded.json";
 import anythingOntologyExpanded from "../v2/ontologies/anything-ontology-expanded.json";
-import incunabulaOntologyExpanded from "../v2/ontologies/incunabula-ontology-expanded.json";
 import knoraApiOntologyExpanded from "../v2/ontologies/knora-api-ontology-expanded.json";
 
 export namespace MockOntology {
@@ -100,13 +99,11 @@ export namespace MockOntology {
 
         const anythingOntology: any = anythingOntologyExpanded;
         const knoraApiOntology: any = knoraApiOntologyExpanded;
-        const incunabulaOntology: any = incunabulaOntologyExpanded;
 
         const knoraApiEntities = (knoraApiOntology as { [index: string]: object[] })["@graph"];
         const anythingEntities = (anythingOntology as { [index: string]: object[] })["@graph"];
-        const incunabulaEntities = (incunabulaOntology as { [index: string]: object[] })["@graph"];
 
-        const entities = knoraApiEntities.concat(anythingEntities).concat(incunabulaEntities);
+        const entities = knoraApiEntities.concat(anythingEntities);
 
         // Convert resource classes
         entities.filter(OntologyConversionUtil.filterResourceClassDefinitions)

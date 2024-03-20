@@ -13,10 +13,6 @@
       "destination": "./test/data/api/v2/ontologies/anything-ontology.json"
     },
     {
-      "source": "/v2/ontologies/incunabula-ontology.json",
-      "destination": "./test/data/api/v2/ontologies/incunabula-ontology.json"
-    },
-    {
       "source": "/v2/ontologies/get-ontologies-project-anything-response.json",
       "destination": "./test/data/api/v2/ontologies/get-ontologies-project-anything-response.json"
     },
