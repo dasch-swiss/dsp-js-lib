@@ -12,7 +12,6 @@ import { ResourceClassDefinition } from "../../../../src/models/v2/ontologies/re
 import { ResourcePropertyDefinition } from "../../../../src/models/v2/ontologies/resource-property-definition";
 import { StandoffClassDefinition } from "../../../../src/models/v2/ontologies/standoff-class-definition";
 import { SystemPropertyDefinition } from "../../../../src/models/v2/ontologies/system-property-definition";
-import ontologiesMetadata from "../v2/ontologies/all-ontology-metadata-response-expanded.json";
 import anythingOntologyExpanded from "../v2/ontologies/anything-ontology-expanded.json";
 import knoraApiOntologyExpanded from "../v2/ontologies/knora-api-ontology-expanded.json";
 
@@ -24,10 +23,6 @@ export namespace MockOntology {
         false,
         PropertyMatchingRule.CASE_STRICT
     );
-
-    export const mockOntologiesMetadata = (): OntologiesMetadata => {
-        return jsonConvert.deserializeObject(ontologiesMetadata, OntologiesMetadata);
-    };
 
     export const mockReadOntology = (ontoIri: string): ReadOntology => {
 

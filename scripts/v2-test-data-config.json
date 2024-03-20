@@ -1,10 +1,6 @@
 {
   "generated-test-data": [
     {
-      "source": "/v2/ontologies/all-ontology-metadata-response.json",
-      "destination": "./test/data/api/v2/ontologies/all-ontology-metadata-response.json"
-    },
-    {
       "source": "/v2/ontologies/knora-api-ontology.json",
       "destination": "./test/data/api/v2/ontologies/knora-api-ontology.json"
     },
