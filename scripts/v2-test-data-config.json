@@ -1,10 +1,6 @@
 {
   "generated-test-data": [
     {
-      "source": "/v2/ontologies/all-ontology-metadata-response.json",
-      "destination": "./test/data/api/v2/ontologies/all-ontology-metadata-response.json"
-    },
-    {
       "source": "/v2/ontologies/knora-api-ontology.json",
       "destination": "./test/data/api/v2/ontologies/knora-api-ontology.json"
     },
@@ -13,20 +9,8 @@
       "destination": "./test/data/api/v2/ontologies/anything-ontology.json"
     },
     {
-      "source": "/v2/ontologies//minimal-ontology.json",
-      "destination": "./test/data/api/v2/ontologies/minimal-ontology.json"
-    },
-    {
-      "source": "/v2/ontologies/incunabula-ontology.json",
-      "destination": "./test/data/api/v2/ontologies/incunabula-ontology.json"
-    },
-    {
       "source": "/v2/ontologies/get-ontologies-project-anything-response.json",
       "destination": "./test/data/api/v2/ontologies/get-ontologies-project-anything-response.json"
-    },
-    {
-      "source": "/v2/ontologies/get-ontologies-project-incunabula-response.json",
-      "destination": "./test/data/api/v2/ontologies/get-ontologies-project-incunabula-response.json"
     },
     {
       "source": "/v2/ontologies/create-empty-foo-ontology-request.json",

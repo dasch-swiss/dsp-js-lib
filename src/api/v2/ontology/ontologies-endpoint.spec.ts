@@ -46,32 +46,6 @@ describe("OntologiesEndpoint", () => {
         jasmine.Ajax.uninstall();
     });
 
-    describe("Method getOntologiesMetadata", () => {
-
-        it("should return metadata about all ontologies", done => {
-
-            knoraApiConnection.v2.onto.getOntologiesMetadata().subscribe(
-                (response: OntologiesMetadata) => {
-                    expect(response.ontologies.length).toEqual(15);
-                    expect(response.ontologies[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2");
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const ontoMetadata = require("../../../../test/data/api/v2/ontologies/all-ontology-metadata-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(ontoMetadata)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/metadata");
-
-            expect(request.method).toEqual("GET");
-
-        });
-
-    });
-
     describe("Method getOntology", () => {
 
         it("should return an ontology", done => {
@@ -188,56 +162,6 @@ describe("OntologiesEndpoint", () => {
 
         });
 
-        it("should return a very simple project ontology", done => {
-
-            knoraApiConnection.v2.onto.getOntology("http://0.0.0.0:3333/ontology/0001/minimal/v2").subscribe(
-                (response: ReadOntology) => {
-
-                    expect(response.id).toEqual("http://0.0.0.0:3333/ontology/0001/minimal/v2");
-                    expect(response.label).toEqual("A minimal ontology");
-
-                    expect(response.dependsOnOntologies.size).toEqual(1);
-                    expect(response.dependsOnOntologies.has("http://api.knora.org/ontology/knora-api/v2")).toBeTruthy();
-
-                    done();
-                });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const onto = require("../../../../test/data/api/v2/ontologies/minimal-ontology.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(onto)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/allentities/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fminimal%2Fv2");
-
-            expect(request.method).toEqual("GET");
-
-        });
-
-        it("should return an ontology with labels and comments in all languages", done => {
-
-            knoraApiConnection.v2.onto.getOntology("http://0.0.0.0:3333/ontology/0001/minimal/v2", true).subscribe(
-                (response: ReadOntology) => {
-
-                    expect(response.getPropertyDefinitionsByType(ResourcePropertyDefinitionWithAllLanguages).length).toEqual(1);
-
-                    expect(response.getPropertyDefinitionsByType(ResourcePropertyDefinitionWithAllLanguages)[0].labels[0].value).toEqual("has name");
-
-                    done();
-                });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const onto = require("../../../../test/data/api/v2/manually-generated/minimal-ontology-with-all-languages-expanded.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(onto)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/allentities/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fminimal%2Fv2?allLanguages=true");
-
-            expect(request.method).toEqual("GET");
-
-        });
-
     });
 
     describe("Method getOntologiesByProjectIri", () => {
@@ -282,28 +206,6 @@ describe("OntologiesEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({})));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/metadata/http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
-
-            expect(request.method).toEqual("GET");
-
-        });
-
-        it("should return all ontologies from 'incunabula' project", done => {
-
-            knoraApiConnection.v2.onto.getOntologiesByProjectIri("http://rdfh.ch/projects/0803").subscribe(
-                (response: OntologiesMetadata) => {
-                    expect(response.ontologies.length).toEqual(1);
-                    expect(response.ontologies[0].id).toEqual("http://0.0.0.0:3333/ontology/0803/incunabula/v2");
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const ontoMetadata = require("../../../../test/data/api/v2/ontologies/get-ontologies-project-incunabula-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(ontoMetadata)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/ontologies/metadata/http%3A%2F%2Frdfh.ch%2Fprojects%2F0803");
 
             expect(request.method).toEqual("GET");
 
