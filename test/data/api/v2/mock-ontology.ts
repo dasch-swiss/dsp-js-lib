@@ -14,7 +14,6 @@ import { StandoffClassDefinition } from "../../../../src/models/v2/ontologies/st
 import { SystemPropertyDefinition } from "../../../../src/models/v2/ontologies/system-property-definition";
 import ontologiesMetadata from "../v2/ontologies/all-ontology-metadata-response-expanded.json";
 import anythingOntologyExpanded from "../v2/ontologies/anything-ontology-expanded.json";
-import minimalOntologyExpanded from "../v2/ontologies/minimal-ontology-expanded.json";
 import incunabulaOntologyExpanded from "../v2/ontologies/incunabula-ontology-expanded.json";
 import knoraApiOntologyExpanded from "../v2/ontologies/knora-api-ontology-expanded.json";
 
@@ -42,10 +41,6 @@ export namespace MockOntology {
             }
             case "http://0.0.0.0:3333/ontology/0001/anything/v2": {
                 ontologyJsonld = anythingOntologyExpanded;
-                break;
-            }
-            case "http://0.0.0.0:3333/ontology/0001/minimal/v2": {
-                ontologyJsonld = minimalOntologyExpanded;
                 break;
             }
             default: {
@@ -151,7 +146,7 @@ export namespace MockOntology {
             });
 
         return new ResourceClassAndPropertyDefinitions(
-            {[resClassIri]: new ResourceClassDefinitionWithPropertyDefinition(tmpClasses[resClassIri], tmpProps)},
+            { [resClassIri]: new ResourceClassDefinitionWithPropertyDefinition(tmpClasses[resClassIri], tmpProps) },
             tmpProps
         );
 
