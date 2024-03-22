@@ -2,7 +2,7 @@
   "@id" : "http://rdfh.ch/0001/a-thing",
   "@type" : "anything:Thing",
   "anything:hasText" : {
-    "@id" : "http://rdfh.ch/0001/a-thing/values/kGPBOHQsRFeChkj6YOuwKg",
+    "@id" : "http://rdfh.ch/0001/a-thing/values/9yXGARQES1-l610I7sSQzg",
     "@type" : "knora-api:TextValue",
     "knora-api:textValueAsXml" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<text>\n   This updated text links to another <a class=\"salsah-link\" href=\"http://rdfh.ch/0001/another-thing\">resource</a>.\n</text>",
     "knora-api:textValueHasMapping" : {
