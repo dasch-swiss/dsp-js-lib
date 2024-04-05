@@ -634,7 +634,6 @@ describe("ResourcesEndpoint", () => {
 
             const expectedPayload = require("../../../../test/data/api/v2/resources/delete-resource-request-expanded.json");
 
-            // TODO: remove this bad hack once test data is stable
             expectedPayload["http://api.knora.org/ontology/knora-api/v2#lastModificationDate"]["@value"] = "2020-10-22T23:52:02.920220Z";
 
             expect(request.data()).toEqual(expectedPayload);
