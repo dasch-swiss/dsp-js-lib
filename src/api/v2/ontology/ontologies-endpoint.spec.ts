@@ -126,14 +126,14 @@ describe("OntologiesEndpoint", () => {
                     expect((response.properties["http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem"] as ResourcePropertyDefinition).guiAttributes).toEqual(["hlist=<http://rdfh.ch/lists/0001/treeList>"]);
 
                     const classDefs = response.getAllClassDefinitions();
-                    console.log(1111, classDefs)
+                    console.log(777777, classDefs)
                     expect(classDefs.length).toEqual(13);
                     expect(classDefs[0] instanceof ResourceClassDefinition).toBeTruthy();
-                    expect((classDefs[0] as ResourceClassDefinition).id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#AudioThing");
+                    expect((classDefs[0] as ResourceClassDefinition).id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#AudioSequenceThing");
 
                     const resClassDefs = response.getClassDefinitionsByType(ResourceClassDefinition);
                     expect(resClassDefs.length).toEqual(12);
-                    expect(resClassDefs[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#AudioThing");
+                    expect(resClassDefs[0].id).toEqual("http://0.0.0.0:3333/ontology/0001/anything/v2#AudioSequenceThing");
 
                     const standoffClassDefs = response.getClassDefinitionsByType(StandoffClassDefinition);
                     expect(standoffClassDefs.length).toEqual(1);
