@@ -65,6 +65,7 @@ export class Constants {
 
     static HasRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasRepresentation";
     static StillImageRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "StillImageRepresentation";
+    static StillImageAbstractFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "StillImageAbstractFileValue";
     static MovingImageRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "MovingImageRepresentation";
     static AudioRepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "AudioRepresentation";
     static DDDrepresentation = Constants.KnoraApiV2 + Constants.HashDelimiter + "DDDrepresentation";
