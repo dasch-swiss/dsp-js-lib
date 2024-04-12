@@ -1,5 +1,12 @@
 # Changelog
 
+### [9.1.16](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.15...v9.1.16) (2024-04-12)
+
+
+### Maintenance
+
+* **deps:** Bump @babel/traverse in /test-framework ([#566](https://www.github.com/dasch-swiss/dsp-js-lib/issues/566)) ([07267ee](https://www.github.com/dasch-swiss/dsp-js-lib/commit/07267eec7908fcedb962aed5e26b1c455ea2592a))
+
 ### [9.1.15](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.14...v9.1.15) (2024-04-05)
 
 
