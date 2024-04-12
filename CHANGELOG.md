@@ -1,5 +1,135 @@
 # Changelog
 
+### [9.1.15](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.14...v9.1.15) (2024-04-05)
+
+
+### Maintenance
+
+* Update dsp-api v30.11.0 ([#629](https://www.github.com/dasch-swiss/dsp-js-lib/issues/629)) ([20b599a](https://www.github.com/dasch-swiss/dsp-js-lib/commit/20b599ae6ab32131289873a18cd5ffe9683bd370))
+
+### [9.1.14](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.13...v9.1.14) (2024-03-22)
+
+
+### Maintenance
+
+* update dsp-api to v30.10.0 ([#624](https://www.github.com/dasch-swiss/dsp-js-lib/issues/624)) ([73d29cd](https://www.github.com/dasch-swiss/dsp-js-lib/commit/73d29cd0d69e5466d9616f148d4c60e0b4f58997))
+
+### [9.1.13](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.12...v9.1.13) (2024-03-08)
+
+
+### Maintenance
+
+* Update api to v.30.9.0 ([#619](https://www.github.com/dasch-swiss/dsp-js-lib/issues/619)) ([b662847](https://www.github.com/dasch-swiss/dsp-js-lib/commit/b662847363f332cca515fa263c20cc5ebc7fb5e3))
+
+### [9.1.12](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.11...v9.1.12) (2024-02-23)
+
+
+### Maintenance
+
+* update dsp-api to v30.8.2 ([#617](https://www.github.com/dasch-swiss/dsp-js-lib/issues/617)) ([580e390](https://www.github.com/dasch-swiss/dsp-js-lib/commit/580e390e05a9fa136bbb020b05403cc1e51c8380))
+
+### [9.1.11](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.10...v9.1.11) (2024-02-09)
+
+
+### Maintenance
+
+* update dsp-api to v30.8.1 ([#613](https://www.github.com/dasch-swiss/dsp-js-lib/issues/613)) ([78f6ae7](https://www.github.com/dasch-swiss/dsp-js-lib/commit/78f6ae7fd9dcd2e356b7e9b12ad601f7ac2a989f))
+
+### [9.1.10](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.9...v9.1.10) (2024-01-26)
+
+
+### Maintenance
+
+* Update dsp-api to v.30.7.0 ([#610](https://www.github.com/dasch-swiss/dsp-js-lib/issues/610)) ([61e0566](https://www.github.com/dasch-swiss/dsp-js-lib/commit/61e05668d46ed7a9e43f26f9e62d5d3357f69e5f))
+
+### [9.1.9](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.8...v9.1.9) (2023-12-08)
+
+
+### Maintenance
+
+* downgrade release-please-action to v2 ([#606](https://www.github.com/dasch-swiss/dsp-js-lib/issues/606)) ([84a51a0](https://www.github.com/dasch-swiss/dsp-js-lib/commit/84a51a0a9fedf1c55099b1daf520a9c9b5b77302))
+* update dsp-api to v30.6.0 ([#604](https://www.github.com/dasch-swiss/dsp-js-lib/issues/604)) ([c27d3e9](https://www.github.com/dasch-swiss/dsp-js-lib/commit/c27d3e93e258a62fe1b5d5c3c57376a3f5dc4c2a))
+* update release-please-action to v4 ([#605](https://www.github.com/dasch-swiss/dsp-js-lib/issues/605)) ([ffea8f5](https://www.github.com/dasch-swiss/dsp-js-lib/commit/ffea8f527cdd7d3aa9b8f189975dd17f8565e817))
+
+### [9.1.8](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.7...v9.1.8) (2023-11-29)
+
+
+### Bug Fixes
+
+* reset e2e ([#602](https://www.github.com/dasch-swiss/dsp-js-lib/issues/602)) ([6a37d45](https://www.github.com/dasch-swiss/dsp-js-lib/commit/6a37d454cd241ec77ee7d9328c13b22aa00295fc))
+
+### [9.1.7](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.6...v9.1.7) (2023-11-29)
+
+
+### Bug Fixes
+
+* main.yml ([#600](https://www.github.com/dasch-swiss/dsp-js-lib/issues/600)) ([7121ec2](https://www.github.com/dasch-swiss/dsp-js-lib/commit/7121ec210143c5ea7374ee055382639517430eee))
+
+### [9.1.6](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.5...v9.1.6) (2023-11-29)
+
+
+### Bug Fixes
+
+* use NPM_TOKEN env var ([#598](https://www.github.com/dasch-swiss/dsp-js-lib/issues/598)) ([32e4d09](https://www.github.com/dasch-swiss/dsp-js-lib/commit/32e4d0933df091b47b7f97320bbdfe493aed4ead))
+
+### [9.1.5](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.4...v9.1.5) (2023-11-29)
+
+
+### Bug Fixes
+
+* use GITHUB_TOKEN secret ([#596](https://www.github.com/dasch-swiss/dsp-js-lib/issues/596)) ([750406e](https://www.github.com/dasch-swiss/dsp-js-lib/commit/750406e23d3f75fd85e30ad5513959dbb5bf92dc))
+
+### [9.1.4](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.3...v9.1.4) (2023-11-29)
+
+
+### Bug Fixes
+
+* github packages CI ([#594](https://www.github.com/dasch-swiss/dsp-js-lib/issues/594)) ([62df3de](https://www.github.com/dasch-swiss/dsp-js-lib/commit/62df3ded991aaeccda11656bf67c93ab468ea4e3))
+
+### [9.1.3](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.2...v9.1.3) (2023-11-29)
+
+
+### Bug Fixes
+
+* temporary push only to github packages ([#592](https://www.github.com/dasch-swiss/dsp-js-lib/issues/592)) ([2b578f9](https://www.github.com/dasch-swiss/dsp-js-lib/commit/2b578f902315d375bb0f9d141a8a471d25acb7e0))
+
+### [9.1.2](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.1...v9.1.2) (2023-11-28)
+
+
+### Bug Fixes
+
+* issue to publish at the same time ([#590](https://www.github.com/dasch-swiss/dsp-js-lib/issues/590)) ([9f9d292](https://www.github.com/dasch-swiss/dsp-js-lib/commit/9f9d292941c171f159eaabe7fc74cf56635eb0a5))
+
+### [9.1.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.0...v9.1.1) (2023-11-28)
+
+
+### Maintenance
+
+* **deps:** Bump @babel/traverse from 7.10.1 to 7.23.4 ([#584](https://www.github.com/dasch-swiss/dsp-js-lib/issues/584)) ([fc2a6f7](https://www.github.com/dasch-swiss/dsp-js-lib/commit/fc2a6f7dd7b880b21ecc2e9a7a54a3d090a55c76))
+* **deps:** Bump undici from 5.21.2 to 5.28.1 ([#588](https://www.github.com/dasch-swiss/dsp-js-lib/issues/588)) ([b87d19b](https://www.github.com/dasch-swiss/dsp-js-lib/commit/b87d19b1c6b5e25d7e52cf60d9e9cd8c11e53181))
+
+## [9.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.0.3...v9.1.0) (2023-11-28)
+
+
+### Enhancements
+
+* publish release also to github packages ([#586](https://www.github.com/dasch-swiss/dsp-js-lib/issues/586)) ([340aba0](https://www.github.com/dasch-swiss/dsp-js-lib/commit/340aba05059f3eda610846a8130a15d88fd97653))
+
+### [9.0.3](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.0.2...v9.0.3) (2023-11-23)
+
+
+### Maintenance
+
+* Update dsp-api to v30.5.2 ([#582](https://www.github.com/dasch-swiss/dsp-js-lib/issues/582)) ([505d509](https://www.github.com/dasch-swiss/dsp-js-lib/commit/505d509aa09e06e257b0bef88feaf29bdf5aee5b))
+
+### [9.0.2](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.0.1...v9.0.2) (2023-11-10)
+
+
+### Maintenance
+
+* add PR title check workflow ([#578](https://www.github.com/dasch-swiss/dsp-js-lib/issues/578)) ([b0065b8](https://www.github.com/dasch-swiss/dsp-js-lib/commit/b0065b874068be535e61da0fc7360239e37971ed))
+* update dsp-api to v30.5.1 ([#577](https://www.github.com/dasch-swiss/dsp-js-lib/issues/577)) ([0eb0746](https://www.github.com/dasch-swiss/dsp-js-lib/commit/0eb07461e016aa7772c85b1a5720f9825a22463e))
+
 ### [9.0.1](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.0.0...v9.0.1) (2023-10-27)
 
 

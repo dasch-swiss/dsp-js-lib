@@ -2,7 +2,7 @@
   "@id" : "http://rdfh.ch/0001/a-thing",
   "@type" : "anything:Thing",
   "anything:hasTimeStamp" : {
-    "@id" : "http://rdfh.ch/0001/a-thing/values/71zFsHmqQOa6YOmXgt4c4Q",
+    "@id" : "http://rdfh.ch/0001/a-thing/values/zBgL6NG3S5GgXaX1iqQxUw",
     "@type" : "knora-api:TimeValue",
     "knora-api:timeValueAsTimeStamp" : {
       "@type" : "xsd:dateTimeStamp",

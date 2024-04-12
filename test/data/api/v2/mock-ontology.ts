@@ -12,10 +12,7 @@ import { ResourceClassDefinition } from "../../../../src/models/v2/ontologies/re
 import { ResourcePropertyDefinition } from "../../../../src/models/v2/ontologies/resource-property-definition";
 import { StandoffClassDefinition } from "../../../../src/models/v2/ontologies/standoff-class-definition";
 import { SystemPropertyDefinition } from "../../../../src/models/v2/ontologies/system-property-definition";
-import ontologiesMetadata from "../v2/ontologies/all-ontology-metadata-response-expanded.json";
 import anythingOntologyExpanded from "../v2/ontologies/anything-ontology-expanded.json";
-import minimalOntologyExpanded from "../v2/ontologies/minimal-ontology-expanded.json";
-import incunabulaOntologyExpanded from "../v2/ontologies/incunabula-ontology-expanded.json";
 import knoraApiOntologyExpanded from "../v2/ontologies/knora-api-ontology-expanded.json";
 
 export namespace MockOntology {
@@ -26,10 +23,6 @@ export namespace MockOntology {
         false,
         PropertyMatchingRule.CASE_STRICT
     );
-
-    export const mockOntologiesMetadata = (): OntologiesMetadata => {
-        return jsonConvert.deserializeObject(ontologiesMetadata, OntologiesMetadata);
-    };
 
     export const mockReadOntology = (ontoIri: string): ReadOntology => {
 
@@ -42,10 +35,6 @@ export namespace MockOntology {
             }
             case "http://0.0.0.0:3333/ontology/0001/anything/v2": {
                 ontologyJsonld = anythingOntologyExpanded;
-                break;
-            }
-            case "http://0.0.0.0:3333/ontology/0001/minimal/v2": {
-                ontologyJsonld = minimalOntologyExpanded;
                 break;
             }
             default: {
@@ -105,13 +94,11 @@ export namespace MockOntology {
 
         const anythingOntology: any = anythingOntologyExpanded;
         const knoraApiOntology: any = knoraApiOntologyExpanded;
-        const incunabulaOntology: any = incunabulaOntologyExpanded;
 
         const knoraApiEntities = (knoraApiOntology as { [index: string]: object[] })["@graph"];
         const anythingEntities = (anythingOntology as { [index: string]: object[] })["@graph"];
-        const incunabulaEntities = (incunabulaOntology as { [index: string]: object[] })["@graph"];
 
-        const entities = knoraApiEntities.concat(anythingEntities).concat(incunabulaEntities);
+        const entities = knoraApiEntities.concat(anythingEntities);
 
         // Convert resource classes
         entities.filter(OntologyConversionUtil.filterResourceClassDefinitions)
@@ -151,7 +138,7 @@ export namespace MockOntology {
             });
 
         return new ResourceClassAndPropertyDefinitions(
-            {[resClassIri]: new ResourceClassDefinitionWithPropertyDefinition(tmpClasses[resClassIri], tmpProps)},
+            { [resClassIri]: new ResourceClassDefinitionWithPropertyDefinition(tmpClasses[resClassIri], tmpProps) },
             tmpProps
         );
 

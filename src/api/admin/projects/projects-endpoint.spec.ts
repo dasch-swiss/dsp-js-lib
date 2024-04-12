@@ -32,7 +32,7 @@ describe("ProjectsEndpoint", () => {
                 (response: ApiResponseData<ProjectsResponse>) => {
 
                     expect(response.body.projects.length).toEqual(6);
-                    expect(response.body.projects[0].id).toEqual("http://rdfh.ch/projects/00FF");
+                    expect(response.body.projects[0].id).toEqual("http://rdfh.ch/projects/yTerZGyxjZVqFMNNKXCDPF");
 
                     done();
                 });
@@ -682,7 +682,7 @@ describe("ProjectsEndpoint", () => {
                 (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
 
                     expect(response.body.settings.size).toEqual("!512,512");
-                    expect(response.body.settings.watermark).toEqual("path_to_image");
+                    expect(response.body.settings.watermark).toEqual(false);
 
                     done();
                 });
@@ -705,7 +705,7 @@ describe("ProjectsEndpoint", () => {
                 (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
 
                     expect(response.body.settings.size).toEqual("!512,512");
-                    expect(response.body.settings.watermark).toEqual("path_to_image");
+                    expect(response.body.settings.watermark).toEqual(false);
 
                     done();
                 });
@@ -728,7 +728,7 @@ describe("ProjectsEndpoint", () => {
                 (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
 
                     expect(response.body.settings.size).toEqual("!512,512");
-                    expect(response.body.settings.watermark).toEqual("path_to_image");
+                    expect(response.body.settings.watermark).toEqual(false);
 
                     done();
                 });
@@ -755,7 +755,7 @@ describe("ProjectsEndpoint", () => {
                 (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
 
                     expect(response.body.settings.size).toEqual("!512,512");
-                    expect(response.body.settings.watermark).toEqual("path_to_image");
+                    expect(response.body.settings.watermark).toEqual(false);
 
                     done();
                 });
@@ -782,7 +782,7 @@ describe("ProjectsEndpoint", () => {
                 (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
 
                     expect(response.body.settings.size).toEqual("!512,512");
-                    expect(response.body.settings.watermark).toEqual("path_to_image");
+                    expect(response.body.settings.watermark).toEqual(false);
 
                     done();
                 });
@@ -809,7 +809,7 @@ describe("ProjectsEndpoint", () => {
                 (response: ApiResponseData<ProjectRestrictedViewSettingsResponse>) => {
 
                     expect(response.body.settings.size).toEqual("!512,512");
-                    expect(response.body.settings.watermark).toEqual("path_to_image");
+                    expect(response.body.settings.watermark).toEqual(false);
 
                     done();
                 });
