@@ -30,7 +30,7 @@ describe("GroupsEndpoint", () => {
                 (response: ApiResponseData<GroupsResponse>) => {
 
                     expect(response.body.groups.length).toEqual(2);
-                    expect(response.body.groups[0].id).toEqual("http://rdfh.ch/groups/0001/thing-searcher");
+                    expect(response.body.groups[0].id).toEqual("http://rdfh.ch/groups/00FF/images-reviewer");
 
                     done();
                 });
