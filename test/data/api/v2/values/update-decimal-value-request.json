@@ -2,7 +2,7 @@
   "@id" : "http://rdfh.ch/0001/a-thing",
   "@type" : "anything:Thing",
   "anything:hasDecimal" : {
-    "@id" : "http://rdfh.ch/0001/a-thing/values/IG1Jxr6OSkqbQjh9LZzQIQ",
+    "@id" : "http://rdfh.ch/0001/a-thing/values/t4vanP2gRoipK53q1EXvUw",
     "@type" : "knora-api:DecimalValue",
     "knora-api:decimalValueAsDecimal" : {
       "@type" : "xsd:decimal",
