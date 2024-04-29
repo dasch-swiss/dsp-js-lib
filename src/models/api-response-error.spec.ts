@@ -2,7 +2,7 @@ import { AjaxError, AjaxResponse } from "rxjs/ajax";
 import { ApiResponseData } from "./api-response-data";
 import { ApiResponseError } from "./api-response-error";
 
-xdescribe("Test class ApiResponseError", () => {
+describe("Test class ApiResponseError", () => {
 
     describe("Test method fromAjaxError()", () => {
 

@@ -271,7 +271,7 @@ describe("OntologyCache", () => {
         });
     });
 
-    xdescribe("unsuccessful HTTP request", () => {
+    describe("unsuccessful HTTP request", () => {
 
         const config = new KnoraApiConfig("http", "0.0.0.0", 3333, "", "", true);
         let knoraApiConnection: KnoraApiConnection;

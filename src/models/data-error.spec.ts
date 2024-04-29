@@ -2,7 +2,7 @@ import { AjaxError } from "rxjs/ajax";
 import { ApiResponseError } from "./api-response-error";
 import { DataError } from "./data-error";
 
-xdescribe("Test class DataError", () => {
+describe("Test class DataError", () => {
 
     describe("Test method constructor()", () => {
 
