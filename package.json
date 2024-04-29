@@ -28,6 +28,7 @@
     "prepare-dev-publication": "node scripts/prepare-dev-publication.js",
     "build-docs": "typedoc --options typedoc.json src",
     "typedoc-config": "node scripts/typedoc-config.js",
+    "peer-deps": "npm i rxjs@6.x --no-save",
     "build-local": "npm i && npm run prepare-dev-publication && npm run yalc-publish"
   },
   "repository": {
