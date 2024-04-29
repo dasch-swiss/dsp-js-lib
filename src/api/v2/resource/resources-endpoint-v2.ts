@@ -3,12 +3,12 @@ import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { ApiResponseError } from "../../../models/api-response-error";
+import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { CreateResource } from "../../../models/v2/resources/create/create-resource";
 import { DeleteResource } from "../../../models/v2/resources/delete/delete-resource";
 import { DeleteResourceResponse } from "../../../models/v2/resources/delete/delete-resource-response";
 import { ReadResource } from "../../../models/v2/resources/read/read-resource";
 import { ReadResourceSequence } from "../../../models/v2/resources/read/read-resource-sequence";
-import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { UpdateResourceMetadata } from "../../../models/v2/resources/update/update-resource-metadata";
 import { UpdateResourceMetadataResponse } from "../../../models/v2/resources/update/update-resource-metadata-response";
 import { Endpoint } from "../../endpoint";
@@ -50,7 +50,7 @@ export class ResourcesEndpointV2 extends Endpoint {
         });
 
         return this.httpGet(resIris).pipe(
-            mergeMap((ajaxResponse: AjaxResponse) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -110,7 +110,7 @@ export class ResourcesEndpointV2 extends Endpoint {
         });
 
         return this.httpPost("", res).pipe(
-            mergeMap((ajaxResponse: AjaxResponse) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -142,7 +142,7 @@ export class ResourcesEndpointV2 extends Endpoint {
         const res = this.jsonConvert.serializeObject(resourceMetadata);
 
         return this.httpPut("", res).pipe(
-            mergeMap((ajaxResponse: AjaxResponse) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -166,7 +166,7 @@ export class ResourcesEndpointV2 extends Endpoint {
         const res = this.jsonConvert.serializeObject(resource);
 
         return this.httpPost("/delete", res).pipe(
-            mergeMap((ajaxResponse: AjaxResponse) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -190,7 +190,7 @@ export class ResourcesEndpointV2 extends Endpoint {
         const res = this.jsonConvert.serializeObject(resource);
 
         return this.httpPost("/erase", res).pipe(
-            mergeMap((ajaxResponse: AjaxResponse) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri

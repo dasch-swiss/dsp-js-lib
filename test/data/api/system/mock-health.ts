@@ -18,7 +18,7 @@ export namespace MockHealth {
     );
 
     export const mockMaintenance = (): ApiResponseData<HealthResponse> => {
-        const responseData = ApiResponseData.fromAjaxResponse(new AjaxResponse({} as any, {} as any, {}));
+        const responseData = ApiResponseData.fromAjaxResponse(new AjaxResponse({} as any, {} as any, {} as any));
 
         const healthRes = jsonConvert.serializeObject(maintenance, HealthResponse);
         responseData.body = healthRes;
@@ -26,7 +26,7 @@ export namespace MockHealth {
     };
 
     export const mockRunning = (): ApiResponseData<HealthResponse> => {
-        const responseData = ApiResponseData.fromAjaxResponse(new AjaxResponse({} as any, {} as any, {}));
+        const responseData = ApiResponseData.fromAjaxResponse(new AjaxResponse({} as any, {} as any, {} as any));
 
         const healthRes = jsonConvert.serializeObject(running, HealthResponse);
         responseData.body = healthRes;
@@ -34,7 +34,7 @@ export namespace MockHealth {
     };
 
     export const mockStopped = (): ApiResponseData<HealthResponse> => {
-        const responseData = ApiResponseData.fromAjaxResponse(new AjaxResponse({} as any, {} as any, {}));
+        const responseData = ApiResponseData.fromAjaxResponse(new AjaxResponse({} as any, {} as any, {} as any));
 
         const healthRes = jsonConvert.serializeObject(stopped, HealthResponse);
         responseData.body = healthRes;

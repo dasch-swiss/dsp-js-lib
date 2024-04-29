@@ -1,12 +1,12 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { AjaxResponse } from "rxjs/ajax";
-import { ApiResponseData } from "../../../../src/models/api-response-data";
-import { UsersResponse } from "../../../../src/models/admin/users-response";
 import { UserResponse } from "../../../../src/models/admin/user-response";
+import { UsersResponse } from "../../../../src/models/admin/users-response";
+import { ApiResponseData } from "../../../../src/models/api-response-data";
 
-import users from "./users/get-users-response.json";
 import user from "./users/get-user-response.json";
+import users from "./users/get-users-response.json";
 
 export namespace MockUsers {
 
@@ -18,7 +18,7 @@ export namespace MockUsers {
     );
 
     export const mockUsers = (): ApiResponseData<UsersResponse> => {
-        const responseData = ApiResponseData.fromAjaxResponse(new AjaxResponse({} as any, {} as any, {}));
+        const responseData = ApiResponseData.fromAjaxResponse(new AjaxResponse({} as any, {} as any, {} as any));
 
         const usersRes = jsonConvert.serializeObject(users, UsersResponse);
         responseData.body = usersRes;
@@ -26,7 +26,7 @@ export namespace MockUsers {
     };
 
     export const mockUser = (): ApiResponseData<UserResponse> => {
-        const responseData = ApiResponseData.fromAjaxResponse(new AjaxResponse({} as any, {} as any, {}));
+        const responseData = ApiResponseData.fromAjaxResponse(new AjaxResponse({} as any, {} as any, {} as any));
 
         const userRes = jsonConvert.serializeObject(user, UserResponse);
         responseData.body = userRes;

@@ -23,7 +23,7 @@ export class ListsEndpointV2 extends Endpoint {
     getNode(nodeIri: string): Observable<ListNodeV2 | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
         return this.httpGet("/node/" + encodeURIComponent(nodeIri)).pipe(
-            mergeMap((ajaxResponse: AjaxResponse) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -47,7 +47,7 @@ export class ListsEndpointV2 extends Endpoint {
     getList(rootNodeIri: string): Observable<ListNodeV2 | ApiResponseError> {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
         return this.httpGet("/lists/" + encodeURIComponent(rootNodeIri)).pipe(
-            mergeMap((ajaxResponse: AjaxResponse) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});

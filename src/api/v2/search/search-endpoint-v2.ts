@@ -5,8 +5,8 @@ import { IFulltextSearchParams } from "../../../interfaces/models/v2/i-fulltext-
 import { ILabelSearchParams } from "../../../interfaces/models/v2/i-label-search-params";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { ApiResponseError } from "../../../models/api-response-error";
-import { ReadResourceSequence } from "../../../models/v2/resources/read/read-resource-sequence";
 import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
+import { ReadResourceSequence } from "../../../models/v2/resources/read/read-resource-sequence";
 import { CountQueryResponse } from "../../../models/v2/search/count-query-response";
 import { Endpoint } from "../../endpoint";
 import { V2Endpoint } from "../v2-endpoint";
@@ -91,7 +91,7 @@ export class SearchEndpointV2 extends Endpoint {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         return this.httpGet("/search/" + encodeURIComponent(searchTerm) + SearchEndpointV2.encodeFulltextParams(offset, params)).pipe(
-            mergeMap((ajaxResponse: AjaxResponse) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -117,7 +117,7 @@ export class SearchEndpointV2 extends Endpoint {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         return this.httpGet("/search/count/" + encodeURIComponent(searchTerm) + SearchEndpointV2.encodeFulltextParams(offset, params)).pipe(
-            mergeMap((ajaxResponse: AjaxResponse) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -142,7 +142,7 @@ export class SearchEndpointV2 extends Endpoint {
         // TODO: check if content-type have to be set to text/plain
 
         return this.httpPost("/searchextended", gravsearchQuery, "sparql").pipe(
-            mergeMap((ajaxResponse: AjaxResponse) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -166,7 +166,7 @@ export class SearchEndpointV2 extends Endpoint {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         return this.httpPost("/searchextended/count", gravsearchQuery, "sparql").pipe(
-            mergeMap((ajaxResponse: AjaxResponse) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -192,7 +192,7 @@ export class SearchEndpointV2 extends Endpoint {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         return this.httpGet("/searchbylabel/" + encodeURIComponent(searchTerm) + SearchEndpointV2.encodeLabelParams(offset, params)).pipe(
-            mergeMap((ajaxResponse: AjaxResponse) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -215,7 +215,7 @@ export class SearchEndpointV2 extends Endpoint {
      */
     doSearchByLabelCountQuery(searchTerm: string, params?: ILabelSearchParams): Observable<CountQueryResponse | ApiResponseError> {
         return this.httpGet("/searchbylabel/count/" + encodeURIComponent(searchTerm) + SearchEndpointV2.encodeLabelParams(0, params)).pipe(
-            mergeMap((ajaxResponse: AjaxResponse) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {

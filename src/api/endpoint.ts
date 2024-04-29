@@ -1,7 +1,7 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
 import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { Observable, throwError } from "rxjs";
-import { ajax, AjaxError, AjaxRequest, AjaxResponse } from "rxjs/ajax";
+import { AjaxError, AjaxRequest, AjaxResponse, ajax } from "rxjs/ajax";
 import { KnoraApiConfig } from "../knora-api-config";
 import { ApiResponseError } from "../models/api-response-error";
 import { DataError } from "../models/data-error";
@@ -66,7 +66,7 @@ export class Endpoint {
      * @param path the relative URL for the request
      * @param headerOpts additional headers, if any.
      */
-    protected httpGet(path?: string, headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
+    protected httpGet(path?: string, headerOpts?: IHeaderOptions): Observable<AjaxResponse<any>> {
         if (path === undefined) path = "";
 
         return ajax(this.setAjaxRequest(path, "GET", undefined, this.constructHeader(undefined, headerOpts)))
@@ -84,7 +84,7 @@ export class Endpoint {
      * @param contentType content content type of body, if any.
      * @param headerOpts additional headers, if any.
      */
-    protected httpPost(path?: string, body?: any, contentType: "json" | "sparql" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
+    protected httpPost(path?: string, body?: any, contentType: "json" | "sparql" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse<any>> {
 
         if (path === undefined) path = "";
 
@@ -103,7 +103,7 @@ export class Endpoint {
      * @param contentType content content type of body, if any.
      * @param headerOpts additional headers, if any.
      */
-    protected httpPut(path?: string, body?: any, contentType: "json" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
+    protected httpPut(path?: string, body?: any, contentType: "json" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse<any>> {
 
         if (path === undefined) path = "";
 
@@ -122,7 +122,7 @@ export class Endpoint {
      * @param contentType content content type of body, if any.
      * @param headerOpts additional headers, if any.
      */
-    protected httpPatch(path?: string, body?: any, contentType: "json" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
+    protected httpPatch(path?: string, body?: any, contentType: "json" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse<any>> {
 
         if (path === undefined) path = "";
 
@@ -139,7 +139,7 @@ export class Endpoint {
      * @param path the relative URL for the request.
      * @param headerOpts additional headers, if any.
      */
-    protected httpDelete(path?: string, headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
+    protected httpDelete(path?: string, headerOpts?: IHeaderOptions): Observable<AjaxResponse<any>> {
 
         if (path === undefined) path = "";
 
@@ -231,7 +231,7 @@ export class Endpoint {
      * @param [headers] IHeaderOptions
      * @returns AjaxRequest object
      */
-    private setAjaxRequest(path: string, method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE", body?: any, headers?: IHeaderOptions): AjaxRequest {
+    private setAjaxRequest(path: string, method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE", body: any, headers: IHeaderOptions): AjaxRequest {
 
         let apiUrl = this.knoraApiConfig.apiUrl;
 
@@ -241,6 +241,9 @@ export class Endpoint {
             body: body,
             async: true,
             withCredentials: true,
+            crossDomain: true,
+            timeout: 0,
+            responseType: "json",
             headers: headers
         };
 

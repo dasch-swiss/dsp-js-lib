@@ -31,7 +31,7 @@ export class ApiResponseData<T> extends ApiResponse {
     /**
      * Detailed AjaxResponse, if applicable
      */
-    response: AjaxResponse;
+    response: AjaxResponse<any>;
 
     // </editor-fold>
 
@@ -61,7 +61,7 @@ export class ApiResponseData<T> extends ApiResponse {
      * If the return type in the body shall be checked, this method requires the arguments dataType and jsonConvert.
      * @throws DataError
      */
-    static fromAjaxResponse<T>(ajaxResponse: AjaxResponse,
+    static fromAjaxResponse<T>(ajaxResponse: AjaxResponse<any>,
                                dataType?: { new(): T },
                                jsonConvert?: JsonConvert): ApiResponseData<T> {
 

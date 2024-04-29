@@ -32,7 +32,7 @@ export class AuthenticationEndpointV2 extends Endpoint {
         credentials[property] = id;
 
         return this.httpPost("", credentials).pipe(
-            map((ajaxResponse: AjaxResponse) => {
+            map((ajaxResponse: AjaxResponse<any>) => {
                 // Make sure the web token is stored.
                 const responseData = ApiResponseData.fromAjaxResponse(ajaxResponse, LoginResponse, this.jsonConvert);
                 this.jsonWebToken = responseData.body.token;
@@ -49,7 +49,7 @@ export class AuthenticationEndpointV2 extends Endpoint {
     logout(): Observable<ApiResponseData<LogoutResponse> | ApiResponseError> {
 
         return this.httpDelete("").pipe(
-            map((ajaxResponse: AjaxResponse) => {
+            map((ajaxResponse: AjaxResponse<any>) => {
                 // Make sure the web token is removed.
                 const responseData = ApiResponseData.fromAjaxResponse(ajaxResponse, LogoutResponse, this.jsonConvert);
                 this.jsonWebToken = "";
@@ -68,7 +68,7 @@ export class AuthenticationEndpointV2 extends Endpoint {
     checkCredentials(): Observable<ApiResponseData<CredentialsResponse> | ApiResponseError> {
 
         return this.httpGet("").pipe(
-            map((ajaxResponse: AjaxResponse) => {
+            map((ajaxResponse: AjaxResponse<any>) => {
                 return ApiResponseData.fromAjaxResponse(ajaxResponse, CredentialsResponse);
             }),
             catchError(error => this.handleError(error))

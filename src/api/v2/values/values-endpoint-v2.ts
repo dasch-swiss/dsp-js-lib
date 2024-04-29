@@ -3,9 +3,9 @@ import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { ApiResponseError } from "../../../models/api-response-error";
+import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { ReadResource } from "../../../models/v2/resources/read/read-resource";
 import { ReadResourceSequence } from "../../../models/v2/resources/read/read-resource-sequence";
-import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { UpdateResource } from "../../../models/v2/resources/update/update-resource";
 import { CreateFileValue } from "../../../models/v2/resources/values/create/create-file-value";
 import { CreateValue } from "../../../models/v2/resources/values/create/create-value";
@@ -44,7 +44,7 @@ export class ValuesEndpointV2 extends Endpoint {
      */
     getValue(resourceIri: string, valueUuid: string): Observable<ReadResource | ApiResponseError> {
         return this.httpGet("/" + encodeURIComponent(resourceIri) + "/" + encodeURIComponent(valueUuid)).pipe(
-            mergeMap((ajaxResponse: AjaxResponse) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -74,7 +74,7 @@ export class ValuesEndpointV2 extends Endpoint {
         res[resource.property] = val;
 
         return this.httpPut("", res).pipe(
-            mergeMap((ajaxResponse: AjaxResponse) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -105,7 +105,7 @@ export class ValuesEndpointV2 extends Endpoint {
         res[resource.property] = val;
 
         return this.httpPost("", res).pipe(
-            mergeMap((ajaxResponse: AjaxResponse) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -133,7 +133,7 @@ export class ValuesEndpointV2 extends Endpoint {
         res[resource.property] = val;
 
         return this.httpPost("/delete", res).pipe(
-            mergeMap((ajaxResponse: AjaxResponse) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
