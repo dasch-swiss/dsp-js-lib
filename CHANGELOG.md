@@ -1,5 +1,12 @@
 # Changelog
 
+### [9.1.18](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.17...v9.1.18) (2024-04-30)
+
+
+### Maintenance
+
+* removed getting client test data from release (#DEV-3541) ([#637](https://www.github.com/dasch-swiss/dsp-js-lib/issues/637)) ([59e353d](https://www.github.com/dasch-swiss/dsp-js-lib/commit/59e353df2a315fbaa8c5c20fe9366c4c933711c0))
+
 ### [9.1.17](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.16...v9.1.17) (2024-04-19)
 
 
