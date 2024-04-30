@@ -46,8 +46,8 @@ jobs:
           sudo npm install --global @bazel/bazelisk
       - name: Install dependencies
         run: make npm-install
-      - name: Get api client test data from knora-api (makefile variant)
-        run: make get-test-data-from-release
+      # - name: Copy api client test data from folder
+      #   run: make copy-test-data-from-folder
       - name: Prepare test data
         run: make prepare-test-data
       - name: Run unit tests

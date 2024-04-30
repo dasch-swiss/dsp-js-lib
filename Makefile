@@ -3,6 +3,9 @@
 THIS_FILE := $(lastword $(MAKEFILE_LIST))
 CURRENT_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
+TEST_DATA_SRC_DIR := $(CURRENT_DIR)/test/
+TEST_DATA_FILE := client-test-data.zip
+
 include vars.mk
 
 # Function to get github release asset id and to download client-test-data.zip from knora-api release
@@ -41,6 +44,12 @@ knora-stack: ## runs the knora-stack
 get-test-data-from-release: ## get the test-data from assets in github release corresponding to the DSP-API version in vars.mk
 	@rm -rf client-test-data.zip
 	@$(call download-test-data,$(API_REPO),$(API_VERSION))
+
+.PHONY: copy-test-data-from-folder
+copy-test-data-from-folder:
+	rm -f $(CURRENT_DIR)/$(TEST_DATA_FILE)
+	@echo "Copying $(TEST_DATA_FILE) from $(TEST_DATA_SRC_DIR) to $(CURRENT_DIR)"
+	cp $(TEST_DATA_SRC_DIR)$(TEST_DATA_FILE) $(CURRENT_DIR)/$(TEST_DATA_FILE)
 
 .PHONY: generate-test-data
 generate-test-data: ## generate test data from Knora-API
