@@ -1,16 +1,16 @@
 import { KnoraApiConfig } from "../../knora-api-config";
 import { Endpoint } from "../endpoint";
 
-import { UsersEndpointAdmin } from "./users/users-endpoint-admin";
 import { GroupsEndpointAdmin } from "./groups/groups-endpoint-admin";
-import { ProjectsEndpointAdmin } from "./projects/projects-endpoint-admin";
-import { PermissionsEndpointAdmin } from "./permissions/permissions-endpoint-admin";
 import { ListsEndpointAdmin } from "./lists/lists-endpoint-admin";
+import { PermissionsEndpointAdmin } from "./permissions/permissions-endpoint-admin";
+import { ProjectsEndpointAdmin } from "./projects/projects-endpoint-admin";
+import { UsersEndpointAdmin } from "./users/users-endpoint-admin";
 
 
 /**
  * A client API for administering Knora.
- *
+ * @deprecated Use open API docs instead
  * @category Endpoint Admin
  */
 export class AdminEndpoint extends Endpoint {

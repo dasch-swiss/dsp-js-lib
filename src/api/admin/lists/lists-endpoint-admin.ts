@@ -9,7 +9,6 @@ import { DeleteListResponse } from "../../../models/admin/delete-list-response";
 import { ListChildNodeResponse } from "../../../models/admin/list-child-node-response";
 import { ListInfoResponse } from "../../../models/admin/list-info-response";
 import { ListNodeInfoResponse } from "../../../models/admin/list-node-info-response";
-import { ListNodeResponse } from "../../../models/admin/list-node-response";
 import { ListResponse } from "../../../models/admin/list-response";
 import { ListsResponse } from "../../../models/admin/lists-response";
 import { RepositionChildNodeRequest } from "../../../models/admin/reposition-child-node-request";
@@ -25,7 +24,7 @@ import { Endpoint } from "../../endpoint";
 
 /**
  * An endpoint for working with Knora lists.
- *
+ * @deprecated Use open API docs instead
  * @category Endpoint Admin
  */
 export class ListsEndpointAdmin extends Endpoint {
