@@ -12,10 +12,9 @@ import { User } from "../../../models/admin/user";
 import { UserResponse } from "../../../models/admin/user-response";
 import { UsersResponse } from "../../../models/admin/users-response";
 
-
 /**
  * An endpoint for working with Knora users.
- *
+ * @deprecated Use open API docs instead
  * @category Endpoint Admin
  */
 export class UsersEndpointAdmin extends Endpoint {

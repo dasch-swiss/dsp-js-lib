@@ -19,7 +19,7 @@ import { Endpoint } from "../../endpoint";
 
 /**
  * An endpoint for working with Knora permissions.
- *
+ * @deprecated Use open API docs instead
  * @category Endpoint Admin
  */
 export class PermissionsEndpointAdmin extends Endpoint {

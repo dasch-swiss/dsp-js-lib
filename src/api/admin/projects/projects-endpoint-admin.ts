@@ -16,7 +16,7 @@ import { UpdateProjectRequest } from "../../../models/admin/update-project-reque
 
 /**
  * An endpoint for working with Knora projects.
- *
+ * @deprecated Use open API docs instead
  * @category Endpoint Admin
  */
 export class ProjectsEndpointAdmin extends Endpoint {
