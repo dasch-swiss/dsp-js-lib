@@ -633,7 +633,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-int-value-request-expanded.json");
 
@@ -676,7 +679,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-decimal-value-request-expanded.json");
 
@@ -719,7 +725,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-color-value-request-expanded.json");
 
@@ -763,7 +772,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-interval-value-request-expanded.json");
 
@@ -806,7 +818,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-boolean-value-request-expanded.json");
 
@@ -849,7 +864,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-list-value-request-expanded.json");
 
@@ -892,7 +910,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-link-value-request-expanded.json");
 
@@ -935,7 +956,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-uri-value-request-expanded.json");
 
@@ -978,7 +1002,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-text-value-without-standoff-request-expanded.json");
 
@@ -1022,7 +1049,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-text-value-with-standoff-request-expanded.json");
 
@@ -1073,7 +1103,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-date-value-with-day-precision-request-expanded.json");
 
@@ -1122,7 +1155,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-date-value-with-month-precision-request-expanded.json");
 
@@ -1169,7 +1205,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-date-value-with-year-precision-request-expanded.json");
 
@@ -1212,7 +1251,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-still-image-file-value-request-expanded.json");
 
@@ -1255,7 +1297,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-geometry-value-request-expanded.json");
 
@@ -1298,7 +1343,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-geoname-value-request-expanded.json");
 
@@ -1341,7 +1389,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-time-value-request-expanded.json");
 
@@ -1385,7 +1436,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-text-value-with-comment-request-expanded.json");
 
@@ -1429,7 +1483,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-int-value-with-custom-permissions-request-expanded.json");
 
@@ -1474,7 +1531,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/update-int-value-permissions-only-request-expanded.json");
 
@@ -1540,7 +1600,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-int-value-request-expanded.json");
 
@@ -1581,7 +1644,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-decimal-value-request-expanded.json");
 
@@ -1622,7 +1688,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-color-value-request-expanded.json");
 
@@ -1664,7 +1733,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-interval-value-request-expanded.json");
 
@@ -1703,7 +1775,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-boolean-value-request-expanded.json");
 
@@ -1743,7 +1818,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-list-value-request-expanded.json");
 
@@ -1783,7 +1861,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-link-value-request-expanded.json");
 
@@ -1823,7 +1904,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-uri-value-request-expanded.json");
 
@@ -1863,7 +1947,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-text-value-without-standoff-request-expanded.json");
 
@@ -1904,7 +1991,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-text-value-with-standoff-request-expanded.json");
 
@@ -1952,7 +2042,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-date-value-with-day-precision-request-expanded.json");
 
@@ -1998,7 +2091,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-date-value-with-month-precision-request-expanded.json");
 
@@ -2042,7 +2138,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-date-value-with-year-precision-request-expanded.json");
 
@@ -2082,7 +2181,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-geometry-value-request-expanded.json");
 
@@ -2122,7 +2224,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-time-value-request-expanded.json");
 
@@ -2184,7 +2289,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-geoname-value-request-expanded.json");
 
@@ -2225,7 +2333,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-text-value-with-comment-request-expanded.json");
 
@@ -2267,7 +2378,10 @@ describe("ValuesEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({
+                "Content-Type": "application/json; charset=utf-8",
+                "X-Asset-Ingested": "true"
+            });
 
             const expectedPayload = require("../../../../test/data/api/v2/values/create-int-value-with-custom-permissions-request-expanded.json");
 

@@ -109,7 +109,7 @@ export class ResourcesEndpointV2 extends Endpoint {
 
         });
 
-        return this.httpPost("", res).pipe(
+        return this.httpPost("", res, "json", {"X-Asset-Ingested": "true"}).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object

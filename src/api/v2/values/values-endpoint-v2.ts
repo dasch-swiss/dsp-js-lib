@@ -73,7 +73,7 @@ export class ValuesEndpointV2 extends Endpoint {
 
         res[resource.property] = val;
 
-        return this.httpPut("", res).pipe(
+        return this.httpPut("", res, "json", {"X-Asset-Ingested": "true"}).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
@@ -104,7 +104,7 @@ export class ValuesEndpointV2 extends Endpoint {
 
         res[resource.property] = val;
 
-        return this.httpPost("", res).pipe(
+        return this.httpPost("", res, "json", {"X-Asset-Ingested": "true"}).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
