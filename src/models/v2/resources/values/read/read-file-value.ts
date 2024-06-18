@@ -85,6 +85,21 @@ export class ReadStillImageFileValue extends ReadFileValue {
 /**
  * @category Model V2
  */
+@JsonObject("ReadStillImageExternalFileValue")
+export class ReadStillImageExternalFileValue extends ReadFileValue {
+
+    @JsonProperty(Constants.StillImageFileValueHasIIIFBaseUrl, UriConverter)
+    iiifBaseUrl: string = "";
+
+    @JsonProperty(Constants.StillImageFileValueHasExternalUrl, UriConverter)
+    externalUrl: string = "";
+
+}
+
+
+/**
+ * @category Model V2
+ */
 @JsonObject("ReadArchiveFileValue")
 export class ReadArchiveFileValue extends ReadFileValue {
 

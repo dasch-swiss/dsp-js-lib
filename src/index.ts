@@ -167,12 +167,13 @@ export { ReadBooleanValue } from "./models/v2/resources/values/read/read-boolean
 export { ReadColorValue } from "./models/v2/resources/values/read/read-color-value";
 export { ReadDateValue, KnoraDate, KnoraPeriod, Precision } from "./models/v2/resources/values/read/read-date-value";
 export { ReadDecimalValue } from "./models/v2/resources/values/read/read-decimal-value";
-export { 
+export {
     ReadFileValue,
     ReadAudioFileValue,
     ReadDocumentFileValue,
     ReadMovingImageFileValue,
     ReadStillImageFileValue,
+    ReadStillImageExternalFileValue,
     ReadArchiveFileValue,
     ReadTextFileValue
 } from "./models/v2/resources/values/read/read-file-value";
@@ -182,9 +183,9 @@ export { ReadIntervalValue } from "./models/v2/resources/values/read/read-interv
 export { ReadLinkValue } from "./models/v2/resources/values/read/read-link-value";
 export { ReadListValue } from "./models/v2/resources/values/read/read-list-value";
 export {
-    ReadTextValue, 
-    ReadTextValueAsString, 
-    ReadTextValueAsHtml, 
+    ReadTextValue,
+    ReadTextValueAsString,
+    ReadTextValueAsHtml,
     ReadTextValueAsXml
 } from "./models/v2/resources/values/read/read-text-value";
 export { ReadUriValue } from "./models/v2/resources/values/read/read-uri-value";
@@ -197,7 +198,7 @@ export { UpdateBooleanValue } from "./models/v2/resources/values/update/update-b
 export { UpdateColorValue } from "./models/v2/resources/values/update/update-color-value";
 export { UpdateDateValue } from "./models/v2/resources/values/update/update-date-value";
 export { UpdateDecimalValue } from "./models/v2/resources/values/update/update-decimal-value";
-export { 
+export {
     UpdateFileValue,
     UpdateAudioFileValue,
     UpdateDocumentFileValue,
@@ -211,7 +212,7 @@ export { UpdateIntValue } from "./models/v2/resources/values/update/update-int-v
 export { UpdateIntervalValue } from "./models/v2/resources/values/update/update-interval-value";
 export { UpdateLinkValue } from "./models/v2/resources/values/update/update-link-value";
 export { UpdateListValue } from "./models/v2/resources/values/update/update-list-value";
-export { 
+export {
     UpdateTextValueAsString,
     UpdateTextValueAsXml,
     UpdateTextValueAsHtml
@@ -225,7 +226,7 @@ export { CreateBooleanValue } from "./models/v2/resources/values/create/create-b
 export { CreateColorValue } from "./models/v2/resources/values/create/create-color-value";
 export { CreateDateValue } from "./models/v2/resources/values/create/create-date-value";
 export { CreateDecimalValue } from "./models/v2/resources/values/create/create-decimal-value";
-export { 
+export {
     CreateFileValue,
     CreateAudioFileValue,
     CreateDocumentFileValue,
@@ -239,7 +240,7 @@ export { CreateIntValue } from "./models/v2/resources/values/create/create-int-v
 export { CreateIntervalValue } from "./models/v2/resources/values/create/create-interval-value";
 export { CreateLinkValue } from "./models/v2/resources/values/create/create-link-value";
 export { CreateListValue } from "./models/v2/resources/values/create/create-list-value";
-export { 
+export {
     CreateTextValueAsString,
     CreateTextValueAsXml
 } from "./models/v2/resources/values/create/create-text-value";

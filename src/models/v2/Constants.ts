@@ -48,6 +48,7 @@ export class Constants {
     static DDDFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "DDDFileValue";
     static DocumentFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "DocumentFileValue";
     static StillImageFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "StillImageFileValue";
+    static StillImageExternalFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "StillImageExternalFileValue";
     static MovingImageFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "MovingImageFileValue";
     static TextFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "TextFileValue";
     static ArchiveFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "ArchiveFileValue";
@@ -128,6 +129,7 @@ export class Constants {
     static StillImageFileValueHasDimX = Constants.KnoraApiV2 + Constants.HashDelimiter + "stillImageFileValueHasDimX";
     static StillImageFileValueHasDimY = Constants.KnoraApiV2 + Constants.HashDelimiter + "stillImageFileValueHasDimY";
     static StillImageFileValueHasIIIFBaseUrl = Constants.KnoraApiV2 + Constants.HashDelimiter + "stillImageFileValueHasIIIFBaseUrl";
+    static StillImageFileValueHasExternalUrl = Constants.KnoraApiV2 + Constants.HashDelimiter + "stillImageFileValueHasExternalUrl";
     static AudioFileValueHasDuration = Constants.KnoraApiV2 + Constants.HashDelimiter + "audioFileValueHasDuration";
     static MovingImageFileValueHasDimX = Constants.KnoraApiV2 + Constants.HashDelimiter + "movingImageFileValueHasDimX";
     static MovingImageFileValueHasDimY = Constants.KnoraApiV2 + Constants.HashDelimiter + "movingImageFileValueHasDimY";
