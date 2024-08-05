@@ -232,6 +232,7 @@ export {
     CreateDocumentFileValue,
     CreateMovingImageFileValue,
     CreateStillImageFileValue,
+    CreateStillImageExternalFileValue,
     CreateTextFileValue,
     CreateArchiveFileValue
 } from "./models/v2/resources/values/create/create-file-value";

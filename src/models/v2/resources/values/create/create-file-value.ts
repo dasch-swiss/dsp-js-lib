@@ -56,6 +56,7 @@ export class CreateStillImageFileValue extends CreateFileValue {
 
     constructor() {
         super(Constants.StillImageFileValue);
+
     }
 
 }
@@ -65,7 +66,8 @@ export class CreateStillImageFileValue extends CreateFileValue {
  */
 @JsonObject("CreateStillImageExternalFileValue")
 export class CreateStillImageExternalFileValue extends CreateFileValue {
-
+    @JsonProperty(Constants.FileValueHasExternalUrl, String, true)
+    externalUrl?: string = "";
     constructor() {
         super(Constants.StillImageExternalFileValue);
     }
