@@ -1,5 +1,14 @@
 # Changelog
 
+## [10.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v10.0.0...v10.1.0) (2024-08-06)
+
+
+### Enhancements
+
+* bump version ([#645](https://www.github.com/dasch-swiss/dsp-js-lib/issues/645)) ([8d703bd](https://www.github.com/dasch-swiss/dsp-js-lib/commit/8d703bd1d375490ef5f855be7a592851f1dee397))
+* **external iiif urls:** implement reading and creating of external iiif url ([#642](https://www.github.com/dasch-swiss/dsp-js-lib/issues/642)) ([5d4f261](https://www.github.com/dasch-swiss/dsp-js-lib/commit/5d4f26137fc8e74273acfc5bb41b320efb35e6b5))
+* set api version ([#644](https://www.github.com/dasch-swiss/dsp-js-lib/issues/644)) ([5a795ce](https://www.github.com/dasch-swiss/dsp-js-lib/commit/5a795cebed38279d75e87d5a9d9824c6783983bb))
+
 ## [10.0.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.18...v10.0.0) (2024-05-23)
 
 
