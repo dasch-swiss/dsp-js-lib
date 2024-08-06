@@ -31,7 +31,10 @@ import { ReadBooleanValue } from "../../../models/v2/resources/values/read/read-
 import { ReadColorValue } from "../../../models/v2/resources/values/read/read-color-value";
 import { KnoraDate, ReadDateValue } from "../../../models/v2/resources/values/read/read-date-value";
 import { ReadDecimalValue } from "../../../models/v2/resources/values/read/read-decimal-value";
-import { ReadStillImageFileValue } from "../../../models/v2/resources/values/read/read-file-value";
+import {
+    ReadStillImageExternalFileValue,
+    ReadStillImageFileValue
+} from "../../../models/v2/resources/values/read/read-file-value";
 import { ReadGeomValue } from "../../../models/v2/resources/values/read/read-geom-value";
 import { ReadGeonameValue } from "../../../models/v2/resources/values/read/read-geoname-value";
 import { ReadIntValue } from "../../../models/v2/resources/values/read/read-int-value";
@@ -485,6 +488,35 @@ describe("ValuesEndpoint", () => {
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
 
             expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/goZ7JFRNSeqF-dNxsqAS7Q");
+
+            expect(request.method).toEqual("GET");
+
+        });
+
+        it("should read an external image file value", done => {
+
+            knoraApiConnection.v2.values.getValue("http://rdfh.ch/0803/RRjceJu5S86zfc_-ZrIEtg", "1-COzXfuTXiwDJ_2GZxeoQ").subscribe(
+                (res: ReadResource) => {
+                    const externalImageVal = res.getValuesAs("http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue", ReadStillImageExternalFileValue);
+                    expect(externalImageVal.length).toEqual(1);
+                    expect(externalImageVal[0].externalUrl).toEqual("https://ids.lib.harvard.edu/ids/iiif/24209711/full/105,/0/default.jpg");
+
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledTimes(1);
+                    expect(getResourceClassDefinitionFromCacheSpy).toHaveBeenCalledWith("http://0.0.0.0:3333/ontology/0001/anything/v2#ThingPicture");
+
+                    expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
+
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            const resource = require("../../../../test/data/api/v2/manually-generated/get-still-image-external-file-value-response.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0803%2FRRjceJu5S86zfc_-ZrIEtg/1-COzXfuTXiwDJ_2GZxeoQ");
 
             expect(request.method).toEqual("GET");
 

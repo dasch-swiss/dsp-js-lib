@@ -65,6 +65,19 @@ export class UpdateStillImageFileValue extends UpdateFileValue {
 /**
  * @category Model V2
  */
+@JsonObject("UpdateStillImageExternalFileValue")
+export class UpdateExternalStillImageFileValue extends UpdateFileValue {
+    @JsonProperty(Constants.StillImageFileValueHasExternalUrl, String, true)
+    externalUrl?: string = "";
+    constructor() {
+        super(Constants.StillImageAbstractFileValue);
+    }
+}
+
+
+/**
+ * @category Model V2
+ */
 @JsonObject("UpdateTextFileValue")
 export class UpdateTextFileValue extends UpdateFileValue {
 
@@ -79,9 +92,9 @@ export class UpdateTextFileValue extends UpdateFileValue {
  */
  @JsonObject("UpdateArchiveFileValue")
  export class UpdateArchiveFileValue extends UpdateFileValue {
- 
+
      constructor() {
          super(Constants.ArchiveFileValue);
      }
- 
+
  }
