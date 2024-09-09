@@ -67,10 +67,10 @@ export class UpdateStillImageFileValue extends UpdateFileValue {
  */
 @JsonObject("UpdateStillImageExternalFileValue")
 export class UpdateExternalStillImageFileValue extends UpdateFileValue {
-    @JsonProperty(Constants.StillImageFileValueHasExternalUrl, String, true)
-    externalUrl?: string = "";
+    @JsonProperty(Constants.FileValueHasExternalUrl, String, true)
+    externalUrl: string;
     constructor() {
-        super(Constants.StillImageAbstractFileValue);
+        super(Constants.StillImageExternalFileValue);
     }
 }
 

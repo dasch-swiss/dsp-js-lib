@@ -205,7 +205,8 @@ export {
     UpdateMovingImageFileValue,
     UpdateStillImageFileValue,
     UpdateTextFileValue,
-    UpdateArchiveFileValue
+    UpdateArchiveFileValue,
+    UpdateExternalStillImageFileValue
 } from "./models/v2/resources/values/update/update-file-value";
 export { UpdateGeomValue } from "./models/v2/resources/values/update/update-geom-value";
 export { UpdateIntValue } from "./models/v2/resources/values/update/update-int-value";
