@@ -129,6 +129,9 @@ export class Constants {
     static StillImageFileValueHasDimX = Constants.KnoraApiV2 + Constants.HashDelimiter + "stillImageFileValueHasDimX";
     static StillImageFileValueHasDimY = Constants.KnoraApiV2 + Constants.HashDelimiter + "stillImageFileValueHasDimY";
     static StillImageFileValueHasIIIFBaseUrl = Constants.KnoraApiV2 + Constants.HashDelimiter + "stillImageFileValueHasIIIFBaseUrl";
+    /**
+     * @deprecated FileValueHasExternalUrl will be removed in future versions. Use StillImageFileValueHasExternalUrl instead.s
+     */
     static FileValueHasExternalUrl = Constants.KnoraApiV2 + Constants.HashDelimiter + "fileValueHasExternalUrl";
     static StillImageFileValueHasExternalUrl = Constants.KnoraApiV2 + Constants.HashDelimiter + "stillImageFileValueHasExternalUrl";
     static AudioFileValueHasDuration = Constants.KnoraApiV2 + Constants.HashDelimiter + "audioFileValueHasDuration";
