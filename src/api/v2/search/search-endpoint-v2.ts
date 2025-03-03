@@ -1,13 +1,9 @@
-import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
-import { catchError, map, mergeMap } from "rxjs/operators";
+import { map, mergeMap } from "rxjs/operators";
 import { IFulltextSearchParams } from "../../../interfaces/models/v2/i-fulltext-search-params";
 import { ILabelSearchParams } from "../../../interfaces/models/v2/i-label-search-params";
 import { KnoraApiConfig } from "../../../knora-api-config";
-import { ApiResponseError } from "../../../models/api-response-error";
-import { ReadResourceSequence } from "../../../models/v2/resources/read/read-resource-sequence";
 import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
-import { CountQueryResponse } from "../../../models/v2/search/count-query-response";
 import { Endpoint } from "../../endpoint";
 import { V2Endpoint } from "../v2-endpoint";
 
@@ -87,7 +83,7 @@ export class SearchEndpointV2 extends Endpoint {
      * @param offset offset to be used for paging, zero-based.
      * @param params parameters for fulltext search, if any.
      */
-    doFulltextSearch(searchTerm: string, offset = 0, params?: IFulltextSearchParams): Observable<ReadResourceSequence | ApiResponseError> {
+    doFulltextSearch(searchTerm: string, offset = 0, params?: IFulltextSearchParams) {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         return this.httpGet("/search/" + encodeURIComponent(searchTerm) + SearchEndpointV2.encodeFulltextParams(offset, params)).pipe(
@@ -99,9 +95,6 @@ export class SearchEndpointV2 extends Endpoint {
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
                 return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
     }
@@ -113,7 +106,7 @@ export class SearchEndpointV2 extends Endpoint {
      * @param offset offset to be used for paging, zero-based.
      * @param params parameters for fulltext search, if any.
      */
-    doFulltextSearchCountQuery(searchTerm: string, offset = 0, params?: IFulltextSearchParams): Observable<CountQueryResponse | ApiResponseError> {
+    doFulltextSearchCountQuery(searchTerm: string, offset = 0, params?: IFulltextSearchParams) {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         return this.httpGet("/search/count/" + encodeURIComponent(searchTerm) + SearchEndpointV2.encodeFulltextParams(offset, params)).pipe(
@@ -125,9 +118,6 @@ export class SearchEndpointV2 extends Endpoint {
             }), map((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
                 return ResourcesConversionUtil.createCountQueryResponse(jsonldobj, this.jsonConvert);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
     }
@@ -137,7 +127,7 @@ export class SearchEndpointV2 extends Endpoint {
      *
      * @param gravsearchQuery the given Gravsearch query.
      */
-    doExtendedSearch(gravsearchQuery: string): Observable<ReadResourceSequence | ApiResponseError> {
+    doExtendedSearch(gravsearchQuery: string) {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
         // TODO: check if content-type have to be set to text/plain
 
@@ -150,9 +140,6 @@ export class SearchEndpointV2 extends Endpoint {
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
                 return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
     }
@@ -162,7 +149,7 @@ export class SearchEndpointV2 extends Endpoint {
      *
      * @param gravsearchQuery the given Gravsearch query.
      */
-    doExtendedSearchCountQuery(gravsearchQuery: string): Observable<CountQueryResponse | ApiResponseError> {
+    doExtendedSearchCountQuery(gravsearchQuery: string) {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         return this.httpPost("/searchextended/count", gravsearchQuery, "sparql").pipe(
@@ -174,9 +161,6 @@ export class SearchEndpointV2 extends Endpoint {
             }), map((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
                 return ResourcesConversionUtil.createCountQueryResponse(jsonldobj, this.jsonConvert);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
     }
@@ -188,7 +172,7 @@ export class SearchEndpointV2 extends Endpoint {
      * @param offset offset to be used for paging, zero-based.
      * @param params parameters for fulltext search, if any.
      */
-    doSearchByLabel(searchTerm: string, offset = 0, params?: ILabelSearchParams): Observable<ReadResourceSequence | ApiResponseError> {
+    doSearchByLabel(searchTerm: string, offset = 0, params?: ILabelSearchParams) {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         return this.httpGet("/searchbylabel/" + encodeURIComponent(searchTerm) + SearchEndpointV2.encodeLabelParams(offset, params)).pipe(
@@ -200,9 +184,6 @@ export class SearchEndpointV2 extends Endpoint {
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
                 return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
     }
@@ -213,7 +194,7 @@ export class SearchEndpointV2 extends Endpoint {
      * @param searchTerm the label to search for.
      * @param params parameters for fulltext search, if any.
      */
-    doSearchByLabelCountQuery(searchTerm: string, params?: ILabelSearchParams): Observable<CountQueryResponse | ApiResponseError> {
+    doSearchByLabelCountQuery(searchTerm: string, params?: ILabelSearchParams) {
         return this.httpGet("/searchbylabel/count/" + encodeURIComponent(searchTerm) + SearchEndpointV2.encodeLabelParams(0, params)).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
@@ -221,9 +202,6 @@ export class SearchEndpointV2 extends Endpoint {
             }), map((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
                 return ResourcesConversionUtil.createCountQueryResponse(jsonldobj, this.jsonConvert);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
     }
