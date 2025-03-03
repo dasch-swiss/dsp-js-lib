@@ -1,7 +1,6 @@
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { V2Endpoint } from "../api/v2/v2-endpoint";
-import { ApiResponseError } from "../models/api-response-error";
 import { ListConversionUtil } from "../models/v2/lists/list-conversion-util";
 import { ListNodeV2 } from "../models/v2/lists/list-node-v2";
 import { GenericCache } from "./GenericCache";
@@ -34,7 +33,7 @@ export class ListNodeV2Cache extends GenericCache<ListNodeV2> {
      * @param key the id of the information to be returned.
      * @return the item
      */
-     reloadCachedItem(key: string): Observable<ListNodeV2> {
+     reloadCachedItem(key: string) {
         return this.reloadItem(key);
     }
 
@@ -42,7 +41,7 @@ export class ListNodeV2Cache extends GenericCache<ListNodeV2> {
         return item.id;
     }
 
-    protected requestItemFromKnora(key: string, isDependency: boolean): Observable<ListNodeV2[] | ApiResponseError> {
+    protected requestItemFromKnora(key: string, isDependency: boolean) {
         if (!isDependency) {
             // not a dependency, get the list node
             return this.v2Endpoint.list.getNode(key)
