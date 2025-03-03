@@ -5,7 +5,6 @@ import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { ListResponse } from "../models/admin/list-response";
 import { ApiResponseData } from "../models/api-response-data";
-import { ApiResponseError } from "../models/api-response-error";
 import { ListAdminCache } from "./ListAdminCache";
 
 describe("ListCache", () => {
@@ -34,7 +33,7 @@ describe("ListCache", () => {
         getListSpy = spyOn(knoraApiConnection.admin.listsEndpoint, "getList").and.callFake(
             (listIri: string) => {
 
-                return of({body: listResp} as ApiResponseData<ListResponse> | ApiResponseError);
+                return of({body: listResp} as ApiResponseData<ListResponse>);
             }
         );
 
