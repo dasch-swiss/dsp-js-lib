@@ -1,7 +1,5 @@
-import { Observable } from "rxjs";
-import { catchError, map } from "rxjs/operators";
+import { map } from "rxjs/operators";
 import { ApiResponseData } from "../../../models/api-response-data";
-import { ApiResponseError } from "../../../models/api-response-error";
 import { VersionResponse } from "../../../models/system/version-response";
 import { Endpoint } from "../../endpoint";
 
@@ -15,15 +13,14 @@ export class VersionEndpointSystem extends Endpoint {
     /**
      * Returns DSP's version.
      */
-    getVersion(): Observable<ApiResponseData<VersionResponse> | ApiResponseError> {
+    getVersion() {
 
         return this.httpGet("").pipe(
             map(ajaxResponse => {
                 const versionResponse =  ApiResponseData.fromAjaxResponse(ajaxResponse, VersionResponse, this.jsonConvert);
 
                 return versionResponse;
-            }),
-            catchError(error => this.handleError(error))
+            })
         );
 
     }
