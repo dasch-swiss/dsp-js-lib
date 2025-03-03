@@ -1,8 +1,6 @@
-import { Observable } from "rxjs";
-import { catchError, map } from "rxjs/operators";
+import { map } from "rxjs/operators";
 
 import { ApiResponseData } from "../../../models/api-response-data";
-import { ApiResponseError } from "../../../models/api-response-error";
 import { Endpoint } from "../../endpoint";
 
 import { CreateGroupRequest } from "../../../models/admin/create-group-request";
@@ -22,11 +20,9 @@ export class GroupsEndpointAdmin extends Endpoint {
     /**
      * Returns a list of all groups.
      */
-    getGroups(): Observable<ApiResponseData<GroupsResponse> | ApiResponseError> {
-    
+    getGroups() {
         return this.httpGet("").pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupsResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
     
     }
@@ -36,11 +32,9 @@ export class GroupsEndpointAdmin extends Endpoint {
      * 
      * @param group The group to be created.
      */
-    createGroup(group: CreateGroupRequest): Observable<ApiResponseData<GroupResponse> | ApiResponseError> {
-    
+    createGroup(group: CreateGroupRequest) {
         return this.httpPost("", this.jsonConvert.serializeObject(group)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
     
     }
@@ -50,11 +44,9 @@ export class GroupsEndpointAdmin extends Endpoint {
      * 
      * @param iri The IRI of the group.
      */
-    getGroupByIri(iri: string): Observable<ApiResponseData<GroupResponse> | ApiResponseError> {
-    
+    getGroupByIri(iri: string) {
         return this.httpGet("/" + encodeURIComponent(iri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
     
     }
@@ -65,11 +57,9 @@ export class GroupsEndpointAdmin extends Endpoint {
      * @param iri The IRI of the group to be updated.
      * @param groupInfo The group information to be updated.
      */
-    updateGroup(iri: string, groupInfo: UpdateGroupRequest): Observable<ApiResponseData<GroupResponse> | ApiResponseError> {
-    
+    updateGroup(iri: string, groupInfo: UpdateGroupRequest) {
         return this.httpPut("/" + encodeURIComponent(iri), this.jsonConvert.serializeObject(groupInfo)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
     
     }
@@ -80,11 +70,9 @@ export class GroupsEndpointAdmin extends Endpoint {
      * @param iri The IRI of the group to be updated.
      * @param status The new status of the group.
      */
-    updateGroupStatus(iri: string, status: boolean): Observable<ApiResponseData<GroupResponse> | ApiResponseError> {
-    
+    updateGroupStatus(iri: string, status: boolean) {
         return this.httpPut("/" + encodeURIComponent(iri) + "/status", { status: status }).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
     
     }
@@ -94,11 +82,9 @@ export class GroupsEndpointAdmin extends Endpoint {
      * 
      * @param iri The IRI of the group.
      */
-    deleteGroup(iri: string): Observable<ApiResponseData<GroupResponse> | ApiResponseError> {
-    
+    deleteGroup(iri: string) {
         return this.httpDelete("/" + encodeURIComponent(iri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
     
     }
@@ -108,11 +94,9 @@ export class GroupsEndpointAdmin extends Endpoint {
      * 
      * @param iri The IRI of the group.
      */
-    getGroupMembers(iri: string): Observable<ApiResponseData<MembersResponse> | ApiResponseError> {
-    
+    getGroupMembers(iri: string) {
         return this.httpGet("/" + encodeURIComponent(iri) + "/members").pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, MembersResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
     
     }

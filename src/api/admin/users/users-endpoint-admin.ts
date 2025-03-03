@@ -1,8 +1,6 @@
-import { Observable } from "rxjs";
-import { catchError, map } from "rxjs/operators";
+import { map } from "rxjs/operators";
 
 import { ApiResponseData } from "../../../models/api-response-data";
-import { ApiResponseError } from "../../../models/api-response-error";
 import { Endpoint } from "../../endpoint";
 
 import { GroupsResponse } from "../../../models/admin/groups-response";
@@ -22,13 +20,10 @@ export class UsersEndpointAdmin extends Endpoint {
     /**
      * Returns a list of all users.
      */
-    getUsers(): Observable<ApiResponseData<UsersResponse> | ApiResponseError> {
-    
+    getUsers() {
         return this.httpGet("").pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UsersResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -37,13 +32,10 @@ export class UsersEndpointAdmin extends Endpoint {
      * @param property The name of the property by which the user is identified.
      * @param value The value of the property by which the user is identified.
      */
-    getUser(property: "iri" | "email" | "username", value: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-    
+    getUser(property: "iri" | "email" | "username", value: string) {
         return this.httpGet("/" + encodeURIComponent(property) + "/" + encodeURIComponent(value)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -51,10 +43,8 @@ export class UsersEndpointAdmin extends Endpoint {
      * 
      * @param iri The IRI of the user.
      */
-    getUserByIri(iri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-    
+    getUserByIri(iri: string) {
         return this.getUser("iri", iri);
-    
     }
     
     /**
@@ -62,10 +52,8 @@ export class UsersEndpointAdmin extends Endpoint {
      * 
      * @param email The email address of the user.
      */
-    getUserByEmail(email: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-    
+    getUserByEmail(email: string) {
         return this.getUser("email", email);
-    
     }
     
     /**
@@ -73,10 +61,8 @@ export class UsersEndpointAdmin extends Endpoint {
      * 
      * @param username The username of the user.
      */
-    getUserByUsername(username: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-    
+    getUserByUsername(username: string) {
         return this.getUser("username", username);
-    
     }
     
     /**
@@ -84,13 +70,10 @@ export class UsersEndpointAdmin extends Endpoint {
      * 
      * @param iri The user's IRI.
      */
-    getUserGroupMemberships(iri: string): Observable<ApiResponseData<GroupsResponse> | ApiResponseError> {
-    
+    getUserGroupMemberships(iri: string) {
         return this.httpGet("/iri/" + encodeURIComponent(iri) + "/group-memberships").pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupsResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -98,13 +81,10 @@ export class UsersEndpointAdmin extends Endpoint {
      * 
      * @param iri The IRI of the user.
      */
-    getUserProjectMemberships(iri: string): Observable<ApiResponseData<ProjectsResponse> | ApiResponseError> {
-    
+    getUserProjectMemberships(iri: string) {
         return this.httpGet("/iri/" + encodeURIComponent(iri) + "/project-memberships").pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectsResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -112,13 +92,10 @@ export class UsersEndpointAdmin extends Endpoint {
      * 
      * @param iri The user's IRI.
      */
-    getUserProjectAdminMemberships(iri: string): Observable<ApiResponseData<ProjectsResponse> | ApiResponseError> {
-    
+    getUserProjectAdminMemberships(iri: string) {
         return this.httpGet("/iri/" + encodeURIComponent(iri) + "/project-admin-memberships").pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectsResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -126,13 +103,10 @@ export class UsersEndpointAdmin extends Endpoint {
      * 
      * @param user The user to be created.
      */
-    createUser(user: User): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-    
+    createUser(user: User) {
         return this.httpPost("", this.jsonConvert.serializeObject(user)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -141,13 +115,10 @@ export class UsersEndpointAdmin extends Endpoint {
      * @param iri The IRI of the user to be updated.
      * @param userInfo The user information to be updated.
      */
-    updateUserBasicInformation(iri: string, userInfo: UpdateUserRequest): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-    
+    updateUserBasicInformation(iri: string, userInfo: UpdateUserRequest) {
         return this.httpPut("/iri/" + encodeURIComponent(iri) + "/BasicUserInformation", this.jsonConvert.serializeObject(userInfo)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -156,13 +127,10 @@ export class UsersEndpointAdmin extends Endpoint {
      * @param iri The user's IRI.
      * @param status The user's new status.
      */
-    updateUserStatus(iri: string, status: boolean): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-    
+    updateUserStatus(iri: string, status: boolean) {
         return this.httpPut("/iri/" + encodeURIComponent(iri) + "/Status", { status: status }).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -172,13 +140,10 @@ export class UsersEndpointAdmin extends Endpoint {
      * @param requesterPassword The requesting user's current password.
      * @param newPassword The specified user's new password.
      */
-    updateUserPassword(iri: string, requesterPassword: string, newPassword: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-    
+    updateUserPassword(iri: string, requesterPassword: string, newPassword: string) {
         return this.httpPut("/iri/" + encodeURIComponent(iri) + "/Password", { requesterPassword: requesterPassword, newPassword: newPassword }).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -187,13 +152,10 @@ export class UsersEndpointAdmin extends Endpoint {
      * @param userIri The IRI of the user.
      * @param groupIri The IRI of the group.
      */
-    addUserToGroupMembership(userIri: string, groupIri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-    
+    addUserToGroupMembership(userIri: string, groupIri: string) {
         return this.httpPost("/iri/" + encodeURIComponent(userIri) + "/group-memberships/" + encodeURIComponent(groupIri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -202,13 +164,10 @@ export class UsersEndpointAdmin extends Endpoint {
      * @param userIri The IRI of the user.
      * @param groupIri The IRI of the group.
      */
-    removeUserFromGroupMembership(userIri: string, groupIri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-    
+    removeUserFromGroupMembership(userIri: string, groupIri: string) {
         return this.httpDelete("/iri/" + encodeURIComponent(userIri) + "/group-memberships/" + encodeURIComponent(groupIri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -217,13 +176,10 @@ export class UsersEndpointAdmin extends Endpoint {
      * @param userIri The user's IRI.
      * @param projectIri The project's IRI.
      */
-    addUserToProjectMembership(userIri: string, projectIri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-    
+    addUserToProjectMembership(userIri: string, projectIri: string) {
         return this.httpPost("/iri/" + encodeURIComponent(userIri) + "/project-memberships/" + encodeURIComponent(projectIri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -232,13 +188,10 @@ export class UsersEndpointAdmin extends Endpoint {
      * @param userIri The user's IRI.
      * @param projectIri The project's IRI.
      */
-    removeUserFromProjectMembership(userIri: string, projectIri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-    
+    removeUserFromProjectMembership(userIri: string, projectIri: string) {
         return this.httpDelete("/iri/" + encodeURIComponent(userIri) + "/project-memberships/" + encodeURIComponent(projectIri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -247,13 +200,10 @@ export class UsersEndpointAdmin extends Endpoint {
      * @param userIri The IRI of the user.
      * @param projectIri The IRI of the project.
      */
-    addUserToProjectAdminMembership(userIri: string, projectIri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-    
+    addUserToProjectAdminMembership(userIri: string, projectIri: string) {
         return this.httpPost("/iri/" + encodeURIComponent(userIri) + "/project-admin-memberships/" + encodeURIComponent(projectIri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -262,13 +212,10 @@ export class UsersEndpointAdmin extends Endpoint {
      * @param userIri The IRI of the user.
      * @param projectIri The IRI of the project.
      */
-    removeUserFromProjectAdminMembership(userIri: string, projectIri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-    
+    removeUserFromProjectAdminMembership(userIri: string, projectIri: string) {
         return this.httpDelete("/iri/" + encodeURIComponent(userIri) + "/project-admin-memberships/" + encodeURIComponent(projectIri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -277,13 +224,10 @@ export class UsersEndpointAdmin extends Endpoint {
      * @param iri The IRI of the user to be updated.
      * @param systemAdmin True if the user should be a system admin
      */
-    updateUserSystemAdminMembership(iri: string, systemAdmin: boolean): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-    
+    updateUserSystemAdminMembership(iri: string, systemAdmin: boolean) {
         return this.httpPut("/iri/" + encodeURIComponent(iri) + "/SystemAdmin", { systemAdmin: systemAdmin }).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -291,13 +235,9 @@ export class UsersEndpointAdmin extends Endpoint {
      * 
      * @param iri The IRI of the user to be deleted.
      */
-    deleteUser(iri: string): Observable<ApiResponseData<UserResponse> | ApiResponseError> {
-    
+    deleteUser(iri: string) {
         return this.httpDelete("/iri/" + encodeURIComponent(iri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, UserResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
-    
     }
-    
 }

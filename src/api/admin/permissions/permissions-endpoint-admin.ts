@@ -1,5 +1,5 @@
 import { Observable } from "rxjs";
-import { catchError, map } from "rxjs/operators";
+import { map } from "rxjs/operators";
 import { AdministrativePermissionResponse } from "../../../models/admin/administrative-permission-response";
 import { AdministrativePermissionsResponse } from "../../../models/admin/administrative-permissions-response";
 import { CreateAdministrativePermission } from "../../../models/admin/create-administrative-permission";
@@ -14,7 +14,6 @@ import { UpdateDefaultObjectAccessPermission } from "../../../models/admin/updat
 import { UpdateDefaultObjectAccessPermissionProperty } from "../../../models/admin/update-default-object-access-permission-property";
 import { UpdateDefaultObjectAccessPermissionResourceClass } from "../../../models/admin/update-default-object-access-permission-resource-class";
 import { ApiResponseData } from "../../../models/api-response-data";
-import { ApiResponseError } from "../../../models/api-response-error";
 import { Endpoint } from "../../endpoint";
 
 /**
@@ -29,11 +28,9 @@ export class PermissionsEndpointAdmin extends Endpoint {
      *
      * @param projectIri The project IRI.
      */
-    getProjectPermissions(projectIri: string): Observable<ApiResponseError | ApiResponseData<ProjectPermissionsResponse>> {
-
+    getProjectPermissions(projectIri: string) {
         return this.httpGet("/" + encodeURIComponent(projectIri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectPermissionsResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
     }
 
@@ -42,13 +39,10 @@ export class PermissionsEndpointAdmin extends Endpoint {
      *
      * @param projectIri The project IRI.
      */
-    getAdministrativePermissions(projectIri: string): Observable<ApiResponseData<AdministrativePermissionsResponse> | ApiResponseError> {
-
+    getAdministrativePermissions(projectIri: string) {
         return this.httpGet("/ap/" + encodeURIComponent(projectIri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, AdministrativePermissionsResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
-
     }
 
     /**
@@ -57,13 +51,10 @@ export class PermissionsEndpointAdmin extends Endpoint {
      * @param projectIri The project IRI.
      * @param groupIri The group IRI.
      */
-    getAdministrativePermission(projectIri: string, groupIri: string): Observable<ApiResponseData<AdministrativePermissionResponse> | ApiResponseError> {
-    
+    getAdministrativePermission(projectIri: string, groupIri: string) {
         return this.httpGet("/ap/" + encodeURIComponent(projectIri) + "/" + encodeURIComponent(groupIri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, AdministrativePermissionResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
-    
     }
 
     /**
@@ -71,8 +62,7 @@ export class PermissionsEndpointAdmin extends Endpoint {
      *
      * @param administrativePermission the administrative permission to be created.
      */
-    createAdministrativePermission(administrativePermission: CreateAdministrativePermission): Observable<ApiResponseError | ApiResponseData<AdministrativePermissionResponse>> {
-
+    createAdministrativePermission(administrativePermission: CreateAdministrativePermission) {
         if (!administrativePermission.forGroup || !administrativePermission.forProject) {
             throw new Error("Group and project are required when creating a new administrative permission.");
         }
@@ -83,7 +73,6 @@ export class PermissionsEndpointAdmin extends Endpoint {
 
         return this.httpPost("/ap", this.jsonConvert.serializeObject(administrativePermission)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, AdministrativePermissionResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
 
     }
@@ -94,10 +83,9 @@ export class PermissionsEndpointAdmin extends Endpoint {
      * @param permissionIri the Iri of the permission to be updated.
      * @param administrativePermission the new permission settings.
      */
-    updateAdministrativePermission(permissionIri: string, administrativePermission: UpdateAdministrativePermission): Observable<ApiResponseError | ApiResponseData<AdministrativePermissionResponse>> {
+    updateAdministrativePermission(permissionIri: string, administrativePermission: UpdateAdministrativePermission) {
         return this.httpPut("/" + encodeURIComponent(permissionIri) + "/hasPermissions", this.jsonConvert.serializeObject(administrativePermission)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, AdministrativePermissionResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
     }
 
@@ -110,7 +98,6 @@ export class PermissionsEndpointAdmin extends Endpoint {
     updateAdministrativePermissionGroup(permissionIri: string, updateAdministrativePermissionGroup: UpdateAdministrativePermissionGroup) {
         return this.httpPut("/" + encodeURIComponent(permissionIri) + "/group", this.jsonConvert.serializeObject(updateAdministrativePermissionGroup)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, AdministrativePermissionResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
     }
 
@@ -119,13 +106,10 @@ export class PermissionsEndpointAdmin extends Endpoint {
      *
      * @param projectIri The project IRI.
      */
-    getDefaultObjectAccessPermissions(projectIri: string): Observable<ApiResponseError | ApiResponseData<DefaultObjectAccessPermissionsResponse>> {
-
+    getDefaultObjectAccessPermissions(projectIri: string) {
         return this.httpGet("/doap/" + encodeURIComponent(projectIri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, DefaultObjectAccessPermissionsResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
-
     }
 
     /**
@@ -133,7 +117,7 @@ export class PermissionsEndpointAdmin extends Endpoint {
      *
      * @param defaultObjectAccessPermission the permission to be created.
      */
-    createDefaultObjectAccessPermission(defaultObjectAccessPermission: CreateDefaultObjectAccessPermission): Observable<ApiResponseError | ApiResponseData<DefaultObjectAccessPermissionResponse>> {
+    createDefaultObjectAccessPermission(defaultObjectAccessPermission: CreateDefaultObjectAccessPermission) {
 
         // A default object access permission must
         // always reference a project
@@ -157,7 +141,6 @@ export class PermissionsEndpointAdmin extends Endpoint {
 
             return this.httpPost("/doap", this.jsonConvert.serializeObject(defaultObjectAccessPermission)).pipe(
                 map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, DefaultObjectAccessPermissionResponse, this.jsonConvert)),
-                catchError(error => this.handleError(error))
             );
         } else {
             throw new Error("Invalid combination of properties for creation of new default object access permission.");
@@ -171,10 +154,9 @@ export class PermissionsEndpointAdmin extends Endpoint {
      * @param permissionIri the Iri of the permission to be updated.
      * @param defaultObjectAccessPermission the new permission settings.
      */
-    updateDefaultObjectAccessPermission(permissionIri: string, defaultObjectAccessPermission: UpdateDefaultObjectAccessPermission): Observable<ApiResponseError | ApiResponseData<DefaultObjectAccessPermissionResponse>> {
+    updateDefaultObjectAccessPermission(permissionIri: string, defaultObjectAccessPermission: UpdateDefaultObjectAccessPermission) {
         return this.httpPut("/" + encodeURIComponent(permissionIri) + "/hasPermissions", this.jsonConvert.serializeObject(defaultObjectAccessPermission)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, DefaultObjectAccessPermissionResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
     }
 
@@ -184,10 +166,9 @@ export class PermissionsEndpointAdmin extends Endpoint {
      * @param permissionIri the Iri of the permission to be updated.
      * @param administrativePermission the new permission settings.
      */
-    updateDefaultObjectAccessPermissionGroup(permissionIri: string, administrativePermission: UpdateAdministrativePermissionGroup): Observable<ApiResponseError | ApiResponseData<DefaultObjectAccessPermissionResponse>> {
+    updateDefaultObjectAccessPermissionGroup(permissionIri: string, administrativePermission: UpdateAdministrativePermissionGroup) {
         return this.httpPut("/" + encodeURIComponent(permissionIri) + "/group", this.jsonConvert.serializeObject(administrativePermission)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, DefaultObjectAccessPermissionResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
     }
 
@@ -197,10 +178,9 @@ export class PermissionsEndpointAdmin extends Endpoint {
      * @param permissionIri the Iri of the permission to be updated.
      * @param administrativePermission the new permission settings.
      */
-    updateDefaultObjectAccessPermissionResourceClass(permissionIri: string, administrativePermission: UpdateDefaultObjectAccessPermissionResourceClass): Observable<ApiResponseError | ApiResponseData<DefaultObjectAccessPermissionResponse>> {
+    updateDefaultObjectAccessPermissionResourceClass(permissionIri: string, administrativePermission: UpdateDefaultObjectAccessPermissionResourceClass) {
         return this.httpPut("/" + encodeURIComponent(permissionIri) + "/resourceClass", this.jsonConvert.serializeObject(administrativePermission)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, DefaultObjectAccessPermissionResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
     }
 
@@ -210,10 +190,9 @@ export class PermissionsEndpointAdmin extends Endpoint {
      * @param permissionIri the Iri of the permission to be updated.
      * @param administrativePermission the new permission settings.
      */
-    updateDefaultObjectAccessPermissionProperty(permissionIri: string, administrativePermission: UpdateDefaultObjectAccessPermissionProperty): Observable<ApiResponseError | ApiResponseData<DefaultObjectAccessPermissionResponse>> {
+    updateDefaultObjectAccessPermissionProperty(permissionIri: string, administrativePermission: UpdateDefaultObjectAccessPermissionProperty) {
         return this.httpPut("/" + encodeURIComponent(permissionIri) + "/property", this.jsonConvert.serializeObject(administrativePermission)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, DefaultObjectAccessPermissionResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
     }
 
@@ -222,12 +201,9 @@ export class PermissionsEndpointAdmin extends Endpoint {
      *
      * @param permissionIri the IRI of the permission to be deleted.
      */
-    deletePermission(permissionIri: string): Observable<ApiResponseError | ApiResponseData<DeletePermissionResponse>> {
-
+    deletePermission(permissionIri: string) {
         return this.httpDelete("/" + encodeURIComponent(permissionIri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, DeletePermissionResponse, this.jsonConvert)),
-            catchError(error => this.handleError(error))
         );
     }
-    
 }
