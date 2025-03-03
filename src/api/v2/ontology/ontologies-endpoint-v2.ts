@@ -1,6 +1,6 @@
-import { Observable } from "rxjs";
+import { throwError } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
-import { catchError, map, mergeMap } from "rxjs/operators";
+import { map, mergeMap } from "rxjs/operators";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { DataError } from "../../../models/data-error";
 import { Constants } from "../../../models/v2/Constants";
@@ -50,8 +50,7 @@ export class OntologiesEndpointV2 extends Endpoint {
     /**
      * Requests metadata about all ontologies from Knora.
      */
-    getOntologiesMetadata(): Observable<OntologiesMetadata | ApiResponseError> {
-
+    getOntologiesMetadata() {
         return this.httpGet("/metadata").pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // TODO: @rosenth Adapt context object
@@ -59,9 +58,6 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertOntologiesList(jsonldobj, this.jsonConvert);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
     }
@@ -72,7 +68,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      * @param ontologyIri the IRI of the ontology to be requested.
      * @param allLanguages gets labels and comments in all languages, if  set to true.
      */
-    getOntology(ontologyIri: string, allLanguages = false): Observable<ReadOntology | ApiResponseError> {
+    getOntology(ontologyIri: string, allLanguages = false) {
 
         let allLangSegment = "";
         if (allLanguages) {
@@ -88,9 +84,6 @@ export class OntologiesEndpointV2 extends Endpoint {
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertOntology(jsonldobj, this.jsonConvert, this.knoraApiConfig, allLanguages);
             }),
-            catchError(error => {
-                return this.handleError(error);
-            })
         );
     }
 
@@ -99,8 +92,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param projectIri the IRI of the project.
      */
-    getOntologiesByProjectIri(projectIri: string): Observable<OntologiesMetadata | ApiResponseError> {
-
+    getOntologiesByProjectIri(projectIri: string) {
         return this.httpGet("/metadata/" + encodeURIComponent(projectIri)).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // TODO: @rosenth Adapt context object
@@ -108,9 +100,6 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertOntologiesList(jsonldobj, this.jsonConvert);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
     }
@@ -120,8 +109,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param ontology The ontology to be created
      */
-    createOntology(ontology: CreateOntology): Observable<OntologyMetadata | ApiResponseError> {
-
+    createOntology(ontology: CreateOntology) {
         const onto = this.jsonConvert.serializeObject(ontology);
 
         return this.httpPost("", onto).pipe(
@@ -131,9 +119,6 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
     }
@@ -143,8 +128,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param ontologyIri the Iri of the ontology to be checked.
      */
-    canDeleteOntology(ontologyIri: string): Observable<CanDoResponse | ApiResponseError> {
-
+    canDeleteOntology(ontologyIri: string) {
         return this.httpGet("/candeleteontology/" + encodeURIComponent(ontologyIri)).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // TODO: @rosenth Adapt context object
@@ -152,9 +136,6 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
 
@@ -165,8 +146,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param ontology the ontology to be deleted.
      */
-    deleteOntology(ontology: DeleteOntology): Observable<DeleteOntologyResponse | ApiResponseError> {
-
+    deleteOntology(ontology: DeleteOntology) {
         const path = "/" + encodeURIComponent(ontology.id) + "?lastModificationDate=" + encodeURIComponent(ontology.lastModificationDate);
 
         return this.httpDelete(path).pipe(
@@ -177,10 +157,8 @@ export class OntologiesEndpointV2 extends Endpoint {
             }),
             map(jsonldobj => {
                 return this.jsonConvert.deserializeObject(jsonldobj, DeleteOntologyResponse);
-            }),
-            catchError(error => this.handleError(error))
+            })
         );
-
     }
 
     /**
@@ -188,7 +166,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param ontologyMetadata The ontology metadata to be updated
      */
-    updateOntology(ontologyMetadata: UpdateOntologyMetadata): Observable<OntologyMetadata | ApiResponseError> {
+    updateOntology(ontologyMetadata: UpdateOntologyMetadata) {
         // label and comment cannot both be undefined
         if (ontologyMetadata.label === undefined && ontologyMetadata.comment === undefined) {
             throw new Error("Label and comment cannot both be undefined. At least one must be defined.");
@@ -224,7 +202,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param ontologyMetadata The ontology metadata to be updated
      */
-    deleteOntologyComment(ontologyMetadata: UpdateOntologyMetadata): Observable<OntologyMetadata | ApiResponseError> {
+    deleteOntologyComment(ontologyMetadata: UpdateOntologyMetadata) {
 
         if (ontologyMetadata.id === undefined || ontologyMetadata.lastModificationDate === undefined) {
             throw new Error('Missing IRI or lastModificationDate');
@@ -246,7 +224,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param ontologyMetadata The ontology metadata to be updated
      */
-    private updateOntologyMetadata(ontologyMetadata: UpdateOntologyMetadata): Observable<OntologyMetadata | ApiResponseError> {
+    private updateOntologyMetadata(ontologyMetadata: UpdateOntologyMetadata) {
         const onto = this.jsonConvert.serializeObject(ontologyMetadata);
 
         return this.httpPut("/metadata", onto).pipe(
@@ -256,9 +234,6 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
     }
@@ -268,8 +243,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param  resourceClass The resource class to be created.
      */
-    createResourceClass(resourceClass: UpdateOntology<CreateResourceClass>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
-
+    createResourceClass(resourceClass: UpdateOntology<CreateResourceClass>) {
         const resClassPay = new CreateResourceClassPayload();
 
         resClassPay.id = resourceClass.id + Constants.HashDelimiter + resourceClass.entity.name;
@@ -289,9 +263,6 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
     }
@@ -301,7 +272,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param updateResourceClass the new label or comment.
      */
-    updateResourceClass(updateResourceClass: UpdateOntology<UpdateResourceClassLabel | UpdateResourceClassComment>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+    updateResourceClass(updateResourceClass: UpdateOntology<UpdateResourceClassLabel | UpdateResourceClassComment>) {
 
         const ontoPayload = this.jsonConvert.serializeObject(updateResourceClass);
 
@@ -314,12 +285,8 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
-
     }
 
     /**
@@ -327,8 +294,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param updateProperty the new label or comment.
      */
-    updateResourceProperty(updateProperty: UpdateOntology<UpdateResourcePropertyLabel | UpdateResourcePropertyComment>): Observable<ResourcePropertyDefinitionWithAllLanguages | ApiResponseError> {
-
+    updateResourceProperty(updateProperty: UpdateOntology<UpdateResourcePropertyLabel | UpdateResourcePropertyComment>) {
         const ontoPayload = this.jsonConvert.serializeObject(updateProperty);
 
         ontoPayload["@graph"] = [this.jsonConvert.serializeObject(updateProperty.entity)];
@@ -340,12 +306,8 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourcePropertyResponse(jsonldobj, this.jsonConvert);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
-
     }
 
     /**
@@ -353,8 +315,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param resourceClassIri the iri of the resource class to be checked.
      */
-    canDeleteResourceClass(resourceClassIri: string): Observable<CanDoResponse | ApiResponseError> {
-
+    canDeleteResourceClass(resourceClassIri: string) {
         return this.httpGet("/candeleteclass/" + encodeURIComponent(resourceClassIri)).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // TODO: @rosenth Adapt context object
@@ -362,9 +323,6 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
 
@@ -375,8 +333,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param deleteResourceClass with class IRI.
      */
-    deleteResourceClass(deleteResourceClass: DeleteResourceClass): Observable<OntologyMetadata | ApiResponseError> {
-
+    deleteResourceClass(deleteResourceClass: DeleteResourceClass) {
         const path = "/classes/" + encodeURIComponent(deleteResourceClass.id) + "?lastModificationDate=" + encodeURIComponent(deleteResourceClass.lastModificationDate);
 
         return this.httpDelete(path).pipe(
@@ -387,8 +344,7 @@ export class OntologiesEndpointV2 extends Endpoint {
             }),
             map(jsonldobj => {
                 return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
-            }),
-            catchError(error => this.handleError(error))
+            })
         );
 
     }
@@ -398,7 +354,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      * 
      * @param deleteResourceClassComment with class IRI and lastModificationDate
      */
-    deleteResourceClassComment(deleteResourceClassComment: DeleteResourceClassComment): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+    deleteResourceClassComment(deleteResourceClassComment: DeleteResourceClassComment) {
         const path = "/classes/comment/" + encodeURIComponent(deleteResourceClassComment.id) + "?lastModificationDate=" + encodeURIComponent(deleteResourceClassComment.lastModificationDate);
 
         return this.httpDelete(path).pipe(
@@ -407,8 +363,7 @@ export class OntologiesEndpointV2 extends Endpoint {
             }),
             map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
-            }),
-            catchError(error => this.handleError(error))
+            })
         );
     }
 
@@ -417,8 +372,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param  resourceProperties the resource property to be created.
      */
-    createResourceProperty(resourceProperties: UpdateOntology<CreateResourceProperty>): Observable<ResourcePropertyDefinitionWithAllLanguages | ApiResponseError> {
-
+    createResourceProperty(resourceProperties: UpdateOntology<CreateResourceProperty>) {
         const resPropPay = new CreateResourcePropertyPayload();
 
         resPropPay.id = resourceProperties.id + Constants.HashDelimiter + resourceProperties.entity.name;
@@ -448,9 +402,6 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourcePropertyResponse(jsonldobj, this.jsonConvert);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
     }
@@ -459,7 +410,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      * Updates the GUI element and/or the GUI attributes of a property
      * @param replaceGuiElement
      */
-    replaceGuiElementOfProperty(replaceGuiElement: UpdateOntology<UpdateResourcePropertyGuiElement>): Observable<ResourcePropertyDefinitionWithAllLanguages | ApiResponseError> {
+    replaceGuiElementOfProperty(replaceGuiElement: UpdateOntology<UpdateResourcePropertyGuiElement>) {
         const ontoPayload = this.jsonConvert.serializeObject(replaceGuiElement);
 
         ontoPayload["@graph"] = [this.jsonConvert.serializeObject(replaceGuiElement.entity)];
@@ -469,9 +420,6 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourcePropertyResponse(jsonldobj, this.jsonConvert);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
     }
@@ -482,8 +430,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param propertyIri the iri of the property to be checked.
      */
-    canDeleteResourceProperty(propertyIri: string): Observable<CanDoResponse | ApiResponseError> {
-
+    canDeleteResourceProperty(propertyIri: string) {
         return this.httpGet("/candeleteproperty/" + encodeURIComponent(propertyIri)).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // TODO: @rosenth Adapt context object
@@ -491,9 +438,6 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
 
@@ -504,8 +448,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param  deleteResourceProperty with property IRI.
      */
-    deleteResourceProperty(deleteResourceProperty: DeleteResourceProperty): Observable<OntologyMetadata | ApiResponseError> {
-
+    deleteResourceProperty(deleteResourceProperty: DeleteResourceProperty) {
         const path = "/properties/" + encodeURIComponent(deleteResourceProperty.id) + "?lastModificationDate=" + encodeURIComponent(deleteResourceProperty.lastModificationDate);
 
         return this.httpDelete(path).pipe(
@@ -516,8 +459,7 @@ export class OntologiesEndpointV2 extends Endpoint {
             }),
             map(jsonldobj => {
                 return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
-            }),
-            catchError(error => this.handleError(error))
+            })
         );
     }
 
@@ -527,7 +469,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      * 
      * @param deleteResourcePropertyComment with property IRI and lastModificationDate
      */
-    deleteResourcePropertyComment(deleteResourcePropertyComment: DeleteResourcePropertyComment): Observable<ResourcePropertyDefinitionWithAllLanguages | ApiResponseError> {
+    deleteResourcePropertyComment(deleteResourcePropertyComment: DeleteResourcePropertyComment) {
         const path = "/properties/comment/" + encodeURIComponent(deleteResourcePropertyComment.id) + "?lastModificationDate=" + encodeURIComponent(deleteResourcePropertyComment.lastModificationDate);
 
         return this.httpDelete(path).pipe(
@@ -536,8 +478,7 @@ export class OntologiesEndpointV2 extends Endpoint {
             }),
             map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourcePropertyResponse(jsonldobj, this.jsonConvert);
-            }),
-            catchError(error => this.handleError(error))
+            })
         );
     }
 
@@ -546,8 +487,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param addCardinalityToResourceClass the cardinalities to be added.
      */
-    addCardinalityToResourceClass(addCardinalityToResourceClass: UpdateOntology<UpdateResourceClassCardinality>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
-
+    addCardinalityToResourceClass(addCardinalityToResourceClass: UpdateOntology<UpdateResourceClassCardinality>) {
         if (addCardinalityToResourceClass.entity.cardinalities.length === 0) {
             throw new Error("At least one cardinality must be defined.");
         }
@@ -565,9 +505,6 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
 
@@ -579,8 +516,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      * @deprecated use canReplaceCardinalityOfResourceClassWith instead
      * @param resourceClassIri the iri of the resource class to be checked.
      */
-    canReplaceCardinalityOfResourceClass(resourceClassIri: string): Observable<CanDoResponse | ApiResponseError> {
-
+    canReplaceCardinalityOfResourceClass(resourceClassIri: string) {
         return this.httpGet("/canreplacecardinalities/" + encodeURIComponent(resourceClassIri)).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // TODO: @rosenth Adapt context object
@@ -588,12 +524,8 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
-
     }
 
     /**
@@ -603,7 +535,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      * @param propertyIri the iri of the property to be checked.
      * @param desiredCardinality the desired cardinality.
      */
-    canReplaceCardinalityOfResourceClassWith(resourceClassIri: string, propertyIri: string, desiredCardinality: Cardinality): Observable<CanDoResponse | ApiResponseError> {
+    canReplaceCardinalityOfResourceClassWith(resourceClassIri: string, propertyIri: string, desiredCardinality: Cardinality) {
         const card = CardinalityUtil.cardinalities.get(desiredCardinality);
 
         return this.httpGet("/canreplacecardinalities/" + encodeURIComponent(resourceClassIri) + "?propertyIri=" + encodeURIComponent(propertyIri) +"&newCardinality=" + card).pipe(
@@ -611,12 +543,8 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
-
     }
 
     /**
@@ -624,8 +552,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      *
      * @param replaceCardinalityOfResourceClass the cardinalities to be added.
      */
-    replaceCardinalityOfResourceClass(replaceCardinalityOfResourceClass: UpdateOntology<UpdateResourceClassCardinality>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
-
+    replaceCardinalityOfResourceClass(replaceCardinalityOfResourceClass: UpdateOntology<UpdateResourceClassCardinality>) {
         const onto = this.jsonConvert.serializeObject(replaceCardinalityOfResourceClass);
 
         const numberOfCards = replaceCardinalityOfResourceClass.entity.cardinalities.length;
@@ -647,9 +574,6 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
 
@@ -661,7 +585,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      * For now, DSP-API allows only one cardinality at a time to delete.
      * @param deleteCardinalitiesFromClass the cardinalities that need to be checked.
      */
-    canDeleteCardinalityFromResourceClass(deleteCardinalityFromClass: UpdateOntology<UpdateResourceClassCardinality>): Observable<CanDoResponse | ApiResponseError> {
+    canDeleteCardinalityFromResourceClass(deleteCardinalityFromClass: UpdateOntology<UpdateResourceClassCardinality>) {
 
         const deleteCardinalityFromClassRequest = this.jsonConvert.serializeObject(deleteCardinalityFromClass);
 
@@ -681,9 +605,6 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
 
@@ -695,7 +616,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      * For now, DSP-API allows only one cardinality at a time to be deleted.
      * @param deleteCardinalitiesFromClass the cardinalities that need to be checked.
      */
-    deleteCardinalityFromResourceClass(deleteCardinalityFromClass: UpdateOntology<UpdateResourceClassCardinality>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+    deleteCardinalityFromResourceClass(deleteCardinalityFromClass: UpdateOntology<UpdateResourceClassCardinality>) {
         const deleteCardinalityFromClassRequest = this.jsonConvert.serializeObject(deleteCardinalityFromClass);
 
         const numberOfCardinalities = deleteCardinalityFromClass.entity.cardinalities.length
@@ -714,19 +635,15 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
-
     }
 
     /**
      * Updates gui order of cardinalities
      * @param replaceGuiOrder
      */
-    replaceGuiOrderOfCardinalities(replaceGuiOrder: UpdateOntology<UpdateResourceClassCardinality>): Observable<ResourceClassDefinitionWithAllLanguages | ApiResponseError> {
+    replaceGuiOrderOfCardinalities(replaceGuiOrder: UpdateOntology<UpdateResourceClassCardinality>) {
         const onto = this.jsonConvert.serializeObject(replaceGuiOrder);
 
         const cardinalities = this.jsonConvert.serializeObject(replaceGuiOrder.entity);
@@ -738,14 +655,11 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
-            }),
-            catchError(error => {
-                return this.handleError(error);
             })
         );
     }
 
-    private _badCardinalityRequest(method: string): Observable<ApiResponseError> {
+    private _badCardinalityRequest(method: string) {
         const response: ApiResponseError = {
             error: "Only one cardinality can be deleted at a time.",
             url: "/cardinalities",
@@ -753,7 +667,7 @@ export class OntologiesEndpointV2 extends Endpoint {
             method: method
         };
         const error: DataError = new DataError("Bad request", response);
-        return this.handleError(error);
+        return throwError(error);
     }
 
 
