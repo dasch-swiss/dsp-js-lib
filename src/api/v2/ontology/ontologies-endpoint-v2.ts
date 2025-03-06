@@ -1,6 +1,6 @@
 import { throwError } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
-import { map, mergeMap } from "rxjs/operators";
+import { catchError, map, mergeMap } from "rxjs/operators";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { DataError } from "../../../models/data-error";
 import { Constants } from "../../../models/v2/Constants";
@@ -58,6 +58,9 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertOntologiesList(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
     }
@@ -84,6 +87,9 @@ export class OntologiesEndpointV2 extends Endpoint {
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertOntology(jsonldobj, this.jsonConvert, this.knoraApiConfig, allLanguages);
             }),
+            catchError(error => {
+                return this.handleError(error);
+            })
         );
     }
 
@@ -100,6 +106,9 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertOntologiesList(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
     }
@@ -119,6 +128,9 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
     }
@@ -136,6 +148,9 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
 
@@ -157,7 +172,8 @@ export class OntologiesEndpointV2 extends Endpoint {
             }),
             map(jsonldobj => {
                 return this.jsonConvert.deserializeObject(jsonldobj, DeleteOntologyResponse);
-            })
+            }),
+            catchError(error => this.handleError(error))
         );
     }
 
@@ -234,6 +250,9 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
     }
@@ -263,6 +282,9 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
     }
@@ -285,6 +307,9 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
     }
@@ -306,6 +331,9 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourcePropertyResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
     }
@@ -323,6 +351,9 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
 
@@ -344,7 +375,8 @@ export class OntologiesEndpointV2 extends Endpoint {
             }),
             map(jsonldobj => {
                 return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
-            })
+            }),
+            catchError(error => this.handleError(error))
         );
 
     }
@@ -363,7 +395,8 @@ export class OntologiesEndpointV2 extends Endpoint {
             }),
             map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
-            })
+            }),
+            catchError(error => this.handleError(error))
         );
     }
 
@@ -402,6 +435,9 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourcePropertyResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
     }
@@ -420,6 +456,9 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourcePropertyResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
     }
@@ -438,6 +477,9 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
 
@@ -459,7 +501,8 @@ export class OntologiesEndpointV2 extends Endpoint {
             }),
             map(jsonldobj => {
                 return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
-            })
+            }),
+            catchError(error => this.handleError(error))
         );
     }
 
@@ -478,7 +521,8 @@ export class OntologiesEndpointV2 extends Endpoint {
             }),
             map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourcePropertyResponse(jsonldobj, this.jsonConvert);
-            })
+            }),
+            catchError(error => this.handleError(error))
         );
     }
 
@@ -505,6 +549,9 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
 
@@ -524,6 +571,9 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
     }
@@ -543,6 +593,9 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
     }
@@ -574,6 +627,9 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
 
@@ -605,6 +661,9 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
 
@@ -635,6 +694,9 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
     }
@@ -655,6 +717,9 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
     }
@@ -667,7 +732,7 @@ export class OntologiesEndpointV2 extends Endpoint {
             method: method
         };
         const error: DataError = new DataError("Bad request", response);
-        return throwError(error);
+        return this.handleError(error);
     }
 
 

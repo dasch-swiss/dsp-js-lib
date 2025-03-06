@@ -1,5 +1,5 @@
 import { AjaxResponse } from "rxjs/ajax";
-import { map } from "rxjs/operators";
+import { catchError, map } from "rxjs/operators";
 
 import { ApiResponseData } from "../../../models/api-response-data";
 import { CredentialsResponse } from "../../../models/v2/authentication/credentials-response";
@@ -34,7 +34,8 @@ export class AuthenticationEndpointV2 extends Endpoint {
                 const responseData = ApiResponseData.fromAjaxResponse(ajaxResponse, LoginResponse, this.jsonConvert);
                 this.jsonWebToken = responseData.body.token;
                 return responseData;
-            })
+            }),
+            catchError(error => this.handleError(error))
         );
 
     }

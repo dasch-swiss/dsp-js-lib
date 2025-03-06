@@ -1,4 +1,4 @@
-import { map } from "rxjs/operators";
+import { catchError, map } from "rxjs/operators";
 
 import { ApiResponseData } from "../../../models/api-response-data";
 import { Endpoint } from "../../endpoint";
@@ -23,6 +23,7 @@ export class GroupsEndpointAdmin extends Endpoint {
     getGroups() {
         return this.httpGet("").pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupsResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     
     }
@@ -35,6 +36,7 @@ export class GroupsEndpointAdmin extends Endpoint {
     createGroup(group: CreateGroupRequest) {
         return this.httpPost("", this.jsonConvert.serializeObject(group)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     
     }
@@ -47,6 +49,7 @@ export class GroupsEndpointAdmin extends Endpoint {
     getGroupByIri(iri: string) {
         return this.httpGet("/" + encodeURIComponent(iri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     
     }
@@ -60,6 +63,7 @@ export class GroupsEndpointAdmin extends Endpoint {
     updateGroup(iri: string, groupInfo: UpdateGroupRequest) {
         return this.httpPut("/" + encodeURIComponent(iri), this.jsonConvert.serializeObject(groupInfo)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     
     }
@@ -73,6 +77,7 @@ export class GroupsEndpointAdmin extends Endpoint {
     updateGroupStatus(iri: string, status: boolean) {
         return this.httpPut("/" + encodeURIComponent(iri) + "/status", { status: status }).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     
     }
@@ -85,6 +90,7 @@ export class GroupsEndpointAdmin extends Endpoint {
     deleteGroup(iri: string) {
         return this.httpDelete("/" + encodeURIComponent(iri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, GroupResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     
     }
@@ -97,6 +103,7 @@ export class GroupsEndpointAdmin extends Endpoint {
     getGroupMembers(iri: string) {
         return this.httpGet("/" + encodeURIComponent(iri) + "/members").pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, MembersResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     
     }

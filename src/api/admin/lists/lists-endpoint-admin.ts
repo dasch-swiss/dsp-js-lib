@@ -1,4 +1,4 @@
-import { map } from "rxjs/operators";
+import { catchError, map } from "rxjs/operators";
 import { ChildNodeInfoResponse } from "../../../models/admin/child-node-info-response";
 import { CreateChildNodeRequest } from "../../../models/admin/create-child-node-request";
 import { CreateListRequest } from "../../../models/admin/create-list-request";
@@ -33,6 +33,7 @@ export class ListsEndpointAdmin extends Endpoint {
     getLists() {
         return this.httpGet("").pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListsResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
     
@@ -44,6 +45,7 @@ export class ListsEndpointAdmin extends Endpoint {
     getListsInProject(projectIri: string) {
         return this.httpGet("?projectIri=" + encodeURIComponent(projectIri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListsResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
     
@@ -55,6 +57,7 @@ export class ListsEndpointAdmin extends Endpoint {
     updateListInfo(listInfo: UpdateListInfoRequest) {
         return this.httpPut("/" + encodeURIComponent(listInfo.listIri), this.jsonConvert.serializeObject(listInfo)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListInfoResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
 
@@ -67,6 +70,7 @@ export class ListsEndpointAdmin extends Endpoint {
     updateChildName(listItemIri: string, name: UpdateChildNodeNameRequest) {
         return this.httpPut("/" + encodeURIComponent(listItemIri) + "/name", this.jsonConvert.serializeObject(name)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ChildNodeInfoResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
 
@@ -79,6 +83,7 @@ export class ListsEndpointAdmin extends Endpoint {
     updateChildLabels(listItemIri: string, labels: UpdateChildNodeLabelsRequest) {
         return this.httpPut("/" + encodeURIComponent(listItemIri) + "/labels", this.jsonConvert.serializeObject(labels)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ChildNodeInfoResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
 
@@ -91,6 +96,7 @@ export class ListsEndpointAdmin extends Endpoint {
     updateChildComments(listItemIri: string, comments: UpdateChildNodeCommentsRequest) {
         return this.httpPut("/" + encodeURIComponent(listItemIri) + "/comments", this.jsonConvert.serializeObject(comments)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ChildNodeInfoResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
 
@@ -102,6 +108,7 @@ export class ListsEndpointAdmin extends Endpoint {
      deleteChildComments(listItemIri: string) {
         return this.httpDelete("/comments/" + encodeURIComponent(listItemIri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, DeleteChildNodeCommentsResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
     
@@ -113,6 +120,7 @@ export class ListsEndpointAdmin extends Endpoint {
     createChildNode(node: CreateChildNodeRequest) {
         return this.httpPost("/" + encodeURIComponent(node.parentNodeIri), this.jsonConvert.serializeObject(node)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListNodeInfoResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
     
@@ -124,6 +132,7 @@ export class ListsEndpointAdmin extends Endpoint {
     getListInfo(iri: string) {
         return this.httpGet("/infos/" + encodeURIComponent(iri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListInfoResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
 
@@ -142,6 +151,7 @@ export class ListsEndpointAdmin extends Endpoint {
                     return ApiResponseData.fromAjaxResponse(ajaxResponse, DeleteListResponse, this.jsonConvert);
                 }
             }),
+            catchError(error => this.handleError(error))
         );
     }
 
@@ -155,6 +165,7 @@ export class ListsEndpointAdmin extends Endpoint {
     repositionChildNode(iri: string, repositionRequest: RepositionChildNodeRequest) {
         return this.httpPut("/" + encodeURIComponent(iri) + "/position", this.jsonConvert.serializeObject(repositionRequest)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, RepositionChildNodeResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
 
@@ -172,6 +183,7 @@ export class ListsEndpointAdmin extends Endpoint {
 
         return this.httpPut("/" + encodeURIComponent(nodeInfo.listIri), this.jsonConvert.serializeObject(nodeInfo)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ChildNodeInfoResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
 
@@ -189,6 +201,7 @@ export class ListsEndpointAdmin extends Endpoint {
                     return ApiResponseData.fromAjaxResponse(ajaxResponse, ListNodeInfoResponse, this.jsonConvert);
                 }
             }),
+            catchError(error => this.handleError(error))
         );
     
     }
@@ -201,6 +214,7 @@ export class ListsEndpointAdmin extends Endpoint {
     createList(listInfo: CreateListRequest) {
         return this.httpPost("", this.jsonConvert.serializeObject(listInfo)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
 
@@ -218,6 +232,7 @@ export class ListsEndpointAdmin extends Endpoint {
                     return ApiResponseData.fromAjaxResponse(ajaxResponse, ListChildNodeResponse, this.jsonConvert);
                 }
             }),
+            catchError(error => this.handleError(error))
         );
     }
 }

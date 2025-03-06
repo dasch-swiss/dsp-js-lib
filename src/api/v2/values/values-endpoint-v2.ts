@@ -53,7 +53,10 @@ export class ValuesEndpointV2 extends Endpoint {
                 // console.log(JSON.stringify(jsonldobj));
                 return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
             }),
-            map((resources: ReadResourceSequence) => resources.resources[0])
+            map((resources: ReadResourceSequence) => resources.resources[0]),
+            catchError(error => {
+                return this.handleError(error);
+            })
         );
     }
 
@@ -79,7 +82,8 @@ export class ValuesEndpointV2 extends Endpoint {
             }),
             map(jsonldobj => {
                 return this.jsonConvert.deserializeObject(jsonldobj, WriteValueResponse);
-            })
+            }),
+            catchError(error => this.handleError(error))
         );
     }
 
@@ -108,7 +112,8 @@ export class ValuesEndpointV2 extends Endpoint {
             }),
             map(jsonldobj => {
                 return this.jsonConvert.deserializeObject(jsonldobj, WriteValueResponse);
-            })
+            }),
+            catchError(error => this.handleError(error))
         );
 
     }
@@ -134,7 +139,8 @@ export class ValuesEndpointV2 extends Endpoint {
             }),
             map(jsonldobj => {
                 return this.jsonConvert.deserializeObject(jsonldobj, DeleteValueResponse);
-            })
+            }),
+            catchError(error => this.handleError(error))
         );
 
     }

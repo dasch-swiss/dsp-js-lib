@@ -58,6 +58,9 @@ export class ResourcesEndpointV2 extends Endpoint {
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
                 return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
     }
@@ -69,7 +72,10 @@ export class ResourcesEndpointV2 extends Endpoint {
      */
     getResource(resourceIri: string) {
         return this.getResources([resourceIri]).pipe(
-            map((resources: ReadResourceSequence) => resources.resources[0])
+            map((resources: ReadResourceSequence) => resources.resources[0]),
+            catchError(error => {
+                return this.handleError(error);
+            })
         );
     }
 
@@ -112,7 +118,10 @@ export class ResourcesEndpointV2 extends Endpoint {
                 // console.log(JSON.stringify(jsonldobj));
                 return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
             }),
-            map((resources: ReadResourceSequence) => resources.resources[0])
+            map((resources: ReadResourceSequence) => resources.resources[0]),
+            catchError(error => {
+                return this.handleError(error);
+            })
         );
 
     }
@@ -140,7 +149,8 @@ export class ResourcesEndpointV2 extends Endpoint {
             }),
             map(jsonldobj => {
                 return this.jsonConvert.deserializeObject(jsonldobj, UpdateResourceMetadataResponse);
-            })
+            }),
+            catchError(error => this.handleError(error))
         );
 
     }
@@ -163,7 +173,8 @@ export class ResourcesEndpointV2 extends Endpoint {
             }),
             map(jsonldobj => {
                 return this.jsonConvert.deserializeObject(jsonldobj, DeleteResourceResponse);
-            })
+            }),
+            catchError(error => this.handleError(error))
         );
 
     }
@@ -186,7 +197,8 @@ export class ResourcesEndpointV2 extends Endpoint {
             }),
             map(jsonldobj => {
                 return this.jsonConvert.deserializeObject(jsonldobj, DeleteResourceResponse);
-            })
+            }),
+            catchError(error => this.handleError(error))
         );
     }
 }

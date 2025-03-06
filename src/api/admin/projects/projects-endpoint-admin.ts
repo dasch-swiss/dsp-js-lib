@@ -1,4 +1,4 @@
-import { map } from "rxjs/operators";
+import { catchError, map } from "rxjs/operators";
 
 import { ApiResponseData } from "../../../models/api-response-data";
 import { Endpoint } from "../../endpoint";
@@ -25,6 +25,7 @@ export class ProjectsEndpointAdmin extends Endpoint {
     getProjects() {
         return this.httpGet("", undefined).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectsResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
     
@@ -36,6 +37,7 @@ export class ProjectsEndpointAdmin extends Endpoint {
     createProject(project: Project) {
         return this.httpPost("", this.jsonConvert.serializeObject(project), undefined, undefined).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
     
@@ -45,6 +47,7 @@ export class ProjectsEndpointAdmin extends Endpoint {
     getKeywords() {
         return this.httpGet("/Keywords").pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, KeywordsResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
     
@@ -56,6 +59,7 @@ export class ProjectsEndpointAdmin extends Endpoint {
     getProjectKeywords(iri: string) {
         return this.httpGet("/iri/" + encodeURIComponent(iri) + "/Keywords").pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, KeywordsResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
     
@@ -68,6 +72,7 @@ export class ProjectsEndpointAdmin extends Endpoint {
     updateProject(iri: string, projectInfo: UpdateProjectRequest) {
         return this.httpPut("/iri/" + encodeURIComponent(iri), this.jsonConvert.serializeObject(projectInfo)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
     
@@ -79,6 +84,7 @@ export class ProjectsEndpointAdmin extends Endpoint {
     deleteProject(iri: string) {
         return this.httpDelete("/iri/" + encodeURIComponent(iri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
     
@@ -91,6 +97,7 @@ export class ProjectsEndpointAdmin extends Endpoint {
     getProject(property: "iri" | "shortname" | "shortcode", value: string) {
         return this.httpGet("/" + encodeURIComponent(property) + "/" + encodeURIComponent(value), undefined).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
     
@@ -130,6 +137,7 @@ export class ProjectsEndpointAdmin extends Endpoint {
     getProjectMembers(property: "iri" | "shortname" | "shortcode", value: string) {
         return this.httpGet("/" + encodeURIComponent(property) + "/" + encodeURIComponent(value) + "/members").pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, MembersResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
     
@@ -169,6 +177,7 @@ export class ProjectsEndpointAdmin extends Endpoint {
     getProjectAdminMembers(property: "iri" | "shortname" | "shortcode", value: string) {
         return this.httpGet("/" + encodeURIComponent(property) + "/" + encodeURIComponent(value) + "/admin-members").pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, MembersResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
     
@@ -208,6 +217,7 @@ export class ProjectsEndpointAdmin extends Endpoint {
     getProjectRestrictedViewSettings(property: "iri" | "shortname" | "shortcode", value: string) {
         return this.httpGet("/" + encodeURIComponent(property) + "/" + encodeURIComponent(value) + "/RestrictedViewSettings").pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectRestrictedViewSettingsResponse, this.jsonConvert)),
+            catchError(error => this.handleError(error))
         );
     }
     

@@ -1,5 +1,5 @@
 import { AjaxResponse } from "rxjs/ajax";
-import { map, mergeMap } from "rxjs/operators";
+import { catchError, map, mergeMap } from "rxjs/operators";
 import { IFulltextSearchParams } from "../../../interfaces/models/v2/i-fulltext-search-params";
 import { ILabelSearchParams } from "../../../interfaces/models/v2/i-label-search-params";
 import { KnoraApiConfig } from "../../../knora-api-config";
@@ -95,6 +95,9 @@ export class SearchEndpointV2 extends Endpoint {
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
                 return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
     }
@@ -118,6 +121,9 @@ export class SearchEndpointV2 extends Endpoint {
             }), map((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
                 return ResourcesConversionUtil.createCountQueryResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
     }
@@ -140,6 +146,9 @@ export class SearchEndpointV2 extends Endpoint {
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
                 return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
     }
@@ -161,6 +170,9 @@ export class SearchEndpointV2 extends Endpoint {
             }), map((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
                 return ResourcesConversionUtil.createCountQueryResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
     }
@@ -184,6 +196,9 @@ export class SearchEndpointV2 extends Endpoint {
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
                 return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
     }
@@ -202,6 +217,9 @@ export class SearchEndpointV2 extends Endpoint {
             }), map((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
                 return ResourcesConversionUtil.createCountQueryResponse(jsonldobj, this.jsonConvert);
+            }),
+            catchError(error => {
+                return this.handleError(error);
             })
         );
     }

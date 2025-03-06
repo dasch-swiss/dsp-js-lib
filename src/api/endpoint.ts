@@ -151,6 +151,41 @@ export class Endpoint {
     }
 
     /**
+     * Handles parsing errors.
+     * @param error the error class provided by us
+     */
+    protected handleError(error: AjaxError | DataError): Observable<ApiResponseError> {
+
+        let responseError: ApiResponseError;
+
+        if (this.knoraApiConfig.logErrors) {
+            console.error(error);
+        }
+
+        // Check the type of error and save it to the responseError
+        if (error instanceof DataError) {
+
+            responseError = error.response;
+
+            if (this.knoraApiConfig.logErrors) {
+                console.error("Parse Error in Knora API request: " + responseError.error);
+            }
+
+        } else {
+
+            responseError = ApiResponseError.fromAjaxError(error);
+
+            if (this.knoraApiConfig.logErrors) {
+                console.error("Ajax Error in Knora API request: " + responseError.method + " " + responseError.url);
+            }
+
+        }
+
+        return throwError(responseError);
+
+    }
+
+    /**
      * Creates a header for a HTTP request.
      * If the client has obtained a token, it is included.
      *

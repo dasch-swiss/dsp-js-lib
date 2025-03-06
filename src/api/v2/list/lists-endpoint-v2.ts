@@ -1,5 +1,5 @@
 import { AjaxResponse } from "rxjs/ajax";
-import { map, mergeMap } from "rxjs/operators";
+import { catchError, map, mergeMap } from "rxjs/operators";
 import { ListNodeV2 } from "../../../models/v2/lists/list-node-v2";
 import { Endpoint } from "../../endpoint";
 
@@ -30,7 +30,10 @@ export class ListsEndpointV2 extends Endpoint {
                 res => {
                     return this.jsonConvert.deserialize(res, ListNodeV2) as ListNodeV2;
                 }
-            )
+            ),
+            catchError(error => {
+                return this.handleError(error);
+            })
         );
     }
 
@@ -51,7 +54,10 @@ export class ListsEndpointV2 extends Endpoint {
                 res => {
                     return this.jsonConvert.deserialize(res, ListNodeV2) as ListNodeV2;
                 }
-            )
+            ),
+            catchError(error => {
+                return this.handleError(error);
+            })
         );
     }
 

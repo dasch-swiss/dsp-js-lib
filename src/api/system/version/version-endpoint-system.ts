@@ -1,4 +1,4 @@
-import { map } from "rxjs/operators";
+import { catchError, map } from "rxjs/operators";
 import { ApiResponseData } from "../../../models/api-response-data";
 import { VersionResponse } from "../../../models/system/version-response";
 import { Endpoint } from "../../endpoint";
@@ -20,7 +20,8 @@ export class VersionEndpointSystem extends Endpoint {
                 const versionResponse =  ApiResponseData.fromAjaxResponse(ajaxResponse, VersionResponse, this.jsonConvert);
 
                 return versionResponse;
-            })
+            }),
+            catchError(error => this.handleError(error))
         );
 
     }
