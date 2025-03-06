@@ -50,7 +50,8 @@ export class AuthenticationEndpointV2 extends Endpoint {
                 const responseData = ApiResponseData.fromAjaxResponse(ajaxResponse, LogoutResponse, this.jsonConvert);
                 this.jsonWebToken = "";
                 return responseData;
-            })
+            }),
+            catchError(error => this.handleError(error))
         );
     }
 
@@ -63,7 +64,8 @@ export class AuthenticationEndpointV2 extends Endpoint {
         return this.httpGet("").pipe(
             map((ajaxResponse: AjaxResponse) => {
                 return ApiResponseData.fromAjaxResponse(ajaxResponse, CredentialsResponse);
-            })
+            }),
+            catchError(error => this.handleError(error))
         );
     }
 

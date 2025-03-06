@@ -200,8 +200,7 @@ export class ListsEndpointAdmin extends Endpoint {
                 } else { // child node
                     return ApiResponseData.fromAjaxResponse(ajaxResponse, ListNodeInfoResponse, this.jsonConvert);
                 }
-            }),
-            catchError(error => this.handleError(error))
+            })
         );
     
     }

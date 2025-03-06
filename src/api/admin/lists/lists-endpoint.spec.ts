@@ -435,7 +435,7 @@ describe("ListsEndpoint", () => {
         it("should return information about a list child node", done => {
 
             knoraApiConnection.admin.listsEndpoint.getListNodeInfo("http://rdfh.ch/lists/0001/treeList01").subscribe(
-                (res: ApiResponseData<ListNodeInfoResponse | ListInfoResponse>) => {
+                (res) => {
                     expect(res.body instanceof ListNodeInfoResponse).toBeTruthy();
                     expect((res.body as ListNodeInfoResponse).nodeinfo.labels[0].value).toEqual("Tree list node 01");
                     done();
