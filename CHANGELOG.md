@@ -1,5 +1,23 @@
 # Changelog
 
+## [10.1.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v10.0.0...v10.1.0) (2025-03-07)
+
+
+### Maintenance
+
+* increase version for npm ([#647](https://www.github.com/dasch-swiss/dsp-js-lib/issues/647)) ([ab59ad8](https://www.github.com/dasch-swiss/dsp-js-lib/commit/ab59ad886a46783596c206d4fd2be54b250ae73f))
+* update actions/checkout to v3 in CI ([#650](https://www.github.com/dasch-swiss/dsp-js-lib/issues/650)) ([5a5b906](https://www.github.com/dasch-swiss/dsp-js-lib/commit/5a5b9064e57e30a77147495672facbcd52f68bb4))
+* use stillimagefilevaluehasexternalurl (DEV-4109) ([#648](https://www.github.com/dasch-swiss/dsp-js-lib/issues/648)) ([b589688](https://www.github.com/dasch-swiss/dsp-js-lib/commit/b58968857913fc67ee70773bc24f6f8748704567))
+
+
+### Enhancements
+
+* bump version ([#645](https://www.github.com/dasch-swiss/dsp-js-lib/issues/645)) ([8d703bd](https://www.github.com/dasch-swiss/dsp-js-lib/commit/8d703bd1d375490ef5f855be7a592851f1dee397))
+* endpoints values do not return ApiResponseError type  ([#649](https://www.github.com/dasch-swiss/dsp-js-lib/issues/649)) ([d081056](https://www.github.com/dasch-swiss/dsp-js-lib/commit/d081056a63044e100c68bfbb7165d815891c134b))
+* **external iiif urls:** implement reading and creating of external iiif url ([#642](https://www.github.com/dasch-swiss/dsp-js-lib/issues/642)) ([5d4f261](https://www.github.com/dasch-swiss/dsp-js-lib/commit/5d4f26137fc8e74273acfc5bb41b320efb35e6b5))
+* implement editing of third party iiif images (DEV-3967) ([#646](https://www.github.com/dasch-swiss/dsp-js-lib/issues/646)) ([9312e61](https://www.github.com/dasch-swiss/dsp-js-lib/commit/9312e610564f0beddbc6efd8e9e5f59ed8c8b86d))
+* set api version ([#644](https://www.github.com/dasch-swiss/dsp-js-lib/issues/644)) ([5a795ce](https://www.github.com/dasch-swiss/dsp-js-lib/commit/5a795cebed38279d75e87d5a9d9824c6783983bb))
+
 ## [10.0.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.18...v10.0.0) (2024-05-23)
 
 
