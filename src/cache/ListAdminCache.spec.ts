@@ -8,7 +8,7 @@ import { ApiResponseData } from "../models/api-response-data";
 import { ApiResponseError } from "../models/api-response-error";
 import { ListAdminCache } from "./ListAdminCache";
 
-describe("ListCache", () => {
+describe("ListCache test", () => {
 
     const config = new KnoraApiConfig("http", "0.0.0.0", 3333);
     const knoraApiConnection = new KnoraApiConnection(config);
