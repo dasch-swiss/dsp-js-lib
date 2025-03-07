@@ -42,7 +42,7 @@ export class ValuesEndpointV2 extends Endpoint {
      * @param resourceIri the Iri of the resource the value belongs to.
      * @param valueUuid the value's UUID.
      */
-    getValue(resourceIri: string, valueUuid: string): Observable<ReadResource | ApiResponseError> {
+    getValue(resourceIri: string, valueUuid: string) {
         return this.httpGet("/" + encodeURIComponent(resourceIri) + "/" + encodeURIComponent(valueUuid)).pipe(
             mergeMap((ajaxResponse: AjaxResponse) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
@@ -65,7 +65,7 @@ export class ValuesEndpointV2 extends Endpoint {
      *
      * @param resource The resource with the value to be updated.
      */
-    updateValue(resource: UpdateResource<UpdateValue>): Observable<WriteValueResponse | ApiResponseError> {
+    updateValue(resource: UpdateResource<UpdateValue>) {
 
         const res = this.jsonConvert.serializeObject<UpdateResource<UpdateValue>>(resource);
 
@@ -92,8 +92,7 @@ export class ValuesEndpointV2 extends Endpoint {
      *
      * @param resource The resource with the value to be created.
      */
-    createValue(resource: UpdateResource<CreateValue>): Observable<WriteValueResponse | ApiResponseError> {
-
+    createValue(resource: UpdateResource<CreateValue>) {
         const res = this.jsonConvert.serializeObject<UpdateResource<CreateValue>>(resource);
 
         if (resource.value instanceof CreateFileValue) {
@@ -124,8 +123,7 @@ export class ValuesEndpointV2 extends Endpoint {
      *
      * @param resource The resource with the value to be deleted.
      */
-    deleteValue(resource: UpdateResource<DeleteValue>): Observable<DeleteValueResponse | ApiResponseError> {
-
+    deleteValue(resource: UpdateResource<DeleteValue>) {
         const res = this.jsonConvert.serializeObject<UpdateResource<DeleteValue>>(resource);
 
         const val = this.jsonConvert.serializeObject<DeleteValue>(resource.value);

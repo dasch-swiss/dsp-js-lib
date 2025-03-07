@@ -39,7 +39,7 @@ export class ResourcesEndpointV2 extends Endpoint {
      *
      * @param resourceIris Iris of the resources to get.
      */
-    getResources(resourceIris: string[]): Observable<ReadResourceSequence | ApiResponseError> {
+    getResources(resourceIris: string[]) {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         // make URL containing resource Iris as segments
@@ -70,7 +70,7 @@ export class ResourcesEndpointV2 extends Endpoint {
      *
      * @param resourceIri Iri of the resource to get.
      */
-    getResource(resourceIri: string): Observable<ReadResource | ApiResponseError> {
+    getResource(resourceIri: string) {
         return this.getResources([resourceIri]).pipe(
             map((resources: ReadResourceSequence) => resources.resources[0]),
             catchError(error => {
@@ -84,8 +84,7 @@ export class ResourcesEndpointV2 extends Endpoint {
      *
      * @param resource the resource to be created.
      */
-    createResource(resource: CreateResource): Observable<ReadResource | ApiResponseError> {
-
+    createResource(resource: CreateResource) {
         const res = this.jsonConvert.serializeObject(resource);
 
         // get property Iris
@@ -132,7 +131,7 @@ export class ResourcesEndpointV2 extends Endpoint {
      *
      * @param resourceMetadata the new metadata.
      */
-    updateResourceMetadata(resourceMetadata: UpdateResourceMetadata): Observable<UpdateResourceMetadataResponse | ApiResponseError> {
+    updateResourceMetadata(resourceMetadata: UpdateResourceMetadata) {
 
         // check that at least one of the following properties is updated: label, hasPermissions, newModificationDate
         if (resourceMetadata.label === undefined && resourceMetadata.hasPermissions === undefined && resourceMetadata.newModificationDate === undefined) {
@@ -161,7 +160,7 @@ export class ResourcesEndpointV2 extends Endpoint {
      *
      * @param resource the resource to be deleted.
      */
-    deleteResource(resource: DeleteResource): Observable<DeleteResourceResponse | ApiResponseError> {
+    deleteResource(resource: DeleteResource) {
 
         const res = this.jsonConvert.serializeObject(resource);
 
@@ -185,7 +184,7 @@ export class ResourcesEndpointV2 extends Endpoint {
      *
      * @param resource the resource to be deleted.
      */
-    eraseResource(resource: DeleteResource): Observable<DeleteResourceResponse | ApiResponseError> {
+    eraseResource(resource: DeleteResource) {
 
         const res = this.jsonConvert.serializeObject(resource);
 
@@ -201,6 +200,5 @@ export class ResourcesEndpointV2 extends Endpoint {
             }),
             catchError(error => this.handleError(error))
         );
-
     }
 }

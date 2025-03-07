@@ -235,7 +235,7 @@ describe("UsersEndpoint", () => {
             const userIri = "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q";
 
             knoraApiConnection.admin.usersEndpoint.getUserProjectMemberships(userIri).subscribe(
-                (response: ApiResponseData<ProjectsResponse> | ApiResponseError) => {
+                () => {
 
                     done();
                 }
@@ -262,7 +262,7 @@ describe("UsersEndpoint", () => {
             const userIri = "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q";
 
             knoraApiConnection.admin.usersEndpoint.getUserProjectAdminMemberships(userIri).subscribe(
-                (response: ApiResponseData<ProjectsResponse> | ApiResponseError) => {
+                () => {
 
                     done();
                 }
@@ -298,7 +298,7 @@ describe("UsersEndpoint", () => {
             newUser.systemAdmin = false;
 
             knoraApiConnection.admin.usersEndpoint.createUser(newUser).subscribe(
-                (response: ApiResponseData<UserResponse> | ApiResponseError) => {
+                () => {
 
                     done();
                 }
@@ -338,7 +338,7 @@ describe("UsersEndpoint", () => {
             userInfo.lang = "de";
 
             knoraApiConnection.admin.usersEndpoint.updateUserBasicInformation(userIri, userInfo).subscribe(
-                (response: ApiResponseData<UserResponse> | ApiResponseError) => {
+                () => {
 
                     done();
                 }
@@ -371,7 +371,7 @@ describe("UsersEndpoint", () => {
             const userIri = "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q";
 
             knoraApiConnection.admin.usersEndpoint.updateUserStatus(userIri, false).subscribe(
-                (response: ApiResponseData<UserResponse> | ApiResponseError) => {
+                () => {
 
                     done();
                 }
@@ -404,7 +404,7 @@ describe("UsersEndpoint", () => {
             const userIri = "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q";
 
             knoraApiConnection.admin.usersEndpoint.updateUserPassword(userIri, "test", "test123456").subscribe(
-                (response: ApiResponseData<UserResponse> | ApiResponseError) => {
+                () => {
 
                     done();
                 }
@@ -439,7 +439,7 @@ describe("UsersEndpoint", () => {
             const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
 
             knoraApiConnection.admin.usersEndpoint.addUserToGroupMembership(userIri, groupIri).subscribe(
-                (response: ApiResponseData<UserResponse> | ApiResponseError) => {
+                () => {
 
                     done();
                 }
@@ -470,7 +470,7 @@ describe("UsersEndpoint", () => {
             const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
 
             knoraApiConnection.admin.usersEndpoint.removeUserFromGroupMembership(userIri, groupIri).subscribe(
-                (response: ApiResponseData<UserResponse> | ApiResponseError) => {
+                () => {
 
                     done();
                 }
@@ -499,7 +499,7 @@ describe("UsersEndpoint", () => {
             const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
 
             knoraApiConnection.admin.usersEndpoint.addUserToProjectMembership(userIri, groupIri).subscribe(
-                (response: ApiResponseData<UserResponse> | ApiResponseError) => {
+                () => {
 
                     done();
                 }
@@ -530,7 +530,7 @@ describe("UsersEndpoint", () => {
             const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
 
             knoraApiConnection.admin.usersEndpoint.removeUserFromProjectMembership(userIri, groupIri).subscribe(
-                (response: ApiResponseData<UserResponse> | ApiResponseError) => {
+                () => {
 
                     done();
                 }
@@ -559,7 +559,7 @@ describe("UsersEndpoint", () => {
             const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
 
             knoraApiConnection.admin.usersEndpoint.addUserToProjectAdminMembership(userIri, groupIri).subscribe(
-                (response: ApiResponseData<UserResponse> | ApiResponseError) => {
+                () => {
 
                     done();
                 }
@@ -590,7 +590,7 @@ describe("UsersEndpoint", () => {
             const groupIri = "http://rdfh.ch/groups/0001/thing-searcher";
 
             knoraApiConnection.admin.usersEndpoint.removeUserFromProjectAdminMembership(userIri, groupIri).subscribe(
-                (response: ApiResponseData<UserResponse> | ApiResponseError) => {
+                () => {
 
                     done();
                 }
@@ -615,7 +615,7 @@ describe("UsersEndpoint", () => {
         it("should update a user's project admin membership", done => {
 
             knoraApiConnection.admin.usersEndpoint.updateUserSystemAdminMembership("http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q", true).subscribe(
-                (response: ApiResponseData<UserResponse> | ApiResponseError) => {
+                () => {
                     done();
                 });
 
@@ -644,7 +644,7 @@ describe("UsersEndpoint", () => {
             const userIri = "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q";
 
             knoraApiConnection.admin.usersEndpoint.deleteUser(userIri).subscribe(
-                (response: ApiResponseData<UserResponse> | ApiResponseError) => {
+                () => {
                     done();
                 }
             );

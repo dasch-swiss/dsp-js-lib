@@ -1,8 +1,6 @@
-import { Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 
 import { ApiResponseData } from "../../../models/api-response-data";
-import { ApiResponseError } from "../../../models/api-response-error";
 import { Endpoint } from "../../endpoint";
 
 import { KeywordsResponse } from "../../../models/admin/keywords-response";
@@ -24,13 +22,11 @@ export class ProjectsEndpointAdmin extends Endpoint {
     /**
      * Returns a list of all projects.
      */
-    getProjects(): Observable<ApiResponseData<ProjectsResponse> | ApiResponseError> {
-        
+    getProjects() {
         return this.httpGet("", undefined).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectsResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -38,25 +34,21 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * 
      * @param project The project to be created.
      */
-    createProject(project: Project): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
-
+    createProject(project: Project) {
         return this.httpPost("", this.jsonConvert.serializeObject(project), undefined, undefined).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
      * Gets all the unique keywords for all projects.
      */
-    getKeywords(): Observable<ApiResponseData<KeywordsResponse> | ApiResponseError> {
-    
+    getKeywords() {
         return this.httpGet("/Keywords").pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, KeywordsResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -64,13 +56,11 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * 
      * @param iri The IRI of the project.
      */
-    getProjectKeywords(iri: string): Observable<ApiResponseData<KeywordsResponse> | ApiResponseError> {
-    
+    getProjectKeywords(iri: string) {
         return this.httpGet("/iri/" + encodeURIComponent(iri) + "/Keywords").pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, KeywordsResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -79,13 +69,11 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * @param iri The IRI of the project to be updated.
      * @param projectInfo The project info to be updated.
      */
-    updateProject(iri: string, projectInfo: UpdateProjectRequest): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
-    
+    updateProject(iri: string, projectInfo: UpdateProjectRequest) {
         return this.httpPut("/iri/" + encodeURIComponent(iri), this.jsonConvert.serializeObject(projectInfo)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -93,13 +81,11 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * 
      * @param iri The project IRI.
      */
-    deleteProject(iri: string): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
-    
+    deleteProject(iri: string) {
         return this.httpDelete("/iri/" + encodeURIComponent(iri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -108,13 +94,11 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * @param property The name of the property by which the project is identified.
      * @param value The value of the property by which the project is identified.
      */
-    getProject(property: "iri" | "shortname" | "shortcode", value: string): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
-
+    getProject(property: "iri" | "shortname" | "shortcode", value: string) {
         return this.httpGet("/" + encodeURIComponent(property) + "/" + encodeURIComponent(value), undefined).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -122,10 +106,8 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * 
      * @param iri The IRI of the project.
      */
-    getProjectByIri(iri: string): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
-    
+    getProjectByIri(iri: string) {
         return this.getProject("iri", iri);
-    
     }
     
     /**
@@ -133,10 +115,8 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * 
      * @param shortname The shortname of the project.
      */
-    getProjectByShortname(shortname: string): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
-    
+    getProjectByShortname(shortname: string) {
         return this.getProject("shortname", shortname);
-    
     }
     
     /**
@@ -144,10 +124,8 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * 
      * @param shortcode The shortcode of the project.
      */
-    getProjectByShortcode(shortcode: string): Observable<ApiResponseData<ProjectResponse> | ApiResponseError> {
-    
+    getProjectByShortcode(shortcode: string) {
         return this.getProject("shortcode", shortcode);
-    
     }
     
     /**
@@ -156,13 +134,11 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * @param property The name of the property by which the project is identified.
      * @param value The value of the property by which the project is identified.
      */
-    getProjectMembers(property: "iri" | "shortname" | "shortcode", value: string): Observable<ApiResponseData<MembersResponse> | ApiResponseError> {
-    
+    getProjectMembers(property: "iri" | "shortname" | "shortcode", value: string) {
         return this.httpGet("/" + encodeURIComponent(property) + "/" + encodeURIComponent(value) + "/members").pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, MembersResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -170,10 +146,8 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * 
      * @param iri The IRI of the project.
      */
-    getProjectMembersByIri(iri: string): Observable<ApiResponseData<MembersResponse> | ApiResponseError> {
-    
+    getProjectMembersByIri(iri: string) {
         return this.getProjectMembers("iri", iri);
-    
     }
     
     /**
@@ -181,10 +155,8 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * 
      * @param shortname The shortname of the project.
      */
-    getProjectMembersByShortname(shortname: string): Observable<ApiResponseData<MembersResponse> | ApiResponseError> {
-    
+    getProjectMembersByShortname(shortname: string) {
         return this.getProjectMembers("shortname", shortname);
-    
     }
     
     /**
@@ -192,10 +164,8 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * 
      * @param shortcode The shortcode of the project.
      */
-    getProjectMembersByShortcode(shortcode: string): Observable<ApiResponseData<MembersResponse> | ApiResponseError> {
-    
+    getProjectMembersByShortcode(shortcode: string) {
         return this.getProjectMembers("shortcode", shortcode);
-    
     }
     
     /**
@@ -204,13 +174,11 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * @param property The name of the property by which the project is identified.
      * @param value The value of the property by which the project is identified.
      */
-    getProjectAdminMembers(property: "iri" | "shortname" | "shortcode", value: string): Observable<ApiResponseData<MembersResponse> | ApiResponseError> {
-    
+    getProjectAdminMembers(property: "iri" | "shortname" | "shortcode", value: string) {
         return this.httpGet("/" + encodeURIComponent(property) + "/" + encodeURIComponent(value) + "/admin-members").pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, MembersResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -218,10 +186,8 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * 
      * @param iri The IRI of the project.
      */
-    getProjectAdminMembersByIri(iri: string): Observable<ApiResponseData<MembersResponse> | ApiResponseError> {
-    
+    getProjectAdminMembersByIri(iri: string) {
         return this.getProjectAdminMembers("iri", iri);
-    
     }
     
     /**
@@ -229,10 +195,8 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * 
      * @param shortname The shortname of the project.
      */
-    getProjectAdminMembersByShortname(shortname: string): Observable<ApiResponseData<MembersResponse> | ApiResponseError> {
-    
+    getProjectAdminMembersByShortname(shortname: string) {
         return this.getProjectAdminMembers("shortname", shortname);
-    
     }
     
     /**
@@ -240,10 +204,8 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * 
      * @param shortcode The shortcode of the project.
      */
-    getProjectAdminMembersByShortcode(shortcode: string): Observable<ApiResponseData<MembersResponse> | ApiResponseError> {
-    
+    getProjectAdminMembersByShortcode(shortcode: string) {
         return this.getProjectAdminMembers("shortcode", shortcode);
-    
     }
     
     /**
@@ -252,13 +214,11 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * @param property The name of the property by which the project is identified.
      * @param value The value of the property by which the project is identified.
      */
-    getProjectRestrictedViewSettings(property: "iri" | "shortname" | "shortcode", value: string): Observable<ApiResponseData<ProjectRestrictedViewSettingsResponse> | ApiResponseError> {
-    
+    getProjectRestrictedViewSettings(property: "iri" | "shortname" | "shortcode", value: string) {
         return this.httpGet("/" + encodeURIComponent(property) + "/" + encodeURIComponent(value) + "/RestrictedViewSettings").pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ProjectRestrictedViewSettingsResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -266,10 +226,8 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * 
      * @param iri The IRI of the project.
      */
-    getProjectRestrictedViewSettingByIri(iri: string): Observable<ApiResponseData<ProjectRestrictedViewSettingsResponse> | ApiResponseError> {
-    
+    getProjectRestrictedViewSettingByIri(iri: string) {
         return this.getProjectRestrictedViewSettings("iri", iri);
-    
     }
     
     /**
@@ -277,10 +235,8 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * 
      * @param shortname The shortname of the project.
      */
-    getProjectRestrictedViewSettingByShortname(shortname: string): Observable<ApiResponseData<ProjectRestrictedViewSettingsResponse> | ApiResponseError> {
-    
+    getProjectRestrictedViewSettingByShortname(shortname: string) {
         return this.getProjectRestrictedViewSettings("shortname", shortname);
-    
     }
     
     /**
@@ -288,10 +244,8 @@ export class ProjectsEndpointAdmin extends Endpoint {
      * 
      * @param shortcode The shortcode of the project.
      */
-    getProjectRestrictedViewSettingByShortcode(shortcode: string): Observable<ApiResponseData<ProjectRestrictedViewSettingsResponse> | ApiResponseError> {
-    
+    getProjectRestrictedViewSettingByShortcode(shortcode: string) {
         return this.getProjectRestrictedViewSettings("shortcode", shortcode);
-    
     }
     
 }

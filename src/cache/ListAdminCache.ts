@@ -1,9 +1,7 @@
-import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { AdminEndpoint } from "../api/admin/admin-endpoint";
 import { ListResponse } from "../models/admin/list-response";
 import { ApiResponseData } from "../models/api-response-data";
-import { ApiResponseError } from "../models/api-response-error";
 import { GenericCache } from "./GenericCache";
 
 /**
@@ -30,11 +28,11 @@ export class ListAdminCache extends GenericCache<ListResponse> {
      * @param key the id of the information to be returned.
      * @return the item
      */
-     reloadCachedItem(key: string): Observable<ListResponse> {
+     reloadCachedItem(key: string) {
         return this.reloadItem(key);
     }
 
-    protected requestItemFromKnora(key: string, isDependency: boolean): Observable<ListResponse[] | ApiResponseError> {
+    protected requestItemFromKnora(key: string, isDependency: boolean) {
         return this.adminEndpoint.listsEndpoint.getList(key).pipe(
             map((response: ApiResponseData<ListResponse>) => {
                 return [response.body];
@@ -42,7 +40,7 @@ export class ListAdminCache extends GenericCache<ListResponse> {
         );
     }
 
-    protected getKeyOfItem(item: ListResponse): string {
+    protected getKeyOfItem(item: ListResponse) {
         return item.list.listinfo.id;
     }
 

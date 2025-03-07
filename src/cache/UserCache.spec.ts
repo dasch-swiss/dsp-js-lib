@@ -5,7 +5,6 @@ import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { UserResponse } from "../models/admin/user-response";
 import { ApiResponseData } from "../models/api-response-data";
-import { ApiResponseError } from "../models/api-response-error";
 import { UserCache } from "./UserCache";
 
 describe("UserCache", () => {
@@ -34,7 +33,7 @@ describe("UserCache", () => {
         getUserSpy = spyOn(knoraApiConnection.admin.usersEndpoint, "getUser").and.callFake(
             (prop: "iri" | "username" | "email", userId: string) => {
 
-                return of({ body: userResp } as ApiResponseData<UserResponse> | ApiResponseError);
+                return of({ body: userResp } as ApiResponseData<UserResponse>);
             }
         );
 

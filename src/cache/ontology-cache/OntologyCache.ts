@@ -2,7 +2,6 @@ import { forkJoin, Observable, of } from "rxjs";
 import { map, mergeMap } from "rxjs/operators";
 import { V2Endpoint } from "../../api/v2/v2-endpoint";
 import { KnoraApiConfig } from "../../knora-api-config";
-import { ApiResponseError } from "../../models/api-response-error";
 import { IHasProperty } from "../../models/v2/ontologies/class-definition";
 import { OntologyConversionUtil } from "../../models/v2/ontologies/OntologyConversionUtil";
 import { PropertyDefinition } from "../../models/v2/ontologies/property-definition";
@@ -29,7 +28,7 @@ export class OntologyCache extends GenericCache<ReadOntology> {
      * @param ontologyIri the Iri of the ontology.
      * @returns the requested ontology and its direct dependencies.
      */
-    getOntology(ontologyIri: string): Observable<Map<string, ReadOntology>> {
+    getOntology(ontologyIri: string) {
 
         return this.getItem(ontologyIri).pipe(
             mergeMap((ontology: ReadOntology) => {
@@ -77,7 +76,7 @@ export class OntologyCache extends GenericCache<ReadOntology> {
      *
      * @param resourceClassIri
      */
-    getResourceClassDefinition(resourceClassIri: string): Observable<ResourceClassAndPropertyDefinitions> {
+    getResourceClassDefinition(resourceClassIri: string) {
         const ontoIri = OntologyConversionUtil.getOntologyIriFromEntityIri(resourceClassIri, this.knoraApiConfig);
 
         if (ontoIri.length !== 1) throw Error("Invalid resource class Iri " + resourceClassIri);
@@ -147,17 +146,17 @@ export class OntologyCache extends GenericCache<ReadOntology> {
      * @param key the id of the information to be returned.
      * @return the item
      */
-     reloadCachedItem(key: string): Observable<ReadOntology> {
+     reloadCachedItem(key: string) {
         return this.reloadItem(key);
     }
 
-    protected requestItemFromKnora(key: string, isDependency: boolean): Observable<ReadOntology[] | ApiResponseError> {
+    protected requestItemFromKnora(key: string, isDependency: boolean) {
         return this.v2Endpoint.onto.getOntology(key).pipe(
             map((onto: ReadOntology) => [onto])
         );
     }
 
-    protected getKeyOfItem(item: ReadOntology): string {
+    protected getKeyOfItem(item: ReadOntology) {
         return item.id;
     }
 
