@@ -1,5 +1,16 @@
 # Changelog
 
+## [10.0.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.18...v10.0.0) (2024-05-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* Send X-Asset-Ingested header for update/create of value and resources (DEV-2628) (#639)
+
+### Enhancements
+
+* Send X-Asset-Ingested header for update/create of value and resources (DEV-2628) ([#639](https://www.github.com/dasch-swiss/dsp-js-lib/issues/639)) ([be1d2c5](https://www.github.com/dasch-swiss/dsp-js-lib/commit/be1d2c5112515b0e0aa31e70ac0435d3f7f3a92a))
+
 ### [9.1.18](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.17...v9.1.18) (2024-04-30)
 
 

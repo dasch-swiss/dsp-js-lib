@@ -17,6 +17,7 @@ import {
     ReadAudioFileValue,
     ReadDocumentFileValue,
     ReadMovingImageFileValue,
+    ReadStillImageExternalFileValue,
     ReadStillImageFileValue,
     ReadTextFileValue
 } from "./values/read/read-file-value";
@@ -454,6 +455,14 @@ export namespace ResourcesConversionUtil {
                 const stillImageVal = handleSimpleValue(valueJsonld, ReadStillImageFileValue, jsonConvert);
                 value = stillImageVal.pipe(map((val: ReadStillImageFileValue) => {
                     val.strval = val.fileUrl;
+                    return val;
+                }));
+                break;
+            }
+
+            case Constants.StillImageExternalFileValue: {
+                const extStillImageVal = handleSimpleValue(valueJsonld, ReadStillImageExternalFileValue, jsonConvert);
+                value = extStillImageVal.pipe(map((val: ReadStillImageExternalFileValue) => {
                     return val;
                 }));
                 break;

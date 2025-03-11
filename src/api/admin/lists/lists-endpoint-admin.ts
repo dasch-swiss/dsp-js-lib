@@ -1,4 +1,3 @@
-import { Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { ChildNodeInfoResponse } from "../../../models/admin/child-node-info-response";
 import { CreateChildNodeRequest } from "../../../models/admin/create-child-node-request";
@@ -19,7 +18,6 @@ import { UpdateChildNodeNameRequest } from "../../../models/admin/update-child-n
 import { UpdateChildNodeRequest } from "../../../models/admin/update-child-node-request";
 import { UpdateListInfoRequest } from "../../../models/admin/update-list-info-request";
 import { ApiResponseData } from "../../../models/api-response-data";
-import { ApiResponseError } from "../../../models/api-response-error";
 import { Endpoint } from "../../endpoint";
 
 /**
@@ -32,13 +30,11 @@ export class ListsEndpointAdmin extends Endpoint {
     /**
      * Returns a list of lists.
      */
-    getLists(): Observable<ApiResponseData<ListsResponse> | ApiResponseError> {
-    
+    getLists() {
         return this.httpGet("").pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListsResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -46,13 +42,11 @@ export class ListsEndpointAdmin extends Endpoint {
      * 
      * @param projectIri The IRI of the project.
      */
-    getListsInProject(projectIri: string): Observable<ApiResponseData<ListsResponse> | ApiResponseError> {
-    
+    getListsInProject(projectIri: string) {
         return this.httpGet("?projectIri=" + encodeURIComponent(projectIri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListsResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -60,13 +54,11 @@ export class ListsEndpointAdmin extends Endpoint {
      * 
      * @param listInfo Information about the list to be created.
      */
-    updateListInfo(listInfo: UpdateListInfoRequest): Observable<ApiResponseData<ListInfoResponse> | ApiResponseError> {
-    
+    updateListInfo(listInfo: UpdateListInfoRequest) {
         return this.httpPut("/" + encodeURIComponent(listInfo.listIri), this.jsonConvert.serializeObject(listInfo)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListInfoResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-    
     }
 
     /**
@@ -75,13 +67,11 @@ export class ListsEndpointAdmin extends Endpoint {
      * @param listItemIri the Iri of the list item.
      * @param name the new name to replace the existing name.
      */
-    updateChildName(listItemIri: string, name: UpdateChildNodeNameRequest): Observable<ApiResponseData<ChildNodeInfoResponse> | ApiResponseError> {
-    
+    updateChildName(listItemIri: string, name: UpdateChildNodeNameRequest) {
         return this.httpPut("/" + encodeURIComponent(listItemIri) + "/name", this.jsonConvert.serializeObject(name)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ChildNodeInfoResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-    
     }
 
     /**
@@ -90,13 +80,11 @@ export class ListsEndpointAdmin extends Endpoint {
      * @param listItemIri the Iri of the list item.
      * @param labels the new labels to replace the existing labels.
      */
-    updateChildLabels(listItemIri: string, labels: UpdateChildNodeLabelsRequest): Observable<ApiResponseData<ChildNodeInfoResponse> | ApiResponseError> {
-    
+    updateChildLabels(listItemIri: string, labels: UpdateChildNodeLabelsRequest) {
         return this.httpPut("/" + encodeURIComponent(listItemIri) + "/labels", this.jsonConvert.serializeObject(labels)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ChildNodeInfoResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-    
     }
 
     /**
@@ -105,13 +93,11 @@ export class ListsEndpointAdmin extends Endpoint {
      * @param listItemIri the Iri of the list item.
      * @param comments the new comments to replace the existing comments.
      */
-    updateChildComments(listItemIri: string, comments: UpdateChildNodeCommentsRequest): Observable<ApiResponseData<ChildNodeInfoResponse> | ApiResponseError> {
-    
+    updateChildComments(listItemIri: string, comments: UpdateChildNodeCommentsRequest) {
         return this.httpPut("/" + encodeURIComponent(listItemIri) + "/comments", this.jsonConvert.serializeObject(comments)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ChildNodeInfoResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-    
     }
 
     /**
@@ -119,13 +105,11 @@ export class ListsEndpointAdmin extends Endpoint {
      * 
      * @param listItemIri the Iri of the list item.
      */
-     deleteChildComments(listItemIri: string): Observable<ApiResponseData<DeleteChildNodeCommentsResponse> | ApiResponseError> {
-    
+     deleteChildComments(listItemIri: string) {
         return this.httpDelete("/comments/" + encodeURIComponent(listItemIri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, DeleteChildNodeCommentsResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -133,13 +117,11 @@ export class ListsEndpointAdmin extends Endpoint {
      * 
      * @param node The node to be created.
      */
-    createChildNode(node: CreateChildNodeRequest): Observable<ApiResponseData<ListNodeInfoResponse> | ApiResponseError> {
-    
+    createChildNode(node: CreateChildNodeRequest) {
         return this.httpPost("/" + encodeURIComponent(node.parentNodeIri), this.jsonConvert.serializeObject(node)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListNodeInfoResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-    
     }
     
     /**
@@ -147,13 +129,11 @@ export class ListsEndpointAdmin extends Endpoint {
      * 
      * @param iri The IRI of the list.
      */
-    getListInfo(iri: string): Observable<ApiResponseData<ListInfoResponse> | ApiResponseError> {
-    
+    getListInfo(iri: string) {
         return this.httpGet("/infos/" + encodeURIComponent(iri)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListInfoResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-    
     }
 
     /**
@@ -162,7 +142,7 @@ export class ListsEndpointAdmin extends Endpoint {
      * 
      * @param iri The IRI of the list.
      */
-    deleteListNode(iri: string): Observable<ApiResponseData<DeleteListNodeResponse | DeleteListResponse> | ApiResponseError> {
+    deleteListNode(iri: string) {
         return this.httpDelete("/" + encodeURIComponent(iri)).pipe(
             map(ajaxResponse => {
                 if (ajaxResponse.response.hasOwnProperty("node")) { // child node
@@ -182,7 +162,7 @@ export class ListsEndpointAdmin extends Endpoint {
      * @param iri The IRI of the list node to move.
      * @param repositionRequest The parent node IRI and the position the child node should move to.
      */
-    repositionChildNode(iri: string, repositionRequest: RepositionChildNodeRequest): Observable<ApiResponseData<RepositionChildNodeResponse> | ApiResponseError> {
+    repositionChildNode(iri: string, repositionRequest: RepositionChildNodeRequest) {
         return this.httpPut("/" + encodeURIComponent(iri) + "/position", this.jsonConvert.serializeObject(repositionRequest)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, RepositionChildNodeResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
@@ -196,8 +176,7 @@ export class ListsEndpointAdmin extends Endpoint {
      * 
      * @param nodeInfo Information about the node to be updated.
      */
-    updateChildNode(nodeInfo: UpdateChildNodeRequest): Observable<ApiResponseData<ChildNodeInfoResponse> | ApiResponseError> {
-    
+    updateChildNode(nodeInfo: UpdateChildNodeRequest) {
         if (nodeInfo.name === undefined && nodeInfo.labels === undefined && nodeInfo.comments === undefined) {
             throw new Error("At least one property is expected from the following properties: name, labels, comments.");
         }
@@ -206,7 +185,6 @@ export class ListsEndpointAdmin extends Endpoint {
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ChildNodeInfoResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-    
     }
 
     /**
@@ -214,8 +192,7 @@ export class ListsEndpointAdmin extends Endpoint {
      * 
      * @param listItemIri The IRI of the node.
      */
-    getListNodeInfo(listItemIri: string): Observable<ApiResponseData<ListNodeInfoResponse | ListInfoResponse> | ApiResponseError> {
-    
+    getListNodeInfo(listItemIri: string) {
         return this.httpGet("/" + encodeURIComponent(listItemIri) + "/info").pipe(
             map(ajaxResponse => {
                 if (ajaxResponse.response.hasOwnProperty("listinfo")) { // root node
@@ -223,8 +200,7 @@ export class ListsEndpointAdmin extends Endpoint {
                 } else { // child node
                     return ApiResponseData.fromAjaxResponse(ajaxResponse, ListNodeInfoResponse, this.jsonConvert);
                 }
-            }),
-            catchError(error => this.handleError(error))
+            })
         );
     
     }
@@ -234,13 +210,11 @@ export class ListsEndpointAdmin extends Endpoint {
      * 
      * @param listInfo Information about the list to be created.
      */
-    createList(listInfo: CreateListRequest): Observable<ApiResponseData<ListResponse> | ApiResponseError> {
-    
+    createList(listInfo: CreateListRequest) {
         return this.httpPost("", this.jsonConvert.serializeObject(listInfo)).pipe(
             map(ajaxResponse => ApiResponseData.fromAjaxResponse(ajaxResponse, ListResponse, this.jsonConvert)),
             catchError(error => this.handleError(error))
         );
-    
     }
 
     /**
@@ -248,8 +222,7 @@ export class ListsEndpointAdmin extends Endpoint {
      * 
      * @param listItemIri The IRI of the list.
      */
-    getList(listItemIri: string): Observable<ApiResponseData<ListResponse | ListChildNodeResponse> | ApiResponseError> {
-    
+    getList(listItemIri: string) {
         return this.httpGet("/" + encodeURIComponent(listItemIri)).pipe(
             map(ajaxResponse => {
                 if (ajaxResponse.response.hasOwnProperty("list")) {
@@ -260,7 +233,5 @@ export class ListsEndpointAdmin extends Endpoint {
             }),
             catchError(error => this.handleError(error))
         );
-    
     }
-    
 }

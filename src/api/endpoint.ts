@@ -154,7 +154,7 @@ export class Endpoint {
      * Handles parsing errors.
      * @param error the error class provided by us
      */
-    protected handleError(error: AjaxError | DataError): Observable<ApiResponseError> {
+    protected handleError(error: AjaxError | DataError) {
 
         let responseError: ApiResponseError;
 

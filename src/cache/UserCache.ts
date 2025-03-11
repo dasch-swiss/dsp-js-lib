@@ -1,9 +1,7 @@
-import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { UserResponse } from "../models/admin/user-response";
 import { ApiResponseData } from "../models/api-response-data";
-import { ApiResponseError } from "../models/api-response-error";
 import { GenericCache } from "./GenericCache";
 
 /**
@@ -20,7 +18,7 @@ export class UserCache extends GenericCache<UserResponse> {
      *
      * @param iri the Iri identifying the user.
      */
-    getUser(iri: string): Observable<UserResponse> {
+    getUser(iri: string) {
         return this.getItem(iri);
     }
 
@@ -30,11 +28,11 @@ export class UserCache extends GenericCache<UserResponse> {
      * @param key the id of the information to be returned.
      * @return the item
      */
-     reloadCachedItem(key: string): Observable<UserResponse> {
+     reloadCachedItem(key: string) {
         return this.reloadItem(key);
     }
 
-    protected requestItemFromKnora(key: string, isDependency: boolean): Observable<UserResponse[] | ApiResponseError> {
+    protected requestItemFromKnora(key: string, isDependency: boolean) {
         return this.knoraApiConnection.admin.usersEndpoint.getUser("iri", key).pipe(
             map((response: ApiResponseData<UserResponse>) => {
                 return [response.body];
@@ -42,7 +40,7 @@ export class UserCache extends GenericCache<UserResponse> {
         );
     }
 
-    protected getKeyOfItem(item: UserResponse): string {
+    protected getKeyOfItem(item: UserResponse) {
         return item.user.id;
     }
 
