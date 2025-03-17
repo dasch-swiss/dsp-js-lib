@@ -94,11 +94,21 @@ jobs:
     # Automate releases with Conventional Commit Messages as Pull Requests are merged into "main" branch
     if: github.ref == 'refs/heads/main'
     steps:
-      - uses: GoogleCloudPlatform/release-please-action@v2
+      - name: Get release please action
+        uses: GoogleCloudPlatform/release-please-action@v3
         with:
           token: ${{ secrets.GH_TOKEN }}
           release-type: node
-          changelog-types: '[{"type": "feat", "section": "Enhancements", "hidden": false }, {"type": "fix", "section": "Bug Fixes", "hidden": false }, {"type": "chore", "section": "Maintenance", "hidden": false }, {"type": "refactor", "section": "Maintenance", "hidden": false }, {"type": "docs", "section": "Documentation", "hidden": false }]'
+          package-name: DSP-JS-LIB
+          changelog-types: '[
+            {"type": "feat", "section": "Enhancements"},
+            {"type": "fix", "section": "Bug Fixes"},
+            {"type": "chore", "section": "Maintenances"},
+            {"type": "refactor", "section": "Maintenances"},
+            {"type": "style", "section": "Maintenances"},
+            {"type": "docs", "section": "Documentation"},
+            {"type": "test", "section": "Tests"}
+          ]'
 
   build:
     name: Build package and publish (on release only)
