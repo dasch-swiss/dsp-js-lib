@@ -99,7 +99,7 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
           release-type: node
-          package-name: DSP-APP
+          package-name: DSP-JS-LIB
           changelog-types: '[
             {"type": "feat", "section": "Enhancements"},
             {"type": "fix", "section": "Bug Fixes"},
