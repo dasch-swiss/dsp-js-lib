@@ -96,7 +96,7 @@ jobs:
     steps:
       - uses: googleapis/release-please-action@v4
         with:
-          token: ${{ secrets.MY_RELEASE_PLEASE_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
           release-type: 'simple'
 
   build:
