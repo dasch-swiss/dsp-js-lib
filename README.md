@@ -143,5 +143,4 @@ For more information about available endpoints and methods, consult the [API doc
 For the release notes see [GitHub releases](https://github.com/dasch-swiss/dsp-js-lib/releases).
 
 ## Developing DSP-JS-LIB
-
 See [contribution guidelines](contribution.md).
