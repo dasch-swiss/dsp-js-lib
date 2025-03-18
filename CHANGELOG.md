@@ -1,5 +1,18 @@
 # Changelog
 
+## [10.3.0](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.2.2...v10.3.0) (2025-03-17)
+
+
+### Features
+
+* bump version to 10.3.0 ([#652](https://github.com/dasch-swiss/dsp-js-lib/issues/652)) ([069d901](https://github.com/dasch-swiss/dsp-js-lib/commit/069d90183e7c3ab4aa9f69825a56c352c614ccfc))
+* endpoints values do not return ApiResponseError type  ([#649](https://github.com/dasch-swiss/dsp-js-lib/issues/649)) ([d081056](https://github.com/dasch-swiss/dsp-js-lib/commit/d081056a63044e100c68bfbb7165d815891c134b))
+
+
+### Bug Fixes
+
+* release please CI ([#655](https://github.com/dasch-swiss/dsp-js-lib/issues/655)) ([3bb2eb1](https://github.com/dasch-swiss/dsp-js-lib/commit/3bb2eb13d03a667d06a7c89b8068b34e9e81fc27))
+
 ## [10.0.0](https://www.github.com/dasch-swiss/dsp-js-lib/compare/v9.1.18...v10.0.0) (2024-05-23)
 
 
