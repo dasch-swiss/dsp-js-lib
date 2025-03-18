@@ -138,6 +138,10 @@ knoraApiConnection.v2.res.getResource(iri).subscribe(
 
 For more information about available endpoints and methods, consult the [API docs](https://dasch-swiss.github.io/dsp-js-lib).
 
+## Publish to NPM
+
+The repo is set up to automatically publish a new version to NPM when a new tag release is created (see [Github Actions](.github/workflow/main.yml))
+
 ## Release Notes
 
 For the release notes see [GitHub releases](https://github.com/dasch-swiss/dsp-js-lib/releases).
