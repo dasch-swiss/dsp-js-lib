@@ -97,7 +97,7 @@ jobs:
       - uses: googleapis/release-please-action@v4
         with:
           token: ${{ secrets.GH_TOKEN }}
-          release-type: 'simple'
+          release-type: 'node'
 
   build:
     name: Build package and publish (on release only)
