@@ -1,5 +1,12 @@
 # Changelog
 
+## [10.3.1](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.3.0...v10.3.1) (2025-03-18)
+
+
+### Bug Fixes
+
+* testing the release please workflow ([#657](https://github.com/dasch-swiss/dsp-js-lib/issues/657)) ([b25263f](https://github.com/dasch-swiss/dsp-js-lib/commit/b25263f21359761d0b6c323d43d1f2c8798025bd))
+
 ## [10.3.0](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.2.2...v10.3.0) (2025-03-17)
 
 
