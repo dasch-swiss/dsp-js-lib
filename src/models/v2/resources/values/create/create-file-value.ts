@@ -10,6 +10,9 @@ import { CreateValue } from "./create-value";
 export abstract class CreateFileValue extends CreateValue implements IBaseFileValue {
     @JsonProperty(Constants.FileValueHasFilename, String)
     filename: string = "";
+
+    @JsonProperty(Constants.hasCopyrightHolder, String)
+    copyrightHolder: string = "";
 }
 
 /**
