@@ -2,6 +2,7 @@ import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../../Constants";
 import { IBaseFileValue } from "../type-specific-interfaces/base-file-value";
 import { CreateValue } from "./create-value";
+import { License } from "./license";
 
 /**
  * @category Model V2
@@ -13,6 +14,12 @@ export abstract class CreateFileValue extends CreateValue implements IBaseFileVa
 
     @JsonProperty(Constants.hasCopyrightHolder, String)
     copyrightHolder: string = "";
+
+    @JsonProperty(Constants.hasAuthorship, [String])
+    authorship: string[] = [];
+
+    @JsonProperty(Constants.hasLicense, License)
+    license: License = {id: "", labelEn: "", uri: ""};
 }
 
 /**

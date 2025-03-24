@@ -1,6 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../../Constants";
 import { UriConverter } from "../../../custom-converters/uri-converter";
+import { License } from "../create/license";
 import { IBaseFileValue } from "../type-specific-interfaces/base-file-value";
 import { ReadValue } from "./read-value";
 
@@ -15,6 +16,16 @@ export abstract class ReadFileValue extends ReadValue implements IBaseFileValue 
 
     @JsonProperty(Constants.FileValueAsUrl, UriConverter)
     fileUrl: string = "";
+
+    @JsonProperty(Constants.hasCopyrightHolder, String)
+    copyrightHolder: string = "";
+
+    @JsonProperty(Constants.hasAuthorship, [String])
+    authorship: string[] = [];
+
+    @JsonProperty(Constants.hasLicense, License)
+    license: License = {id: "", labelEn: "", uri: ""};
+
 }
 
 /**
