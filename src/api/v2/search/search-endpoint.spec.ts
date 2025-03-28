@@ -228,9 +228,9 @@ describe("SearchEndpoint", () => {
 
     });
 
-    describe("Incoming links search", () => {
+    describe("Incoming links endpoint", () => {
         const resourceIri = "http://rdfh.ch/0001/a-thing"
-        it("should perform an incoming links search", done => {
+        it("should perform a successful incoming links search", done => {
             knoraApiConnection.v2.search.doSearchIncomingLinks(resourceIri).subscribe((response) => {
                 expect(response.resources.length).toEqual(2);
                 done();
