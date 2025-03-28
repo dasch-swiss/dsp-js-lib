@@ -228,6 +228,24 @@ describe("SearchEndpoint", () => {
 
     });
 
+    describe("Incoming links search", () => {
+        const resourceIri = "http://rdfh.ch/0001/a-thing"
+        it("should perform an incoming links search", done => {
+            knoraApiConnection.v2.search.doSearchIncomingLinks(resourceIri).subscribe((response) => {
+                expect(response.resources.length).toEqual(2);
+                done();
+            });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+            const resource = require("../../../../test/data/api/v2/resources/things.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+            
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchIncomingLinks/http%3A%2F%2Frdfh.ch%2F0001%2Fa-thing?offset=0");
+            expect(request.method).toEqual("GET");
+        });
+    });
+
     describe("Extended search", () => {
 
         it("should perform an extended search", done => {
