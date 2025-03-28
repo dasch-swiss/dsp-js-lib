@@ -184,7 +184,7 @@ export class SearchEndpointV2 extends Endpoint {
      * @param offset the offset to be used for paging
      */
     doSearchIncomingLinks(resourceIri: string, offset = 0) {
-        return this.httpGet(`/searchIncomingLinks/ + ${encodeURIComponent(resourceIri)} + ?offset=${offset}`).pipe(
+        return this.httpGet(`/searchIncomingLinks/${encodeURIComponent(resourceIri)}?offset=${offset}`).pipe(
             mergeMap((response: AjaxResponse) => {
                 return jsonld.compact(response.response, {});
             }), mergeMap((jsonld: object) => {
