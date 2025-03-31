@@ -38,13 +38,14 @@ export class ResourcesEndpointV2 extends Endpoint {
      * Given a sequence of resource IRIs, gets the resources from Knora.
      *
      * @param resourceIris Iris of the resources to get.
+     * @param version Timestamp of the resource version.
      */
-    getResources(resourceIris: string[]) {
+    getResources(resourceIris: string[], version?: string) {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
         // make URL containing resource Iris as segments
         const resIris: string = resourceIris.map((resIri: string) => {
-            return "/" + encodeURIComponent(resIri);
+            return "/" + encodeURIComponent(resIri) + (version ? "?version=" + version : "");
         }).reduce((acc, currentValue) => {
             return acc + currentValue;
         });
@@ -69,9 +70,10 @@ export class ResourcesEndpointV2 extends Endpoint {
      * Given a resource IRI, gets the resource from Knora.
      *
      * @param resourceIri Iri of the resource to get.
+     * @param version Timestamp of the resource version.
      */
-    getResource(resourceIri: string) {
-        return this.getResources([resourceIri]).pipe(
+    getResource(resourceIri: string, version?: string) {
+        return this.getResources([resourceIri], version).pipe(
             map((resources: ReadResourceSequence) => resources.resources[0]),
             catchError(error => {
                 return this.handleError(error);
