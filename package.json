@@ -1,6 +1,6 @@
 {
   "name": "@dasch-swiss/dsp-js",
-  "version": "10.3.8",
+  "version": "10.5.0",
   "description": "JavaScript library that handles API requests to Knora",
   "main": "index.js",
   "files": [

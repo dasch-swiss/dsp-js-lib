@@ -178,6 +178,25 @@ export class SearchEndpointV2 extends Endpoint {
     }
 
     /**
+     * Performs a Gravsearch in order to get incoming links of queried resource
+     * 
+     * @param resourceIri resource that is queried for incoming links
+     * @param offset the offset to be used for paging
+     */
+    doSearchIncomingLinks(resourceIri: string, offset = 0) {
+        return this.httpGet(`/searchIncomingLinks/${encodeURIComponent(resourceIri)}?offset=${offset}`).pipe(
+            mergeMap((response: AjaxResponse) => {
+                return jsonld.compact(response.response, {});
+            }), mergeMap((jsonld: object) => {
+                return ResourcesConversionUtil.createReadResourceSequence(jsonld, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
+            }),
+            catchError(err => {
+                return this.handleError(err)
+            })
+        );
+    }    
+
+    /**
      * Performs a search by label.
      *
      * @param searchTerm the label to search for.
