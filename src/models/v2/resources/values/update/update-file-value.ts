@@ -1,5 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../../Constants";
+import { License } from "../create/license";
 import { IBaseFileValue } from "../type-specific-interfaces/base-file-value";
 import { UpdateValue } from "./update-value";
 
@@ -12,6 +13,14 @@ export abstract class UpdateFileValue extends UpdateValue implements IBaseFileVa
     @JsonProperty(Constants.FileValueHasFilename, String)
     filename: string = "";
 
+    @JsonProperty(Constants.hasCopyrightHolder, String)
+    copyrightHolder: string = "";
+
+    @JsonProperty(Constants.hasAuthorship, [String])
+    authorship: string[] = [];
+
+    @JsonProperty(Constants.hasLicense, License)
+    license: License = {id: "", labelEn: "", uri: ""};
 }
 
 /**

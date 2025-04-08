@@ -71,6 +71,7 @@ export class ValuesEndpointV2 extends Endpoint {
 
         const val = this.jsonConvert.serializeObject<UpdateValue>(resource.value);
 
+        console.log('julienjslib', val, res);
         res[resource.property] = val;
 
         return this.httpPut("", res, "json", {"X-Asset-Ingested": "true"}).pipe(

@@ -17,13 +17,13 @@ export abstract class ReadFileValue extends ReadValue implements IBaseFileValue 
     @JsonProperty(Constants.FileValueAsUrl, UriConverter)
     fileUrl: string = "";
 
-    @JsonProperty(Constants.hasCopyrightHolder, String)
+    @JsonProperty(Constants.hasCopyrightHolder, String, true)
     copyrightHolder: string = "";
 
-    @JsonProperty(Constants.hasAuthorship, [String])
+    @JsonProperty(Constants.hasAuthorship, [String], true)
     authorship: string[] = [];
 
-    @JsonProperty(Constants.hasLicense, License)
+    @JsonProperty(Constants.hasLicense, License, true)
     license: License = {id: "", labelEn: "", uri: ""};
 
 }
