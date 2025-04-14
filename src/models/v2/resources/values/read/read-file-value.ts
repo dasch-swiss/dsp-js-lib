@@ -1,5 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import { Constants } from "../../../Constants";
+import { StringOrArrayToArrayConverter } from "../../../custom-converters/string-or-array-converter";
 import { UriConverter } from "../../../custom-converters/uri-converter";
 import { License } from "../create/license";
 import { IBaseFileValue } from "../type-specific-interfaces/base-file-value";
@@ -20,12 +21,11 @@ export abstract class ReadFileValue extends ReadValue implements IBaseFileValue 
     @JsonProperty(Constants.hasCopyrightHolder, String, true)
     copyrightHolder: string = "";
 
-    @JsonProperty(Constants.hasAuthorship, [String], true)
+    @JsonProperty(Constants.hasAuthorship, StringOrArrayToArrayConverter, true)
     authorship: string[] = [];
 
     @JsonProperty(Constants.hasLicense, License, true)
-    license: License = {id: "", labelEn: "", uri: ""};
-
+    license: License | null = null;
 }
 
 /**

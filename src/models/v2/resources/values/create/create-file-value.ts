@@ -19,7 +19,7 @@ export abstract class CreateFileValue extends CreateValue implements IBaseFileVa
     authorship: string[] = [];
 
     @JsonProperty(Constants.hasLicense, License)
-    license: License = {id: "", labelEn: "", uri: ""};
+    license: License = {id: ""};
 }
 
 /**

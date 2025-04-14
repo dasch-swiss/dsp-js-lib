@@ -20,7 +20,7 @@ export abstract class UpdateFileValue extends UpdateValue implements IBaseFileVa
     authorship: string[] = [];
 
     @JsonProperty(Constants.hasLicense, License)
-    license: License = {id: "", labelEn: "", uri: ""};
+    license: License = {id: ""};
 }
 
 /**
