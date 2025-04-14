@@ -1,5 +1,12 @@
 # Changelog
 
+## [10.4.0](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.3.2...v10.4.0) (2025-03-28)
+
+
+### Features
+
+* add incoming links search endpoint (DEV-4729) ([#664](https://github.com/dasch-swiss/dsp-js-lib/issues/664)) ([7a66166](https://github.com/dasch-swiss/dsp-js-lib/commit/7a66166dda24ebcb0e7a980c85c368094ff532d8))
+
 ## [10.3.2](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.3.1...v10.3.2) (2025-03-18)
 
 
