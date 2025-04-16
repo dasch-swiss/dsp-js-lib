@@ -16,6 +16,7 @@
     "test/**/*.json"
   ],
   "scripts": {
+    "lint": "eslint 'src/**/*.ts' --fix",
     "integrate-admin-test-data": "node scripts/integrate-files-admin.js",
     "integrate-system-test-data": "node scripts/integrate-files-system.js",
     "integrate-v2-test-data": "node scripts/integrate-files-v2.js",
@@ -58,6 +59,10 @@
     "@types/jasmine": "^3.8.0",
     "@types/jasmine-ajax": "^3.3.3",
     "@types/node": "^12.20.43",
+    "@typescript-eslint/eslint-plugin": "^8.30.1",
+    "@typescript-eslint/parser": "^8.30.1",
+    "eslint": "^9.24.0",
+    "eslint-plugin-unused-imports": "^4.1.4",
     "jasmine": "^3.99.0",
     "jasmine-ajax": "^4.0.0",
     "karma": "^6.4.1",
@@ -65,11 +70,11 @@
     "karma-jasmine": "^5.0.1",
     "karma-jasmine-ajax": "^0.1.13",
     "karma-mocha-reporter": "^2.2.5",
-    "karma-typescript": "^5.5.3",
+    "karma-typescript": "^5.5.4",
     "phantomjs-prebuilt": "^2.1.16",
-    "typedoc": "^0.23.15",
-    "typescript": "^4.8.3",
-    "rxjs": "^6.6.7"
+    "rxjs": "^6.6.7",
+    "typedoc": "^0.28.2",
+    "typescript": "^5.8.3"
   },
   "peerDependencies": {
     "rxjs": "6.x"
