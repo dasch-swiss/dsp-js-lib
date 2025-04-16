@@ -1,12 +1,10 @@
-import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
-import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+import { JsonConvert, OperationMode, PropertyMatchingRule, ValueCheckingMode } from "json2typescript";
 import { of } from "rxjs";
 import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { ListChildNodeResponse } from "../models/admin/list-child-node-response";
 import { ListResponse } from "../models/admin/list-response";
 import { ApiResponseData } from "../models/api-response-data";
-import { ApiResponseError } from "../models/api-response-error";
 import { ListAdminCache } from "./ListAdminCache";
 
 describe("ListCache", () => {

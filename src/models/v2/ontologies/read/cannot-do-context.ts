@@ -1,5 +1,13 @@
-import { JsonConvert, JsonConverter, JsonCustomConvert, JsonObject, JsonProperty, OperationMode, ValueCheckingMode } from "json2typescript";
-import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+import {
+    JsonConvert,
+    JsonConverter,
+    JsonCustomConvert,
+    JsonObject,
+    JsonProperty,
+    OperationMode,
+    PropertyMatchingRule,
+    ValueCheckingMode
+} from "json2typescript";
 import { Constants } from "../../Constants";
 import { CanSetCardinalityCheckFailure } from "./can-set-cardinality-check-failure";
 

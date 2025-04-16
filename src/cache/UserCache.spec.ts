@@ -1,5 +1,4 @@
-import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
-import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+import { JsonConvert, OperationMode, PropertyMatchingRule, ValueCheckingMode } from "json2typescript";
 import { of } from "rxjs";
 import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";

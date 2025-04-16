@@ -1,5 +1,4 @@
-import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
-import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+import { JsonConvert, OperationMode, PropertyMatchingRule, ValueCheckingMode } from "json2typescript";
 import { AjaxResponse } from "rxjs/ajax";
 import { ApiResponseData } from "../../../../src/models/api-response-data";
 import { HealthResponse } from "../../../../src/models/system/health-response";

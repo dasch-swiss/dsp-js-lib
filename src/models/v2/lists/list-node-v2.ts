@@ -5,9 +5,9 @@ import {
     JsonObject,
     JsonProperty,
     OperationMode,
+    PropertyMatchingRule,
     ValueCheckingMode
 } from "json2typescript";
-import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
 import { Constants } from "../Constants";
 import { IdConverter } from "../custom-converters/id-converter";
 
