@@ -31,12 +31,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ env.NodeVersion }}
-      - name: Install requirements
-        run: |
-          sudo apt-get install expect
-          sudo npm install --global @bazel/bazelisk
       - name: Install dependencies
-        run: make npm-install
+        run: npm install
       - name: Prepare test data
         run: make prepare-test-data
       - name: Check node version
