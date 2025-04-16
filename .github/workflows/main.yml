@@ -48,6 +48,8 @@ jobs:
         run: make npm-install
       - name: Prepare test data
         run: make prepare-test-data
+      - name: Check node version
+        run: node --version
       - name: Run unit tests
         run: make unit-tests
 
