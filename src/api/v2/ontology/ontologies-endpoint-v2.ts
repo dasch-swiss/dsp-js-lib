@@ -19,19 +19,18 @@ import { DeleteResourceClass } from "../../../models/v2/ontologies/delete/delete
 import { DeleteResourceClassComment } from "../../../models/v2/ontologies/delete/delete-resource-class-comment";
 import { DeleteResourceProperty } from "../../../models/v2/ontologies/delete/delete-resource-property";
 import { DeleteResourcePropertyComment } from "../../../models/v2/ontologies/delete/delete-resource-property-comment";
-import { OntologiesMetadata, OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
+import { OntologyMetadata } from "../../../models/v2/ontologies/ontology-metadata";
 import { OntologyConversionUtil } from "../../../models/v2/ontologies/OntologyConversionUtil";
 import { CanDoResponse } from "../../../models/v2/ontologies/read/can-do-response";
-import { ReadOntology } from "../../../models/v2/ontologies/read/read-ontology";
-import { ResourceClassDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-class-definition";
-import { ResourcePropertyDefinitionWithAllLanguages } from "../../../models/v2/ontologies/resource-property-definition";
 import { UpdateOntology } from "../../../models/v2/ontologies/update/update-ontology";
 import { UpdateOntologyMetadata } from "../../../models/v2/ontologies/update/update-ontology-metadata";
 import { UpdateResourceClassCardinality } from "../../../models/v2/ontologies/update/update-resource-class-cardinality";
 import { UpdateResourceClassComment } from "../../../models/v2/ontologies/update/update-resource-class-comment";
 import { UpdateResourceClassLabel } from "../../../models/v2/ontologies/update/update-resource-class-label";
 import { UpdateResourcePropertyComment } from "../../../models/v2/ontologies/update/update-resource-property-comment";
-import { UpdateResourcePropertyGuiElement } from "../../../models/v2/ontologies/update/update-resource-property-gui-element";
+import {
+    UpdateResourcePropertyGuiElement
+} from "../../../models/v2/ontologies/update/update-resource-property-gui-element";
 import { UpdateResourcePropertyLabel } from "../../../models/v2/ontologies/update/update-resource-property-label";
 import { CardinalityUtil } from "../../../models/v2/resources/cardinality-util";
 import { Endpoint } from "../../endpoint";
@@ -170,7 +169,7 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(jsonldobj => {
-                return this.jsonConvert.deserializeObject(jsonldobj, DeleteOntologyResponse);
+                return this.jsonConvert.deserializeObject(jsonldobj as unknown as object, DeleteOntologyResponse);
             }),
             catchError(error => this.handleError(error))
         );
@@ -373,7 +372,7 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(jsonldobj => {
-                return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
+                return this.jsonConvert.deserializeObject(jsonldobj as unknown as object, OntologyMetadata);
             }),
             catchError(error => this.handleError(error))
         );
@@ -499,7 +498,7 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(jsonldobj => {
-                return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
+                return this.jsonConvert.deserializeObject(jsonldobj as unknown as object, OntologyMetadata);
             }),
             catchError(error => this.handleError(error))
         );

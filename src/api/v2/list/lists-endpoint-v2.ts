@@ -28,7 +28,7 @@ export class ListsEndpointV2 extends Endpoint {
             }),
             map(
                 res => {
-                    return this.jsonConvert.deserialize(res, ListNodeV2) as ListNodeV2;
+                    return this.jsonConvert.deserialize(res as unknown as object[], ListNodeV2) as unknown as ListNodeV2;
                 }
             ),
             catchError(error => {
@@ -52,7 +52,7 @@ export class ListsEndpointV2 extends Endpoint {
             }),
             map(
                 res => {
-                    return this.jsonConvert.deserialize(res, ListNodeV2) as ListNodeV2;
+                    return this.jsonConvert.deserialize(res as unknown as object[], ListNodeV2) as unknown as ListNodeV2;
                 }
             ),
             catchError(error => {

@@ -3,6 +3,9 @@ import { forkJoin, Observable, of } from "rxjs";
 import { map, mergeMap } from "rxjs/operators";
 import { ListNodeV2Cache } from "../../../cache/ListNodeV2Cache";
 import { OntologyCache } from "../../../cache/ontology-cache/OntologyCache";
+import {
+    ResourceClassAndPropertyDefinitions
+} from "../../../cache/ontology-cache/resource-class-and-property-definitions";
 import { Constants } from "../Constants";
 import { ResourcePropertyDefinition } from "../ontologies/resource-property-definition";
 import { CountQueryResponse } from "../search/count-query-response";
@@ -36,7 +39,6 @@ import {
 import { ReadTimeValue } from "./values/read/read-time-value";
 import { ReadUriValue } from "./values/read/read-uri-value";
 import { ReadValue } from "./values/read/read-value";
-import { ResourceClassAndPropertyDefinitions } from "../../../cache/ontology-cache/resource-class-and-property-definitions";
 
 /**
  * @category Internal
@@ -239,7 +241,7 @@ export namespace ResourcesConversionUtil {
      */
     const handleLinkValue = (valueJsonld: any, ontologyCache: OntologyCache, listNodeCache: ListNodeV2Cache, jsonConvert: JsonConvert): Observable<ReadLinkValue> => {
 
-        const linkValue = jsonConvert.deserialize(valueJsonld, ReadLinkValue) as ReadLinkValue;
+        const linkValue = jsonConvert.deserialize(valueJsonld, ReadLinkValue) as unknown as ReadLinkValue;
 
         const handleLinkedResource =
             (linkedResource: { [index: string]: string | object[] }, incoming: boolean): Observable<ReadLinkValue> => {
@@ -506,7 +508,7 @@ export namespace ResourcesConversionUtil {
 
             default: {
                 console.error("Unknown value type: ", type);
-                value = of(jsonConvert.deserialize(valueJsonld, ReadValue) as ReadValue);
+                value = of(jsonConvert.deserialize(valueJsonld, ReadValue) as unknown as ReadValue);
             }
 
         }

@@ -23,7 +23,7 @@ describe("UserCache", () => {
 
     const user = require("../../test/data/api/admin/users/get-user-response.json");
 
-    const userResp = jsonConvert.deserialize(user, UserResponse) as UserResponse;
+    const userResp = jsonConvert.deserialize(user, UserResponse) as unknown as UserResponse;
 
     beforeEach(() => {
 

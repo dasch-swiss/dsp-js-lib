@@ -76,6 +76,7 @@ export class ApiResponseData<T> extends ApiResponse {
         responseData.body = ajaxResponse.response;
         if (dataType && jsonConvert) {
             try {
+                // @ts-ignore
                 responseData.body = jsonConvert.deserializeObject(ajaxResponse.response, dataType);
             } catch (error) {
                 const responseError = ApiResponseError.fromErrorString(error, responseData);

@@ -1,12 +1,9 @@
-import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig } from "../../../knora-api-config";
-import { ApiResponseError } from "../../../models/api-response-error";
 import { CreateResource } from "../../../models/v2/resources/create/create-resource";
 import { DeleteResource } from "../../../models/v2/resources/delete/delete-resource";
 import { DeleteResourceResponse } from "../../../models/v2/resources/delete/delete-resource-response";
-import { ReadResource } from "../../../models/v2/resources/read/read-resource";
 import { ReadResourceSequence } from "../../../models/v2/resources/read/read-resource-sequence";
 import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { UpdateResourceMetadata } from "../../../models/v2/resources/update/update-resource-metadata";
@@ -148,7 +145,7 @@ export class ResourcesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(jsonldobj => {
-                return this.jsonConvert.deserializeObject(jsonldobj, UpdateResourceMetadataResponse);
+                return this.jsonConvert.deserializeObject(jsonldobj as unknown as object, UpdateResourceMetadataResponse);
             }),
             catchError(error => this.handleError(error))
         );
@@ -172,7 +169,7 @@ export class ResourcesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(jsonldobj => {
-                return this.jsonConvert.deserializeObject(jsonldobj, DeleteResourceResponse);
+                return this.jsonConvert.deserializeObject(jsonldobj as unknown as object, DeleteResourceResponse);
             }),
             catchError(error => this.handleError(error))
         );
@@ -196,7 +193,7 @@ export class ResourcesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(jsonldobj => {
-                return this.jsonConvert.deserializeObject(jsonldobj, DeleteResourceResponse);
+                return this.jsonConvert.deserializeObject(jsonldobj as unknown as object, DeleteResourceResponse);
             }),
             catchError(error => this.handleError(error))
         );
