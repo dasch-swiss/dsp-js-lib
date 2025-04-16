@@ -1,6 +1,6 @@
 name: CI
 env:
-  NodeVersion: 16.15.0
+  NodeVersion: 20.9.0
   DistDirectory: ./build/
   CacheName: dsp-js-lib
 
