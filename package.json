@@ -16,7 +16,7 @@
     "test/**/*.json"
   ],
   "scripts": {
-    "lint": "eslint src/**/*.ts",
+    "lint": "eslint --config eslint.config.mjs",
     "integrate-admin-test-data": "node scripts/integrate-files-admin.js",
     "integrate-system-test-data": "node scripts/integrate-files-system.js",
     "integrate-v2-test-data": "node scripts/integrate-files-v2.js",
