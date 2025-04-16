@@ -1,9 +1,6 @@
-import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig } from "../../../knora-api-config";
-import { ApiResponseError } from "../../../models/api-response-error";
-import { ReadResource } from "../../../models/v2/resources/read/read-resource";
 import { ReadResourceSequence } from "../../../models/v2/resources/read/read-resource-sequence";
 import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { UpdateResource } from "../../../models/v2/resources/update/update-resource";
@@ -81,6 +78,7 @@ export class ValuesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(jsonldobj => {
+                // @ts-ignore
                 return this.jsonConvert.deserializeObject(jsonldobj, WriteValueResponse);
             }),
             catchError(error => this.handleError(error))
@@ -111,6 +109,7 @@ export class ValuesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(jsonldobj => {
+                // @ts-ignore
                 return this.jsonConvert.deserializeObject(jsonldobj, WriteValueResponse);
             }),
             catchError(error => this.handleError(error))
@@ -138,6 +137,7 @@ export class ValuesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(jsonldobj => {
+                // @ts-ignore
                 return this.jsonConvert.deserializeObject(jsonldobj, DeleteValueResponse);
             }),
             catchError(error => this.handleError(error))
