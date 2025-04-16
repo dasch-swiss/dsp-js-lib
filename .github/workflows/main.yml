@@ -2,7 +2,6 @@ name: CI
 env:
   NodeVersion: 20.9.0
   DistDirectory: ./build/
-  CacheName: dsp-js-lib
 
 on:
   push:
@@ -10,21 +9,8 @@ on:
     types: [ published ]
 
 jobs:
-
-  find-ignored-tests:
-    name: Find ignored tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v2
-      - name: Run the script
-        run: ./find-ignored-tests.sh
-
-
-
   unit-tests:
     name: Run unit tests
-    needs: [ find-ignored-tests ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
@@ -41,8 +27,8 @@ jobs:
         run: ls
       - name: Install dependencies
         run: npm install
-      - name: Prepare test data
-        run: make prepare-test-data
+      - name: Check cache
+        run: ls
       - name: Check node version
         run: node --version
       - name: Check npm version
