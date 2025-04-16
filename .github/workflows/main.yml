@@ -27,15 +27,6 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v2
-      - name: Cache node_modules artifacts
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-build-${{ env.CacheName }}-
-            ${{ runner.OS }}-build-
-            ${{ runner.OS }}-
       - name: Set up Node.js ${{ env.NodeVersion }}
         uses: actions/setup-node@v1
         with:
