@@ -41,8 +41,10 @@ jobs:
         run: make prepare-test-data
       - name: Check node version
         run: node --version
+      - name: Check npm version
+        run: npm -v
       - name: Run unit tests
-        run: make unit-tests
+        run: npm run test
 
   e2e-tests:
     name: Run e2e tests incl. build lib
