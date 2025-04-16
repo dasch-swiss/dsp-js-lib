@@ -33,8 +33,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ env.NodeVersion }}
+      - name: Check cache
+        run: ls
       - name: Clear cache
         run: rm -rf node_modules
+      - name: Check cache
+        run: ls
       - name: Install dependencies
         run: npm install
       - name: Prepare test data
