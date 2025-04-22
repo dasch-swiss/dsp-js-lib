@@ -1,5 +1,12 @@
 # Changelog
 
+## [10.5.0](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.4.0...v10.5.0) (2025-04-22)
+
+
+### Features
+
+* update endpoint ([#668](https://github.com/dasch-swiss/dsp-js-lib/issues/668)) ([b699915](https://github.com/dasch-swiss/dsp-js-lib/commit/b699915fb61262f7f7a4f70666f13ac05defdf05))
+
 ## [10.4.0](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.3.2...v10.4.0) (2025-03-28)
 
 
