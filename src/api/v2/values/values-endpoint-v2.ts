@@ -1,9 +1,6 @@
-import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { KnoraApiConfig } from "../../../knora-api-config";
-import { ApiResponseError } from "../../../models/api-response-error";
-import { ReadResource } from "../../../models/v2/resources/read/read-resource";
 import { ReadResourceSequence } from "../../../models/v2/resources/read/read-resource-sequence";
 import { ResourcesConversionUtil } from "../../../models/v2/resources/ResourcesConversionUtil";
 import { UpdateResource } from "../../../models/v2/resources/update/update-resource";
@@ -71,7 +68,6 @@ export class ValuesEndpointV2 extends Endpoint {
 
         const val = this.jsonConvert.serializeObject<UpdateValue>(resource.value);
 
-        console.log('julienjslib', val, res);
         res[resource.property] = val;
 
         return this.httpPut("", res, "json", {"X-Asset-Ingested": "true"}).pipe(
