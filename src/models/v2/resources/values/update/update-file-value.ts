@@ -13,14 +13,14 @@ export abstract class UpdateFileValue extends UpdateValue implements IBaseFileVa
     @JsonProperty(Constants.FileValueHasFilename, String)
     filename: string = "";
 
-    @JsonProperty(Constants.hasCopyrightHolder, String)
-    copyrightHolder: string = "";
+    @JsonProperty(Constants.hasCopyrightHolder, String, true)
+    copyrightHolder: string;
 
-    @JsonProperty(Constants.hasAuthorship, [String])
-    authorship: string[] = [];
+    @JsonProperty(Constants.hasAuthorship, [String], true)
+    authorship: string[];
 
-    @JsonProperty(Constants.hasLicense, License)
-    license: License = {id: ""};
+    @JsonProperty(Constants.hasLicense, License, true)
+    license: License;
 }
 
 /**
