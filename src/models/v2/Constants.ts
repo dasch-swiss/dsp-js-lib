@@ -217,7 +217,7 @@ export class Constants {
     static Comment = Constants.Rdfs + Constants.HashDelimiter + "comment";
     static Label = Constants.Rdfs + Constants.HashDelimiter + "label";
     static LabelEn = Constants.Rdfs + Constants.HashDelimiter + "labelEn";
-    static Uri= Constants.Rdfs + Constants.HashDelimiter + "uri";
+    static Uri = Constants.Rdfs + Constants.HashDelimiter + "uri";
     static SubPropertyOf = Constants.Rdfs + Constants.HashDelimiter + "subPropertyOf";
 
     static Xsd = "http://www.w3.org/2001/XMLSchema";
