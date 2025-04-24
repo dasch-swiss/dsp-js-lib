@@ -4,5 +4,5 @@ import { JsonObject, JsonProperty } from "json2typescript";
 export class License {
 
     @JsonProperty("@id", String)
-    id: string;
+    id: string = "";
 }
