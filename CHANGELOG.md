@@ -1,5 +1,12 @@
 # Changelog
 
+## [10.6.0](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.5.0...v10.6.0) (2025-04-24)
+
+
+### Features
+
+* fileValues can CRUD with copyright holder, license and authorship ([#670](https://github.com/dasch-swiss/dsp-js-lib/issues/670)) ([c0e9589](https://github.com/dasch-swiss/dsp-js-lib/commit/c0e95891b66e2ed76eefa7c295af65a981eb9856))
+
 ## [10.5.0](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.4.0...v10.5.0) (2025-04-22)
 
 
