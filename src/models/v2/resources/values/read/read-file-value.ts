@@ -19,7 +19,7 @@ export abstract class ReadFileValue extends ReadValue implements IBaseFileValue 
     fileUrl: string = "";
 
     @JsonProperty(Constants.hasCopyrightHolder, String, true)
-    copyrightHolder: string = "";
+    copyrightHolder: string | null = null;
 
     @JsonProperty(Constants.hasAuthorship, StringOrArrayToArrayConverter, true)
     authorship: string[] = [];
