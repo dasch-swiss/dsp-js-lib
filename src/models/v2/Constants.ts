@@ -154,6 +154,10 @@ export class Constants {
     static CanSetCardinalityPersistenceCheckFailed = Constants.KnoraApiV2 + Constants.HashDelimiter + "canSetCardinalityPersistenceCheckFailed";
     static CanSetCardinalityKnoraOntologyCheckFailed = Constants.KnoraApiV2 + Constants.HashDelimiter + "canSetCardinalityKnoraOntologyCheckFailed";
 
+    static hasCopyrightHolder = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasCopyrightHolder";
+    static hasAuthorship = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasAuthorship";
+    static hasLicense = Constants.KnoraApiV2 + Constants.HashDelimiter + "hasLicense";
+
     static MatchText = Constants.KnoraApiV2 + Constants.HashDelimiter + "matchText";
 
     static OntologyName = Constants.KnoraApiV2 + Constants.HashDelimiter + "ontologyName";
@@ -212,6 +216,8 @@ export class Constants {
     static SubClassOf = Constants.Rdfs + Constants.HashDelimiter + "subClassOf";
     static Comment = Constants.Rdfs + Constants.HashDelimiter + "comment";
     static Label = Constants.Rdfs + Constants.HashDelimiter + "label";
+    static LabelEn = Constants.Rdfs + Constants.HashDelimiter + "labelEn";
+    static Uri = Constants.Rdfs + Constants.HashDelimiter + "uri";
     static SubPropertyOf = Constants.Rdfs + Constants.HashDelimiter + "subPropertyOf";
 
     static Xsd = "http://www.w3.org/2001/XMLSchema";
