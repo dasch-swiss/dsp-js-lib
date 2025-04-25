@@ -1,5 +1,12 @@
 # Changelog
 
+## [10.6.1](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.6.0...v10.6.1) (2025-04-25)
+
+
+### Bug Fixes
+
+* adjust license class ([#672](https://github.com/dasch-swiss/dsp-js-lib/issues/672)) ([a4bea0d](https://github.com/dasch-swiss/dsp-js-lib/commit/a4bea0d33a43090014309d6ae7431dbb4bc392f2))
+
 ## [10.6.0](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.5.0...v10.6.0) (2025-04-24)
 
 
