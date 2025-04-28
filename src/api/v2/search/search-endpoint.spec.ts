@@ -247,7 +247,7 @@ describe("SearchEndpoint", () => {
     });
 
     describe("Incoming regions endpoint", () => {
-        const resourceIri = "http://rdfh.ch/0001/a-thing"
+        const resourceIri = "http://rdfh.ch/0001/a-thing-picture"
         it("should perform a successful incoming regions search", done => {
             knoraApiConnection.v2.search.doSearchIncomingRegions(resourceIri).subscribe((response) => {
                 expect(response.resources.length).toEqual(2);
@@ -259,7 +259,7 @@ describe("SearchEndpoint", () => {
 
             request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
             
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchIncomingLinks/http%3A%2F%2Frdfh.ch%2F0001%2Fa-thing?offset=0");
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchIncomingRegions/http%3A%2F%2Frdfh.ch%2F0001%2Fa-thing-picture?offset=0");
             expect(request.method).toEqual("GET");
         });
     });
