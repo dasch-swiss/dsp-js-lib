@@ -1,5 +1,12 @@
 # Changelog
 
+## [10.7.0](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.6.1...v10.7.0) (2025-04-28)
+
+
+### Features
+
+* add endpoint for searching the incoming regions (DEV-4824) ([#674](https://github.com/dasch-swiss/dsp-js-lib/issues/674)) ([6b9fcda](https://github.com/dasch-swiss/dsp-js-lib/commit/6b9fcdaeeee49588bae7fcf97d050117d02b209b))
+
 ## [10.6.1](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.6.0...v10.6.1) (2025-04-25)
 
 
