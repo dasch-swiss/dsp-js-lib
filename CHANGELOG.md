@@ -1,5 +1,12 @@
 # Changelog
 
+## [10.7.1](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.7.0...v10.7.1) (2025-04-30)
+
+
+### Bug Fixes
+
+* revert license class optional fields ([#678](https://github.com/dasch-swiss/dsp-js-lib/issues/678)) ([c1c2837](https://github.com/dasch-swiss/dsp-js-lib/commit/c1c28379bf9d3f5d2e95ccc42458271b02fdbc03))
+
 ## [10.7.0](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.6.1...v10.7.0) (2025-04-28)
 
 
