@@ -1,5 +1,12 @@
 # Changelog
 
+## [10.8.0](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.7.1...v10.8.0) (2025-05-13)
+
+
+### Features
+
+* add StillImageRepresentations endpoints (DEV-4836) ([#680](https://github.com/dasch-swiss/dsp-js-lib/issues/680)) ([30ddbb3](https://github.com/dasch-swiss/dsp-js-lib/commit/30ddbb3cc6c385be9be360c7aa31aa36f6ba7319))
+
 ## [10.7.1](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.7.0...v10.7.1) (2025-04-30)
 
 
