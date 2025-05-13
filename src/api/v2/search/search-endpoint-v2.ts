@@ -197,12 +197,12 @@ export class SearchEndpointV2 extends Endpoint {
     }
 
     /**
-     * Performs a Gravsearch in order to get StillImageRepresenatationss of queried resource
+     * Performs a Gravsearch in order to get StillImageRepresentations of queried resource
      * 
      * @param resourceIri resource that is queried for incoming links
      * @param offset the offset to be used for paging
      */
-    doSearchStillImageRepresenatations(resourceIri: string, offset = 0) {
+    doSearchStillImageRepresentations(resourceIri: string, offset = 0) {
         return this.httpGet(`/searchStillImageRepresentations/${encodeURIComponent(resourceIri)}?offset=${offset}`).pipe(
             mergeMap((response: AjaxResponse) => {
                 return jsonld.compact(response.response, {});
@@ -216,12 +216,12 @@ export class SearchEndpointV2 extends Endpoint {
     }
 
     /**
-     * Performs a Gravsearch in order to get StillImageRepresenatationss count of queried resource
+     * Performs a Gravsearch in order to get StillImageRepresentations count of queried resource
      * 
      * @param resourceIri resource that is queried for incoming links
      */
-    doSearchStillImageRepresenatationsCountQuery(resourceIri: string) {
-        return this.httpGet(`/searchStillImageRepresenatationsCount/${encodeURIComponent(resourceIri)}`).pipe(
+    doSearchStillImageRepresentationsCount(resourceIri: string) {
+        return this.httpGet(`/searchStillImageRepresentationsCount/${encodeURIComponent(resourceIri)}`).pipe(
             mergeMap((response: AjaxResponse) => {
                 return jsonld.compact(response.response, {});
             }), map((jsonld: object) => {

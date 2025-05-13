@@ -246,6 +246,39 @@ describe("SearchEndpoint", () => {
         });
     });
 
+    describe("StillImageRepresentations endpoints", () => {
+        const resourceIri = "http://rdfh.ch/0001/a-thing-picture"
+        it("should perform a successful StillImageRepresentations search", done => {
+            knoraApiConnection.v2.search.doSearchStillImageRepresentations(resourceIri).subscribe((response) => {
+                expect(response.resources.length).toEqual(2);
+                done();
+            });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+            const resource = require("../../../../test/data/api/v2/resources/things.json");
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchStillImageRepresentations/http%3A%2F%2Frdfh.ch%2F0001%2Fa-thing-picture?offset=0");
+            expect(request.method).toEqual("GET");
+        });
+
+        it("should perform a successful StillImageRepresentationsCount search", done => {
+            knoraApiConnection.v2.search.doSearchStillImageRepresentationsCount(resourceIri).subscribe((response: CountQueryResponse) => {
+                expect(response.numberOfResults).toEqual(2);
+                done();
+            });
+
+            const request = jasmine.Ajax.requests.mostRecent();
+            const resource = require("../../../../test/data/api/v2/search/count-query-result.json");;
+
+            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchStillImageRepresentationsCount/http%3A%2F%2Frdfh.ch%2F0001%2Fa-thing-picture");
+            expect(request.method).toEqual("GET");
+        });
+    });
+
     describe("Incoming regions endpoint", () => {
         const resourceIri = "http://rdfh.ch/0001/a-thing-picture"
         it("should perform a successful incoming regions search", done => {
