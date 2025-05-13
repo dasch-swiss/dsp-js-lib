@@ -197,6 +197,43 @@ export class SearchEndpointV2 extends Endpoint {
     }
 
     /**
+     * Performs a Gravsearch in order to get StillImageRepresenatationss of queried resource
+     * 
+     * @param resourceIri resource that is queried for incoming links
+     * @param offset the offset to be used for paging
+     */
+    doSearchStillImageRepresenatations(resourceIri: string, offset = 0) {
+        return this.httpGet(`/searchStillImageRepresentations/${encodeURIComponent(resourceIri)}?offset=${offset}`).pipe(
+            mergeMap((response: AjaxResponse) => {
+                return jsonld.compact(response.response, {});
+            }), mergeMap((jsonld: object) => {
+                return ResourcesConversionUtil.createReadResourceSequence(jsonld, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
+            }),
+            catchError(err => {
+                return this.handleError(err)
+            })
+        );
+    }
+
+    /**
+     * Performs a Gravsearch in order to get StillImageRepresenatationss count of queried resource
+     * 
+     * @param resourceIri resource that is queried for incoming links
+     */
+    doSearchStillImageRepresenatationsCountQuery(resourceIri: string) {
+        return this.httpGet(`/searchStillImageRepresenatationsCount/${encodeURIComponent(resourceIri)}`).pipe(
+            mergeMap((response: AjaxResponse) => {
+                return jsonld.compact(response.response, {});
+            }), map((jsonld: object) => {
+                return ResourcesConversionUtil.createCountQueryResponse(jsonld, this.jsonConvert);
+            }),
+            catchError(err => {
+                return this.handleError(err)
+            })
+        );
+    }
+
+    /**
      * Performs a Gravsearch to get incoming regions of queried resource
      * 
      * @param resourceIri resource that is queried for incoming links
