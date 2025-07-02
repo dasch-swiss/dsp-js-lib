@@ -26,7 +26,7 @@ export function retryOnError(delayMs: number, maxRetries: number, retryOnErrorSt
                         if (logError) console.error("HTTP request failed:", "status:", error.status, "retries:", retryCount, "error:", error);
                         return timer(delayMs);
                     } else {
-                        return throwError(() => error);
+                        throw error;
                     }
                 }
             })

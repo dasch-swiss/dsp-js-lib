@@ -7,9 +7,18 @@ export namespace MockAjaxCall {
      */
     export const mockResponse = (mockData: string) => {
 
+        let parsedResponse: any;
+        try {
+            parsedResponse = JSON.parse(mockData);
+        } catch (e) {
+            // If parsing fails, use the raw string
+            parsedResponse = mockData;
+        }
+
         return {
             status: 200,
-            responseText: mockData
+            responseText: mockData,
+            response: parsedResponse
         };
 
     };
@@ -21,9 +30,18 @@ export namespace MockAjaxCall {
      */
     export const mockNotAuthorizedResponse = (mockData: string = JSON.stringify({})) => {
 
+        let parsedResponse: any;
+        try {
+            parsedResponse = JSON.parse(mockData);
+        } catch (e) {
+            // If parsing fails, use the raw string
+            parsedResponse = mockData;
+        }
+
         return {
             status: 401,
-            responseText: mockData
+            responseText: mockData,
+            response: parsedResponse
         };
 
     };
@@ -35,9 +53,18 @@ export namespace MockAjaxCall {
      */
     export const mockNotFoundResponse = (mockData: string = JSON.stringify({})) => {
 
+        let parsedResponse: any;
+        try {
+            parsedResponse = JSON.parse(mockData);
+        } catch (e) {
+            // If parsing fails, use the raw string
+            parsedResponse = mockData;
+        }
+
         return {
             status: 404,
-            responseText: mockData
+            responseText: mockData,
+            response: parsedResponse
         };
 
     };
@@ -49,9 +76,18 @@ export namespace MockAjaxCall {
      */
     export const mockBadRequestResponse = (mockData: string = JSON.stringify({})) => {
 
+        let parsedResponse: any;
+        try {
+            parsedResponse = JSON.parse(mockData);
+        } catch (e) {
+            // If parsing fails, use the raw string
+            parsedResponse = mockData;
+        }
+
         return {
             status: 400,
-            responseText: mockData
+            responseText: mockData,
+            response: parsedResponse
         };
 
     };
