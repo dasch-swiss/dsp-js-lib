@@ -35,7 +35,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("GET");
 
-        expect(request.requestHeaders).toEqual({});
+        expect(request.requestHeaders).toEqual({"x-requested-with": "XMLHttpRequest"});
 
     });
 
@@ -62,7 +62,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("GET");
 
-        expect(request.requestHeaders).toEqual({});
+        expect(request.requestHeaders).toEqual({"x-requested-with": "XMLHttpRequest"});
 
     });
 
@@ -88,7 +88,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("GET");
 
-        expect(request.requestHeaders).toEqual({});
+        expect(request.requestHeaders).toEqual({"x-requested-with": "XMLHttpRequest"});
 
     });
 
@@ -116,7 +116,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("GET");
 
-        expect(request.requestHeaders).toEqual({Authorization: "Bearer testtoken"});
+        expect(request.requestHeaders).toEqual({Authorization: "Bearer testtoken", "x-requested-with": "XMLHttpRequest"});
 
     });
 
@@ -142,7 +142,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("GET");
 
-        expect(request.requestHeaders).toEqual({"my-feature-toggle": "my-awesome-feature"});
+        expect(request.requestHeaders).toEqual({"my-feature-toggle": "my-awesome-feature", "x-requested-with": "XMLHttpRequest"});
 
     });
 
@@ -168,7 +168,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("POST");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -198,7 +198,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("POST");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -226,7 +226,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("POST");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -258,7 +258,8 @@ describe("Test class Endpoint", () => {
 
         expect(request.requestHeaders).toEqual({
             "Authorization": "Bearer testtoken",
-            "Content-Type": "application/json; charset=utf-8"
+            "Content-Type": "application/json; charset=utf-8",
+            "x-requested-with": "XMLHttpRequest"
         });
 
         expect(request.data()).toEqual({mydata: "data"});
@@ -289,7 +290,8 @@ describe("Test class Endpoint", () => {
 
         expect(request.requestHeaders).toEqual({
             "Content-Type": "application/json; charset=utf-8",
-            "my-feature-toggle": "my-awesome-feature"
+            "my-feature-toggle": "my-awesome-feature",
+            "x-requested-with": "XMLHttpRequest"
         });
 
         expect(request.data()).toEqual({mydata: "data"});
@@ -336,7 +338,8 @@ describe("Test class Endpoint", () => {
 
         expect(request.requestHeaders).toEqual({
             "Content-Type": "application/sparql-query; charset=utf-8",
-            "my-feature-toggle": "my-awesome-feature"
+            "my-feature-toggle": "my-awesome-feature",
+            "x-requested-with": "XMLHttpRequest"
         });
 
         // https://github.com/jasmine/jasmine-ajax#5-inspect-ajax-requests
@@ -367,7 +370,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("PUT");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -396,7 +399,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("PUT");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -424,7 +427,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("PUT");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -456,7 +459,8 @@ describe("Test class Endpoint", () => {
 
         expect(request.requestHeaders).toEqual({
             "Authorization": "Bearer testtoken",
-            "Content-Type": "application/json; charset=utf-8"
+            "Content-Type": "application/json; charset=utf-8",
+            "x-requested-with": "XMLHttpRequest"
         });
 
         expect(request.data()).toEqual({mydata: "data"});
@@ -487,7 +491,8 @@ describe("Test class Endpoint", () => {
 
         expect(request.requestHeaders).toEqual({
             "Content-Type": "application/json; charset=utf-8",
-            "my-feature-toggle": "my-awesome-feature"
+            "my-feature-toggle": "my-awesome-feature",
+            "x-requested-with": "XMLHttpRequest"
         });
 
         expect(request.data()).toEqual({mydata: "data"});
@@ -516,7 +521,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("DELETE");
 
-        expect(request.requestHeaders).toEqual({});
+        expect(request.requestHeaders).toEqual({"x-requested-with": "XMLHttpRequest"});
 
     });
 
@@ -543,7 +548,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("DELETE");
 
-        expect(request.requestHeaders).toEqual({});
+        expect(request.requestHeaders).toEqual({"x-requested-with": "XMLHttpRequest"});
 
     });
 
@@ -569,7 +574,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("DELETE");
 
-        expect(request.requestHeaders).toEqual({});
+        expect(request.requestHeaders).toEqual({"x-requested-with": "XMLHttpRequest"});
 
     });
 
@@ -597,7 +602,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("DELETE");
 
-        expect(request.requestHeaders).toEqual({Authorization: "Bearer testtoken"});
+        expect(request.requestHeaders).toEqual({Authorization: "Bearer testtoken", "x-requested-with": "XMLHttpRequest"});
 
     });
 
@@ -623,7 +628,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("DELETE");
 
-        expect(request.requestHeaders).toEqual({"my-feature-toggle": "my-awesome-feature"});
+        expect(request.requestHeaders).toEqual({"my-feature-toggle": "my-awesome-feature", "x-requested-with": "XMLHttpRequest"});
 
     });
 
