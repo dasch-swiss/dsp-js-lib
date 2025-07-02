@@ -116,7 +116,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("GET");
 
-        expect(request.requestHeaders).toEqual({Authorization: "Bearer testtoken", "x-requested-with": "XMLHttpRequest"});
+        expect(request.requestHeaders).toEqual({"authorization": "Bearer testtoken", "x-requested-with": "XMLHttpRequest"});
 
     });
 
@@ -602,7 +602,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("DELETE");
 
-        expect(request.requestHeaders).toEqual({Authorization: "Bearer testtoken", "x-requested-with": "XMLHttpRequest"});
+        expect(request.requestHeaders).toEqual({"authorization": "Bearer testtoken", "x-requested-with": "XMLHttpRequest"});
 
     });
 
