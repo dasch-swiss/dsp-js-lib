@@ -17,7 +17,7 @@ export function retryOnError(delayMs: number, maxRetries: number, retryOnErrorSt
     let retries = maxRetries;
 
     // inspired by https://medium.com/angular-in-depth/retry-failed-http-requests-in-angular-f5959d486294
-    return (src: Observable<AjaxResponse<T>>): Observable<AjaxResponse<T>> =>
+    return (src: Observable<AjaxResponse<any>>): Observable<AjaxResponse<any>> =>
         src.pipe(
             retry({
                 count: maxRetries,

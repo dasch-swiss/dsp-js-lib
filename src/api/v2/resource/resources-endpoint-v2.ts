@@ -51,7 +51,7 @@ export class ResourcesEndpointV2 extends Endpoint {
         });
 
         return this.httpGet(resIris).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<T>) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -111,7 +111,7 @@ export class ResourcesEndpointV2 extends Endpoint {
         });
 
         return this.httpPost("", res, "json", {"X-Asset-Ingested": "true"}).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<T>) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -143,7 +143,7 @@ export class ResourcesEndpointV2 extends Endpoint {
         const res = this.jsonConvert.serializeObject(resourceMetadata);
 
         return this.httpPut("", res).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<T>) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -167,7 +167,7 @@ export class ResourcesEndpointV2 extends Endpoint {
         const res = this.jsonConvert.serializeObject(resource);
 
         return this.httpPost("/delete", res).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<T>) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -191,7 +191,7 @@ export class ResourcesEndpointV2 extends Endpoint {
         const res = this.jsonConvert.serializeObject(resource);
 
         return this.httpPost("/erase", res).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<T>) => {
+            mergeMap((ajaxResponse: AjaxResponse<any>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
