@@ -1,4 +1,4 @@
-import { catchError, map } from "rxjs/operators";
+import { catchError, map } from "rxjs";
 import { ApiResponseData } from "../../../models/api-response-data";
 import { VersionResponse } from "../../../models/system/version-response";
 import { Endpoint } from "../../endpoint";
@@ -16,7 +16,7 @@ export class VersionEndpointSystem extends Endpoint {
     getVersion() {
 
         return this.httpGet("").pipe(
-            map(ajaxResponse => {
+            map((ajaxResponse: any) => {
                 const versionResponse =  ApiResponseData.fromAjaxResponse(ajaxResponse, VersionResponse, this.jsonConvert);
 
                 return versionResponse;

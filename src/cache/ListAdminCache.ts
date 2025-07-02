@@ -1,4 +1,4 @@
-import { map } from "rxjs/operators";
+import { map } from "rxjs";
 import { AdminEndpoint } from "../api/admin/admin-endpoint";
 import { ListResponse } from "../models/admin/list-response";
 import { ApiResponseData } from "../models/api-response-data";

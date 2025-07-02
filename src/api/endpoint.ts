@@ -66,7 +66,7 @@ export class Endpoint {
      * @param path the relative URL for the request
      * @param headerOpts additional headers, if any.
      */
-    protected httpGet(path?: string, headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
+    protected httpGet(path?: string, headerOpts?: IHeaderOptions): Observable<AjaxResponse<any>> {
         if (path === undefined) path = "";
 
         return ajax(this.setAjaxRequest(path, "GET", undefined, this.constructHeader(undefined, headerOpts)))
@@ -84,7 +84,7 @@ export class Endpoint {
      * @param contentType content content type of body, if any.
      * @param headerOpts additional headers, if any.
      */
-    protected httpPost(path?: string, body?: any, contentType: "json" | "sparql" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
+    protected httpPost(path?: string, body?: any, contentType: "json" | "sparql" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse<any>> {
 
         if (path === undefined) path = "";
 
@@ -103,7 +103,7 @@ export class Endpoint {
      * @param contentType content content type of body, if any.
      * @param headerOpts additional headers, if any.
      */
-    protected httpPut(path?: string, body?: any, contentType: "json" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
+    protected httpPut(path?: string, body?: any, contentType: "json" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse<any>> {
 
         if (path === undefined) path = "";
 
@@ -122,7 +122,7 @@ export class Endpoint {
      * @param contentType content content type of body, if any.
      * @param headerOpts additional headers, if any.
      */
-    protected httpPatch(path?: string, body?: any, contentType: "json" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
+    protected httpPatch(path?: string, body?: any, contentType: "json" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse<any>> {
 
         if (path === undefined) path = "";
 
@@ -139,7 +139,7 @@ export class Endpoint {
      * @param path the relative URL for the request.
      * @param headerOpts additional headers, if any.
      */
-    protected httpDelete(path?: string, headerOpts?: IHeaderOptions): Observable<AjaxResponse> {
+    protected httpDelete(path?: string, headerOpts?: IHeaderOptions): Observable<AjaxResponse<any>> {
 
         if (path === undefined) path = "";
 
@@ -181,7 +181,7 @@ export class Endpoint {
 
         }
 
-        return throwError(responseError);
+        return throwError(() => responseError);
 
     }
 
@@ -241,7 +241,10 @@ export class Endpoint {
             body: body,
             async: true,
             withCredentials: true,
-            headers: headers
+            headers: headers || {},
+            timeout: 0,
+            crossDomain: false,
+            responseType: 'json'
         };
 
         return ajaxRequest;

@@ -1,5 +1,5 @@
 import { of } from "rxjs";
-import { switchMap } from "rxjs/operators";
+import { switchMap } from "rxjs";
 import { TestScheduler } from "rxjs/testing";
 import { retryOnError } from "./retryOnError";
 

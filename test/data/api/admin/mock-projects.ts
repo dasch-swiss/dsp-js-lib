@@ -18,7 +18,7 @@ export namespace MockProjects {
     );
 
     export const mockProjects = (): ApiResponseData<ProjectsResponse> => {
-        const responseData = ApiResponseData.fromAjaxResponse(new AjaxResponse({} as any, {} as any, {}));
+        const responseData = ApiResponseData.fromAjaxResponse(new AjaxResponse({} as any, {} as any, { url: '', method: 'GET', async: true, headers: {}, timeout: 0, crossDomain: false, responseType: 'json', withCredentials: false }));
 
         const projectsRes = jsonConvert.serializeObject(projects, ProjectsResponse);
         responseData.body = projectsRes;
@@ -26,7 +26,7 @@ export namespace MockProjects {
     };
 
     export const mockProject = (): ApiResponseData<ProjectResponse> => {
-        const responseData = ApiResponseData.fromAjaxResponse(new AjaxResponse({} as any, {} as any, {}));
+        const responseData = ApiResponseData.fromAjaxResponse(new AjaxResponse({} as any, {} as any, { url: '', method: 'GET', async: true, headers: {}, timeout: 0, crossDomain: false, responseType: 'json', withCredentials: false }));
 
         const projectRes = jsonConvert.serializeObject(project, ProjectResponse);
         responseData.body = projectRes;

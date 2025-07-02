@@ -1,6 +1,6 @@
 import { of, throwError } from "rxjs";
 import { AjaxError } from "rxjs/ajax";
-import { delay } from "rxjs/operators";
+import { delay } from "rxjs";
 import { MockOntology } from "../../../test/data/api/v2/mock-ontology";
 import { MockOntologyAssertions } from "../../../test/data/api/v2/mock-ontology-assertions";
 import { KnoraApiConfig } from "../../knora-api-config";
@@ -284,7 +284,7 @@ describe("OntologyCache", () => {
 
             knoraApiConnection = new KnoraApiConnection(config);
 
-            const ajaxError = new AjaxError("Error", new XMLHttpRequest(), {});
+            const ajaxError = new AjaxError("Error", new XMLHttpRequest(), { url: 'test-url', method: 'GET', async: true, headers: {}, timeout: 0, user: undefined, password: undefined, crossDomain: false, responseType: 'json', withCredentials: false });
             const apiResponseError = ApiResponseError.fromAjaxError(ajaxError);
             getOntoSpy = spyOn(knoraApiConnection.v2.onto, "getOntology").and.returnValue(throwError(apiResponseError));
 

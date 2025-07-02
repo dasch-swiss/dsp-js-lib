@@ -1,5 +1,5 @@
 import { forkJoin, Observable, of } from "rxjs";
-import { map, mergeMap } from "rxjs/operators";
+import { map, mergeMap } from "rxjs";
 import { V2Endpoint } from "../../api/v2/v2-endpoint";
 import { KnoraApiConfig } from "../../knora-api-config";
 import { IHasProperty } from "../../models/v2/ontologies/class-definition";

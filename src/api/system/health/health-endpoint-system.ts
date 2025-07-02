@@ -1,4 +1,4 @@
-import { catchError, map } from "rxjs/operators";
+import { catchError, map } from "rxjs";
 import { ApiResponseData } from "../../../models/api-response-data";
 import { HealthResponse } from "../../../models/system/health-response";
 import { Endpoint } from "../../endpoint";
@@ -15,7 +15,7 @@ export class HealthEndpointSystem extends Endpoint {
      */
     getHealthStatus() {
         return this.httpGet("").pipe(
-            map(ajaxResponse => {
+            map((ajaxResponse: any) => {
                 return ApiResponseData.fromAjaxResponse(ajaxResponse, HealthResponse, this.jsonConvert);
             }),
             catchError(error => this.handleError(error))

@@ -1,6 +1,6 @@
 import { Observable, of, throwError } from "rxjs";
 import { AjaxError, AjaxResponse } from "rxjs/ajax";
-import { delay, mergeMap, retryWhen, tap } from "rxjs/operators";
+import { retry, timer } from "rxjs";
 
 /**
  *
@@ -17,27 +17,18 @@ export function retryOnError(delayMs: number, maxRetries: number, retryOnErrorSt
     let retries = maxRetries;
 
     // inspired by https://medium.com/angular-in-depth/retry-failed-http-requests-in-angular-f5959d486294
-    return (src: Observable<AjaxResponse>): Observable<AjaxResponse> =>
+    return (src: Observable<AjaxResponse<any>>): Observable<AjaxResponse<any>> =>
         src.pipe(
-            // when no error is thrown, this simply returns the source Observable
-            retryWhen(errors =>
-                errors.pipe(
-                    // log error message if logging is enabled
-                    tap((error: AjaxError) => {
-                        if (logError) console.error("HTTP request failed:", "status:", error.status, "retries:", retries, "error:", error);
-                    }),
-                    mergeMap((error: AjaxError) => {
-                        // retry on specified error status
-                        // check if max retries is reached ("retries" is decremented on each retry)
-                        if (retryOnErrorStatus.indexOf(error.status) !== -1 && retries-- > 0) {
-                            return of(error).pipe(
-                                // delay retry
-                                delay(delayMs)
-                            );
-                        } else {
-                            // do not retry
-                            return throwError(error);
-                        }
-                    })
-                )));
+            retry({
+                count: maxRetries,
+                delay: (error: AjaxError, retryCount: number) => {
+                    if (retryOnErrorStatus.indexOf(error.status) !== -1) {
+                        if (logError) console.error("HTTP request failed:", "status:", error.status, "retries:", retryCount, "error:", error);
+                        return timer(delayMs);
+                    } else {
+                        return throwError(() => error);
+                    }
+                }
+            })
+        );
 }
