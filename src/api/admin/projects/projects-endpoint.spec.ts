@@ -90,7 +90,7 @@ describe("ProjectsEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/projects/create-project-request.json");
 
@@ -194,7 +194,7 @@ describe("ProjectsEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/projects/update-project-request.json");
 

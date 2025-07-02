@@ -314,7 +314,7 @@ describe("UsersEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/users/create-user-request.json");
 
@@ -354,7 +354,7 @@ describe("UsersEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/users/update-user-request.json");
 
@@ -387,7 +387,7 @@ describe("UsersEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/users/update-user-status-request.json");
 
@@ -420,7 +420,7 @@ describe("UsersEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/json; charset=utf-8" });
 
             const payload = require("../../../../test/data/api/admin/users/update-user-password-request.json");
 
@@ -455,7 +455,7 @@ describe("UsersEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/json; charset=utf-8" });
 
         });
 
@@ -515,7 +515,7 @@ describe("UsersEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/json; charset=utf-8" });
 
         });
 
@@ -575,7 +575,7 @@ describe("UsersEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/json; charset=utf-8" });
 
         });
 

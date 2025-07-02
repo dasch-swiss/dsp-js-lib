@@ -666,7 +666,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -712,7 +712,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -758,7 +758,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -805,7 +805,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -851,7 +851,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -897,7 +897,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -943,7 +943,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -989,7 +989,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -1035,7 +1035,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -1082,7 +1082,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -1136,7 +1136,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -1188,7 +1188,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -1238,7 +1238,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -1284,7 +1284,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -1330,7 +1330,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -1376,7 +1376,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -1422,7 +1422,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -1469,7 +1469,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -1516,7 +1516,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -1564,7 +1564,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("PUT");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -1633,7 +1633,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("POST");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -1677,7 +1677,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("POST");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -1721,7 +1721,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("POST");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -1766,7 +1766,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("POST");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -1808,7 +1808,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("POST");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -1851,7 +1851,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("POST");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -1894,7 +1894,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("POST");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -1937,7 +1937,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("POST");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -1980,7 +1980,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("POST");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -2024,7 +2024,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("POST");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -2075,7 +2075,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("POST");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -2124,7 +2124,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("POST");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -2171,7 +2171,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("POST");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -2214,7 +2214,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("POST");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -2257,7 +2257,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("POST");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -2322,7 +2322,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("POST");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -2366,7 +2366,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("POST");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 
@@ -2411,7 +2411,7 @@ describe("ValuesEndpoint", () => {
             expect(request.method).toEqual("POST");
 
             expect(request.requestHeaders).toEqual({
-                "Content-Type": "application/json; charset=utf-8",
+                "content-type": "application/json; charset=utf-8",
                 "X-Asset-Ingested": "true"
             });
 

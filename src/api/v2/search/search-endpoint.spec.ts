@@ -334,7 +334,7 @@ describe("SearchEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/sparql-query; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/sparql-query; charset=utf-8" });
 
             // https://github.com/jasmine/jasmine-ajax#5-inspect-ajax-requests
             // just check for the params because data() cannot handle this case
@@ -378,7 +378,7 @@ describe("SearchEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/sparql-query; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/sparql-query; charset=utf-8" });
 
             // https://github.com/jasmine/jasmine-ajax#5-inspect-ajax-requests
             // just check for the params because data() cannot handle this case
@@ -420,7 +420,7 @@ describe("SearchEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/sparql-query; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/sparql-query; charset=utf-8" });
 
             // https://github.com/jasmine/jasmine-ajax#5-inspect-ajax-requests
             // just check for the params because data() cannot handle this case
@@ -464,7 +464,7 @@ describe("SearchEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/sparql-query; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/sparql-query; charset=utf-8" });
 
             // https://github.com/jasmine/jasmine-ajax#5-inspect-ajax-requests
             // just check for the params because data() cannot handle this case

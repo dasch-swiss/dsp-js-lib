@@ -168,7 +168,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("POST");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
+        expect(request.requestHeaders).toEqual({"content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -198,7 +198,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("POST");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
+        expect(request.requestHeaders).toEqual({"content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -226,7 +226,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("POST");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
+        expect(request.requestHeaders).toEqual({"content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -257,8 +257,8 @@ describe("Test class Endpoint", () => {
         expect(request.method).toEqual("POST");
 
         expect(request.requestHeaders).toEqual({
-            "Authorization": "Bearer testtoken",
-            "Content-Type": "application/json; charset=utf-8",
+            "authorization": "Bearer testtoken",
+            "content-type": "application/json; charset=utf-8",
             "x-requested-with": "XMLHttpRequest"
         });
 
@@ -266,7 +266,7 @@ describe("Test class Endpoint", () => {
 
     });
 
-    it("should perform a POST request with default JSON Content-Type and optional header options", done => {
+    it("should perform a POST request with default JSON content-type and optional header options", done => {
 
         const config = new KnoraApiConfig("http", "localhost", 3333);
 
@@ -289,7 +289,7 @@ describe("Test class Endpoint", () => {
         expect(request.method).toEqual("POST");
 
         expect(request.requestHeaders).toEqual({
-            "Content-Type": "application/json; charset=utf-8",
+            "content-type": "application/json; charset=utf-8",
             "my-feature-toggle": "my-awesome-feature",
             "x-requested-with": "XMLHttpRequest"
         });
@@ -298,7 +298,7 @@ describe("Test class Endpoint", () => {
 
     });
 
-    it("should perform a POST request with SPARQL Content-Type and additional header options", done => {
+    it("should perform a POST request with SPARQL content-type and additional header options", done => {
 
         const config = new KnoraApiConfig("http", "localhost", 3333);
 
@@ -337,7 +337,7 @@ describe("Test class Endpoint", () => {
         expect(request.method).toEqual("POST");
 
         expect(request.requestHeaders).toEqual({
-            "Content-Type": "application/sparql-query; charset=utf-8",
+            "content-type": "application/sparql-query; charset=utf-8",
             "my-feature-toggle": "my-awesome-feature",
             "x-requested-with": "XMLHttpRequest"
         });
@@ -370,7 +370,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("PUT");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
+        expect(request.requestHeaders).toEqual({"content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -399,7 +399,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("PUT");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
+        expect(request.requestHeaders).toEqual({"content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -427,7 +427,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("PUT");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
+        expect(request.requestHeaders).toEqual({"content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -458,8 +458,8 @@ describe("Test class Endpoint", () => {
         expect(request.method).toEqual("PUT");
 
         expect(request.requestHeaders).toEqual({
-            "Authorization": "Bearer testtoken",
-            "Content-Type": "application/json; charset=utf-8",
+            "authorization": "Bearer testtoken",
+            "content-type": "application/json; charset=utf-8",
             "x-requested-with": "XMLHttpRequest"
         });
 
@@ -467,7 +467,7 @@ describe("Test class Endpoint", () => {
 
     });
 
-    it("should perform a PUT request with default Content-Type and additional header options", done => {
+    it("should perform a PUT request with default content-type and additional header options", done => {
 
         const config = new KnoraApiConfig("http", "localhost", 3333);
 
@@ -490,7 +490,7 @@ describe("Test class Endpoint", () => {
         expect(request.method).toEqual("PUT");
 
         expect(request.requestHeaders).toEqual({
-            "Content-Type": "application/json; charset=utf-8",
+            "content-type": "application/json; charset=utf-8",
             "my-feature-toggle": "my-awesome-feature",
             "x-requested-with": "XMLHttpRequest"
         });
