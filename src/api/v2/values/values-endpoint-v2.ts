@@ -41,7 +41,7 @@ export class ValuesEndpointV2 extends Endpoint {
      */
     getValue(resourceIri: string, valueUuid: string) {
         return this.httpGet("/" + encodeURIComponent(resourceIri) + "/" + encodeURIComponent(valueUuid)).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse: AjaxResponse<T>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -71,7 +71,7 @@ export class ValuesEndpointV2 extends Endpoint {
         res[resource.property] = val;
 
         return this.httpPut("", res, "json", {"X-Asset-Ingested": "true"}).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse: AjaxResponse<T>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -101,7 +101,7 @@ export class ValuesEndpointV2 extends Endpoint {
         res[resource.property] = val;
 
         return this.httpPost("", res, "json", {"X-Asset-Ingested": "true"}).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse: AjaxResponse<T>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
@@ -128,7 +128,7 @@ export class ValuesEndpointV2 extends Endpoint {
         res[resource.property] = val;
 
         return this.httpPost("/delete", res).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse: AjaxResponse<T>) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri

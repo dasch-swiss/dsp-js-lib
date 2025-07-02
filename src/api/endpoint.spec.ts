@@ -20,7 +20,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpGet"]().subscribe(
-            (response: AjaxResponse<any>) => {
+            (response: AjaxResponse<T>) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -46,7 +46,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpGet"]().subscribe(
-            (response: AjaxResponse<any>) => {
+            (response: AjaxResponse<T>) => {
             },
             err => {
                 expect(err instanceof Error).toBeTruthy();
@@ -73,7 +73,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpGet"]("/mypath").subscribe(
-            (response: AjaxResponse<any>) => {
+            (response: AjaxResponse<T>) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -101,7 +101,7 @@ describe("Test class Endpoint", () => {
         endpoint.jsonWebToken = "testtoken";
 
         endpoint["httpGet"]().subscribe(
-            (response: AjaxResponse<any>) => {
+            (response: AjaxResponse<T>) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -127,7 +127,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpGet"](undefined, {"my-feature-toggle": "my-awesome-feature"}).subscribe(
-            (response: AjaxResponse<any>) => {
+            (response: AjaxResponse<T>) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -153,7 +153,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpPost"]("", {mydata: "data"}).subscribe(
-            (response: AjaxResponse<any>) => {
+            (response: AjaxResponse<T>) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -181,7 +181,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpPost"]("", {mydata: "data"}).subscribe(
-            (response: AjaxResponse<any>) => {
+            (response: AjaxResponse<T>) => {
 
             },
             err => {
@@ -211,7 +211,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpPost"]("/mypath", {mydata: "data"}).subscribe(
-            (response: AjaxResponse<any>) => {
+            (response: AjaxResponse<T>) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -241,7 +241,7 @@ describe("Test class Endpoint", () => {
         endpoint.jsonWebToken = "testtoken";
 
         endpoint["httpPost"]("", {mydata: "data"}).subscribe(
-            (response: AjaxResponse<any>) => {
+            (response: AjaxResponse<T>) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -273,7 +273,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpPost"](undefined, {mydata: "data"}, undefined, {"my-feature-toggle": "my-awesome-feature"}).subscribe(
-            (response: AjaxResponse<any>) => {
+            (response: AjaxResponse<T>) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -321,7 +321,7 @@ describe("Test class Endpoint", () => {
             `;
 
         endpoint["httpPost"](undefined, gravsearchQuery, "sparql", {"my-feature-toggle": "my-awesome-feature"}).subscribe(
-            (response: AjaxResponse<any>) => {
+            (response: AjaxResponse<T>) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -355,7 +355,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpPut"]("", {mydata: "data"}).subscribe(
-            (response: AjaxResponse<any>) => {
+            (response: AjaxResponse<T>) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -383,7 +383,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpPut"]("", {mydata: "data"}).subscribe(
-            (response: AjaxResponse<any>) => {
+            (response: AjaxResponse<T>) => {
             },
             err => {
                 expect(err instanceof Error).toBeTruthy();
@@ -412,7 +412,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpPut"]("/mypath", {mydata: "data"}).subscribe(
-            (response: AjaxResponse<any>) => {
+            (response: AjaxResponse<T>) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -442,7 +442,7 @@ describe("Test class Endpoint", () => {
         endpoint.jsonWebToken = "testtoken";
 
         endpoint["httpPut"]("/mypath", {mydata: "data"}).subscribe(
-            (response: AjaxResponse<any>) => {
+            (response: AjaxResponse<T>) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -474,7 +474,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpPut"](undefined, {mydata: "data"}, undefined, {"my-feature-toggle": "my-awesome-feature"}).subscribe(
-            (response: AjaxResponse<any>) => {
+            (response: AjaxResponse<T>) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -506,7 +506,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpDelete"]().subscribe(
-            (response: AjaxResponse<any>) => {
+            (response: AjaxResponse<T>) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -532,7 +532,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpDelete"]().subscribe(
-            (response: AjaxResponse<any>) => {
+            (response: AjaxResponse<T>) => {
             },
             err => {
                 expect(err instanceof Error).toBeTruthy();
@@ -559,7 +559,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpDelete"]("/mypath").subscribe(
-            (response: AjaxResponse<any>) => {
+            (response: AjaxResponse<T>) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -587,7 +587,7 @@ describe("Test class Endpoint", () => {
         endpoint.jsonWebToken = "testtoken";
 
         endpoint["httpDelete"]().subscribe(
-            (response: AjaxResponse<any>) => {
+            (response: AjaxResponse<T>) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -613,7 +613,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpDelete"](undefined, {"my-feature-toggle": "my-awesome-feature"}).subscribe(
-            (response: AjaxResponse<any>) => {
+            (response: AjaxResponse<T>) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
