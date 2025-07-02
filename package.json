@@ -28,7 +28,7 @@
     "prepare-dev-publication": "node scripts/prepare-dev-publication.js",
     "build-docs": "typedoc --options typedoc.json src",
     "typedoc-config": "node scripts/typedoc-config.js",
-    "peer-deps": "npm i rxjs@7.x --no-save",
+    "peer-deps": "npm i rxjs@^7.8.0 --no-save",
     "build-local": "npm i && npm run peer-deps && npm run prepare-dev-publication && npm run yalc-publish"
   },
   "repository": {
@@ -73,6 +73,6 @@
     "jsonld": "^8.1.0"
   },
   "peerDependencies": {
-    "rxjs": "7.x"
+    "rxjs": "^7.8.0"
   }
 }
