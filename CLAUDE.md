@@ -26,9 +26,25 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 DSP-JS-LIB is a TypeScript library providing a JavaScript/TypeScript interface for DSP-API (Digital Scholarly Publishing API). It uses endpoint-based architecture mirroring DSP-API's REST endpoints.
 
 ### Main Endpoints
-- **admin** - Administrative endpoints (users, projects, permissions)
-- **v2** - Core API v2 endpoints (resources, ontologies, search)
-- **system** - System health and version endpoints
+
+#### Admin Endpoints
+- **admin.usersEndpoint** - User management (getUsers, getUserByIri/Email/Username, createUser, updateUser*, addUserToGroup/Project*, deleteUser)
+- **admin.groupsEndpoint** - Group management (getGroups, createGroup, getGroupByIri, updateGroup*, deleteGroup, getGroupMembers)
+- **admin.projectsEndpoint** - Project management (getProjects, createProject, getProject*, updateProject, deleteProject, getProjectMembers/AdminMembers*)
+- **admin.permissionsEndpoint** - Permission management (getProjectPermissions, get/create/updateAdministrativePermission*, get/create/updateDefaultObjectAccessPermission*, deletePermission)
+- **admin.listsEndpoint** - List management (getLists, getListsInProject, createList, updateListInfo, createChildNode, repositionChildNode, deleteListNode)
+
+#### V2 Endpoints  
+- **v2.auth** - Authentication (login, logout, checkCredentials)
+- **v2.onto** - Ontology management (getOntology/OntologiesMetadata, create/update/deleteOntology, create/update/deleteResourceClass*, create/update/deleteResourceProperty*, cardinality management)
+- **v2.res** - Resource operations (getResource/Resources, createResource, updateResourceMetadata, deleteResource, eraseResource)
+- **v2.values** - Value operations (getValue, createValue, updateValue, deleteValue)
+- **v2.list** - List access (getNode, getList)
+- **v2.search** - Search operations (doFulltextSearch, doExtendedSearch, doSearchByLabel, doSearchIncomingLinks, doSearchStillImageRepresentations, all with count query variants)
+
+#### System Endpoints
+- **system.healthEndpoint** - Health monitoring (getHealthStatus)
+- **system.versionEndpoint** - Version info (getVersion)
 
 ### Key Directories
 - `src/api/` - API endpoint implementations organized by endpoint type
@@ -69,3 +85,10 @@ DSP-JS-LIB is a TypeScript library providing a JavaScript/TypeScript interface f
 - Test data is downloaded from DSP-API releases
 - Integration tests available in `test-framework/` Angular app
 - No ignored tests allowed (CI fails on `fit`, `fdescribe`, etc.)
+
+### Settings and Configuration
+- **Claude settings** - `.claude/settings.json` (default permissions) and `.claude/settings.local.json` (allows Bash find commands)
+- **No VS Code settings** - No `.vscode/` directory in project root
+- **TSLint configuration** - Uses `tslint.json` with custom rules (double quotes, member ordering)
+- **TypeScript configuration** - `tsconfig.json` with strict null checks and ES5 target
+- **Karma configuration** - `karma.conf.js` for test execution with ChromeHeadless
