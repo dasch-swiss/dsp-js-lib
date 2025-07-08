@@ -66,7 +66,7 @@ export class Endpoint {
      * @param path the relative URL for the request
      * @param headerOpts additional headers, if any.
      */
-    protected httpGet(path?: string, headerOpts?: IHeaderOptions): Observable<AjaxResponse<any>> {
+    protected httpGet(path?: string, headerOpts?: IHeaderOptions) {
         if (path === undefined) path = "";
 
         return ajax(this.setAjaxRequest(path, "GET", undefined, this.constructHeader(undefined, headerOpts)))
@@ -84,7 +84,7 @@ export class Endpoint {
      * @param contentType content content type of body, if any.
      * @param headerOpts additional headers, if any.
      */
-    protected httpPost(path?: string, body?: any, contentType: "json" | "sparql" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse<any>> {
+    protected httpPost(path?: string, body?: any, contentType: "json" | "sparql" = "json", headerOpts?: IHeaderOptions) {
 
         if (path === undefined) path = "";
 
@@ -103,7 +103,7 @@ export class Endpoint {
      * @param contentType content content type of body, if any.
      * @param headerOpts additional headers, if any.
      */
-    protected httpPut(path?: string, body?: any, contentType: "json" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse<any>> {
+    protected httpPut(path?: string, body?: any, contentType: "json" = "json", headerOpts?: IHeaderOptions) {
 
         if (path === undefined) path = "";
 
@@ -122,7 +122,7 @@ export class Endpoint {
      * @param contentType content content type of body, if any.
      * @param headerOpts additional headers, if any.
      */
-    protected httpPatch(path?: string, body?: any, contentType: "json" = "json", headerOpts?: IHeaderOptions): Observable<AjaxResponse<any>> {
+    protected httpPatch(path?: string, body?: any, contentType: "json" = "json", headerOpts?: IHeaderOptions) {
 
         if (path === undefined) path = "";
 
@@ -139,7 +139,7 @@ export class Endpoint {
      * @param path the relative URL for the request.
      * @param headerOpts additional headers, if any.
      */
-    protected httpDelete(path?: string, headerOpts?: IHeaderOptions): Observable<AjaxResponse<any>> {
+    protected httpDelete(path?: string, headerOpts?: IHeaderOptions) {
 
         if (path === undefined) path = "";
 
