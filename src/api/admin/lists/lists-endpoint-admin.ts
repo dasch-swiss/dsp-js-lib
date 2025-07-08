@@ -1,4 +1,4 @@
-import { catchError, map } from "rxjs/operators";
+import { catchError, map } from "rxjs";
 import { ChildNodeInfoResponse } from "../../../models/admin/child-node-info-response";
 import { CreateChildNodeRequest } from "../../../models/admin/create-child-node-request";
 import { CreateListRequest } from "../../../models/admin/create-list-request";
@@ -144,7 +144,7 @@ export class ListsEndpointAdmin extends Endpoint {
      */
     deleteListNode(iri: string) {
         return this.httpDelete("/" + encodeURIComponent(iri)).pipe(
-            map(ajaxResponse => {
+            map((ajaxResponse) => {
                 if (ajaxResponse.response.hasOwnProperty("node")) { // child node
                     return ApiResponseData.fromAjaxResponse(ajaxResponse, DeleteListNodeResponse, this.jsonConvert);
                 } else { // root node
@@ -194,7 +194,7 @@ export class ListsEndpointAdmin extends Endpoint {
      */
     getListNodeInfo(listItemIri: string) {
         return this.httpGet("/" + encodeURIComponent(listItemIri) + "/info").pipe(
-            map(ajaxResponse => {
+            map((ajaxResponse) => {
                 if (ajaxResponse.response.hasOwnProperty("listinfo")) { // root node
                     return ApiResponseData.fromAjaxResponse(ajaxResponse, ListInfoResponse, this.jsonConvert);
                 } else { // child node
@@ -224,7 +224,7 @@ export class ListsEndpointAdmin extends Endpoint {
      */
     getList(listItemIri: string) {
         return this.httpGet("/" + encodeURIComponent(listItemIri)).pipe(
-            map(ajaxResponse => {
+            map((ajaxResponse) => {
                 if (ajaxResponse.response.hasOwnProperty("list")) {
                     return ApiResponseData.fromAjaxResponse(ajaxResponse, ListResponse, this.jsonConvert);
                 } else {

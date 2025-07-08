@@ -47,6 +47,7 @@ describe("HealthEndpoint", () => {
             request.respondWith({
                 status: 200,
                 responseText: JSON.stringify(health),
+                response: health,
                 responseHeaders: {
                     server: getServerFromResponseHeader(responseHeader)
                 }
@@ -80,6 +81,7 @@ describe("HealthEndpoint", () => {
             request.respondWith({
                 status: 200,
                 responseText: JSON.stringify(health),
+                response: health,
                 responseHeaders: {
                     server: getServerFromResponseHeader(responseHeader)
                 }
@@ -113,6 +115,7 @@ describe("HealthEndpoint", () => {
             request.respondWith({
                 status: 200,
                 responseText: JSON.stringify(health),
+                response: health,
                 responseHeaders: {
                     server: getServerFromResponseHeader(responseHeader)
                 }

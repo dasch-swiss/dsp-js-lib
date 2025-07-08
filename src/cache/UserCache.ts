@@ -1,4 +1,4 @@
-import { map } from "rxjs/operators";
+import { map } from "rxjs";
 import { KnoraApiConnection } from "../knora-api-connection";
 import { UserResponse } from "../models/admin/user-response";
 import { ApiResponseData } from "../models/api-response-data";

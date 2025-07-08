@@ -6,7 +6,7 @@ describe("Test class ApiResponseError", () => {
 
     describe("Test method fromAjaxError()", () => {
 
-        const ajaxError = new AjaxError("Error", new XMLHttpRequest(), {});
+        const ajaxError = new AjaxError("Error", new XMLHttpRequest(), { url: "test-url", method: "GET", async: true, headers: {}, timeout: 0, user: undefined, password: undefined, crossDomain: false, responseType: "json", withCredentials: false });
         const apiResponseError = ApiResponseError.fromAjaxError(ajaxError);
 
         it("should be an instance of ApiResponseError", () => {
@@ -22,7 +22,12 @@ describe("Test class ApiResponseError", () => {
     describe("Test method fromErrorString()", () => {
 
         const errorString = "Error string";
-        const responseData = ApiResponseData.fromAjaxResponse(new AjaxResponse({} as any, {} as any, {}));
+        const mockXhr = {
+            getAllResponseHeaders: () => "",
+            status: 200,
+            statusText: "OK"
+        } as any;
+        const responseData = ApiResponseData.fromAjaxResponse(new AjaxResponse({} as any, mockXhr, { url: "test-url", method: "GET", async: true, headers: {}, timeout: 0, user: undefined, password: undefined, crossDomain: false, responseType: "json", withCredentials: false }));
         const apiResponseError = ApiResponseError.fromErrorString(errorString, responseData);
 
         it("should be an instance of ApiResponseError", () => {

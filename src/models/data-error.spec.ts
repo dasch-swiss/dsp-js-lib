@@ -6,7 +6,7 @@ describe("Test class DataError", () => {
 
     describe("Test method constructor()", () => {
 
-        const ajaxError = new AjaxError("Error", new XMLHttpRequest(), {});
+        const ajaxError = new AjaxError("Error", new XMLHttpRequest(), { url: 'test-url', method: 'GET', async: true, headers: {}, timeout: 0, user: undefined, password: undefined, crossDomain: false, responseType: 'json', withCredentials: false });
         const dataError = new DataError("Error", ApiResponseError.fromAjaxError(ajaxError));
 
         it("should be an instance of Error", () => {

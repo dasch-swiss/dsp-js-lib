@@ -1,4 +1,4 @@
-import { catchError, map } from "rxjs/operators";
+import { catchError, map } from "rxjs";
 import { AdministrativePermissionResponse } from "../../../models/admin/administrative-permission-response";
 import { AdministrativePermissionsResponse } from "../../../models/admin/administrative-permissions-response";
 import { CreateAdministrativePermission } from "../../../models/admin/create-administrative-permission";

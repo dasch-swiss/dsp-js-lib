@@ -20,7 +20,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpGet"]().subscribe(
-            (response: AjaxResponse) => {
+            (response) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -35,7 +35,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("GET");
 
-        expect(request.requestHeaders).toEqual({});
+        expect(request.requestHeaders).toEqual({"x-requested-with": "XMLHttpRequest"});
 
     });
 
@@ -46,7 +46,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpGet"]().subscribe(
-            (response: AjaxResponse) => {
+            (response) => {
             },
             err => {
                 expect(err instanceof Error).toBeTruthy();
@@ -62,7 +62,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("GET");
 
-        expect(request.requestHeaders).toEqual({});
+        expect(request.requestHeaders).toEqual({"x-requested-with": "XMLHttpRequest"});
 
     });
 
@@ -73,7 +73,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpGet"]("/mypath").subscribe(
-            (response: AjaxResponse) => {
+            (response) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -88,7 +88,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("GET");
 
-        expect(request.requestHeaders).toEqual({});
+        expect(request.requestHeaders).toEqual({"x-requested-with": "XMLHttpRequest"});
 
     });
 
@@ -101,7 +101,7 @@ describe("Test class Endpoint", () => {
         endpoint.jsonWebToken = "testtoken";
 
         endpoint["httpGet"]().subscribe(
-            (response: AjaxResponse) => {
+            (response) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -116,7 +116,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("GET");
 
-        expect(request.requestHeaders).toEqual({Authorization: "Bearer testtoken"});
+        expect(request.requestHeaders).toEqual({"authorization": "Bearer testtoken", "x-requested-with": "XMLHttpRequest"});
 
     });
 
@@ -127,7 +127,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpGet"](undefined, {"my-feature-toggle": "my-awesome-feature"}).subscribe(
-            (response: AjaxResponse) => {
+            (response) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -142,7 +142,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("GET");
 
-        expect(request.requestHeaders).toEqual({"my-feature-toggle": "my-awesome-feature"});
+        expect(request.requestHeaders).toEqual({"my-feature-toggle": "my-awesome-feature", "x-requested-with": "XMLHttpRequest"});
 
     });
 
@@ -153,7 +153,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpPost"]("", {mydata: "data"}).subscribe(
-            (response: AjaxResponse) => {
+            (response) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -168,7 +168,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("POST");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+        expect(request.requestHeaders).toEqual({"content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -181,7 +181,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpPost"]("", {mydata: "data"}).subscribe(
-            (response: AjaxResponse) => {
+            (response) => {
 
             },
             err => {
@@ -198,7 +198,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("POST");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+        expect(request.requestHeaders).toEqual({"content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -211,7 +211,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpPost"]("/mypath", {mydata: "data"}).subscribe(
-            (response: AjaxResponse) => {
+            (response) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -226,7 +226,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("POST");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+        expect(request.requestHeaders).toEqual({"content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -241,7 +241,7 @@ describe("Test class Endpoint", () => {
         endpoint.jsonWebToken = "testtoken";
 
         endpoint["httpPost"]("", {mydata: "data"}).subscribe(
-            (response: AjaxResponse) => {
+            (response) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -257,22 +257,23 @@ describe("Test class Endpoint", () => {
         expect(request.method).toEqual("POST");
 
         expect(request.requestHeaders).toEqual({
-            "Authorization": "Bearer testtoken",
-            "Content-Type": "application/json; charset=utf-8"
+            "authorization": "Bearer testtoken",
+            "content-type": "application/json; charset=utf-8",
+            "x-requested-with": "XMLHttpRequest"
         });
 
         expect(request.data()).toEqual({mydata: "data"});
 
     });
 
-    it("should perform a POST request with default JSON Content-Type and optional header options", done => {
+    it("should perform a POST request with default JSON content-type and optional header options", done => {
 
         const config = new KnoraApiConfig("http", "localhost", 3333);
 
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpPost"](undefined, {mydata: "data"}, undefined, {"my-feature-toggle": "my-awesome-feature"}).subscribe(
-            (response: AjaxResponse) => {
+            (response) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -288,15 +289,16 @@ describe("Test class Endpoint", () => {
         expect(request.method).toEqual("POST");
 
         expect(request.requestHeaders).toEqual({
-            "Content-Type": "application/json; charset=utf-8",
-            "my-feature-toggle": "my-awesome-feature"
+            "content-type": "application/json; charset=utf-8",
+            "my-feature-toggle": "my-awesome-feature",
+            "x-requested-with": "XMLHttpRequest"
         });
 
         expect(request.data()).toEqual({mydata: "data"});
 
     });
 
-    it("should perform a POST request with SPARQL Content-Type and additional header options", done => {
+    it("should perform a POST request with SPARQL content-type and additional header options", done => {
 
         const config = new KnoraApiConfig("http", "localhost", 3333);
 
@@ -319,7 +321,7 @@ describe("Test class Endpoint", () => {
             `;
 
         endpoint["httpPost"](undefined, gravsearchQuery, "sparql", {"my-feature-toggle": "my-awesome-feature"}).subscribe(
-            (response: AjaxResponse) => {
+            (response) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -335,8 +337,9 @@ describe("Test class Endpoint", () => {
         expect(request.method).toEqual("POST");
 
         expect(request.requestHeaders).toEqual({
-            "Content-Type": "application/sparql-query; charset=utf-8",
-            "my-feature-toggle": "my-awesome-feature"
+            "content-type": "application/sparql-query; charset=utf-8",
+            "my-feature-toggle": "my-awesome-feature",
+            "x-requested-with": "XMLHttpRequest"
         });
 
         // https://github.com/jasmine/jasmine-ajax#5-inspect-ajax-requests
@@ -352,7 +355,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpPut"]("", {mydata: "data"}).subscribe(
-            (response: AjaxResponse) => {
+            (response) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -367,7 +370,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("PUT");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+        expect(request.requestHeaders).toEqual({"content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -380,7 +383,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpPut"]("", {mydata: "data"}).subscribe(
-            (response: AjaxResponse) => {
+            (response) => {
             },
             err => {
                 expect(err instanceof Error).toBeTruthy();
@@ -396,7 +399,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("PUT");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+        expect(request.requestHeaders).toEqual({"content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -409,7 +412,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpPut"]("/mypath", {mydata: "data"}).subscribe(
-            (response: AjaxResponse) => {
+            (response) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -424,7 +427,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("PUT");
 
-        expect(request.requestHeaders).toEqual({"Content-Type": "application/json; charset=utf-8"});
+        expect(request.requestHeaders).toEqual({"content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
 
         expect(request.data()).toEqual({mydata: "data"});
 
@@ -439,7 +442,7 @@ describe("Test class Endpoint", () => {
         endpoint.jsonWebToken = "testtoken";
 
         endpoint["httpPut"]("/mypath", {mydata: "data"}).subscribe(
-            (response: AjaxResponse) => {
+            (response) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -455,22 +458,23 @@ describe("Test class Endpoint", () => {
         expect(request.method).toEqual("PUT");
 
         expect(request.requestHeaders).toEqual({
-            "Authorization": "Bearer testtoken",
-            "Content-Type": "application/json; charset=utf-8"
+            "authorization": "Bearer testtoken",
+            "content-type": "application/json; charset=utf-8",
+            "x-requested-with": "XMLHttpRequest"
         });
 
         expect(request.data()).toEqual({mydata: "data"});
 
     });
 
-    it("should perform a PUT request with default Content-Type and additional header options", done => {
+    it("should perform a PUT request with default content-type and additional header options", done => {
 
         const config = new KnoraApiConfig("http", "localhost", 3333);
 
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpPut"](undefined, {mydata: "data"}, undefined, {"my-feature-toggle": "my-awesome-feature"}).subscribe(
-            (response: AjaxResponse) => {
+            (response) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -486,8 +490,9 @@ describe("Test class Endpoint", () => {
         expect(request.method).toEqual("PUT");
 
         expect(request.requestHeaders).toEqual({
-            "Content-Type": "application/json; charset=utf-8",
-            "my-feature-toggle": "my-awesome-feature"
+            "content-type": "application/json; charset=utf-8",
+            "my-feature-toggle": "my-awesome-feature",
+            "x-requested-with": "XMLHttpRequest"
         });
 
         expect(request.data()).toEqual({mydata: "data"});
@@ -501,7 +506,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpDelete"]().subscribe(
-            (response: AjaxResponse) => {
+            (response) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -516,7 +521,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("DELETE");
 
-        expect(request.requestHeaders).toEqual({});
+        expect(request.requestHeaders).toEqual({"x-requested-with": "XMLHttpRequest"});
 
     });
 
@@ -527,7 +532,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpDelete"]().subscribe(
-            (response: AjaxResponse) => {
+            (response) => {
             },
             err => {
                 expect(err instanceof Error).toBeTruthy();
@@ -543,7 +548,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("DELETE");
 
-        expect(request.requestHeaders).toEqual({});
+        expect(request.requestHeaders).toEqual({"x-requested-with": "XMLHttpRequest"});
 
     });
 
@@ -554,7 +559,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpDelete"]("/mypath").subscribe(
-            (response: AjaxResponse) => {
+            (response) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -569,7 +574,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("DELETE");
 
-        expect(request.requestHeaders).toEqual({});
+        expect(request.requestHeaders).toEqual({"x-requested-with": "XMLHttpRequest"});
 
     });
 
@@ -582,7 +587,7 @@ describe("Test class Endpoint", () => {
         endpoint.jsonWebToken = "testtoken";
 
         endpoint["httpDelete"]().subscribe(
-            (response: AjaxResponse) => {
+            (response) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -597,7 +602,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("DELETE");
 
-        expect(request.requestHeaders).toEqual({Authorization: "Bearer testtoken"});
+        expect(request.requestHeaders).toEqual({"authorization": "Bearer testtoken", "x-requested-with": "XMLHttpRequest"});
 
     });
 
@@ -608,7 +613,7 @@ describe("Test class Endpoint", () => {
         const endpoint = new Endpoint(config, "/test");
 
         endpoint["httpDelete"](undefined, {"my-feature-toggle": "my-awesome-feature"}).subscribe(
-            (response: AjaxResponse) => {
+            (response) => {
                 expect(response.status).toEqual(200);
                 expect(response.response).toEqual({test: "test"});
 
@@ -623,7 +628,7 @@ describe("Test class Endpoint", () => {
 
         expect(request.method).toEqual("DELETE");
 
-        expect(request.requestHeaders).toEqual({"my-feature-toggle": "my-awesome-feature"});
+        expect(request.requestHeaders).toEqual({"my-feature-toggle": "my-awesome-feature", "x-requested-with": "XMLHttpRequest"});
 
     });
 

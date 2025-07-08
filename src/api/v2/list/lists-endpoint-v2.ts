@@ -1,5 +1,5 @@
 import { AjaxResponse } from "rxjs/ajax";
-import { catchError, map, mergeMap } from "rxjs/operators";
+import { catchError, map, mergeMap } from "rxjs";
 import { ListNodeV2 } from "../../../models/v2/lists/list-node-v2";
 import { Endpoint } from "../../endpoint";
 
@@ -21,7 +21,7 @@ export class ListsEndpointV2 extends Endpoint {
     getNode(nodeIri: string) {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
         return this.httpGet("/node/" + encodeURIComponent(nodeIri)).pipe(
-            mergeMap((ajaxResponse: AjaxResponse) => {
+            mergeMap((ajaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -45,7 +45,7 @@ export class ListsEndpointV2 extends Endpoint {
     getList(rootNodeIri: string) {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
         return this.httpGet("/lists/" + encodeURIComponent(rootNodeIri)).pipe(
-            mergeMap((ajaxResponse: AjaxResponse) => {
+            mergeMap((ajaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});

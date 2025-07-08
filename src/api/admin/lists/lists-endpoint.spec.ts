@@ -131,7 +131,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest" });
 
             const payload = require("../../../../test/data/api/admin/lists/update-list-info-request.json");
 
@@ -187,7 +187,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest" });
 
             const payload = require("../../../../test/data/api/admin/manually-generated/update-node-info-name-comment-label-request.json");
 
@@ -238,7 +238,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest" });
 
             const payload = require("../../../../test/data/api/admin/lists/update-childNode-name-request.json");
 
@@ -278,7 +278,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest" });
 
             const payload = require("../../../../test/data/api/admin/lists/update-childNode-labels-request.json");
 
@@ -318,7 +318,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest" });
 
             const payload = require("../../../../test/data/api/admin/lists/update-childNode-comments-request.json");
 
@@ -366,7 +366,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest" });
 
             const payload = require("../../../../test/data/api/admin/lists/create-child-node-request.json");
 
@@ -417,7 +417,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest" });
 
             const payload = require("../../../../test/data/api/admin/lists/insert-childNode-in-position-request.json");
 
@@ -517,7 +517,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("POST");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest" });
 
             const payload = require("../../../../test/data/api/admin/lists/create-list-request.json");
 
@@ -596,7 +596,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("DELETE");
 
-            expect(request.requestHeaders).toEqual({});
+            expect(request.requestHeaders).toEqual({"x-requested-with": "XMLHttpRequest"});
 
         });
 
@@ -621,7 +621,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("DELETE");
 
-            expect(request.requestHeaders).toEqual({});
+            expect(request.requestHeaders).toEqual({"x-requested-with": "XMLHttpRequest"});
 
         });
 
@@ -651,7 +651,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest" });
 
             const payload = require("../../../../test/data/api/admin/lists/update-childNode-position-request.json");
 
@@ -682,7 +682,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest" });
 
             const payload = require("../../../../test/data/api/admin/lists/update-childNode-position-to-end-request.json");
 
@@ -713,7 +713,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest" });
 
             const payload = require("../../../../test/data/api/admin/lists/update-childNode-position-new-parent-request.json");
 
@@ -744,7 +744,7 @@ describe("ListsEndpoint", () => {
 
             expect(request.method).toEqual("PUT");
 
-            expect(request.requestHeaders).toEqual({ "Content-Type": "application/json; charset=utf-8" });
+            expect(request.requestHeaders).toEqual({ "content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest" });
 
             const payload = require("../../../../test/data/api/admin/lists/update-childNode-position-new-parent-to-end-request.json");
 
