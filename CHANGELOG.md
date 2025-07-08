@@ -1,5 +1,15 @@
 # Changelog
 
+## [10.8.1](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.8.0...v10.8.1) (2025-07-08)
+
+
+### Maintenances
+
+* **deps:** Bump undici from 5.28.1 to 5.28.4 ([#627](https://github.com/dasch-swiss/dsp-js-lib/issues/627)) ([5aa3fbe](https://github.com/dasch-swiss/dsp-js-lib/commit/5aa3fbe7f0fce599936c10d083d6028bd1c3f72c))
+* fix Release Please ([b1a3f24](https://github.com/dasch-swiss/dsp-js-lib/commit/b1a3f2428f3f8821c86838287aed4e7d86c40120))
+* initialize Claude Code ([#683](https://github.com/dasch-swiss/dsp-js-lib/issues/683)) ([6347472](https://github.com/dasch-swiss/dsp-js-lib/commit/6347472fddcf019f5c350fa469f2fbf105f5f495))
+* upgrade RxJS to v7.8.0 (DEV-5113) ([#682](https://github.com/dasch-swiss/dsp-js-lib/issues/682)) ([4bf1a93](https://github.com/dasch-swiss/dsp-js-lib/commit/4bf1a93691e18026d4eee6275c0881f60a2e9c40))
+
 ## [10.8.0](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.7.1...v10.8.0) (2025-05-13)
 
 
