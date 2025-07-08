@@ -7,7 +7,7 @@ export namespace MockAjaxCall {
      */
     export const mockResponse = (mockData: string) => {
 
-        let parsedResponse: any;
+        let parsedResponse;
         try {
             parsedResponse = JSON.parse(mockData);
         } catch (e) {
@@ -30,7 +30,7 @@ export namespace MockAjaxCall {
      */
     export const mockNotAuthorizedResponse = (mockData: string = JSON.stringify({})) => {
 
-        let parsedResponse: any;
+        let parsedResponse;
         try {
             parsedResponse = JSON.parse(mockData);
         } catch (e) {
@@ -53,7 +53,7 @@ export namespace MockAjaxCall {
      */
     export const mockNotFoundResponse = (mockData: string = JSON.stringify({})) => {
 
-        let parsedResponse: any;
+        let parsedResponse;
         try {
             parsedResponse = JSON.parse(mockData);
         } catch (e) {
@@ -76,7 +76,7 @@ export namespace MockAjaxCall {
      */
     export const mockBadRequestResponse = (mockData: string = JSON.stringify({})) => {
 
-        let parsedResponse: any;
+        let parsedResponse;
         try {
             parsedResponse = JSON.parse(mockData);
         } catch (e) {
