@@ -51,7 +51,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      */
     getOntologiesMetadata() {
         return this.httpGet("/metadata").pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -79,7 +79,7 @@ export class OntologiesEndpointV2 extends Endpoint {
 
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
         return this.httpGet("/allentities/" + encodeURIComponent(ontologyIri) + allLangSegment).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -99,7 +99,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      */
     getOntologiesByProjectIri(projectIri: string) {
         return this.httpGet("/metadata/" + encodeURIComponent(projectIri)).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -121,7 +121,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         const onto = this.jsonConvert.serializeObject(ontology);
 
         return this.httpPost("", onto).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -141,7 +141,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      */
     canDeleteOntology(ontologyIri: string) {
         return this.httpGet("/candeleteontology/" + encodeURIComponent(ontologyIri)).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -164,7 +164,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         const path = "/" + encodeURIComponent(ontology.id) + "?lastModificationDate=" + encodeURIComponent(ontology.lastModificationDate);
 
         return this.httpDelete(path).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -224,7 +224,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         }
 
         return this.httpDelete(`/comment/${encodeURIComponent(ontologyMetadata.id)}?lastModificationDate=${encodeURIComponent(ontologyMetadata.lastModificationDate)}`).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -243,7 +243,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         const onto = this.jsonConvert.serializeObject(ontologyMetadata);
 
         return this.httpPut("/metadata", onto).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -275,7 +275,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         ontoPayload["@graph"] = [this.jsonConvert.serializeObject(resClassPay)];
 
         return this.httpPost("/classes", ontoPayload).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -300,7 +300,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         ontoPayload["@graph"] = [this.jsonConvert.serializeObject(updateResourceClass.entity)];
 
         return this.httpPut("/classes", ontoPayload).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -324,7 +324,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         ontoPayload["@graph"] = [this.jsonConvert.serializeObject(updateProperty.entity)];
 
         return this.httpPut("/properties", ontoPayload).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -344,7 +344,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      */
     canDeleteResourceClass(resourceClassIri: string) {
         return this.httpGet("/candeleteclass/" + encodeURIComponent(resourceClassIri)).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -367,7 +367,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         const path = "/classes/" + encodeURIComponent(deleteResourceClass.id) + "?lastModificationDate=" + encodeURIComponent(deleteResourceClass.lastModificationDate);
 
         return this.httpDelete(path).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -389,7 +389,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         const path = "/classes/comment/" + encodeURIComponent(deleteResourceClassComment.id) + "?lastModificationDate=" + encodeURIComponent(deleteResourceClassComment.lastModificationDate);
 
         return this.httpDelete(path).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 return jsonld.compact(ajaxResponse.response, {})
             }),
             map((jsonldobj: object) => {
@@ -428,7 +428,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         ontoPayload["@graph"] = [this.jsonConvert.serializeObject(resPropPay)];
 
         return this.httpPost("/properties", ontoPayload).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -451,7 +451,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         ontoPayload["@graph"] = [this.jsonConvert.serializeObject(replaceGuiElement.entity)];
 
         return this.httpPut("/properties/guielement", ontoPayload).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourcePropertyResponse(jsonldobj, this.jsonConvert);
@@ -470,7 +470,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      */
     canDeleteResourceProperty(propertyIri: string) {
         return this.httpGet("/candeleteproperty/" + encodeURIComponent(propertyIri)).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -493,7 +493,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         const path = "/properties/" + encodeURIComponent(deleteResourceProperty.id) + "?lastModificationDate=" + encodeURIComponent(deleteResourceProperty.lastModificationDate);
 
         return this.httpDelete(path).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -515,7 +515,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         const path = "/properties/comment/" + encodeURIComponent(deleteResourcePropertyComment.id) + "?lastModificationDate=" + encodeURIComponent(deleteResourcePropertyComment.lastModificationDate);
 
         return this.httpDelete(path).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 return jsonld.compact(ajaxResponse.response, {})
             }),
             map((jsonldobj: object) => {
@@ -542,7 +542,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         onto["@graph"] = [cardinalities];
 
         return this.httpPost("/cardinalities", onto).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -564,7 +564,7 @@ export class OntologiesEndpointV2 extends Endpoint {
      */
     canReplaceCardinalityOfResourceClass(resourceClassIri: string) {
         return this.httpGet("/canreplacecardinalities/" + encodeURIComponent(resourceClassIri)).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -588,7 +588,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         const card = CardinalityUtil.cardinalities.get(desiredCardinality);
 
         return this.httpGet("/canreplacecardinalities/" + encodeURIComponent(resourceClassIri) + "?propertyIri=" + encodeURIComponent(propertyIri) +"&newCardinality=" + card).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
@@ -620,7 +620,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         onto["@graph"] = [cardinalities];
 
         return this.httpPut("/cardinalities", onto).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 // TODO: @rosenth Adapt context object
                 // TODO: adapt getOntologyIriFromEntityIri
                 return jsonld.compact(ajaxResponse.response, {});
@@ -656,7 +656,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         deleteCardinalityFromClassRequest["@graph"] = [cardinalities];
 
         return this.httpPost("/candeletecardinalities", deleteCardinalityFromClassRequest).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
@@ -689,7 +689,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         deleteCardinalityFromClassRequest["@graph"] = [cardinalities];
 
         return this.httpPatch("/cardinalities", deleteCardinalityFromClassRequest).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
@@ -712,7 +712,7 @@ export class OntologiesEndpointV2 extends Endpoint {
         onto["@graph"] = [cardinalities];
 
         return this.httpPut("/guiorder", onto).pipe(
-            mergeMap((ajaxResponse: AjaxResponse<any>) => {
+            mergeMap((ajaxResponse) => {
                 return jsonld.compact(ajaxResponse.response, {});
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);

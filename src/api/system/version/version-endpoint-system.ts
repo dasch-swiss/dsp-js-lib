@@ -16,7 +16,7 @@ export class VersionEndpointSystem extends Endpoint {
     getVersion() {
 
         return this.httpGet("").pipe(
-            map((ajaxResponse: any) => {
+            map((ajaxResponse) => {
                 const versionResponse =  ApiResponseData.fromAjaxResponse(ajaxResponse, VersionResponse, this.jsonConvert);
 
                 return versionResponse;

@@ -15,7 +15,7 @@ export class HealthEndpointSystem extends Endpoint {
      */
     getHealthStatus() {
         return this.httpGet("").pipe(
-            map((ajaxResponse: any) => {
+            map((ajaxResponse) => {
                 return ApiResponseData.fromAjaxResponse(ajaxResponse, HealthResponse, this.jsonConvert);
             }),
             catchError(error => this.handleError(error))
