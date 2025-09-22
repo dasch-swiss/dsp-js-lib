@@ -3,6 +3,7 @@ import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { ApiResponseError } from "../../../models/api-response-error";
+import { CanDoResponse } from "../../../models/v2/ontologies/read/can-do-response";
 import { CreateResource } from "../../../models/v2/resources/create/create-resource";
 import { DeleteResource } from "../../../models/v2/resources/delete/delete-resource";
 import { DeleteResourceResponse } from "../../../models/v2/resources/delete/delete-resource-response";
@@ -151,6 +152,26 @@ export class ResourcesEndpointV2 extends Endpoint {
             }),
             map(jsonldobj => {
                 return this.jsonConvert.deserializeObject(jsonldobj, UpdateResourceMetadataResponse);
+            }),
+            catchError(error => this.handleError(error))
+        );
+
+    }
+    /**
+     * Checks whether a resource can be deleted or not.
+     *
+     * @param resource the resource to check.
+     */
+    canDeleteResource(resource: DeleteResource): Observable<CanDoResponse | ApiResponseError> {
+
+        const res = JSON.stringify(this.jsonConvert.serializeObject(resource));
+        console.log("canDeleteResource request: " + JSON.stringify(res));
+        return this.httpGet(`/candelete?jsonLd=${encodeURIComponent(res)}`).pipe(
+            mergeMap((ajaxResponse) => {
+                return jsonld.compact(ajaxResponse.response, {});
+            }),
+            map(jsonldobj => {
+                return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
             }),
             catchError(error => this.handleError(error))
         );
