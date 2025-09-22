@@ -163,9 +163,8 @@ export class ResourcesEndpointV2 extends Endpoint {
      * @param resource the resource to check.
      */
     canDeleteResource(resource: DeleteResource): Observable<CanDoResponse | ApiResponseError> {
-
         const res = JSON.stringify(this.jsonConvert.serializeObject(resource));
-        console.log("canDeleteResource request: " + JSON.stringify(res));
+        
         return this.httpGet(`/candelete?jsonLd=${encodeURIComponent(res)}`).pipe(
             mergeMap((ajaxResponse) => {
                 return jsonld.compact(ajaxResponse.response, {});
