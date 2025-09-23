@@ -13,14 +13,6 @@
     "test/**/*.d.ts",
     "test/**/*.js.map",
     "test/**/*.js",
-    "test/**/*.json",
-    "test/**/*.d.ts",
-    "test/**/*.js.map",
-    "test/**/*.js",
-    "test/**/*.json",
-    "test/**/*.d.ts",
-    "test/**/*.js.map",
-    "test/**/*.js",
     "test/**/*.json"
   ],
   "scripts": {
