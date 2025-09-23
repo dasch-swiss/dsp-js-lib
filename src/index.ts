@@ -31,7 +31,6 @@ export { ListAdminCache } from "./cache/ListAdminCache";
 
 // Classes
 export { HealthResponse } from "./models/system/health-response";
-export { VersionResponse } from "./models/system/version-response";
 
 export { Group } from "./models/admin/group";
 export { ReadGroup } from "./models/admin/read-group";
