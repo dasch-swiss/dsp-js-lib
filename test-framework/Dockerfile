@@ -1,7 +1,7 @@
 ### STAGE 1: Build ###
 
 # We label our stage as 'builder'
-FROM node:16-buster as builder
+FROM node:16-bullseye as builder
 
 LABEL maintainer="ivan.subotic@unibas.ch"
 
