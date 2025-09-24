@@ -8,7 +8,6 @@ export { KnoraApiConfig } from "./knora-api-config";
 
 // System Endpoints
 export { HealthEndpointSystem } from "./api/system/health/health-endpoint-system";
-export { VersionEndpointSystem } from "./api/system/version/version-endpoint-system";
 
 // Admin Endpoints
 export { GroupsEndpointAdmin } from "./api/admin/groups/groups-endpoint-admin";
