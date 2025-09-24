@@ -44,7 +44,6 @@ DSP-JS-LIB is a TypeScript library providing a JavaScript/TypeScript interface f
 
 #### System Endpoints
 - **system.healthEndpoint** - Health monitoring (getHealthStatus)
-- **system.versionEndpoint** - Version info (getVersion)
 
 ### Key Directories
 - `src/api/` - API endpoint implementations organized by endpoint type
