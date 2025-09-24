@@ -1,5 +1,13 @@
 # Changelog
 
+## [10.9.0](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.8.1...v10.9.0) (2025-09-24)
+
+
+### Enhancements
+
+* bump versions (DEV-5410) ([#697](https://github.com/dasch-swiss/dsp-js-lib/issues/697)) ([215ff20](https://github.com/dasch-swiss/dsp-js-lib/commit/215ff20680fa2b1c4d928cff92ff50f969b1c6cd))
+* implement new canDoRoute (DEV-5410) ([#695](https://github.com/dasch-swiss/dsp-js-lib/issues/695)) ([d0bb319](https://github.com/dasch-swiss/dsp-js-lib/commit/d0bb3195d521d7e4610638a44d8a6ad3160ecef0))
+
 ## [10.8.1](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.8.0...v10.8.1) (2025-07-08)
 
 
