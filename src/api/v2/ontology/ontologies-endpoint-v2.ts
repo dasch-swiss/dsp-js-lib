@@ -1,5 +1,5 @@
 import { AjaxResponse } from "rxjs/ajax";
-import { catchError, map, mergeMap } from "rxjs";
+import { catchError, map, mergeMap, tap } from "rxjs";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { DataError } from "../../../models/data-error";
 import { Constants } from "../../../models/v2/Constants";
@@ -34,6 +34,7 @@ import { UpdateResourcePropertyComment } from "../../../models/v2/ontologies/upd
 import { UpdateResourcePropertyGuiElement } from "../../../models/v2/ontologies/update/update-resource-property-gui-element";
 import { UpdateResourcePropertyLabel } from "../../../models/v2/ontologies/update/update-resource-property-label";
 import { CardinalityUtil } from "../../../models/v2/resources/cardinality-util";
+import { OntologyCache } from "../../../cache/ontology-cache/OntologyCache";
 import { Endpoint } from "../../endpoint";
 
 declare let require: any; // http://stackoverflow.com/questions/34730010/angular2-5-minute-install-bug-require-is-not-defined
@@ -45,6 +46,22 @@ const jsonld = require("jsonld/dist/jsonld.js");
  * @category Endpoint V2
  */
 export class OntologiesEndpointV2 extends Endpoint {
+
+    private ontologyCache?: OntologyCache;
+
+    constructor(protected readonly knoraApiConfig: any, protected readonly path: string) {
+        super(knoraApiConfig, path);
+    }
+
+    /**
+     * Sets the ontology cache reference for automatic cache invalidation.
+     * This is called by V2Endpoint after the cache is instantiated.
+     *
+     * @param cache the ontology cache instance
+     */
+    setOntologyCache(cache: OntologyCache): void {
+        this.ontologyCache = cache;
+    }
 
     /**
      * Requests metadata about all ontologies from Knora.
@@ -172,6 +189,7 @@ export class OntologiesEndpointV2 extends Endpoint {
             map(jsonldobj => {
                 return this.jsonConvert.deserializeObject(jsonldobj, DeleteOntologyResponse);
             }),
+            tap(() => this.ontologyCache?.deleteItemFromCache(ontology.id)),
             catchError(error => this.handleError(error))
         );
     }
@@ -250,6 +268,7 @@ export class OntologiesEndpointV2 extends Endpoint {
             }), map((jsonldobj: object) => {
                 return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
             }),
+            tap(() => ontologyMetadata.id && this.ontologyCache?.deleteItemFromCache(ontologyMetadata.id)),
             catchError(error => {
                 return this.handleError(error);
             })
@@ -282,6 +301,7 @@ export class OntologiesEndpointV2 extends Endpoint {
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
             }),
+            tap(() => this.ontologyCache?.deleteItemFromCache(resourceClass.id)),
             catchError(error => {
                 return this.handleError(error);
             })
@@ -307,6 +327,7 @@ export class OntologiesEndpointV2 extends Endpoint {
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
             }),
+            tap(() => this.ontologyCache?.deleteItemFromCache(updateResourceClass.id)),
             catchError(error => {
                 return this.handleError(error);
             })
@@ -331,6 +352,7 @@ export class OntologiesEndpointV2 extends Endpoint {
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourcePropertyResponse(jsonldobj, this.jsonConvert);
             }),
+            tap(() => this.ontologyCache?.deleteItemFromCache(updateProperty.id)),
             catchError(error => {
                 return this.handleError(error);
             })
@@ -375,6 +397,10 @@ export class OntologiesEndpointV2 extends Endpoint {
             map(jsonldobj => {
                 return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
             }),
+            tap(() => {
+                const ontoIri = OntologyConversionUtil.getOntologyIriFromEntityIri(deleteResourceClass.id, this.knoraApiConfig);
+                if (ontoIri.length > 0) this.ontologyCache?.deleteItemFromCache(ontoIri[0]);
+            }),
             catchError(error => this.handleError(error))
         );
 
@@ -382,7 +408,7 @@ export class OntologiesEndpointV2 extends Endpoint {
 
     /**
      * Deletes a resource class's comment
-     * 
+     *
      * @param deleteResourceClassComment with class IRI and lastModificationDate
      */
     deleteResourceClassComment(deleteResourceClassComment: DeleteResourceClassComment) {
@@ -394,6 +420,10 @@ export class OntologiesEndpointV2 extends Endpoint {
             }),
             map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
+            }),
+            tap(() => {
+                const ontoIri = OntologyConversionUtil.getOntologyIriFromEntityIri(deleteResourceClassComment.id, this.knoraApiConfig);
+                if (ontoIri.length > 0) this.ontologyCache?.deleteItemFromCache(ontoIri[0]);
             }),
             catchError(error => this.handleError(error))
         );
@@ -435,6 +465,7 @@ export class OntologiesEndpointV2 extends Endpoint {
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourcePropertyResponse(jsonldobj, this.jsonConvert);
             }),
+            tap(() => this.ontologyCache?.deleteItemFromCache(resourceProperties.id)),
             catchError(error => {
                 return this.handleError(error);
             })
@@ -456,6 +487,7 @@ export class OntologiesEndpointV2 extends Endpoint {
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourcePropertyResponse(jsonldobj, this.jsonConvert);
             }),
+            tap(() => this.ontologyCache?.deleteItemFromCache(replaceGuiElement.id)),
             catchError(error => {
                 return this.handleError(error);
             })
@@ -501,6 +533,10 @@ export class OntologiesEndpointV2 extends Endpoint {
             map(jsonldobj => {
                 return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
             }),
+            tap(() => {
+                const ontoIri = OntologyConversionUtil.getOntologyIriFromEntityIri(deleteResourceProperty.id, this.knoraApiConfig);
+                if (ontoIri.length > 0) this.ontologyCache?.deleteItemFromCache(ontoIri[0]);
+            }),
             catchError(error => this.handleError(error))
         );
     }
@@ -508,7 +544,7 @@ export class OntologiesEndpointV2 extends Endpoint {
 
     /**
      * Deletes a resource property's comment
-     * 
+     *
      * @param deleteResourcePropertyComment with property IRI and lastModificationDate
      */
     deleteResourcePropertyComment(deleteResourcePropertyComment: DeleteResourcePropertyComment) {
@@ -520,6 +556,10 @@ export class OntologiesEndpointV2 extends Endpoint {
             }),
             map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourcePropertyResponse(jsonldobj, this.jsonConvert);
+            }),
+            tap(() => {
+                const ontoIri = OntologyConversionUtil.getOntologyIriFromEntityIri(deleteResourcePropertyComment.id, this.knoraApiConfig);
+                if (ontoIri.length > 0) this.ontologyCache?.deleteItemFromCache(ontoIri[0]);
             }),
             catchError(error => this.handleError(error))
         );
@@ -549,6 +589,7 @@ export class OntologiesEndpointV2 extends Endpoint {
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
             }),
+            tap(() => this.ontologyCache?.deleteItemFromCache(addCardinalityToResourceClass.id)),
             catchError(error => {
                 return this.handleError(error);
             })
@@ -627,6 +668,7 @@ export class OntologiesEndpointV2 extends Endpoint {
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
             }),
+            tap(() => this.ontologyCache?.deleteItemFromCache(replaceCardinalityOfResourceClass.id)),
             catchError(error => {
                 return this.handleError(error);
             })
@@ -694,6 +736,7 @@ export class OntologiesEndpointV2 extends Endpoint {
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
             }),
+            tap(() => this.ontologyCache?.deleteItemFromCache(deleteCardinalityFromClass.id)),
             catchError(error => {
                 return this.handleError(error);
             })
@@ -717,6 +760,7 @@ export class OntologiesEndpointV2 extends Endpoint {
             }), map((jsonldobj: object) => {
                 return OntologyConversionUtil.convertResourceClassResponse(jsonldobj, this.jsonConvert);
             }),
+            tap(() => this.ontologyCache?.deleteItemFromCache(replaceGuiOrder.id)),
             catchError(error => {
                 return this.handleError(error);
             })

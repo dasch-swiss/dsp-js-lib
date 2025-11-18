@@ -40,6 +40,10 @@ export class KnoraApiConnection {
         this.system = new SystemEndpoint(knoraApiConfig, KnoraApiConnection.PATH_SYSTEM);
         this.admin = new AdminEndpoint(knoraApiConfig, KnoraApiConnection.PATH_ADMIN);
         this.v2 = new V2Endpoint(knoraApiConfig, KnoraApiConnection.PATH_V2);
+
+        // Wire up cache references for automatic cache invalidation
+        this.admin.listsEndpoint.setListNodeCache(this.v2.listNodeCache);
+
         // todo more
 
     }

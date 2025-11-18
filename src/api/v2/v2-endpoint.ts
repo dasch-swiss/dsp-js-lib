@@ -65,6 +65,9 @@ export class V2Endpoint extends Endpoint {
         // Instantiate caches
         this.ontologyCache = new OntologyCache(knoraApiConfig, this);
         this.listNodeCache = new ListNodeV2Cache(this);
+
+        // Wire up cache references for automatic cache invalidation
+        this.onto.setOntologyCache(this.ontologyCache);
     }
 
 }

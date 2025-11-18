@@ -18,6 +18,20 @@ export abstract class GenericCache<T> {
     private cache: { [key: string]: Observable<T> } = {};
 
     /**
+     * Deletes an item from the cache by its key.
+     * Used to invalidate cached items when they are updated.
+     *
+     * @param key the id of the item to be removed from cache.
+     */
+    deleteItemFromCache(key: string): void {
+        if (this.cache[key] !== undefined) {
+            delete this.cache[key];
+        } else {
+            console.warn('[GenericCache] Attempted to invalidate non-existent cache key:', key, 'Available keys:', Object.keys(this.cache));
+        }
+    }
+
+    /**
      * Gets a specific item from the cache.
      * If not cached yet, the information will be retrieved from DSP-API.
      *
