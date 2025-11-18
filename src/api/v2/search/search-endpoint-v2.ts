@@ -1,5 +1,7 @@
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs";
+import { ListNodeV2Cache } from "../../../cache/ListNodeV2Cache";
+import { OntologyCache } from "../../../cache/ontology-cache/OntologyCache";
 import { IFulltextSearchParams } from "../../../interfaces/models/v2/i-fulltext-search-params";
 import { ILabelSearchParams } from "../../../interfaces/models/v2/i-label-search-params";
 import { KnoraApiConfig } from "../../../knora-api-config";
@@ -86,6 +88,11 @@ export class SearchEndpointV2 extends Endpoint {
     doFulltextSearch(searchTerm: string, offset = 0, params?: IFulltextSearchParams) {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
+        // Create temporary caches for this request only
+        // These will be garbage collected after the request completes
+        const tempOntologyCache = new OntologyCache(this.knoraApiConfig, this.v2Endpoint);
+        const tempListNodeCache = new ListNodeV2Cache(this.v2Endpoint);
+
         return this.httpGet("/search/" + encodeURIComponent(searchTerm) + SearchEndpointV2.encodeFulltextParams(offset, params)).pipe(
             mergeMap((ajaxResponse) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
@@ -94,7 +101,7 @@ export class SearchEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
-                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
+                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, tempOntologyCache, tempListNodeCache, this.jsonConvert);
             }),
             catchError(error => {
                 return this.handleError(error);
@@ -137,6 +144,11 @@ export class SearchEndpointV2 extends Endpoint {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
         // TODO: check if content-type have to be set to text/plain
 
+        // Create temporary caches for this request only
+        // These will be garbage collected after the request completes
+        const tempOntologyCache = new OntologyCache(this.knoraApiConfig, this.v2Endpoint);
+        const tempListNodeCache = new ListNodeV2Cache(this.v2Endpoint);
+
         return this.httpPost("/searchextended", gravsearchQuery, "sparql").pipe(
             mergeMap((ajaxResponse) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
@@ -145,7 +157,7 @@ export class SearchEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
-                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
+                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, tempOntologyCache, tempListNodeCache, this.jsonConvert);
             }),
             catchError(error => {
                 return this.handleError(error);
@@ -184,11 +196,16 @@ export class SearchEndpointV2 extends Endpoint {
      * @param offset the offset to be used for paging
      */
     doSearchIncomingLinks(resourceIri: string, offset = 0) {
+        // Create temporary caches for this request only
+        // These will be garbage collected after the request completes
+        const tempOntologyCache = new OntologyCache(this.knoraApiConfig, this.v2Endpoint);
+        const tempListNodeCache = new ListNodeV2Cache(this.v2Endpoint);
+
         return this.httpGet(`/searchIncomingLinks/${encodeURIComponent(resourceIri)}?offset=${offset}`).pipe(
             mergeMap((response) => {
                 return jsonld.compact(response.response, {});
             }), mergeMap((jsonld: object) => {
-                return ResourcesConversionUtil.createReadResourceSequence(jsonld, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
+                return ResourcesConversionUtil.createReadResourceSequence(jsonld, tempOntologyCache, tempListNodeCache, this.jsonConvert);
             }),
             catchError(err => {
                 return this.handleError(err)
@@ -203,11 +220,16 @@ export class SearchEndpointV2 extends Endpoint {
      * @param offset the offset to be used for paging
      */
     doSearchStillImageRepresentations(resourceIri: string, offset = 0) {
+        // Create temporary caches for this request only
+        // These will be garbage collected after the request completes
+        const tempOntologyCache = new OntologyCache(this.knoraApiConfig, this.v2Endpoint);
+        const tempListNodeCache = new ListNodeV2Cache(this.v2Endpoint);
+
         return this.httpGet(`/searchStillImageRepresentations/${encodeURIComponent(resourceIri)}?offset=${offset}`).pipe(
             mergeMap((response) => {
                 return jsonld.compact(response.response, {});
             }), mergeMap((jsonld: object) => {
-                return ResourcesConversionUtil.createReadResourceSequence(jsonld, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
+                return ResourcesConversionUtil.createReadResourceSequence(jsonld, tempOntologyCache, tempListNodeCache, this.jsonConvert);
             }),
             catchError(err => {
                 return this.handleError(err)
@@ -240,11 +262,16 @@ export class SearchEndpointV2 extends Endpoint {
      * @param offset the offset to be used for paging
      */
     doSearchIncomingRegions(resourceIri: string, offset = 0) {
+        // Create temporary caches for this request only
+        // These will be garbage collected after the request completes
+        const tempOntologyCache = new OntologyCache(this.knoraApiConfig, this.v2Endpoint);
+        const tempListNodeCache = new ListNodeV2Cache(this.v2Endpoint);
+
         return this.httpGet(`/searchIncomingRegions/${encodeURIComponent(resourceIri)}?offset=${offset}`).pipe(
             mergeMap((response) => {
                 return jsonld.compact(response.response, {});
             }), mergeMap((jsonld: object) => {
-                return ResourcesConversionUtil.createReadResourceSequence(jsonld, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
+                return ResourcesConversionUtil.createReadResourceSequence(jsonld, tempOntologyCache, tempListNodeCache, this.jsonConvert);
             }),
             catchError(err => {
                 return this.handleError(err)
@@ -262,6 +289,11 @@ export class SearchEndpointV2 extends Endpoint {
     doSearchByLabel(searchTerm: string, offset = 0, params?: ILabelSearchParams) {
         // TODO: Do not hard-code the URL and http call params, generate this from Knora
 
+        // Create temporary caches for this request only
+        // These will be garbage collected after the request completes
+        const tempOntologyCache = new OntologyCache(this.knoraApiConfig, this.v2Endpoint);
+        const tempListNodeCache = new ListNodeV2Cache(this.v2Endpoint);
+
         return this.httpGet("/searchbylabel/" + encodeURIComponent(searchTerm) + SearchEndpointV2.encodeLabelParams(offset, params)).pipe(
             mergeMap((ajaxResponse) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
@@ -270,7 +302,7 @@ export class SearchEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
-                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
+                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, tempOntologyCache, tempListNodeCache, this.jsonConvert);
             }),
             catchError(error => {
                 return this.handleError(error);
