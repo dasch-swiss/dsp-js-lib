@@ -1,5 +1,12 @@
 # Changelog
 
+## [10.9.1](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.9.0...v10.9.1) (2025-12-01)
+
+
+### Bug Fixes
+
+* use local cache instances (DEV-5409) ([#700](https://github.com/dasch-swiss/dsp-js-lib/issues/700)) ([24e41e3](https://github.com/dasch-swiss/dsp-js-lib/commit/24e41e3b79cb31a67fc6422e9824b55658c423e6))
+
 ## [10.9.0](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.8.1...v10.9.0) (2025-09-24)
 
 
