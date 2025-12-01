@@ -38,13 +38,23 @@ export class V2Endpoint extends Endpoint {
 
     readonly search: SearchEndpointV2;
 
+    /**
+     * @deprecated This cache is kept for backwards compatibility with existing tests.
+     * Production code should NOT use this cache - endpoints create temporary caches per request.
+     * @category Internal
+     */
     readonly ontologyCache: OntologyCache;
 
+    /**
+     * @deprecated This cache is kept for backwards compatibility with existing tests.
+     * Production code should NOT use this cache - endpoints create temporary caches per request.
+     * @category Internal
+     */
     readonly listNodeCache: ListNodeV2Cache;
 
     /**
      * Sets up all endpoints for this endpoint.
-     * 
+     *
      * @param knoraApiConfig the configuration for the DSP-API instance to connect to.
      * @param path this endpoint's path segment.
      *
@@ -62,7 +72,8 @@ export class V2Endpoint extends Endpoint {
         this.list = new ListsEndpointV2(knoraApiConfig, path);
         this.search = new SearchEndpointV2(knoraApiConfig, path, this);
 
-        // Instantiate caches
+        // Initialize deprecated caches for test compatibility only
+        // These are NOT used by production code - endpoints create temporary caches per request
         this.ontologyCache = new OntologyCache(knoraApiConfig, this);
         this.listNodeCache = new ListNodeV2Cache(this);
     }

@@ -1,5 +1,7 @@
 import { of } from "rxjs";
 import { AjaxError } from "rxjs/ajax";
+import { ListNodeV2Cache } from "../../../cache/ListNodeV2Cache";
+import { OntologyCache } from "../../../cache/ontology-cache/OntologyCache";
 import { MockList } from "../../../../test/data/api/v2/mock-list";
 import { MockOntology } from "../../../../test/data/api/v2/mock-ontology";
 import { MockAjaxCall } from "../../../../test/mockajaxcall";
@@ -22,20 +24,21 @@ describe("SearchEndpoint", () => {
     beforeEach(() => {
         jasmine.Ajax.install();
 
+        // Mock cache methods at the prototype level
+        // This ensures ALL cache instances (including temporary ones) get the mocks
+        spyOn(OntologyCache.prototype, 'getResourceClassDefinition').and.callFake(
+            (resClassIri: string) => of(MockOntology.mockIResourceClassAndPropertyDefinitions(resClassIri))
+        );
+
+        spyOn(ListNodeV2Cache.prototype, 'getNode').and.callFake(
+            (listNodeIri: string) => of(MockList.mockNode(listNodeIri))
+        );
+
         knoraApiConnection = new KnoraApiConnection(config);
 
-        getResourceClassSpy = spyOn(knoraApiConnection.v2.ontologyCache, "getResourceClassDefinition").and.callFake(
-            (resClassIri: string) => {
-
-                return of(MockOntology.mockIResourceClassAndPropertyDefinitions(resClassIri));
-            }
-        );
-
-        getListNodeFromCacheSpy = spyOn(knoraApiConnection.v2.listNodeCache, "getNode").and.callFake(
-            (listNodeIri: string) => {
-                return of(MockList.mockNode(listNodeIri));
-            }
-        );
+        // Store references to the spies for test assertions
+        getResourceClassSpy = OntologyCache.prototype.getResourceClassDefinition as jasmine.Spy;
+        getListNodeFromCacheSpy = ListNodeV2Cache.prototype.getNode as jasmine.Spy;
     });
 
     afterEach(() => {

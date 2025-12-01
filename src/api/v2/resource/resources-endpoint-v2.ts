@@ -1,6 +1,8 @@
 import { Observable } from "rxjs";
 import { AjaxResponse } from "rxjs/ajax";
 import { catchError, map, mergeMap } from "rxjs";
+import { ListNodeV2Cache } from "../../../cache/ListNodeV2Cache";
+import { OntologyCache } from "../../../cache/ontology-cache/OntologyCache";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { ApiResponseError } from "../../../models/api-response-error";
 import { CanDoResponse } from "../../../models/v2/ontologies/read/can-do-response";
@@ -51,6 +53,11 @@ export class ResourcesEndpointV2 extends Endpoint {
             return acc + currentValue;
         });
 
+        // Create temporary caches for this request only
+        // These will be garbage collected after the request completes
+        const tempOntologyCache = new OntologyCache(this.knoraApiConfig, this.v2Endpoint);
+        const tempListNodeCache = new ListNodeV2Cache(this.v2Endpoint);
+
         return this.httpGet(resIris).pipe(
             mergeMap((ajaxResponse) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
@@ -59,7 +66,7 @@ export class ResourcesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
-                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
+                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, tempOntologyCache, tempListNodeCache, this.jsonConvert);
             }),
             catchError(error => {
                 return this.handleError(error);
@@ -111,6 +118,11 @@ export class ResourcesEndpointV2 extends Endpoint {
 
         });
 
+        // Create temporary caches for this request only
+        // These will be garbage collected after the request completes
+        const tempOntologyCache = new OntologyCache(this.knoraApiConfig, this.v2Endpoint);
+        const tempListNodeCache = new ListNodeV2Cache(this.v2Endpoint);
+
         return this.httpPost("", res, "json", {"X-Asset-Ingested": "true"}).pipe(
             mergeMap((ajaxResponse) => {
                 // console.log(JSON.stringify(ajaxResponse.response));
@@ -119,7 +131,7 @@ export class ResourcesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }), mergeMap((jsonldobj: object) => {
                 // console.log(JSON.stringify(jsonldobj));
-                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, this.v2Endpoint.ontologyCache, this.v2Endpoint.listNodeCache, this.jsonConvert);
+                return ResourcesConversionUtil.createReadResourceSequence(jsonldobj, tempOntologyCache, tempListNodeCache, this.jsonConvert);
             }),
             map((resources: ReadResourceSequence) => resources.resources[0]),
             catchError(error => {
