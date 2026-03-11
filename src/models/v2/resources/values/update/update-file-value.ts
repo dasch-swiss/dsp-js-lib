@@ -83,6 +83,18 @@ export class UpdateExternalStillImageFileValue extends UpdateFileValue {
     }
 }
 
+/**
+ * @category Model V2
+ */
+@JsonObject("UpdateStillImageVectorFileValue")
+export class UpdateStillImageVectorFileValue extends UpdateFileValue {
+
+    constructor() {
+        super(Constants.StillImageVectorFileValue);
+    }
+
+}
+
 
 /**
  * @category Model V2

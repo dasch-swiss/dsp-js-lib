@@ -87,6 +87,18 @@ export class CreateStillImageExternalFileValue extends CreateFileValue {
 /**
  * @category Model V2
  */
+@JsonObject("CreateStillImageVectorFileValue")
+export class CreateStillImageVectorFileValue extends CreateFileValue {
+
+    constructor() {
+        super(Constants.StillImageVectorFileValue);
+    }
+
+}
+
+/**
+ * @category Model V2
+ */
 @JsonObject("CreateTextFileValue")
 export class CreateTextFileValue extends CreateFileValue {
 
