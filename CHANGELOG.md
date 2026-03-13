@@ -1,5 +1,12 @@
 # Changelog
 
+## [10.10.0](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.9.1...v10.10.0) (2026-03-13)
+
+
+### Enhancements
+
+* **models:** add StillImageVectorFileValue SVG support (DEV-5964) ([#713](https://github.com/dasch-swiss/dsp-js-lib/issues/713)) ([e282208](https://github.com/dasch-swiss/dsp-js-lib/commit/e28220892dd54d9fd92abf682e420b3b7aaa4f62))
+
 ## [10.9.1](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.9.0...v10.9.1) (2025-12-01)
 
 
