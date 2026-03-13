@@ -49,6 +49,7 @@ export class Constants {
     static DocumentFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "DocumentFileValue";
     static StillImageFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "StillImageFileValue";
     static StillImageExternalFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "StillImageExternalFileValue";
+    static StillImageVectorFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "StillImageVectorFileValue";
     static MovingImageFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "MovingImageFileValue";
     static TextFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "TextFileValue";
     static ArchiveFileValue = Constants.KnoraApiV2 + Constants.HashDelimiter + "ArchiveFileValue";

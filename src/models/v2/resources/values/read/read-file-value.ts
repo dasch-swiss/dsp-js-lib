@@ -103,6 +103,14 @@ export class ReadStillImageExternalFileValue extends ReadFileValue {
 
 }
 
+/**
+ * @category Model V2
+ */
+@JsonObject("ReadStillImageVectorFileValue")
+export class ReadStillImageVectorFileValue extends ReadFileValue {
+    // fileUrl inherited from ReadFileValue; no dimX/dimY for vector images
+}
+
 
 /**
  * @category Model V2

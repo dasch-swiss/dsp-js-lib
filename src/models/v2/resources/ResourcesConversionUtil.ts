@@ -19,6 +19,7 @@ import {
     ReadMovingImageFileValue,
     ReadStillImageExternalFileValue,
     ReadStillImageFileValue,
+    ReadStillImageVectorFileValue,
     ReadTextFileValue
 } from "./values/read/read-file-value";
 import { ParseReadGeomValue, ReadGeomValue } from "./values/read/read-geom-value";
@@ -463,6 +464,15 @@ export namespace ResourcesConversionUtil {
             case Constants.StillImageExternalFileValue: {
                 const extStillImageVal = handleSimpleValue(valueJsonld, ReadStillImageExternalFileValue, jsonConvert);
                 value = extStillImageVal.pipe(map((val: ReadStillImageExternalFileValue) => {
+                    return val;
+                }));
+                break;
+            }
+
+            case Constants.StillImageVectorFileValue: {
+                const vectorStillImageVal = handleSimpleValue(valueJsonld, ReadStillImageVectorFileValue, jsonConvert);
+                value = vectorStillImageVal.pipe(map((val: ReadStillImageVectorFileValue) => {
+                    val.strval = val.fileUrl;
                     return val;
                 }));
                 break;

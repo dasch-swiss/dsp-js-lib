@@ -172,6 +172,7 @@ export {
     ReadMovingImageFileValue,
     ReadStillImageFileValue,
     ReadStillImageExternalFileValue,
+    ReadStillImageVectorFileValue,
     ReadArchiveFileValue,
     ReadTextFileValue
 } from "./models/v2/resources/values/read/read-file-value";
@@ -204,7 +205,8 @@ export {
     UpdateStillImageFileValue,
     UpdateTextFileValue,
     UpdateArchiveFileValue,
-    UpdateExternalStillImageFileValue
+    UpdateExternalStillImageFileValue,
+    UpdateStillImageVectorFileValue
 } from "./models/v2/resources/values/update/update-file-value";
 export { UpdateGeomValue } from "./models/v2/resources/values/update/update-geom-value";
 export { UpdateIntValue } from "./models/v2/resources/values/update/update-int-value";
@@ -232,6 +234,7 @@ export {
     CreateMovingImageFileValue,
     CreateStillImageFileValue,
     CreateStillImageExternalFileValue,
+    CreateStillImageVectorFileValue,
     CreateTextFileValue,
     CreateArchiveFileValue
 } from "./models/v2/resources/values/create/create-file-value";

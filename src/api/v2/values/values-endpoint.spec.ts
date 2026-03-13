@@ -13,7 +13,7 @@ import { CreateBooleanValue } from "../../../models/v2/resources/values/create/c
 import { CreateColorValue } from "../../../models/v2/resources/values/create/create-color-value";
 import { CreateDateValue } from "../../../models/v2/resources/values/create/create-date-value";
 import { CreateDecimalValue } from "../../../models/v2/resources/values/create/create-decimal-value";
-import { CreateStillImageFileValue } from "../../../models/v2/resources/values/create/create-file-value";
+import { CreateStillImageFileValue, CreateStillImageVectorFileValue } from "../../../models/v2/resources/values/create/create-file-value";
 import { CreateGeomValue } from "../../../models/v2/resources/values/create/create-geom-value";
 import { CreateGeonameValue } from "../../../models/v2/resources/values/create/create-geoname-value";
 import { CreateIntValue } from "../../../models/v2/resources/values/create/create-int-value";
@@ -35,7 +35,8 @@ import { KnoraDate, ReadDateValue } from "../../../models/v2/resources/values/re
 import { ReadDecimalValue } from "../../../models/v2/resources/values/read/read-decimal-value";
 import {
     ReadStillImageExternalFileValue,
-    ReadStillImageFileValue
+    ReadStillImageFileValue,
+    ReadStillImageVectorFileValue
 } from "../../../models/v2/resources/values/read/read-file-value";
 import { ReadGeomValue } from "../../../models/v2/resources/values/read/read-geom-value";
 import { ReadGeonameValue } from "../../../models/v2/resources/values/read/read-geoname-value";
@@ -52,7 +53,7 @@ import { UpdateBooleanValue } from "../../../models/v2/resources/values/update/u
 import { UpdateColorValue } from "../../../models/v2/resources/values/update/update-color-value";
 import { UpdateDateValue } from "../../../models/v2/resources/values/update/update-date-value";
 import { UpdateDecimalValue } from "../../../models/v2/resources/values/update/update-decimal-value";
-import { UpdateStillImageFileValue } from "../../../models/v2/resources/values/update/update-file-value";
+import { UpdateStillImageFileValue, UpdateStillImageVectorFileValue } from "../../../models/v2/resources/values/update/update-file-value";
 import { UpdateGeomValue } from "../../../models/v2/resources/values/update/update-geom-value";
 import { UpdateGeonameValue } from "../../../models/v2/resources/values/update/update-geoname-value";
 import { UpdateIntValue } from "../../../models/v2/resources/values/update/update-int-value";
@@ -1314,6 +1315,50 @@ describe("ValuesEndpoint", () => {
             expect(request.data()).toEqual(expectedPayload);
         });
 
+        it("should update a still image vector file value", done => {
+
+            const updateStillImageVectorFileVal = new UpdateStillImageVectorFileValue();
+
+            updateStillImageVectorFileVal.id = "http://rdfh.ch/0001/a-thing-vector/values/vectorFileValue01";
+            updateStillImageVectorFileVal.filename = "new-vector.svg";
+
+            const updateResource = new UpdateResource<UpdateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/a-thing-vector";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#ThingPicture";
+            updateResource.property = "http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue";
+            updateResource.value = updateStillImageVectorFileVal;
+
+            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
+                (res: WriteValueResponse) => {
+                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
+                    expect(res.type).toEqual(Constants.StillImageVectorFileValue);
+                    done();
+                }
+            );
+
+            const request = jasmine.Ajax.requests.mostRecent();
+
+            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
+                "http://rdfh.ch/0001/a-thing/values/updated",
+                Constants.StillImageVectorFileValue,
+                "uuid")));
+
+            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
+
+            expect(request.method).toEqual("PUT");
+
+            expect(request.requestHeaders).toEqual({
+                "content-type": "application/json; charset=utf-8",
+                "x-asset-ingested": "true",
+                "x-requested-with": "XMLHttpRequest"
+            });
+
+            const expectedPayload = require("../../../../test/data/api/v2/manually-generated/update-still-image-vector-file-value-request-expanded.json");
+
+            expect(request.data()).toEqual(expectedPayload);
+        });
+
         it("should update a geom value", done => {
 
             const updateGeomVal = new UpdateGeomValue();
@@ -2319,6 +2364,28 @@ describe("ValuesEndpoint", () => {
             updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#ThingPicture";
             updateResource.property = "http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue";
             updateResource.value = createStillImageFileVal;
+
+            expect(
+                () => {
+                    knoraApiConnection.v2.values.createValue(updateResource);
+                }).toThrow(new Error("A value of type CreateFileValue can only be created with a new resource"));
+
+        });
+
+        it("should attempt to create a still image vector file value", () => {
+
+            const createStillImageVectorFileVal = new CreateStillImageVectorFileValue();
+
+            expect(createStillImageVectorFileVal.type).toEqual("http://api.knora.org/ontology/knora-api/v2#StillImageVectorFileValue");
+
+            createStillImageVectorFileVal.filename = "test-vector.svg";
+
+            const updateResource = new UpdateResource<CreateValue>();
+
+            updateResource.id = "http://rdfh.ch/0001/a-thing-vector";
+            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#ThingPicture";
+            updateResource.property = "http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue";
+            updateResource.value = createStillImageVectorFileVal;
 
             expect(
                 () => {
