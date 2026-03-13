@@ -1354,7 +1354,7 @@ describe("ValuesEndpoint", () => {
                 "x-requested-with": "XMLHttpRequest"
             });
 
-            const expectedPayload = require("../../../../test/data/api/v2/values/update-still-image-vector-file-value-request-expanded.json");
+            const expectedPayload = require("../../../../test/data/api/v2/manually-generated/update-still-image-vector-file-value-request-expanded.json");
 
             expect(request.data()).toEqual(expectedPayload);
         });

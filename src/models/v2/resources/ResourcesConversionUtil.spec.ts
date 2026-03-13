@@ -349,7 +349,7 @@ describe("ResourcesConversionUtil", () => {
         });
 
         it("parse JSON-LD representing a resource with a StillImageVectorFileValue", done => {
-            const resource = require("../../../../test/data/api/v2/values/get-still-image-vector-file-value-response-expanded.json");
+            const resource = require("../../../../test/data/api/v2/manually-generated/get-still-image-vector-file-value-response-expanded.json");
 
             ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
                 (res: ReadResourceSequence) => {
