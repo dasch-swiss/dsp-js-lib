@@ -362,6 +362,7 @@ describe("ResourcesConversionUtil", () => {
 
                     expect((stillImageVectorFileValue as ReadStillImageVectorFileValue).filename).toEqual("test-vector.svg");
                     expect((stillImageVectorFileValue as ReadStillImageVectorFileValue).fileUrl).toEqual("http://0.0.0.0:1024/0001/test-vector.svg");
+                    expect(stillImageVectorFileValue.strval).toEqual("http://0.0.0.0:1024/0001/test-vector.svg");
 
                     done();
                 }
