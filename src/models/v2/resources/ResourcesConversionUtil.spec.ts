@@ -13,7 +13,7 @@ import { ReadBooleanValue } from "./values/read/read-boolean-value";
 import { ReadColorValue } from "./values/read/read-color-value";
 import { KnoraDate, Precision, ReadDateValue } from "./values/read/read-date-value";
 import { ReadDecimalValue } from "./values/read/read-decimal-value";
-import { ReadStillImageFileValue } from "./values/read/read-file-value";
+import { ReadStillImageFileValue, ReadStillImageVectorFileValue } from "./values/read/read-file-value";
 import { Point2D, ReadGeomValue } from "./values/read/read-geom-value";
 import { ReadIntValue } from "./values/read/read-int-value";
 import { ReadIntervalValue } from "./values/read/read-interval-value";
@@ -342,6 +342,26 @@ describe("ResourcesConversionUtil", () => {
                     expect((stillImageFileValue as ReadStillImageFileValue).iiifBaseUrl).toEqual("http://0.0.0.0:1024/0001");
                     expect((stillImageFileValue as ReadStillImageFileValue).filename).toEqual("B1D0OkEgfFp-Cew2Seur7Wi.jp2");
                     expect((stillImageFileValue as ReadStillImageFileValue).fileUrl).toEqual("http://0.0.0.0:1024/0001/B1D0OkEgfFp-Cew2Seur7Wi.jp2/full/512,256/0/default.jpg");
+
+                    done();
+                }
+            );
+        });
+
+        it("parse JSON-LD representing a resource with a StillImageVectorFileValue", done => {
+            const resource = require("../../../../test/data/api/v2/values/get-still-image-vector-file-value-response-expanded.json");
+
+            ResourcesConversionUtil.createReadResourceSequence(resource, knoraApiConnection.v2.ontologyCache, knoraApiConnection.v2.listNodeCache, jsonConvert).subscribe(
+                (res: ReadResourceSequence) => {
+                    expect(res.resources.length).toEqual(1);
+
+                    expect(res.resources[0].getNumberOfValues("http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue")).toEqual(1);
+                    const stillImageVectorFileValue = res.resources[0].getValues("http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue")[0];
+
+                    expect(stillImageVectorFileValue instanceof ReadStillImageVectorFileValue).toBeTruthy();
+
+                    expect((stillImageVectorFileValue as ReadStillImageVectorFileValue).filename).toEqual("test-vector.svg");
+                    expect((stillImageVectorFileValue as ReadStillImageVectorFileValue).fileUrl).toEqual("http://0.0.0.0:1024/0001/test-vector.svg");
 
                     done();
                 }
