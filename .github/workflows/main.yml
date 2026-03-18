@@ -1,6 +1,6 @@
 name: CI
 env:
-  NodeVersion: 16.15.0
+  NodeVersion: 22.12.0
   DistDirectory: ./build/
   CacheName: dsp-js-lib
 
@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Run the script
         run: ./find-ignored-tests.sh
 
@@ -26,24 +26,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Cache node_modules artifacts
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/package.json') }}
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.OS }}-build-${{ env.CacheName }}-
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
       - name: Set up Node.js ${{ env.NodeVersion }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NodeVersion }}
-      - name: Install requirements
-        run: |
-          sudo apt-get install expect
-          sudo npm install --global @bazel/bazelisk
       - name: Install dependencies
         run: make npm-install
       - name: Prepare test data
@@ -57,24 +53,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Cache node_modules artifacts
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/package.json') }}
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.OS }}-build-${{ env.CacheName }}-
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
       - name: Set up Node.js ${{ env.NodeVersion }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NodeVersion }}
-      - name: Install requirements
-        run: |
-          sudo apt-get install expect
-          sudo npm install --global @bazel/bazelisk
       - name: Install dependencies
         run: make npm-install
       # - name: Get api client test data from knora-api (makefile variant)
@@ -121,17 +113,16 @@ jobs:
     if: github.event_name == 'release' && startsWith(github.ref, 'refs/tags')
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Node.js ${{ env.NodeVersion }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NodeVersion }}
           registry-url: https://registry.npmjs.org/
 
       - name: Install dependencies
         run: |
-          sudo npm install --global @bazel/bazelisk
           npm install
           npm run peer-deps
 
@@ -170,7 +161,11 @@ jobs:
     if: github.event_name == 'release' && !github.event.release.prerelease && startsWith(github.ref, 'refs/tags')
     steps:
       - name: Check out
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
+      - name: Set up Node.js ${{ env.NodeVersion }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NodeVersion }}
       - name: Install dependencies
         run: |
           npm install
