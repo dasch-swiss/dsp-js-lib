@@ -2,7 +2,5 @@
  * @category Internal
  */
 export interface IBaseLinkValue {
-
-    linkedResourceIri: string;
-
+  linkedResourceIri: string;
 }

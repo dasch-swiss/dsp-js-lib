@@ -1,6 +1,6 @@
-import { Observable, of, throwError } from "rxjs";
-import { AjaxError, AjaxResponse } from "rxjs/ajax";
-import { retry, timer } from "rxjs";
+import { Observable, of, throwError } from 'rxjs';
+import { AjaxError, AjaxResponse } from 'rxjs/ajax';
+import { retry, timer } from 'rxjs';
 
 /**
  *
@@ -14,21 +14,22 @@ import { retry, timer } from "rxjs";
  * @category Internal
  */
 export function retryOnError(delayMs: number, maxRetries: number, retryOnErrorStatus: number[], logError: boolean) {
-    let retries = maxRetries;
+  let retries = maxRetries;
 
-    // inspired by https://medium.com/angular-in-depth/retry-failed-http-requests-in-angular-f5959d486294
-    return (src: Observable<AjaxResponse<any>>): Observable<AjaxResponse<any>> =>
-        src.pipe(
-            retry({
-                count: maxRetries,
-                delay: (error: AjaxError, retryCount: number) => {
-                    if (retryOnErrorStatus.indexOf(error.status) !== -1) {
-                        if (logError) console.error("HTTP request failed:", "status:", error.status, "retries:", retryCount, "error:", error);
-                        return timer(delayMs);
-                    } else {
-                        throw error;
-                    }
-                }
-            })
-        );
+  // inspired by https://medium.com/angular-in-depth/retry-failed-http-requests-in-angular-f5959d486294
+  return (src: Observable<AjaxResponse<any>>): Observable<AjaxResponse<any>> =>
+    src.pipe(
+      retry({
+        count: maxRetries,
+        delay: (error: AjaxError, retryCount: number) => {
+          if (retryOnErrorStatus.indexOf(error.status) !== -1) {
+            if (logError)
+              console.error('HTTP request failed:', 'status:', error.status, 'retries:', retryCount, 'error:', error);
+            return timer(delayMs);
+          } else {
+            throw error;
+          }
+        },
+      })
+    );
 }

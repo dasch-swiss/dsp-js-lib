@@ -1,29 +1,27 @@
-import { JsonObject, JsonProperty } from "json2typescript";
+import { JsonObject, JsonProperty } from 'json2typescript';
 
 /**
  * Creation or update of a permission.
  *
  * @category Intgernal
  */
-@JsonObject("CreateUpdatePermission")
+@JsonObject('CreateUpdatePermission')
 export abstract class CreateUpdatePermission {
+  /**
+   * An IRI representing additional information about the permission.
+   */
+  @JsonProperty('additionalInformation')
+  additionalInformation: string | null = null;
 
-    /**
-     * An IRI representing additional information about the permission.
-     */
-    @JsonProperty("additionalInformation")
-    additionalInformation: string | null = null;
+  /**
+   * The name of the enclosing object.
+   */
+  @JsonProperty('name', String)
+  name: string = '';
 
-    /**
-     * The name of the enclosing object.
-     */
-    @JsonProperty("name", String)
-    name: string = "";
-
-    /**
-     * A permission's numeric permission code.
-     */
-    @JsonProperty("permissionCode")
-    permissionCode: number | null = null;
-
+  /**
+   * A permission's numeric permission code.
+   */
+  @JsonProperty('permissionCode')
+  permissionCode: number | null = null;
 }

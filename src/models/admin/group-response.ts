@@ -1,19 +1,17 @@
-import { JsonObject, JsonProperty } from "json2typescript";
+import { JsonObject, JsonProperty } from 'json2typescript';
 
-import { ReadGroup } from "./read-group";
+import { ReadGroup } from './read-group';
 
 /**
  * A response providing a single group.
  *
  * @category Model Admin
  */
-@JsonObject("GroupResponse")
+@JsonObject('GroupResponse')
 export class GroupResponse {
-
-   /**
-     * A single group.
-     */
-    @JsonProperty("group", ReadGroup)
-    group: ReadGroup = new ReadGroup();
-
+  /**
+   * A single group.
+   */
+  @JsonProperty('group', ReadGroup)
+  group: ReadGroup = new ReadGroup();
 }

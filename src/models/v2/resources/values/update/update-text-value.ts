@@ -1,54 +1,54 @@
-import { JsonObject, JsonProperty } from "json2typescript";
-import { Constants } from "../../../Constants";
-import { IdConverter } from "../../../custom-converters/id-converter";
-import { IBaseTextValueAsHtml, IBaseTextValueAsString, IBaseTextValueAsXml } from "../type-specific-interfaces/base-text-value";
-import { UpdateValue } from "./update-value";
+import { JsonObject, JsonProperty } from 'json2typescript';
+import { Constants } from '../../../Constants';
+import { IdConverter } from '../../../custom-converters/id-converter';
+import {
+  IBaseTextValueAsHtml,
+  IBaseTextValueAsString,
+  IBaseTextValueAsXml,
+} from '../type-specific-interfaces/base-text-value';
+import { UpdateValue } from './update-value';
 
 /**
  * @category Model V2
  */
-@JsonObject("UpdateTextValueAsString")
+@JsonObject('UpdateTextValueAsString')
 export class UpdateTextValueAsString extends UpdateValue implements IBaseTextValueAsString {
+  @JsonProperty(Constants.ValueAsString, String)
+  text: string = '';
 
-    @JsonProperty(Constants.ValueAsString, String)
-    text: string = "";
-
-    constructor() {
-        super(Constants.TextValue);
-    }
-
+  constructor() {
+    super(Constants.TextValue);
+  }
 }
 
 /**
  * @category Model V2
  */
-@JsonObject("UpdateTextValueAsXml")
+@JsonObject('UpdateTextValueAsXml')
 export class UpdateTextValueAsXml extends UpdateValue implements IBaseTextValueAsXml {
+  @JsonProperty(Constants.TextValueAsXml, String)
+  xml: string = '';
 
-    @JsonProperty(Constants.TextValueAsXml, String)
-    xml: string = "";
+  @JsonProperty(Constants.TextValueHasMapping, IdConverter)
+  mapping: string = '';
 
-    @JsonProperty(Constants.TextValueHasMapping, IdConverter)
-    mapping: string = "";
-
-    constructor() {
-        super(Constants.TextValue);
-    }
+  constructor() {
+    super(Constants.TextValue);
+  }
 }
 
 /**
  * @category Model V2
  */
-@JsonObject("UpdateTextValueAsHtml")
+@JsonObject('UpdateTextValueAsHtml')
 export class UpdateTextValueAsHtml extends UpdateValue implements IBaseTextValueAsHtml {
+  @JsonProperty(Constants.TextValueAsHtml, String, true)
+  html: string = '';
 
-    @JsonProperty(Constants.TextValueAsHtml, String, true)
-    html: string = "";
+  @JsonProperty(Constants.TextValueAsXml, String)
+  xml: string = '';
 
-    @JsonProperty(Constants.TextValueAsXml, String)
-    xml: string = "";
-
-    constructor() {
-        super(Constants.TextValue);
-    }
+  constructor() {
+    super(Constants.TextValue);
+  }
 }

@@ -1,12 +1,10 @@
-import { JsonObject, JsonProperty } from "json2typescript";
+import { JsonObject, JsonProperty } from 'json2typescript';
 
 /**
  * @category Internal
  */
-@JsonObject("BaseValue")
+@JsonObject('BaseValue')
 export abstract class BaseValue {
-
-    @JsonProperty("@type", String)
-    type: string = "";
-
+  @JsonProperty('@type', String)
+  type: string = '';
 }

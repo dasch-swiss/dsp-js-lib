@@ -2,5 +2,5 @@
  * @category Model Admin
  */
 export interface ILoginResponse {
-    token: string;
+  token: string;
 }

@@ -2,8 +2,7 @@
  * @category Internal
  */
 export interface IBaseIntervalValue {
+  start: number;
 
-    start: number;
-
-    end: number;
+  end: number;
 }

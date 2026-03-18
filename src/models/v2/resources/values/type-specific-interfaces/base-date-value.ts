@@ -2,22 +2,21 @@
  * @category Internal
  */
 export interface IBaseDateValue {
+  calendar: string;
 
-    calendar: string;
+  startDay?: number;
 
-    startDay?: number;
+  startMonth?: number;
 
-    startMonth?: number;
+  startYear: number;
 
-    startYear: number;
+  startEra?: string;
 
-    startEra?: string;
+  endDay?: number;
 
-    endDay?: number;
+  endMonth?: number;
 
-    endMonth?: number;
+  endYear: number;
 
-    endYear: number;
-
-    endEra?: string;
+  endEra?: string;
 }

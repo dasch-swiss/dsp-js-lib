@@ -1,8 +1,7 @@
-import { JsonObject, JsonProperty } from "json2typescript";
+import { JsonObject, JsonProperty } from 'json2typescript';
 
-@JsonObject("License")
+@JsonObject('License')
 export class License {
-
-    @JsonProperty("@id", String)
-    id: string = "";
+  @JsonProperty('@id', String)
+  id: string = '';
 }

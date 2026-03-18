@@ -41,7 +41,7 @@ export function setupAjaxMock(): AjaxMock {
           response: error,
           responseType: 'json',
           request: lastRequest,
-          xhr: { status }
+          xhr: { status },
         };
         return throwError(() => ajaxError);
       });
