@@ -12,6 +12,31 @@ import maintenance from './health/maintenance-mode-response.json';
 import running from './health/running-response.json';
 import stopped from './health/stopped-response.json';
 
+// Helper to create a mock AjaxResponse compatible with RxJS 7.x
+function createMockAjaxResponse<T extends object>(response: T): AjaxResponse<T> {
+  return {
+    response,
+    status: 200,
+    responseType: 'json',
+    loaded: 0,
+    total: 0,
+    request: {
+      url: '',
+      method: 'GET',
+      async: true,
+      headers: {},
+      timeout: 0,
+      crossDomain: false,
+      responseType: 'json',
+      withCredentials: false,
+    },
+    originalEvent: {} as ProgressEvent,
+    xhr: {} as XMLHttpRequest,
+    type: 'download_load',
+    responseHeaders: {},
+  } as AjaxResponse<T>;
+}
+
 export namespace MockHealth {
   const jsonConvert: JsonConvert = new JsonConvert(
     OperationMode.ENABLE,
@@ -22,16 +47,7 @@ export namespace MockHealth {
 
   export const mockMaintenance = (): ApiResponseData<HealthResponse> => {
     const responseData = ApiResponseData.fromAjaxResponse(
-      new AjaxResponse({} as object, {} as any, {
-        url: '',
-        method: 'GET',
-        async: true,
-        headers: {},
-        timeout: 0,
-        crossDomain: false,
-        responseType: 'json',
-        withCredentials: false,
-      })
+      createMockAjaxResponse({} as object)
     );
 
     const healthRes = jsonConvert.serializeObject(maintenance, HealthResponse);
@@ -41,16 +57,7 @@ export namespace MockHealth {
 
   export const mockRunning = (): ApiResponseData<HealthResponse> => {
     const responseData = ApiResponseData.fromAjaxResponse(
-      new AjaxResponse({} as object, {} as any, {
-        url: '',
-        method: 'GET',
-        async: true,
-        headers: {},
-        timeout: 0,
-        crossDomain: false,
-        responseType: 'json',
-        withCredentials: false,
-      })
+      createMockAjaxResponse({} as object)
     );
 
     const healthRes = jsonConvert.serializeObject(running, HealthResponse);
@@ -60,16 +67,7 @@ export namespace MockHealth {
 
   export const mockStopped = (): ApiResponseData<HealthResponse> => {
     const responseData = ApiResponseData.fromAjaxResponse(
-      new AjaxResponse({} as object, {} as any, {
-        url: '',
-        method: 'GET',
-        async: true,
-        headers: {},
-        timeout: 0,
-        crossDomain: false,
-        responseType: 'json',
-        withCredentials: false,
-      })
+      createMockAjaxResponse({} as object)
     );
 
     const healthRes = jsonConvert.serializeObject(stopped, HealthResponse);

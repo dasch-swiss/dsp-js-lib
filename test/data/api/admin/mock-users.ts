@@ -12,6 +12,31 @@ import { UserResponse } from '../../../../src/models/admin/user-response';
 import users from './users/get-users-response.json';
 import user from './users/get-user-response.json';
 
+// Helper to create a mock AjaxResponse compatible with RxJS 7.x
+function createMockAjaxResponse<T extends object>(response: T): AjaxResponse<T> {
+  return {
+    response,
+    status: 200,
+    responseType: 'json',
+    loaded: 0,
+    total: 0,
+    request: {
+      url: '',
+      method: 'GET',
+      async: true,
+      headers: {},
+      timeout: 0,
+      crossDomain: false,
+      responseType: 'json',
+      withCredentials: false,
+    },
+    originalEvent: {} as ProgressEvent,
+    xhr: {} as XMLHttpRequest,
+    type: 'download_load',
+    responseHeaders: {},
+  } as AjaxResponse<T>;
+}
+
 export namespace MockUsers {
   const jsonConvert: JsonConvert = new JsonConvert(
     OperationMode.ENABLE,
@@ -22,16 +47,7 @@ export namespace MockUsers {
 
   export const mockUsers = (): ApiResponseData<UsersResponse> => {
     const responseData = ApiResponseData.fromAjaxResponse(
-      new AjaxResponse({} as object, {} as any, {
-        url: '',
-        method: 'GET',
-        async: true,
-        headers: {},
-        timeout: 0,
-        crossDomain: false,
-        responseType: 'json',
-        withCredentials: false,
-      })
+      createMockAjaxResponse({} as object)
     );
 
     const usersRes = jsonConvert.serializeObject(users, UsersResponse);
@@ -41,16 +57,7 @@ export namespace MockUsers {
 
   export const mockUser = (): ApiResponseData<UserResponse> => {
     const responseData = ApiResponseData.fromAjaxResponse(
-      new AjaxResponse({} as object, {} as any, {
-        url: '',
-        method: 'GET',
-        async: true,
-        headers: {},
-        timeout: 0,
-        crossDomain: false,
-        responseType: 'json',
-        withCredentials: false,
-      })
+      createMockAjaxResponse({} as object)
     );
 
     const userRes = jsonConvert.serializeObject(user, UserResponse);
