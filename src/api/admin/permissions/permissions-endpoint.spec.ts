@@ -1,4 +1,4 @@
-import { MockAjaxCall } from "../../../../test/mockajaxcall";
+import { setupAjaxMock, AjaxMock } from "../../../../test/ajax-mock-helper";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { AdministrativePermissionResponse } from "../../../models/admin/administrative-permission-response";
@@ -25,12 +25,14 @@ describe("PermissionsEndpoint", () => {
     const config = new KnoraApiConfig("http", "localhost", 3333, undefined, undefined, true);
     const knoraApiConnection = new KnoraApiConnection(config);
 
+    let ajaxMock: AjaxMock;
+
     beforeEach(() => {
-        jasmine.Ajax.install();
+        ajaxMock = setupAjaxMock();
     });
 
     afterEach(() => {
-        jasmine.Ajax.uninstall();
+        ajaxMock.cleanup();
     });
 
     describe("Method getProjectPermissions", () => {
@@ -38,6 +40,10 @@ describe("PermissionsEndpoint", () => {
         it("should return all permissions", done => {
 
             const projectIri = "http://rdfh.ch/projects/00FF";
+
+            const projectPermissionsResponse = require("../../../../test/data/api/admin/permissions/get-permissions-for-project-response.json");
+
+            ajaxMock.setMockResponse(projectPermissionsResponse);
 
             knoraApiConnection.admin.permissionsEndpoint.getProjectPermissions(projectIri).subscribe(
                 (response: ApiResponseData<ProjectPermissionsResponse>) => {
@@ -47,18 +53,14 @@ describe("PermissionsEndpoint", () => {
                     expect(response.body.permissions[0].id).toEqual("http://rdfh.ch/permissions/00FF/PNTn7ZvsS_OabbexCxr_Eg");
                     expect(response.body.permissions[0].permissionType).toEqual("http://www.knora.org/ontology/knora-admin#DefaultObjectAccessPermission");
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const projectPermissionsResponse = require("../../../../test/data/api/admin/permissions/get-permissions-for-project-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(projectPermissionsResponse)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF");
-
-            expect(request.method).toEqual("GET");
 
         });
 
@@ -69,6 +71,10 @@ describe("PermissionsEndpoint", () => {
         it("should return all administrative permissions", done => {
 
             const projectIri = "http://rdfh.ch/projects/00FF";
+
+            const permissionsResponse = require("../../../../test/data/api/admin/permissions/get-administrative-permissions-for-project-response.json");
+
+            ajaxMock.setMockResponse(permissionsResponse);
 
             knoraApiConnection.admin.permissionsEndpoint.getAdministrativePermissions(projectIri).subscribe(
                 (response: ApiResponseData<AdministrativePermissionsResponse>) => {
@@ -82,18 +88,14 @@ describe("PermissionsEndpoint", () => {
 
                     expect(response.body.administrative_permissions[0].hasPermissions[0]).toEqual(permissions);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/permissions/ap/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const permissionsResponse = require("../../../../test/data/api/admin/permissions/get-administrative-permissions-for-project-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionsResponse)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/ap/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF");
-
-            expect(request.method).toEqual("GET");
 
         });
 
@@ -107,6 +109,10 @@ describe("PermissionsEndpoint", () => {
 
             const groupIri = "http://www.knora.org/ontology/knora-admin#ProjectMember";
 
+            const permissionResponse = require("../../../../test/data/api/admin/permissions/get-administrative-permission-for-project-group-response.json");
+
+            ajaxMock.setMockResponse(permissionResponse);
+
             knoraApiConnection.admin.permissionsEndpoint.getAdministrativePermission(projectIri, groupIri).subscribe(
                 (response: ApiResponseData<AdministrativePermissionResponse>) => {
 
@@ -117,18 +123,14 @@ describe("PermissionsEndpoint", () => {
 
                     expect(response.body.administrative_permission.hasPermissions[0]).toEqual(permissions);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/permissions/ap/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF/http%3A%2F%2Fwww.knora.org%2Fontology%2Fknora-admin%23ProjectMember");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const permissionResponse = require("../../../../test/data/api/admin/permissions/get-administrative-permission-for-project-group-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionResponse)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/ap/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF/http%3A%2F%2Fwww.knora.org%2Fontology%2Fknora-admin%23ProjectMember");
-
-            expect(request.method).toEqual("GET");
 
         });
 
@@ -150,6 +152,10 @@ describe("PermissionsEndpoint", () => {
 
             adminPermission.hasPermissions = [permission];
 
+            const permissionCreationResponse = require("../../../../test/data/api/admin/permissions/create-administrative-permission-response.json");
+
+            ajaxMock.setMockResponse(permissionCreationResponse);
+
             knoraApiConnection.admin.permissionsEndpoint.createAdministrativePermission(adminPermission).subscribe(
                 (response: ApiResponseData<AdministrativePermissionResponse>) => {
 
@@ -160,23 +166,20 @@ describe("PermissionsEndpoint", () => {
                     expect(response.body.administrative_permission.hasPermissions.length).toEqual(1);
                     expect(response.body.administrative_permission.hasPermissions[0].name).toEqual("ProjectAdminGroupAllPermission");
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/permissions/ap");
+
+                    expect(request?.method).toEqual("POST");
+
+                    const payload = require("../../../../test/data/api/admin/permissions/create-administrative-permission-request.json");
+
+                    expect(request?.body).toEqual(payload);
+
                     done();
                 }
             );
 
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const permissionCreationResponse = require("../../../../test/data/api/admin/permissions/create-administrative-permission-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionCreationResponse)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/ap");
-
-            expect(request.method).toEqual("POST");
-
-            const payload = require("../../../../test/data/api/admin/permissions/create-administrative-permission-request.json");
-
-            expect(request.data()).toEqual(payload);
         });
 
         it("should attempt to create an administrative permission without a project property", () => {
@@ -232,6 +235,10 @@ describe("PermissionsEndpoint", () => {
 
             adminPermission.hasPermissions = [permission];
 
+            const permissionCreationResponse = require("../../../../test/data/api/admin/permissions/create-administrative-permission-withCustomIRI-response.json");
+
+            ajaxMock.setMockResponse(permissionCreationResponse);
+
             knoraApiConnection.admin.permissionsEndpoint.createAdministrativePermission(adminPermission).subscribe(
                 (response: ApiResponseData<AdministrativePermissionResponse>) => {
 
@@ -241,23 +248,20 @@ describe("PermissionsEndpoint", () => {
                     expect(response.body.administrative_permission.hasPermissions.length).toEqual(1);
                     expect(response.body.administrative_permission.hasPermissions[0].name).toEqual("ProjectAdminGroupAllPermission");
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/permissions/ap");
+
+                    expect(request?.method).toEqual("POST");
+
+                    const payload = require("../../../../test/data/api/admin/permissions/create-administrative-permission-withCustomIRI-request.json");
+
+                    expect(request?.body).toEqual(payload);
+
                     done();
                 }
             );
 
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const permissionCreationResponse = require("../../../../test/data/api/admin/permissions/create-administrative-permission-withCustomIRI-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionCreationResponse)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/ap");
-
-            expect(request.method).toEqual("POST");
-
-            const payload = require("../../../../test/data/api/admin/permissions/create-administrative-permission-withCustomIRI-request.json");
-
-            expect(request.data()).toEqual(payload);
         });
 
     });
@@ -275,26 +279,27 @@ describe("PermissionsEndpoint", () => {
 
             updateAdminPerm.hasPermissions = [perm];
 
+            const permissionUpdateResponse = require("../../../../test/data/api/admin/permissions/update-administrative-permission-hasPermissions-response.json");
+
+            ajaxMock.setMockResponse(permissionUpdateResponse);
+
             knoraApiConnection.admin.permissionsEndpoint.updateAdministrativePermission("http://rdfh.ch/permissions/00FF/buxHAlz8SHuu0FuiLN_tKQ", updateAdminPerm).subscribe(
                 (res: ApiResponseData<AdministrativePermissionResponse>) => {
                     expect(res.body.administrative_permission.id).toEqual("http://rdfh.ch/permissions/00FF/buxHAlz8SHuu0FuiLN_tKQ");
+
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2FbuxHAlz8SHuu0FuiLN_tKQ/hasPermissions");
+
+                    expect(request?.method).toEqual("PUT");
+
+                    const payload = require("../../../../test/data/api/admin/permissions/update-administrative-permission-hasPermissions-request.json");
+
+                    expect(request?.body).toEqual(payload);
+
                     done();
                 }
             );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const permissionUpdateResponse = require("../../../../test/data/api/admin/permissions/update-administrative-permission-hasPermissions-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionUpdateResponse)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2FbuxHAlz8SHuu0FuiLN_tKQ/hasPermissions");
-
-            expect(request.method).toEqual("PUT");
-
-            const payload = require("../../../../test/data/api/admin/permissions/update-administrative-permission-hasPermissions-request.json");
-
-            expect(request.data()).toEqual(payload);
 
         });
 
@@ -308,26 +313,27 @@ describe("PermissionsEndpoint", () => {
 
             updateAdminPermGroup.forGroup = "http://rdfh.ch/groups/00FF/images-reviewer";
 
+            const permissionUpdateResponse = require("../../../../test/data/api/admin/permissions/update-administrative-permission-forGroup-response.json");
+
+            ajaxMock.setMockResponse(permissionUpdateResponse);
+
             knoraApiConnection.admin.permissionsEndpoint.updateAdministrativePermissionGroup("http://rdfh.ch/permissions/00FF/buxHAlz8SHuu0FuiLN_tKQ", updateAdminPermGroup).subscribe(
                 (res: ApiResponseData<AdministrativePermissionResponse>) => {
                     expect(res.body.administrative_permission.id).toEqual("http://rdfh.ch/permissions/00FF/buxHAlz8SHuu0FuiLN_tKQ");
+
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2FbuxHAlz8SHuu0FuiLN_tKQ/group");
+
+                    expect(request?.method).toEqual("PUT");
+
+                    const payload = require("../../../../test/data/api/admin/permissions/update-administrative-permission-forGroup-request.json");
+
+                    expect(request?.body).toEqual(payload);
+
                     done();
                 }
             );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const permissionUpdateResponse = require("../../../../test/data/api/admin/permissions/update-administrative-permission-forGroup-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionUpdateResponse)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2FbuxHAlz8SHuu0FuiLN_tKQ/group");
-
-            expect(request.method).toEqual("PUT");
-
-            const payload = require("../../../../test/data/api/admin/permissions/update-administrative-permission-forGroup-request.json");
-
-            expect(request.data()).toEqual(payload);
 
         });
 
@@ -339,6 +345,10 @@ describe("PermissionsEndpoint", () => {
 
             const projectIri = "http://rdfh.ch/projects/00FF";
 
+            const defaultObjectAccessPermissionsResponse = require("../../../../test/data/api/admin/permissions/get-defaultObjectAccess-permissions-for-project-response.json");
+
+            ajaxMock.setMockResponse(defaultObjectAccessPermissionsResponse);
+
             knoraApiConnection.admin.permissionsEndpoint.getDefaultObjectAccessPermissions(projectIri).subscribe(
                 (response: ApiResponseData<DefaultObjectAccessPermissionsResponse>) => {
 
@@ -349,18 +359,14 @@ describe("PermissionsEndpoint", () => {
                     expect(response.body.defaultObjectAccessPermissions[0].id).toBe("http://rdfh.ch/permissions/00FF/9XTMKHm_ScmwtgDXbF6Onw");
                     expect(response.body.defaultObjectAccessPermissions[0].hasPermissions.length).toBe(3);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/permissions/doap/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const defaultObjectAccessPermissionsResponse = require("../../../../test/data/api/admin/permissions/get-defaultObjectAccess-permissions-for-project-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(defaultObjectAccessPermissionsResponse)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/doap/http%3A%2F%2Frdfh.ch%2Fprojects%2F00FF");
-
-            expect(request.method).toEqual("GET");
 
         });
 
@@ -384,6 +390,10 @@ describe("PermissionsEndpoint", () => {
 
             defObjAccPermission.hasPermissions = [permission];
 
+            const permissionCreationResponse = require("../../../../test/data/api/admin/permissions/create-defaultObjectAccess-permission-response.json");
+
+            ajaxMock.setMockResponse(permissionCreationResponse);
+
             knoraApiConnection.admin.permissionsEndpoint.createDefaultObjectAccessPermission(defObjAccPermission).subscribe(
                 (response: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
 
@@ -393,23 +403,20 @@ describe("PermissionsEndpoint", () => {
                     expect(response.body.defaultObjectAccessPermission.id).toBeDefined(); //.toEqual("http://rdfh.ch/permissions/0001/7fKkJ8DKTdew5x0139W78g");
                     expect(response.body.defaultObjectAccessPermission.hasPermissions.length).toBe(1);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/permissions/doap");
+
+                    expect(request?.method).toEqual("POST");
+
+                    const payload = require("../../../../test/data/api/admin/permissions/create-defaultObjectAccess-permission-request.json");
+
+                    expect(request?.body).toEqual(payload);
+
                     done();
                 }
             );
 
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const permissionCreationResponse = require("../../../../test/data/api/admin/permissions/create-defaultObjectAccess-permission-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionCreationResponse)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/doap");
-
-            expect(request.method).toEqual("POST");
-
-            const payload = require("../../../../test/data/api/admin/permissions/create-defaultObjectAccess-permission-request.json");
-
-            expect(request.data()).toEqual(payload);
         });
 
         it("should attempt to create a default object access permission without a project property", () => {
@@ -493,6 +500,10 @@ describe("PermissionsEndpoint", () => {
             defObjAccPermission.id = "http://rdfh.ch/permissions/00FF/zTOK3HlWTLGgTO8ZWVnotg";
             defObjAccPermission.hasPermissions = [permission];
 
+            const permissionCreationResponse = require("../../../../test/data/api/admin/permissions/create-defaultObjectAccess-permission-withCustomIRI-response.json");
+
+            ajaxMock.setMockResponse(permissionCreationResponse);
+
             knoraApiConnection.admin.permissionsEndpoint.createDefaultObjectAccessPermission(defObjAccPermission).subscribe(
                 (response: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
 
@@ -500,23 +511,20 @@ describe("PermissionsEndpoint", () => {
                     expect(response.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/00FF/zTOK3HlWTLGgTO8ZWVnotg");
                     expect(response.body.defaultObjectAccessPermission.hasPermissions.length).toBe(1);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/permissions/doap");
+
+                    expect(request?.method).toEqual("POST");
+
+                    const payload = require("../../../../test/data/api/admin/permissions/create-defaultObjectAccess-permission-withCustomIRI-request.json");
+
+                    expect(request?.body).toEqual(payload);
+
                     done();
                 }
             );
 
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const permissionCreationResponse = require("../../../../test/data/api/admin/permissions/create-defaultObjectAccess-permission-withCustomIRI-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionCreationResponse)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/doap");
-
-            expect(request.method).toEqual("POST");
-
-            const payload = require("../../../../test/data/api/admin/permissions/create-defaultObjectAccess-permission-withCustomIRI-request.json");
-
-            expect(request.data()).toEqual(payload);
         });
 
     });
@@ -534,26 +542,27 @@ describe("PermissionsEndpoint", () => {
 
             updateDefaultObjectAccessPermission.hasPermissions = [perm];
 
+            const permissionUpdateResponse = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-hasPermissions-response.json");
+
+            ajaxMock.setMockResponse(permissionUpdateResponse);
+
             knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermission("http://rdfh.ch/permissions/00FF/Q3OMWyFqStGYK8EXmC7KhQ", updateDefaultObjectAccessPermission).subscribe(
                 (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
                     expect(res.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/00FF/Q3OMWyFqStGYK8EXmC7KhQ");
+
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2FQ3OMWyFqStGYK8EXmC7KhQ/hasPermissions");
+
+                    expect(request?.method).toEqual("PUT");
+
+                    const payload = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-hasPermissions-request.json");
+
+                    expect(request?.body).toEqual(payload);
+
                     done();
                 }
             );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const permissionUpdateResponse = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-hasPermissions-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionUpdateResponse)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2FQ3OMWyFqStGYK8EXmC7KhQ/hasPermissions");
-
-            expect(request.method).toEqual("PUT");
-
-            const payload = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-hasPermissions-request.json");
-
-            expect(request.data()).toEqual(payload);
 
         });
 
@@ -567,26 +576,27 @@ describe("PermissionsEndpoint", () => {
 
             updateDOAPGroup.forGroup = "http://rdfh.ch/groups/00FF/images-reviewer";
 
+            const permissionUpdateResponse = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-forGroup-response.json");
+
+            ajaxMock.setMockResponse(permissionUpdateResponse);
+
             knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermissionGroup("http://rdfh.ch/permissions/00FF/sdHG20U6RoiwSu8MeAT1vA", updateDOAPGroup).subscribe(
                 (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
                     expect(res.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/00FF/sdHG20U6RoiwSu8MeAT1vA");
+
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2FsdHG20U6RoiwSu8MeAT1vA/group");
+
+                    expect(request?.method).toEqual("PUT");
+
+                    const payload = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-forGroup-request.json");
+
+                    expect(request?.body).toEqual(payload);
+
                     done();
                 }
             );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const permissionUpdateResponse = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-forGroup-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionUpdateResponse)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2FsdHG20U6RoiwSu8MeAT1vA/group");
-
-            expect(request.method).toEqual("PUT");
-
-            const payload = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-forGroup-request.json");
-
-            expect(request.data()).toEqual(payload);
 
         });
 
@@ -600,26 +610,27 @@ describe("PermissionsEndpoint", () => {
 
             updateDOAPResClass.forResourceClass = "http://www.knora.org/ontology/0803/incunabula#book";
 
+            const permissionUpdateResponse = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-forResourceClass-response.json");
+
+            ajaxMock.setMockResponse(permissionUpdateResponse);
+
             knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermissionResourceClass("http://rdfh.ch/permissions/00FF/Q3OMWyFqStGYK8EXmC7KhQ", updateDOAPResClass).subscribe(
                 (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
                     expect(res.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/00FF/Q3OMWyFqStGYK8EXmC7KhQ");
+
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2FQ3OMWyFqStGYK8EXmC7KhQ/resourceClass");
+
+                    expect(request?.method).toEqual("PUT");
+
+                    const payload = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-forResourceClass-request.json");
+
+                    expect(request?.body).toEqual(payload);
+
                     done();
                 }
             );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const permissionUpdateResponse = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-forResourceClass-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionUpdateResponse)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2FQ3OMWyFqStGYK8EXmC7KhQ/resourceClass");
-
-            expect(request.method).toEqual("PUT");
-
-            const payload = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-forResourceClass-request.json");
-
-            expect(request.data()).toEqual(payload);
 
         });
 
@@ -633,26 +644,27 @@ describe("PermissionsEndpoint", () => {
 
             updateDOAPProperty.forProperty = "http://www.knora.org/ontology/00FF/images#titel";
 
+            const permissionUpdateResponse = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-forProperty-response.json");
+
+            ajaxMock.setMockResponse(permissionUpdateResponse);
+
             knoraApiConnection.admin.permissionsEndpoint.updateDefaultObjectAccessPermissionProperty("http://rdfh.ch/permissions/00FF/Mck2xJDjQ_Oimi_9z4aFaA", updateDOAPProperty).subscribe(
                 (res: ApiResponseData<DefaultObjectAccessPermissionResponse>) => {
                     expect(res.body.defaultObjectAccessPermission.id).toEqual("http://rdfh.ch/permissions/00FF/Mck2xJDjQ_Oimi_9z4aFaA");
+
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2FMck2xJDjQ_Oimi_9z4aFaA/property");
+
+                    expect(request?.method).toEqual("PUT");
+
+                    const payload = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-forProperty-request.json");
+
+                    expect(request?.body).toEqual(payload);
+
                     done();
                 }
             );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const permissionUpdateResponse = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-forProperty-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(permissionUpdateResponse)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2FMck2xJDjQ_Oimi_9z4aFaA/property");
-
-            expect(request.method).toEqual("PUT");
-
-            const payload = require("../../../../test/data/api/admin/permissions/update-defaultObjectAccess-permission-forProperty-request.json");
-
-            expect(request.data()).toEqual(payload);
 
         });
 
@@ -662,43 +674,45 @@ describe("PermissionsEndpoint", () => {
 
         it("should delete an admin permission", done => {
 
+            const deleteAdminPermissionResponse = require("../../../../test/data/api/admin/permissions/delete-administrative-permission-response.json");
+
+            ajaxMock.setMockResponse(deleteAdminPermissionResponse);
+
             knoraApiConnection.admin.permissionsEndpoint.deletePermission("http://rdfh.ch/permissions/00FF/a2").subscribe(
                 (response: ApiResponseData<DeletePermissionResponse>) => {
-                    expect(response.body.deleted).toBeTrue();
+                    expect(response.body.deleted).toBe(true);
+
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2Fa2");
+
+                    expect(request?.method).toEqual("DELETE");
+
                     done();
                 }
             );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const deleteAdminPermissionResponse = require("../../../../test/data/api/admin/permissions/delete-administrative-permission-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteAdminPermissionResponse)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2Fa2");
-
-            expect(request.method).toEqual("DELETE");
 
         });
 
         it("should delete an DOA permission", done => {
 
+            const deleteDOAPermissionResponse = require("../../../../test/data/api/admin/permissions/delete-defaultObjectAccess-permission-response.json");
+
+            ajaxMock.setMockResponse(deleteDOAPermissionResponse);
+
             knoraApiConnection.admin.permissionsEndpoint.deletePermission("http://rdfh.ch/permissions/00FF/DOAP-with-customIri").subscribe(
                 (response: ApiResponseData<DeletePermissionResponse>) => {
-                    expect(response.body.deleted).toBeTrue();
+                    expect(response.body.deleted).toBe(true);
+
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2FDOAP-with-customIri");
+
+                    expect(request?.method).toEqual("DELETE");
+
                     done();
                 }
             );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const deleteDOAPermissionResponse = require("../../../../test/data/api/admin/permissions/delete-defaultObjectAccess-permission-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(deleteDOAPermissionResponse)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/permissions/http%3A%2F%2Frdfh.ch%2Fpermissions%2F00FF%2FDOAP-with-customIri");
-
-            expect(request.method).toEqual("DELETE");
 
         });
 

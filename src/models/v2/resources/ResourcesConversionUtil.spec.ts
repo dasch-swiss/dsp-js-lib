@@ -1,5 +1,5 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
-import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+import { PropertyMatchingRule } from "json2typescript";
 import { of } from "rxjs";
 import { MockList } from "../../../../test/data/api/v2/mock-list";
 import { MockOntology } from "../../../../test/data/api/v2/mock-ontology";
@@ -28,8 +28,8 @@ describe("ResourcesConversionUtil", () => {
     const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, "", true);
     let knoraApiConnection: KnoraApiConnection;
 
-    let getResourceClassDefinitionFromCacheSpy: jasmine.Spy;
-    let getListNodeFromCacheSpy: jasmine.Spy;
+    let getResourceClassDefinitionFromCacheSpy: jest.SpyInstance;
+    let getListNodeFromCacheSpy: jest.SpyInstance;
 
     const jsonConvert: JsonConvert = new JsonConvert(
         OperationMode.ENABLE,
@@ -39,18 +39,17 @@ describe("ResourcesConversionUtil", () => {
     );
 
     beforeEach(() => {
-        jasmine.Ajax.install();
 
         knoraApiConnection = new KnoraApiConnection(config);
 
-        getResourceClassDefinitionFromCacheSpy = spyOn(knoraApiConnection.v2.ontologyCache, "getResourceClassDefinition").and.callFake(
+        getResourceClassDefinitionFromCacheSpy = jest.spyOn(knoraApiConnection.v2.ontologyCache, "getResourceClassDefinition").mockImplementation(
             (resClassIri: string) => {
                 const mock = MockOntology.mockIResourceClassAndPropertyDefinitions(resClassIri);
                 return of(mock);
             }
         );
 
-        getListNodeFromCacheSpy = spyOn(knoraApiConnection.v2.listNodeCache, "getNode").and.callFake(
+        getListNodeFromCacheSpy = jest.spyOn(knoraApiConnection.v2.listNodeCache, "getNode").mockImplementation(
             (listNodeIri: string) => {
                 return of(MockList.mockNode(listNodeIri));
             }
@@ -59,7 +58,8 @@ describe("ResourcesConversionUtil", () => {
     });
 
     afterEach(() => {
-        jasmine.Ajax.uninstall();
+        getResourceClassDefinitionFromCacheSpy.mockRestore();
+        getListNodeFromCacheSpy.mockRestore();
     });
 
     describe("Method parseResourceSequence()", () => {

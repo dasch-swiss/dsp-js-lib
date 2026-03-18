@@ -12,11 +12,11 @@ describe("Test class KnoraApiConnection", () => {
         const connection = new KnoraApiConnection(config);
 
         it("should create the AdminEndpoint", () => {
-            expect(connection.admin).toEqual(jasmine.any(AdminEndpoint));
+            expect(connection.admin).toEqual(expect.any(AdminEndpoint));
         });
 
         it("should create the V2Endpoint", () => {
-            expect(connection.v2).toEqual(jasmine.any(V2Endpoint));
+            expect(connection.v2).toEqual(expect.any(V2Endpoint));
         });
 
     });

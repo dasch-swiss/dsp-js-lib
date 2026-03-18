@@ -33,7 +33,17 @@ export function setupAjaxMock(): AjaxMock {
     setMockError: (error: any, status = 400) => {
       ajaxSpy.mockImplementation((config: any) => {
         lastRequest = typeof config === 'string' ? { url: config } : config;
-        return throwError(() => ({ status, response: error }));
+        // Mimic AjaxError structure for proper error handling
+        const ajaxError = {
+          name: 'AjaxError',
+          message: `ajax error ${status}`,
+          status,
+          response: error,
+          responseType: 'json',
+          request: lastRequest,
+          xhr: { status }
+        };
+        return throwError(() => ajaxError);
       });
     },
     getLastRequest: () => lastRequest,

@@ -9,15 +9,14 @@ describe("ListNodeV2Cache", () => {
     const config = new KnoraApiConfig("http", "0.0.0.0", 3333, "", "", true);
     let knoraApiConnection: KnoraApiConnection;
 
-    let getNodeSpy: jasmine.Spy;
-    let getListSpy: jasmine.Spy;
+    let getNodeSpy: jest.SpyInstance;
+    let getListSpy: jest.SpyInstance;
 
     beforeEach(() => {
-        jasmine.Ajax.install();
 
         knoraApiConnection = new KnoraApiConnection(config);
 
-        getNodeSpy = spyOn(knoraApiConnection.v2.list, "getNode").and.callFake(
+        getNodeSpy = jest.spyOn(knoraApiConnection.v2.list, "getNode").mockImplementation(
             (nodeIri: string) => {
 
                 return of(MockList.mockNode(nodeIri));
@@ -25,7 +24,7 @@ describe("ListNodeV2Cache", () => {
             }
         );
 
-        getListSpy = spyOn(knoraApiConnection.v2.list, "getList").and.callFake(
+        getListSpy = jest.spyOn(knoraApiConnection.v2.list, "getList").mockImplementation(
             (nodeIri: string) => {
 
                 return of(MockList.mockList(nodeIri));
@@ -36,7 +35,8 @@ describe("ListNodeV2Cache", () => {
     });
 
     afterEach(() => {
-        jasmine.Ajax.uninstall();
+        getNodeSpy.mockRestore();
+        getListSpy.mockRestore();
     });
 
     describe("Method getItem()", () => {

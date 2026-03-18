@@ -22,15 +22,13 @@ describe("OntologyCache", () => {
         const config = new KnoraApiConfig("http", "0.0.0.0", 3333, "", "", true);
         let knoraApiConnection: KnoraApiConnection;
 
-        let getOntoSpy: jasmine.Spy;
+        let getOntoSpy: jest.SpyInstance;
 
         beforeEach(() => {
 
-            jasmine.Ajax.install();
-
             knoraApiConnection = new KnoraApiConnection(config);
 
-            getOntoSpy = spyOn(knoraApiConnection.v2.onto, "getOntology").and.callFake(
+            getOntoSpy = jest.spyOn(knoraApiConnection.v2.onto, "getOntology").mockImplementation(
                 (ontoIri: string) => {
 
                     const onto = MockOntology.mockReadOntology(ontoIri);
@@ -43,7 +41,7 @@ describe("OntologyCache", () => {
         });
 
         afterEach(() => {
-            jasmine.Ajax.uninstall();
+            getOntoSpy.mockRestore();
         });
 
         describe("Method getItem()", () => {
@@ -276,22 +274,20 @@ describe("OntologyCache", () => {
         const config = new KnoraApiConfig("http", "0.0.0.0", 3333, "", "", true);
         let knoraApiConnection: KnoraApiConnection;
 
-        let getOntoSpy: jasmine.Spy;
+        let getOntoSpy: jest.SpyInstance;
 
         beforeEach(() => {
-
-            jasmine.Ajax.install();
 
             knoraApiConnection = new KnoraApiConnection(config);
 
             const ajaxError = new AjaxError("Error", new XMLHttpRequest(), { url: 'test-url', method: 'GET', async: true, headers: {}, timeout: 0, user: undefined, password: undefined, crossDomain: false, responseType: 'json', withCredentials: false });
             const apiResponseError = ApiResponseError.fromAjaxError(ajaxError);
-            getOntoSpy = spyOn(knoraApiConnection.v2.onto, "getOntology").and.returnValue(throwError(apiResponseError));
+            getOntoSpy = jest.spyOn(knoraApiConnection.v2.onto, "getOntology").mockReturnValue(throwError(apiResponseError));
 
         });
 
         afterEach(() => {
-            jasmine.Ajax.uninstall();
+            getOntoSpy.mockRestore();
         });
 
         describe("Method getItem()", () => {

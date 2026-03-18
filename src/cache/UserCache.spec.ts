@@ -1,5 +1,5 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
-import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+import { PropertyMatchingRule } from "json2typescript";
 import { of } from "rxjs";
 import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
@@ -12,7 +12,7 @@ describe("UserCache", () => {
     const config = new KnoraApiConfig("http", "0.0.0.0", 3333);
     const knoraApiConnection = new KnoraApiConnection(config);
 
-    let getUserSpy: jasmine.Spy;
+    let getUserSpy: jest.SpyInstance;
     let userCache: UserCache;
 
     const jsonConvert: JsonConvert = new JsonConvert(
@@ -24,13 +24,11 @@ describe("UserCache", () => {
 
     const user = require("../../test/data/api/admin/users/get-user-response.json");
 
-    const userResp = jsonConvert.deserialize(user, UserResponse) as UserResponse;
+    const userResp = jsonConvert.deserializeObject(user, UserResponse);
 
     beforeEach(() => {
 
-        jasmine.Ajax.install();
-
-        getUserSpy = spyOn(knoraApiConnection.admin.usersEndpoint, "getUser").and.callFake(
+        getUserSpy = jest.spyOn(knoraApiConnection.admin.usersEndpoint, "getUser").mockImplementation(
             (prop: "iri" | "username" | "email", userId: string) => {
 
                 return of({ body: userResp } as ApiResponseData<UserResponse>);
@@ -42,7 +40,7 @@ describe("UserCache", () => {
     });
 
     afterEach(() => {
-        jasmine.Ajax.uninstall();
+        getUserSpy.mockRestore();
     });
 
     describe("Method getItem", () => {

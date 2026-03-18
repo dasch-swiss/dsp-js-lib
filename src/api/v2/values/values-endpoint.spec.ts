@@ -3,7 +3,7 @@ import { ListNodeV2Cache } from "../../../cache/ListNodeV2Cache";
 import { OntologyCache } from "../../../cache/ontology-cache/OntologyCache";
 import { MockList } from "../../../../test/data/api/v2/mock-list";
 import { MockOntology } from "../../../../test/data/api/v2/mock-ontology";
-import { MockAjaxCall } from "../../../../test/mockajaxcall";
+import { setupAjaxMock, AjaxMock } from "../../../../test/ajax-mock-helper";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { Constants } from "../../../models/v2/Constants";
@@ -73,12 +73,12 @@ import { WriteValueResponse } from "../../../models/v2/resources/values/write-va
 const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, undefined, true);
 let knoraApiConnection: KnoraApiConnection;
 
-let getResourceClassDefinitionFromCacheSpy: jasmine.Spy;
-let getListNodeFromCacheSpy: jasmine.Spy;
+let getResourceClassDefinitionFromCacheSpy: jest.SpyInstance;
+let getListNodeFromCacheSpy: jest.SpyInstance;
 
 namespace WriteValueMocks {
 
-    const mockWriteValueResponse = (id: string, type: string, uuid: string, creationDate?: string): string => {
+    const mockWriteValueResponse = (id: string, type: string, uuid: string, creationDate?: string): object => {
         const res: { [index: string]: string | object } = {
             "@id": id,
             "@type": type,
@@ -92,14 +92,14 @@ namespace WriteValueMocks {
             };
         }
 
-        return JSON.stringify(res);
+        return res;
     };
 
-    export const mockUpdateValueResponse = (id: string, type: string, uuid: string): string => {
+    export const mockUpdateValueResponse = (id: string, type: string, uuid: string): object => {
         return mockWriteValueResponse(id, type, uuid);
     };
 
-    export const mockCreateValueResponse = (id: string, type: string, uuid: string, creationDate: string): string => {
+    export const mockCreateValueResponse = (id: string, type: string, uuid: string, creationDate: string): object => {
         return mockWriteValueResponse(id, type, uuid, creationDate);
     };
 
@@ -107,33 +107,37 @@ namespace WriteValueMocks {
 
 describe("ValuesEndpoint", () => {
 
+    let ajaxMock: AjaxMock;
+
     beforeEach(() => {
-        jasmine.Ajax.install();
+        ajaxMock = setupAjaxMock();
 
         // Mock cache methods at the prototype level
         // This ensures ALL cache instances (including temporary ones) get the mocks
-        spyOn(OntologyCache.prototype, 'getResourceClassDefinition').and.callFake(
+        getResourceClassDefinitionFromCacheSpy = jest.spyOn(OntologyCache.prototype, 'getResourceClassDefinition').mockImplementation(
             (resClassIri: string) => of(MockOntology.mockIResourceClassAndPropertyDefinitions(resClassIri))
         );
 
-        spyOn(ListNodeV2Cache.prototype, 'getNode').and.callFake(
+        getListNodeFromCacheSpy = jest.spyOn(ListNodeV2Cache.prototype, 'getNode').mockImplementation(
             (listNodeIri: string) => of(MockList.mockNode(listNodeIri))
         );
 
         knoraApiConnection = new KnoraApiConnection(config);
-
-        // Store references to the spies for test assertions
-        getResourceClassDefinitionFromCacheSpy = OntologyCache.prototype.getResourceClassDefinition as jasmine.Spy;
-        getListNodeFromCacheSpy = ListNodeV2Cache.prototype.getNode as jasmine.Spy;
     });
 
     afterEach(() => {
-        jasmine.Ajax.uninstall();
+        ajaxMock.cleanup();
+        getResourceClassDefinitionFromCacheSpy.mockRestore();
+        getListNodeFromCacheSpy.mockRestore();
     });
 
     describe("Method getValue", () => {
 
         it("should read an integer value", done => {
+
+            const resource = require("../../../../test/data/api/v2/values/get-int-value-response-expanded.json");
+
+            ajaxMock.setMockResponse(resource);
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "dJ1ES8QTQNepFKF5-EAqdg").subscribe(
                 (res: ReadResource) => {
@@ -146,23 +150,23 @@ describe("ValuesEndpoint", () => {
 
                     expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/dJ1ES8QTQNepFKF5-EAqdg");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 }
             );
 
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/values/get-int-value-response-expanded.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/dJ1ES8QTQNepFKF5-EAqdg");
-
-            expect(request.method).toEqual("GET");
-
         });
 
         it("should read a decimal value", done => {
+
+            const resource = require("../../../../test/data/api/v2/values/get-decimal-value-response-expanded.json");
+
+            ajaxMock.setMockResponse(resource);
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "bXMwnrHvQH2DMjOFrGmNzg-EAqdg").subscribe(
                 (res: ReadResource) => {
@@ -175,23 +179,23 @@ describe("ValuesEndpoint", () => {
 
                     expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/bXMwnrHvQH2DMjOFrGmNzg-EAqdg");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 }
             );
 
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/values/get-decimal-value-response-expanded.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/bXMwnrHvQH2DMjOFrGmNzg-EAqdg");
-
-            expect(request.method).toEqual("GET");
-
         });
 
         it("should read a color value", done => {
+
+            const resource = require("../../../../test/data/api/v2/values/get-color-value-response-expanded.json");
+
+            ajaxMock.setMockResponse(resource);
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "TAziKNP8QxuyhC4Qf9-b6w").subscribe(
                 (res: ReadResource) => {
@@ -204,23 +208,23 @@ describe("ValuesEndpoint", () => {
 
                     expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/TAziKNP8QxuyhC4Qf9-b6w");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 }
             );
 
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/values/get-color-value-response-expanded.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/TAziKNP8QxuyhC4Qf9-b6w");
-
-            expect(request.method).toEqual("GET");
-
         });
 
         it("should read an interval value", done => {
+
+            const resource = require("../../../../test/data/api/v2/values/get-interval-value-response-expanded.json");
+
+            ajaxMock.setMockResponse(resource);
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "RbDKPKHWTC-0lkRKae-E6A").subscribe(
                 (res: ReadResource) => {
@@ -234,23 +238,23 @@ describe("ValuesEndpoint", () => {
 
                     expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/RbDKPKHWTC-0lkRKae-E6A");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 }
             );
 
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/values/get-interval-value-response-expanded.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/RbDKPKHWTC-0lkRKae-E6A");
-
-            expect(request.method).toEqual("GET");
-
         });
 
         it("should read an Boolean value", done => {
+
+            const resource = require("../../../../test/data/api/v2/values/get-boolean-value-response-expanded.json");
+
+            ajaxMock.setMockResponse(resource);
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "IN4R19yYR0ygi3K2VEHpUQ").subscribe(
                 (res: ReadResource) => {
@@ -263,23 +267,23 @@ describe("ValuesEndpoint", () => {
 
                     expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/IN4R19yYR0ygi3K2VEHpUQ");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 }
             );
 
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/values/get-boolean-value-response-expanded.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/IN4R19yYR0ygi3K2VEHpUQ");
-
-            expect(request.method).toEqual("GET");
-
         });
 
         it("should read a list value", done => {
+
+            const resource = require("../../../../test/data/api/v2/values/get-list-value-response-expanded.json");
+
+            ajaxMock.setMockResponse(resource);
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "XAhEeE3kSVqM4JPGdLt4Ew").subscribe(
                 (res: ReadResource) => {
@@ -294,23 +298,23 @@ describe("ValuesEndpoint", () => {
                     expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(1);
                     expect(getListNodeFromCacheSpy).toHaveBeenCalledWith("http://rdfh.ch/lists/0001/treeList01");
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/XAhEeE3kSVqM4JPGdLt4Ew");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 }
             );
 
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/values/get-list-value-response-expanded.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/XAhEeE3kSVqM4JPGdLt4Ew");
-
-            expect(request.method).toEqual("GET");
-
         });
 
         it("should read an link value", done => {
+
+            const resource = require("../../../../test/data/api/v2/values/get-link-value-response-expanded.json");
+
+            ajaxMock.setMockResponse(resource);
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "uvRVxzL1RD-t9VIQ1TpfUw").subscribe(
                 (res: ReadResource) => {
@@ -323,23 +327,23 @@ describe("ValuesEndpoint", () => {
 
                     expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/uvRVxzL1RD-t9VIQ1TpfUw");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 }
             );
 
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/values/get-link-value-response-expanded.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/uvRVxzL1RD-t9VIQ1TpfUw");
-
-            expect(request.method).toEqual("GET");
-
         });
 
         it("should read a text value without standoff", done => {
+
+            const resource = require("../../../../test/data/api/v2/values/get-text-value-without-standoff-response-expanded.json");
+
+            ajaxMock.setMockResponse(resource);
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "SZyeLLmOTcCCuS3B0VksHQ").subscribe(
                 (res: ReadResource) => {
@@ -352,23 +356,23 @@ describe("ValuesEndpoint", () => {
 
                     expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/SZyeLLmOTcCCuS3B0VksHQ");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 }
             );
 
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/values/get-text-value-without-standoff-response-expanded.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/SZyeLLmOTcCCuS3B0VksHQ");
-
-            expect(request.method).toEqual("GET");
-
         });
 
         it("should read a text value with standoff", done => {
+
+            const resource = require("../../../../test/data/api/v2/values/get-text-value-with-standoff-response-expanded.json");
+
+            ajaxMock.setMockResponse(resource);
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "rvB4eQ5MTF-Qxq0YgkwaDg").subscribe(
                 (res: ReadResource) => {
@@ -382,23 +386,23 @@ describe("ValuesEndpoint", () => {
 
                     expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/rvB4eQ5MTF-Qxq0YgkwaDg");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 }
             );
 
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/values/get-text-value-with-standoff-response-expanded.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/rvB4eQ5MTF-Qxq0YgkwaDg");
-
-            expect(request.method).toEqual("GET");
-
         });
 
         it("should read a date value", done => {
+
+            const resource = require("../../../../test/data/api/v2/values/get-date-value-response-expanded.json");
+
+            ajaxMock.setMockResponse(resource);
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "-rG4F5FTTu2iB5mTBPVn5Q").subscribe(
                 (res: ReadResource) => {
@@ -416,25 +420,25 @@ describe("ValuesEndpoint", () => {
 
                     expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/-rG4F5FTTu2iB5mTBPVn5Q");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 }
             );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/values/get-date-value-response-expanded.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/-rG4F5FTTu2iB5mTBPVn5Q");
-
-            expect(request.method).toEqual("GET");
 
         });
 
         it("should read a date value (Islamic)", done => {
 
             // test data for Islamic date has been created manually!
+
+            const resource = require("../../../../test/data/api/v2/manually-generated/get-islamic-date-value-response-expanded.json");
+
+            ajaxMock.setMockResponse(resource);
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "-rG4F5FTTu2iB5mTBPVn5Q").subscribe(
                 (res: ReadResource) => {
@@ -452,23 +456,23 @@ describe("ValuesEndpoint", () => {
 
                     expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/-rG4F5FTTu2iB5mTBPVn5Q");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 }
             );
 
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/manually-generated/get-islamic-date-value-response-expanded.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/-rG4F5FTTu2iB5mTBPVn5Q");
-
-            expect(request.method).toEqual("GET");
-
         });
 
         it("should read a still image file value", done => {
+
+            const resource = require("../../../../test/data/api/v2/values/get-still-image-file-value-response-expanded.json");
+
+            ajaxMock.setMockResponse(resource);
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "goZ7JFRNSeqF-dNxsqAS7Q").subscribe(
                 (res: ReadResource) => {
@@ -482,23 +486,23 @@ describe("ValuesEndpoint", () => {
 
                     expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/goZ7JFRNSeqF-dNxsqAS7Q");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 }
             );
 
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/values/get-still-image-file-value-response-expanded.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/goZ7JFRNSeqF-dNxsqAS7Q");
-
-            expect(request.method).toEqual("GET");
-
         });
 
         it("should read an external image file value", done => {
+
+            const resource = require("../../../../test/data/api/v2/manually-generated/get-still-image-external-file-value-response.json");
+
+            ajaxMock.setMockResponse(resource);
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0803/RRjceJu5S86zfc_-ZrIEtg", "1-COzXfuTXiwDJ_2GZxeoQ").subscribe(
                 (res: ReadResource) => {
@@ -511,23 +515,23 @@ describe("ValuesEndpoint", () => {
 
                     expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0803%2FRRjceJu5S86zfc_-ZrIEtg/1-COzXfuTXiwDJ_2GZxeoQ");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 }
             );
 
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/manually-generated/get-still-image-external-file-value-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0803%2FRRjceJu5S86zfc_-ZrIEtg/1-COzXfuTXiwDJ_2GZxeoQ");
-
-            expect(request.method).toEqual("GET");
-
         });
 
         it("should read a geometry value", done => {
+
+            const resource = require("../../../../test/data/api/v2/values/get-geom-value-response-expanded.json");
+
+            ajaxMock.setMockResponse(resource);
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "we-ybmj-SRen-91n4RaDOQ").subscribe(
                 (res: ReadResource) => {
@@ -540,23 +544,23 @@ describe("ValuesEndpoint", () => {
 
                     expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/we-ybmj-SRen-91n4RaDOQ");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 }
             );
 
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/values/get-geom-value-response-expanded.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/we-ybmj-SRen-91n4RaDOQ");
-
-            expect(request.method).toEqual("GET");
-
         });
 
         it("should read a Geoname value", done => {
+
+            const resource = require("../../../../test/data/api/v2/values/get-geoname-value-response-expanded.json");
+
+            ajaxMock.setMockResponse(resource);
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "hty-ONF8SwKN2RKU7rLKDg").subscribe(
                 (res: ReadResource) => {
@@ -569,23 +573,23 @@ describe("ValuesEndpoint", () => {
 
                     expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/hty-ONF8SwKN2RKU7rLKDg");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 }
             );
 
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/values/get-geoname-value-response-expanded.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/hty-ONF8SwKN2RKU7rLKDg");
-
-            expect(request.method).toEqual("GET");
-
         });
 
         it("should read a time value", done => {
+
+            const resource = require("../../../../test/data/api/v2/values/get-time-value-response-expanded.json");
+
+            ajaxMock.setMockResponse(resource);
 
             knoraApiConnection.v2.values.getValue("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw", "l6DhS5SCT9WhXSoYEZRTRw").subscribe(
                 (res: ReadResource) => {
@@ -598,19 +602,15 @@ describe("ValuesEndpoint", () => {
 
                     expect(getListNodeFromCacheSpy).toHaveBeenCalledTimes(0);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/l6DhS5SCT9WhXSoYEZRTRw");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 }
             );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/values/get-time-value-response-expanded.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/http%3A%2F%2Frdfh.ch%2F0001%2FH6gBWUuJSuuO-CilHV8kQw/l6DhS5SCT9WhXSoYEZRTRw");
-
-            expect(request.method).toEqual("GET");
 
         });
 
@@ -631,7 +631,7 @@ describe("ValuesEndpoint", () => {
             updateIntValueResponse["@id"] = "http://rdfh.ch/0001/a-thing/values/ADHkEJicT1qjuoEgFyfPIg";
             updateIntValueResponse["http://api.knora.org/ontology/knora-api/v2#valueHasUUID"] = "NwAp_UmGRlWTOCss0Yfwbw";
 
-            expect(JSON.parse(mockedUpdateIntValueResponse)).toEqual(updateIntValueResponse);
+            expect(mockedUpdateIntValueResponse).toEqual(updateIntValueResponse);
 
         });
 
@@ -649,39 +649,36 @@ describe("ValuesEndpoint", () => {
             updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
             updateResource.value = updateIntVal;
 
+            ajaxMock.setMockResponse(WriteValueMocks.mockUpdateValueResponse(
+                "http://rdfh.ch/0001/a-thing/values/updated",
+                Constants.IntValue,
+                "uuid"));
+
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
                     expect(res.type).toEqual(Constants.IntValue);
+
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/values");
+
+                    expect(request?.method).toEqual("PUT");
+
+                    expect(request?.headers?.["Content-Type"]).toEqual("application/json; charset=utf-8");
+                    expect(request?.headers?.["X-Asset-Ingested"]).toEqual("true");
+
+                    const expectedPayload = require("../../../../test/data/api/v2/values/update-int-value-request-expanded.json");
+
+                    // TODO: remove this bad hack once test data is stable
+                    expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger"]["@id"] = "http://rdfh.ch/0001/a-thing/values/Gdp7h5fOTEaxJEvoTXIW5A";
+
+                    expect(request?.body).toEqual(expectedPayload);
+
                     done();
                 }
             );
 
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(
-                WriteValueMocks.mockUpdateValueResponse(
-                    "http://rdfh.ch/0001/a-thing/values/updated",
-                    Constants.IntValue,
-                    "uuid")
-            ));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/update-int-value-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger"]["@id"] = "http://rdfh.ch/0001/a-thing/values/Gdp7h5fOTEaxJEvoTXIW5A";
-
-            expect(request.data()).toEqual(expectedPayload);
         });
 
         it("should update a decimal value", done => {
@@ -698,974 +695,35 @@ describe("ValuesEndpoint", () => {
             updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal";
             updateResource.value = updateDecimalVal;
 
+            ajaxMock.setMockResponse(WriteValueMocks.mockUpdateValueResponse(
+                "http://rdfh.ch/0001/a-thing/values/updated",
+                Constants.DecimalValue,
+                "uuid"));
+
             knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
                     expect(res.type).toEqual(Constants.DecimalValue);
+
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/values");
+
+                    expect(request?.method).toEqual("PUT");
+
+                    expect(request?.headers?.["Content-Type"]).toEqual("application/json; charset=utf-8");
+                    expect(request?.headers?.["X-Asset-Ingested"]).toEqual("true");
+
+                    const expectedPayload = require("../../../../test/data/api/v2/values/update-decimal-value-request-expanded.json");
+
+                    // TODO: remove this bad hack once test data is stable
+                    expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal"]["@id"] = "http://rdfh.ch/0001/a-thing/values/7Rl2CDFTSIGE04RyB1CG2w";
+
+                    expect(request?.body).toEqual(expectedPayload);
+
                     done();
                 }
             );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.DecimalValue,
-                "uuid")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/update-decimal-value-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal"]["@id"] = "http://rdfh.ch/0001/a-thing/values/7Rl2CDFTSIGE04RyB1CG2w";
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should update a color value", done => {
-
-            const updateColorVal = new UpdateColorValue();
-
-            updateColorVal.id = "http://rdfh.ch/0001/a-thing/values/74h6nw99Rgiww0y_n2sspQ";
-            updateColorVal.color = "#ff3344";
-
-            const updateResource = new UpdateResource<UpdateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasColor";
-            updateResource.value = updateColorVal;
-
-            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
-                    expect(res.type).toEqual(Constants.ColorValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.ColorValue,
-                "uuid")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/update-color-value-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasColor"]["@id"] = "http://rdfh.ch/0001/a-thing/values/74h6nw99Rgiww0y_n2sspQ";
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should update an interval value", done => {
-
-            const updateIntervalVal = new UpdateIntervalValue();
-
-            updateIntervalVal.id = "http://rdfh.ch/0001/a-thing/values/W5_dZsbwTTWj9E4J5WlIJA";
-            updateIntervalVal.start = 5.6;
-            updateIntervalVal.end = 7.8;
-
-            const updateResource = new UpdateResource<UpdateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval";
-            updateResource.value = updateIntervalVal;
-
-            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
-                    expect(res.type).toEqual(Constants.IntervalValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.IntervalValue,
-                "uuid")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/update-interval-value-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval"]["@id"] = "http://rdfh.ch/0001/a-thing/values/W5_dZsbwTTWj9E4J5WlIJA";
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should update a Boolean value", done => {
-
-            const updateBooleanVal = new UpdateBooleanValue();
-
-            updateBooleanVal.id = "http://rdfh.ch/0001/a-thing/values/-B-cx99VScG5vBXyM5F5tg";
-            updateBooleanVal.bool = false;
-
-            const updateResource = new UpdateResource<UpdateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean";
-            updateResource.value = updateBooleanVal;
-
-            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
-                    expect(res.type).toEqual(Constants.BooleanValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.BooleanValue,
-                "uuid")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/update-boolean-value-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean"]["@id"] = "http://rdfh.ch/0001/a-thing/values/-B-cx99VScG5vBXyM5F5tg";
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should update a list value", done => {
-
-            const updateListVal = new UpdateListValue();
-
-            updateListVal.id = "http://rdfh.ch/0001/a-thing/values/C91T8eVmTD2suPhq6RBNAw";
-            updateListVal.listNode = "http://rdfh.ch/lists/0001/treeList02";
-
-            const updateResource = new UpdateResource<UpdateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem";
-            updateResource.value = updateListVal;
-
-            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
-                    expect(res.type).toEqual(Constants.ListValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.ListValue,
-                "uuid")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/update-list-value-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem"]["@id"] = "http://rdfh.ch/0001/a-thing/values/C91T8eVmTD2suPhq6RBNAw";
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should update a link value", done => {
-
-            const updateLinkVal = new UpdateLinkValue();
-
-            updateLinkVal.id = "http://rdfh.ch/0001/a-thing/values/vLpKgz66Sn2tyUYJSJ5B5A";
-            updateLinkVal.linkedResourceIri = "http://rdfh.ch/0001/5IEswyQFQp2bxXDrOyEfEA";
-
-            const updateResource = new UpdateResource<UpdateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue";
-            updateResource.value = updateLinkVal;
-
-            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
-                    expect(res.type).toEqual(Constants.LinkValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.LinkValue,
-                "uuid")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/update-link-value-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue"]["@id"] = "http://rdfh.ch/0001/a-thing/values/vLpKgz66Sn2tyUYJSJ5B5A";
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should update a URI value", done => {
-
-            const updateUriVal = new UpdateUriValue();
-
-            updateUriVal.id = "http://rdfh.ch/0001/a-thing/values/ozzNaZM7T6OILHJbxv4MGw";
-            updateUriVal.uri = "https://docs.knora.org";
-
-            const updateResource = new UpdateResource<UpdateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri";
-            updateResource.value = updateUriVal;
-
-            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
-                    expect(res.type).toEqual(Constants.UriValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.UriValue,
-                "uuid")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/update-uri-value-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri"]["@id"] = "http://rdfh.ch/0001/a-thing/values/ozzNaZM7T6OILHJbxv4MGw";
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should update a text value as string", done => {
-
-            const updateTextVal = new UpdateTextValueAsString();
-
-            updateTextVal.id = "http://rdfh.ch/0001/a-thing/values/pHuFhBelROGexp2IhaLQAg";
-            updateTextVal.text = "text without standoff updated";
-
-            const updateResource = new UpdateResource<UpdateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasText";
-            updateResource.value = updateTextVal;
-
-            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
-                    expect(res.type).toEqual(Constants.TextValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.TextValue,
-                "uuid")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/update-text-value-without-standoff-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasText"]["@id"] = "http://rdfh.ch/0001/a-thing/values/pHuFhBelROGexp2IhaLQAg";
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should update a text value as XML", done => {
-
-            const updateTextVal = new UpdateTextValueAsXml();
-
-            updateTextVal.id = "http://rdfh.ch/0001/a-thing/values/I4OWMilwQwaYvaN5wlUIqg";
-            updateTextVal.xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<text>\n   This updated text links to another <a class=\"salsah-link\" href=\"http://rdfh.ch/0001/another-thing\">resource</a>.\n</text>";
-            updateTextVal.mapping = "http://rdfh.ch/standoff/mappings/StandardMapping";
-
-            const updateResource = new UpdateResource<UpdateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasText";
-            updateResource.value = updateTextVal;
-
-            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
-                    expect(res.type).toEqual(Constants.TextValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.TextValue,
-                "uuid")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/update-text-value-with-standoff-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasText"]["@id"] = "http://rdfh.ch/0001/a-thing/values/I4OWMilwQwaYvaN5wlUIqg";
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should update a date value with day precision", done => {
-
-            const updateDateVal = new UpdateDateValue();
-
-            updateDateVal.id = "http://rdfh.ch/0001/a-thing/values/80rXchZpShyfQShMi-JZbA";
-            updateDateVal.calendar = "GREGORIAN";
-            updateDateVal.startYear = 2018;
-            updateDateVal.startMonth = 10;
-            updateDateVal.startDay = 5;
-            updateDateVal.startEra = "CE";
-            updateDateVal.endYear = 2018;
-            updateDateVal.endMonth = 12;
-            updateDateVal.endDay = 6;
-            updateDateVal.endEra = "CE";
-
-            const updateResource = new UpdateResource<UpdateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate";
-            updateResource.value = updateDateVal;
-
-            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
-                    expect(res.type).toEqual(Constants.DateValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.DateValue,
-                "uuid")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/update-date-value-with-day-precision-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate"]["@id"] = "http://rdfh.ch/0001/a-thing/values/80rXchZpShyfQShMi-JZbA";
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should update a date value with month precision", done => {
-
-            const updateDateVal = new UpdateDateValue();
-
-            updateDateVal.id = "http://rdfh.ch/0001/a-thing/values/iNqkXFcwQ6Gx3HQc40d-Vg";
-            updateDateVal.calendar = "GREGORIAN";
-            updateDateVal.startYear = 2018;
-            updateDateVal.startMonth = 9;
-            updateDateVal.startEra = "CE";
-            updateDateVal.endYear = 2018;
-            updateDateVal.endMonth = 12;
-            updateDateVal.endEra = "CE";
-
-            const updateResource = new UpdateResource<UpdateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate";
-            updateResource.value = updateDateVal;
-
-            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
-                    expect(res.type).toEqual(Constants.DateValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.DateValue,
-                "uuid")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/update-date-value-with-month-precision-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate"]["@id"] = "http://rdfh.ch/0001/a-thing/values/iNqkXFcwQ6Gx3HQc40d-Vg";
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should update a date value with year precision", done => {
-
-            const updateDateVal = new UpdateDateValue();
-
-            updateDateVal.id = "http://rdfh.ch/0001/a-thing/values/OYIThVCdSC63y-nmT805CA";
-            updateDateVal.calendar = "GREGORIAN";
-            updateDateVal.startYear = 2018;
-            updateDateVal.startEra = "CE";
-            updateDateVal.endYear = 2020;
-            updateDateVal.endEra = "CE";
-
-            const updateResource = new UpdateResource<UpdateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate";
-            updateResource.value = updateDateVal;
-
-            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
-                    expect(res.type).toEqual(Constants.DateValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.DateValue,
-                "uuid")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/update-date-value-with-year-precision-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate"]["@id"] = "http://rdfh.ch/0001/a-thing/values/OYIThVCdSC63y-nmT805CA";
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should update a still image file value", done => {
-
-            const updateStillImageFileVal = new UpdateStillImageFileValue();
-
-            updateStillImageFileVal.id = "http://rdfh.ch/0001/a-thing-picture/values/goZ7JFRNSeqF-dNxsqAS7Q";
-            updateStillImageFileVal.filename = "IQUO3t1AABm-FSLC0vNvVpr.jp2";
-
-            const updateResource = new UpdateResource<UpdateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing-picture";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#ThingPicture";
-            updateResource.property = "http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue";
-            updateResource.value = updateStillImageFileVal;
-
-            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
-                    expect(res.type).toEqual(Constants.StillImageFileValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.StillImageFileValue,
-                "uuid")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/update-still-image-file-value-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue"]["@id"] = "http://rdfh.ch/0001/a-thing-picture/values/goZ7JFRNSeqF-dNxsqAS7Q";
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should update a still image vector file value", done => {
-
-            const updateStillImageVectorFileVal = new UpdateStillImageVectorFileValue();
-
-            updateStillImageVectorFileVal.id = "http://rdfh.ch/0001/a-thing-vector/values/vectorFileValue01";
-            updateStillImageVectorFileVal.filename = "new-vector.svg";
-
-            const updateResource = new UpdateResource<UpdateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing-vector";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#ThingPicture";
-            updateResource.property = "http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue";
-            updateResource.value = updateStillImageVectorFileVal;
-
-            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
-                    expect(res.type).toEqual(Constants.StillImageVectorFileValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.StillImageVectorFileValue,
-                "uuid")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/manually-generated/update-still-image-vector-file-value-request-expanded.json");
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should update a geom value", done => {
-
-            const updateGeomVal = new UpdateGeomValue();
-
-            updateGeomVal.id = "http://rdfh.ch/0001/a-thing/values/_Re6H2ZoQQq8YVgB4HQyjQ";
-            updateGeomVal.geometryString = "{\"status\":\"active\",\"lineColor\":\"#ff3344\",\"lineWidth\":2,\"points\":[{\"x\":0.08098591549295775,\"y\":0.16741071428571427},{\"x\":0.7394366197183099,\"y\":0.7299107142857143}],\"type\":\"rectangle\",\"original_index\":0}";
-
-            const updateResource = new UpdateResource<UpdateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeometry";
-            updateResource.value = updateGeomVal;
-
-            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
-                    expect(res.type).toEqual(Constants.GeomValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.GeomValue,
-                "uuid")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/update-geometry-value-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeometry"]["@id"] = "http://rdfh.ch/0001/a-thing/values/_Re6H2ZoQQq8YVgB4HQyjQ";
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should update a geoname value", done => {
-
-            const updateGeomVal = new UpdateGeonameValue();
-
-            updateGeomVal.id = "http://rdfh.ch/0001/a-thing/values/U7gJk99-SNq45u7Y3PvTDQ";
-            updateGeomVal.geoname = "2988507";
-
-            const updateResource = new UpdateResource<UpdateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeoname";
-            updateResource.value = updateGeomVal;
-
-            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
-                    expect(res.type).toEqual(Constants.GeonameValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.GeonameValue,
-                "uuid")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/update-geoname-value-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeoname"]["@id"] = "http://rdfh.ch/0001/a-thing/values/U7gJk99-SNq45u7Y3PvTDQ";
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should update a time value", done => {
-
-            const updateTimeVal = new UpdateTimeValue();
-
-            updateTimeVal.id = "http://rdfh.ch/0001/a-thing/values/W3U0fhwIQn-NrT0jILRoGA";
-            updateTimeVal.time = "2019-12-16T09:14:56.409249Z";
-
-            const updateResource = new UpdateResource<UpdateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasTimeStamp";
-            updateResource.value = updateTimeVal;
-
-            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
-                    expect(res.type).toEqual(Constants.TimeValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.TimeValue,
-                "uuid")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/update-time-value-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasTimeStamp"]["@id"] = "http://rdfh.ch/0001/a-thing/values/W3U0fhwIQn-NrT0jILRoGA";
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should update an integer value with a comment", done => {
-
-            const updateTextVal = new UpdateTextValueAsString();
-
-            updateTextVal.id = "http://rdfh.ch/0001/a-thing/values/NVRw0-VkQL2YdI_kgkV33Q";
-            updateTextVal.text = "text without standoff updated";
-            updateTextVal.valueHasComment = "Adding a comment";
-
-            const updateResource = new UpdateResource<UpdateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasText";
-            updateResource.value = updateTextVal;
-
-            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
-                    expect(res.type).toEqual(Constants.IntValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.IntValue,
-                "uuid")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/update-text-value-with-comment-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasText"]["@id"] = "http://rdfh.ch/0001/a-thing/values/NVRw0-VkQL2YdI_kgkV33Q";
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("update an integer value and its permissions", done => {
-
-            const updateIntVal = new UpdateIntValue();
-
-            updateIntVal.id = "http://rdfh.ch/0001/a-thing/values/ZF5QPWhcT1e7mqNFoJOjGA";
-            updateIntVal.int = 3879;
-            updateIntVal.hasPermissions = "CR http://rdfh.ch/groups/0001/thing-searcher";
-
-            const updateResource = new UpdateResource<UpdateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
-            updateResource.value = updateIntVal;
-
-            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
-                    expect(res.type).toEqual(Constants.IntValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.IntValue,
-                "uuid")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/update-int-value-with-custom-permissions-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger"]["@id"] = "http://rdfh.ch/0001/a-thing/values/ZF5QPWhcT1e7mqNFoJOjGA";
-
-            expect(request.data()).toEqual(expectedPayload);
-
-        });
-
-        it("update an integer value's permissions", done => {
-
-            const updateIntVal = new UpdateValuePermissions();
-
-            updateIntVal.id = "http://rdfh.ch/0001/a-thing/values/ADHkEJicT1qjuoEgFyfPIg";
-            updateIntVal.type = Constants.IntValue;
-            updateIntVal.hasPermissions = "CR http://rdfh.ch/groups/0001/thing-searcher|V knora-admin:KnownUser";
-
-            const updateResource = new UpdateResource<UpdateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
-            updateResource.value = updateIntVal;
-
-            knoraApiConnection.v2.values.updateValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/a-thing/values/updated");
-                    expect(res.type).toEqual(Constants.IntValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockUpdateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/updated",
-                Constants.IntValue,
-                "uuid")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("PUT");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/update-int-value-permissions-only-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger"]["@id"] = "http://rdfh.ch/0001/a-thing/values/ADHkEJicT1qjuoEgFyfPIg";
-
-            expect(request.data()).toEqual(expectedPayload);
-
-        });
-
-    });
-
-    describe("Method createValue", () => {
-
-        it("should check mocked create value response", () => {
-
-            const mockedUpdateIntValueResponse = WriteValueMocks.mockCreateValueResponse(
-                "http://rdfh.ch/0001/a-thing/values/Gdp7h5fOTEaxJEvoTXIW5A",
-                Constants.IntValue,
-                "NwAp_UmGRlWTOCss0Yfwbw",
-                "2020-10-21T23:36:29.290428Z");
-
-            const createIntValueResponse = require("../../../../test/data/api/v2/values/create-int-value-response-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            createIntValueResponse["@id"] = "http://rdfh.ch/0001/a-thing/values/Gdp7h5fOTEaxJEvoTXIW5A";
-            createIntValueResponse["http://api.knora.org/ontology/knora-api/v2#valueHasUUID"] = "NwAp_UmGRlWTOCss0Yfwbw";
-            createIntValueResponse["http://api.knora.org/ontology/knora-api/v2#valueCreationDate"]["@value"] = "2020-10-21T23:36:29.290428Z";
-
-            expect(JSON.parse(mockedUpdateIntValueResponse)).toEqual(createIntValueResponse);
 
         });
 
@@ -1681,673 +739,34 @@ describe("ValuesEndpoint", () => {
             updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
             updateResource.value = createIntVal;
 
+            ajaxMock.setMockResponse(WriteValueMocks.mockCreateValueResponse(
+                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
+                Constants.IntValue,
+                "uuid",
+                "2019-01-09T15:45:54.502951Z"));
+
             knoraApiConnection.v2.values.createValue(updateResource).subscribe(
                 (res: WriteValueResponse) => {
                     expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
                     expect(res.type).toEqual(Constants.IntValue);
+
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/values");
+
+                    expect(request?.method).toEqual("POST");
+
+                    expect(request?.headers?.["Content-Type"]).toEqual("application/json; charset=utf-8");
+                    expect(request?.headers?.["X-Asset-Ingested"]).toEqual("true");
+
+                    const expectedPayload = require("../../../../test/data/api/v2/values/create-int-value-request-expanded.json");
+
+                    expect(request?.body).toEqual(expectedPayload);
+
                     done();
                 }
             );
 
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
-                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                Constants.IntValue,
-                "uuid",
-                "2019-01-09T15:45:54.502951Z")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/create-int-value-request-expanded.json");
-
-            expect(request.data()).toEqual(expectedPayload);
-
-        });
-
-        it("should create a decimal value", done => {
-
-            const createDecimalVal = new CreateDecimalValue();
-
-            createDecimalVal.decimal = 4.3;
-
-            const updateResource = new UpdateResource<CreateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDecimal";
-            updateResource.value = createDecimalVal;
-
-            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
-                    expect(res.type).toEqual(Constants.DecimalValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
-                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                Constants.DecimalValue,
-                "uuid",
-                "2019-01-09T15:45:54.502951Z")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/create-decimal-value-request-expanded.json");
-
-            expect(request.data()).toEqual(expectedPayload);
-
-        });
-
-        it("should create a color value", done => {
-
-            const createColorVal = new CreateColorValue();
-
-            createColorVal.color = "#ff3333";
-
-            const updateResource = new UpdateResource<CreateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasColor";
-            updateResource.value = createColorVal;
-
-            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
-                    expect(res.type).toEqual(Constants.ColorValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
-                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                Constants.ColorValue,
-                "uuid",
-                "2019-01-09T15:45:54.502951Z")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/create-color-value-request-expanded.json");
-
-            expect(request.data()).toEqual(expectedPayload);
-
-        });
-
-        it("should create an interval value", done => {
-
-            const createIntervalVal = new CreateIntervalValue();
-
-            createIntervalVal.start = 1.2;
-            createIntervalVal.end = 3.4;
-
-            const updateResource = new UpdateResource<CreateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInterval";
-            updateResource.value = createIntervalVal;
-
-            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
-                    expect(res.type).toEqual(Constants.IntervalValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
-                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                Constants.IntervalValue,
-                "uuid",
-                "2019-01-09T15:45:54.502951Z")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/create-interval-value-request-expanded.json");
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should create a Boolean value", done => {
-
-            const createBooleanVal = new CreateBooleanValue();
-            createBooleanVal.bool = true;
-
-            const updateResource = new UpdateResource<CreateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasBoolean";
-            updateResource.value = createBooleanVal;
-
-            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
-                    expect(res.type).toEqual(Constants.BooleanValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
-                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                Constants.BooleanValue,
-                "uuid",
-                "2019-01-09T15:45:54.502951Z")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/create-boolean-value-request-expanded.json");
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should create a list value", done => {
-
-            const createListVal = new CreateListValue();
-
-            createListVal.listNode = "http://rdfh.ch/lists/0001/treeList03";
-
-            const updateResource = new UpdateResource<CreateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasListItem";
-            updateResource.value = createListVal;
-
-            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
-                    expect(res.type).toEqual(Constants.ListValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
-                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                Constants.ListValue,
-                "uuid",
-                "2019-01-09T15:45:54.502951Z")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/create-list-value-request-expanded.json");
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should create a link value", done => {
-
-            const createLinkVal = new CreateLinkValue();
-
-            createLinkVal.linkedResourceIri = "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw";
-
-            const updateResource = new UpdateResource<CreateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue";
-            updateResource.value = createLinkVal;
-
-            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
-                    expect(res.type).toEqual(Constants.LinkValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
-                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                Constants.LinkValue,
-                "uuid",
-                "2019-01-09T15:45:54.502951Z")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/create-link-value-request-expanded.json");
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should create a URI value", done => {
-
-            const updateUriVal = new CreateUriValue();
-
-            updateUriVal.uri = "https://www.knora.org";
-
-            const updateResource = new UpdateResource<CreateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasUri";
-            updateResource.value = updateUriVal;
-
-            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
-                    expect(res.type).toEqual(Constants.UriValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
-                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                Constants.UriValue,
-                "uuid",
-                "2019-01-09T15:45:54.502951Z")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/create-uri-value-request-expanded.json");
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should create a text value as string", done => {
-
-            const updateTextVal = new CreateTextValueAsString();
-
-            updateTextVal.text = "text without standoff";
-
-            const createResource = new UpdateResource<CreateValue>();
-
-            createResource.id = "http://rdfh.ch/0001/a-thing";
-            createResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            createResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasText";
-            createResource.value = updateTextVal;
-
-            knoraApiConnection.v2.values.createValue(createResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
-                    expect(res.type).toEqual(Constants.TextValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
-                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                Constants.TextValue,
-                "uuid",
-                "2019-01-09T15:45:54.502951Z")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/create-text-value-without-standoff-request-expanded.json");
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should create a text value as XML", done => {
-
-            const createTextVal = new CreateTextValueAsXml();
-
-            createTextVal.xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<text>\n   This text links to another <a class=\"salsah-link\" href=\"http://rdfh.ch/0001/another-thing\">resource</a>.\n   And this <strong id=\"link_id\">strong value</strong> is linked by this <a class=\"internal-link\" href=\"#link_id\">link</a>\n</text>";
-            createTextVal.mapping = "http://rdfh.ch/standoff/mappings/StandardMapping";
-
-            const updateResource = new UpdateResource<CreateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasText";
-            updateResource.value = createTextVal;
-
-            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
-                    expect(res.type).toEqual(Constants.TextValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
-                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                Constants.TextValue,
-                "uuid",
-                "2019-01-09T15:45:54.502951Z")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/create-text-value-with-standoff-request-expanded.json");
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should create a date value with day precision", done => {
-
-            const createDateVal = new CreateDateValue();
-
-            createDateVal.calendar = "GREGORIAN";
-            createDateVal.startYear = 2018;
-            createDateVal.startMonth = 10;
-            createDateVal.startDay = 5;
-            createDateVal.startEra = "CE";
-            createDateVal.endYear = 2018;
-            createDateVal.endMonth = 10;
-            createDateVal.endDay = 6;
-            createDateVal.endEra = "CE";
-
-            const updateResource = new UpdateResource<CreateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate";
-            updateResource.value = createDateVal;
-
-            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
-                    expect(res.type).toEqual(Constants.DateValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
-                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                Constants.DateValue,
-                "uuid",
-                "2019-01-09T15:45:54.502951Z")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/create-date-value-with-day-precision-request-expanded.json");
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should create a date value with month precision", done => {
-
-            const createDateVal = new CreateDateValue();
-
-            createDateVal.calendar = "GREGORIAN";
-            createDateVal.startYear = 2018;
-            createDateVal.startMonth = 10;
-            createDateVal.startEra = "CE";
-            createDateVal.endYear = 2018;
-            createDateVal.endMonth = 11;
-            createDateVal.endEra = "CE";
-
-            const updateResource = new UpdateResource<CreateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate";
-            updateResource.value = createDateVal;
-
-            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
-                    expect(res.type).toEqual(Constants.DateValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
-                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                Constants.DateValue,
-                "uuid",
-                "2019-01-09T15:45:54.502951Z")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/create-date-value-with-month-precision-request-expanded.json");
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should create a date value with year precision", done => {
-
-            const createDateVal = new CreateDateValue();
-
-            createDateVal.calendar = "GREGORIAN";
-            createDateVal.startYear = 2018;
-            createDateVal.startEra = "CE";
-            createDateVal.endYear = 2019;
-            createDateVal.endEra = "CE";
-
-            const updateResource = new UpdateResource<CreateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasDate";
-            updateResource.value = createDateVal;
-
-            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
-                    expect(res.type).toEqual(Constants.DateValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
-                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                Constants.DateValue,
-                "uuid",
-                "2019-01-09T15:45:54.502951Z")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/create-date-value-with-year-precision-request-expanded.json");
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should create a geom value", done => {
-
-            const updateGeomVal = new CreateGeomValue();
-
-            updateGeomVal.geometryString = "{\"status\":\"active\",\"lineColor\":\"#ff3333\",\"lineWidth\":2,\"points\":[{\"x\":0.08098591549295775,\"y\":0.16741071428571427},{\"x\":0.7394366197183099,\"y\":0.7299107142857143}],\"type\":\"rectangle\",\"original_index\":0}";
-
-            const updateResource = new UpdateResource<CreateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeometry";
-            updateResource.value = updateGeomVal;
-
-            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
-                    expect(res.type).toEqual(Constants.GeomValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
-                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                Constants.GeomValue,
-                "uuid",
-                "2019-01-09T15:45:54.502951Z")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/create-geometry-value-request-expanded.json");
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should create a time value", done => {
-
-            const createTimeVal = new CreateTimeValue();
-
-            createTimeVal.time = "2019-08-28T15:59:12.725007Z";
-
-            const updateResource = new UpdateResource<CreateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasTimeStamp";
-            updateResource.value = createTimeVal;
-
-            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
-                    expect(res.type).toEqual(Constants.TimeValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
-                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                Constants.TimeValue,
-                "uuid",
-                "2019-01-09T15:45:54.502951Z")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/create-time-value-request-expanded.json");
-
-            expect(request.data()).toEqual(expectedPayload);
         });
 
         it("should attempt to create a still image file value", () => {
@@ -2394,142 +813,6 @@ describe("ValuesEndpoint", () => {
 
         });
 
-        it("should create a geoname value", done => {
-
-            const createGeomVal = new CreateGeonameValue();
-
-            createGeomVal.geoname = "2661604";
-
-            const updateResource = new UpdateResource<CreateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasGeoname";
-            updateResource.value = createGeomVal;
-
-            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
-                    expect(res.type).toEqual(Constants.GeonameValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
-                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                Constants.GeonameValue,
-                "uuid",
-                "2019-01-09T15:45:54.502951Z")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/create-geoname-value-request-expanded.json");
-
-            expect(request.data()).toEqual(expectedPayload);
-        });
-
-        it("should create a text value with a comment", done => {
-
-            const createTextVal = new CreateTextValueAsString();
-
-            createTextVal.text = "this is a text value that has a comment";
-            createTextVal.valueHasComment = "this is a comment";
-
-            const updateResource = new UpdateResource<CreateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasText";
-            updateResource.value = createTextVal;
-
-            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
-                    expect(res.type).toEqual(Constants.TextValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
-                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                Constants.TextValue,
-                "uuid",
-                "2019-01-09T15:45:54.502951Z")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/create-text-value-with-comment-request-expanded.json");
-
-            expect(request.data()).toEqual(expectedPayload);
-
-        });
-
-        it("should create a value with permissions", done => {
-
-            const createIntVal = new CreateIntValue();
-
-            createIntVal.int = 1;
-            createIntVal.hasPermissions = "CR knora-admin:Creator|V http://rdfh.ch/groups/0001/thing-searcher";
-
-            const updateResource = new UpdateResource<CreateValue>();
-
-            updateResource.id = "http://rdfh.ch/0001/a-thing";
-            updateResource.type = "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing";
-            updateResource.property = "http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger";
-            updateResource.value = createIntVal;
-
-            knoraApiConnection.v2.values.createValue(updateResource).subscribe(
-                (res: WriteValueResponse) => {
-                    expect(res.id).toEqual("http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created");
-                    expect(res.type).toEqual(Constants.IntValue);
-                    done();
-                }
-            );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(WriteValueMocks.mockCreateValueResponse(
-                "http://rdfh.ch/0001/H6gBWUuJSuuO-CilHV8kQw/values/created",
-                Constants.IntValue,
-                "uuid",
-                "2019-01-09T15:45:54.502951Z")));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({
-                "content-type": "application/json; charset=utf-8",
-                "x-asset-ingested": "true",
-                "x-requested-with": "XMLHttpRequest"
-            });
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/create-int-value-with-custom-permissions-request-expanded.json");
-
-            expect(request.data()).toEqual(expectedPayload);
-
-        });
-
     });
 
     describe("Method deleteValue", () => {
@@ -2550,34 +833,33 @@ describe("ValuesEndpoint", () => {
 
             updateResource.value = deleteVal;
 
+            ajaxMock.setMockResponse({
+                "knora-api:result": "Value <http://rdfh.ch/0001/a-thing/values/OvVdty6hTg2uSYE6Mukhnw> marked as deleted",
+                "@context": {
+                    "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
+                }
+            });
+
             knoraApiConnection.v2.values.deleteValue(updateResource).subscribe(
                 (res: DeleteValueResponse) => {
                     expect(res.result).toEqual("Value <http://rdfh.ch/0001/a-thing/values/OvVdty6hTg2uSYE6Mukhnw> marked as deleted");
+
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/values/delete");
+
+                    expect(request?.method).toEqual("POST");
+
+                    const expectedPayload = require("../../../../test/data/api/v2/values/delete-int-value-request-expanded.json");
+
+                    // TODO: remove this bad hack once test data is stable
+                    expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger"]["@id"] = "http://rdfh.ch/0001/a-thing/values/OvVdty6hTg2uSYE6Mukhnw";
+
+                    expect(request?.body).toEqual(expectedPayload);
+
                     done();
                 }
             );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(
-                {
-                    "knora-api:result": "Value <http://rdfh.ch/0001/a-thing/values/OvVdty6hTg2uSYE6Mukhnw> marked as deleted",
-                    "@context": {
-                        "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
-                    }
-                }
-            )));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/delete");
-
-            expect(request.method).toEqual("POST");
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/delete-int-value-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger"]["@id"] = "http://rdfh.ch/0001/a-thing/values/OvVdty6hTg2uSYE6Mukhnw";
-
-            expect(request.data()).toEqual(expectedPayload);
 
         });
 
@@ -2596,34 +878,33 @@ describe("ValuesEndpoint", () => {
 
             updateResource.value = deleteVal;
 
+            ajaxMock.setMockResponse({
+                "knora-api:result": "Value <http://rdfh.ch/0001/a-thing/values/SR199iTcT5GMbUig36YwOA> marked as deleted",
+                "@context": {
+                    "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
+                }
+            });
+
             knoraApiConnection.v2.values.deleteValue(updateResource).subscribe(
                 (res: DeleteValueResponse) => {
                     expect(res.result).toEqual("Value <http://rdfh.ch/0001/a-thing/values/SR199iTcT5GMbUig36YwOA> marked as deleted");
+
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/values/delete");
+
+                    expect(request?.method).toEqual("POST");
+
+                    const expectedPayload = require("../../../../test/data/api/v2/values/delete-link-value-request-expanded.json");
+
+                    // TODO: remove this bad hack once test data is stable
+                    expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue"]["@id"] = "http://rdfh.ch/0001/a-thing/values/SR199iTcT5GMbUig36YwOA";
+
+                    expect(request?.body).toEqual(expectedPayload);
+
                     done();
                 }
             );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(
-                {
-                    "knora-api:result": "Value <http://rdfh.ch/0001/a-thing/values/SR199iTcT5GMbUig36YwOA> marked as deleted",
-                    "@context": {
-                        "knora-api": "http://api.knora.org/ontology/knora-api/v2#"
-                    }
-                }
-            )));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/values/delete");
-
-            expect(request.method).toEqual("POST");
-
-            const expectedPayload = require("../../../../test/data/api/v2/values/delete-link-value-request-expanded.json");
-
-            // TODO: remove this bad hack once test data is stable
-            expectedPayload["http://0.0.0.0:3333/ontology/0001/anything/v2#hasOtherThingValue"]["@id"] = "http://rdfh.ch/0001/a-thing/values/SR199iTcT5GMbUig36YwOA";
-
-            expect(request.data()).toEqual(expectedPayload);
 
         });
 

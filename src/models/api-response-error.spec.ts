@@ -10,7 +10,7 @@ describe("Test class ApiResponseError", () => {
         const apiResponseError = ApiResponseError.fromAjaxError(ajaxError);
 
         it("should be an instance of ApiResponseError", () => {
-            expect(apiResponseError).toEqual(jasmine.any(ApiResponseError));
+            expect(apiResponseError).toEqual(expect.any(ApiResponseError));
         });
 
         it("should store the original error", () => {
@@ -27,11 +27,11 @@ describe("Test class ApiResponseError", () => {
             status: 200,
             statusText: "OK"
         } as any;
-        const responseData = ApiResponseData.fromAjaxResponse(new AjaxResponse({} as any, mockXhr, { url: "test-url", method: "GET", async: true, headers: {}, timeout: 0, user: undefined, password: undefined, crossDomain: false, responseType: "json", withCredentials: false }));
+        const responseData = ApiResponseData.fromAjaxResponse(new AjaxResponse<object>({} as any, mockXhr, { url: "test-url", method: "GET", async: true, headers: {}, timeout: 0, user: undefined, password: undefined, crossDomain: false, responseType: "json", withCredentials: false }));
         const apiResponseError = ApiResponseError.fromErrorString(errorString, responseData);
 
         it("should be an instance of ApiResponseError", () => {
-            expect(apiResponseError).toEqual(jasmine.any(ApiResponseError));
+            expect(apiResponseError).toEqual(expect.any(ApiResponseError));
         });
 
         it("should store the original error", () => {

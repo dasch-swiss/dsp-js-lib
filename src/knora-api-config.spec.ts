@@ -63,7 +63,7 @@ describe("Test class KnoraApiConfig", () => {
 
                 const config = new KnoraApiConfig(apiProtocol, apiHost, apiPort, apiPath, jsonWebToken, logErrors);
 
-                expect(config).toEqual(jasmine.any(KnoraApiConfig));
+                expect(config).toEqual(expect.any(KnoraApiConfig));
                 expect(config.apiProtocol).toEqual(apiProtocol);
                 expect(config.apiHost).toEqual(apiHost);
 

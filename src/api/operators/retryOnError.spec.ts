@@ -8,8 +8,13 @@ describe("RetryOnError Operator", () => {
 
     // https://stackoverflow.com/questions/57406445/rxjs-marble-testing-retrywhen
     const createRetryableStream = (...obs$: any[]) => {
-        const http = jasmine.createSpy("http");
-        http.and.returnValues(...obs$);
+        const http = jest.fn();
+        http.mockReturnValueOnce(obs$[0]);
+        if (obs$.length > 1) {
+            for (let i = 1; i < obs$.length; i++) {
+                http.mockReturnValueOnce(obs$[i]);
+            }
+        }
 
         return of(undefined).pipe(
             switchMap(() => http())

@@ -4,7 +4,7 @@ import { ListNodeV2Cache } from "../../../cache/ListNodeV2Cache";
 import { OntologyCache } from "../../../cache/ontology-cache/OntologyCache";
 import { MockList } from "../../../../test/data/api/v2/mock-list";
 import { MockOntology } from "../../../../test/data/api/v2/mock-ontology";
-import { MockAjaxCall } from "../../../../test/mockajaxcall";
+import { setupAjaxMock, AjaxMock } from "../../../../test/ajax-mock-helper";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ApiResponseError } from "../../../models/api-response-error";
@@ -17,32 +17,32 @@ describe("SearchEndpoint", () => {
     const config = new KnoraApiConfig("http", "0.0.0.0", 3333, undefined, "", true);
     let knoraApiConnection: KnoraApiConnection;
 
-    let getResourceClassSpy: jasmine.Spy;
+    let getResourceClassSpy: jest.SpyInstance;
 
-    let getListNodeFromCacheSpy: jasmine.Spy;
+    let getListNodeFromCacheSpy: jest.SpyInstance;
+
+    let ajaxMock: AjaxMock;
 
     beforeEach(() => {
-        jasmine.Ajax.install();
+        ajaxMock = setupAjaxMock();
 
         // Mock cache methods at the prototype level
         // This ensures ALL cache instances (including temporary ones) get the mocks
-        spyOn(OntologyCache.prototype, 'getResourceClassDefinition').and.callFake(
+        getResourceClassSpy = jest.spyOn(OntologyCache.prototype, 'getResourceClassDefinition').mockImplementation(
             (resClassIri: string) => of(MockOntology.mockIResourceClassAndPropertyDefinitions(resClassIri))
         );
 
-        spyOn(ListNodeV2Cache.prototype, 'getNode').and.callFake(
+        getListNodeFromCacheSpy = jest.spyOn(ListNodeV2Cache.prototype, 'getNode').mockImplementation(
             (listNodeIri: string) => of(MockList.mockNode(listNodeIri))
         );
 
         knoraApiConnection = new KnoraApiConnection(config);
-
-        // Store references to the spies for test assertions
-        getResourceClassSpy = OntologyCache.prototype.getResourceClassDefinition as jasmine.Spy;
-        getListNodeFromCacheSpy = ListNodeV2Cache.prototype.getNode as jasmine.Spy;
     });
 
     afterEach(() => {
-        jasmine.Ajax.uninstall();
+        ajaxMock.cleanup();
+        getResourceClassSpy.mockRestore();
+        getListNodeFromCacheSpy.mockRestore();
     });
 
     describe("Fulltext search", () => {
@@ -79,26 +79,28 @@ describe("SearchEndpoint", () => {
 
         it("should do a fulltext search with a simple search term", done => {
 
+            const resource = require("../../../../test/data/api/v2/resources/things.json");
+
+            ajaxMock.setMockResponse(resource);
+
             knoraApiConnection.v2.search.doFulltextSearch("thing", 0).subscribe((response: ReadResourceSequence) => {
 
                 expect(response.resources.length).toEqual(2);
 
+                const request = ajaxMock.getLastRequest();
+
+                expect(request?.url).toBe("http://0.0.0.0:3333/v2/search/thing?offset=0");
+
+                expect(request?.method).toEqual("GET");
+
                 done();
             });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/resources/things.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/search/thing?offset=0");
-
-            expect(request.method).toEqual("GET");
 
         });
 
         it("should unsuccessfully attempt to do a fulltext search with a simple search term", done => {
+
+            ajaxMock.setMockError({}, 400);
 
             knoraApiConnection.v2.search.doFulltextSearch("thing", 0).subscribe(
                 (response: ReadResourceSequence) => {
@@ -106,105 +108,103 @@ describe("SearchEndpoint", () => {
                 (err: ApiResponseError) => {
                     expect(err instanceof ApiResponseError).toBeTruthy();
                     expect(err.status).toEqual(400);
-                    expect(err.error instanceof AjaxError).toBeTruthy();
+
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/search/thing?offset=0");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 }
             );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockBadRequestResponse());
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/search/thing?offset=0");
-
-            expect(request.method).toEqual("GET");
 
         });
 
         it("should do a fulltext search with a simple search term using offset 1", done => {
 
+            const resource = require("../../../../test/data/api/v2/resources/things.json");
+
+            ajaxMock.setMockResponse(resource);
+
             knoraApiConnection.v2.search.doFulltextSearch("thing", 1).subscribe((response: ReadResourceSequence) => {
 
                 expect(response.resources.length).toEqual(2);
 
+                const request = ajaxMock.getLastRequest();
+
+                expect(request?.url).toBe("http://0.0.0.0:3333/v2/search/thing?offset=1");
+
+                expect(request?.method).toEqual("GET");
+
                 done();
             });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/resources/things.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/search/thing?offset=1");
-
-            expect(request.method).toEqual("GET");
 
         });
 
         it("should do a fulltext search with a simple search term restricting the search to a specific resource class", done => {
 
+            const resource = require("../../../../test/data/api/v2/resources/things.json");
+
+            ajaxMock.setMockResponse(resource);
+
             knoraApiConnection.v2.search.doFulltextSearch("thing", 1, { limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing" }).subscribe((response: ReadResourceSequence) => {
 
                 expect(response.resources.length).toEqual(2);
 
+                const request = ajaxMock.getLastRequest();
+
+                expect(request?.url)
+                    .toEqual("http://0.0.0.0:3333/v2/search/thing?offset=1&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing");
+
+                expect(request?.method).toEqual("GET");
+
                 done();
             });
-
-            const request: JasmineAjaxRequest = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/resources/things.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url)
-                .toEqual("http://0.0.0.0:3333/v2/search/thing?offset=1&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing");
-
-            expect(request.method).toEqual("GET");
 
         });
 
         it("should do a fulltext search with a simple search term restricting the search to a specific project", done => {
 
+            const resource = require("../../../../test/data/api/v2/resources/things.json");
+
+            ajaxMock.setMockResponse(resource);
+
             knoraApiConnection.v2.search.doFulltextSearch("thing", 1, { limitToProject: "http://rdfh.ch/projects/0001" }).subscribe((response: ReadResourceSequence) => {
 
                 expect(response.resources.length).toEqual(2);
 
+                const request = ajaxMock.getLastRequest();
+
+                expect(request?.url)
+                    .toEqual("http://0.0.0.0:3333/v2/search/thing?offset=1&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
+
+                expect(request?.method).toEqual("GET");
+
                 done();
             });
-
-            const request: JasmineAjaxRequest = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/resources/things.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url)
-                .toEqual("http://0.0.0.0:3333/v2/search/thing?offset=1&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
-
-            expect(request.method).toEqual("GET");
 
         });
 
         it("should do a fulltext search with a simple search term restricting the search to a specific standoff class", done => {
 
+            const resource = require("../../../../test/data/api/v2/resources/things.json");
+
+            ajaxMock.setMockResponse(resource);
+
             knoraApiConnection.v2.search.doFulltextSearch("thing", 1, { limitToStandoffClass: "http://api.knora.org/ontology/standoff/v2#StandoffParagraphTag" }).subscribe((response: ReadResourceSequence) => {
 
                 expect(response.resources.length).toEqual(2);
 
+                const request = ajaxMock.getLastRequest();
+
+                expect(request?.url)
+                    .toEqual("http://0.0.0.0:3333/v2/search/thing?offset=1&limitToStandoffClass=http%3A%2F%2Fapi.knora.org%2Fontology%2Fstandoff%2Fv2%23StandoffParagraphTag");
+
+                expect(request?.method).toEqual("GET");
+
                 done();
             });
-
-            const request: JasmineAjaxRequest = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/resources/things.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url)
-                .toEqual("http://0.0.0.0:3333/v2/search/thing?offset=1&limitToStandoffClass=http%3A%2F%2Fapi.knora.org%2Fontology%2Fstandoff%2Fv2%23StandoffParagraphTag");
-
-            expect(request.method).toEqual("GET");
 
         });
 
@@ -212,91 +212,107 @@ describe("SearchEndpoint", () => {
 
     it("should do a fulltext count search with a simple search term", done => {
 
+        const resource = require("../../../../test/data/api/v2/search/count-query-result.json");
+
+        ajaxMock.setMockResponse(resource);
+
         knoraApiConnection.v2.search.doFulltextSearchCountQuery("thing", 0).subscribe((response: CountQueryResponse) => {
 
             expect(response.numberOfResults).toEqual(2);
 
+            const request = ajaxMock.getLastRequest();
+
+            expect(request?.url).toBe("http://0.0.0.0:3333/v2/search/count/thing?offset=0");
+
+            expect(request?.method).toEqual("GET");
+
             done();
         });
-
-        const request = jasmine.Ajax.requests.mostRecent();
-
-        const resource = require("../../../../test/data/api/v2/search/count-query-result.json");
-
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-        expect(request.url).toBe("http://0.0.0.0:3333/v2/search/count/thing?offset=0");
-
-        expect(request.method).toEqual("GET");
 
     });
 
     describe("Incoming links endpoint", () => {
         const resourceIri = "http://rdfh.ch/0001/a-thing"
         it("should perform a successful incoming links search", done => {
+
+            const resource = require("../../../../test/data/api/v2/resources/things.json");
+
+            ajaxMock.setMockResponse(resource);
+
             knoraApiConnection.v2.search.doSearchIncomingLinks(resourceIri).subscribe((response) => {
                 expect(response.resources.length).toEqual(2);
+
+                const request = ajaxMock.getLastRequest();
+
+                expect(request?.url).toBe("http://0.0.0.0:3333/v2/searchIncomingLinks/http%3A%2F%2Frdfh.ch%2F0001%2Fa-thing?offset=0");
+                expect(request?.method).toEqual("GET");
+
                 done();
             });
 
-            const request = jasmine.Ajax.requests.mostRecent();
-            const resource = require("../../../../test/data/api/v2/resources/things.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-            
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchIncomingLinks/http%3A%2F%2Frdfh.ch%2F0001%2Fa-thing?offset=0");
-            expect(request.method).toEqual("GET");
         });
     });
 
     describe("StillImageRepresentations endpoints", () => {
         const resourceIri = "http://rdfh.ch/0001/a-thing-picture"
         it("should perform a successful StillImageRepresentations search", done => {
+
+            const resource = require("../../../../test/data/api/v2/resources/things.json");
+
+            ajaxMock.setMockResponse(resource);
+
             knoraApiConnection.v2.search.doSearchStillImageRepresentations(resourceIri).subscribe((response) => {
                 expect(response.resources.length).toEqual(2);
+
+                const request = ajaxMock.getLastRequest();
+
+                expect(request?.url).toBe("http://0.0.0.0:3333/v2/searchStillImageRepresentations/http%3A%2F%2Frdfh.ch%2F0001%2Fa-thing-picture?offset=0");
+                expect(request?.method).toEqual("GET");
+
                 done();
             });
 
-            const request = jasmine.Ajax.requests.mostRecent();
-            const resource = require("../../../../test/data/api/v2/resources/things.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchStillImageRepresentations/http%3A%2F%2Frdfh.ch%2F0001%2Fa-thing-picture?offset=0");
-            expect(request.method).toEqual("GET");
         });
 
         it("should perform a successful StillImageRepresentationsCount search", done => {
+
+            const resource = require("../../../../test/data/api/v2/search/count-query-result.json");
+
+            ajaxMock.setMockResponse(resource);
+
             knoraApiConnection.v2.search.doSearchStillImageRepresentationsCount(resourceIri).subscribe((response: CountQueryResponse) => {
                 expect(response.numberOfResults).toEqual(2);
+
+                const request = ajaxMock.getLastRequest();
+
+                expect(request?.url).toBe("http://0.0.0.0:3333/v2/searchStillImageRepresentationsCount/http%3A%2F%2Frdfh.ch%2F0001%2Fa-thing-picture");
+                expect(request?.method).toEqual("GET");
+
                 done();
             });
 
-            const request = jasmine.Ajax.requests.mostRecent();
-            const resource = require("../../../../test/data/api/v2/search/count-query-result.json");;
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchStillImageRepresentationsCount/http%3A%2F%2Frdfh.ch%2F0001%2Fa-thing-picture");
-            expect(request.method).toEqual("GET");
         });
     });
 
     describe("Incoming regions endpoint", () => {
         const resourceIri = "http://rdfh.ch/0001/a-thing-picture"
         it("should perform a successful incoming regions search", done => {
+
+            const resource = require("../../../../test/data/api/v2/resources/things.json");
+
+            ajaxMock.setMockResponse(resource);
+
             knoraApiConnection.v2.search.doSearchIncomingRegions(resourceIri).subscribe((response) => {
                 expect(response.resources.length).toEqual(2);
+
+                const request = ajaxMock.getLastRequest();
+
+                expect(request?.url).toBe("http://0.0.0.0:3333/v2/searchIncomingRegions/http%3A%2F%2Frdfh.ch%2F0001%2Fa-thing-picture?offset=0");
+                expect(request?.method).toEqual("GET");
+
                 done();
             });
 
-            const request = jasmine.Ajax.requests.mostRecent();
-            const resource = require("../../../../test/data/api/v2/resources/things.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-            
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchIncomingRegions/http%3A%2F%2Frdfh.ch%2F0001%2Fa-thing-picture?offset=0");
-            expect(request.method).toEqual("GET");
         });
     });
 
@@ -320,28 +336,26 @@ describe("SearchEndpoint", () => {
                 OFFSET 0
             `;
 
+            const resource = require("../../../../test/data/api/v2/resources/things.json");
+
+            ajaxMock.setMockResponse(resource);
+
             knoraApiConnection.v2.search.doExtendedSearch(gravsearchQuery).subscribe((response: ReadResourceSequence) => {
 
                 expect(response.resources.length).toEqual(2);
 
+                const request = ajaxMock.getLastRequest();
+
+                expect(request?.url).toBe("http://0.0.0.0:3333/v2/searchextended");
+
+                expect(request?.method).toEqual("POST");
+
+                expect(request?.headers?.["Content-Type"]).toEqual("application/sparql-query; charset=utf-8");
+
+                expect(request?.body).toEqual(gravsearchQuery);
+
                 done();
             });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/resources/things.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchextended");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({ "content-type": "application/sparql-query; charset=utf-8", "x-requested-with": "XMLHttpRequest" });
-
-            // https://github.com/jasmine/jasmine-ajax#5-inspect-ajax-requests
-            // just check for the params because data() cannot handle this case
-            expect(request.params).toEqual(gravsearchQuery);
 
         });
 
@@ -363,29 +377,28 @@ describe("SearchEndpoint", () => {
                 OFFSET 0
             `;
 
+            ajaxMock.setMockError({}, 400);
+
             knoraApiConnection.v2.search.doExtendedSearch(gravsearchQuery).subscribe(
                 (response: ReadResourceSequence) => {
                 },
                 (err: ApiResponseError) => {
                     expect(err instanceof ApiResponseError).toBeTruthy();
                     expect(err.status).toEqual(400);
-                    expect(err.error instanceof AjaxError).toBeTruthy();
+
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/searchextended");
+
+                    expect(request?.method).toEqual("POST");
+
+                    expect(request?.headers?.["Content-Type"]).toEqual("application/sparql-query; charset=utf-8");
+
+                    expect(request?.body).toEqual(gravsearchQuery);
+
                     done();
                 });
 
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockBadRequestResponse());
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchextended");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({ "content-type": "application/sparql-query; charset=utf-8", "x-requested-with": "XMLHttpRequest" });
-
-            // https://github.com/jasmine/jasmine-ajax#5-inspect-ajax-requests
-            // just check for the params because data() cannot handle this case
-            expect(request.params).toEqual(gravsearchQuery);
         });
 
         it("should perform an extended search count query", done => {
@@ -406,28 +419,26 @@ describe("SearchEndpoint", () => {
                 OFFSET 0
             `;
 
+            const resource = require("../../../../test/data/api/v2/search/count-query-result.json");
+
+            ajaxMock.setMockResponse(resource);
+
             knoraApiConnection.v2.search.doExtendedSearchCountQuery(gravsearchQuery).subscribe((response: CountQueryResponse) => {
 
                 expect(response.numberOfResults).toEqual(2);
 
+                const request = ajaxMock.getLastRequest();
+
+                expect(request?.url).toBe("http://0.0.0.0:3333/v2/searchextended/count");
+
+                expect(request?.method).toEqual("POST");
+
+                expect(request?.headers?.["Content-Type"]).toEqual("application/sparql-query; charset=utf-8");
+
+                expect(request?.body).toEqual(gravsearchQuery);
+
                 done();
             });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/search/count-query-result.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchextended/count");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({ "content-type": "application/sparql-query; charset=utf-8", "x-requested-with": "XMLHttpRequest" });
-
-            // https://github.com/jasmine/jasmine-ajax#5-inspect-ajax-requests
-            // just check for the params because data() cannot handle this case
-            expect(request.params).toEqual(gravsearchQuery);
 
         });
 
@@ -449,29 +460,27 @@ describe("SearchEndpoint", () => {
                 OFFSET 0
             `;
 
+            ajaxMock.setMockError({}, 400);
+
             knoraApiConnection.v2.search.doExtendedSearchCountQuery(gravsearchQuery).subscribe(
                 (response: CountQueryResponse) => {
                 },
                 (err: ApiResponseError) => {
                     expect(err instanceof ApiResponseError).toBeTruthy();
                     expect(err.status).toEqual(400);
-                    expect(err.error instanceof AjaxError).toBeTruthy();
+
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/searchextended/count");
+
+                    expect(request?.method).toEqual("POST");
+
+                    expect(request?.headers?.["Content-Type"]).toEqual("application/sparql-query; charset=utf-8");
+
+                    expect(request?.body).toEqual(gravsearchQuery);
+
                     done();
                 });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockBadRequestResponse());
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchextended/count");
-
-            expect(request.method).toEqual("POST");
-
-            expect(request.requestHeaders).toEqual({ "content-type": "application/sparql-query; charset=utf-8", "x-requested-with": "XMLHttpRequest" });
-
-            // https://github.com/jasmine/jasmine-ajax#5-inspect-ajax-requests
-            // just check for the params because data() cannot handle this case
-            expect(request.params).toEqual(gravsearchQuery);
 
         });
 
@@ -501,26 +510,28 @@ describe("SearchEndpoint", () => {
 
         it("should do a label search with a simple search term", done => {
 
+            const resource = require("../../../../test/data/api/v2/resources/things.json");
+
+            ajaxMock.setMockResponse(resource);
+
             knoraApiConnection.v2.search.doSearchByLabel("thing", 0).subscribe((response: ReadResourceSequence) => {
 
                 expect(response.resources.length).toEqual(2);
 
+                const request = ajaxMock.getLastRequest();
+
+                expect(request?.url).toBe("http://0.0.0.0:3333/v2/searchbylabel/thing?offset=0");
+
+                expect(request?.method).toEqual("GET");
+
                 done();
             });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/resources/things.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchbylabel/thing?offset=0");
-
-            expect(request.method).toEqual("GET");
 
         });
 
         it("should unsuccessfully attempt to do a label search", done => {
+
+            ajaxMock.setMockError({}, 400);
 
             knoraApiConnection.v2.search.doSearchByLabel("thing", 0).subscribe(
                 (response: ReadResourceSequence) => {
@@ -528,82 +539,80 @@ describe("SearchEndpoint", () => {
                 (err: ApiResponseError) => {
                     expect(err instanceof ApiResponseError).toBeTruthy();
                     expect(err.status).toEqual(400);
-                    expect(err.error instanceof AjaxError).toBeTruthy();
+
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://0.0.0.0:3333/v2/searchbylabel/thing?offset=0");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            request.respondWith(MockAjaxCall.mockBadRequestResponse());
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchbylabel/thing?offset=0");
-
-            expect(request.method).toEqual("GET");
 
         });
 
         it("should do a label search with a simple search term using offset 1", done => {
 
+            const resource = require("../../../../test/data/api/v2/resources/things.json");
+
+            ajaxMock.setMockResponse(resource);
+
             knoraApiConnection.v2.search.doSearchByLabel("thing", 1).subscribe((response: ReadResourceSequence) => {
 
                 expect(response.resources.length).toEqual(2);
 
+                const request = ajaxMock.getLastRequest();
+
+                expect(request?.url).toBe("http://0.0.0.0:3333/v2/searchbylabel/thing?offset=1");
+
+                expect(request?.method).toEqual("GET");
+
                 done();
             });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/resources/things.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url).toBe("http://0.0.0.0:3333/v2/searchbylabel/thing?offset=1");
-
-            expect(request.method).toEqual("GET");
 
         });
 
         it("should do a label search with a simple search term restricting the search to a specific resource class", done => {
 
+            const resource = require("../../../../test/data/api/v2/resources/things.json");
+
+            ajaxMock.setMockResponse(resource);
+
             knoraApiConnection.v2.search.doSearchByLabel("thing", 1, { limitToResourceClass: "http://0.0.0.0:3333/ontology/0001/anything/v2#Thing" }).subscribe((response: ReadResourceSequence) => {
 
                 expect(response.resources.length).toEqual(2);
 
+                const request = ajaxMock.getLastRequest();
+
+                expect(request?.url)
+                    .toEqual("http://0.0.0.0:3333/v2/searchbylabel/thing?offset=1&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing");
+
+                expect(request?.method).toEqual("GET");
+
                 done();
             });
-
-            const request: JasmineAjaxRequest = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/resources/things.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url)
-                .toEqual("http://0.0.0.0:3333/v2/searchbylabel/thing?offset=1&limitToResourceClass=http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F0001%2Fanything%2Fv2%23Thing");
-
-            expect(request.method).toEqual("GET");
 
         });
 
         it("should do a label search with a simple search term restricting the search to a specific project", done => {
 
+            const resource = require("../../../../test/data/api/v2/resources/things.json");
+
+            ajaxMock.setMockResponse(resource);
+
             knoraApiConnection.v2.search.doSearchByLabel("thing", 1, { limitToProject: "http://rdfh.ch/projects/0001" }).subscribe((response: ReadResourceSequence) => {
 
                 expect(response.resources.length).toEqual(2);
 
+                const request = ajaxMock.getLastRequest();
+
+                expect(request?.url)
+                    .toEqual("http://0.0.0.0:3333/v2/searchbylabel/thing?offset=1&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
+
+                expect(request?.method).toEqual("GET");
+
                 done();
             });
-
-            const request: JasmineAjaxRequest = jasmine.Ajax.requests.mostRecent();
-
-            const resource = require("../../../../test/data/api/v2/resources/things.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(resource)));
-
-            expect(request.url)
-                .toEqual("http://0.0.0.0:3333/v2/searchbylabel/thing?offset=1&limitToProject=http%3A%2F%2Frdfh.ch%2Fprojects%2F0001");
-
-            expect(request.method).toEqual("GET");
 
         });
 

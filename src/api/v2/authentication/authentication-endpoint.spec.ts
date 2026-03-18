@@ -1,4 +1,4 @@
-import { MockAjaxCall } from "../../../../test/mockajaxcall";
+import { setupAjaxMock, AjaxMock } from "../../../../test/ajax-mock-helper";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ApiResponseData } from "../../../models/api-response-data";
@@ -9,12 +9,14 @@ import { LogoutResponse } from "../../../models/v2/authentication/logout-respons
 
 describe("Test class AuthenticationEndpoint", () => {
 
+    let ajaxMock: AjaxMock;
+
     beforeEach(() => {
-        jasmine.Ajax.install();
+        ajaxMock = setupAjaxMock();
     });
 
     afterEach(() => {
-        jasmine.Ajax.uninstall();
+        ajaxMock.cleanup();
     });
 
     it("should perform a login by username", done => {
@@ -23,23 +25,23 @@ describe("Test class AuthenticationEndpoint", () => {
 
         const knoraApiConnection = new KnoraApiConnection(config);
 
+        ajaxMock.setMockResponse({ token: "testtoken" });
+
         knoraApiConnection.v2.auth.login("username", "user", "test").subscribe((response: ApiResponseData<LoginResponse>) => {
 
             expect(response.body.token).toEqual("testtoken");
             expect(knoraApiConnection.v2.jsonWebToken).toEqual("testtoken");
 
+            const request = ajaxMock.getLastRequest();
+
+            expect(request?.url).toEqual("http://localhost:3333/v2/authentication");
+
+            expect(request?.method).toEqual("POST");
+
+            expect(request?.body).toEqual({ username: "user", password: "test" });
+
             done();
         });
-
-        const request = jasmine.Ajax.requests.mostRecent();
-
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({ token: "testtoken" })));
-
-        expect(request.url).toEqual("http://localhost:3333/v2/authentication");
-
-        expect(request.method).toEqual("POST");
-
-        expect(request.data()).toEqual({ username: "user", password: "test" });
 
     });
 
@@ -49,23 +51,23 @@ describe("Test class AuthenticationEndpoint", () => {
 
         const knoraApiConnection = new KnoraApiConnection(config);
 
+        ajaxMock.setMockResponse({ token: "testtoken" });
+
         knoraApiConnection.v2.auth.login("email", "root@example.com", "test").subscribe((response: ApiResponseData<LoginResponse>) => {
 
             expect(response.body.token).toEqual("testtoken");
             expect(knoraApiConnection.v2.jsonWebToken).toEqual("testtoken");
 
+            const request = ajaxMock.getLastRequest();
+
+            expect(request?.url).toEqual("http://localhost:3333/v2/authentication");
+
+            expect(request?.method).toEqual("POST");
+
+            expect(request?.body).toEqual({ email: "root@example.com", password: "test" });
+
             done();
         });
-
-        const request = jasmine.Ajax.requests.mostRecent();
-
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({ token: "testtoken" })));
-
-        expect(request.url).toEqual("http://localhost:3333/v2/authentication");
-
-        expect(request.method).toEqual("POST");
-
-        expect(request.data()).toEqual({ email: "root@example.com", password: "test" });
 
     });
 
@@ -75,23 +77,23 @@ describe("Test class AuthenticationEndpoint", () => {
 
         const knoraApiConnection = new KnoraApiConnection(config);
 
+        ajaxMock.setMockResponse({ token: "testtoken" });
+
         knoraApiConnection.v2.auth.login("iri", "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q", "test").subscribe((response: ApiResponseData<LoginResponse>) => {
 
             expect(response.body.token).toEqual("testtoken");
             expect(knoraApiConnection.v2.jsonWebToken).toEqual("testtoken");
 
+            const request = ajaxMock.getLastRequest();
+
+            expect(request?.url).toEqual("http://localhost:3333/v2/authentication");
+
+            expect(request?.method).toEqual("POST");
+
+            expect(request?.body).toEqual({ iri: "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q", password: "test" });
+
             done();
         });
-
-        const request = jasmine.Ajax.requests.mostRecent();
-
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({ token: "testtoken" })));
-
-        expect(request.url).toEqual("http://localhost:3333/v2/authentication");
-
-        expect(request.method).toEqual("POST");
-
-        expect(request.data()).toEqual({ iri: "http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q", password: "test" });
 
     });
 
@@ -101,28 +103,29 @@ describe("Test class AuthenticationEndpoint", () => {
 
         const knoraApiConnection = new KnoraApiConnection(config);
 
+        ajaxMock.setMockError({
+            "knora-api:error": "org.knora.webapi.BadCredentialsException: bad credentials: not valid",
+            "@context": { "knora-api": "http://api.knora.org/ontology/knora-api/v2#" }
+        }, 401);
+
         knoraApiConnection.v2.auth.login("username", "user", "wrongpassword").subscribe(
             () => {
             },
             (err: ApiResponseError) => {
                 expect(err.status).toEqual(401);
                 expect(knoraApiConnection.v2.jsonWebToken).toEqual("");
+
+                const request = ajaxMock.getLastRequest();
+
+                expect(request?.url).toEqual("http://localhost:3333/v2/authentication");
+
+                expect(request?.method).toEqual("POST");
+
+                expect(request?.body).toEqual({ username: "user", password: "wrongpassword" });
+
                 done();
             }
         );
-
-        const request = jasmine.Ajax.requests.mostRecent();
-
-        request.respondWith(MockAjaxCall.mockNotAuthorizedResponse(JSON.stringify({
-            "knora-api:error": "org.knora.webapi.BadCredentialsException: bad credentials: not valid",
-            "@context": { "knora-api": "http://api.knora.org/ontology/knora-api/v2#" }
-        })));
-
-        expect(request.url).toEqual("http://localhost:3333/v2/authentication");
-
-        expect(request.method).toEqual("POST");
-
-        expect(request.data()).toEqual({ username: "user", password: "wrongpassword" });
 
     });
 
@@ -132,22 +135,22 @@ describe("Test class AuthenticationEndpoint", () => {
 
         const knoraApiConnection = new KnoraApiConnection(config);
 
+        ajaxMock.setMockResponse({ message: "Logout OK", status: 0 });
+
         knoraApiConnection.v2.auth.logout().subscribe((response: ApiResponseData<LogoutResponse>) => {
 
             expect(response.body.status).toEqual(0);
             expect(response.body.message).toEqual("Logout OK");
             expect(knoraApiConnection.v2.jsonWebToken).toEqual("");
 
+            const request = ajaxMock.getLastRequest();
+
+            expect(request?.url).toEqual("http://localhost:3333/v2/authentication");
+
+            expect(request?.method).toEqual("DELETE");
+
             done();
         });
-
-        const request = jasmine.Ajax.requests.mostRecent();
-
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({ message: "Logout OK", status: 0 })));
-
-        expect(request.url).toEqual("http://localhost:3333/v2/authentication");
-
-        expect(request.method).toEqual("DELETE");
 
     });
 
@@ -157,20 +160,21 @@ describe("Test class AuthenticationEndpoint", () => {
 
         const knoraApiConnection = new KnoraApiConnection(config);
 
+        ajaxMock.setMockResponse({ message: "credentials are OK" });
+
         knoraApiConnection.v2.auth.checkCredentials().subscribe(
             (response: ApiResponseData<CredentialsResponse>) => {
                 expect(response.body.message).toEqual("credentials are OK");
+
+                const request = ajaxMock.getLastRequest();
+
+                expect(request?.url).toEqual("http://localhost:3333/v2/authentication");
+
+                expect(request?.method).toEqual("GET");
+
                 done();
             }
         );
-
-        const request = jasmine.Ajax.requests.mostRecent();
-
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({ message: "credentials are OK" })));
-
-        expect(request.url).toEqual("http://localhost:3333/v2/authentication");
-
-        expect(request.method).toEqual("GET");
 
     });
 
@@ -180,25 +184,26 @@ describe("Test class AuthenticationEndpoint", () => {
 
         const knoraApiConnection = new KnoraApiConnection(config);
 
+        ajaxMock.setMockError({
+            "knora-api:error": "org.knora.webapi.BadCredentialsException: bad credentials: none found",
+            "@context": { "knora-api": "http://api.knora.org/ontology/knora-api/v2#" }
+        }, 401);
+
         knoraApiConnection.v2.auth.checkCredentials().subscribe(
             () => {
             },
             (err: ApiResponseError) => {
                 expect(err.status).toEqual(401);
+
+                const request = ajaxMock.getLastRequest();
+
+                expect(request?.url).toEqual("http://localhost:3333/v2/authentication");
+
+                expect(request?.method).toEqual("GET");
+
                 done();
             }
         );
-
-        const request = jasmine.Ajax.requests.mostRecent();
-
-        request.respondWith(MockAjaxCall.mockNotAuthorizedResponse(JSON.stringify({
-            "knora-api:error": "org.knora.webapi.BadCredentialsException: bad credentials: none found",
-            "@context": { "knora-api": "http://api.knora.org/ontology/knora-api/v2#" }
-        })));
-
-        expect(request.url).toEqual("http://localhost:3333/v2/authentication");
-
-        expect(request.method).toEqual("GET");
 
     });
 

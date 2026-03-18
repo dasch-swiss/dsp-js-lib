@@ -3,14 +3,6 @@ import { OntologyConversionUtil } from "./OntologyConversionUtil";
 
 describe("OntologyConversionUtil", () => {
 
-    beforeEach(() => {
-        jasmine.Ajax.install();
-    });
-
-    afterEach(() => {
-        jasmine.Ajax.uninstall();
-    });
-
     describe("Method getOntologyIriFromEntityIri with local setup", () => {
         const config = new KnoraApiConfig("http", "0.0.0.0", 3333);
 

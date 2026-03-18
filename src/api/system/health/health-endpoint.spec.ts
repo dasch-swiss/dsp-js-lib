@@ -1,3 +1,4 @@
+import { setupAjaxMock, AjaxMock } from "../../../../test/ajax-mock-helper";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { ApiResponseData } from "../../../models/api-response-data";
@@ -8,24 +9,23 @@ describe("HealthEndpoint", () => {
     const config = new KnoraApiConfig("http", "localhost", 3333, undefined, undefined, true);
     const knoraApiConnection = new KnoraApiConnection(config);
 
-    const getServerFromResponseHeader = (resHeader: string) => {
-        // split by newline: first line server info, second line date
-        const headerParts = resHeader.split("\n");
-        // remove "Server: " from string
-        return headerParts[0].replace("Server: ", "");
-    }
+    let ajaxMock: AjaxMock;
 
     beforeEach(() => {
-        jasmine.Ajax.install();
+        ajaxMock = setupAjaxMock();
     });
 
     afterEach(() => {
-        jasmine.Ajax.uninstall();
+        ajaxMock.cleanup();
     });
 
     describe("Method getHealthStatus", () => {
 
         it("should return a running health status", done => {
+
+            const health = require("../../../../test/data/api/system/health/running-response.json");
+
+            ajaxMock.setMockResponse(health);
 
             knoraApiConnection.system.healthEndpoint.getHealthStatus().subscribe(
                 (response: ApiResponseData<HealthResponse>) => {
@@ -35,31 +35,22 @@ describe("HealthEndpoint", () => {
                     expect(response.body.severity).toEqual("non fatal");
                     expect(response.body.status).toEqual(true);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/health");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const health = require("../../../../test/data/api/system/health/running-response.json");
-
-            const responseHeader = require("../../../../test/data/api/system/health/response-headers.txt");
-
-            request.respondWith({
-                status: 200,
-                responseText: JSON.stringify(health),
-                response: health,
-                responseHeaders: {
-                    server: getServerFromResponseHeader(responseHeader)
-                }
-            });
-
-            expect(request.url).toBe("http://localhost:3333/health");
-
-            expect(request.method).toEqual("GET");
 
         });
 
         it("should return a maintenance mode health status", done => {
+
+            const health = require("../../../../test/data/api/system/health/maintenance-mode-response.json");
+
+            ajaxMock.setMockResponse(health);
 
             knoraApiConnection.system.healthEndpoint.getHealthStatus().subscribe(
                 (response: ApiResponseData<HealthResponse>) => {
@@ -69,31 +60,22 @@ describe("HealthEndpoint", () => {
                     expect(response.body.severity).toEqual("non fatal");
                     expect(response.body.status).toEqual(false);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/health");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const health = require("../../../../test/data/api/system/health/maintenance-mode-response.json");
-
-            const responseHeader = require("../../../../test/data/api/system/health/response-headers.txt");
-
-            request.respondWith({
-                status: 200,
-                responseText: JSON.stringify(health),
-                response: health,
-                responseHeaders: {
-                    server: getServerFromResponseHeader(responseHeader)
-                }
-            });
-
-            expect(request.url).toBe("http://localhost:3333/health");
-
-            expect(request.method).toEqual("GET");
 
         });
 
         it("should return a stopped mode health status", done => {
+
+            const health = require("../../../../test/data/api/system/health/stopped-response.json");
+
+            ajaxMock.setMockResponse(health);
 
             knoraApiConnection.system.healthEndpoint.getHealthStatus().subscribe(
                 (response: ApiResponseData<HealthResponse>) => {
@@ -103,27 +85,14 @@ describe("HealthEndpoint", () => {
                     expect(response.body.severity).toEqual("non fatal");
                     expect(response.body.status).toEqual(false);
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/health");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const health = require("../../../../test/data/api/system/health/stopped-response.json");
-
-            const responseHeader = require("../../../../test/data/api/system/health/response-headers.txt");
-
-            request.respondWith({
-                status: 200,
-                responseText: JSON.stringify(health),
-                response: health,
-                responseHeaders: {
-                    server: getServerFromResponseHeader(responseHeader)
-                }
-            });
-
-            expect(request.url).toBe("http://localhost:3333/health");
-
-            expect(request.method).toEqual("GET");
 
         });
 

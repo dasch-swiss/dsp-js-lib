@@ -1,4 +1,4 @@
-import { MockAjaxCall } from "../../../../test/mockajaxcall";
+import { setupAjaxMock, AjaxMock } from "../../../../test/ajax-mock-helper";
 import { KnoraApiConfig } from "../../../knora-api-config";
 import { KnoraApiConnection } from "../../../knora-api-connection";
 import { CreateGroupRequest } from "../../../models/admin/create-group-request";
@@ -14,17 +14,23 @@ describe("GroupsEndpoint", () => {
     const config = new KnoraApiConfig("http", "localhost", 3333, undefined, undefined, true);
     const knoraApiConnection = new KnoraApiConnection(config);
 
+    let ajaxMock: AjaxMock;
+
     beforeEach(() => {
-        jasmine.Ajax.install();
+        ajaxMock = setupAjaxMock();
     });
 
     afterEach(() => {
-        jasmine.Ajax.uninstall();
+        ajaxMock.cleanup();
     });
 
     describe("Method getGroups", () => {
 
         it("should return all groups", done => {
+
+            const groups = require("../../../../test/data/api/admin/groups/get-groups-response.json");
+
+            ajaxMock.setMockResponse(groups);
 
             knoraApiConnection.admin.groupsEndpoint.getGroups().subscribe(
                 (response: ApiResponseData<GroupsResponse>) => {
@@ -32,18 +38,14 @@ describe("GroupsEndpoint", () => {
                     expect(response.body.groups.length).toEqual(2);
                     expect(response.body.groups[0].id).toEqual("http://rdfh.ch/groups/00FF/images-reviewer");
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/groups");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const groups = require("../../../../test/data/api/admin/groups/get-groups-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(groups)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/groups");
-
-            expect(request.method).toEqual("GET");
 
         });
 
@@ -66,26 +68,26 @@ describe("GroupsEndpoint", () => {
 
             group.descriptions = [descriptions];
 
+            const groups = require("../../../../test/data/api/admin/groups/get-group-response.json");
+
+            ajaxMock.setMockResponse(groups);
+
             knoraApiConnection.admin.groupsEndpoint.createGroup(group).subscribe(
                 (response: ApiResponseData<GroupResponse>) => {
                     expect(response.body.group.name).toEqual("Image reviewer");
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/groups");
+
+                    expect(request?.method).toEqual("POST");
+
+                    const payload = require("../../../../test/data/api/admin/groups/create-group-request.json");
+
+                    expect(request?.body).toEqual(payload);
+
                     done();
                 });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const groups = require("../../../../test/data/api/admin/groups/get-group-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(groups)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/groups");
-
-            expect(request.method).toEqual("POST");
-
-            const payload = require("../../../../test/data/api/admin/groups/create-group-request.json");
-
-            expect(request.data()).toEqual(payload);
 
         });
 
@@ -97,24 +99,24 @@ describe("GroupsEndpoint", () => {
 
             const groupIri = "http://rdfh.ch/groups/00FF/images-reviewer";
 
+            const group = require("../../../../test/data/api/admin/groups/get-group-response.json");
+
+            ajaxMock.setMockResponse(group);
+
             knoraApiConnection.admin.groupsEndpoint.getGroupByIri(groupIri).subscribe(
                 (response: ApiResponseData<GroupResponse>) => {
 
                     expect(response.body.group.id).toEqual("http://rdfh.ch/groups/00FF/images-reviewer");
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/groups/http%3A%2F%2Frdfh.ch%2Fgroups%2F00FF%2Fimages-reviewer");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 }
             );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const group = require("../../../../test/data/api/admin/groups/get-group-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(group)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/groups/http%3A%2F%2Frdfh.ch%2Fgroups%2F00FF%2Fimages-reviewer");
-
-            expect(request.method).toEqual("GET");
 
         });
 
@@ -136,27 +138,27 @@ describe("GroupsEndpoint", () => {
 
             groupInfo.descriptions = [descriptions];
 
+            const group = require("../../../../test/data/api/admin/groups/get-group-response.json");
+
+            ajaxMock.setMockResponse(group);
+
             knoraApiConnection.admin.groupsEndpoint.updateGroup(groupIri, groupInfo).subscribe(
                 (response: ApiResponseData<GroupResponse>) => {
 
                     expect(response.body.group.name).toEqual("Image reviewer");
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/groups/http%3A%2F%2Frdfh.ch%2Fgroups%2F00FF%2Fimages-reviewer");
+
+                    expect(request?.method).toEqual("PUT");
+
+                    const payload = require("../../../../test/data/api/admin/groups/update-group-request.json");
+
+                    expect(request?.body).toEqual(payload);
+
                     done();
                 });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const group = require("../../../../test/data/api/admin/groups/get-group-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(group)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/groups/http%3A%2F%2Frdfh.ch%2Fgroups%2F00FF%2Fimages-reviewer");
-
-            expect(request.method).toEqual("PUT");
-
-            const payload = require("../../../../test/data/api/admin/groups/update-group-request.json");
-
-            expect(request.data()).toEqual(payload);
 
         });
 
@@ -171,27 +173,27 @@ describe("GroupsEndpoint", () => {
 
             // TODO: fix in Knora: payload
 
+            const group = require("../../../../test/data/api/admin/groups/get-group-response.json");
+
+            ajaxMock.setMockResponse(group);
+
             knoraApiConnection.admin.groupsEndpoint.updateGroupStatus(groupIri, groupStatus).subscribe(
                 (response: ApiResponseData<GroupResponse>) => {
 
                     expect(response.body.group.name).toEqual("Image reviewer");
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/groups/http%3A%2F%2Frdfh.ch%2Fgroups%2F00FF%2Fimages-reviewer/status");
+
+                    expect(request?.method).toEqual("PUT");
+
+                    const payload = require("../../../../test/data/api/admin/groups/change-group-status-request.json");
+
+                    expect(request?.body).toEqual(payload);
+
                     done();
                 });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const group = require("../../../../test/data/api/admin/groups/get-group-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(group)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/groups/http%3A%2F%2Frdfh.ch%2Fgroups%2F00FF%2Fimages-reviewer/status");
-
-            expect(request.method).toEqual("PUT");
-
-            const payload = require("../../../../test/data/api/admin/groups/change-group-status-request.json");
-
-            expect(request.data()).toEqual(payload);
 
         });
 
@@ -203,23 +205,23 @@ describe("GroupsEndpoint", () => {
 
             const groupIri = "http://rdfh.ch/groups/00FF/images-reviewer";
 
+            const group = require("../../../../test/data/api/admin/groups/get-group-response.json");
+
+            ajaxMock.setMockResponse(group);
+
             knoraApiConnection.admin.groupsEndpoint.deleteGroup(groupIri).subscribe(
                 (response: ApiResponseData<GroupResponse>) => {
 
                     expect(response.body.group.name).toEqual("Image reviewer");
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/groups/http%3A%2F%2Frdfh.ch%2Fgroups%2F00FF%2Fimages-reviewer");
+
+                    expect(request?.method).toEqual("DELETE");
+
                     done();
                 });
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const group = require("../../../../test/data/api/admin/groups/get-group-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(group)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/groups/http%3A%2F%2Frdfh.ch%2Fgroups%2F00FF%2Fimages-reviewer");
-
-            expect(request.method).toEqual("DELETE");
 
         });
 
@@ -231,25 +233,25 @@ describe("GroupsEndpoint", () => {
 
             const groupIri = "http://rdfh.ch/groups/00FF/images-reviewer";
 
+            const members = require("../../../../test/data/api/admin/groups/get-group-members-response.json");
+
+            ajaxMock.setMockResponse(members);
+
             knoraApiConnection.admin.groupsEndpoint.getGroupMembers(groupIri).subscribe(
                 (response: ApiResponseData<MembersResponse>) => {
 
                     expect(response.body.members.length).toEqual(2);
                     expect(response.body.members[0].id).toEqual("http://rdfh.ch/users/images-reviewer-user");
 
+                    const request = ajaxMock.getLastRequest();
+
+                    expect(request?.url).toBe("http://localhost:3333/admin/groups/http%3A%2F%2Frdfh.ch%2Fgroups%2F00FF%2Fimages-reviewer/members");
+
+                    expect(request?.method).toEqual("GET");
+
                     done();
                 }
             );
-
-            const request = jasmine.Ajax.requests.mostRecent();
-
-            const members = require("../../../../test/data/api/admin/groups/get-group-members-response.json");
-
-            request.respondWith(MockAjaxCall.mockResponse(JSON.stringify(members)));
-
-            expect(request.url).toBe("http://localhost:3333/admin/groups/http%3A%2F%2Frdfh.ch%2Fgroups%2F00FF%2Fimages-reviewer/members");
-
-            expect(request.method).toEqual("GET");
 
         });
 

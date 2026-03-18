@@ -1,5 +1,5 @@
 import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript";
-import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
+import { PropertyMatchingRule } from "json2typescript";
 import { of } from "rxjs";
 import { KnoraApiConfig } from "../knora-api-config";
 import { KnoraApiConnection } from "../knora-api-connection";
@@ -14,7 +14,7 @@ describe("ListCache", () => {
     const config = new KnoraApiConfig("http", "0.0.0.0", 3333);
     const knoraApiConnection = new KnoraApiConnection(config);
 
-    let getListSpy: jasmine.Spy;
+    let getListSpy: jest.SpyInstance;
     let listCache: ListAdminCache;
 
     const jsonConvert: JsonConvert = new JsonConvert(
@@ -30,9 +30,7 @@ describe("ListCache", () => {
 
     beforeEach(() => {
 
-        jasmine.Ajax.install();
-
-        getListSpy = spyOn(knoraApiConnection.admin.listsEndpoint, "getList").and.callFake(
+        getListSpy = jest.spyOn(knoraApiConnection.admin.listsEndpoint, "getList").mockImplementation(
             (listIri: string) => {
 
                 return of({body: listResp} as ApiResponseData<ListResponse> | ApiResponseData<ListChildNodeResponse>);
@@ -44,7 +42,7 @@ describe("ListCache", () => {
     });
 
     afterEach(() => {
-        jasmine.Ajax.uninstall();
+        getListSpy.mockRestore();
     });
 
     describe("Method getItem", () => {
