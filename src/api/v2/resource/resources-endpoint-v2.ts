@@ -163,7 +163,7 @@ export class ResourcesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(jsonldobj => {
-                return this.jsonConvert.deserializeObject(jsonldobj, UpdateResourceMetadataResponse);
+                return this.jsonConvert.deserializeObject(jsonldobj as object, UpdateResourceMetadataResponse);
             }),
             catchError(error => this.handleError(error))
         );
@@ -182,7 +182,7 @@ export class ResourcesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(jsonldobj => {
-                return this.jsonConvert.deserializeObject(jsonldobj, CanDoResponse);
+                return this.jsonConvert.deserializeObject(jsonldobj as object, CanDoResponse);
             }),
             catchError(error => this.handleError(error))
         );
@@ -206,7 +206,7 @@ export class ResourcesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(jsonldobj => {
-                return this.jsonConvert.deserializeObject(jsonldobj, DeleteResourceResponse);
+                return this.jsonConvert.deserializeObject(jsonldobj as object, DeleteResourceResponse);
             }),
             catchError(error => this.handleError(error))
         );
@@ -230,7 +230,7 @@ export class ResourcesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(jsonldobj => {
-                return this.jsonConvert.deserializeObject(jsonldobj, DeleteResourceResponse);
+                return this.jsonConvert.deserializeObject(jsonldobj as object, DeleteResourceResponse);
             }),
             catchError(error => this.handleError(error))
         );

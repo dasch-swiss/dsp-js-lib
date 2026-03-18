@@ -85,7 +85,7 @@ export class ValuesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(jsonldobj => {
-                return this.jsonConvert.deserializeObject(jsonldobj, WriteValueResponse);
+                return this.jsonConvert.deserializeObject(jsonldobj as object, WriteValueResponse);
             }),
             catchError(error => this.handleError(error))
         );
@@ -115,7 +115,7 @@ export class ValuesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(jsonldobj => {
-                return this.jsonConvert.deserializeObject(jsonldobj, WriteValueResponse);
+                return this.jsonConvert.deserializeObject(jsonldobj as object, WriteValueResponse);
             }),
             catchError(error => this.handleError(error))
         );
@@ -142,7 +142,7 @@ export class ValuesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(jsonldobj => {
-                return this.jsonConvert.deserializeObject(jsonldobj, DeleteValueResponse);
+                return this.jsonConvert.deserializeObject(jsonldobj as object, DeleteValueResponse);
             }),
             catchError(error => this.handleError(error))
         );

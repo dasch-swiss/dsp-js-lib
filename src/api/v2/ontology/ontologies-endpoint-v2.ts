@@ -170,7 +170,7 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(jsonldobj => {
-                return this.jsonConvert.deserializeObject(jsonldobj, DeleteOntologyResponse);
+                return this.jsonConvert.deserializeObject(jsonldobj as object, DeleteOntologyResponse);
             }),
             catchError(error => this.handleError(error))
         );
@@ -373,7 +373,7 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(jsonldobj => {
-                return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
+                return this.jsonConvert.deserializeObject(jsonldobj as object, OntologyMetadata);
             }),
             catchError(error => this.handleError(error))
         );
@@ -499,7 +499,7 @@ export class OntologiesEndpointV2 extends Endpoint {
                 return jsonld.compact(ajaxResponse.response, {});
             }),
             map(jsonldobj => {
-                return this.jsonConvert.deserializeObject(jsonldobj, OntologyMetadata);
+                return this.jsonConvert.deserializeObject(jsonldobj as object, OntologyMetadata);
             }),
             catchError(error => this.handleError(error))
         );

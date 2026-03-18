@@ -61,7 +61,7 @@ export class ApiResponseData<T> extends ApiResponse {
      * If the return type in the body shall be checked, this method requires the arguments dataType and jsonConvert.
      * @throws DataError
      */
-    static fromAjaxResponse<T>(ajaxResponse: AjaxResponse<T>,
+    static fromAjaxResponse<T extends object>(ajaxResponse: AjaxResponse<T>,
                                dataType?: { new(): T },
                                jsonConvert?: JsonConvert): ApiResponseData<T> {
 
@@ -76,7 +76,7 @@ export class ApiResponseData<T> extends ApiResponse {
         responseData.body = ajaxResponse.response;
         if (dataType && jsonConvert) {
             try {
-                responseData.body = jsonConvert.deserializeObject(ajaxResponse.response, dataType);
+                responseData.body = jsonConvert.deserializeObject(ajaxResponse.response as object, dataType);
             } catch (error) {
                 const responseError = ApiResponseError.fromErrorString(error, responseData);
                 throw new DataError(error, responseError);

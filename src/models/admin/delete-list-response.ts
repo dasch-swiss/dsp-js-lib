@@ -5,7 +5,7 @@ import { JsonObject, JsonProperty } from "json2typescript";
  *
  * @category Model Admin
  */
-@JsonObject("DeleteListNodeResponse")
+@JsonObject("DeleteListResponse")
 export class DeleteListResponse {
 
    /**

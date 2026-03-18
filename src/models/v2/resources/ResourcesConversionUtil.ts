@@ -240,7 +240,7 @@ export namespace ResourcesConversionUtil {
      */
     const handleLinkValue = (valueJsonld: any, ontologyCache: OntologyCache, listNodeCache: ListNodeV2Cache, jsonConvert: JsonConvert): Observable<ReadLinkValue> => {
 
-        const linkValue = jsonConvert.deserialize(valueJsonld, ReadLinkValue) as ReadLinkValue;
+        const linkValue = jsonConvert.deserialize(valueJsonld as object, ReadLinkValue) as ReadLinkValue;
 
         const handleLinkedResource =
             (linkedResource: { [index: string]: string | object[] }, incoming: boolean): Observable<ReadLinkValue> => {
@@ -516,7 +516,7 @@ export namespace ResourcesConversionUtil {
 
             default: {
                 console.error("Unknown value type: ", type);
-                value = of(jsonConvert.deserialize(valueJsonld, ReadValue) as ReadValue);
+                value = of(jsonConvert.deserialize(valueJsonld as object, ReadValue) as ReadValue);
             }
 
         }

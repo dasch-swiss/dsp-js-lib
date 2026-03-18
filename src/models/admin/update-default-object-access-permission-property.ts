@@ -5,7 +5,7 @@ import { JsonObject, JsonProperty } from "json2typescript";
  *
  * @category Model Admin
  */
-@JsonObject("UpdateDefaultObjectAccessPermissionResourceClass")
+@JsonObject("UpdateDefaultObjectAccessPermissionProperty")
 export class UpdateDefaultObjectAccessPermissionProperty {
 
     /**

@@ -6,6 +6,6 @@ import { UpdatePermissionGroup } from "./update-permission-group";
  *
  * @category Model Admin
  */
-@JsonObject("UpdateAdministrativePermission")
+@JsonObject("UpdateAdministrativePermissionGroup")
 export class UpdateAdministrativePermissionGroup extends UpdatePermissionGroup {
 }
