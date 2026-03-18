@@ -1,5 +1,9 @@
-import { JsonConvert, OperationMode, ValueCheckingMode } from 'json2typescript';
-import { PropertyMatchingRule } from 'json2typescript/src/json2typescript/json-convert-enums';
+import {
+  JsonConvert,
+  OperationMode,
+  PropertyMatchingRule,
+  ValueCheckingMode,
+} from 'json2typescript';
 import { AjaxResponse } from 'rxjs/ajax';
 import { ApiResponseData } from '../../../../src/models/api-response-data';
 import { UsersResponse } from '../../../../src/models/admin/users-response';
@@ -18,7 +22,7 @@ export namespace MockUsers {
 
   export const mockUsers = (): ApiResponseData<UsersResponse> => {
     const responseData = ApiResponseData.fromAjaxResponse(
-      new AjaxResponse({} as any, {} as any, {
+      new AjaxResponse({} as object, {} as any, {
         url: '',
         method: 'GET',
         async: true,
@@ -37,7 +41,7 @@ export namespace MockUsers {
 
   export const mockUser = (): ApiResponseData<UserResponse> => {
     const responseData = ApiResponseData.fromAjaxResponse(
-      new AjaxResponse({} as any, {} as any, {
+      new AjaxResponse({} as object, {} as any, {
         url: '',
         method: 'GET',
         async: true,
