@@ -10,7 +10,7 @@
 
 ### Maintenances
 
-* **build:** upgrade TypeScript 4.8.3 → 5.8.3, target ES2022 ([#716](https://github.com/dasch-swiss/dsp-js-lib/issues/716))
+* **build:** upgrade TypeScript 4.8.3 → 5.9.3, target ES2022 ([#716](https://github.com/dasch-swiss/dsp-js-lib/issues/716))
 * **build:** upgrade json2typescript 1.4.1 → 1.6.1 ([#716](https://github.com/dasch-swiss/dsp-js-lib/issues/716))
 * **build:** replace TSLint with ESLint + Prettier ([#716](https://github.com/dasch-swiss/dsp-js-lib/issues/716))
 * **test:** migrate from Karma/Jasmine to Jest ([#716](https://github.com/dasch-swiss/dsp-js-lib/issues/716))
