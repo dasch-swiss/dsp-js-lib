@@ -1,0 +1,48 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "prettier",
+    "ban"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "env": {
+    "node": true,
+    "es2022": true
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "no-underscore-dangle": "off"
+  },
+  "overrides": [
+    {
+      "files": ["*.spec.ts"],
+      "env": {
+        "jest": true
+      },
+      "rules": {
+        "ban/ban": [
+          "error",
+          { "name": "fdescribe", "message": "don't focus tests" },
+          { "name": "fit", "message": "don't focus tests" },
+          { "name": ["describe", "only"], "message": "don't focus tests" },
+          { "name": ["it", "only"], "message": "don't focus tests" },
+          { "name": ["test", "only"], "message": "don't focus tests" }
+        ]
+      }
+    }
+  ],
+  "ignorePatterns": ["build/**", "node_modules/**", "*.js"]
+}
