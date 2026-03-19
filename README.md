@@ -146,5 +146,6 @@ The repo is set up to automatically publish a new version to NPM when a new tag 
 
 For the release notes see [GitHub releases](https://github.com/dasch-swiss/dsp-js-lib/releases).
 
-## Developing DSP-JS-LIB
-See [contribution guidelines](contribution.md).
+## Issues & Contributions
+
+If you'd like to report an issue or contribute to this project, please contact us at [support@dasch.swiss](mailto:support@dasch.swiss) so we can align it with our planning.
