@@ -148,4 +148,4 @@ For the release notes see [GitHub releases](https://github.com/dasch-swiss/dsp-j
 
 ## Issues & Contributions
 
-If you'd like to report an issue or contribute to this project, please contact us at [info@dasch.swiss](mailto:info@dasch.swiss) so we can align it with our planning.
+If you'd like to report an issue or contribute to this project, please contact us at [support@dasch.swiss](mailto:support@dasch.swiss) so we can align it with our planning.
