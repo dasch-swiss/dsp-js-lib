@@ -1,21 +1,20 @@
-import { JsonObject, JsonProperty } from "json2typescript";
+import { JsonObject, JsonProperty } from 'json2typescript';
 
 /**
  * @category Internal
  */
-@JsonObject("UpdateEntityCommentOrLabel")
+@JsonObject('UpdateEntityCommentOrLabel')
 export abstract class UpdateEntityCommentOrLabel {
+  @JsonProperty('@id', String)
+  id: string = '';
 
-    @JsonProperty("@id", String)
-    id: string = "";
+  /**
+   * Type will be assigned on construction.
+   */
+  @JsonProperty('@type', String)
+  readonly type: string = '';
 
-    /**
-     * Type will be assigned on construction.
-     */
-    @JsonProperty("@type", String)
-    readonly type: string = "";
-
-    constructor(type: string) {
-        this.type = type;
-    }
+  constructor(type: string) {
+    this.type = type;
+  }
 }

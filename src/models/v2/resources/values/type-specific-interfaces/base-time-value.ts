@@ -2,5 +2,5 @@
  * @category Internal
  */
 export interface IBaseTimeValue {
-    time: string;
+  time: string;
 }

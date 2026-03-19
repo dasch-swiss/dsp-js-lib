@@ -2,11 +2,9 @@
  * @category Internal
  */
 export abstract class EntityDefinition {
+  abstract id: string;
 
-    abstract id: string;
+  abstract comment?: string;
 
-    abstract comment?: string;
-
-    abstract label?: string;
-
+  abstract label?: string;
 }

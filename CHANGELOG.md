@@ -1,5 +1,22 @@
 # Changelog
 
+## [10.11.0](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.10.0...v10.11.0) (2026-03-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* **build:** The library now targets ES2022. Clients must use Node.js 16.11+ or modern browsers that support ES2022.
+
+
+### Maintenances
+
+* **build:** upgrade TypeScript 4.8.3 → 5.9.3, target ES2022 ([#716](https://github.com/dasch-swiss/dsp-js-lib/issues/716))
+* **build:** upgrade json2typescript 1.4.1 → 1.6.1 ([#716](https://github.com/dasch-swiss/dsp-js-lib/issues/716))
+* **build:** replace TSLint with ESLint + Prettier ([#716](https://github.com/dasch-swiss/dsp-js-lib/issues/716))
+* **test:** migrate from Karma/Jasmine to Jest ([#716](https://github.com/dasch-swiss/dsp-js-lib/issues/716))
+* **ci:** upgrade Node.js 16 → 22, GitHub Actions to v4 ([#716](https://github.com/dasch-swiss/dsp-js-lib/issues/716))
+* **models:** fix duplicate @JsonObject decorator identifiers ([#716](https://github.com/dasch-swiss/dsp-js-lib/issues/716))
+
 ## [10.10.0](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.9.1...v10.10.0) (2026-03-13)
 
 

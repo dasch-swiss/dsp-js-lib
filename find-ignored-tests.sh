@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
-# find deactivated tests
-hits=`find . -name "*spec.ts" | xargs grep 'fit\|fdescribe\|xdescribe\|xit' | wc -l`
+# Find deactivated or focused tests
+# Jasmine patterns: fit, fdescribe, xdescribe, xit
+# Jest patterns: it.only, test.only, describe.only, it.skip, test.skip, describe.skip
+hits=`find . -name "*spec.ts" -not -path "./node_modules/*" | xargs grep -E 'fit\(|fdescribe\(|xdescribe\(|xit\(|\.only\(|\.skip\(' | wc -l`
 if [ $hits -ne 0 ];
  then
-  echo "Deactivated tests found: ", `find . -name "*spec.ts" | xargs grep 'fit\|fdescribe\|xdescribe\|xit'`
+  echo "Deactivated or focused tests found:"
+  find . -name "*spec.ts" -not -path "./node_modules/*" | xargs grep -E 'fit\(|fdescribe\(|xdescribe\(|xit\(|\.only\(|\.skip\('
   exit 1
 fi

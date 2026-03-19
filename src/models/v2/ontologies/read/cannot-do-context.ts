@@ -1,35 +1,46 @@
-import { JsonConvert, JsonConverter, JsonCustomConvert, JsonObject, JsonProperty, OperationMode, ValueCheckingMode } from "json2typescript";
-import { PropertyMatchingRule } from "json2typescript/src/json2typescript/json-convert-enums";
-import { Constants } from "../../Constants";
-import { CanSetCardinalityCheckFailure } from "./can-set-cardinality-check-failure";
+import {
+  JsonConvert,
+  JsonConverter,
+  JsonCustomConvert,
+  JsonObject,
+  JsonProperty,
+  OperationMode,
+  ValueCheckingMode,
+} from 'json2typescript';
+import { PropertyMatchingRule } from 'json2typescript';
+import { Constants } from '../../Constants';
+import { CanSetCardinalityCheckFailure } from './can-set-cardinality-check-failure';
 
 @JsonConverter
-class CheckFailureConverter implements JsonCustomConvert<CanSetCardinalityCheckFailure[] | CanSetCardinalityCheckFailure> {
-    static jsonConvert: JsonConvert = new JsonConvert(
-        OperationMode.ENABLE,
-        ValueCheckingMode.DISALLOW_NULL,
-        false,
-        PropertyMatchingRule.CASE_STRICT
+class CheckFailureConverter implements JsonCustomConvert<
+  CanSetCardinalityCheckFailure[] | CanSetCardinalityCheckFailure
+> {
+  static jsonConvert: JsonConvert = new JsonConvert(
+    OperationMode.ENABLE,
+    ValueCheckingMode.DISALLOW_NULL,
+    false,
+    PropertyMatchingRule.CASE_STRICT
+  );
+
+  deserialize(obj: any): CanSetCardinalityCheckFailure[] | CanSetCardinalityCheckFailure {
+    let classes: object[];
+
+    if (Array.isArray(obj)) {
+      classes = obj;
+    } else {
+      classes = [obj];
+    }
+
+    return classes.map(
+      resourceClass =>
+        CheckFailureConverter.jsonConvert.deserialize(
+          resourceClass,
+          CanSetCardinalityCheckFailure
+        ) as CanSetCardinalityCheckFailure
     );
+  }
 
-    deserialize(obj: any): CanSetCardinalityCheckFailure[] | CanSetCardinalityCheckFailure {
-        let classes: object[];
-
-        if(Array.isArray(obj)) {
-            classes = obj;
-        } else {
-            classes = [obj]
-        }
-
-        return classes
-            .map(
-                resourceClass =>
-                    CheckFailureConverter.jsonConvert.deserialize(resourceClass, CanSetCardinalityCheckFailure) as CanSetCardinalityCheckFailure
-            );
-    }
-
-    serialize(obj: CanSetCardinalityCheckFailure[]): any {
-    }
+  serialize(obj: CanSetCardinalityCheckFailure[]): any {}
 }
 
 /**
@@ -37,12 +48,11 @@ class CheckFailureConverter implements JsonCustomConvert<CanSetCardinalityCheckF
  *
  * @category Model V2
  */
-@JsonObject("CannotDoContext")
+@JsonObject('CannotDoContext')
 export class CannotDoContext {
-
-    /**
-     * Provides context about why a cardinality update could not happen.
-     */
-    @JsonProperty(Constants.CanSetCardinalityCheckFailure, CheckFailureConverter)
-    canSetCardinalityCheckFailure: CanSetCardinalityCheckFailure[] = [];
+  /**
+   * Provides context about why a cardinality update could not happen.
+   */
+  @JsonProperty(Constants.CanSetCardinalityCheckFailure, CheckFailureConverter)
+  canSetCardinalityCheckFailure: CanSetCardinalityCheckFailure[] = [];
 }

@@ -1,310 +1,239 @@
-import { AjaxResponse } from "rxjs/ajax";
-import { MockAjaxCall } from "../../test/mockajaxcall";
-import { KnoraApiConfig } from "../knora-api-config";
-import { Endpoint } from "./endpoint";
+import { AjaxResponse } from 'rxjs/ajax';
+import { setupAjaxMock, AjaxMock } from '../../test/ajax-mock-helper';
+import { KnoraApiConfig } from '../knora-api-config';
+import { Endpoint } from './endpoint';
 
-describe("Test class Endpoint", () => {
+describe('Test class Endpoint', () => {
+  let ajaxMock: AjaxMock;
 
-    beforeEach(() => {
-        jasmine.Ajax.install();
+  beforeEach(() => {
+    ajaxMock = setupAjaxMock();
+  });
+
+  afterEach(() => {
+    ajaxMock.cleanup();
+  });
+
+  it('should perform a GET request', done => {
+    const config = new KnoraApiConfig('http', 'localhost', 3333);
+
+    const endpoint = new Endpoint(config, '/test');
+
+    ajaxMock.setMockResponse({ test: 'test' });
+
+    endpoint['httpGet']().subscribe(response => {
+      expect(response.status).toEqual(200);
+      expect(response.response).toEqual({ test: 'test' });
+
+      const request = ajaxMock.getLastRequest();
+      expect(request?.url).toBe('http://localhost:3333/test');
+      expect(request?.method).toEqual('GET');
+
+      done();
     });
+  });
 
-    afterEach(() => {
-        jasmine.Ajax.uninstall();
+  it('should perform an unsuccessful GET request', done => {
+    const config = new KnoraApiConfig('http', 'localhost', 3333);
+
+    const endpoint = new Endpoint(config, '/test');
+
+    ajaxMock.setMockError({ msg: 'Not Found' }, 404);
+
+    endpoint['httpGet']().subscribe(
+      response => {},
+      err => {
+        expect(err.status).toEqual(404);
+
+        const request = ajaxMock.getLastRequest();
+        expect(request?.url).toBe('http://localhost:3333/test');
+        expect(request?.method).toEqual('GET');
+
+        done();
+      }
+    );
+  });
+
+  it('should perform a GET request providing a path segment', done => {
+    const config = new KnoraApiConfig('http', 'localhost', 3333);
+
+    const endpoint = new Endpoint(config, '/test');
+
+    ajaxMock.setMockResponse({ test: 'test' });
+
+    endpoint['httpGet']('/mypath').subscribe(response => {
+      expect(response.status).toEqual(200);
+      expect(response.response).toEqual({ test: 'test' });
+
+      const request = ajaxMock.getLastRequest();
+      expect(request?.url).toBe('http://localhost:3333/test/mypath');
+      expect(request?.method).toEqual('GET');
+
+      done();
     });
+  });
 
-    it("should perform a GET request", done => {
+  it('should perform a GET request with authentication', done => {
+    const config = new KnoraApiConfig('http', 'localhost', 3333);
 
-        const config = new KnoraApiConfig("http", "localhost", 3333);
+    const endpoint = new Endpoint(config, '/test');
 
-        const endpoint = new Endpoint(config, "/test");
+    endpoint.jsonWebToken = 'testtoken';
 
-        endpoint["httpGet"]().subscribe(
-            (response) => {
-                expect(response.status).toEqual(200);
-                expect(response.response).toEqual({test: "test"});
+    ajaxMock.setMockResponse({ test: 'test' });
 
-                done();
-            });
+    endpoint['httpGet']().subscribe(response => {
+      expect(response.status).toEqual(200);
+      expect(response.response).toEqual({ test: 'test' });
 
-        const request = jasmine.Ajax.requests.mostRecent();
+      const request = ajaxMock.getLastRequest();
+      expect(request?.url).toBe('http://localhost:3333/test');
+      expect(request?.method).toEqual('GET');
+      expect(request?.headers?.['Authorization']).toEqual('Bearer testtoken');
 
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
-
-        expect(request.url).toBe("http://localhost:3333/test");
-
-        expect(request.method).toEqual("GET");
-
-        expect(request.requestHeaders).toEqual({"x-requested-with": "XMLHttpRequest"});
-
+      done();
     });
+  });
 
-    it("should perform an unsuccessful GET request", done => {
+  it('should perform a GET request with optional header options', done => {
+    const config = new KnoraApiConfig('http', 'localhost', 3333);
 
-        const config = new KnoraApiConfig("http", "localhost", 3333);
+    const endpoint = new Endpoint(config, '/test');
 
-        const endpoint = new Endpoint(config, "/test");
+    ajaxMock.setMockResponse({ test: 'test' });
 
-        endpoint["httpGet"]().subscribe(
-            (response) => {
-            },
-            err => {
-                expect(err instanceof Error).toBeTruthy();
-                expect(err.status).toEqual(404);
-                done();
-            });
+    endpoint['httpGet'](undefined, { 'my-feature-toggle': 'my-awesome-feature' }).subscribe(response => {
+      expect(response.status).toEqual(200);
+      expect(response.response).toEqual({ test: 'test' });
 
-        const request: JasmineAjaxRequest = jasmine.Ajax.requests.mostRecent();
+      const request = ajaxMock.getLastRequest();
+      expect(request?.url).toBe('http://localhost:3333/test');
+      expect(request?.method).toEqual('GET');
+      expect(request?.headers?.['my-feature-toggle']).toEqual('my-awesome-feature');
 
-        request.respondWith(MockAjaxCall.mockNotFoundResponse(JSON.stringify({msg: "Not Found"})));
-
-        expect(request.url).toBe("http://localhost:3333/test");
-
-        expect(request.method).toEqual("GET");
-
-        expect(request.requestHeaders).toEqual({"x-requested-with": "XMLHttpRequest"});
-
+      done();
     });
+  });
 
-    it("should perform a GET request providing a path segment", done => {
+  it('should perform a POST request', done => {
+    const config = new KnoraApiConfig('http', 'localhost', 3333);
 
-        const config = new KnoraApiConfig("http", "localhost", 3333);
+    const endpoint = new Endpoint(config, '/test');
 
-        const endpoint = new Endpoint(config, "/test");
+    ajaxMock.setMockResponse({ test: 'test' });
 
-        endpoint["httpGet"]("/mypath").subscribe(
-            (response) => {
-                expect(response.status).toEqual(200);
-                expect(response.response).toEqual({test: "test"});
+    endpoint['httpPost']('', { mydata: 'data' }).subscribe(response => {
+      expect(response.status).toEqual(200);
+      expect(response.response).toEqual({ test: 'test' });
 
-                done();
-            });
+      const request = ajaxMock.getLastRequest();
+      expect(request?.url).toBe('http://localhost:3333/test');
+      expect(request?.method).toEqual('POST');
+      expect(request?.headers?.['Content-Type']).toEqual('application/json; charset=utf-8');
+      expect(request?.body).toEqual({ mydata: 'data' });
 
-        const request = jasmine.Ajax.requests.mostRecent();
-
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
-
-        expect(request.url).toBe("http://localhost:3333/test/mypath");
-
-        expect(request.method).toEqual("GET");
-
-        expect(request.requestHeaders).toEqual({"x-requested-with": "XMLHttpRequest"});
-
+      done();
     });
+  });
 
-    it("should perform a GET request with authentication", done => {
+  it('should perform an unsuccessful POST request', done => {
+    const config = new KnoraApiConfig('http', 'localhost', 3333);
 
-        const config = new KnoraApiConfig("http", "localhost", 3333);
+    const endpoint = new Endpoint(config, '/test');
 
-        const endpoint = new Endpoint(config, "/test");
+    ajaxMock.setMockError({ msg: 'Not Found' }, 404);
 
-        endpoint.jsonWebToken = "testtoken";
+    endpoint['httpPost']('', { mydata: 'data' }).subscribe(
+      response => {},
+      err => {
+        expect(err.status).toEqual(404);
 
-        endpoint["httpGet"]().subscribe(
-            (response) => {
-                expect(response.status).toEqual(200);
-                expect(response.response).toEqual({test: "test"});
+        const request = ajaxMock.getLastRequest();
+        expect(request?.url).toBe('http://localhost:3333/test');
+        expect(request?.method).toEqual('POST');
+        expect(request?.headers?.['Content-Type']).toEqual('application/json; charset=utf-8');
+        expect(request?.body).toEqual({ mydata: 'data' });
 
-                done();
-            });
+        done();
+      }
+    );
+  });
 
-        const request = jasmine.Ajax.requests.mostRecent();
+  it('should perform a POST request providing a path segment', done => {
+    const config = new KnoraApiConfig('http', 'localhost', 3333);
 
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
+    const endpoint = new Endpoint(config, '/test');
 
-        expect(request.url).toBe("http://localhost:3333/test");
+    ajaxMock.setMockResponse({ test: 'test' });
 
-        expect(request.method).toEqual("GET");
+    endpoint['httpPost']('/mypath', { mydata: 'data' }).subscribe(response => {
+      expect(response.status).toEqual(200);
+      expect(response.response).toEqual({ test: 'test' });
 
-        expect(request.requestHeaders).toEqual({"authorization": "Bearer testtoken", "x-requested-with": "XMLHttpRequest"});
+      const request = ajaxMock.getLastRequest();
+      expect(request?.url).toBe('http://localhost:3333/test/mypath');
+      expect(request?.method).toEqual('POST');
+      expect(request?.headers?.['Content-Type']).toEqual('application/json; charset=utf-8');
+      expect(request?.body).toEqual({ mydata: 'data' });
 
+      done();
     });
+  });
 
-    it("should perform a GET request with optional header options", done => {
+  it('should perform a POST request with authentication', done => {
+    const config = new KnoraApiConfig('http', 'localhost', 3333);
 
-        const config = new KnoraApiConfig("http", "localhost", 3333);
+    const endpoint = new Endpoint(config, '/test');
 
-        const endpoint = new Endpoint(config, "/test");
+    endpoint.jsonWebToken = 'testtoken';
 
-        endpoint["httpGet"](undefined, {"my-feature-toggle": "my-awesome-feature"}).subscribe(
-            (response) => {
-                expect(response.status).toEqual(200);
-                expect(response.response).toEqual({test: "test"});
+    ajaxMock.setMockResponse({ test: 'test' });
 
-                done();
-            });
+    endpoint['httpPost']('', { mydata: 'data' }).subscribe(response => {
+      expect(response.status).toEqual(200);
+      expect(response.response).toEqual({ test: 'test' });
 
-        const request = jasmine.Ajax.requests.mostRecent();
+      const request = ajaxMock.getLastRequest();
+      expect(request?.url).toBe('http://localhost:3333/test');
+      expect(request?.method).toEqual('POST');
+      expect(request?.headers?.['Authorization']).toEqual('Bearer testtoken');
+      expect(request?.headers?.['Content-Type']).toEqual('application/json; charset=utf-8');
+      expect(request?.body).toEqual({ mydata: 'data' });
 
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
-
-        expect(request.url).toBe("http://localhost:3333/test");
-
-        expect(request.method).toEqual("GET");
-
-        expect(request.requestHeaders).toEqual({"my-feature-toggle": "my-awesome-feature", "x-requested-with": "XMLHttpRequest"});
-
+      done();
     });
+  });
 
-    it("should perform a POST request", done => {
+  it('should perform a POST request with default JSON content-type and optional header options', done => {
+    const config = new KnoraApiConfig('http', 'localhost', 3333);
 
-        const config = new KnoraApiConfig("http", "localhost", 3333);
+    const endpoint = new Endpoint(config, '/test');
 
-        const endpoint = new Endpoint(config, "/test");
+    ajaxMock.setMockResponse({ test: 'test' });
 
-        endpoint["httpPost"]("", {mydata: "data"}).subscribe(
-            (response) => {
-                expect(response.status).toEqual(200);
-                expect(response.response).toEqual({test: "test"});
+    endpoint['httpPost'](undefined, { mydata: 'data' }, undefined, {
+      'my-feature-toggle': 'my-awesome-feature',
+    }).subscribe(response => {
+      expect(response.status).toEqual(200);
+      expect(response.response).toEqual({ test: 'test' });
 
-                done();
-            });
+      const request = ajaxMock.getLastRequest();
+      expect(request?.url).toBe('http://localhost:3333/test');
+      expect(request?.method).toEqual('POST');
+      expect(request?.headers?.['Content-Type']).toEqual('application/json; charset=utf-8');
+      expect(request?.headers?.['my-feature-toggle']).toEqual('my-awesome-feature');
+      expect(request?.body).toEqual({ mydata: 'data' });
 
-        const request = jasmine.Ajax.requests.mostRecent();
-
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
-
-        expect(request.url).toBe("http://localhost:3333/test");
-
-        expect(request.method).toEqual("POST");
-
-        expect(request.requestHeaders).toEqual({"content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
-
-        expect(request.data()).toEqual({mydata: "data"});
-
+      done();
     });
+  });
 
-    it("should perform an unsuccessful POST request", done => {
+  it('should perform a POST request with SPARQL content-type and additional header options', done => {
+    const config = new KnoraApiConfig('http', 'localhost', 3333);
 
-        const config = new KnoraApiConfig("http", "localhost", 3333);
+    const endpoint = new Endpoint(config, '/test');
 
-        const endpoint = new Endpoint(config, "/test");
-
-        endpoint["httpPost"]("", {mydata: "data"}).subscribe(
-            (response) => {
-
-            },
-            err => {
-                expect(err instanceof Error).toBeTruthy();
-                expect(err.status).toEqual(404);
-                done();
-            });
-
-        const request = jasmine.Ajax.requests.mostRecent();
-
-        request.respondWith(MockAjaxCall.mockNotFoundResponse(JSON.stringify({msg: "Not Found"})));
-
-        expect(request.url).toBe("http://localhost:3333/test");
-
-        expect(request.method).toEqual("POST");
-
-        expect(request.requestHeaders).toEqual({"content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
-
-        expect(request.data()).toEqual({mydata: "data"});
-
-    });
-
-    it("should perform a POST request providing a path segment", done => {
-
-        const config = new KnoraApiConfig("http", "localhost", 3333);
-
-        const endpoint = new Endpoint(config, "/test");
-
-        endpoint["httpPost"]("/mypath", {mydata: "data"}).subscribe(
-            (response) => {
-                expect(response.status).toEqual(200);
-                expect(response.response).toEqual({test: "test"});
-
-                done();
-            });
-
-        const request = jasmine.Ajax.requests.mostRecent();
-
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
-
-        expect(request.url).toBe("http://localhost:3333/test/mypath");
-
-        expect(request.method).toEqual("POST");
-
-        expect(request.requestHeaders).toEqual({"content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
-
-        expect(request.data()).toEqual({mydata: "data"});
-
-    });
-
-    it("should perform a POST request with authentication", done => {
-
-        const config = new KnoraApiConfig("http", "localhost", 3333);
-
-        const endpoint = new Endpoint(config, "/test");
-
-        endpoint.jsonWebToken = "testtoken";
-
-        endpoint["httpPost"]("", {mydata: "data"}).subscribe(
-            (response) => {
-                expect(response.status).toEqual(200);
-                expect(response.response).toEqual({test: "test"});
-
-                done();
-            });
-
-        const request = jasmine.Ajax.requests.mostRecent();
-
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
-
-        expect(request.url).toBe("http://localhost:3333/test");
-
-        expect(request.method).toEqual("POST");
-
-        expect(request.requestHeaders).toEqual({
-            "authorization": "Bearer testtoken",
-            "content-type": "application/json; charset=utf-8",
-            "x-requested-with": "XMLHttpRequest"
-        });
-
-        expect(request.data()).toEqual({mydata: "data"});
-
-    });
-
-    it("should perform a POST request with default JSON content-type and optional header options", done => {
-
-        const config = new KnoraApiConfig("http", "localhost", 3333);
-
-        const endpoint = new Endpoint(config, "/test");
-
-        endpoint["httpPost"](undefined, {mydata: "data"}, undefined, {"my-feature-toggle": "my-awesome-feature"}).subscribe(
-            (response) => {
-                expect(response.status).toEqual(200);
-                expect(response.response).toEqual({test: "test"});
-
-                done();
-            });
-
-        const request = jasmine.Ajax.requests.mostRecent();
-
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
-
-        expect(request.url).toBe("http://localhost:3333/test");
-
-        expect(request.method).toEqual("POST");
-
-        expect(request.requestHeaders).toEqual({
-            "content-type": "application/json; charset=utf-8",
-            "my-feature-toggle": "my-awesome-feature",
-            "x-requested-with": "XMLHttpRequest"
-        });
-
-        expect(request.data()).toEqual({mydata: "data"});
-
-    });
-
-    it("should perform a POST request with SPARQL content-type and additional header options", done => {
-
-        const config = new KnoraApiConfig("http", "localhost", 3333);
-
-        const endpoint = new Endpoint(config, "/test");
-
-        const gravsearchQuery = `
+    const gravsearchQuery = `
                 PREFIX knora-api: <http://api.knora.org/ontology/knora-api/v2#>
                 CONSTRUCT {
 
@@ -320,316 +249,236 @@ describe("Test class Endpoint", () => {
                 OFFSET 0
             `;
 
-        endpoint["httpPost"](undefined, gravsearchQuery, "sparql", {"my-feature-toggle": "my-awesome-feature"}).subscribe(
-            (response) => {
-                expect(response.status).toEqual(200);
-                expect(response.response).toEqual({test: "test"});
+    ajaxMock.setMockResponse({ test: 'test' });
 
-                done();
-            });
+    endpoint['httpPost'](undefined, gravsearchQuery, 'sparql', { 'my-feature-toggle': 'my-awesome-feature' }).subscribe(
+      response => {
+        expect(response.status).toEqual(200);
+        expect(response.response).toEqual({ test: 'test' });
 
-        const request = jasmine.Ajax.requests.mostRecent();
+        const request = ajaxMock.getLastRequest();
+        expect(request?.url).toBe('http://localhost:3333/test');
+        expect(request?.method).toEqual('POST');
+        expect(request?.headers?.['Content-Type']).toEqual('application/sparql-query; charset=utf-8');
+        expect(request?.headers?.['my-feature-toggle']).toEqual('my-awesome-feature');
+        expect(request?.body).toEqual(gravsearchQuery);
 
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
+        done();
+      }
+    );
+  });
 
-        expect(request.url).toBe("http://localhost:3333/test");
+  it('should perform a PUT request', done => {
+    const config = new KnoraApiConfig('http', 'localhost', 3333);
 
-        expect(request.method).toEqual("POST");
+    const endpoint = new Endpoint(config, '/test');
 
-        expect(request.requestHeaders).toEqual({
-            "content-type": "application/sparql-query; charset=utf-8",
-            "my-feature-toggle": "my-awesome-feature",
-            "x-requested-with": "XMLHttpRequest"
-        });
+    ajaxMock.setMockResponse({ test: 'test' });
 
-        // https://github.com/jasmine/jasmine-ajax#5-inspect-ajax-requests
-        // just check for the params because data() cannot handle this case
-        expect(request.params).toEqual(gravsearchQuery);
+    endpoint['httpPut']('', { mydata: 'data' }).subscribe(response => {
+      expect(response.status).toEqual(200);
+      expect(response.response).toEqual({ test: 'test' });
 
+      const request = ajaxMock.getLastRequest();
+      expect(request?.url).toBe('http://localhost:3333/test');
+      expect(request?.method).toEqual('PUT');
+      expect(request?.headers?.['Content-Type']).toEqual('application/json; charset=utf-8');
+      expect(request?.body).toEqual({ mydata: 'data' });
+
+      done();
     });
+  });
 
-    it("should perform a PUT request", done => {
+  it('should perform an an unsuccessful PUT request', done => {
+    const config = new KnoraApiConfig('http', 'localhost', 3333);
 
-        const config = new KnoraApiConfig("http", "localhost", 3333);
+    const endpoint = new Endpoint(config, '/test');
 
-        const endpoint = new Endpoint(config, "/test");
+    ajaxMock.setMockError({ msg: 'Not Found' }, 404);
 
-        endpoint["httpPut"]("", {mydata: "data"}).subscribe(
-            (response) => {
-                expect(response.status).toEqual(200);
-                expect(response.response).toEqual({test: "test"});
+    endpoint['httpPut']('', { mydata: 'data' }).subscribe(
+      response => {},
+      err => {
+        expect(err.status).toEqual(404);
 
-                done();
-            });
+        const request = ajaxMock.getLastRequest();
+        expect(request?.url).toBe('http://localhost:3333/test');
+        expect(request?.method).toEqual('PUT');
+        expect(request?.headers?.['Content-Type']).toEqual('application/json; charset=utf-8');
+        expect(request?.body).toEqual({ mydata: 'data' });
 
-        const request = jasmine.Ajax.requests.mostRecent();
+        done();
+      }
+    );
+  });
 
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
+  it('should perform a PUT request providing a path segment', done => {
+    const config = new KnoraApiConfig('http', 'localhost', 3333);
 
-        expect(request.url).toBe("http://localhost:3333/test");
+    const endpoint = new Endpoint(config, '/test');
 
-        expect(request.method).toEqual("PUT");
+    ajaxMock.setMockResponse({ test: 'test' });
 
-        expect(request.requestHeaders).toEqual({"content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
+    endpoint['httpPut']('/mypath', { mydata: 'data' }).subscribe(response => {
+      expect(response.status).toEqual(200);
+      expect(response.response).toEqual({ test: 'test' });
 
-        expect(request.data()).toEqual({mydata: "data"});
+      const request = ajaxMock.getLastRequest();
+      expect(request?.url).toBe('http://localhost:3333/test/mypath');
+      expect(request?.method).toEqual('PUT');
+      expect(request?.headers?.['Content-Type']).toEqual('application/json; charset=utf-8');
+      expect(request?.body).toEqual({ mydata: 'data' });
 
+      done();
     });
+  });
 
-    it("should perform an an unsuccessful PUT request", done => {
+  it('should perform a PUT request with authentication', done => {
+    const config = new KnoraApiConfig('http', 'localhost', 3333);
 
-        const config = new KnoraApiConfig("http", "localhost", 3333);
+    const endpoint = new Endpoint(config, '/test');
 
-        const endpoint = new Endpoint(config, "/test");
+    endpoint.jsonWebToken = 'testtoken';
 
-        endpoint["httpPut"]("", {mydata: "data"}).subscribe(
-            (response) => {
-            },
-            err => {
-                expect(err instanceof Error).toBeTruthy();
-                expect(err.status).toEqual(404);
-                done();
-            });
+    ajaxMock.setMockResponse({ test: 'test' });
 
-        const request = jasmine.Ajax.requests.mostRecent();
+    endpoint['httpPut']('/mypath', { mydata: 'data' }).subscribe(response => {
+      expect(response.status).toEqual(200);
+      expect(response.response).toEqual({ test: 'test' });
 
-        request.respondWith(MockAjaxCall.mockNotFoundResponse(JSON.stringify({msg: "Not Found"})));
+      const request = ajaxMock.getLastRequest();
+      expect(request?.url).toBe('http://localhost:3333/test/mypath');
+      expect(request?.method).toEqual('PUT');
+      expect(request?.headers?.['Authorization']).toEqual('Bearer testtoken');
+      expect(request?.headers?.['Content-Type']).toEqual('application/json; charset=utf-8');
+      expect(request?.body).toEqual({ mydata: 'data' });
 
-        expect(request.url).toBe("http://localhost:3333/test");
-
-        expect(request.method).toEqual("PUT");
-
-        expect(request.requestHeaders).toEqual({"content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
-
-        expect(request.data()).toEqual({mydata: "data"});
-
+      done();
     });
+  });
 
-    it("should perform a PUT request providing a path segment", done => {
+  it('should perform a PUT request with default content-type and additional header options', done => {
+    const config = new KnoraApiConfig('http', 'localhost', 3333);
 
-        const config = new KnoraApiConfig("http", "localhost", 3333);
+    const endpoint = new Endpoint(config, '/test');
 
-        const endpoint = new Endpoint(config, "/test");
+    ajaxMock.setMockResponse({ test: 'test' });
 
-        endpoint["httpPut"]("/mypath", {mydata: "data"}).subscribe(
-            (response) => {
-                expect(response.status).toEqual(200);
-                expect(response.response).toEqual({test: "test"});
+    endpoint['httpPut'](undefined, { mydata: 'data' }, undefined, {
+      'my-feature-toggle': 'my-awesome-feature',
+    }).subscribe(response => {
+      expect(response.status).toEqual(200);
+      expect(response.response).toEqual({ test: 'test' });
 
-                done();
-            });
+      const request = ajaxMock.getLastRequest();
+      expect(request?.url).toBe('http://localhost:3333/test');
+      expect(request?.method).toEqual('PUT');
+      expect(request?.headers?.['Content-Type']).toEqual('application/json; charset=utf-8');
+      expect(request?.headers?.['my-feature-toggle']).toEqual('my-awesome-feature');
+      expect(request?.body).toEqual({ mydata: 'data' });
 
-        const request = jasmine.Ajax.requests.mostRecent();
-
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
-
-        expect(request.url).toBe("http://localhost:3333/test/mypath");
-
-        expect(request.method).toEqual("PUT");
-
-        expect(request.requestHeaders).toEqual({"content-type": "application/json; charset=utf-8", "x-requested-with": "XMLHttpRequest"});
-
-        expect(request.data()).toEqual({mydata: "data"});
-
+      done();
     });
+  });
 
-    it("should perform a PUT request with authentication", done => {
+  it('should perform a DELETE request', done => {
+    const config = new KnoraApiConfig('http', 'localhost', 3333);
 
-        const config = new KnoraApiConfig("http", "localhost", 3333);
+    const endpoint = new Endpoint(config, '/test');
 
-        const endpoint = new Endpoint(config, "/test");
+    ajaxMock.setMockResponse({ test: 'test' });
 
-        endpoint.jsonWebToken = "testtoken";
+    endpoint['httpDelete']().subscribe(response => {
+      expect(response.status).toEqual(200);
+      expect(response.response).toEqual({ test: 'test' });
 
-        endpoint["httpPut"]("/mypath", {mydata: "data"}).subscribe(
-            (response) => {
-                expect(response.status).toEqual(200);
-                expect(response.response).toEqual({test: "test"});
+      const request = ajaxMock.getLastRequest();
+      expect(request?.url).toBe('http://localhost:3333/test');
+      expect(request?.method).toEqual('DELETE');
 
-                done();
-            });
-
-        const request = jasmine.Ajax.requests.mostRecent();
-
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
-
-        expect(request.url).toBe("http://localhost:3333/test/mypath");
-
-        expect(request.method).toEqual("PUT");
-
-        expect(request.requestHeaders).toEqual({
-            "authorization": "Bearer testtoken",
-            "content-type": "application/json; charset=utf-8",
-            "x-requested-with": "XMLHttpRequest"
-        });
-
-        expect(request.data()).toEqual({mydata: "data"});
-
+      done();
     });
+  });
 
-    it("should perform a PUT request with default content-type and additional header options", done => {
+  it('should perform an unsuccessful DELETE request', done => {
+    const config = new KnoraApiConfig('http', 'localhost', 3333);
 
-        const config = new KnoraApiConfig("http", "localhost", 3333);
+    const endpoint = new Endpoint(config, '/test');
 
-        const endpoint = new Endpoint(config, "/test");
+    ajaxMock.setMockError({ msg: 'Not Found' }, 404);
 
-        endpoint["httpPut"](undefined, {mydata: "data"}, undefined, {"my-feature-toggle": "my-awesome-feature"}).subscribe(
-            (response) => {
-                expect(response.status).toEqual(200);
-                expect(response.response).toEqual({test: "test"});
+    endpoint['httpDelete']().subscribe(
+      response => {},
+      err => {
+        expect(err.status).toEqual(404);
 
-                done();
-            });
+        const request = ajaxMock.getLastRequest();
+        expect(request?.url).toBe('http://localhost:3333/test');
+        expect(request?.method).toEqual('DELETE');
 
-        const request = jasmine.Ajax.requests.mostRecent();
+        done();
+      }
+    );
+  });
 
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
+  it('should perform a DELETE request providing a path segment', done => {
+    const config = new KnoraApiConfig('http', 'localhost', 3333);
 
-        expect(request.url).toBe("http://localhost:3333/test");
+    const endpoint = new Endpoint(config, '/test');
 
-        expect(request.method).toEqual("PUT");
+    ajaxMock.setMockResponse({ test: 'test' });
 
-        expect(request.requestHeaders).toEqual({
-            "content-type": "application/json; charset=utf-8",
-            "my-feature-toggle": "my-awesome-feature",
-            "x-requested-with": "XMLHttpRequest"
-        });
+    endpoint['httpDelete']('/mypath').subscribe(response => {
+      expect(response.status).toEqual(200);
+      expect(response.response).toEqual({ test: 'test' });
 
-        expect(request.data()).toEqual({mydata: "data"});
+      const request = ajaxMock.getLastRequest();
+      expect(request?.url).toBe('http://localhost:3333/test/mypath');
+      expect(request?.method).toEqual('DELETE');
 
+      done();
     });
+  });
 
-    it("should perform a DELETE request", done => {
+  it('should perform a DELETE request with authentication', done => {
+    const config = new KnoraApiConfig('http', 'localhost', 3333);
 
-        const config = new KnoraApiConfig("http", "localhost", 3333);
+    const endpoint = new Endpoint(config, '/test');
 
-        const endpoint = new Endpoint(config, "/test");
+    endpoint.jsonWebToken = 'testtoken';
 
-        endpoint["httpDelete"]().subscribe(
-            (response) => {
-                expect(response.status).toEqual(200);
-                expect(response.response).toEqual({test: "test"});
+    ajaxMock.setMockResponse({ test: 'test' });
 
-                done();
-            });
+    endpoint['httpDelete']().subscribe(response => {
+      expect(response.status).toEqual(200);
+      expect(response.response).toEqual({ test: 'test' });
 
-        const request = jasmine.Ajax.requests.mostRecent();
+      const request = ajaxMock.getLastRequest();
+      expect(request?.url).toBe('http://localhost:3333/test');
+      expect(request?.method).toEqual('DELETE');
+      expect(request?.headers?.['Authorization']).toEqual('Bearer testtoken');
 
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
-
-        expect(request.url).toBe("http://localhost:3333/test");
-
-        expect(request.method).toEqual("DELETE");
-
-        expect(request.requestHeaders).toEqual({"x-requested-with": "XMLHttpRequest"});
-
+      done();
     });
+  });
 
-    it("should perform an unsuccessful DELETE request", done => {
+  it('should perform a DELETE request with additional header options', done => {
+    const config = new KnoraApiConfig('http', 'localhost', 3333);
 
-        const config = new KnoraApiConfig("http", "localhost", 3333);
+    const endpoint = new Endpoint(config, '/test');
 
-        const endpoint = new Endpoint(config, "/test");
+    ajaxMock.setMockResponse({ test: 'test' });
 
-        endpoint["httpDelete"]().subscribe(
-            (response) => {
-            },
-            err => {
-                expect(err instanceof Error).toBeTruthy();
-                expect(err.status).toEqual(404);
-                done();
-            });
+    endpoint['httpDelete'](undefined, { 'my-feature-toggle': 'my-awesome-feature' }).subscribe(response => {
+      expect(response.status).toEqual(200);
+      expect(response.response).toEqual({ test: 'test' });
 
-        const request = jasmine.Ajax.requests.mostRecent();
+      const request = ajaxMock.getLastRequest();
+      expect(request?.url).toBe('http://localhost:3333/test');
+      expect(request?.method).toEqual('DELETE');
+      expect(request?.headers?.['my-feature-toggle']).toEqual('my-awesome-feature');
 
-        request.respondWith(MockAjaxCall.mockNotFoundResponse(JSON.stringify({msg: "Not Found"})));
-
-        expect(request.url).toBe("http://localhost:3333/test");
-
-        expect(request.method).toEqual("DELETE");
-
-        expect(request.requestHeaders).toEqual({"x-requested-with": "XMLHttpRequest"});
-
+      done();
     });
-
-    it("should perform a DELETE request providing a path segment", done => {
-
-        const config = new KnoraApiConfig("http", "localhost", 3333);
-
-        const endpoint = new Endpoint(config, "/test");
-
-        endpoint["httpDelete"]("/mypath").subscribe(
-            (response) => {
-                expect(response.status).toEqual(200);
-                expect(response.response).toEqual({test: "test"});
-
-                done();
-            });
-
-        const request = jasmine.Ajax.requests.mostRecent();
-
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
-
-        expect(request.url).toBe("http://localhost:3333/test/mypath");
-
-        expect(request.method).toEqual("DELETE");
-
-        expect(request.requestHeaders).toEqual({"x-requested-with": "XMLHttpRequest"});
-
-    });
-
-    it("should perform a DELETE request with authentication", done => {
-
-        const config = new KnoraApiConfig("http", "localhost", 3333);
-
-        const endpoint = new Endpoint(config, "/test");
-
-        endpoint.jsonWebToken = "testtoken";
-
-        endpoint["httpDelete"]().subscribe(
-            (response) => {
-                expect(response.status).toEqual(200);
-                expect(response.response).toEqual({test: "test"});
-
-                done();
-            });
-
-        const request = jasmine.Ajax.requests.mostRecent();
-
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
-
-        expect(request.url).toBe("http://localhost:3333/test");
-
-        expect(request.method).toEqual("DELETE");
-
-        expect(request.requestHeaders).toEqual({"authorization": "Bearer testtoken", "x-requested-with": "XMLHttpRequest"});
-
-    });
-
-    it("should perform a DELETE request with additional header options", done => {
-
-        const config = new KnoraApiConfig("http", "localhost", 3333);
-
-        const endpoint = new Endpoint(config, "/test");
-
-        endpoint["httpDelete"](undefined, {"my-feature-toggle": "my-awesome-feature"}).subscribe(
-            (response) => {
-                expect(response.status).toEqual(200);
-                expect(response.response).toEqual({test: "test"});
-
-                done();
-            });
-
-        const request = jasmine.Ajax.requests.mostRecent();
-
-        request.respondWith(MockAjaxCall.mockResponse(JSON.stringify({test: "test"})));
-
-        expect(request.url).toBe("http://localhost:3333/test");
-
-        expect(request.method).toEqual("DELETE");
-
-        expect(request.requestHeaders).toEqual({"my-feature-toggle": "my-awesome-feature", "x-requested-with": "XMLHttpRequest"});
-
-    });
-
+  });
 });

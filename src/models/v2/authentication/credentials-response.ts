@@ -1,11 +1,10 @@
-import { JsonObject, JsonProperty } from "json2typescript";
+import { JsonObject, JsonProperty } from 'json2typescript';
 
 /**
  * @category Model V2
  */
-@JsonObject("CredentialsResponse")
+@JsonObject('CredentialsResponse')
 export class CredentialsResponse {
-
-    @JsonProperty("message")
-    message: string = "";
+  @JsonProperty('message')
+  message: string = '';
 }

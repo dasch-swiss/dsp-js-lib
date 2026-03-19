@@ -2,29 +2,23 @@
  * @category Internal
  */
 export interface IBaseTextValueAsString {
-
-    text: string;
-
+  text: string;
 }
 
 /**
  * @category Internal
  */
 export interface IBaseTextValueAsXml {
+  xml: string;
 
-    xml: string;
-
-    mapping: string;
-
+  mapping: string;
 }
 
 /**
  * @category Internal
  */
 export interface IBaseTextValueAsHtml {
+  html: string;
 
-    html: string;
-
-    xml?: string;
-
+  xml?: string;
 }

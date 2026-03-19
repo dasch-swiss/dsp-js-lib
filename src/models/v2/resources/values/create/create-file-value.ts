@@ -1,121 +1,105 @@
-import { JsonObject, JsonProperty } from "json2typescript";
-import { Constants } from "../../../Constants";
-import { IBaseFileValue } from "../type-specific-interfaces/base-file-value";
-import { CreateValue } from "./create-value";
-import { License } from "./license";
+import { JsonObject, JsonProperty } from 'json2typescript';
+import { Constants } from '../../../Constants';
+import { IBaseFileValue } from '../type-specific-interfaces/base-file-value';
+import { CreateValue } from './create-value';
+import { License } from './license';
 
 /**
  * @category Model V2
  */
-@JsonObject("CreateFileValue")
+@JsonObject('CreateFileValue')
 export abstract class CreateFileValue extends CreateValue implements IBaseFileValue {
-    @JsonProperty(Constants.FileValueHasFilename, String)
-    filename: string = "";
+  @JsonProperty(Constants.FileValueHasFilename, String)
+  filename: string = '';
 
-    @JsonProperty(Constants.hasCopyrightHolder, String, true)
-    copyrightHolder: string;
+  @JsonProperty(Constants.hasCopyrightHolder, String, true)
+  copyrightHolder: string;
 
-    @JsonProperty(Constants.hasAuthorship, [String], true)
-    authorship: string[];
+  @JsonProperty(Constants.hasAuthorship, [String], true)
+  authorship: string[];
 
-    @JsonProperty(Constants.hasLicense, License, true)
-    license: License;
+  @JsonProperty(Constants.hasLicense, License, true)
+  license: License;
 }
 
 /**
  * @category Model V2
  */
-@JsonObject("CreateAudioFileValue")
+@JsonObject('CreateAudioFileValue')
 export class CreateAudioFileValue extends CreateFileValue {
-
-    constructor() {
-        super(Constants.AudioFileValue);
-    }
-
+  constructor() {
+    super(Constants.AudioFileValue);
+  }
 }
 
 /**
  * @category Model V2
  */
-@JsonObject("CreateDocumentFileValue")
+@JsonObject('CreateDocumentFileValue')
 export class CreateDocumentFileValue extends CreateFileValue {
-
-    constructor() {
-        super(Constants.DocumentFileValue);
-    }
-
+  constructor() {
+    super(Constants.DocumentFileValue);
+  }
 }
 
 /**
  * @category Model V2
  */
-@JsonObject("CreateMovingImageFileValue")
+@JsonObject('CreateMovingImageFileValue')
 export class CreateMovingImageFileValue extends CreateFileValue {
-
-    constructor() {
-        super(Constants.MovingImageFileValue);
-    }
-
+  constructor() {
+    super(Constants.MovingImageFileValue);
+  }
 }
 
 /**
  * @category Model V2
  */
-@JsonObject("CreateStillImageFileValue")
+@JsonObject('CreateStillImageFileValue')
 export class CreateStillImageFileValue extends CreateFileValue {
-
-    constructor() {
-        super(Constants.StillImageFileValue);
-
-    }
-
+  constructor() {
+    super(Constants.StillImageFileValue);
+  }
 }
 
 /**
  * @category Model V2
  */
-@JsonObject("CreateStillImageExternalFileValue")
+@JsonObject('CreateStillImageExternalFileValue')
 export class CreateStillImageExternalFileValue extends CreateFileValue {
-    @JsonProperty(Constants.StillImageFileValueHasExternalUrl, String, true)
-    externalUrl?: string = "";
-    constructor() {
-        super(Constants.StillImageExternalFileValue);
-    }
-
+  @JsonProperty(Constants.StillImageFileValueHasExternalUrl, String, true)
+  externalUrl?: string = '';
+  constructor() {
+    super(Constants.StillImageExternalFileValue);
+  }
 }
 
 /**
  * @category Model V2
  */
-@JsonObject("CreateStillImageVectorFileValue")
+@JsonObject('CreateStillImageVectorFileValue')
 export class CreateStillImageVectorFileValue extends CreateFileValue {
-
-    constructor() {
-        super(Constants.StillImageVectorFileValue);
-    }
-
+  constructor() {
+    super(Constants.StillImageVectorFileValue);
+  }
 }
 
 /**
  * @category Model V2
  */
-@JsonObject("CreateTextFileValue")
+@JsonObject('CreateTextFileValue')
 export class CreateTextFileValue extends CreateFileValue {
-
-    constructor() {
-        super(Constants.TextFileValue);
-    }
-
+  constructor() {
+    super(Constants.TextFileValue);
+  }
 }
 
 /**
  * @category Model V2
  */
- @JsonObject("CreateArchiveFileValue")
- export class CreateArchiveFileValue extends CreateFileValue {
-
-     constructor() {
-         super(Constants.ArchiveFileValue);
-     }
-
- }
+@JsonObject('CreateArchiveFileValue')
+export class CreateArchiveFileValue extends CreateFileValue {
+  constructor() {
+    super(Constants.ArchiveFileValue);
+  }
+}

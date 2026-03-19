@@ -2,7 +2,5 @@
  * @category Internal
  */
 export interface IBaseGeomValue {
-
-    geometryString: string;
-
+  geometryString: string;
 }

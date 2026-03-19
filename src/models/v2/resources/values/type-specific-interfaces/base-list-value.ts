@@ -2,7 +2,5 @@
  * @category Internal
  */
 export interface IBaseListValue {
-
-    listNode: string;
-
+  listNode: string;
 }

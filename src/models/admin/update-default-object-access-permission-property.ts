@@ -1,17 +1,15 @@
-import { JsonObject, JsonProperty } from "json2typescript";
+import { JsonObject, JsonProperty } from 'json2typescript';
 
 /**
  * Update of a default object access permission's property.
  *
  * @category Model Admin
  */
-@JsonObject("UpdateDefaultObjectAccessPermissionResourceClass")
+@JsonObject('UpdateDefaultObjectAccessPermissionProperty')
 export class UpdateDefaultObjectAccessPermissionProperty {
-
-    /**
-     * The property that the permission applies to.
-     */
-    @JsonProperty("forProperty")
-    forProperty: string | null = null;
-
+  /**
+   * The property that the permission applies to.
+   */
+  @JsonProperty('forProperty')
+  forProperty: string | null = null;
 }
