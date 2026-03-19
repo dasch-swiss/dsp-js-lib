@@ -1,5 +1,17 @@
 # Changelog
 
+## [10.10.1](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.10.0...v10.10.1) (2026-03-19)
+
+
+### Maintenances
+
+* upgrade dependencies, typescript target and tests to align with the dsp-app ([#716](https://github.com/dasch-swiss/dsp-js-lib/issues/716)) ([eedd33f](https://github.com/dasch-swiss/dsp-js-lib/commit/eedd33fd256b057e8002d13932f4bab56bd9cd9c))
+
+
+### Documentation
+
+* direct external contributors to info@dasch.swiss ([#717](https://github.com/dasch-swiss/dsp-js-lib/issues/717)) ([9a1715b](https://github.com/dasch-swiss/dsp-js-lib/commit/9a1715b66eb21c60690d86c8c4a36ad434156717))
+
 ## [10.11.0](https://github.com/dasch-swiss/dsp-js-lib/compare/v10.10.0...v10.11.0) (2026-03-18)
 
 
